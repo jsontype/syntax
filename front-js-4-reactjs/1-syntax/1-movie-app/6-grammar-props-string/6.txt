@@ -1,0 +1,31 @@
+[Props - String 보내기]
+
+1. Props란?
+    자식컴포넌트로 보내는 데이터를 말한다.
+    부모컴포넌트에서 Props 프로퍼티를 주면, 자식컴포넌트에서 파라미터를 통해 데이터를 받아 사용할 수 있다.
+
+
+
+1. 자식컴포넌트인 src/components/Counter.js 수정
+
+    아래와 같이 props를 추가하여 props 파라미터를 받아서 사용하도록 한다.
+        const Counter = (props) => {
+
+    return ( 위에 다음을 추가하여 props 를 변수에 담는다.
+        const text = props.click || 'Click'
+
+    <button onClick={addCount}> 밑에 Click을 {text}로 변경하여, 기존 Click이라는 버튼명 대신 {text}라는 props 데이터가, 화면에서 출력되도록 한다.
+        {text} {count}
+
+
+
+1. 부모 컴포넌트인 src/App.js 수정
+
+    <Counter /> 중 하나를 다음과 같이 수정해서 props 프로퍼티를 준 상태로 자식컴포넌트를 부른다.
+        <Counter click='변경된 버튼'/>
+
+
+
+1. 리액트 실행
+    npm run start
+    localhost:3000에 가본다.

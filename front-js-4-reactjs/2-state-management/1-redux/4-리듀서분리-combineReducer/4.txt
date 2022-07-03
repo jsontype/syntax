@@ -1,0 +1,104 @@
+[Redux 리듀서 분리]
+
+1. 4.js의 initialState.user 키 안에 있던 {} 객체를 다음과 같이 수정
+    user: {
+        isLogIn: true,
+        data: null,
+    },
+
+1. 4.js의 dispatch 부분들을 다음과 같이 수정
+
+
+
+1. reducers/index.js 쪼개기
+    리듀서는 함수이기 때문에 쪼갤 수는 없다. combineReducers를 사용해서 함수를 쪼개야한다.
+    각각의 initialState의 내용의 기준은 4.js 안의 initialState안의 각 키가 기준이 된다.
+
+
+
+1. reducers/user.js 생성
+    const initialState = {
+        isLogIn: false,
+        data: null,
+    }
+    const userReducer = (prevState = initialState, action) => {
+        switch (action.type) {
+            case 'LOG_IN':
+                return {
+                    ...prevState,
+                    isLogIn: action.payload.isLogIn,
+                    data: action.payload.data,
+                }
+            case 'LOG_OUT':
+                return {
+                    ...prevState,
+                    isLogIn: false,
+                    data: null,
+                }
+            default:
+                return prevState
+        }
+    }
+    module.exports = userReducer
+
+
+
+1. reducers/post.js 생성
+    const initialState = []
+    const postReducer = (prevState = initialState, action) => {
+        switch (action.type) {
+            case 'ADD_POST':
+                return [...prevState, action.payload]
+            default:
+                return prevState
+        }
+    }
+    module.exports = postReducer
+
+
+
+1. reducers/index.js 수정
+    const { combineReducers } = require('redux')
+    const userReducer = require('./user')
+    const postReducer = require('./post')
+
+    module.exports = combineReducers ({
+        user: userReducer,
+        post: postReducer,
+    })
+
+
+
+1. 4.js에서 dispatch 부분 수정
+    // dispatch 생성 : "logIn" action을 불러서 실행한다.
+    store.dispatch(logIn({
+        isLogIn: true,
+        data: {
+            id: 1,
+            name: 'yang',
+            admin: true,
+        }
+    }))
+
+    // store 호출 : "logIn" action 일어난 후
+    console.log('2. logIn 실행 후: ', store.getState())
+
+
+
+    // dispatch 생성 : "addPost" action을 불러서 실행한다.
+    store.dispatch(addPost({
+        userId: 1,
+        id: 1,
+        content: 'Hello Redux',
+    }))
+
+    // store 호출 : "addPost" action 일어난 후
+    console.log('3. addPost 실행 후: ', store.getState())
+
+
+
+    // dispatch 생성 : "logOut" action을 불러서 실행한다.
+    store.dispatch(logOut())
+
+    // store 호출 : "logOut" action 일어난 후
+    console.log('4. logOut 실행 후: ', store.getState())

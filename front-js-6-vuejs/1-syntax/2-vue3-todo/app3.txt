@@ -1,0 +1,9 @@
+[Emit]
+
+    Emit : 자식 컴포넌트(components내의 vue파일들)에서 부모 컴포넌트(views내의 vue파일들)로 데이터 보내기
+
+    작업순서
+        1. views/About.vue, Home.vue 의 <!-- emit1 -->
+        1. components/InputField.vue 의 <!-- emit1 -->
+        1. emit 주석 n순서대로 진행
+    

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js Basic</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+
+    <h2>App2 : Computed 속성</h2>
+    <div id="app2">
+        {{ plusNumber }}
+        {{ plusNumber }}
+        {{ plusNumber }}
+        {{ reversedMessage }}
+        {{ reversedMessage }}
+        {{ reversedMessage }}
+        <!-- computed는 중복 제거의 효과도 있습니다. -->
+        <button @click="changeMessage">Click</button> <!-- @click은 onClick입니다. 메소드를 불러왔네요. -->
+    </div>
+
+    <script>
+        // 3가지 메소드 타입들
+        var app = new Vue({
+            el: '#app2',
+            data: {
+                number: 1,
+                message: '안녕하세요!'
+            },
+            methods: {
+                // methods는 불러올 때마다 새로 계산을 합니다. 값 변경이 되든 안되든 계속 계산합니다. (중복제거는 되겠지만 단순 반복될 코드에 메소드를 계속 쓰면 속도는 느려지겠죠? 그때는 컴퓨티드 써야겠네요!)
+                changeMessage () {
+                    this.message = '안녕'
+                }
+            },
+            computed: { // 기본적으로 메소드나 변수의 이름은 낙타형 (카멜 케이스)를 씁니다.
+                // computed는 실행하기전부터 미리 결과값을 계산해서 저장을 해둡니다. 처음 한번만 계산한 뒤 그 캐싱값을 계속 사용합니다.
+                // 그러나, 기존의 값이 "변경"될 시에는 그것을 캐치해서 적용해줍니다. changeMessage method를 통해서 테스트 해보죠!
+                plusNumber () {
+                    return this.number + 1
+                },
+                reversedMessage () {
+                    return this.message.split('').reverse().join('')
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>

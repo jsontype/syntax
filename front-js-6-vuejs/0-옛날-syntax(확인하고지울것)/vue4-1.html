@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js Basic</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <!-- 스타일 추가 -->
+    <style>
+        .red {
+            color: red;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <h2>App1 : 스타일 바인딩 (class & style binding)</h2>
+    <div id="app1">
+        <!-- 아래는 style을 바인딩하는 기본적인 방법입니다. -->
+        <div :style="{ color: red, fontSize: size}">Hello</div>
+    </div>
+
+    <script>
+        // 클래스 & 스타일 바인딩
+        var app = new Vue({
+            el: '#app1',
+            data: {
+                red: 'red',
+                size: '30px'
+            },
+            methods: {
+            }
+        })
+    </script>
+
+</body>
+
+</html>

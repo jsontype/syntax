@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js Basic</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+    <h2>App2 : 객체 데이터(Object data)</h2>
+    <div id="app2">
+        배열변수 {{ person }} 안에 값 {{ person.name }}, {{ person.age }} 이 포함되어 있어요.
+    </div>
+
+    <script>
+        let app = new Vue({
+            el: '#app2',
+            data: {
+                person: { // 데이터의 위계를 만들어준다.
+                    name: 'yang',
+                    age: 33
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

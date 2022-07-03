@@ -1,0 +1,22 @@
+[Link]
+
+1. 링크를 통해서 공통메뉴를 만들어보자.
+
+1. components/AppLayout.js 상단에 추가
+    import Link from 'next/link'
+
+1. components/AppLayout.js 공통메뉴 수정
+    <div>
+        {/* 공통메뉴 */}
+        <Link href="/"><a>트위터</a></Link>
+        <Link href="/profile"><a>프로필</a></Link>
+        <Link href="/signup"><a>회원가입</a></Link>
+    </div>
+
+
+
+1. 실행해보기 : 개발모드에서는 링크 누르면 반응속도가 0.5초정도로 조금 느리지만 프로덕션모드로 배포시에는 빨라지므로 사용성은 걱정하지말 것.
+    npm run dev
+    http://localhost:3000/
+    http://localhost:3000/profile
+    http://localhost:3000/signup

@@ -1,0 +1,63 @@
+<!-- [v-for 리스트 렌더링] -->
+<!-- https://www.youtube.com/watch?v=HAegTAEW1Y0&list=PLB7CpjPWqHOtYP7P_0Ls9XNed0NLvmkAh&index=10 -->
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js Basic</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+
+    <h2>App2 : v-for를 쓰면</h2>
+    <div id="app2">
+        <b>v-for 도입</b>
+        <!-- 위보다 코드가 훨씬 줄었어요! 게다가 추가도 자동반영돼요(e부터) -->
+        <div v-for="person in people">
+            {{ person.name }} {{ person.age }}
+        </div>
+        <br>
+
+        <b>index 추가</b>
+        <!-- index를 같이 꺼내는 것도 가능해요. -->
+        <div v-for="(person, index) in people">
+            {{ person.name }} {{ person.age }} {{ index }}
+        </div>
+        <br>
+
+        <b>key 속성 추가</b>
+        <!-- 기존 엘리먼트를 재정렬 하려면, v-for의 각 항목들에 고유한 key 속성을 제공해야해요. 
+            key에 대한 이상적인 값은 각 항목을 식별할 수 있는 고유한 ID입니다.
+            물론 :key에 index를 넣을수도 있지만, 그러면 안좋은 이유가, 인덱스 삭제시 값이 바뀌어 버려요.            
+        -->
+        <div v-for="(person, index) in people" :key="person.id">
+            {{ person.id }} {{ person.name }} {{ person.age }} {{ index }}
+        </div>
+        <br>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app2',
+            data: {
+                people: [
+                    { id: 1, name: 'a', age: 20 },
+                    { id: 2, name: 'b', age: 21 },
+                    { id: 3, name: 'c', age: 22 },
+                    { id: 4, name: 'd', age: 23 },
+                    { id: 5, name: 'e', age: 24 },
+                ]
+            },
+            methods: {
+            }
+        })
+    </script>
+
+</body>
+
+</html>

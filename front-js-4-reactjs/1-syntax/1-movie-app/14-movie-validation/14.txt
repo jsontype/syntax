@@ -1,0 +1,50 @@
+[영화 폼 Validation]
+
+1. 영화 제목을 넣지 않고 추가를 하면 추가가 되어버리는 현상이 있다. 이런 것을 막기 위해 폼을 검증하는 것이 필요하다.
+    폼 검증을 넣을 곳인 src/components/MovieForm.js을 보자.
+        해당 구조는 onSumit 함수에서 addMovie를 부르고 setMovie로 영화를 추가하게 된다. 
+        그래서 onSubmit을 할 때 검증할 수 있는 함수를 추가해주겠다.
+
+1. src/components/MovieForm.js
+    개봉년도의 type을 number로 바꿔준다.
+    우선 const MovieForm 함수 선언 아래에 다음과 같이 state를 추가해준다.
+        const [titleError, setTitleError] = useState('')
+        const [yearError, setYearError] = useState('')
+
+    이를 위해, const resetForm 함수 밑에 다음 두 함수를 추가한다.
+        const validationForm = () => {
+            resetErrors()
+            let validated = true
+            if (!movieTitle) {
+                setTitleError('영화 제목을 넣어주세요')
+                validated = false
+            }
+            if (!movieYear) {
+                setYearError('개봉 년도을 넣어주세요')
+                validated = false
+            }
+            return validated
+        }
+
+        const resetErrors = () => {
+            setTitleError('')
+            setYearError('')
+        }
+
+    이를 onSubmit 함수의 event.preventDefault() 밑에 다음과 같이 적용한다.
+        event.preventDefault()
+        if (validationForm()) {
+            ... // 원래 아래에 있던 내용물을 여기다 넣는다. 아래에 있는 resetForm 호출부도 이 안으로 넣는다.
+        }
+
+    <form onSubmit={onSubmit}></form> 안의 두 "input 태그 아래의 br 태그" 밑에 각각 다음을 넣어준다.
+        <div style={{color: 'red'}}>{titleError}</div>
+
+        <div style={{color: 'red'}}>{yearError}</div>
+
+
+
+1. 테스트 : 인풋에 각각 값 없이 submit해서 확인
+    cd app1
+    npm run start
+    인풋창에 데이터를 추가시 f12의 Components 탭에서 스테이트 변경값을 확인

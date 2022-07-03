@@ -1,0 +1,19 @@
+[NavLink 사용하기]
+
+1. API Doc을 참조하여 NavLink를 도입해보자.
+    https://reactrouter.com/web/api/NavLink 에서 사용법을 가볍게 읽어보자.
+    NavLink로 태그명을 바꾼 뒤, activeClassName을 도입해서, active를 구현해보자.
+
+
+
+1. src/components/Navbar.js 수정
+    상단에 import { Link } from 'react-router-dom' 부분에서 ", NavLink"를 추가
+        import { Link, NavLink } from 'react-router-dom' 
+    Home 메뉴를 제외한 다른 Link 메뉴 태그들을 전부 NavLink로 바꾼다.
+    NavLink의 속성에 activeClassName="active"를 추가한다.
+
+
+
+1. 테스트
+    cd app1
+    npm run start

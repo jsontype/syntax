@@ -1,0 +1,96 @@
+[Props를 통해 컴포넌트에게 값 전달하기]
+
+1. src/App.js 수정
+    import Hello from './Hello' 줄과 function App () 줄 사이에 있는 변수들 삭제
+
+    return 부분 변경
+        return (
+            <>
+                <Hello name="react" color="red"/>
+                <Hello color="pink"/>
+            </>
+        )
+
+1. src/Hello.js 수정
+    import React from 'react'
+
+    // 방법1
+    // function Hello(props) {
+    //     return <div style={{ color: props.color }}>안녕하세요 {props.name}</div>
+    // }
+
+    // 방법2
+    function Hello ({ color, name }) {
+        return <div style={{ color }}>안녕하세요 {name}</div>
+    }
+
+    // defaultProps : props 를 지정하지 않았을 때 기본적으로 사용 할 값을 설정
+    Hello.defaultProps = {
+        name: '이름없음'
+    }
+
+    export default Hello
+
+1. 중간테스트
+    cd app1
+    npm start
+
+
+
+[props.children]
+
+1. 컴포넌트 사이에 넣은 값을 조회하고 싶을 땐, props.children 을 조회하면 된다.
+
+1. src/Wrapper.js 생성 : 내부의 내용이 보여지게 하기 위해서는 Wrapper 에서 props.children 을 렌더링해주어야 한다.
+    import React from 'react'
+
+    // 파라미터안의 {children} (=props.children)이 없다면, Wrapper는 Hello 컴포넌트들을 가려버릴 것이다.
+    function Wrapper({ children }) {
+        const style = {
+            border: '2px solid black',
+            padding: '16px',
+        };
+        return (
+            <div style={style}>
+               {children}
+            </div>
+        )
+    }
+
+    export default Wrapper
+
+1. src/App.js 수정
+    import React from 'react'
+    import Hello from './Hello'
+    import Wrapper from './Wrapper'
+
+    function App() {
+        return (
+            <Wrapper>
+                <Hello name="react" color="red"/>
+                <Hello color="pink"/>
+            </Wrapper>
+        )
+    }
+
+    export default App
+
+1. src/Hello.js 수정 : props 받아온 거 {name}으로 사용
+    import React from 'react'
+    import Hello from './Hello'
+    import Wrapper from './Wrapper'
+
+    function App () {
+        return (
+            <Wrapper>
+                <Hello name="react" color="red" />
+                <Hello color="pink" />
+            </Wrapper>
+        )
+    }
+
+    export default App
+
+1. 테스트
+    cd app1
+    npm start

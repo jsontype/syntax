@@ -1,0 +1,88 @@
+<!-- App5 : 트리 모델 -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoJS</title>
+    <script src="go.js"></script>
+
+    <script>
+        function init() {
+            var $ = go.GraphObject.make
+            myDiagram = $(go.Diagram, "myDiagramDiv") // DIV HTML 태그에 들어갈 다이어그램을 만듭니다.
+
+
+
+            myDiagram.nodeTemplate =
+                $(go.Node, "Auto",
+                    $(go.Shape, "RoundedRectangle", { strokeWidth: 0 },
+                    new go.Binding("fill", "color")),
+                
+                    $(go.TextBlock,
+                    { margin: 8 },
+                    new go.Binding("text", "key"))
+
+                )
+
+
+            var nodeDataArray =
+                [
+                    { key: "Alpha", color: "orange" },
+                    { key: "Beta" , color: "lime", parent: "Alpha" },
+                    { key: "Gamma", color: "pink", parent: "Alpha" },
+                    { key: "Delta", color: "cyan", parent: "Alpha" },
+                ]
+
+            // 노드와 링크를 "트리 모델"로 적용합니다.
+            myDiagram.model = new go.TreeModel(nodeDataArray)
+            // 다이어그램에는 Model, GraphLinksModel, TreeModel 총 3가지의 모델이 있습니다.
+
+
+
+            // 노드를 추가하는 방법
+            var data = { key: "Zeta", color: "beige" }
+            myDiagram.model.addNodeData(data)
+
+            // 원하는 노드데이터를 찾아서 값을 변경하는 방법
+            var dataObj = myDiagram.model.findNodeDataForKey("Zeta")
+            myDiagram.model.set(dataObj, "color", "red") // 색을 빨강으로 변경해 봤습니다.
+            file = myDiagram.model.toJson()
+
+
+        }
+
+
+
+        // JS의 데이터는 JSON형태를 주로 사용합니다.
+
+        // Save합니다.
+        function save() {
+            file = myDiagram.model.toJson()
+            console.log(file)
+        }
+
+        // Load합니다.
+        function load() {
+            myDiagram.model = go.Model.fromJson(file)
+        }
+
+        // Save버튼을 누르고, 콘솔로그를 확인해보세요.
+        // 몇개의 노드를 지우고 다시 Load버튼을 눌러보세요.
+
+
+
+    </script>
+</head>
+
+
+<body onload="init()">
+    <div id="myDiagramDiv" style="height: 400px; width: 400px; border: 1px solid black;"></div>
+    <!-- Save와 Load 버튼 -->
+    <button onclick="save()">Save</button>
+    <button onclick="load()">Load</button>
+</body>
+
+</html>

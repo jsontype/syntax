@@ -1,0 +1,46 @@
+<!-- [조건문 v-if와 v-show] -->
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js Basic</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+
+    <h2>App4 : v-show</h2>
+    <div id="app4">
+        <button @click="toggle">Increase</button>
+        <div v-show="show">Yes</div>
+    </div>
+    <!-- 
+        여기까지 보면, 언뜻 보면 v-show는 v-if와 동일한 것처럼 보입니다.
+        차이점은...        
+        v-show는 렌더링은 하지만 안 보이는 스타일(style="display: none;")을 적용하는 것이고,
+        v-if는 렌더링을 안하므로 "진짜" 조건부 렌더링입니다. 또한 게으릅니다. 조건이 거짓인 경우 첫 참 이전까지 아무것도 하지 않습니다.
+        일반적으로 
+        v-show는 초기 렌더링 비용이 높습니다.(매우 자주 바꾸기를 원하면 v-show를 쓰세요.)
+        v-if는 토글 비용이 높습니다.(조건이 자주 바뀌지 않으면 v-if를 쓰세요.)
+    -->
+
+    <script>
+        var app = new Vue({
+            el: '#app4',
+            data: {
+                show: false
+            },
+            methods: {
+                toggle () {
+                    this.show = !this.show
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>

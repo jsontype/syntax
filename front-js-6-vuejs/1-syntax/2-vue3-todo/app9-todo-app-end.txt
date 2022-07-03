@@ -1,0 +1,28 @@
+[Vuex Module]
+
+    작업준비
+        1. vue.cmd create app9
+        1. 기존 components와 views 안의 내용 삭제
+        1. app8의 public, src 폴더 복사해오기    
+        1. npm install --save axios
+
+    작업시작
+        1. store/modules/user.js　←　store/index.js
+        1. store/modules/todo.js　←　store/index.js
+        1. store/index.js
+        1. TodoList.vue
+        1. components안의 vue파일들 모두 수정
+
+    실행    
+        1. npm run serve
+        1. 전체 작업 후, vue 개발자툴이나 vscode의 디버깅모드로 전체 흐름 돌려보기
+        크롬내의 디버깅툴 설치
+            1. 크롬에 vue.js devtools 검색후 크롬용 확장프로그램 추가
+            1. vuejs 어플리케이션을 켠 뒤, vue 탭에서 각종 vuejs 변수 확인 가능
+
+
+
+
+[참조한 깃 허브]
+코지코더 vue-todo : https://github.com/kossiecoder/vue-todo/tree/27
+

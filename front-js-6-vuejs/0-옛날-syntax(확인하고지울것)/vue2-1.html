@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js Basic</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+
+    <h2>App1 : 이벤트(Events)</h2>
+    <div id="app1">
+        <!-- <button onclick="alert('Hello World!')">Click Me</button> -->
+        <button v-on:click="alert">Click Me</button>
+    </div>
+
+    <script>
+        let app = new Vue({
+            el: '#app1',
+            data: {
+            },
+            methods: {
+                alert () {
+                    alert('Hello World!');
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>

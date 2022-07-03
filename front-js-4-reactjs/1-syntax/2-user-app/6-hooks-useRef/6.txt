@@ -1,0 +1,101 @@
+[useRef로 특정 DOM 선택하기]
+
+1. 다음 코드를 삭제
+    src/Counter.js
+
+
+
+1. useRef는 document.querySelector와 같은 역할을 한다.
+    리액트를 사용하는 프로젝트에서도 가끔 특정 DOM 을 직접 선택해야 하는 상황이 발생 할 때가 있다. 
+    그런 상황의 주된 예 :
+        인풋 포커스 설정
+        스크롤바 위치 수정
+        특정 엘리먼트 크기 수정
+        그래프 관련 라이브러리 적용        
+    그럴 땐, 함수형 컴포넌트에서는 useRef 라는 것을 사용한다. (클래스형 컴포넌트에서는 콜백 함수 또는 React.createRef 함수를 사용한다.)
+
+1. 초기화 버튼을 클릭했을 때 이름 input 에 포커스가 잡히도록 useRef 를 사용하여 기능을 구현해보기
+
+1. src/InputSample.js 생성 : onReset 함수에서 input 에 포커스를 하는 focus() DOM API 를 호출해보겠다.
+    import React, { useState, useRef } from 'react'
+
+    function InputSample() {
+    const [inputs, setInputs] = useState({
+        name: '',
+        nickname: ''
+    })
+
+    // 1. 비구조화 할당 : inputs State를 다음 변수에 각각 할당
+    const { name, nickname } = inputs
+
+    // 3. 사용자가 키를 누르면 실행
+    const onKeyUp = e => {
+        // 4. e.target 에서 name 과 value 를 추출
+        const { value, name } = e.target
+        // 5. 기존의 input 객체를 복사한 뒤, name 키를 가진 값을 value로 설정
+        setInputs({
+        ...inputs, // 5-1. 기존의 input 객체를 복사한 뒤
+        [name]: value // 5-2. name 키를 가진 값을 value 로 설정
+        })
+    }
+
+    // 7. useRef() 를 사용하여 Ref 객체를 만듦
+    const nameInput = useRef()
+
+    // 9. onReset이 실행될 때
+    const onReset = () => {
+        // 10. Input을 초기화함
+        setInputs({
+        name: '',
+        nickname: ''
+        })
+        // 11. Ref객체의 .current값에 .focus를 줘서 포커스화
+        nameInput.current.focus()
+    }
+
+    return (
+        <div>
+        <input
+            name="name"
+            placeholder="이름"
+            // 2. name을 value에 할당하고, 사용자의 onChange event를 핸들링하여 함수 onKeyUp에 연동해서, 사용자가 키를 누를 때 onKeyUp이 실행되게 함
+            onChange={onKeyUp}
+            value={name}
+            // 8. ref객체를 "원하는 DOM"에 설정하면, Ref객체의 .current값이 "원하는 DOM"을 가리키게 됨
+            ref={nameInput}
+        />
+        <input
+            name="nickname"
+            placeholder="닉네임"
+            onChange={onKeyUp}
+            value={nickname}
+        />
+        {/* 6. onReset 버튼을 만든다. 여기서 사양이 누르면 특정 인풋을 focus 주는 사양이라면, 이때가 바로 "특정 DOM을 찾아야하는 useRef가 필요한 시점"이 된다. */}
+        <button onClick={onReset}>초기화</button>
+        <div>
+            <b>값: </b>
+            {name} ({nickname})
+        </div>
+        </div>
+    );
+    }
+
+    export default InputSample
+
+1. src/App.js 수정
+    import React from 'react'
+    import InputSample from './InputSample'
+
+    function App () {
+        return (
+            <InputSample />
+        )
+    }
+
+    export default App
+
+
+
+1. 테스트 : 브라우저에서 인풋에 값을 입력한 다음에 초기화를 눌렀을 때, 이름 input 에 포커스가 잘 잡히는 지 확인
+    cd app1
+    npm start

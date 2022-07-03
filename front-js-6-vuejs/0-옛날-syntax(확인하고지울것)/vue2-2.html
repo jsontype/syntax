@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js Basic</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+
+    <h2>App2 : 이벤트(Events)와 메소드(Methods)</h2>
+    <div id="app2">
+        {{ year }}<br>
+        <button v-on:click="plus">더하기</button>
+        <button v-on:click="minus">빼기</button>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app2',
+            data: {
+                year: 2020
+            },
+            methods: {
+                plus () {
+                    this.year++;
+                },
+                minus () {
+                    this.year--;
+                }
+
+            }
+        })
+    </script>
+
+</body>
+
+</html>
