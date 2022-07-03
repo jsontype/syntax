@@ -1,0 +1,8 @@
+anaconda3
+python
+pandas
+sqlite3
+matplotlib
+pyqt5
+tensorFlow
+flask

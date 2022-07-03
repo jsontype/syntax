@@ -1,0 +1,16 @@
+﻿1. 사전개념학습
+flask 폴더안의 1.py 참조
+
+1. Flask 설치
+# PowerShell을 실행하고, 다음을 차례대로 실행한다.
+pip install flask
+python
+>>> import flask
+>>>
+오류가 없다면 성공한 것이다.
+
+1. Hello World 띄우기
+# 1.py를 작성한 뒤, python 7.py로 실행한다.
+localhost:5000 을 입력하고 Hello World!가 뜨는 지 확인
+
+<끝>

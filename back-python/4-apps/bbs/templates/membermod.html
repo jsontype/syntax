@@ -1,0 +1,238 @@
+{% include 'lib/top.html'  ignore missing %}
+
+  <!-- start sectoion contact -->
+  <div id="contact" class="paddsection">
+    <div class="container">
+      <div class="contact-block1">
+        <div class="row">
+
+          <div class="col-lg-12">
+            <form action="{{ url_for('membermodpost') }}" method="post" role="form" class="contactForm">
+              <div class="row">
+
+                <!-- <div id="sendmessage">Your message has been sent. Thank you!</div>
+                <div id="errormessage"></div> -->
+
+                <!-- [Essential] -->
+                <div class="col-lg-12">
+                  <br><br><br>
+                  <div class="form-group contact-block1">
+                    <input type="text" class="form-control" placeholder="【必須記入】 : 会員の情報修正　モード" disabled />
+                    <div class="validation"></div>
+                  </div>
+                </div>
+
+                <!-- id -->
+                <div class="col-lg-12">
+                  <div class="form-group contact-block1">
+                    <input type="text" class="form-control" name="id" id="id" placeholder="New ID (必須)" data-rule="minlen:4" data-msg="4 文字以上を入力してください" maxlength="15" value="{{session['id']}}" readonly />
+                    <div class="validation"></div>
+                  </div>
+                </div>
+
+                <!-- password -->
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <!-- maxlength 15 * MD5 > 100 -->
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Password (必須)" data-rule="minlen:4" data-msg="4 文字以上を入力してください" maxlength="15" />
+                    <div class="validation"></div>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <input type="password" class="form-control" name="passwordcheck" id="passwordcheck" placeholder="Password Check (必須)" data-rule="minlen:4" data-msg="4 文字以上を入力してください" maxlength="15" />
+                    <div class="validation"></div>
+                  </div>
+                </div>
+
+                <!-- realname -->
+                <div class="col-lg-12">
+                  <div class="form-group contact-block1">
+                    <input type="text" class="form-control" name="realname" id="realname" placeholder="本名 (必須)" data-rule="required" data-msg="本名を入力してください" maxlength="15" value="{{session['realname']}}" />
+                    <div class="validation">本名</div>
+                  </div>
+                </div>
+
+                <!-- nickname -->
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="nickname" id="nickname" placeholder="ニックネーム (必須)" data-rule="required" data-msg="ニックネームを入力してください" maxlength="15" value="{{session['nickname']}}" />
+                    <div class="validation">ニックネーム</div>
+                  </div>
+                </div>
+
+                <!-- email -->
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="メール (必須)" data-rule="required" data-msg="メールアドレスを入力してください" maxlength="50" value="{{session['email']}}" />
+                    <div class="validation">メール</div>
+                  </div>
+                </div>
+
+                <!-- birth -->
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="birth" id="birth" placeholder="生年月日 (必須) (例:19910101)" data-rule="minlen:8" data-msg="8 数字で入力してください" maxlength="15" value="{{session['birth']}}" />
+                    <div class="validation">生年月日</div>
+                  </div>
+                </div>
+
+                <!-- gender -->
+                <div class="col-lg-3">
+                  <div class="form-group contact-block1">
+                    <input type="text" class="form-control" placeholder="貴方の性別を選べてください" disabled />
+                    <div class="validation"></div>
+                  </div>
+                </div>
+                <div class="col-lg-1">
+                  <div class="form-group" style="display:inline-block; line-height:0px; position:relative; bottom:20px; left:25px;">
+                    {% if session['gender'] == 'male' %}
+                    <input type="radio" class="form-control" name="gender" id="gender" value="male" checked>男</input>
+                    {% else %}
+                    <input type="radio" class="form-control" name="gender" id="gender" value="male">男</input>
+                    {% endif %}
+                    <div class="validation"></div>
+                  </div>
+                </div>
+                <div class="col-lg-2">
+                  <div class="form-group" style="display:inline-block; line-height:0px; position:relative; bottom:20px; right:10px;">
+                    {% if session['gender'] == 'female' %}
+                    <input type="radio" class="form-control" name="gender" id="gender" value="female" checked>女</input>
+                    {% else %}
+                    <input type="radio" class="form-control" name="gender" id="gender" value="female">女</input>
+                    {% endif %}
+                    <div class="validation"></div>
+                  </div>
+                </div>
+
+
+
+                <!-- [Optional] -->
+                <div class="col-lg-12">
+                  <br><br><br>
+                  <div class="form-group contact-block1">
+                    <input type="text" class="form-control" placeholder="【オプション】" disabled />
+                    <div class="validation"></div>
+                  </div>
+                </div>
+
+                <!-- dream1 -->
+                <div class="col-lg-6">
+                  <div class="form-group contact-block1">
+                    <input type="text" class="form-control" placeholder="目指すことを一つの単語で定義してください" readonly />
+                    <div class="validation"></div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group contact-block1" style="color:red;">
+                    <input type="text" class="form-control" name="dream1" id="dream1" placeholder="目指すこと" maxlength="10" value="{{session['dream1']}}" />
+                    <div class="validation"></div>
+                  </div>
+                </div>
+
+                <!-- tel -->
+                <div class="col-lg-6">
+                  <div class="form-group contact-block1">
+                    <input type="text" class="form-control" placeholder="ご連絡先とご住所を書いていただければ抽選して景品をお送りします" readonly />
+                    <div class="validation"></div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="tel" id="tel" placeholder="自宅の電話番号 (例:0312341234)" maxlength="15" value="{{session['tel']}}" />
+                    <div class="validation"></div>
+                  </div>
+                </div>
+
+                <!-- phone -->
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="phone" id="phone" placeholder="携帯電話 (例:08012341234)" maxlength="15" value="{{session['phone']}}" />
+                    <div class="validation"></div>
+                  </div>
+                </div>
+
+                <!-- address -->
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <textarea class="form-control" name="address" rows="20" placeholder="住所 (郵便番号まで)" maxlength="100">{{session['address']}}</textarea>
+                    <div class="validation"></div>
+                  </div>
+                </div>
+
+                <!-- SNS -->
+                <div class="col-lg-12">
+                  <div class="form-group contact-block1">
+                    <input type="text" class="form-control" placeholder="持っていらっしゃるSNSのLinkを記入してください (https://facebook.com/yourid)" readonly />
+                    <div class="validation"></div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group contact-block1" style="color:red;">
+                    <input type="text" class="form-control" name="facebook" id="facebook" placeholder="Facebook Link" maxlength="100" value="{{session['facebook']}}" />
+                    <div class="validation"></div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group contact-block1" style="color:red;">
+                    <input type="text" class="form-control" name="twitter" id="twitter" placeholder="Twitter Link" maxlength="100" value="{{session['twitter']}}" />
+                    <div class="validation"></div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group contact-block1" style="color:red;">
+                    <input type="text" class="form-control" name="instagram" id="instagram" placeholder="Instagram Link" maxlength="100" value="{{session['instagram']}}" />
+                    <div class="validation"></div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group contact-block1" style="color:red;">
+                    <input type="text" class="form-control" name="googleplus" id="googleplus" placeholder="Google+ Link" maxlength="100" value="{{session['googleplus']}}" />
+                    <div class="validation"></div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group contact-block1" style="color:red;">
+                    <input type="text" class="form-control" name="tumblr" id="tumblr" placeholder="Tumblr Link" maxlength="100" value="{{session['tumblr']}}" />
+                    <div class="validation"></div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group contact-block1" style="color:red;">
+                    <input type="text" class="form-control" name="dribble" id="dribble" placeholder="Dribble Link" maxlength="100" value="{{session['dribble']}}" />
+                    <div class="validation"></div>
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <div class="validation"></div>
+                    <input type="submit" class="btn btn-defeault btn-send" value="修正">
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <div class="validation"></div>
+                    <input type="button" class="btn btn-defeault btn-send" onClick="location.href='{{ url_for('memberout') }}'" value="退会">
+                  </div>
+                </div>
+
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <div class="validation"></div>
+                    <input type="button" class="btn btn-defeault btn-send" onClick="location.href='{{ url_for('memberinfo') }}'" value="Back">
+                  </div>
+                </div>
+
+
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- start sectoion contact -->
+
+{% include 'lib/bottom.html'  ignore missing %}

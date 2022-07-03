@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <title>선형회귀 예측</title>
+    <style>
+      body {
+        padding: 24px;
+      }
+      textarea,
+      input {
+        padding: 6px;
+      }
+      textarea {
+        width: 480px;
+        height: 80px;
+      }
+    </style>
+    <script>
+      function sendDataToLearn() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/learn", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(
+          JSON.stringify({
+            xList: document.getElementById("xListInput").value,
+            yList: document.getElementById("yListInput").value,
+            epochs: document.getElementById("epochs").value,
+          })
+        );
+        location.href = "/";
+      }
+    </script>
+  </head>
+  <body>
+    <h1>선형회귀 예측</h1>
+    <h2>데이터 입력</h2>
+    <textarea
+      id="xListInput"
+      placeholder="x축 데이터들을 쉼표로 구분하여 입력하세요."
+    ></textarea>
+    <br />
+    <textarea
+      id="yListInput"
+      placeholder="y축 데이터들을 쉼표로 구분하여 입력하세요."
+    ></textarea>
+    <br />
+    <input id="epochs" placeholder="횟수" type="number" value="10000" />
+    <br /><br />
+    <button onclick="sendDataToLearn();">학습하기</button>
+    <br />
+    <br />
+    <form action="{{ url_for('predict') }}" method="post">
+      <input name="x" type="number" placeholder="x값 입력" />
+      <br /><br />
+      <input type="submit" value="예측하기" />
+    </form>
+    <br /><br />
+    <h2>학습된 수식</h2>
+    {{ formular }}
+    <br /><br />
+    <h2>예측된 y값</h2>
+    {{ predicted }}
+  </body>
+</html>

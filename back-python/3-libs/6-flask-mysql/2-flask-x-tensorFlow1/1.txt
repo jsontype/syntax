@@ -1,0 +1,19 @@
+참조 : https://www.yalco.kr/34_tensorflow/
+
+1. flask, tensorflow 설치
+pip install flask : 없을 경우 설치
+pip3 install --upgrade pip : pip3 최신 업그레이드
+python : v3.5 이상인지 확인
+pip3 --version : v19.0 이상인지 확인
+
+1. tensorflow 설치
+https://www.tensorflow.org/install/pip?hl=ko#system-install 에 접속
+"1. 시스템에 Python 개발 환경 설치"에서 윈도우 탭의 Microsoft Visual C++ 다운로드
+pip3 install --user --upgrade tensorflow  # install in $HOME : 텐서플로우 라이브러리 설치
+python3 -c "import tensorflow as tf; print(tf.reduce_sum(tf.random.normal([1000, 1000])))" : python 반환되면 텐서플로우 성공 설치
+
+1. flask template(view)  코딩
+templates/index.html 작성
+application.py 작성
+learner.py 작성
+데이터생성용 자바스크립트 data.js를 만든 뒤 콘솔로그에서 실행후, x 배열과 y 배열값을 복붙해서 data.txt에 담아둔다.

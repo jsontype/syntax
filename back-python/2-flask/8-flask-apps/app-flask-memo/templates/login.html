@@ -1,0 +1,63 @@
+{% include 'lib/top.html'  ignore missing %}
+
+  <!-- start sectoion contact -->
+  <div id="contact" class="paddsection">
+    <div class="container">
+      <div class="contact-block1">
+        <div class="row">
+
+          <div class="col-lg-12">
+            <form action="{{ url_for('loginpost') }}" method="post" role="form" class="contactForm">
+              <div class="row">
+
+                <!-- <div id="sendmessage">Your message has been sent. Thank you!</div>
+                <div id="errormessage"></div> -->
+
+                <div class="col-lg-12">
+                  <div class="form-group contact-block1">
+                    <input type="text" class="form-control" name="id" id="id" placeholder="ID" data-rule="minlen:4" data-msg="4文字以上を入力してください" maxlength="15" />
+                    <div class="validation"></div>
+                  </div>
+                </div>
+
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <input type="password" class="form-control" name="password" id="password" placeholder="password" data-rule="minlen:4" data-msg="4文字以上入力してください" maxlength="20" />
+                    <div class="validation"></div>
+                  </div>
+                </div>
+
+                <div class="col-lg-12" style="color:red;">
+                  <b>{% print(msg) %}</b>
+                </div>
+
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <div class="validation"></div>
+                    <input type="submit" class="btn btn-defeault btn-send" value="Login">
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <div class="validation"></div>
+                    <input type="button" class="btn btn-defeault btn-send" onClick="location.href='{{ url_for('register') }}'" value="Join">
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <div class="validation"></div>
+                    <input type="button" class="btn btn-defeault btn-send" onClick="location.href='{{ url_for('index') }}'" value="Back">
+                  </div>
+                </div>
+
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- start sectoion contact -->
+
+{% include 'lib/bottom.html'  ignore missing %}

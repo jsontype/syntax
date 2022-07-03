@@ -1,0 +1,24 @@
+LSTM(Long Short Term Memroy) : 이전데이터를 가지고 이후의 데이터를 예측하는 인공지능 모델
+최근 50일간의 주식가격 데이터를 바탕으로 내일 주식가격은 얼마가 될 것인가? 와 같은 질문에,
+인공지능이 기억력을 가지고 예측할 수 있음.
+주식가격 뿐 아니라 암호화폐도 예측 가능.
+삼성전자와 이더리움 가격을 예측해보자.
+데이터셋을 먼저 구해보자.
+
+<데이터셋 구하기>
+삼성전자 주가
+1. https://finance.yahoo.com/ 접속
+1. samsung 검색
+1. historical data 탭 클릭
+1. 5년분의 데이터 취득 : 우측 상단의 Time period -> 5Y -> Done -> Apply
+1. Apply 밑에 Download Data 링크 클릭 -> 확인
+
+이더리움 가격
+1. https://coinmarketcap.com/ 접속
+1. Ethereum 검색
+1. Historical Data
+1. 12개월분의 데이터 취득
+1. 다운로드가 없음 : 드래그해서 복사해서 엑셀에 붙여넣기
+1. 날짜가 거꾸로 되어있으므로 변경 : 엑셀상에서 데이터탭 - 정렬 - 정렬기준을 Date - 날짜/시간 오름차순 - 확인
+1. 저장할 때 dataset폴더에 eth.csv로 저장
+1. 
