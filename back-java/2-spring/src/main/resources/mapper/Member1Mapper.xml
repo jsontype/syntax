@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Member1Mapper">
+
+<!--
+회원로그인
+파라미터로 userId와 userPass를 받고 조회한 결과값을 resultType인 Member1VO로 전달한다.
+여기서 parameterType는 생략할 수 있다.
+
+회원정보수정 코딩순서
+Mapper
+	USERPASS = #{userPass} 이런식으로 #{}는 Controller -> Service -> DAO를 통해 받은 파라미터값들이 들어가게 된다.
+	파라미터를 받을 그릇들을 만들었으니 이제는 DAO로 가서 Service에서 받을 그릇들을 만들어준다.
+DAO
+	Member1Service에서 보내는 파라미터들은 Member1VO vo에 담기고 이 vo에 들어있는 값들은 쿼리파라미터로 보내준다.
+	여기서 서비스에서 보낸 파라미터들을 sMember1MemberUpdate(Member!VO vo)에 담는다.
+	파라미터를 받는 작업을 해주었으니 Member1Service로가서 보내는 작업을 해준다.
+Service
+	Controller에서 보내는 파라미터값을 Member1Service에서 받아준다.
+	여기서 Controller에서 보내는 파라미터들을 sMember1MemberUpdate(Member1VO vo)로 담는다.
+	받은 파라미터값들은 dao.sMember1MemberUpdate(vo)로 보내준다.
+Controller
+	회원정보 수정이라는 버튼을 통해 RequestMapping(value="/sMember1MemberUpdateView")로 가게 해준다.
+	회원정보 수정 페이지에서 수정버튼을 누르면 /sMember1MemberUpdate요청을 하게되고,
+	파라미터들을 service.sMember1Update(vo)에 넣어줘서 service로 보내준다.
+	수정이 완료되면, session.invalidate()로 세션을 끊고 로그인 페이지로 redirect 해준다.
+
+회원탈퇴
+회원탈퇴를 하기위해선 사용자의 USERID와 USERPASS가 맞아야한다.
+컨트롤러까지 업데이트와 똑같은 흐름으로 가고, 컨트롤러에서,
+sMember1MemberDelete에서 session에 담겨있는 member을 사용하여 세션에있는 비밀번호와 vo로 담기는 비밀번호를
+비교하여 일치하면 회원을 탈퇴시키고 일치하지 않으면 msg에 false값을 넣어 sMember1MemberDeleteView로 보내준다.
+
+아이디 중복체크
+아이디를 조건으로 카운트를 하는데 아이디가 있으면 COUNT가 1 없으면 0이 조회될 것이다. 그 조회 결과타입을  resultType="int"로 설정해준다.
+Member1Controller에서 idChk요청이 들어오면 파라미터를 Member1Service로 보내주고 조회한 결과를 result에 넣어주고, result를 반환한다.
+반환값은 결과가 없으면 0 있으면 1이 반환된다.
+아이디중복체크를 마치고 회원가입요청이 들어오면,
+결과가 1이면 아이디가 중복이 된 것이기에 다시 회원가입뷰로 보낸다.
+결과가 0이면 중복된 아이디가 없기에 service.register(vo)를 실행시켜 준다.
+실행이 완료됬다면 redirect:/ 로그인페이지로 가게된다.
+sMember1Register 뷰 페이지에서는 아이디중복체크 요청을 ajax로 만들었다. 들어가서 확인해보자.
+ajax란 : ☜ 2_context.txt 참조
+-->
+
+	<!-- 회원가입 -->
+	<insert id="register">
+	    INSERT INTO AZUMA_SM1_MEMBER1(   USERID
+	   					       , USERPASS
+	   					       , USERNAME 	)
+	                  VALUES(    #{userId}
+	                 		   , #{userPass}
+	                 		   , #{userName})
+    </insert>
+
+	<!-- 회원가입 - 아이디 중복 체크 -->
+	<select id="idChk" resultType="int">
+		SELECT COUNT(*) FROM AZUMA_SM1_MEMBER1
+		WHERE USERID = #{userId}
+	</select>
+
+	<!-- 회원로그인 -->
+	<select id="login" resultType="to.pc.azuma2.vo.Member1VO">
+		SELECT *
+		  FROM AZUMA_SM1_MEMBER1
+		 WHERE USERID = #{userId}
+		   AND USERPASS = #{userPass}
+	</select>
+
+	<!-- 회원정보수정 -->
+	<update id="memberUpdate">
+		UPDATE AZUMA_SM1_MEMBER1 SET
+		USERPASS = #{userPass},
+		USERNAME = #{userName}
+		WHERE USERID = #{userId}
+	</update>
+
+	<!-- 회원탈퇴 -->
+	<delete id="memberDelete">
+		DELETE FROM AZUMA_SM1_MEMBER1
+		WHERE USERID = #{userId}
+		  AND USERPASS = #{userPass}
+	</delete>
+
+	<!-- 회원탈퇴 - 패스워드 체크 -->
+	<select id="passChk" resultType="int">
+	SELECT COUNT(*) FROM AZUMA_SM1_MEMBER1
+	WHERE USERID = #{userId}
+	  AND USERPASS = #{userPass}
+	</select>
+
+
+
+</mapper>
+
+

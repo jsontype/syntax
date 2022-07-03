@@ -1,0 +1,70 @@
+* 자바빈즈 : mvc 중 mc에, 프로퍼티와 게터앤세터가 있는 것을 통칭하는 말
+* 인터페이스 : 자칫 다양해질 수 있는 변수, 메소드를 클래스 안에 담아서 강제적으로 정해놓은 것들
+
+
+
+
+
+
+<< 모델 : mvc 패턴에서의 모델에 해당 >>
+
+1. ★마이바티스 entity : "DB 컬럼 정의" 게터앤세터(입출력 게이트), DB 데이터 단위의 실체 그대로를 프로퍼티와 게터앤세터로 정리해놓은 것
+[app_name]/src/main/java/jp/co/[company_name]/[main_system_name]/is/entity/[table_name]Entity.java: 각 테이블별 기본형 게터 앤 세터 (키를 검색해 불러오는 겟셋을 하는 경우이며, 데이터밸류는 문자열로 겟셋을 하게 된다.)
+[app_name]/src/main/java/jp/co/[company_name]/[main_system_name]/is/entity/[table_name]UpdateEntity.java: 각 테이블별 업데이트시 기본형 게터 앤 세터 (키를 검색해 불러오는 겟셋을 하는 경우이며, 데이터밸류는 문자열로 겟셋을 하게 된다.)
+[app_name]/src/main/java/jp/co/[company_name]/[main_system_name]/is/entity/[table_name]NodeEntity.java: 각 테이블별 JsonNode 배열형 게터 앤 세터 (실제 사용을 위해서 겟셋을 하는 경우이며, 데이터밸류 부분을 모두 JSON 형태로 겟셋을 하게 된다.)
+[app_name]/src/main/java/jp/co/[company_name]/[main_system_name]/is/entity/[table_name]NodeUpdateEntity.java: 각 테이블별 업데이트시 JsonNode 배열형 게터 앤 세터 (실제 사용을 위해서 겟셋을 하는 경우이며, 데이터밸류 부분을 모두 JSON 형태로 겟셋을 하게 된다.)
+
+
+
+
+
+
+<< 컨트롤러 >>
+
+1. 마이바티스 exception 메시지 처리 인터페이스 : "예외 설정" 인터페이스
+[app_name]/src/main/java/jp/co/[company_name]/[main_system_name]/exception/ApplicationException.java: 예외 메시지의 처리 인터페이스
+
+1. 마이바티스 config 인터페이스 : "글로벌 상수" 인터페이스
+[app_name]/src/main/java/jp/co/[company_name]/[main_system_name]/is/config/Consts.xml: URL Path, 파일 다운로드 디렉토리 등의 작업 관련 글로벌 상수 설정 인터페이스
+[app_name]/src/main/java/jp/co/[company_name]/[main_system_name]/is/config/MessageConsts.xml: 메세지 관련 글로벌 상수 설정 인터페이스
+
+1. 마이바티스 enums 인터페이스 : "자동완성, 오타검증, 텍스트 리팩토링, 허용가능값 제한, 리팩토링 변경범위 최소화 등 (예: “Y”, “1”, true 가 한 묶음으로, “N”, “0”, false가 한 묶음)" 설정 인터페이스
+[app_name]/src/main/java/jp/co/[company_name]/[main_system_name]/is/enums/DbUpdateModeEnum.java: DB 업데이트 필드 관련 Enum 인터페이스
+[app_name]/src/main/java/jp/co/[company_name]/[main_system_name]/is/enums/ResultStatusEnum.java: 메세지타입 관련 Enum 인터페이스
+[app_name]/src/main/java/jp/co/[company_name]/[main_system_name]/is/enums/VariableDisplayTypeEnum.java: 케이스 필드 관련 Enum 인터페이스
+
+1. 마이바티스 utils 인터페이스 : "기타 공통 유틸" 인터페이스
+[app_name]/src/main/java/jp/co/[company_name]/[main_system_name]/is/utils/ChangeVariableName.java: 변수명 변환하기, 이름쪼개기, 타입체크하기 등 변수명 변환 관련 인터페이스
+[app_name]/src/main/java/jp/co/[company_name]/[main_system_name]/is/utils/EntityAccessUtils.java: 엔티티 접근 관련 인터페이스
+[app_name]/src/main/java/jp/co/[company_name]/[main_system_name]/is/utils/EntityChangeUtils.java: 엔티티 수정 관련 인터페이스
+[app_name]/src/main/java/jp/co/[company_name]/[main_system_name]/is/utils/IsJsonUtil.java: Map2Json 등, Json 변환 관련 인터페이스
+
+1. 마이바티스 logic 자바빈즈 : "시뮬레이션, RF계산 등 복잡도가 있는 로직"을 포함한 게터앤세터, ★로직을 비지니스모델이라고도 부른다.
+[app_name]/src/main/java/jp/co/[company_name]/[main_system_name]/is/logic/[feature_name].java: 각 기능별 계산 로직
+
+1. 마이바티스 repository 자바빈즈 : 태스크 리스트와 같이 일종의 "이력을 저장하는 저장소" 같은 개념에 사용하는 게터앤세터
+[app_name]/src/main/java/jp/co/[company_name]/[main_system_name]/is/repository/TbHisIsTaskListRepository.java
+
+1. 마이바티스 mapper 자바빈즈 : "SQL문 불러오는 DB 매퍼명" 게터앤세터
+[app_name]/src/main/java/jp/co/[company_name]/[main_system_name]/is/mapper/[table_name]Mapper.java
+
+
+
+<< 컨트롤러에 속하는 DTO, VO, Service >>
+
+1. 마이바티스 model(DTO, VO) 자바빈즈 : mvc의 모델이 아니라 "화면상에서 변수를 SIDU할 경우에 사용하는 모델" 게터앤세터. 
+[app_name]/src/main/java/jp/co/[company_name]/[main_system_name]/is/model/[table_name]Request.java: DB 요청과 관련된 변수 DTO
+[app_name]/src/main/java/jp/co/[company_name]/[main_system_name]/is/model/[table_name]Result.java: DB 요청결과와 관련된 변수 DTO
+[app_name]/src/main/java/jp/co/[company_name]/[main_system_name]/is/model/[feature_name].java: 그 외 모든 화면상세기능과 연관된 변수 DTO
+★DTO(Data Transfer Object), 또는 VO(Value Object)라고도 한다.
+★엔티티와 model(DTO, VO)의 차이점
+- 엔티티
+    DB의 컬럼을 그대로 가져와서 Select하고 Insert하는 자바빈즈를 만들어둔 것. DB 데이터 단위의 "실체"와 직결된다. 엄밀히 따지면 mvc에서 m은 엔티티이다.
+- model(DTO, VO)
+    화면상의 조작의 결과로 DB를 검색/수정해야할 때 사용하는 변수로, 이 변수를 조작하여 엔티티로 보내어 검색/수정하게 된다. 엄밀히 따지면 mvc에서 c에 속한다.
+    예를 들어, DB 컬럼에는 firstName과 lastName이 있다. model(DTO)에서는 이 둘을 조합해서 name이라는 변수로 바꾸어 화면상에서 사용하게 될 것이다. 
+    그리고 model에서 name이 바뀌게 되면 이는 엔티티를 거쳐서 DB를 수정하게 된다.
+    또, DB 컬럼에는 gender도 있는데 이는 바꿀일이 없기 때문에, model에서 넣지 않고, 엔티티를 거칠 일도 없다. 이런 식으로 매번 모든 DB 컬럼을 수정하는 수고를 덜게 된다.
+
+1. 마이바티스 service 자바빈즈 : mvc에서 실제 m을 v에 담을 때의 control이 이뤄지는 부분. "실제 SIDU할 경우에 실행되는 액세스(검색, 신규등록, 수정, 삭제) 등의 서비스 모델"
+[app_name]/src/main/java/jp/co/[company_name]/[main_system_name]/is/service/[service_name]Service.java: 해당 서비스와 관련된 service control 부분
