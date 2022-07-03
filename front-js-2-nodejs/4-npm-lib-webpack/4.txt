@@ -1,0 +1,56 @@
+[웹팩]
+
+1. 웹팩이란? 
+    웹팩은 "모듈 번들러" 라이브러리이다.
+    여기서의 모듈은 JS 모듈(lib, fw)에 국한되지 않고 assets, loader, plugin 등 웹 앱을 구성하는 모든 자원을 의미한다.
+    번들링을 통해서 로더, 플러그인 등의 도입도 가능하게 한다.
+
+1. 웹팩의 기능 (1) : 번들링 (Bundling)
+    ES6(ES2015) 기반의 코드는 "Import / Export" 지원이 잘 안 된다.
+        따라서 웹팩이라는 빌더가 자동으로 서로 의존관계를 파악해서,
+        main.js, active.js, style.css, *.png, *.jpg 등 모든 의존성들을
+        마지막에는 bundle.js 같은 파일로 하나로 묶어서 배포할 수 있게 도와준다.
+
+1. 웹팩의 기능 (2) : 로더 (Loader) 모듈의 도입
+    각종 Loader를 NodeJS 런타임에 적용할 수 있다.
+    예를 들어,
+        "바벨-로더(Babel-loader)" 모듈을 써서, 새 ES 버전의 새로운 문법을 기존의 브라우져에 사용하기 위해서 필요한 컴파일링(=트랜스파일링)을 할 수 있다.
+        사스-로더(Sass-loader) 모듈을 써서, CSS의 전처리를 하고 SSR을 구현할 수 있다.
+        타입스크립트-로더 모듈을 써서, TS의 컴파일을 통해 JS 데이터타입의 무결성을 실현할 수 있다.
+
+1. 웹팩의 기능 (3) : 플러그인 (Plugin) 모듈의 도입
+    각종 Plugin을 NodeJS 런타임에 적용할 수 있다.
+    예를 들어, 
+        ESlint같이, 코드를 검사해서, 불필요한 공백을 줄여준다거나, 추가해준다거나 할 수 있다.
+
+1. 웹팩 설치 순서
+    npm init
+        package name: app1
+        이후 다 엔터
+    npm i webpack --save-dev    
+    package.json 열기 → "devDependencies" 키 안의 "webpack" 키를 확인
+    package.json 의 "scripts" 키 안에 "build"를 아래와 같이 추가
+        "scripts": {
+            ... ,
+            "build": "webpack"
+        },
+    "build": "webpack" 추가
+    webpack.config.js 파일 생성 후 다음과 같이 작성
+        let path = require('path')
+        module.exports = {
+            entry: './src/index.js',
+            output: {
+                filename: 'bundle.js',
+                path: path.resolve(__dirname, 'dist')
+            },
+            module: {
+                rules: [{
+                }]
+            }
+        }
+    index.html 파일 생성
+        <script src="./dist/bundle.js"></script> 추가
+    src/index.js 파일 생성
+        console.log('Hello Webpack!') 추가
+    npm run build
+    dist/bundle.js 생성 확인

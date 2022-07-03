@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js Basic</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <!-- 스타일 추가 -->
+    <style>
+        .red {
+            color: red;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+    <h2>App2 : 클래스 & 스타일 바인딩 (class & style binding)</h2>
+    <div id="app2">
+        <!-- 아래 둘은 같은 코드입니다. 결과값은 같을 것입니다. -->
+        <div class="red bold">Hello1</div>
+        <div v-bind:class="{ red: true, bold: true }">Hello2</div>
+        <!-- 데이타에 통째로 넣는 방법도 있어요. 결과값은 같을 것입니다.-->
+        <div v-bind:class="classObject">Hello3</div>
+        <!-- 아래는 스위치가 들어갔고 is불린변수가 들어갔네요? 어디다 쓰는 물건일까요? -->
+        <div :class="{ red: isRed, bold: isBold }">Hello4</div>
+        <button @click="update">Click</button>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app2',
+            data: {
+                classObject: { // 데이타에 통째로 넣는 방법이에요.
+                    red: true,
+                    bold: true
+                },
+
+                isRed: false, // 반대값은 true겠죠?
+                isBold: false
+            },
+            methods: {
+                update () {
+                    this.isRed = !this.isRed, // isRed 같은 불린은 ! 했을 경우 반대값을 뱉어요.
+                        this.isBold = !this.isBold // 마찬가지에요.
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>

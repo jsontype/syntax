@@ -1,0 +1,71 @@
+[영화 삭제하기]
+
+1. src/components/Movie.js 수정
+    import React from 'react'
+
+    const Movie = ({ movie, removeMovie }) => {
+        return (
+            // 아래 div 태그의 키는 컴포넌트 부르는 쪽에 넣어준다.
+            <div className='movie'>
+                <div className='movie-title'>
+                    {movie.title}
+                    <span className='movie-year'>
+                        ({movie.year})
+                    </span>
+                </div>
+                <div className='movie-year'>
+                    <button onClick={() => removeMovie(movie.id)}>삭제</button>
+                </div>
+            </div>
+        )
+    }
+
+    export default Movie
+
+
+
+1. src/components/MovieForm.js 수정
+    addMovie 부분을 다음과 같이 수정
+        addMovie({
+            id: Date.now(),
+            title: movieTitle,
+            year: movieYear,
+        })
+
+
+
+1. src/App.js 수정
+    최상단의 import React, { useState, useEffect } from 'react'에서 useEffect를 삭제
+    const [movies, setMovies] = useState([]) 안에 있는 더미 데이터 다 지움
+    거기서부터 다음 코드로 변경
+
+        const [movies, setMovies] = useState([])
+
+        useEffect(() => {
+            console.log('movies:', movies)
+        })
+
+        const removeMovie = (id) => {
+            // 파라미터로 삭제할 id를 받고, 그 id가 같은 것을 제외한 movies 배열을 갱신
+            setMovies(movies.filter(movie => {
+            return movie.id !== id
+            }))
+        }
+
+        const render = movies.length ? movies.map((movie) => {
+            return (
+            <Movie
+                movie={movie}
+                key={movie.id}
+                removeMovie={removeMovie}
+            />
+            )
+        }) : '추가된 영화가 없습니다.'
+
+    코드 정리 : const addMovie 함수를 const removeMovie 함수 위로 이동
+
+
+
+1. 테스트 : 인풋에 값 넣어서 리스트 추가되는 것을 확인
+    cd app1
+    npm run start

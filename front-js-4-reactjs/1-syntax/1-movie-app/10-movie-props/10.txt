@@ -1,0 +1,53 @@
+[컴포넌트와 프롭스 동시 활용]
+
+1. 이번에는 컴포넌트와 프롭스를 동시에 사용해서, for문으로 만들어진 무비리스트를 컴포넌트화 해보겠다.
+
+
+
+1. src/components/Movie.js 작성
+
+    src/App.js에서 아래의 코드들을 복사한다.
+        const render = movies.map((movies) => { return ( 밑에 있는 div 태그들을 복사
+
+    src/components/Movie.js 파일을 생성후, 안에 붙여넣기해서, 다음과 같이 만든다.
+
+        import React from 'react'
+
+        // ★원래 이런 방식이었으나, 보다 더 간편하게 바꾸면 아래와 같다.
+        // const Movie = (props) => {
+        //     return (
+        //         // 아래 div 태그의 키는 컴포넌트 부르는 쪽에 넣어준다.
+        //         <div className='movie'>
+        //             <div className='movie-title'>{props.movie.title}</div>
+        //             <div className='movie-year'>{props.movie.year}</div>
+        //         </div>
+        //     )
+        // }
+
+        const Movie = ({ movie }) => {
+            return (
+                // 아래 div 태그의 키는 컴포넌트 부르는 쪽에 넣어준다.
+                <div className='movie'>
+                    <div className='movie-title'>{movie.title}</div>
+                    <div className='movie-year'>{movie.year}</div>
+                </div>
+            )
+        }
+
+        export default Movie
+
+
+
+1. src/App.js 수정
+
+    상단에 다음과 같이 임포트를 넣어준다.
+        import Movie from './components/Movie'
+
+    const render = movies.map((movie) => { return ( 밑에 기존 div 태그 대신 컴포넌트 태그를 넣어준다.
+        <Movie movie={movie} key={movie.title} />
+
+
+
+1. 리액트 실행
+    npm run start
+    localhost:3000에 가본다.

@@ -1,0 +1,90 @@
+<!-- App8 : 콘솔로그로 디버깅하기 -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoJS</title>
+
+    <!-- GoJS 적용 -->
+    <script src="go.js"></script>
+
+    <script>
+        // 시작 데이터를 세트합니다.
+        function init() {
+
+            // gojs에서 그래프 오브젝트를 만듭니다.
+            var $ = go.GraphObject.make;
+
+            // 화면상의 다이어그램을 (조작하기 위해서) 내 변수에 담습니다.
+            myDiagram = $(go.Diagram, "myDiagramDiv") // DIV HTML 태그에 들어갈 다이어그램을 만듭니다.
+
+            // nodeDataArray를 설정합니다.
+            var nodeDataArray = [
+                { key: "Alpha", color: "lime" },
+                { key: "Beta", color: "cyan" }
+            ]
+
+            // linkDataArray를 설정합니다. 링크가 어디에서 어디로 갈지를 지정해줍니다.
+            var linkDataArray = [
+                { from: "Alpha", to: "Beta" }
+            ]
+
+            // nodeData와 linkData를 그래프링크모델로해서 내 변수안의 model에 넣습니다.
+            // 이렇게 하면 추후 <div id="내 변수명">을 통해서 화면에 뿌릴 수 있습니다.
+            myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray)
+
+
+
+            
+            // App2 : Template 제작하기
+
+            // Node Template을 제작합니다.
+            myDiagram.nodeTemplate =
+                // 1. node template을 single "auto" panel로 정의합니다. * node는 사실 하나의 panel입니다.
+                $(go.Node, "Auto",
+                    // 2. node template elements(Shape and TextBlock)들을 정의합니다.
+                    $(go.Shape, "RoundedRectangle", { fill: "white" },
+                        // 3. node data bindings를 추가합니다.
+                        new go.Binding("fill", "color")
+                    ),
+                    $(go.TextBlock, "text", { margin: 10 },
+                        // 3. node data bindings를 추가합니다.
+                        new go.Binding("text", "key")
+                    )
+                )
+            // Alpha, Beta 두 노드는 각자 이런 모양을 갖고 있습니다.
+                // Alpha = { key: 1, loc: {x:50, y:0}, color: blue, text: "Alpha", parent: null}
+                // Beta = { key: 2, loc: {x:50, y:250}, color: red, text: "Beta", parent: 1}
+                // 이들은 합쳐져서 nodeDataArray = [] 에 들어가게 됩니다.
+
+            // Link Template을 제작합니다.
+            myDiagram.linkTemplate = 
+                // 1. link template와 두개의 Shape Elements를 정의합니다.
+                $(go.Link,
+                    $(go.Shape, { strokeWidth: 3 },
+                        // 2. link data bindings를 추가합니다.
+                        new go.Bingding("stroke", "color")
+                    ),
+                    $(go.Shape, { toArrow: "Standard", stroke: null},
+                        // 2. link data bindings를 추가합니다.
+                        new go.Binding("fill", "color")
+                    )
+                )          
+                
+                
+        }
+    </script>
+
+</head>
+
+<!-- 화면이 시작되면 init()으로 시작데이터를 세트합니다. --> 
+<body onload="init()">    
+    <!-- div 안에서 세팅된 다이어그램을 표시합니다. -->
+    <div id="myDiagramDiv" style="width: 300px; height: 300px; border: 1px solid black"></div>
+</body>
+
+</html>

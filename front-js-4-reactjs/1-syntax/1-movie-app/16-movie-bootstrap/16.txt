@@ -1,0 +1,68 @@
+[Bootstrap 4 CDN로 네비게이션바 생성]
+
+1. public/index.html에 bootstrap 4 적용
+    Bootstrapcdn.com 에 들어간다. * CDN : 콘텐츠 전송 네트워크 (Contents Delivery Network)
+    Bootstrap 4 버전의 css의 cdn 태그를 취득한다.
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">    
+    public/index.html 안에 마지막 meta 태그 밑에 집어넣는다.
+    이제 bootstrap 4의 클래스를 사용할 수 있게 되었다.
+
+
+
+1. Bootstrap 4 네비게이션바를 적용한다.
+    Bootstrap 4 구글에 검색 - V4.6.x docs 클릭
+    API Docs 클릭 - Component의 Navbar 클릭 (참조: https://getbootstrap.com/docs/4.6/components/navbar/)
+    search bar가 없는 첫번째 navbar 코드 복사
+
+
+
+1. src/components/Navbar.js 생성
+    return 부분안에 위에서 복사한 부분 붙여넣고, Disabled 메뉴를 삭제하고 Home 메뉴는 그대로 놔두고, 다른 메뉴는 이름을 각각 Movies, Users로 수정
+    class=를 className=으로 수정
+
+    import React from 'react'
+
+    const Navbar = () => {
+        return (
+            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <a className="navbar-brand" href="#">Navbar</a>
+            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"></span>
+            </button>
+            <div className="collapse navbar-collapse" id="navbarNav">
+                <ul className="navbar-nav">
+                    <li className="nav-item active">
+                        <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+                    </li>
+                    <li className="nav-item">
+                        <a className="nav-link" href="#">Movies</a>
+                    </li>
+                    <li className="nav-item">
+                        <a className="nav-link" href="#">Users</a>
+                    </li>
+                </ul>
+            </div>
+            </nav>            
+        )
+    }
+
+    export default Navbar
+
+
+
+1. src/App.js 수정
+    상단에 다음을 추가
+        import Navbar from './components/Navbar'
+
+    return 안에 div 안에 다음을 추가
+        <Navbar />
+
+    <Navbar />와 마지막 </div> 아래에 있는 것들을 container 클래스로 감싸기
+        <div className='container'></div>로 감싼다.
+        ★부트스트랩의 container 기본여백 클래스를 익혀두자.
+
+
+
+1. 테스트
+    cd app1
+    npm run start

@@ -1,0 +1,53 @@
+<!-- [데이터, 데이터바인딩] -->
+
+<!--
+- 설치 : https://kr.vuejs.org/v2/guide/installation.html
+- 참고자료 : https://kr.vuejs.org/v2/guide/index.html
+- extension 설치 목록 :
+    vetur : vue 개발용 vscode 패키지
+    html snippet : html 자동작성
+    html css support : css 자동작성
+    language-stylus : css 메타언어 사용
+    VueHelper : vue 코드 자동작성
+    doiuse : css 기술 적용
+    vue.js Extension Pack : vuejs 개발 실행하기 위한 확장팩
+    ESLint : javascript를 위한 정적 검증 도구(공백 등 자동 삭제)
+    material icon theme : 아이콘 가시성 향상
+-->
+
+<!DOCTYPE html> <!-- vscode에서 !를 입력하면 기본틀 자동완성! -->
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js Basic</title>
+    <!-- 개발버전, 도움되는 콘솔 경고를 포함. -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+    <h2>App1 : 뷰 객체(object)와 인스턴스(instance) 생성</h2>
+    <!-- 3. 인스턴스 : 객체를 통해서 만들어지는 실제 앱 안의 객체 -->
+    <div id="app1">
+        <!-- 데이터바인딩 -->
+        {{ name }}의 나이는 {{ age }}살입니다.
+    </div>
+
+    <script>
+        // 1. 클래스 : 아래에서 Vue()가 클래스이다. (붕어빵 틀)
+        // 2. 객체 : 아래에서 app이 객체이다. (붕어빵)
+        // let 변수명 = new 클래스명(파라미터) : 클래스로부터 객체를 만들어서 사용하는 방식
+        let app = new Vue({
+            el: '#app1', // 이렇게 div id 이름을 작성하면 내부 코드를 작성할 수 있게 되어요.
+            // 아래는 객체(오브젝트)변수라고 해요. 배열[]이 아닙니다. push같은 배열에 사용하는 함수를 사용할 수 없어요.
+            data: {
+                name: 'yang',
+                age: 33
+            }
+        })
+    </script>
+</body>
+
+</html>

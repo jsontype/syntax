@@ -1,0 +1,27 @@
+[Props - State 보내기]
+
+1. Props란?
+    props는 자식 컴포넌트에, String 데이터 뿐 아니라 State도 보낼 수 있다.
+
+
+
+1. 부모 컴포넌트인 src/App.js 수정
+    상단에 다음을 추가
+        import { useState } from 'react'    
+
+    function App() { 밑에 다음을 추가
+        const [text, setText] = useState('변경된 또다른 버튼')
+        const change = () => {
+            setText('버튼 눌러 변경된 또다른 버튼')
+        }
+
+    <h1>Props</h1> 밑에 <counter/> 태그 세개를 다음으로 변경    
+        <Counter click='변경된 버튼'/>
+        <Counter click={text} />
+        <button onClick={change}>← 두번째 버튼 변경</button>
+
+
+
+1. 리액트 실행
+    npm run start
+    localhost:3000에 가본다.

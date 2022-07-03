@@ -1,0 +1,70 @@
+<!-- App7 : 템플릿 지정 심화(2) -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="go.js"></script>
+    <script>
+        function init() {
+            var $ = go.GraphObject.make
+            myDiagram = $(go.Diagram, "myDiagramDiv", // DIV HTML 태그에 들어갈 다이어그램을 만듭니다.
+                    { 
+                        initialContentAlignment: go.Spot.Center, // 기본정렬방식을 가운데정렬로 설정합니다.
+                        "undoManager.isEnabled": true // Undo, Redo를 가능하게 만듭니다. (Ctrl+z, Ctrl+y)
+                    }
+                )
+
+            // 노드의 템플릿을 정합니다.
+            myDiagram.nodeTemplate =                 
+                $(go.Node, "Vertical",
+                    {
+                        // 선택, 삭제는 둘다 기본값이므로 설정없어도 자동으로 true가 됩니다.
+                        selectable: true, // 선택할 수 있고,
+                        deletable: true, // 삭제할 수 있습니다. 
+                        resizable: true, // 핸들을 사용해 사이즈를 바꿀 수 있습니다.
+                        rotatable: true, // 핸들을 사용해 각도를 바꿀 수 있습니다.
+                        // resizeObjectName: "PANEL", // Object Name의 별도 지정이 없으면 전체가 리사이즈 됩니다.
+                        // rotateObjectName: "PANEL" // Object Name의 별도 지정이 없으면 전체가 로테이트 됩니다.                        
+                    },
+                    $(go.TextBlock, "text", // text는 프로퍼티입니다.
+                        // Options Object
+                        {
+                            text: "Example", // text 프로퍼티를 오버라이드합니다.
+                            font: "Italic small-caps bold 12pt Georgia, Serif", // font의 style, variant, weight, size, family를 순서대로 설정합니다.
+                            stroke: "purple", // stroke 프로퍼티는 text의 CSS 컬러 스트링입니다.
+                            editable: true
+                        }
+                    ),
+                    $(go.Panel, "Auto", { name: "PANEL" }, // resize와 rotate의 별도 지정을 하기 위한 Object Name을 설정합니다. 
+                        $(go.Shape, "RoundedRectangle", // figure 프로퍼티를 지정합니다. 테두리를 형성합니다.
+                            {
+                            figure: "Ellipse", // figure 프로퍼티를 오버라이드합니다.
+                            fill: "pink", // fill 프로퍼티는 Panel을 채우는 CSS 컬러 스트링입니다.
+                            stroke: "purple", // stroke 프로퍼티는 figure 테두리의 CSS 컬러 스트링입니다.
+                            strokeWidth: 10 // stroke의 figure 테두리 굵기가 됩니다.
+                            }
+                        ),
+                        $(go.Picture, "http://placebear.com/300/200", // "Source" 프로퍼티는 이미지 소스의 URL을 정합니다.
+                            {
+                                desiredSize: new go.Size(150,100), // 넓이와 높이입니다.
+                                margin: new go.Margin(25,0,0,0) // go.Margin(top, right, bottom, left)
+                            }
+                        )
+                    )                    
+                )
+
+            myDiagram.model = new go.GraphLinksModel(
+                [
+                    { key: "Alpha" }
+                ]
+            )
+        }
+    </script>
+</head>
+<body onload="init()">
+    <div id="myDiagramDiv" style="height: 400px; width: 800px; border: 1px solid black;"></div>
+</body>
+</html>

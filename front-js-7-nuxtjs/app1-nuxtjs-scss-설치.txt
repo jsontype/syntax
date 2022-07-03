@@ -1,0 +1,142 @@
+[nuxtjs・scss 설치]
+
+
+
+1. Nuxt.js 란?
+  React 애플리케이션을 위한 Next.js 프레임워크가 있다면, Vue를 위해 SSR을 지원하는 프레임워크가 Nuxt.js이다.
+    * MPA, SSR 셋를 사용하는 이유는 SEO 때문이다.
+    * 무슨 말인지 이해할 수 없다면 다음 URL을 공부해보자.
+      SPA-MPA-SSR-CSR의 정의와 각 장단점 정리 : https://hanamon.kr/spa-mpa-ssr-csr-%ec%9e%a5%eb%8b%a8%ec%a0%90-%eb%9c%bb%ec%a0%95%eb%a6%ac/  
+  정의하자면 Nuxt.js는 Vue를 기반으로 하여 SSR 기반의 Web Application을 컴포넌트 단위로 개발 할 수 있게 해주는 프레임워크이다.
+  Angular, React, Vue SPA 삼대장들이 출시되고 나서 SPA의 단점을 극복하고자 많은 노력들이 있었지만,
+  정통 SSR(MPA) 방식의 장점을 완벽하게 커버하기란 불가능 하였다.
+  그래서 SSR(MPA) 방식에서 SPA의 장점 중 일부라도 누려보기 위해서 나온 프레임워크가 Next.js(React 기반), Nuxt.js(Vue 기반)이다.
+  또한 SSR을 위해서 CSS도 전처리기 모듈인 SCSS 또는 SASS를 사용하게 된다.
+    * 무슨 말인지 이해할 수 없다면 다음 URL을 공부해보자.
+      CSS 전처리기란? : https://velog.io/@eunoia/CSS-%EC%A0%84%EC%B2%98%EB%A6%AC%EA%B8%B0%EB%9E%80
+  CSS에 익숙해져있기에 사용하기 편리한 SCSS로 공부해보겠다.
+
+
+
+1. 구글에서 nuxt js 검색
+1. 공식사이트에서 get started - installation - npx (npx는 설치없이 인터넷만 되면 설치가능)
+    npx create-nuxt-app app1
+    선택 : app1, JavaScript, Npm, Element(UI), Axios, None, Universal (SSR / SSG), Server (Node.js hosting), 그 뒤로 전부 enter
+    설치 끝
+    cd app1
+    package.json에서 실행 명령어 찾기 : "script" 안의 "dev"
+    npm run dev
+    http://localhost:3000/ 들어가서 작동 확인
+
+### 1. pages/index.vue ### : sample을 지운다.
+
+<template>
+  <div>
+    aaaa
+  </div>
+</template>
+
+1. NuxtLogo.vue 삭제
+
+1. Tutorial.vue 삭제
+
+1. sass-loader 설치
+    npm i sass-loader@10
+    npm i node-sass@6
+    package.json에서 node-sass, sass-loader 존재 확인
+
+1. assets 폴더 생성
+    assets/images 폴더 생성
+    assets/scss 폴더 생성
+    assets/scss/common 폴더 생성
+
+### 1. assets/scss/application.scss 생성 ###
+
+### 1. assets/scss/common/_reset.scss 생성 ### : 임포트하는 scss소스는 파일명 앞에 _가 필요하다. 그리고 임포트 하는 쪽에서는 _를 넣지 않는다.
+
+1. nuxt.config.js 열기
+    css: [] 부분에, 다음을 추가
+        '@/assets/scss/application.scss' : @는 root를 의미함
+
+1. 다양한 reset 중, 야후의 yui를 선정하여 사용
+  구글에 yui reset 검색 후 첫번째 페이지 클릭 : https://clarle.github.io/yui3/yui/docs/cssreset/
+  getting started의 url을 주소창에 입력 : http://yui.yahooapis.com/3.18.1/build/cssreset/cssreset-min.css
+  확인 후, 내용을 복사
+  구글에 html formatter 검색 : https://webformatter.com/html
+  css 탭으로 이동
+  복사한 소스를 붙여넣고 Tab size 4로 formatting
+  formatting된 소스를 _reset.scss에 붙여넣기
+
+
+
+### 1. assets/scss/application.scss 내용 입력 ###
+
+@charset "utf-8";
+
+// common
+@import "./common/reset";
+
+
+
+1. npm run dev --fix 로 reset 작동확인 (--fix는 index.vue에 components가 없어서 뜨는 에러는 무시)
+
+
+
+### 1. assets/scss/application.scss 내용 수정 ###
+
+임포트한 부분 주석화
+  // @import "./common/reset";
+
+
+
+### 1. pages/index.vue 내용 수정 ###
+
+div와 span 차이점, 그리고 block, inline태그의 설명
+
+<div> 사이에 aaaa 대신 다음을 추가
+    <ul>
+      <li>Kim</li>
+      <li>Park</li>
+      <li>Lee</li>
+      <li>Choi</li>
+    </ul>
+
+styleLang scss 추가
+<style lang="scss">
+  ul {
+    list-style:none;
+    padding-left:0px;
+    border: 1px solid #000;
+    margin: 30px;
+    > li {
+      border-bottom: 1px solid #000;
+      padding: 20px;
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+</style>  
+
+styleLang scss 수정하면서 이런 형태로도 쓸수 있음을 안내
+<style lang="scss">
+  ul {
+    list-style:none;
+    padding-left:0px;
+    border: 1px solid #000;
+    margin: 30px;
+    > li {
+      margin-top: 20px;
+      padding: 20px;
+    }
+    > li:not(:last-child) {
+      border-bottom: 1px solid #000
+    }
+  }
+</style>
+
+
+
+1. scss에 대해서 학습해두기
+  https://heropy.blog/2018/01/31/sass/
+  https://eunhee-programming.tistory.com/m/178

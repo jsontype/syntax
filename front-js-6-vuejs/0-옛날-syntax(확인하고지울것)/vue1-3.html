@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js Basic</title>
+    <!-- 개발버전, 도움되는 콘솔 경고를 포함. -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <h2>App3 : this는 사용하는 객체의 변수(data)와 메소드(methods) ("키:밸류"에서의) 키를 의미한다.</h2>
+    <div id="app3">
+        {{ nextYear() }}
+        <br>
+        {{ otherMethod() }}
+        <!-- 같은 내용이 두개가 나오겠죠? :) -->
+    </div>
+
+    <script>
+        let app = new Vue({
+            el: '#app3',
+            data: {
+                person: {
+                    name: 'yang',
+                    age: 33
+                }
+            },
+            methods: { // 메소드 안에는 각종 함수(명령어)들이 담겨져요.
+                nextYear: function () { // 함수는 파라미터가 없어도 호출시 최소 ()는 써야해요.
+                    // this의 의미는 사용하는 app 객체내의 "변수(data:)"나 함수(method:)를 의미하게 됩니다. (여기서는 변수)
+                    return this.person.name + '는 내년에 ' + (this.person.age + 1) + '살입니다.';
+                },
+                // this의 의미는 사용하는 app 객체내의 변수(data:)나 "함수(method:)"를 의미하게 됩니다. (여기서는 함수)
+                otherMethod: function () { // 함수 안에서 함수를 꺼낼 수도 있어요.
+                    return this.nextYear();
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>

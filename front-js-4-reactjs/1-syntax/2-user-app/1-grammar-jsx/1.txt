@@ -1,0 +1,70 @@
+[Install]
+1. 설치
+    NodeJS
+        curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
+        nvm install --lts
+    Yarn
+        만약 npm 이 이미 익숙하고, yarn 을 설치하기 귀찮다면 생략을 하셔도 상관없다.
+        yarn 설치는 Yarn 공식 홈페이지의 Install Yarn 페이지를 참고하자.
+    VSCode
+    Git bash
+
+1. 새 프로젝트 만들어보기
+    npx create-react-app app1
+    cd app1
+    yarn start
+    http://localhost:3000/
+
+1. src/Hello.js 생성
+    import React from 'react'
+
+    function Hello() {
+        return <div>안녕하세요</div>
+    }
+
+    export default Hello
+
+
+
+[Component, JSX]
+1. src/App.js 수정 : 아래를 보고, component(dom), style object(cssom), ★★JSX grammar(class대신 className, JS 함수나 변수값을 HTML내에 사용할 때 {}로 감싸기, return하는 DOM은 하나의 태그나 fragment로 감싸기)를 익히자.
+    import React from 'react'
+    import Hello from './Hello'
+    const name = 'Yang'
+    const style = {
+        backgroundColor: 'black',
+        color: 'aqua',
+        fontSize: 24, // 기본 단위 px
+        padding: '1rem' // 다른 단위 사용 시 문자열로 설정        
+    }
+
+    function App() {
+        return (
+        <>
+            {/* 주석은 화면에 보이지 않습니다 */}
+            <div style={style}>{name}</div>
+            <div className="gray-box"></div>
+            <Hello
+                // 열리는 태그 내부에서는 이렇게 주석을 작성 할 수 있습니다.
+            />
+        </>
+        );
+    }
+
+    export default App
+
+1. index.js에서 reportWebVitals.js 불러오는 부분 삭제, logo.svg, reportWebVitals.js 삭제
+
+1. src/App.css 수정
+    .gray-box {
+        background: gray;
+        width: 64px;
+        height: 64px;
+    }
+
+1. src/index.js 를 열면 <App />이 있는데, 결과물이 여기에 렌더링되어 나온다.
+
+1. Test
+    cd app1
+    yarn start
+    http://localhost:3000/

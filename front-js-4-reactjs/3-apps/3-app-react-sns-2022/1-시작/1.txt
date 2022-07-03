@@ -1,0 +1,34 @@
+[NextJS 시작해보기]
+
+1. NextJS 역할
+    NextJS가 필요없는 페이지 : SEO, SSR이 필요없는 페이지 (예, Admin 페이지)
+    NextJS가 필요한 페이지 : 로딩이 없는 페이지, 검색엔진에 노출되어야 하는 페이지
+
+1. NextJS 시작
+    mkdir app1
+    cd app1
+    npm init
+        프로젝트명: app1
+        author: D.Yang
+    npm i next@9
+    npm i react react-dom // 두개 동시설치
+    npm audit fix --force // 빌드 꼬였을 때
+    package.json에서 "scripts"에 다음을 추가
+        "dev": "next",
+        "build": "next build",
+
+1. pages/index.js 생성 및 작성
+    import React from 'react'
+
+    const Home = () => {
+        return (
+            <div>Hello, Next!</div>
+        )
+    }
+
+    export default Home;
+
+1. 실행해보기
+    npm run dev
+    http://localhost:3000/
+    * next에는 리액트 핫로더(코드 변경시 실시간 화면 새로고침, wait event 터미널 로그창이 리액트 핫로더임)가 자동으로 적용이 되어있다.

@@ -1,0 +1,43 @@
+<!-- [v-for 리스트 렌더링] -->
+<!-- https://www.youtube.com/watch?v=HAegTAEW1Y0&list=PLB7CpjPWqHOtYP7P_0Ls9XNed0NLvmkAh&index=10 -->
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js Basic</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+
+    <h2>App3 : v-for와 객체</h2>
+    <!-- v-for를 사용하여 객체의 속성을 반복할 수도 있습니다. -->
+    <div id="app3">
+        <b>v-for와 객체</b>
+        <div v-for="value in object" :key="">
+            {{ value }}
+        </div>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app3',
+            data: {
+                object: {
+                    title: 'As Time Goes By',
+                    author: 'T (윤미래)',
+                    publishedYear: '2001'
+                }
+            },
+            methods: {
+            }
+        })
+    </script>
+
+</body>
+
+</html>

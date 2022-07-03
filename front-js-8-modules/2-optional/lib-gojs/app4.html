@@ -1,0 +1,69 @@
+<!-- App4 : 그래프링크 모델 -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoJS</title>
+    <script src="go.js"></script>
+
+    <script>
+        function init() {
+            var $ = go.GraphObject.make
+            myDiagram = $(go.Diagram, "myDiagramDiv") // DIV HTML 태그에 들어갈 다이어그램을 만듭니다.
+
+            var nodeDataArray = 
+            [
+                { key: "Alpha" },
+                { key: "Beta" },
+                { key: "Gamma" },
+                { key: "Delta" },
+                { key: "Epsilon" }
+            ]
+            var linkDataArray =
+            [
+                { to: "Beta", from: "Alpha" }
+            ]
+
+            // 노드와 링크를 적용합니다.
+                // 다이어그램에는 Model, GraphLinksModel, TreeModel 총 3가지의 모델이 있습니다.
+            // myDiagram.model = new go.Model(nodeDataArray) // 가장 일반적인 Model입니다.
+            myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray) // 링크가 있는 Model입니다.
+
+
+            // 레이아웃을 적용합니다.
+            // 원형(Circular) 등의 레이아웃을 다이어그램에 적용할 수 있습니다.
+            myDiagram.layout = $(go.CircularLayout)
+
+
+            // 노드와 링크 템플릿을 적용합니다. : 노드와 링크를 꾸밉니다.
+            myDiagram.nodeTemplate =
+                $(go.Node, "Auto",
+                    $(go.Shape, "RoundedRectangle", { fill: "white" },
+                        new go.Binding("fill", "color")
+                    ),
+                    $(go.TextBlock, "text", { margin: 10 },
+                        new go.Binding("text", "key")
+                    )
+                )
+            myDiagram.linkTemplate = 
+                $(go.Link,
+                    $(go.Shape, { strokeWidth: 3 },
+                        new go.Bingding("stroke", "color")
+                    ),
+                    $(go.Shape, { toArrow: "Standard", stroke: null},
+                        new go.Binding("fill", "color")
+                    )
+                )
+
+
+        }
+    </script>
+</head>
+
+
+<body onload="init()">
+    <div id="myDiagramDiv" style="height: 400px; width: 400px; border: 1px solid black;"></div>    
+</body>
+</html>

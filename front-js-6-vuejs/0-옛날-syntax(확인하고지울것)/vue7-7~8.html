@@ -1,0 +1,76 @@
+<!-- [component로 여러개의 vue 인스턴스에 간단히 연동해서 사용하기] -->
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js Basic</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+
+    <!-- 작동 할거에요. -->
+    <h2>App7 : component를 전역적이 아닌 지역적으로 등록해서 사용하기 1</h2>
+    <div id="app7">
+        <local-component></local-component>
+    </div>
+
+    <!-- 작동 안할거에요. -->
+    <h2>App8 : component를 전역적이 아닌 지역적으로 등록해서 사용하기 2</h2>
+    <div id="app8">
+        <local-component></local-component>
+    </div>
+
+    <script>
+        // 전역 컴포넌트(global component)를 등록하는 방법입니다. 
+        // Vue.component('tagName', {options})를 사용합니다.
+        Vue.component('hello-component2', {
+            template: `
+                <div>
+                    아래는 hello-component2안의 템플릿입니다.<br>
+                    {{ message }}
+                    <button @click="changeText">Click</button>
+                </div>
+            `,
+            data () {
+                return {
+                    message: 'component안의 component의 메시지'
+                }
+            },
+            methods: {
+                changeText () {
+                    this.message = 'component안의 component의 메시지가 업데이트됨'
+                }
+            }
+        })
+
+        // 지역적 컴포넌트(local component)를 등록하는 방법입니다. 이렇게 해두면, (다음 주석으로 가기)
+        const localComponenet = {
+            template: `
+                <div>
+                    <hello-component2></hello-component2>
+                </div>
+            `
+        }
+
+        // ★ 아래와 같이 각 var app = new Vue({}) 안의 components: {} 안에 지정해둬야만 해당 component가 불려올 수 있어요.
+        var app7 = new Vue({
+            el: '#app7',
+            components: {
+                'local-component': localComponenet
+            }
+        })
+
+        // 따라서, 다음 app8은 아무리 앞단(front)에서 백단(back)을 부른들 작동이 안될 것입니다.
+        var app8 = new Vue({
+            el: '#app8'
+        })
+    </script>
+
+</body>
+
+</html>

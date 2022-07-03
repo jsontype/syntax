@@ -1,0 +1,32 @@
+{
+    "parserOptions": {
+        // JS버전
+        "ecmaVersion": 2020,
+        // import/export를 하면 module, 안 하면 script
+        "sourceType": "module", 
+        // 이 앱이 사용하는 특수한 기능
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    // 런타임 환경
+    "env": {
+        "browser": true,
+        "node": true
+    },
+    // 상속: 기본규칙들을 넣는다.
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended"
+    ],
+    // 플러그인
+    "plugins": [
+        "import",
+        "react-hooks"
+    ],
+    // 이 앱의 특별한 규칙을 넣는다.
+    "rules": {
+        "jsx-a11y/label-has-associated-control": "off",
+        "jsx-a11y/anchor-is-valid": "off"
+    }
+}

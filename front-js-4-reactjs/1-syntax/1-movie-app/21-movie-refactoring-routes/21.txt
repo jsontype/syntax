@@ -1,0 +1,63 @@
+[리팩토링 - routes를 따로 빼기]
+
+1. ★리팩토링은 파일이나 폴더 구조를 변경하여, 중복을 제거해서 가독성, 유지보수성을 향상시키고, 나아가 퍼포먼스 튜닝(성능향상)까지 이를 수 있는 중요한 작업이다.
+
+1. src/routes.js 생성
+    import Users from './pages/Users'
+    import Home from './pages/Home'
+    import Movies from './pages/Movies'
+
+    const routes = [
+        {
+            path: '/',
+            component: Home
+        },
+        {
+            path: '/movies',
+            component: Movies
+        },
+        {
+            path: '/users',
+            component: Users
+        }
+    ]
+
+    export default routes
+
+
+
+1. src/App.js 수정
+    상단에 다음을 추가
+        import routes from './routes'
+
+    <Switch></Switch> 사이를 다음 코드로 변경 : map을 돌릴 때는 key가 필요하므로 추가해준다.
+        {routes.map(route => {
+            return (
+                <Route
+                    key={route.path}
+                    path={route.path} 
+                    exact
+                >
+                    <route.component />
+                </Route>
+            )
+        })}
+
+    상단에 다음 4줄을 삭제
+        import Users from './pages/Users'
+        import Home from './pages/Home'
+        import Movies from './pages/Movies'
+        import Routes from './routes'
+
+1. ★이후 라우터를 추가해주고 싶다면, src/routes.js 폴더에 다음과 같이 추가해주면 된다.
+    * 아래는 예시이다.
+        {
+            path: '/users/create'
+            component: UsersCreate
+        }
+
+
+
+1. 테스트
+    cd app1
+    npm run start
