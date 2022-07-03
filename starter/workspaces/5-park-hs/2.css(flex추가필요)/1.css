@@ -1,0 +1,27 @@
+a {
+    font-size: 30px;
+    color: red;
+}
+
+/* class selector : 클래스 선택자 */
+.d-inline {
+    display: inline;
+}
+
+.d-block {
+    display: block;
+}
+
+.icon {
+    font-size: 10px;
+    background-color: cadetblue;
+    border: 1px solid black;
+}
+
+.btn-ok {
+    width: 200px;
+    font-size: 25px;
+    background-color: cornflowerblue;
+    border: 1px solid black;
+    text-align: center;
+}

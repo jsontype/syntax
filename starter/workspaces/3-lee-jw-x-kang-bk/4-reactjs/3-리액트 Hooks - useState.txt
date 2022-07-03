@@ -1,0 +1,59 @@
+[리액트 Hooks - useState]
+
+1. Hooks : State, Life Cycle 을 사용하기 위해서 Hooks 사용.
+
+    State : useState Hook으로 실행. 리액트에서의 변수를 처리. 
+        * state는 일반변수와 다르게, 값이 변하면, 이 재렌더링 되연관있는 컴포넌트들어 화면이 바뀌는 변수이다.
+        * useState는 state의 초기값을 정하면서, 변수를 선언.
+        * setState는 state의 값을 변경.
+
+
+
+
+
+
+
+
+
+1. useState 구현
+    src/App.js
+        최상단에 다음을 임포트
+            import React, { useState } from 'react'
+        
+    function App() {} 밑에 초기화 세터 추가 : setState를 하는 방법이다.
+        const [id, setId] = useState('')
+        const [pw, setPw] = useState('')
+        
+    <div className="App"> 안의 태그를 다음과 같이 수정
+        {id} {pw} <br />
+        {id} {pw} <br />
+        {id} {pw} <br />
+        {id} {pw} <br />
+        {id} {pw} <br />
+        <form onSubmit={onSubmit}>
+        <input
+            type='text'
+            placeholder='ID를 입력해주세요'
+            value={id}
+            onChange={(event) => setId(event.target.value)}
+        /><br />
+        <input
+            type='password'
+            placeholder='PW를 입력해주세요'
+            value={pw}
+            onChange={(event) => setPw(event.target.value)}
+        /><br />
+        <button type='submit'>Submit</button>
+        </form>
+
+    const onKeyUp = () => {} 이 함수는 전체를 삭제
+
+    const onSubmit = () => {} 안의 얼럿을 지우고 다음과 같이 변경
+        event.preventDefault() // form submit 고유의 동작을 멈추기 위해 일시적으로 썼음
+        console.log(id, pw)
+
+
+
+1. 리액트 실행
+    npm run start
+    localhost:3000에 가본다.

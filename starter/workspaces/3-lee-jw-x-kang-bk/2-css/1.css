@@ -1,0 +1,27 @@
+/* 선택자 : tag < "class" < id */
+div {
+    color: white;
+    background-color: red;
+    /* display: inline; */
+}
+
+span {
+    color: white;
+    background-color: blue;
+    /* display: block; */
+}
+
+.title {
+    /* 내부간격 */
+    padding: 30px;
+    padding-left: 0px;
+    padding-top: 0px;
+    /* 외부간격 */
+    margin: 30px;
+    margin-left: 0px;
+}
+
+#user1 {
+    color: gray;
+    font-size: 30px;
+}

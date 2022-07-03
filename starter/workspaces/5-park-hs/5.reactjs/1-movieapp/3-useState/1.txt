@@ -1,0 +1,12 @@
+리액트 훅스 : useState
+
+2019년도에 도입됨.
+state, 라이프사이클메소드 : 함수적용시점 create, update, mount, delete 시점별로 함수를 적용할 수 있는 방법론
+2019년 전에는 class형 컴포넌트로만 가능 -> 2019년 이후, 함수형 컴포넌트도 state, 라이프사이클메소드를 사용.
+
+1. state, setState, useState
+    state : 일반변수와 다르게, 값이 변하면 연관된 컴포넌트들이 재렌더링되어 화면이 바뀌는 변수
+    setState : state의 값을 변경하는 함수
+    useState : state의 초기값을 정하면서 선언하는 함수, return으로 state, setState를 돌려준다.
+
+1. useState 구현

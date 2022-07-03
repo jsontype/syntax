@@ -1,0 +1,3 @@
+리액트 훅스 : useEffect
+
+1. useEffect : 렌더링이 일어나면 실행하는 함수
