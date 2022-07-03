@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 네임스페이스: tb_trn_user_settings 사용자 설정 DB 매퍼 -->
+<mapper namespace="jp.co.[company_name].[main_system_name].is.mapper.TbTrnUserSettingsMapper">
+
+<!-- 인터페이스(bean) 위치: [app_name]\src\main\java\jp\co\[company_name]\[main_system_name]\is\mapper\TbTrnUserSettingsMapper.java -->
+<!-- 인터페이스(bean) 용례: #{bean.userId,jdbcType=VARCHAR} -->
+
+	<!-- 검색 -->
+	<select id="select"  parameterType="jp.co.[company_name].[main_system_name].is.entity.TbTrnUserSettingsEntity" resultType="jp.co.[company_name].[main_system_name].is.entity.TbTrnUserSettingsEntity">
+		select
+			user_id			AS userId, <!-- 스네이크케이스 DB컬럼을 카멜케이스 변수명으로 변경 -->
+			data_type  	    AS dataType,
+			data_name       AS dataName,
+			data_value      AS dataValue,
+			delete_flg		AS deleteFlg,
+			create_date		AS createDate,
+			create_user		AS createUser,
+			update_date		AS updateDate,
+			update_user		AS updateUser,
+			version_no		AS versionNo
+		from tb_trn_user_settings
+		<!-- 조건 -->
+		<where>
+			<!-- 키가 있어야 한다. -->
+			<if test="bean.userId != null and bean.userId != ''">
+				AND user_id = #{bean.userId}
+			</if>
+			<!-- 키가 있어야 한다. -->
+			<if test="bean.dataType != null and bean.dataType != ''">
+				AND data_type = #{bean.dataType}
+			</if>
+			<!-- 필수 항목이 있어야 한다. -->
+			<if test="bean.deleteFlg != null and bean.deleteFlg != ''">
+				AND delete_flg = #{bean.deleteFlg}
+			</if>
+		</where>
+	</select>
+
+	<!-- 삽입 -->
+	<insert id="insertList" parameterType="java.util.List">
+		insert into tb_trn_user_settings(
+			user_id,
+			data_type,
+			data_name,
+			data_value,
+			delete_flg,
+			create_date,
+			create_user,
+			update_date,
+			update_user,
+			version_no
+			)
+		values
+		<foreach collection="beanList" item="bean" separator=",">
+		   (
+			#{bean.userId,jdbcType=VARCHAR},
+			#{bean.dataType,jdbcType=VARCHAR},
+			#{bean.dataName,jdbcType=VARCHAR},
+			#{bean.dataValue,jdbcType=VARCHAR},
+			'0',
+			current_timestamp,
+			#{bean.createUser,jdbcType=VARCHAR},
+			current_timestamp,
+			#{bean.updateUser,jdbcType=VARCHAR},
+			0
+			)
+		</foreach>
+	</insert>
+
+	<insert id="insert" parameterType="jp.co.[company_name].[main_system_name].is.entity.TbTrnUserSettingsEntity">
+		insert into tb_trn_user_settings(
+			user_id,
+			data_type,
+			data_name,
+			data_value,
+			delete_flg,
+			create_date,
+			create_user,
+			update_date,
+			update_user,
+			version_no
+			)
+		values
+		   (
+			#{bean.userId,jdbcType=VARCHAR},
+			#{bean.dataType,jdbcType=VARCHAR},
+			#{bean.dataName,jdbcType=VARCHAR},
+			#{bean.dataValue,jdbcType=VARCHAR},
+			'0',
+			current_timestamp,
+			#{bean.createUser,jdbcType=VARCHAR},
+			current_timestamp,
+			#{bean.updateUser,jdbcType=VARCHAR},
+			0
+			)
+	</insert>
+
+	<!-- 삭제 -->
+	<delete id="delete"  parameterType="map">
+		delete from tb_trn_user_settings
+		<where>
+			<if test="userId != null and userId != ''">
+				AND user_id = #{userId,jdbcType=VARCHAR}
+			</if>
+			<if test="dataType != null and dataType != ''">
+				AND data_type = #{dataType,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</delete>
+
+	<delete id="deleteByPrimaryKey"  parameterType="map">
+		delete from tb_trn_user_settings
+		where user_id   = #{userId,jdbcType=VARCHAR}
+		and   data_type = #{dataType,jdbcType=VARCHAR}
+		and   data_name = #{dataName,jdbcType=VARCHAR}
+	</delete>
+
+	<!-- 수정 -->
+	<update id="update"  parameterType="jp.co.[company_name].[main_system_name].is.entity.TbTrnUserSettingsUpdateEntity">
+		update tb_trn_user_settings
+		set data_name = #{bean.dataName,jdbcType=VARCHAR},
+		    delete_flg ='0',
+		    update_date = current_timestamp,
+		    update_user = #{bean.updateUser,jdbcType=VARCHAR},
+		    version_no = version_no + 1
+		where user_id   = #{bean.userId,jdbcType=VARCHAR}
+		and   data_type = #{bean.dataType,jdbcType=VARCHAR}
+		and   data_name = #{bean.oldDataName,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 카운트 -->
+	<select id="countByPrimaryKey"  parameterType="map" resultType= "int">
+		select count(user_id) as cnt from tb_trn_user_settings
+		where user_id   = #{userId,jdbcType=VARCHAR}
+		and   data_type = #{dataType,jdbcType=VARCHAR}
+		and   data_name = #{dataName,jdbcType=VARCHAR}
+	</select>
+
+</mapper>

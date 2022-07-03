@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 네임스페이스: tb_mst_translation_enjp 출력 언어 DB 매퍼 -->
+<mapper namespace="jp.co.[company_name].[main_system_name].is.mapper.TbMstTranslationEnjpMapper">
+
+<!-- 인터페이스(bean) 위치: [app_name]\src\main\java\jp\co\[company_name]\[main_system_name]\is\mapper\TbMstTranslationEnjpMapper.java -->
+<!-- 인터페이스(bean) 용례: #{bean.en,jdbcType=VARCHAR} -->
+
+	<!-- 검색: 컬럼은 소스/영어/일어 -->
+	<select id="selectTranslationEnjp" resultType="jp.co.[company_name].[main_system_name].is.entity.TbMstTranslationEnjp">
+		select
+			source,
+			en,
+			jp
+		from
+			tb_mst_translation_enjp
+	    order by source
+	</select>
+
+	<select id="select"  parameterType="jp.co.[company_name].[main_system_name].is.entity.TbMstTranslationEnjpEntity" resultType="jp.co.[company_name].[main_system_name].is.entity.TbMstTranslationEnjpEntity">
+		select
+			id			AS id,
+			source		AS source,
+			en			AS en,
+			jp			AS jp,
+			delete_flg	AS deleteFlg,
+			create_date	AS createDate,
+			create_user	AS createUser,
+			update_date	AS updateDate,
+			update_user	AS updateUser,
+			version_no	AS versionNo
+		from tb_mst_translation_enjp
+		<!-- 조건 -->
+		<where>
+			<!-- 키가 있어야 한다. -->
+			<if test="bean.id != null and bean.id != ''">
+				AND id = #{bean.id}
+			</if>
+			<!-- 컬럼들이 있어야 한다. -->
+			<if test="bean.source != null and bean.source != ''">
+				AND source = #{bean.source}
+			</if>
+			<if test="bean.en != null and bean.en != ''">
+				AND en = #{bean.en}
+			</if>
+			<if test="bean.jp != null and bean.jp != ''">
+				AND jp = #{bean.jp}
+			</if>
+		</where>
+	</select>
+
+	<!-- 수정 -->
+	<update id="update"  parameterType="jp.co.[company_name].[main_system_name].is.entity.TbMstTranslationEnjpEntity">
+		update tb_mst_translation_enjp
+			<set>
+				<if test="bean.source != null and bean.source != ''">
+					source = #{bean.source},
+				</if>
+				<if test="bean.en != null and bean.en != ''">
+					en = #{bean.en},
+				</if>
+				<if test="bean.jp != null and bean.jp != ''">
+					default_legends = #{bean.defaultLegends},
+				</if>
+				<if test="bean.deleteFlg != null and bean.deleteFlg != ''">
+					delete_flg = #{bean.deleteFlg},
+				</if>
+				<if test="mode != null and mode != ''">
+					version_no = version_no + 1,
+				</if>
+				create_date = current_timestamp,
+				create_user = #{bean.createUser},
+				update_date = current_timestamp,
+				update_user = #{bean.updateUser}
+			</set>
+		<where>
+			<if test="bean.id != null and bean.id != ''">
+				AND id = #{bean.id}
+			</if>
+		</where>
+	</update>
+
+	<!-- 취소 -->
+	<update id="cancel"  parameterType="jp.co.[company_name].[main_system_name].is.entity.TbMstTranslationEnjpEntity">
+		update tb_mst_translation_enjp set
+			delete_flg = '1'
+		<where>
+			<if test="bean.id != null and bean.id != ''">
+				AND id = #{bean.id}
+			</if>
+		</where>
+	</update>
+
+	<!-- 삽입 -->
+	<insert id="insert" parameterType="jp.co.[company_name].[main_system_name].is.entity.TbMstTranslationEnjpEntity">
+		insert into tb_mst_translation_enjp(
+			id,
+			source,
+			en,
+			jp,
+			delete_flg,
+			create_date,
+			create_user,
+			update_date,
+			update_user,
+			version_no
+			)
+		values
+		   (
+			#{bean.id,jdbcType=INTEGER},
+			#{bean.source,jdbcType=VARCHAR},
+			#{bean.en,jdbcType=VARCHAR},
+			#{bean.jp,jdbcType=VARCHAR},
+			'0',
+			current_timestamp,
+			#{bean.createUser,jdbcType=VARCHAR},
+			current_timestamp,
+			#{bean.updateUser,jdbcType=VARCHAR},
+			0
+			)
+	</insert>
+
+	<insert id="insertList" parameterType="java.util.List">
+		insert into tb_mst_translation_enjp(
+			id,
+			source,
+			en,
+			jp,
+			delete_flg,
+			create_date,
+			create_user,
+			update_date,
+			update_user,
+			version_no
+			)
+		values
+		<foreach collection="beanList" item="bean" separator=",">
+		   (
+			#{bean.id,jdbcType=INTEGER},
+			#{bean.source,jdbcType=VARCHAR},
+			#{bean.en,jdbcType=VARCHAR},
+			#{bean.jp,jdbcType=VARCHAR},
+			'0',
+			current_timestamp,
+			#{bean.createUser,jdbcType=VARCHAR},
+			current_timestamp,
+			#{bean.updateUser,jdbcType=VARCHAR},
+			0
+			)
+		</foreach>
+	</insert>
+
+	<!-- 삭제 -->
+	<delete id="delete"  parameterType="jp.co.[company_name].[main_system_name].is.entity.TbMstTranslationEnjpEntity">
+		delete from tb_mst_translation_enjp
+		<where>
+			<if test="bean.source != null and bean.source != ''">
+				AND source = #{bean.source}
+			</if>
+		</where>
+	</delete>
+</mapper>

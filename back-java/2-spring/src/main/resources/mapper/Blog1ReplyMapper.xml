@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Blog1ReplyMapper">
+
+	<!-- 블로그 댓글 조회 -->
+	<select id="readReply" resultType="to.pc.azuma2.vo.Blog1ReplyVO">
+    	SELECT
+    		  RNO, CONTENT, WRITER, REGDATE
+    	 FROM AZUMA_SM1_BLOG1REPLY
+    	WHERE BNO = #{bno}
+	</select>
+
+	<!-- 블로그 댓글 작성 -->
+	<insert id="writeReply">
+	INSERT INTO AZUMA_SM1_BLOG1REPLY(
+		BNO
+		, RNO
+		, CONTENT
+		, WRITER
+	)
+	VALUES(    #{bno}
+		, NULL
+		, #{content}
+		, #{writer}	)
+	</insert>
+
+	<!-- 블로그 댓글 수정 -->
+	<update id="updateReply" parameterType="to.pc.azuma2.vo.Blog1ReplyVO">
+		UPDATE AZUMA_SM1_BLOG1REPLY SET CONTENT = #{content}
+		WHERE RNO = #{rno}
+	</update>
+
+	<!-- 블로그 댓글 삭제 -->
+	<delete id="deleteReply" parameterType="to.pc.azuma2.vo.Blog1ReplyVO">
+		DELETE FROM AZUMA_SM1_BLOG1REPLY
+		WHERE RNO = #{rno}
+	</delete>
+
+	<!-- 블로그 댓글 수정뷰, 블로그 댓글 삭제뷰 -->
+	<select id="selectReply" resultType="to.pc.azuma2.vo.Blog1ReplyVO">
+		SELECT
+				BNO
+			  , RNO
+			  , CONTENT
+			  , WRITER
+			  , REGDATE
+		  FROM AZUMA_SM1_BLOG1REPLY
+		 WHERE RNO = #{rno}
+	</select>
+
+</mapper>
+
