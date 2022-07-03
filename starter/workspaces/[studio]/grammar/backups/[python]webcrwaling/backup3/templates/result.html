@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="author" content="colorlib.com">
+        <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
+        <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="s01">
+            <form action="/" method="POST">
+                <div class="inner-form" style="color:white">
+                    <!-- Jinja2 문법 : Flask 혹은 Django를 사용하게 되면 HTML에 Jinja2 문법을 사용하여 추가작업 수행가능 -->
+                    <div class="input-field first-wrap">
+                        <h5>파일명:</h5>
+                        <h1>
+                            {% print(fileName) %}
+                        </h1>
+                    </div>
+
+                    <div>
+                        <ul id="result">
+                        {% for i in f %}
+                            <li>{{i}}</li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div class="input-field third-wrap">
+                        <button type="submit" class="btn-search">
+                            뒤로
+                        </button>
+                    </div>                    
+
+                    <div class="input-field third-wrap" style="margin-left:10px;">
+                        <button type="button" class="btn-search" onclick="copyToClipboard('#result')">Copy</button>
+                    </div>                    
+
+
+                </div>
+            </form>
+        </div>
+        
+        <script src="{{ url_for('static', filename='js/copy.js') }}"></script>    
+        <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>    
+    </body>
+</html>

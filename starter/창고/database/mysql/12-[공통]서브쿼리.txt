@@ -1,0 +1,85 @@
+[서브쿼리] (스킵가능)
+참조: https://stricky.tistory.com/265
+
+서브 쿼리(sub query) : SQL내에서 또 다른 select 절을 사용 하는 문법을 이야기합니다.
+서브 쿼리를 사용해서 SQL에서 데이터를 폭넓게 사용할 수 있는 이점이 있습니다. 
+또한 복잡한 쿼리를 조금더 단순화 하여 사용 할 수 있는 장점이 있습니다.
+하지만, 조인을 이용해서 풀 수 있는 문제를 서브 쿼리를 이용해서 푼다면 SQL의 성능에 악영향을 미칠 수 있습니다. 
+그래서 서브 쿼리는 양날의 검처럼 조심히, 최대한 어쩔 수 없는 상황에서만 사용할 수 있도록 해야 합니다.
+
+예를 들어보겠습니다. 아래와 같이 학생 테이블과 학과 테이블을 조회하겠습니다.
+
+select * from mysql.table_7th_student
+select * from mysql.table_7th_major
+
+이 두 테이블을 이용해서 학생 이름과 학생별 학과명을 출력하는 SQL을 서브 쿼리를 통해서 작성해보겠습니다.
+
+1. 스칼라 서브 쿼리
+
+select name as 학생이름,
+       (select major_title from mysql.table_7th_major b
+        where b.major_id = a.major_id) as 학과명
+from mysql.table_7th_student a
+
+위 스칼라 서브 쿼리를 사용한 SQL을 해석해드리자면 학생 테이블(student)에 있는 
+major_id 값을 학과 테이블(major)에서 검색하여 학과명을 가지고 와서 메인 SQL에서 출력하게 만든 것입니다.
+여기서 학과 테이블에 major_id를 넣고 검색하면 당연히 학과는 하나의 행만 나옵니다.
+그래서 위 SQL은 오류없이 실행이 되었던것 이죠. 
+
+그렇다면 반대로 학과 테이블을 메인테이블로 두고 학생 테이블에서 major_id를 검색 하면 어떻게 될까요?
+
+select major_title as 학과명, 
+    (select name from mysql.table_7th_student b 
+    where b.major_id = a.major_id) as 학생이름 
+from mysql.table_7th_major a
+
+위와 같이 스칼라 서브 쿼리를 사용한 SQL을 작성해서 실행을 하면 아래와 같이 에러가 뜹니다.
+대충 봐도 아시겠죠? 서브 쿼리에서 하나의 행보다 많은 결과가 리턴되었다고 오류가 뜹니다. 
+학생 테이블에는 특정 major_id를 조건절로 넣으면 하나 이상의 행이 리턴되는 것 이죠.
+(* 예: 컴퓨터공학과 하나에 하나의 결과가 매칭되야하는데 하나에 여러개 값이 생겨서 안됨)
+이런 사항을 주의하셔야 합니다.
+
+2. 인라인 뷰 (Inline view)
+다음은 인라인 뷰입니다. 
+
+select a.name as 학생이름, b.major_title as 학과명 from mysql.table_7th_student a, 
+    (select major_title, major_id from mysql.table_7th_major) b 
+    where a.major_id = b.major_id
+
+스칼라 서브쿼리와 같은 결과가 나옵니다.
+여기서 주의하실 점은 인라인 뷰의 select 절에 있는 칼럼명만 메인 쿼리에서 select 절로 표현하거나, 
+where 절에서 조건절로 사용하거나, join 할 때 key 값으로 사용할 수 있다는 점입니다. 
+인라인 뷰의 select 절에 없는 칼럼은 메인 쿼리 그 어디에서도 사용할 수 없습니다.
+
+3. 단일형 서브쿼리
+where 절에 사용하는 경우를 서브쿼리라고 합니다.
+그리고 그 중 하나의 where절로 쿼리결과가 나오는 경우를 단일형 서브쿼리라고 합니다.
+이때 where절 내 비교 연산자 사용에 주의하셔야 하는데요, 
+단일행 결과가 나오는 서브 쿼리의 경우에만 아래의 비교 연산자를 사용하실 수 있습니다.
+=, <>, >, >=, <, <=
+이를 활용하여 학생들 중 소속 학과가 '컴퓨터공학과'인 학생들 목록을 출력하는 서브 쿼리를 이용한 SQL을 작성해보겠습니다.
+
+select name as 학생이름 from mysql.table_7th_student
+    where major_id = (select table_7th_major.major_id from mysql.table_7th_major where major_title = '컴퓨터공학과')
+
+4. 복수형 서브쿼리
+where 절에 사용하는 경우를 서브쿼리라고 합니다.
+그리고 그 중 두개 이상의 where절로 쿼리결과가 나오는 경우를 복수형 서브쿼리라고 합니다.
+복수행 결과가 나오는 서브 쿼리의 경우에만 아래의 비교 연산자를 사용하실 수 있습니다.
+IN (NOT IN) : 모두 포함함, EXIST : 서브쿼리의 값이 있을 경우 반환함, NOT EXIST : 서브쿼리의 값이 없는 경우 반환함
+이를 활용하여 학생들 중 소속 학과가 '컴퓨터공학과'인 경우와 '국문학과'인 경우의 학생 목록을 출력하는 서브 쿼리를 이용한 SQL을 작성해보겠습니다.
+
+select name as 학생이름 from mysql.table_7th_student 
+    where major_id in (select table_7th_major.major_id from mysql.table_7th_major 
+    where major_title in ('컴퓨터공학과','국문학과'))
+
+5. Join으로 표현하기
+가급적이면 서브쿼리보단 조인을 사용하는것이 더 좋습니다.
+대부분 SQL에서 더욱 좋은 성능을 나타내기 때문 입니다.
+그럼, 조인을 해서 학생별 학과명 출력을 하는 SQL을 보실게요.
+
+select a.name as 학생이름, b.major_title as 학과명
+    from mysql.table_7th_student a, mysql.table_7th_major b
+    where a.major_id = b.major_id
+
+이렇게 해도 아래와 같이 스칼라 서브 쿼리나, 인라인 뷰의 예제와 같은 결과를 출력하게 됩니다.

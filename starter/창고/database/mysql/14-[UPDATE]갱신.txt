@@ -1,0 +1,23 @@
+[UPDATE문: 기본 데이터 수정]
+참조: https://stricky.tistory.com/277
+
+1. 절차
+A5M2에서 mysql에 접속한 뒤, Query-1 탭을 클릭
+SQL 입력 (★ A5M2에 입력할 때는 마지막 구분자 ;를 쓰지 않는다.)
+커런트스키마에서 ctrl + F5로 커밋결과 리프레쉬
+
+1. 데이터 수정하기
+1) 기본키를 이용해서 update하기
+update란, 기존 데이터의 row 수는 변하지 않지만 row 내 특정 칼럼의 값이 바뀌는 작업을 말하는 겁니다.
+홍길동 이름을 손흥민으로 바꿔보겠습니다.
+update mysql.table_10th set name = '손흥민' where seq = 1
+* update mysql.table_10th set name = '손흥민'
+* where 절을 빼고 update 문을 실행하면 모든 name 칼럼 값이 "손흥민"으로 변경이 되어버립니다. 그러므로 update에서 where절은 필수입니다.
+
+2) where 절의 조건을 비교연산자로 해서 수정하기
+update mysql.table_10th set name = '박찬호' where seq in (13,14,15)
+where 절에 조건은 select문에서 배웠던 것처럼 "=" 조건뿐 아니라, in절 또는, like 등의 비교 연산자도 들어갈 수 있습니다.
+위 update 문은 seq가 13,14,15에 해당하는 row의 name 칼럼 값을 "박찬호"라고 변경하라는 의미입니다.
+
+3) 2개 이상의 칼럼 값을 변경하는 update문 사용방법
+update mysql.table_10th set name = '전우치', cont = '여러분들 덕분입니다!' where seq in (14,15)

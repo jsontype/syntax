@@ -1,0 +1,36 @@
+1. vue cli 설치
+    npm install -g @vue/cli
+    vue.cmd --version
+
+1. vue 앱 생성
+    vue.cmd create app1 : app1은 앱이름이자 폴더명
+        default vue2 선택
+    cd app1
+    code .
+
+1. package.json안의 script에서 실행할 모듈을 선택. serve.
+    npm run serve : * 해당 파일내의 "serve"를 실행
+    
+1. 구동 확인하기
+    http://localhost:8080/ : 구동확인
+    app.vue : 파일 수정후 저장하면 자동 업데이트 되는지 확인
+    * 터미널 상에서 끌때는 ctrl + c
+
+1. 사용할 API : https://api.hnpwa.com/v0/news/1.json
+
+
+
+
+
+
+<앱 제작 순서>
+1. src/App.vue 비우기
+2. 라우터 설치
+    npm i vue-router@3.0.1
+    npm audit fix
+3. src/routes/index.js : 라우터
+4. src/main.js : 어떤 라이브러리를 사용하는지를 담아두는 곳
+5. src/components/ToolBar.vue : 메뉴 부품 (갈림길)
+    * 부품(components) : 헤더, 푸터, 사이드바, 모달 등을 의미
+6. src/views/NewsView.vue : 뉴스페이지 (목적지)
+7. src/App.vue : 화면

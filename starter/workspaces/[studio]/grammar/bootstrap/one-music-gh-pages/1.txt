@@ -1,0 +1,15 @@
+부트스트랩 : 반응형 웹페이지를 빠르고 안정적으로 구축하는 css/js 프레임워크
+프레임워크 : 동일한 방식으로 코딩 규칙들을 통일시키는 강요성을 가지고 있는 코딩방식의 약속. 유지보수성이 급격히 상승한다.
+API : https://getbootstrap.com/docs/
+
+text-center : 가운데정렬 style="text-align:center;"
+Column : 총 12. col-12 col-xl-* col-lg-* col-md-* col-sm-* col-xs-* 
+Padding, Margin : p-25 m-50 pb-75 mt-100 ... pl-xl-25 pr-100 pt pb px py p ml mr mt mb mx my m 
+Width, Height : w-25 h-100
+Display : d-block d-inline d-inline-block d-flex
+Alert : alert alert-primary alert-secondary
+Button : btn btn-primary btn-secondary
+* primary secondary success danger warning info light dark
+그 외의 components들 : 
+alert, button, badge, breadcrumb, card, carousel, collapse, dropdown, list group, modal, navs, navbar, pagination, popover, progess,
+scrollspy, spinner, toast tootip

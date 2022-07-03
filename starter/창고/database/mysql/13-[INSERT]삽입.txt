@@ -1,0 +1,48 @@
+[INSERT문: 기본 데이터 삽입]
+참조: https://stricky.tistory.com/268
+
+1. 절차
+A5M2에서 mysql에 접속한 뒤, Query-1 탭을 클릭
+SQL 입력 (★ A5M2에 입력할 때는 마지막 구분자 ;를 쓰지 않는다.)
+커런트스키마에서 ctrl + F5로 커밋결과 리프레쉬
+
+1. 수업준비 (순서대로)
+1) 테이블 생성
+create table mysql.table_9th (
+    seq        int(10) primary key ,
+    cont       text,
+    name       varchar(15),
+    tel_num    int(11),
+    input_date datetime
+)
+테이블 9th로부터 복제해서 하나 더 만들기
+create table mysql.table_10th as select * from mysql.table_9th where 1=2
+
+1. 데이터 삽입하기
+1) 단일행 입력하기 (칼럼 미지정)
+insert into mysql.table_9th values (1,'대한민국은 코로나를 잘 극복 하고 있습니다.', '홍길동', 01012345678, now())
+select * from mysql.table_9th
+" now() " 대신 " sysdate() "를 사용하셔도 되고, 
+어떤 지정된 날짜 및 시간을 넣고 싶으시면 <'2020-02-01 12:32:22'>, <'2020-02-01'>, <'20200201'>, <date_format('20200201', '% y% m% d')>
+이런식으로 넣으면 됩니다.
+
+2) 단일행 입력하기 (칼럼 지정)
+insert into mysql.table_9th (seq, cont, name, tel_num, input_date) values (8,'대한민국은 코로나를 잘 극복 하고 있습니다.', '홍길동', 01012345678, now())
+칼럼 지정을 한 일부의 데이터만 넣을 수도 있습니다.
+insert into mysql.table_9th (seq, cont, input_date) values (10,'대한민국은 코로나를 잘 극복 하고 있습니다.', now())
+
+3) 복수행 입력하기
+이번에는 하나의 insert 문으로 여러 행의 데이터를 입력하는 방법에 관해서 알아보겠습니다.
+아래 insert SQL문을 보시겠습니다.
+insert into mysql.table_9th
+values (13, '대한민국은 코로나를 잘 극복 하고 있습니다.', '장발산', 01012345678, now()),
+       (14, '대한민국은 코로나를 잘 극복 하고 있습니다.', '장발산', 01012345678, now()),
+       (15, '대한민국은 코로나를 잘 극복 하고 있습니다.', '장발산', 01012345678, now()),
+       (16, '대한민국은 코로나를 잘 극복 하고 있습니다.', '장발산', 01012345678, now()),
+       (17, '대한민국은 코로나를 잘 극복 하고 있습니다.', '장발산', 01012345678, now())
+위 insert SQL을 이용하면 커맨드를 보시면 아시겠습니다. 한 번에 5건의 데이터를 넣을 수 있습니다. 물론 더 쓴다면 더 많이 넣을 수 도 있겠죠.
+
+4) insert select 문 활용하기
+insert select 문을 활용해서 mysql.table_10th에 있는 5건의 데이터를 mysql.table_9th로 입력해 보도록 하겠습니다.
+insert into mysql.table_10th select * from mysql.table_9th
+10th 테이블에 9th 테이블의 데이터가 복제된 것을 확인합니다.

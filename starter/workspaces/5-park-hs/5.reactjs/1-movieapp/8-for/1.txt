@@ -1,0 +1,13 @@
+리액트 : 반복문
+
+1. 일반 반복문
+    let arr = [1, 2, 3, 4, 5]
+    for (let i = 0; i < arr.length; i++) {
+        let item = arr[i]
+        console.log(item)
+    }
+
+1. 리액트 반복문
+    arr.forEach((item) => { console.log(item) }) : 리턴이 없을 때
+    arr.map((item) => { return item  + 1 }) : 같은 길이의 배열 리턴
+    arr.filter((item) => { return item > 3 }) : 다른 길이의 배열 리턴

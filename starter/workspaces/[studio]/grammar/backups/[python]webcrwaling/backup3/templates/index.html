@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="author" content="colorlib.com">
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="s01">
+      <form action="/action" method="POST">
+        <fieldset>
+          <legend>링크 추출기</legend>          
+        </fieldset>
+
+        <div style="color:white;">
+          {% if log %}
+            에러가 발생했습니다.<br>
+            원인: {% print(log) %}
+          {% endif %}
+        </div>            
+
+        <div class="inner-form">
+          <div class="input-field first-wrap">
+            <input name="url" id="search" type="text" placeholder="추출을 원하는 사이트" />
+          </div>
+          <div class="input-field second-wrap">
+            <input name="fileName" id="search" type="text" placeholder="메모장 파일 이름" />
+          </div>
+          <div class="input-field third-wrap">
+            <button class="btn-search" type="submit">Action</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </body><!-- This templates was made by Colorlib (https://colorlib.com) -->  
+</html>

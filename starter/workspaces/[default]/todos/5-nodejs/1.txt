@@ -1,0 +1,13 @@
+nodejs : CLI(Command Line Interface) 자바스크립트 런타임
+설치 : https://nodejs.org/ko/ 설치
+설치확인 : 
+    vs코드에서 현재파일위치로 터미널열기 설정
+        파일 - 기본설정 - 설정 - 설정검색 (cwd) - 첫번째 인풋에 ${fileDirname} 입력
+    터미널 열기
+        터미널 - 새 터미널
+    터미널에서 node -v, npm -v
+js 실행 :
+    node *.js
+
+npm : node package manager. javascript 라이브러리들을 관리하는 CLI
+    npm i [깔고싶은 라이브러리나 프레임워크이름]

@@ -1,0 +1,9 @@
+client
+    html, css, bootstrap, js : 20/20
+    nodejs : 3/20
+    spa: 0/20
+    mpa : 0/20
+
+server
+    php : 0/20
+    java : 0/20, springboot mvc 구조 설명만

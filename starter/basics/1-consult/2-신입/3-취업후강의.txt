@@ -1,0 +1,81 @@
+[취업후, 공부 해야 할 인터넷 강의]
+
+1. 자바스크립트
+    JavaScript ES6 추천 강의 
+        모던 자바스크립트(javascript) 개발을 위한 ES6 강좌
+        윤지수
+        대상:초급자
+
+1. 타입스크립트
+    TypeScrpt 추천 강의
+        타입스크립트 입문 - 기초부터 실전까지
+        장기효(캡틴판교)
+        대상:초급자
+    실전 프로젝트로 배우는 타입스크립트
+        장기효(캡틴판교)
+        대상:중급자
+
+1. React.js
+    React 기초익히기
+        코지 코더
+        대상:초급자
+        https://www.youtube.com/watch?v=y4Pd3M1ZIXk&list=PLB7CpjPWqHOuf62H44TMkMIsqfkIzcEcX
+    ReactJS로 영화 웹 서비스 만들기
+        노마드 코더
+        https://nomadcoders.co/react-for-beginners/lectures/3257
+    [필수] 풀스택 리액트 라이브코딩(간단한 쇼핑몰 만들기)
+        정재남
+        대상:초급자
+        John Ahh(그외에도 여러가지 강의 추천)
+        대상:초급자 
+    [필수] Redux vs MobX (둘 다 배우자!)
+        조헌영(제로초)
+        대상:초급자 
+    ReactJS 마스터클래스
+        노마드 코더
+        대상:중급자
+
+1. Next.js
+    [필수] React로 NodeBird SNS 만들기
+        조헌영(제로쵸)
+        대상:중급자
+    풀스택 캐럿마켓 클론코딩
+        노마드코드
+        대상:중급자
+
+1. React Hooks
+    [필수] React Hooks에 취한다
+        별코딩
+        https://www.youtube.com/watch?v=G3qglTF-fFI&list=PLZ5oZ2KmQEYjwhSxjB_74PoU6pmFzgVMO
+
+1. Firebase
+    [필수] 파이어베이스로 캐럿마켓 클론코딩
+        https://www.youtube.com/watch?v=9RkXchEJgKU
+
+1. GraphQL
+    [필수] 나의 첫번째 graphQL 서버 만들기 노마드
+        https://www.youtube.com/watch?v=3PZGW5Iwtv4&list=PL5gTKHIL4Kvt-NdYeTtuzC5eNKGWSrL-F
+
+
+
+1. Vue.js
+    Vue.js 2 기초 익히기 기본 강좌
+        코지 코더
+        대상:초급자        
+    프로젝트로 배우는 Vue.js 3
+        코지 코더
+        대상:초급자
+    Vue.js 시작하기 - Age of Vue.js
+        장기효(캡틴판교)
+        대상:초급자
+    Vue.js 중급 강좌 - 웹앱 제작으로 배워보는 Vue.js, ES6, Vuex
+        장기효(캡틴판교)
+        대상:중급자
+    Vue.js 끝장내기 - 실무에 필요한 모든 것
+        장기효(캡틴판교)
+        대상:중급이상
+
+1. Nuxt.js
+    Vue로 Nodebird SNS 만들기
+        조현영(제로쵸)
+        대상:중급자

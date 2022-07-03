@@ -1,0 +1,16 @@
+React 정의
+
+JS SPA 라이브러리
+    State 관리 : 
+        저장공간 관리 : redux, mobx 중 택1
+        비동기 처리 : redux-saga, redux-thunk, reactQuery 중 택1
+    Life Cycle Method : react hooks + 함수형 컴포넌트, 클래스형 컴포넌트 중 택1
+        함수 실행 시점
+        create : 컴포넌트가 열릴 때
+        update : 내용이 변경될 때
+        mount : 변경된 내용으로 다시 로드
+        destroy : 닫힐 때
+    장점 : 커뮤니티성, 구조가 단순(ts, tsx)
+
+React 앱 설치방법
+    npx create-react-app app1
