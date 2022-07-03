@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 
+            가상요소(::) : 선택자 내의 특정 요소(element)를 선택할 수 있다.
+
+            ::first-letter : 텍스트의 첫 문자에 적용
+            ::first-line : 텍스트의 첫 줄에 적용 (브라우저 기준)
+            ::selection : 드래그된 부분에 적용
+            ::placeholder : 플레이스홀더에 적용
+            ::before : 요소 앞에 적용
+            ::after : 요소 뒤에 적용
+
+            그 외 가상요소・가상클래스들은 인터넷을 검색하거나 다음 API를 참조해보자.
+            
+            https://www.w3schools.com/css/css_pseudo_classes.asp
+            https://www.w3schools.com/css/css_pseudo_elements.asp
+        */
+        p::first-letter {
+            color: #ff0000;
+            font-size: xx-large;
+        }
+
+        p::first-line {
+            color: #ff0000;
+            font-variant: small-caps;
+        }
+
+        p::selection {
+            color: white;
+            background-color: orange;
+        }
+
+        input::placeholder {
+            color: gray;
+        }
+
+        h1::before {
+            color: gray;
+            content: "Hello ";
+        }
+
+        h1::after {
+            color: red;
+            content: " ← 추천!";
+        }
+    </style>
+</head>
+
+<body>
+    <!-- p::first-letter, p::first-line, p::selection -->
+    <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, natus ratione
+        cupiditate sed nostrum ab esse pariatur veritatis labore eius molestias dolorem soluta sapiente. Iusto
+        distinctio delectus aspernatur deleniti quo?
+    </p>
+
+    <!-- input::placeholder -->
+    <input type="text" placeholder="ID를 입력해주세요.">
+
+    <!-- h1::before, h1::after -->
+    <h1>CSS!</h1>
+</body>
+
+</html>
