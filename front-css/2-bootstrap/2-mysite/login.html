@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>내 홈페이지</title>
+
+    <!-- ##### CSS ##### -->
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- ##### Favicon ##### -->
+    <link rel="shortcut icon" href="assets/css/favicon.png" type="image/x-icon">
+</head>
+<body>
+    <!-- ##### Header Start ##### -->
+    <header>
+        <!-- ##### Navbar Start ##### -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">로고</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="index.html">홈</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="bbs.html">게시판</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="blog.html">블로그</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      유저
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item" href="login.html">로그인</a></li>
+                      <li><a class="dropdown-item" href="#">회원가입</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="#">회원정보 수정</a></li>
+                    </ul>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link disabled">OO님 환영합니다.</a>
+                  </li>
+                </ul>
+                <form class="d-flex">
+                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-outline-success" type="submit">검색</button>
+                </form>
+              </div>
+            </div>
+        </nav>
+        <!-- ##### Navbar End ##### -->
+    </header>
+    <!-- ##### Header End ##### -->
+
+    <!-- ##### Bread Crumb Start ##### -->
+    <section class="breadCrumb">
+      <div class="container">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">홈</a></li>
+            <li class="breadcrumb-item active" aria-current="page">로그인</li>
+          </ol>
+        </nav>          
+      </div>
+    </section>
+    <!-- ##### Bread Crumb End ##### -->    
+
+    <!-- ##### Login Start ##### -->
+    <section class="login">
+      <div class="container-fluid h-custom">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-md-9 col-lg-6 col-xl-5">
+            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" class="img-fluid"
+              alt="Sample image">
+          </div>
+          <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+            <form>
+              <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
+                <p class="lead fw-normal mb-0 me-3">Sign in with</p>
+                <button type="button" class="btn btn-primary btn-floating mx-1">
+                  <i class="fab fa-facebook-f"></i>
+                </button>
+    
+                <button type="button" class="btn btn-primary btn-floating mx-1">
+                  <i class="fab fa-twitter"></i>
+                </button>
+    
+                <button type="button" class="btn btn-primary btn-floating mx-1">
+                  <i class="fab fa-linkedin-in"></i>
+                </button>
+              </div>
+    
+              <div class="divider d-flex align-items-center my-4">
+                <p class="text-center fw-bold mx-3 mb-0">Or</p>
+              </div>
+    
+              <!-- Email input -->
+              <div class="form-outline mb-4">
+                <input type="email" id="form3Example3" class="form-control form-control-lg"
+                  placeholder="Enter a valid email address" />
+                <label class="form-label" for="form3Example3">Email address</label>
+              </div>
+    
+              <!-- Password input -->
+              <div class="form-outline mb-3">
+                <input type="password" id="form3Example4" class="form-control form-control-lg"
+                  placeholder="Enter password" />
+                <label class="form-label" for="form3Example4">Password</label>
+              </div>
+    
+              <div class="d-flex justify-content-between align-items-center">
+                <!-- Checkbox -->
+                <div class="form-check mb-0">
+                  <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
+                  <label class="form-check-label" for="form2Example3">
+                    Remember me
+                  </label>
+                </div>
+                <a href="#!" class="text-body">Forgot password?</a>
+              </div>
+    
+              <div class="text-center text-lg-start mt-4 pt-2">
+                <button type="button" class="btn btn-primary btn-lg"
+                  style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
+                <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="#!"
+                    class="link-danger">Register</a></p>
+              </div>
+    
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ##### Login End ##### -->
+
+    <!-- ##### Footer Start ##### -->
+    <footer>
+        <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title my-3">Special title treatment</h5>
+              <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam cupiditate nihil molestias autem placeat laboriosam necessitatibus quas officia ab sapiente! Tenetur veniam odio deleniti eligendi ullam nobis iste culpa vitae?</p>
+              <p class="card-text mt-5">Made By Coding_Cafe_TV</p>
+              <p class="card-text">Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved.</p>
+            </div>
+          </div>
+    </footer>
+    <!-- ##### Footer End ##### -->
+
+    <!-- ##### JS ##### -->
+    <script src="assets/js/bootstrap.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
