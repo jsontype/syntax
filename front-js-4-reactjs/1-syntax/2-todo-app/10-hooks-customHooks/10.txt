@@ -1,0 +1,152 @@
+[커스텀 훅스 만들기]
+
+1. 커스텀 훅스 쓰는 이유 : 
+    컴포넌트를 만들다보면, 반복되는 로직이 자주 발생한다. 예를 들어서 input 을 관리하는 코드는 관리 할 때마다 비슷한 코드가 반복된다.
+    그러한 상황에 커스텀 훅스를 만들어서 반복되는 로직을 쉽게 재사용할 수 있다.
+
+
+
+1. src/hooks/useInputs.js 생성 : 커스텀 훅스 만드는 방법
+    커스텀 Hooks를 만들 때에는 보통 이렇게 use 라는 키워드로 시작하는 파일을 만들고 그 안에 함수를 작성한다.
+    그 후, 그 안에서 useState, useEffect, useReducer, useCallback등 Hooks를 사용하여 원하는 기능을 구현해준다.
+    그 후, 컴포넌트에서 사용하고 싶은 값들을 반환해주면 된다.
+
+    import { useState, useCallback } from 'react'
+
+    // useInputs 커스텀훅
+    function useInputs(initialForm) {
+        // input form의 값 변수설정 및 초기값 지정
+        const [form, setForm] = useState(initialForm)
+
+        // input form에 값 입력시 처리
+        const onChange = useCallback(e => {
+            const { name, value } = e.target
+            setForm(form => ({ ...form, [name]: value }))
+        }, [])
+
+        // 새 항목을 추가할 때, input form의 값 리셋 처리
+        const reset = useCallback(() => setForm(initialForm), [initialForm])
+
+        // form 상태변수, onChange, reset 함수들을 전달함
+        return [form, onChange, reset]
+    }
+
+    export default useInputs
+
+
+
+1. src/App.js 수정 : useInputs Hook 사용하도록 변경
+    이 작업을 하기 위해서는 먼저 useReducer 쪽에서 사용하는 inputs를 지우고 useInputs로 대체해준다.
+    
+    상단에 다음을 추가
+        import useInputs from './hooks/useInputs'
+    
+    const initialState 밑의 inputs를 지운다.
+        inputs: {
+            username: '',
+            email: ''
+        },
+
+    function reducer(state, action) 함수 안의 switch 문을 다음과 같이 수정한다.
+        switch (action.type) {
+            // 사용자 추가하는 액션타입
+            case 'CREATE_USER':
+                return { 
+                    users: state.users.concat(action.user)
+                }
+
+            // 사용자 수정하는 액션타입
+            case 'TOGGLE_USER':
+                return {
+                    users: state.users.map(user =>
+                        user.id === action.id ? { ...user, active: !user.active } : user
+                    )
+                }
+
+            // 사용자 삭제하는 액션타입
+            case 'REMOVE_USER':
+                return {
+                    ...state, 
+                    users: state.users.filter(user => user.id !== action.id)
+                }
+
+            // 사용자 조회하는 액션타입
+            default:
+                return state
+        }
+    
+    const { username, email } = state.inputs 부분을 지우고 다음과 같이 변경
+        // 커스텀 훅스
+        const [{ username, email }, onChange, reset] = useInputs({
+            username: '',
+            email: ''
+        })
+
+    다음을 삭제
+        const onChange = useCallback() 함수 전체
+
+    const onCreate 함수 안의 nextId.current += 1 위에 다음을 추가
+        // 새 항목을 추가할 때, input form의 값 리셋 처리 (useInputs.js에서 가져옴) 
+        reset()
+
+    const onCreate 함수 안의 nextId.current += 1 밑에 Deps부분에 다음과 같이 reset 불러오는 부분을 추가
+        }, [username, email, reset])
+
+
+
+1. 테스트 : 결과는 이전과 똑같다.
+    cd app1
+    npm start
+
+
+
+1. 문제 : useInputs 커스텀 Hook 을 한번 useReducer 를 사용해서 구현해보세요.
+    답은 다음과 같다.
+
+    import { useReducer, useCallback } from 'react'
+
+    // reducer 사용
+    function reducer(state, action) {
+        switch (action.type) {
+            case 'CHANGE':
+                return {
+                    ...state,
+                    [action.name]: action.value
+                }
+
+            case 'RESET':
+                return Object.keys(state).reduce((acc, current) => {
+                    acc[current] = ''
+                    return acc
+                }, {})
+
+            default:
+                return state
+        }
+    }
+
+    // useInputs 커스텀훅
+    function useInputs(initialForm) {
+        // input form의 값 변수설정 및 초기값 지정
+        const [form, dispatch] = useReducer(reducer, initialForm)
+
+        // input form에 값 입력시 처리
+        const onChange = useCallback(e => {
+            const { name, value } = e.target
+            dispatch({ type: 'CHANGE', name, value })
+        }, [])
+
+        // 새 항목을 추가할 때, input form의 값 리셋 처리
+        const reset = useCallback(() => dispatch({ type: 'RESET' }), [])
+
+        // form 상태변수, onChange, reset 함수들을 전달함
+        return [form, onChange, reset]
+    }
+
+    export default useInputs
+
+
+
+1. 테스트 : 결과는 이전과 똑같다.
+    cd app1
+    npm start
