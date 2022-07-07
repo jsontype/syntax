@@ -69,7 +69,7 @@ function App() {
     // ★비구조화 할당 문법 : 아래와 같이 하면, state에서 필요한 값들을 추출하여 각 컴포넌트에게 prop으로 전달할 수 있다.
     const { users } = state
 
-    // 커스텀 훅스
+    // Custom Hooks
     const [{ username, email }, onChange, reset] = useInputs({
         username: '',
         email: ''

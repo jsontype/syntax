@@ -20,7 +20,7 @@ function reducer(state, action) {
     }
 }
 
-// useInputs Custom Hook
+// useInputs 커스텀훅
 function useInputs(initialForm) {
     // input form의 값 변수설정 및 초기값 지정
     const [form, dispatch] = useReducer(reducer, initialForm)
