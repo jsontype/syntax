@@ -50,3 +50,8 @@ else if (apple > people) {
 else {
     console.log('둘다 불충분하다')
 }
+
+// 두개 이상의 조건 : and (&&), or (||)
+if (a > 0 && b > 0) {
+    console.log('나올까요?')
+}
