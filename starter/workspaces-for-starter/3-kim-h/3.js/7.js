@@ -18,7 +18,7 @@ let c = 3
 if (c === 1) {
     result2 = 'c는 1'
 } else if (c === 2) {
-    result2 = 'c는 2'    
+    result2 = 'c는 2'
 } else if (c === 3) {
     result2 = 'c는 3'
 } else if (c === 4) {
@@ -28,9 +28,6 @@ if (c === 1) {
 }
 
 result2 = c === 1 ? 'c는 1' : c === 2 ? 'c는 2' : c === 3 ? 'c는 3' : c === 4 ? 'c는 4' : 'c는 모른다.'
-
-
-
 
 // 기존2 : Else가 없을 때
 let result4 = ''

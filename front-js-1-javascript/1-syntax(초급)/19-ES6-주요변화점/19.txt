@@ -1,0 +1,6 @@
+[EcmaScript6 주요 변화점]
+
+let, const
+arrow expression
+backtick
+spreading 배열, 객체의 복사 : 기존 JSON.parse(JSON.stringify(obj))
