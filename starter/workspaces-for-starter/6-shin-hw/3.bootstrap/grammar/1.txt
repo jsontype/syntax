@@ -1,5 +1,0 @@
-bootstrap은 css의 framework이다.
-framework는 한 언어에서 강요된 코딩의 틀이다.
-
-장점
-    모든 개발자가 다 통일된 코드를 보게 되는 점
