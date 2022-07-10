@@ -215,3 +215,8 @@
 1. 테스트
     cd app1
     npm start
+
+
+
+1. 과제: 다음 진도로 넘어가기전에, 이 틀에서 아래 API를 이용해서 movieApp을 한번 만들어보자.
+    API: https://yts.mx/api/v2/list_movies.json?sort_by=rating
