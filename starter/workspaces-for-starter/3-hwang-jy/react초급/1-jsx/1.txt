@@ -1,0 +1,9 @@
+nodejs
+
+설치방법
+    npx create-react-app app1
+
+JSX 문법
+    return 안에는 하나의 부모 태그만 가능 : div 쓰기 싫을 때는 fragment 써도 됨. (<></>)
+    class 대신 className으로 사용
+    js 쓸 때는 {}으로 묶어서

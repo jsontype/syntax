@@ -1,0 +1,7 @@
+[useEffect]
+
+1. Life Cycle Method
+    컴포넌트에는 생명주기가 있다.
+        Created(초기Mount) -> <<< Updated -> Mounted >>> -> Unmounted
+        Counter 컴포넌트 킴 -> <<< number 바꿈 -> 실림 >>> -> Counter 컴포넌트 끔           
+
