@@ -1,31 +1,30 @@
 import React, { useState, useEffect } from 'react'
 import './App.css'
 
-const App = () => {
+function App() {
   const [movies, setMovies] = useState([])
 
   useEffect(() => {
     fetch('https://yts.mx/api/v2/list_movies.json?sort_by=rating')
-      .then((response) => response.json())
-      .then((json) => {
-        setMovies(json.data.movies)
-      })
+      .then((res) => { return res.json() })
+      .then((json) => { setMovies(json.data.movies) })
   }, [])
 
-  console.log(movies)
+  console.log('movies: ', movies)
 
-  const render = movies.map((item) => { 
+  const render = movies.map((item) => {
     return (
-      <div className='movie' key={item.id}>
-        <img className='movieImage' src={item.background_image}></img>
-        <a className='movieTitle' href={item.url} target='_blank'>{item.title} <span className='movieYears'>({item.year})</span></a>
+      <div className='movie' key={item.title}>
+        <img className='movieImage' src={item.background_image} alt={item.title}></img>
+        <a className='movieTitle' href={item.url}>{item.title}</a>
+        <div className='movieYear'>{item.year}</div>
       </div>
     )
   })
 
   return (
     <div className="App">
-      <h1>무비 앱</h1>
+      <h1>무비 리스트</h1>
       {render}
     </div>
   )
