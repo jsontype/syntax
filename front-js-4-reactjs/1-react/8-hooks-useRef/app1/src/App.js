@@ -1,10 +1,12 @@
 import React from 'react'
-import InputSample from './InputSample'
+import Input from './Input'
 
-function App () {
-    return (
-        <InputSample />
-    )
+function App() {
+  return (
+    <>
+      <Input />
+    </>
+  )
 }
 
 export default App
