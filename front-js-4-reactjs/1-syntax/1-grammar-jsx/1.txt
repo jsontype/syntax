@@ -1,0 +1,66 @@
+[JSX]
+
+1. 설치 : nodejs 필요
+    npx create-react-app app1
+
+
+
+1. 불필요 부분을, 연동까지 삭제
+    App.test.js
+    index.css
+    logo.svg
+    reportWebVitals.js
+    setupTests.js    
+
+
+
+1. src/App.js 수정
+    // CSS
+    import './App.css'
+
+    function App() {
+        // JS
+        console.log('hello')
+        const name = 'Hwang'
+
+        // HTML : JSX 문법 적용
+        return (
+            <div className="hello">
+            <div>{console.log('hello')}</div>
+            <div>{name}</div>
+            </div>
+        )
+    }
+
+    export default App
+
+
+
+1. src/App.css 수정
+    .hello {
+        color: red;
+    }
+
+
+
+1. 요약
+    src/App.js : 메인페이지
+    src/index.js : 메인페이지 윗 단계
+        react-dom : 리액트와 돔을 연결한다.
+        App : 메인페이지 컴포넌트를 연결한다.
+        <React.StrictMode> : StrictMode는 애플리케이션 내의 잠재적인 문제를 알아내기 위한 도구
+            개발 모드에서만 활성화되기 때문에, 프로덕션 빌드에는 영향을 끼치지 않는다.
+            * 이를 위해서 사전에 한번 더 렌더링을 하기 때문에, 개발 도중 컴포넌트의 Render가 2번씩 반복되는 현상이 발생한다. 
+            * 이는 <React.StrictMode> 태그를 지운채 실행하면 해결이 된다.
+    JSX 문법
+        컴포넌트를 임포트해서 <App /> 방식으로 도입 가능하다.
+        return 안에는 하나의 부모 태그만 가능 : div 쓰기 싫을 때는 fragment(<></>) 써도 된다.
+        class 대신 className으로 사용
+        js 쓸 때는 {}으로 묶어서
+
+
+
+1. 테스트
+    cd app1
+    npm start (또는 yarn start)
+    http://localhost:3000/

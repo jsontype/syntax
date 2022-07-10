@@ -1,0 +1,50 @@
+[If - 조건부 렌더링]
+
+1. 리액트에서는 if문을 다음처럼 사용한다.
+    if, else 조합 대신 3항연산자를 사용한다.
+    if 대신 && (ampersand) 연산자를 사용한다.
+    대체값이 필요할 때는 || (vertical bar) 연산자를 사용한다.
+
+
+
+1. src/App.js : isSpecial은 isSpecial={true}과 동일한 의미이다.
+    import './App.css'
+    import Hello from './Hello'
+
+    function App() {  
+    const name = 'Hwang'
+    const mark = '!'
+
+    return (
+        <div className="hello">
+        <Hello />
+        <Hello />
+        <Hello isMoney />
+        <Hello name={name} mark={mark} isMoney isSpecial />
+        </div>
+    )
+    }
+
+    export default App
+
+
+
+1. src/Hello.js : { isSpecial && .. }의 경우, 단축 평가 논리 계산법에 의해 isSpecial이 True이면 전체가 True가 되고, False면 전체가 False가 된다.
+    import React from 'react'
+
+    function Hello({name, mark, isMoney, isSpecial}) {
+        const money = isMoney ? '유료'  : '무료'
+        const special = isSpecial && '스페셜 고객님'
+
+        return (
+            <div>Hello {name} {money} {special} {mark} </div>
+        )
+    }
+
+    export default Hello
+
+
+
+1. 테스트
+    cd app1
+    npm start
