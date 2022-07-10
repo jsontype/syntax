@@ -1,1 +1,0 @@
-* 리액트에서 불변성의 법칙을 지켜야하는 이유 : https://webigotr.tistory.com/293 (필독)

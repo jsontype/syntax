@@ -1,0 +1,25 @@
+.movieImage {  
+  width: 300px;
+  border-radius: 5px;
+  border: 1px solid gray;
+}
+
+.movieTitle {
+  display: block;
+  width: 300px;
+  border-radius: 5px;
+  border: 1px solid darkred;
+  color: darkred;
+  text-decoration: none;
+  cursor: pointer; 
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.movieTitle:hover {
+  background-color: gray;
+}
+
+.movieYears {
+  font-size: 12px;
+}

@@ -12,7 +12,7 @@ const App = () => {
   }, [])
 
   console.log(movies)
-  // 1. 리액트 반복문 문제 : movieTitle이라는 클래스네임을 가진 div를 만들고 그 안에 Title을 뿌려주고, movieYears라고 하는 클래스네임을 가진 div안에는 Year를 뿌려준다.
+
   const render = movies.map((item) => { 
     return (
       <div className='movie' key={item.id}>
