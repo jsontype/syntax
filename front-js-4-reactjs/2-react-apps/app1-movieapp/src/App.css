@@ -1,25 +1,29 @@
-.movieImage {  
-  width: 300px;
-  border-radius: 5px;
+.App {
+  padding: 20px;
+}
+
+.movie {
+  display: flex;
   border: 1px solid gray;
-}
-
-.movieTitle {
-  display: block;
-  width: 300px;
   border-radius: 5px;
-  border: 1px solid darkred;
-  color: darkred;
+  padding: 5px;
+}
+
+.movie .movieImage {
+  width: 200px;
+}
+
+.movie .movieTitle {
+  flex-grow: 1;
   text-decoration: none;
-  cursor: pointer; 
-  text-align: center;
-  margin-bottom: 20px;
+  color: black;  
 }
 
-.movieTitle:hover {
-  background-color: gray;
+.movie .movieTitle:hover {
+  background-color: pink;
 }
 
-.movieYears {
-  font-size: 12px;
+.movie .movieYear {
+  font-size: 0.5rem;
+  color: red;
 }
