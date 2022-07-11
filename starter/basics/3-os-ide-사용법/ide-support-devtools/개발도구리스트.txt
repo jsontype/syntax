@@ -41,6 +41,8 @@
         spreadsheet : 문서 작성, 매크로는 VBA 대신 스크립팅으로 가능
         figma : 웹 디자인
 
-1. 크롬 웹스토어 필수확장
-    react context devtools
+1. 크롬 웹스토어 필수확장 : 설치 후 적용하기 위해 크롬 재실행 필요
+    react developer tools
+    react context devtool
     json viewer
+    youtube adblock
