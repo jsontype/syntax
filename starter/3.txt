@@ -1,0 +1,12 @@
+[퍼포먼스튜닝 - State]
+
+
+
+*** 참조해서 이어서
+https://qiita.com/soarflat/items/b9d3d17b8ab1f5dbfed2
+
+
+
+1. 테스트
+    cd app1
+    npm start
