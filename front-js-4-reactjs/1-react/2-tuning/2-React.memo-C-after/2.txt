@@ -1,0 +1,25 @@
+[퍼포먼스튜닝 - React.memo로 컴포넌트 최적화하기 - 후]
+
+1. React의 성능 최적화 후
+    React.memo : 컴퍼넌트 (컴퍼넌트의 렌더링 결과)를 메모화하는 React 의 API (메소드)
+        컴퍼넌트를 메모화하는 것으로, 컴퍼넌트의 재렌더링을 스킵 할 수 있다.
+    
+
+
+1. src/App.js 수정 : props => { ... } 부분을 React.memo()로 감쌀 것
+    const Child = React.memo(props => { ... })
+
+
+
+1. 테스트 : 개발자도구를 켜고, react context devtool의 profiler를 켠 뒤 App 버튼을 눌렀을 때, Child 부분이 리랜더링 안되는 지를 확인
+    cd app1
+    npm start
+
+
+
+1. 요약
+    count1를 갱신해 App컴퍼넌트를 재렌더링했을 때는, Child컴퍼넌트에게 건네지는 Props( count2)는 갱신되지 않기 때문에, 
+    재렌더링은 스킵 된다.
+    Child컴퍼넌트에 건네받지만 count2가 갱신되었을 때만, 재렌더링 하게 되었다.
+    렌더링 비용이 높은 구성 요소를 메모한다.
+    극단적인 예이지만, 이와 같이 렌더링 비용이 높은 컴포넌트를 메모화함으로써 성능의 향상을 기대할 수 있다.
