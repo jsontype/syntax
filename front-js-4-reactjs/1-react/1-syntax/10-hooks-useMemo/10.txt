@@ -1,0 +1,53 @@
+[useMemo를 사용하여 연산한 값 재사용하기]
+
+1. 값 성능최적화 : 연산된 값을 useMemo라는 Hook을 사용하여 재사용한다. 
+
+1. src/App.js : active 값이 true인 사용자의 수를 세어서 화면에 렌더링
+    function App () 밖의 위에 추가
+        function countActiveUsers(users) {
+            console.log('활성 사용자 수를 세는중...')
+            return users.filter(user => user.active).length
+        }
+
+    function App () 안의 리턴 위에 추가
+        const count = countActiveUsers(users)
+
+    function App () 안의 리턴 수정 : 아래와 같이 "<div>활성사용자 수 : {count}</div>" 부분 추가
+        return (
+            <>
+                <CreateUser
+                    username={username}
+                    email={email}
+                    onChange={onChange}
+                    onCreate={onCreate}
+                />
+                <UserList users={users} onRemove={onRemove} onToggle={onToggle} />
+                <div>활성사용자 수 : {count}</div>
+            </>
+        )
+
+1. 중간테스트 : 인풋을 입력할 때, 활성 사용자 수도 함께 재렌더링 되고 있음을 "콘솔로그로" 확인한다.
+    cd app1
+    npm start
+
+1. 성능적 문제의 인식
+    다른 계정명을 눌러서 초록색으로 만들면 활성 사용자 수 또한 업데이트 될 것이다.
+    그러나, 여기서 발생하는 성능적 문제가 있다. 바로, input 값을 바꿀 때에도 countActiveUsers 함수가 호출된다는 것이다.
+    활성 사용자 수를 세는 건, users에 변화가 있을 때만 세야 되는 건데, input 값이 바뀔 때에도 컴포넌트가 리렌더링 되므로 자원이 낭비된다.
+    이런 상황에서, useMemo Hook함수를 통해 성능을 최적화할 수 있다.
+    Memo는 Memoized를 의미한다. 이는 이전에 계산한 값을 재사용한다는 의미를 가지고 있다.
+    한번 사용해보도록 하자.
+
+
+
+1. src/App.js 수정
+    최상단 코드에 useMemo 추가
+        import React, { useRef, useState, useMemo } from 'react'
+
+    const count = countActiveUsers(users)를 다음과 같이 수정 : 두번째 파라미터에는 deps 배열을 넣어준다. deps안의 내용이 바뀌지 않았다면 이전 연산값을 재사용한다.
+        // const count = countActiveUsers(users)
+        const count = useMemo(() => countActiveUsers(users), [users])
+
+1. 중간테스트 : 인풋을 입력할 때, 활성 사용자 수는 함께 재렌더링 되고 있지 않음을 "콘솔로그로" 확인한다.
+    cd app1
+    npm start
