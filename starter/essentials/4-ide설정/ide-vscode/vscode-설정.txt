@@ -25,6 +25,8 @@
         lint 기능(문법 오류, 코드 컨벤션 등을 잡아주는 검사기능)
     "Auto Import - ES6, TS, JSX, TSX"
         빨간 줄에 커서를 대고 자동수정을 누르면, 풀다운이 뜨고 거기서 원 출처를 선택하면 자동으로 import 코드가 생성됨
+    "Gitlens"
+        협업시 누가 구현한 코드인지를 짙은 회색 글씨로 알려줌
 
     ★★
     "Material Icon Theme"
