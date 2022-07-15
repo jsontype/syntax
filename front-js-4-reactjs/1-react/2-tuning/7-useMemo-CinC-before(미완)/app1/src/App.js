@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useMemo } from "react"
 
 export default function App() {
   const [count1, setCount1] = useState(0)
@@ -14,25 +14,20 @@ export default function App() {
   }
 
   // 현재의 상황:
-  // double(count2)는 컴포넌트가 재렌더링되는 사이에 실행되기 때문에,
-  // count1만 변경해서 컴포넌트가 재렌더링된 때에도 double(count2)까지 실행되버린다.
-  // count1을 변경한다고 해서, doubledCount는 변경되지 않으므로,
-  // count1가 변경되어서, 컴포넌트가 재렌더링되었을 때는 double(count2)는 실행하지 않도록 하고 싶다.
+  // count2를 참조하는 doubledCount를 메모화해서 count1을 변경할 때에는 count2가 발생하지 않도록 했다.
 
   // count2를 2배로 한 수치
-  const doubledCount = double(count2)
+  const doubledCount = useMemo(() => double(count2), [count2])
 
   return (
     <>
-      <h2>Increment count1</h2>
+      <h2>Increment(fast)</h2>
       <p>Counter: {count1}</p>
-      <button onClick={() => setCount1(count1 + 1)}>Increment count1</button>
+      <button onClick={() => setCount1(count1 + 1)}>Increment(fast)</button>
 
-      <h2>Increment count2</h2>
-      <p>
-        Counter: {count2}, {doubledCount}
-      </p>
-      <button onClick={() => setCount2(count2 + 1)}>Increment count2</button>
+      <h2>Increment(slow)</h2>
+      <p>Counter: {count2}, {doubledCount}</p>
+      <button onClick={() => setCount2(count2 + 1)}>Increment(slow)</button>
     </>
   )
 }
