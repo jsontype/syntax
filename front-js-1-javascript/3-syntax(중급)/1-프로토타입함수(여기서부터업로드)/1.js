@@ -15,10 +15,12 @@ const obj = {
     name: "yang"
 }
 const arr = [obj]
+const str = 'hello'
 
 // 객체는 프로토타입 함수를 함께 갖고 있다.
-console.log('userObj: ', obj)
-console.log('userArr: ', arr)
+console.log('obj: ', obj)
+console.log('arr: ', arr)
+console.log('str: ', str)
 
 // 프로토타입 함수는 다음과 같이 꺼내서 사용한다.
 // 프로토타입 함수들 중 자주 쓰는 것을 가능한 한 알아두는 것이 좋다. 제일 많이 쓰이는 배열고차함수들도 이 안에 담겨져있다.
