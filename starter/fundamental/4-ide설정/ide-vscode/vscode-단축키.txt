@@ -6,3 +6,4 @@ ctrl(cmd) + shift + p : 설정 검색
         ctrl(cmd) + shift + p 누른 후, 표시언어구성 누른 다음, ko 변경하고 재시작
         ko로 되어있더라도, 다시 설정하고 재시작을 해야 고쳐짐.
 터미널 열고 code . : 해당 디렉토리 쉽게 열기
+! 치고 Fn + Ctrl + Space : HTML 자동생성

@@ -76,3 +76,33 @@ const filtered = todos.filter((todo) => { return todo.id !== 2 })
 // 배열 변경 : id 2번의 done을 토글링 
 const toggled = todos.map((todo) => (todo.id === 2) ? { ...todo, done: !todo.done } : todo)
 // 더 고수버전 : const toggled = todos.map(todo => todo.id === 2 ? { ...todo, done: !todo.done } : todo)
+
+
+
+
+/*
+ [배열이나 객체에서 CRUD하는 법]
+*/
+
+// 1. 선언
+const arr = [1, 2, 3, 4, 5]
+const obj = { oldKey: 123 }
+
+// 1. 예전 배열 추가 삭제
+// arr.push(value) 추가
+// arr.splice(index, number) 삭제
+
+// 1. 예전 객체 추가 삭제
+// obj.newKey = newValue 추가
+// obj.remove(oldKey) 삭제
+// obj.oldKey = newValue 변경
+
+// 1. 리액트용 불변성 지키는 배열 추가 변경 삭제
+const addArr = [ ...arr, value ] // 배열 추가
+const modArr = arr.map((item, index) => { return index === arr.length - 1 ? 999 : item }) // 배열 변경
+const delArr = arr.filter((item, index) => { return index !== 1 }) // 배열 삭제
+
+// 1. 리액트용 불변성 지키는 객체 추가 변경 삭제
+const addObj = { ...obj, newKey: newValue } // 객체 추가
+const modObj = { ...obj, oldKey: newValue } // 객체 변경
+const { oldKey, ...delObj } = obj // 객체 삭제

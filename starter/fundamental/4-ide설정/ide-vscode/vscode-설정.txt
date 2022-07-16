@@ -15,8 +15,8 @@
     ★★★
     "Tabnine"
         AI가 미리 칠 내용을 알려줘 오타도 방지하고, 탭 치면서 하면 더 빠르고 쉽게 코딩 가능
-    "Reactjs code snippets"
-        rcc라고 치면 클래스형 컴포넌트, rcs로 치면 함수형 컴포넌트 자동완성 (★★rcc, rcs외에도 rcsp, rcsm, rcspm 등 가능)
+    "ES7+ React/Redux/React-Native snippets"
+        rcc라고 치면 클래스형 컴포넌트, rfc로 치면 함수형 컴포넌트 자동완성 (★★rcc, rfs외에도 rfsp 등 가능)
     "HTML CSS Support"
         HTML, CSS 스니펫 지원
     "Prettier"
@@ -27,6 +27,8 @@
         빨간 줄에 커서를 대고 자동수정을 누르면, 풀다운이 뜨고 거기서 원 출처를 선택하면 자동으로 import 코드가 생성됨
     "Gitlens"
         협업시 누가 구현한 코드인지를 짙은 회색 글씨로 알려줌
+
+    
 
     ★★
     "Material Icon Theme"
