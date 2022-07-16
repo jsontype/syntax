@@ -1,0 +1,15 @@
+.red {
+  color: red;
+}
+
+.userNo {
+  color: gray;
+}
+
+.userId {
+  font-size: 8px;
+}
+
+.userPw {
+  display: none;
+}
