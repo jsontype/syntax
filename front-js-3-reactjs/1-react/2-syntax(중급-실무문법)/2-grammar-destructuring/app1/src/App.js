@@ -3,6 +3,7 @@ import { useState } from 'react'
 export default function App() {
   const [arr, setArr] = useState([1, 2, 3, 4, 5])
   const [obj, setObj] = useState({ id: 'yang123', pw: '3qeklfew12' })
+
   // destructing : 비구조화 할당
   const { id, pw } = obj
 
@@ -12,14 +13,10 @@ export default function App() {
 
   const addObj = () => { setObj({ ...obj, email: 'test@example.com' }) }
   const modObj = () => { setObj({ ...obj, email: 'zzzz@example.com' }) }
-  const delObj = () => { 
-    const { email, ...delObj } = obj
-    setObj(delObj)
-  }
+  const delObj = () => { const { email, ...delObj } = obj; setObj(delObj) }
 
   return (
     <div>
-      Hello React
       <div>{arr[arr.length - 1]} </div>
       <button onClick={addArr}>배열 추가</button>
       <button onClick={modArr}>배열 수정</button>
