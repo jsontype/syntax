@@ -39,10 +39,21 @@ export default function App() {
     
     // 인풋창에 값을 입력했을 때
     const onChange = e => {
+
+        // 비구조화 할당
         const { name, value } = e.target
-            setInputs(inputs => ({
+
+        /* 
+            여러 개의 input이 있을 때,
+            onChange도 input 수만큼 만들어서 해도 된다.
+            그러나 중복이 많아지기 때문에, 더 좋은 방법은, 
+            아래와 같이 input에 name을 설정하고 이벤트가 발생할 때 이 값을 참조하는 것이다.      
+                [name]: value
+        */
+
+        setInputs(inputs => ({
             ...inputs,
-            [name]: value
+            [name]: value // [name]은, 각 name 키의 값(id, email)과 일치하는 input창의 value를 의미함
         }))
     }
 
