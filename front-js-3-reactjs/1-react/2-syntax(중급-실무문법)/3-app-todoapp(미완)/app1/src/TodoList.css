@@ -1,0 +1,12 @@
+.todo {
+    color: darkslategrey;
+}
+
+.todo > .title {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.todo > .body {
+    font-size: 8px;
+}
