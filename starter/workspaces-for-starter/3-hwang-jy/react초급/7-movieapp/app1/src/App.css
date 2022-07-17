@@ -1,0 +1,61 @@
+.App {
+    padding: 20px;
+    text-align: center;
+}
+
+.movie {
+    display: flex;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 7px;
+    margin-bottom: 10px;
+}
+
+.movie .movieImage {
+    width: 100px;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.movie .movieYear {
+    font-size: 0.5rem;
+    color: red;
+}
+
+.movie .movieTitle {
+    flex-grow: 1;
+    color: black;
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+}
+
+.movie .movieTitle .movieRating {
+    font-size: 14px;
+}
+
+.movieContent {
+    margin-bottom: 50px;
+}
+
+.movieContent .movieGenres, .movieSynopsis, .movieRating {
+    display: block;
+    font-size: 14px;
+}
+
+.movie .movieTitle:hover {
+    background-color: pink;
+}
+
+.good {
+    color: blue;
+}
+
+.soso {
+    color: yellowgreen;
+}
+
+.bad {
+    color: red;
+}
