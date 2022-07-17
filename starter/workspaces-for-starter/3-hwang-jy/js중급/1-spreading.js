@@ -12,8 +12,6 @@ const { pw, ...user1Delete } = user1
 
 console.log(user1Delete)
 
-
-
 const todos = [
     {
       id: 1,
@@ -29,6 +27,7 @@ const todos = [
 
 // 배열 추가
 const todosAdd = [ ...todos, { id: 3, text: '할일', done: false } ]
+const todosAdd2 = todos.concat({ id: 3, text: '할일', done: false })
 // 배열 삭제 : id = 2인 것을 삭제
 const todosDelete = todos.filter((item) => { return item.id !== 2 })
 // 배열 변경 : id = 2번의 done을 토글링
