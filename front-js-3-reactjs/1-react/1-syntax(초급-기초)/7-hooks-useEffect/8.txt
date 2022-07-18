@@ -41,7 +41,7 @@
         // 컴포넌트의 탄생과 죽음 : Create, unmount
         useEffect(() => { 
             // create
-            console.log('Created') 
+            console.log('Created')
             // unmount
             return () => { 
                 console.log('Unmounted')
