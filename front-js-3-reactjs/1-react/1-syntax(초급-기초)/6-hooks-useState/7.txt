@@ -3,7 +3,7 @@
 1. Hooks : 리액트의 함수형 컴포넌트가 클래스형 컴포넌트의 기능을 사용할 수 있도록 해주는 기능이다. 2019년도 리액트 16.8버전 이후 도입되었다.    
     과거 : 클래스형 컴포넌트는 문법이 어렵고, 축소가 어렵고, 로직 재사용이 어렵고, 최신기술 적용이 어려웠음에도, 아래 state관리와 life cycle method의 구현을 위해 어쩔 수 없이 써왔다.
         state : 일반변수와 다르게, 값이 변하면 연관있는 컴포넌트들이 재렌더링 되어 화면이 바뀌는 변수이다. (* vue의 state.store와 같다.)
-        life cycle method : 함수를 특정 시점에서만 실행하는 구현 방식이다. (* vue의 created-updated-mounted-destoryed와 같다.)        
+        life cycle method : 함수를 특정 시점에서만 실행하는 구현 방식이다. (* vue의 created-updated-mounted-destoryed와 같다.)
     현재 : Hooks가 도입되면서, 함수형 컴포넌트에서도 state나 life cycle method 작업이 가능해졌다.
         state : 함수형 컴포넌트에서도 state 관리를 할 수 있는 useState를 제공한다.
         life cycle method : 함수형 컴포넌트에서도 실행 시점을 설정할 수 있는 useEffect 등의 기능을 제공한다.
