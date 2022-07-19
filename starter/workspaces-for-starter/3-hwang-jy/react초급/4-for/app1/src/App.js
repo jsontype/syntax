@@ -6,7 +6,7 @@ function App() {
     { id: 2, name: 'Smith', email: 'Smith@example.com' },
     { id: 3, name: 'Jane', email: 'Jane@example.com' },
     { id: 4, name: 'Yang', email: 'Yang@example.com' },
-    { id: 5, name: 'Hwang', email: 'Hwang@example.com' },
+    { id: 5, name: 'Shin', email: 'Shin@example.com' },
   ]
 
   const render = userList.map((item) => {

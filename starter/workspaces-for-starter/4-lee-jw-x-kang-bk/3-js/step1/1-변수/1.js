@@ -70,7 +70,7 @@ console.log(Math.floor(3.14)) // Math라고 하는 내장 객체의 함수중 �
 const user2 = { id: 'user2', name: 'Hong', pw: 'sdafkjdsafl', no: 116 }
 const user3 = { id: 'user3', name: 'Park', pw: 'sdafsdafkjdsafl', no: 117 }
 const user4 = { id: 'user4', name: 'Kim', pw: 'sdafkjdsasdaffl', no: 118 }
-const user5 = { id: 'user5', name: 'Hwang', pw: 'asdfsdafkjdsafl', no: 119 }
+const user5 = { id: 'user5', name: 'Shin', pw: 'asdfsdafkjdsafl', no: 119 }
 
 const userList = [user1, user2, user3, user4, user5]
 
