@@ -4,7 +4,7 @@ import './App.css'
 function App() {
     // JS 로직
     console.log('hello')
-    const name = 'Hwang'
+    const name = 'Shin'
 
     // HTML 돔
     return (

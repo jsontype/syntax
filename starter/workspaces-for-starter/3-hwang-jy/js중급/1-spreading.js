@@ -6,7 +6,7 @@ user1.pw = "5555"
 // 객체 변경
 const user1New = { ...user1, pw: "2345"}
 // 객체 추가
-const user1Add = { ...user1, name: "Hwang" }
+const user1Add = { ...user1, name: "Shin" }
 // 객체 삭제
 const { pw, ...user1Delete } = user1
 

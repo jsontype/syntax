@@ -3,7 +3,7 @@ import './App.css'
 function App() {
   // JS : JS 코드 넣는 부분
   console.log('hello')
-  const name = 'Hwang'
+  const name = 'Shin'
 
   // JSX : HTML 코드 넣는 부분
   return (

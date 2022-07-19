@@ -2,7 +2,7 @@ import './App.css'
 import Hello from './Hello'
 
 export default function App() {  
-  const name = 'Hwang'
+  const name = 'Shin'
   const mark = '!'
 
   return (
