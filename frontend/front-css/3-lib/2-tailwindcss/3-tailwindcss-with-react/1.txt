@@ -1,0 +1,39 @@
+# https://tailwindcss.com/docs/installation 이걸로 했는데
+# https://tailwindcss.com/docs/guides/create-react-app 이건 뭐지?
+
+1. 설치
+    npx create-react-app app1
+    cd app1
+    npm install -D tailwindcss postcss autoprefixer : 리액트 앱에 tailwindcss을 devDeps에 설치
+    npx tailwindcss init -p : tailwind.config.js 생성하는 명령문
+
+1. tailwind.config.js 수정
+    /** @type {import('tailwindcss').Config} */
+    module.exports = {
+        content: [
+            "./src/**/*.{js,jsx,ts,tsx}",
+        ],
+        theme: {
+            extend: {},
+        },
+        plugins: [],
+    }
+
+1. src/index.css 수정 : tailwindcss의 본체를 소환하기 위한 빌드용 css
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+
+1. npm run start
+
+1. src/App.js 수정
+    import React from 'react'
+    import './App.css'
+
+    export default function App() {
+        return (
+            <h1 className="text-3xl font-bold underline">
+                Hello world!
+            </h1>
+        )
+    }
