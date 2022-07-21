@@ -1,0 +1,48 @@
+[개발 도구 리스트]
+
+1. PC 앱
+    버전관리
+        git : 버전관리 유닛
+        sourcetree : GUI 기반 git 관리 툴
+    터미널
+        git bash : TUI 기반 git 관리 툴
+        NodeJS : TUI 기반 JS 런타임
+        powershell : 윈도우용 터미널
+        iTerm2 : 맥용 터미널
+    DB
+        A5M2 : DB 관리 툴
+    개발 IDE
+        VSCode : Java 외 코딩 툴
+        Pleiades Eclipse : Java 코딩 툴
+    커뮤니케이션
+        slack : 40분 제한, 원격제어, 화면 필터링
+        team : 회의실에 로그인 없이도 접속 가능
+        google meeting : google calendar와 연동 가능
+    개발보조 (윈도우, 맥북은 그냥 vscode에서 비교)
+        Winmerge : 소스 비교
+    spectacle (맥북)
+        맥북 화면보조앱
+
+1. 웹 앱
+    Git
+        github, gitlab : 협업
+    배포
+        000webhost.com : PHP 무료 웹 호스팅
+        zenkins : 배포
+        azure : 가상머신 호스팅, WVD 환경 구동
+        aws : 가상머신 호스팅, 인프라구축
+    테스트
+        postman : 개발된 API의 테스트
+        datadog : 상용환경 로그 취득
+    인프라
+        docker : 개발환경 간단 설정
+    개발보조
+        drive : 문서 공유
+        spreadsheet : 문서 작성, 매크로는 VBA 대신 스크립팅으로 가능
+        figma : 웹 디자인
+
+1. 크롬 웹스토어 필수확장 : 설치 후 적용하기 위해 크롬 재실행 필요
+    react developer tools
+    react context devtool
+    json viewer
+    youtube adblock
