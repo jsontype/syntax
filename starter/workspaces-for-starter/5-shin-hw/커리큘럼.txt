@@ -1,0 +1,30 @@
+< API 취득 들어간 앱 몇개 만들기 >
+
+숙제: 뉴스앱 만들기
+    https://api.hnpwa.com/v0/news.json  
+
+
+    
+## API 리스트  
+뉴스  
+API: https://api.hnpwa.com/v0/news.json  
+API: https://api.hnpwa.com/v0/ask.json  
+
+SNS  
+API: https://dummyapi.io/data/v1/user?limit=10  
+DOC: https://dummyapi.io/explorer  
+
+쇼핑몰  
+API: https://fakestoreapi.com/products  
+DOC: https://fakestoreapi.com/docs  
+
+
+
+< 문법 >
+use... Hooks류 다 공부해야함
+
+< 리팩토링 >
+렌더링 시각화 : 웹스토어 - react context devtools 깔고 - 재시작 - 콘솔창에서 profiler 선택 - 설정 아이콘 - Highlight updates when components render에 체크
+
+< 깃 >
+깃 관리하면서 프로젝트 다시 시작해보기

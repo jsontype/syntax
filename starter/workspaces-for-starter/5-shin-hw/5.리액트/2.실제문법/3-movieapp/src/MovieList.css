@@ -1,0 +1,56 @@
+.movie {
+    display: flex;
+    /* flex에서 사용하는 세로 정렬 */
+    align-items: center;
+}
+
+.movieTitle {
+    flex: 5;
+    font-size: 18px;
+    text-decoration: none;
+    color: black;
+    padding-left: 20px;
+}
+
+.movieTitle:hover {
+    background-color: gray;
+}
+
+.movieImage {
+    height: 100px;
+    border-radius: 6px;
+    border: 1px solid gray;
+    margin-top: 20px;
+}
+
+.movieImage:hover {
+    border: 1px solid red;
+}
+
+.movieGenre {
+    flex: 1;
+    color: gray;
+    font-size: 8px;
+    align-content: flex-end;
+}
+
+.movieRating {
+    font-size: 10px;
+    color: gray;
+}
+
+.good {
+    color: blue;
+}
+
+.soso {
+    color: yellowgreen;
+}
+
+.bad {
+    color: red;
+}
+
+.movieYear {
+    font-size: 14px;
+}

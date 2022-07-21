@@ -1,3 +1,5 @@
+[Windows 단축키]
+
 <git 관리>
 Source Tree 탭에서 git을 관리한다.
 
