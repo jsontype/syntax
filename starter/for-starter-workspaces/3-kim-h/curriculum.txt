@@ -1,10 +1,17 @@
 ↓ 커리큘럼 : 필수 내용 (** 아직 압축 안함, 자료 만든다음 압축예정)
 "HTML : 태그 A to Z
 CSS : 컬러, 폰트, 패딩, 디스플레이 타입
-JS : 변수, 함수, 조건문, 반복문 //" DOM, API // 고차함수, 화살표함수
-Git : github, 풀, 푸시, 협업(** 클론, 브랜치, 체크아웃, 패치, 이슈, PR, 리뷰, 머지, 경합), 본인 syntax 레포지토리 관리시키기
-NodeJS : npm, 웹팩
-TS : 타입, 인터페이스
+JS : 변수, 함수, 조건문, 반복문 // DOM, API // 고차함수, 화살표함수
+ReactJS : 기본문법," Hooks
 Architecture : SPA-CSR, MPA-SSR-SCSS-SEO, SCRUM
-ReactJS : 기본문법, Hooks
+NodeJS : npm, 웹팩
+Git : github, 풀, 푸시, 협업(** 클론, 브랜치, 체크아웃, 패치, 이슈, PR, 리뷰, 머지, 경합), 본인 syntax 레포지토리 관리시키기
+TS : 타입, 인터페이스
 NextJS : SCSS
+
+todo: 
+    부모자식프롭스 반대로
+    movieapp
+    Hooks
+    hooks movieapp
+    git project
