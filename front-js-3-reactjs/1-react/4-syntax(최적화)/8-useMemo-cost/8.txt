@@ -1,8 +1,12 @@
-[useMemo, useCallback의 비용 계산]
+[useMemo의 비용 계산]
 
 1. 최적화의 cost를 계산해야하는 이유
     최적화의 cost가 안 했을 때의 cost보다 더 높거나, 차이가 없다면, 오히려 최적화를 안 하는 게 더 나을 수 있다.
     최적화의 cost를 계산하는 방법을 소스코드를 통해 알아보자.
+
+1. useMemo 와 useCallback 은 언제 써야할까?
+    레퍼런스(메모리 값)이 동일한지 비교 - Referential equality
+    컴퓨터를 활용하는 비싼 연산(ex. 피보나치 수열, 소수 구하기 등)
 
 1. src/App.js 수정
     import React, { useState, useMemo } from "react"

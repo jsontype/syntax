@@ -1,0 +1,98 @@
+[useMemo의 비용 계산]
+
+1. 최적화의 cost를 계산해야하는 이유
+    최적화의 cost가 안 했을 때의 cost보다 더 높거나, 차이가 없다면, 오히려 최적화를 안 하는 게 더 나을 수 있다.
+    최적화의 cost를 계산하는 방법을 소스코드를 통해 알아보자.
+
+1. useMemo 와 useCallback 은 언제 써야할까?
+    레퍼런스(메모리 값)이 동일한지 비교 - Referential equality
+    컴퓨터를 활용하는 비싼 연산(ex. 피보나치 수열, 소수 구하기 등)
+
+1. src/App.js 수정
+    import React, { useState, useMemo } from "react"
+
+    export default function App() {
+        // App 컴포넌트 렌더링
+        console.log("render App")
+        const [count1, setCount1] = useState(0)
+        const [count2, setCount2] = useState(0)
+
+        const double = count => {
+            let i = 0
+            while (i < 3000000000) i++
+            return count * 2
+        }
+
+
+
+        // <주석토글 1-1 Start>
+        const Counter = (count2) => {
+            console.log("render Counter")
+            const doubledCount = count2 * 2
+            return (
+                `Counter: ${count2}, ${doubledCount}`
+            )
+        }
+        // <주석토글 1-1 End>
+
+        // <주석토글1-2 Start> : "재렌더링 비용 <= useMemo 실행비용"이므로 하는 것이 의미가 없다.
+        // const Counter = useMemo(() => {
+        //   console.log("render Counter")
+        //   const doubledCount = count2 * 2
+        //   return (
+        //     <p>Counter: {count2}, {doubledCount}</p>
+        //   )
+        // }, [count2])
+        // <주석토글1-2 End>
+        
+
+
+
+        // <주석토글 2-1 Start>
+        // const Counter = (count2) => {
+        //   console.log("render Counter")
+        //   const doubledCount = double(count2)
+        //   return (
+        //     `Counter: ${count2}, ${doubledCount}`
+        //   )
+        // }
+        // <주석토글 2-1 End>
+
+        // <주석토글2-2 Start> : "재렌더링 비용 > useMemo 실행비용"이므로 분명히 재렌더링 비용이 높기 때문에 useMemo를 사용하면 큰 효과를 얻을 수 있다.
+        // const Counter = useMemo(() => {
+        //   console.log("render Counter")
+        //   const doubledCount = double(count2) // 이것 때문에 하는 게 더 낫다.
+        //   return (
+        //     <p>Counter: {count2}, {doubledCount}</p>
+        //   )
+        // }, [count2])
+        // <주석토글2-2 End>
+
+        
+
+        return (
+            <>
+                <p>Counter: {count1}</p>
+                <button onClick={() => setCount1(count1 + 1)}>Increment count1</button>
+
+                {/* 주석토글 1-1, 2-1 */}
+                <p>{Counter(count2)}</p>
+                {/* 주석토글 1-2, 2-2 */}
+                {/* {Counter} */}
+                <button onClick={() => setCount2(count2 + 1)}>Increment count2</button>
+            </>
+        )
+    }
+
+
+
+1. 테스트
+    cd app1
+    npm start
+    lighthouse "기간 모드, 데스크톱 기기"에 체크
+    JS부분과 XML부분의 토글1-1을 주석해제하고, lighthouse "기간 모드 시작" 실행후, Count1 버튼을 3번 눌러본다.
+    JS부분과 XML부분의 토글1-2을 주석해제하고, lighthouse "기간 모드 시작" 실행후, Count1 버튼을 3번 눌러본다.
+    토글1-2와 같이 useMemo를 써도 성능 점수에서 차이가 없는 것을 확인
+    JS부분과 XML부분의 토글2-1을 주석해제하고, lighthouse "기간 모드 시작" 실행후, Count1 버튼을 3번 눌러본다.
+    JS부분과 XML부분의 토글2-2을 주석해제하고, lighthouse "기간 모드 시작" 실행후, Count1 버튼을 3번 눌러본다.
+    토글2-2와 같이 useMemo를 쓰면 성능 점수에서 극적인 차이가 있는 것을 확인

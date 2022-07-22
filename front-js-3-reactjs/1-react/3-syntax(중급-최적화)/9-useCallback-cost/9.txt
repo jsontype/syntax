@@ -1,3 +1,0 @@
-todo
-
-https://www.rinae.dev/posts/review-when-to-usememo-and-usecallback 참조
