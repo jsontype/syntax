@@ -1,6 +1,0 @@
-todo: 
-    부모자식프롭스 반대로
-    movieapp
-    Hooks
-    hooks movieapp
-    git project
