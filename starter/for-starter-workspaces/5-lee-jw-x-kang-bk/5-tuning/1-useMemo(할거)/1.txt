@@ -1,0 +1,7 @@
+크롬 웹스토어에서 깔 것
+1. react context devtool 
+    -> react app 접속 -> f12 -> profiler 탭 -> 설정 -> 
+    -> Highlight updates when components render. 체크
+    -> 이것저것 눌러봐요.
+1. react developer tools
+1. json viewer
