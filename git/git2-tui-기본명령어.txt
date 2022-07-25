@@ -17,6 +17,9 @@
         PL : 깃허브에서 세팅 - manage access - collaborator 깃 유저네임으로 추가
         PG : 메일로 권한 받음 - git 환경구축 - 클론
 
+    clone : 맨 처음 세팅하기
+        git clone [url] : url에 해당하는 레포지토리를 클론한다. 부른 위치에서 새 폴더로 생성된다.
+
     fetch : 이슈를 판 뒤, 우선적으로 할 일
         git fetch origin : 리모트 레포지토리에 있는 git을 전부 fetch한다.
         git pull origin feat/1 : 리모트 레포지토리에 있는 (신규 fetch된) git들로 local을 갱신한다. 
