@@ -1,0 +1,12 @@
+[VSCode 필수 설정]
+
+1. cwd
+    vscode 설정 화면에 들어간다.
+    cwd 검색한다.
+    terminal.integrated 부분에 다음과 같이 입력한다.
+        ${fileDirname}
+
+1. format on save
+    vscode 설정 화면에 들어간다.
+    format on save 검색한다.
+    ESLint를 쓰는 경우 체크가 꺼져있어야 한다.
