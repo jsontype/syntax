@@ -23,7 +23,7 @@
         DOC: https://dummyapi.io/explorer  
     쇼핑몰  
         API: https://fakestoreapi.com/products  
-        DOC: https://fakestoreapi.com/docs  
+        DOC: https://fakestoreapi.com/docs
 
 
 
