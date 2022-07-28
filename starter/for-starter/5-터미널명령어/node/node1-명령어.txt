@@ -14,6 +14,9 @@
     npm run dev
     npm run storybook
 
+1. yarn 명령어
+    yarn add node-sass (= npm i node-sass)
+
 1. npx 명령어
     npx create-react-app app1
 
