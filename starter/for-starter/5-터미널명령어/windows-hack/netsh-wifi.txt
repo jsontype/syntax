@@ -1,0 +1,10 @@
+[Netsh 명령어]
+
+1. netsh는 윈도우 터미널에서 가능하다.
+
+1. 와이파이 접속상황 알아내기
+    netsh wlan show profiles
+
+1. 와이파이 비밀번호 알아내기
+    netsh wlan show profiles name="90324BDED890-2G" key=clear
+    키 콘텐츠 항목 확인

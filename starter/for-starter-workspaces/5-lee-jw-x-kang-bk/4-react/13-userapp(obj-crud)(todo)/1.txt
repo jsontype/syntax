@@ -1,0 +1,6 @@
+todo
+
+// // 1. 리액트용 불변성 지키는 객체 추가 변경 삭제
+// const addObj = { ...obj, newKey: newValue } // 객체 추가
+// const modObj = { ...obj, oldKey: newValue } // 객체 변경
+// const { oldKey, ...delObj } = obj // 객체 삭제

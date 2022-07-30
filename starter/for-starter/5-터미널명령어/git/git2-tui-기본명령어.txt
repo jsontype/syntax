@@ -73,6 +73,16 @@
             -f를 걸지 않으면 fast forward error에 걸릴 것이다.
 
 
+
+1. 소스트리 사용법
+    소스트리 다운받기
+    원격브랜치 추가해서 기존 깃 프로젝트 폴더와 연결
+    계정연결 방법 :         
+        - 깃허브 - 우측상단 유저 아이콘 클릭 - Settings -  Developer settings - Personal access tokens - Generate new token - Note에 메모 적고, No expiration, 권한 전부 체크 - 확인
+        - 생성된 토큰키 메모해두기
+        - 토큰키를 깃허브 비밀번호로 해서 로그인 연동시키면 된다.
+
+        
         
 1. 숙지사항들
     핵심내용 : 브랜치, 머지, 풀리퀘스트
