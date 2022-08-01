@@ -12,9 +12,9 @@
 // let bool1: boolean = false // 불린
 
 // let arr1: Array<number> = [1, 2, 3] // 숫자 배열: 제너릭 선언
-// let arr2: Array<string> = ['yang', 'kang', 'hwang'] // 문자열 배열: 제너릭 선언
+// let arr2: Array<string> = ['yang', 'kang', 'shin'] // 문자열 배열: 제너릭 선언
 // let arr3: number[] = [1, 2, 3] // 숫자 배열: 제네릭 배열보다 간단한 표현식
-// let arr4: string[] = ['yang', 'kang', 'hwang'] // 숫자 배열: 제네릭 배열보다 간단한 표현식
+// let arr4: string[] = ['yang', 'kang', 'shin'] // 숫자 배열: 제네릭 배열보다 간단한 표현식
 
 // let tuple1: [string, number] = ['hi', 10] // 튜플: 배열을 인덱스별 타입 지정하고 선언
 

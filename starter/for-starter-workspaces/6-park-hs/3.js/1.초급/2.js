@@ -43,7 +43,7 @@ function act() {
         { id: 'azumaapp', pw: 'sdfjewflk', name: 'yang', no: 154 },
         { id: 'kimikimi', pw: 'df134wflk', name: 'kim', no: 155 },
         { id: 'parkupaku', pw: 'sdjew1234flk', name: 'park', no: 156 },
-        { id: 'hhhwang', pw: '1aafjewflk', name: 'hwang', no: 157 }
+        { id: 'kang123', pw: '1aafjewflk', name: 'kang', no: 157 }
     ]
 
     for (let i = 0; i < userInfo.length; i++) {

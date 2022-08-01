@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 구분을 위한 배경선 */
+        .box {
+            width: 700px;
+            text-align: center;
+            margin: 20px;
+            border: 1px solid gray;
+        }
+    </style>
+</head>
+<body>
+    <!-- Block은 세로 정렬이 의미가 없다. -->
+    <h1>Block 가로 정렬</h1>
+    <h2>text-align: start</h2>
+    <div class="box" style="text-align: start;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic, sequi provident, exercitationem magni animi vero, quas explicabo eos corrupti error facere corporis dicta asperiores distinctio aperiam deleniti? Aperiam, neque error?</div>
+    <h2>text-align: center</h2>
+    <div class="box" style="text-align: center;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic, sequi provident, exercitationem magni animi vero, quas explicabo eos corrupti error facere corporis dicta asperiores distinctio aperiam deleniti? Aperiam, neque error?</div>
+    <h2>text-align: end</h2>
+    <div class="box" style="text-align: end;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic, sequi provident, exercitationem magni animi vero, quas explicabo eos corrupti error facere corporis dicta asperiores distinctio aperiam deleniti? Aperiam, neque error?</div>
+    <h2>text-align: justify</h2>
+    <div class="box" style="text-align: justify;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic, sequi provident, exercitationem magni animi vero, quas explicabo eos corrupti error facere corporis dicta asperiores distinctio aperiam deleniti? Aperiam, neque error?</div>
+    <h2>text-align: justify-all</h2>
+    <div class="box" style="text-align: justify-all;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic, sequi provident, exercitationem magni animi vero, quas explicabo eos corrupti error facere corporis dicta asperiores distinctio aperiam deleniti? Aperiam, neque error?</div>
+
+    <hr>
+
+    <!-- Inline은 가로 정렬이 의미가 없다. -->
+    <!-- Inline은 table-cell 안에서도 적용된다. -->
+    <h1>Inline 세로 정렬</h1>
+    <h2>vertical-align: top</h2>
+    <span class="box"><img src="dog.png" height="250px" style="vertical-align: top;"/>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum maiores amet quae at. Illum dolorum temporibus inventore obcaecati eligendi repellendus illo nemo, nisi laborum itaque laudantium, ab a alias aut?</span><br>
+    <h2>vertical-align: middle</h2>
+    <span class="box"><img src="dog.png" height="250px" style="vertical-align: middle;"/>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum maiores amet quae at. Illum dolorum temporibus inventore obcaecati eligendi repellendus illo nemo, nisi laborum itaque laudantium, ab a alias aut?</span><br>
+    <h2>vertical-align: bottom</h2>
+    <span class="box"><img src="dog.png" height="250px" style="vertical-align: bottom;"/>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum maiores amet quae at. Illum dolorum temporibus inventore obcaecati eligendi repellendus illo nemo, nisi laborum itaque laudantium, ab a alias aut?</span><br>
+
+    <hr>
+
+    <!-- 여기서부터 마저 다 해서 끝내기 -->
+    <!-- css flex에서만 쓰는 align 종류! *암기사항으로 적어두기 *align-items: center, justify-content: >>>>>>>>>> --> 
+
+    <div style="display: flex">
+        <div class="box" style="align-content: end;">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi blanditiis magni autem recusandae nesciunt ea ducimus perferendis, pariatur, fuga odio unde hic nihil tenetur quod a ipsa eveniet dolores sit.</div>
+        <div class="box" style="align-content: space-between;">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi blanditiis magni autem recusandae nesciunt ea ducimus perferendis, pariatur, fuga odio unde hic nihil tenetur quod a ipsa eveniet dolores sit.</div>
+        <div class="box" style="align-content: space-around;">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi blanditiis magni autem recusandae nesciunt ea ducimus perferendis, pariatur, fuga odio unde hic nihil tenetur quod a ipsa eveniet dolores sit.</div>
+    </div>
+    <div style="display: flex">
+        <div class="box" style="align-items: start;">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi blanditiis magni autem recusandae nesciunt ea ducimus perferendis, pariatur, fuga odio unde hic nihil tenetur quod a ipsa eveniet dolores sit.</div>
+        <div class="box" style="align-items: center;">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi blanditiis magni autem recusandae nesciunt ea ducimus perferendis, pariatur, fuga odio unde hic nihil tenetur quod a ipsa eveniet dolores sit.</div>
+        <div class="box" style="align-items: end;">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi blanditiis magni autem recusandae nesciunt ea ducimus perferendis, pariatur, fuga odio unde hic nihil tenetur quod a ipsa eveniet dolores sit.</div>
+    </div>
+    <div style="display: flex">
+        <div class="box" style="justify-content: start;">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi blanditiis magni autem recusandae nesciunt ea ducimus perferendis, pariatur, fuga odio unde hic nihil tenetur quod a ipsa eveniet dolores sit.</div>
+        <div class="box" style="justify-content: center;">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi blanditiis magni autem recusandae nesciunt ea ducimus perferendis, pariatur, fuga odio unde hic nihil tenetur quod a ipsa eveniet dolores sit.</div>
+        <div class="box" style="justify-content: end;">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi blanditiis magni autem recusandae nesciunt ea ducimus perferendis, pariatur, fuga odio unde hic nihil tenetur quod a ipsa eveniet dolores sit.</div>
+    </div>
+
+</body>
+</html>

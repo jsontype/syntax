@@ -10,8 +10,12 @@
 
 ## API 리스트  
     유저, 글, 앨범, 사진, 할일 등 종합  
-        API: https://jsonplaceholder.typicode.com/users/1  
-        DOC: https://jsonplaceholder.typicode.com/  
+        API: https://jsonplaceholder.typicode.com/users
+        API: https://jsonplaceholder.typicode.com/users/1
+        API: https://jsonplaceholder.typicode.com/todos
+        API: https://jsonplaceholder.typicode.com/posts
+        DOC: https://jsonplaceholder.typicode.com/
+
     영화  
         API: https://yts.mx/api/v2/list_movies.json?sort_by=rating  
         DOC: https://yts.mx/api  

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS 중급</title>
+    <style>
+        /* 
+            속성 기입순서 컨벤션 : Mozilla에서 제안한 CSS 속성 기술 순서는 다음과 같다.
+                ★★암기 : 표위크윤글내 (계획표가 있는 위크와 윤기나는 글로 내 자신을 세우자.)
+                .myClass {
+                ├── 표현방식
+                │ ├── display
+                │ └── list-style
+                │
+                ├── 위치, 좌표
+                │ ├── position
+                │ ├── float
+                │ └── clear
+                │
+                ├── 크기, 여백
+                │ ├── width / height
+                │ └── padding / margin : top, left, right, bottom 순
+                │
+                ├── 윤곽, 배경
+                │ └── border / background
+                │
+                ├── 글자, 정렬
+                │ ├── color / font
+                │ ├── text-decoration
+                │ ├── text-align / vertical-align
+                │ └── white-space
+                │
+                └── 내용
+                └── content
+            }
+        */
+        p {color: blue !important;}
+        p {color: red;}
+        /* 두번째 속성값이 덮어쓰지 않고 블루 색상으로 보여짐*/
+    </style>
+</head>
+<body>
+    <div>
+        <p>안녕!</p>
+    </div>    
+</body>
+</html>
