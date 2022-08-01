@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS 중급</title>
+    <style>
+        /* 
+            속성 위계 : 같은 요소에 다른 CSS 속성이 중복 설정되어 있다면 다음 우선순위에 따라 적용된다.
+                1순위. 속성값 뒤에 !important가 붙어있는 속성
+                2순위. html에서 직접지정으로 적용되어 있는 속성
+                3순위. 선택자에 id가 쓰인 속성
+                4순위. class, attribute, pesudo-class로 지정한 속성
+                5순위. 태그 이름으로 지정한 속성
+                6순위. 부모 요소에 의해 상속된 속성
+            같은 순위라면 상대적으로 아래에 기술된 CSS가 적용된다.
+        */
+        p {color: blue !important;}
+        p {color: red;}
+        /* 두번째 속성값이 덮어쓰지 않고 블루 색상으로 보여짐*/
+    </style>
+</head>
+<body>
+    <div>
+        <p>안녕!</p>
+    </div>    
+</body>
+</html>

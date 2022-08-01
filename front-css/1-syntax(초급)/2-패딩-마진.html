@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS 초급</title>
+    <style>
+        /*
+            디자인 처음 시작시, 기본적으로 스타일 다 죽이고 시작한다면 아래와 같이...
+        * {
+            border-collapse:collapse;
+            margin:0px;
+            padding:0px;
+            text-decoration: none;
+            color: black;
+            list-style: none;
+        }
+        */
+
+        div {
+            font-size:20px;
+            font-weight:bold; /* light, normal, bold, bolder */
+            font-family:'Arial';
+            font-style:italic;
+        }
+
+        .a {
+            color:red;
+        }
+
+        .b {
+            color:blue;
+        }
+
+        img {
+            /* 자체 사이즈 */
+            width: auto;
+            height: 40rem; /* 1rem = 16px */
+
+            /* 서로간 거리를 두는, 패딩, 보더, 마진의 차이점 */
+            /* 1. padding = 개체내부 간격 (패딩을 껴입을수록 내부 면적이 늘어남) */
+            padding: 1rem;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            /* 2. border = 경계선 간격 */
+            border: 1rem;
+            border-style: solid;
+            border-color: skyblue;
+            /* 3. margin = 개체외부 간격 */
+            margin: 1rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            margin-left: 1rem;
+            margin-right: 1rem;
+        }
+
+        /* 테이블 보더에 색 주기 */
+        h1 {
+            border: 1px solid gray;
+            background: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="a">a클래스</div>
+    <div class="b">b클래스</div>
+    <img src="dog.png">
+    <img src="dog.png">
+
+    <h1>테이블보더 체크</h1>
+</body>
+
+</html>

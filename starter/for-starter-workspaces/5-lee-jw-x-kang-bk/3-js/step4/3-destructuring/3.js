@@ -6,7 +6,7 @@
 */
 
 // 1. Array Destructuring : [0].. [3].. 인덱스대로 변수명 지정해서 값 설정
-const arr = ["yang", "kang", "hwang", "kim"]
+const arr = ["yang", "kang", "shin", "kim"]
 const [user1,,,user4] = arr // arr의 배열에서, 인덱스[0]과 건너뛰어서(= ,,,) 인덱스[3]을 각각 user1, user4에 집어넣는다는 의미
 console.log(user1, user4)
 
