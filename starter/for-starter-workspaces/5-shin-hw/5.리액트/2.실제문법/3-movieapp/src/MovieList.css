@@ -1,7 +1,12 @@
+h1 {
+    text-align: center;
+}
+
 .movie {
     display: flex;
     /* flex에서 사용하는 세로 정렬 */
     align-items: center;
+    padding-bottom: 30px;
 }
 
 .movieTitle {
@@ -13,14 +18,15 @@
 }
 
 .movieTitle:hover {
-    background-color: gray;
+    background-color: pink;
 }
 
 .movieImage {
-    height: 100px;
+    height: 120px;
     border-radius: 6px;
     border: 1px solid gray;
     margin-top: 20px;
+    
 }
 
 .movieImage:hover {
