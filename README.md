@@ -3,8 +3,9 @@
 ## Syntax 브랜치 현황  
     맥북 : mac (현 master)
     인텔맥북 : imac
-    데스크톱 : dt  
-    랩톱 : one  
+    데스크톱 : dt
+    랩톱 : lt
+    미니랩톱 : mlt
 
 
 
