@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        p {color: red; border: 1px solid gray;}
+        p.ex1 {display: none; height: 100px;} /* 적용하는 의미 X */
+        p.ex2 {display: inline; height: 100px;} /* 적용하는 의미 X */
+        p.ex3 {display: block; height: 100px;} /* 크기 조정 가능 */
+        p.ex4 {display: inline-block; height: 100px;} /* 나열은 span처럼 수평으로 하지만, div처럼 크기 조정 가능 */
+    </style>
+</head>
+<body>
+    <h1>The display Property</h1>
+
+    <h2>display: none</h2>
+    <div>
+        <p class="ex1">HELLO WORLD!</p>
+        Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
+    </div>
+
+    <h2>display: inline</h2>
+    <div>
+        <p class="ex2">HELLO WORLD!</p>
+        Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
+    </div>
+
+    <h2>display: block</h2>
+    <div>
+       <p class="ex3">HELLO WORLD!</p>
+        Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
+    </div>
+
+    <h2>display: inline-block</h2>
+    <div>
+        <p class="ex4">HELLO WORLD!</p>
+        Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
+    </div>
+</body>
+</html>

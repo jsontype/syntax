@@ -1,0 +1,9 @@
+.App {
+  padding: 20px;
+}
+
+.App .appTitle{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
