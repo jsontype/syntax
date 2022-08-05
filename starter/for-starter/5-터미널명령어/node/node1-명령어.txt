@@ -13,6 +13,8 @@
     npm start
     npm run dev
     npm run storybook
+    npm run lint
+    npm run lint:type
 
 1. yarn 명령어
     yarn add node-sass (= npm i node-sass)
