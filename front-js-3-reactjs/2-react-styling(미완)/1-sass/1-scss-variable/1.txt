@@ -23,16 +23,16 @@
     Sass 에서는 두가지의 확장자 (.scss/.sass) 를 지원한다.
     Scss는 css와 같은 문법을 쓰고 싶은 사람을 위해 나중에 추가된 문법이다.
 
-    Sass
-        $font-stack:    Helvetica, sans-serif
+    Sass 문법
+        $font-stack: Helvetica, sans-serif
         $primary-color: #333
 
         body
         font: 100% $font-stack
         color: $primary-color
 
-    Scss (에스씨에스에스)
-        $font-stack:    Helvetica, sans-serif;
+    Scss 문법 (에스씨에스에스)
+        $font-stack: Helvetica, sans-serif;
         $primary-color: #333;
         body {
             font: 100% $font-stack;
@@ -138,8 +138,6 @@
         border: 1px solid black;
         padding: 1rem;
     }
-
-
 
 1. 테스트 : 버튼이 잘 나타나는지 확인
     cd app1

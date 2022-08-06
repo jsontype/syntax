@@ -30,7 +30,7 @@
 
     function Counter() 함수 밑의, const [number, setNumber] = useState(0) 밑에 다음을 추가        
         // ★useEffect 하나로 모든 라이프사이클 메소드(시점별 메소드)를 구현할 수 있다. : "Created"(Init Mounted) -> "Before Mount - Before Updated - Updated - Mounted"(Circle) -> "Distroyed"(Unmounted)
-        // ★★useEffect 사용문법 : useEffect(() => {function, deps})이다. 설명하면, 첫번째 파라미터에는 함수, 두번째 파라미터에는 watch를 하는 변수인 deps를 넣는다.
+        // ★★ useEffect 사용문법 : useEffect(() => {function, deps})이다. 설명하면, 첫번째 파라미터에는 함수, 두번째 파라미터에는 watch를 하는 변수인 deps를 넣는다.
 
         // useEffect 1. useEffect의 deps를 빈 배열로 할 경우 컴포넌트의 Created, Distroyed 시점을 구현할 수 있다.
         useEffect(() => {

@@ -1,0 +1,12 @@
+크롬 웹스토어에서 깔 것
+1. react context devtool 
+    -> react app 접속 -> f12 -> profiler 탭 -> 설정 -> 
+    -> Highlight updates when components render. 체크
+    -> 이것저것 눌러봐요.
+1. react developer tools
+1. json viewer
+
+메모화 : 불필요하게 재 렌더링되지 않도록 값을 유지시키는 것
+    React.memo : 컴포넌트를 메모화해서 재렌더링을 막는다.
+    useMemo : 값을 메모화해서 재렌더링을 막는다.
+    useCallback : 함수를 메모화해서 재렌더링을 막는다.
