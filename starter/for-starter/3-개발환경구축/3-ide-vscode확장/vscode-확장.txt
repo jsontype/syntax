@@ -1,11 +1,11 @@
 [VSCode 필수 확장]
 
 1. 필수 확장
-    ★★★
+    ★★ ★
     "Tabnine"
         AI가 미리 칠 내용을 알려줘 오타도 방지하고, 탭 치면서 하면 더 빠르고 쉽게 코딩 가능
     "ES7+ React/Redux/React-Native snippets"
-        rcc라고 치면 클래스형 컴포넌트, rfc로 치면 함수형 컴포넌트 자동완성 (★★rcc, rfs외에도 rfsp 등 가능)
+        rcc라고 치면 클래스형 컴포넌트, rfc로 치면 함수형 컴포넌트 자동완성 (★★ rcc, rfs외에도 rfsp 등 가능)
     "HTML CSS Support"
         HTML, CSS 스니펫 지원
     "Prettier"
@@ -19,7 +19,7 @@
 
     
 
-    ★★
+    ★★ 
     "Material Icon Theme"
         HTML, CSS, JS등의 아이콘이나 폴더명을 보다 더 알기 쉽게 변경
     "Txt Syntax"

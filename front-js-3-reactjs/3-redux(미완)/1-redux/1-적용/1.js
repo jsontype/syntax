@@ -6,7 +6,7 @@ const initialState = {
     compB: 12,
     compC: null
 }
-// initialState.compA = 'b' // 로 위 값을 바꾸고 싶지만...? ★★store state는 이렇게는 바꿀 수 없고, action으로 바꿔야 한다.
+// initialState.compA = 'b' // 로 위 값을 바꾸고 싶지만...? ★★ store state는 이렇게는 바꿀 수 없고, action으로 바꿔야 한다.
 
 
 

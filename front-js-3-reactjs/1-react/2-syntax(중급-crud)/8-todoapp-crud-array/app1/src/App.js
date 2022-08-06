@@ -17,7 +17,7 @@ export default function App() {
     setInputText(event.target.value)
   }
 
-  // ★★useRef 사용 1. CRUD는 키 값에 반드시 useRef를 써야한다.
+  // ★★ useRef 사용 1. CRUD는 키 값에 반드시 useRef를 써야한다.
   const nextId = useRef(todos.length + 1) // todos 길이가 20일 경우 21
 
   // console.log(todos)
@@ -35,7 +35,7 @@ export default function App() {
     event.preventDefault() // = 원래 submit하는 일(action page에 정보를 넘기는 일)을 막는다.
     setTodos([{
       completed: false,
-      // ★★useRef 사용 2. onCreate할 때 반드시 useRef화된 키값의 .current 값으로 넣어줘야 한다.
+      // ★★ useRef 사용 2. onCreate할 때 반드시 useRef화된 키값의 .current 값으로 넣어줘야 한다.
       id: nextId.current,
       title: text,
       userId: 1
@@ -46,7 +46,7 @@ export default function App() {
     //   title: text,
     //   userId: 1
     // }))
-    // ★★useRef 사용 3. onCreate할 때 반드시 useRef화된 키값의 .current 값으로 넣어줘야 한다.
+    // ★★ useRef 사용 3. onCreate할 때 반드시 useRef화된 키값의 .current 값으로 넣어줘야 한다.
     nextId.current += 1
   }
 
@@ -66,11 +66,11 @@ export default function App() {
   const render = todos.map((item) => {
     return (
       <div className='todo' key={item.id}>
-          {/* ★★이벤트리스너 함수에 파라미터를 넣을 때는 함수형 업데이트가 필수 {() => {method(argument)}} */}
+          {/* ★★ 이벤트리스너 함수에 파라미터를 넣을 때는 함수형 업데이트가 필수 {() => {method(argument)}} */}
           <input type='checkbox' checked={item.completed} onChange={() => onChecked(item.id)} ></input>
           <span className='title' onClick={() => onChecked(item.id)}>{item.title}</span>
           <span className='buttons'>
-            {/* ★★이벤트리스너 함수에 파라미터를 넣을 때는 함수형 업데이트가 필수 {() => {method(argument)}} */}
+            {/* ★★ 이벤트리스너 함수에 파라미터를 넣을 때는 함수형 업데이트가 필수 {() => {method(argument)}} */}
             <button onClick={() => onModify(item.id)}>수정</button>
             <button onClick={() => onDelete(item.id)}>삭제</button>
           </span>

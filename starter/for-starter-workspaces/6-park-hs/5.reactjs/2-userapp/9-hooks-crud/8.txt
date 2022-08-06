@@ -18,7 +18,7 @@
         배열을 return하는 map이나 filter를 사용한다.
         map을 쓸 때는 반복문의 효율적 처리를 위해 key 값이 필요하다.
 
-1. ★★배열에 쓰이는 Hooks의 역할
+1. ★★ 배열에 쓰이는 Hooks의 역할
     useState의 역할
         배열을 선언한다.
     useEffect의 역할

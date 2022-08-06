@@ -1,7 +1,7 @@
 [Redux 미들웨어 - redux-thunk]
 
 1. 유명한 미들웨어로, redux-thunk 와, redux-saga 가 있다.
-    ★★미들웨어는 기본적으로 3단 함수(store - dispatch - action)로 구성이 된다.
+    ★★ 미들웨어는 기본적으로 3단 함수(store - dispatch - action)로 구성이 된다.
 
 1. 6.js에 추가 : const enhancer 위에 다음 코드를 추가
 const thunkMiddleware = (store) => (dispatch) => (action) => {

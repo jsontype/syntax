@@ -57,7 +57,7 @@ export default {
     display: flex;
     height: 52px;
     padding: 0 20px;
-    justify-content: space-between; // ★★암기: flex → justify(가로), align-items(세로) / not flex → text-align(가로), vertical-align(세로)
+    justify-content: space-between; // ★★ 암기: flex → justify(가로), align-items(세로) / not flex → text-align(가로), vertical-align(세로)
     align-items: center; 
     border-bottom: 1px solid $border-color-gray_strong;
 

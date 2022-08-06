@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .black {
+            background-color: black;
+            color: #fff;
+            width: 20%;
+        }
+        .red {
+            background-color: red;
+            width:20%;
+        }
+        .float-left {
+            float: left;
+        }
+        .float-right {
+            float: right;
+        }
+        .clear-left {
+            border: 1px solid black;
+            clear: left;
+        }
+        .clear-right {
+            border: 1px solid black;
+            clear: right;
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+        clear는 선행 float가 있을 때 사용할 수 있다. 
+            선행 float가 left일 경우 clear: left를 줘서 float을 해제한다.
+            선행 float가 right일 경우 clear: right를 줘서 float을 해제한다.
+    -->
+    <div>
+        <p class="float-left black">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus sit amet diam. Duis mattis varius dui. Suspendisse eget dolor.</p>
+        <p class="float-left red">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus sit amet diam. Duis mattis varius dui. Suspendisse eget dolor.</p>
+        <p class="clear-left">This paragraph clears float-left.</p>
+        <p class="float-left black">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus sit amet diam. Duis mattis varius dui. Suspendisse eget dolor.</p>
+        <p class="float-left red">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus sit amet diam. Duis mattis varius dui. Suspendisse eget dolor.</p>
+    </div>
+    <!-- <div>
+        <p class="float-right black">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus sit amet diam. Duis mattis varius dui. Suspendisse eget dolor.</p>
+        <p class="float-right red">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus sit amet diam. Duis mattis varius dui. Suspendisse eget dolor.</p>
+        <p class="clear-right">This paragraph clears float-right.</p>
+        <p class="float-right black">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus sit amet diam. Duis mattis varius dui. Suspendisse eget dolor.</p>
+        <p class="float-right red">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus sit amet diam. Duis mattis varius dui. Suspendisse eget dolor.</p>
+    </div> -->
+</body>
+</html>

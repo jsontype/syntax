@@ -21,7 +21,7 @@
 
 
 
-1. ★★배열에 쓰이는 Hooks의 역할
+1. ★★ 배열에 쓰이는 Hooks의 역할
     useState의 역할
         배열을 선언한다.
     useEffect의 역할
