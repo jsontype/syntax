@@ -1,0 +1,151 @@
+[Sass Mixin을 이용해 반복되는 코드들 정리]
+
+1. Mixin이란?
+    @mixin은 CSS 코드를 마치 함수를 호출하듯이 사용할 수 있다.
+    이로 인해 불필요하게 재사용되는 CSS 코드를 줄일 수 있다.
+    문법은 다음과 같다.
+        선언할 때에는 @mixin 함수명($파라미터) { css코드 }
+        호출할 때에는 @include 함수명($파라미터) { css코드 }
+    이번에는 먼저 button에 색상을 넣고, 후버링시 색상 그라데이션을 넣는 복잡한 코드를 함께 넣어서
+        코드를 길게 만들고 이를 @mixin의 재새용을 통해 훨씬 깔끔하게 정리하는 과정을 보여주겠다.
+
+
+
+1. src/components/Button.js 수정 : color prop을 추가
+    import React from 'react'
+    import classNames from 'classnames'
+    import './Button.scss'
+
+    function Button ({ children, size, color }) {
+        return <button className={classNames('Button', size, color)}>{children}</button>
+    }
+
+    Button.defaultProps = {
+        size: 'medium',
+        color: 'blue'
+    }
+
+    export default Button
+
+
+
+1. src/components/Button.scss 수정
+    최상단 "// 색상 변수" 밑에 다음을 추가
+        $gray: #495057;
+        $pink: #f06595;
+    
+    최하단 "}" 위에 다음을 추가
+        // 색상 관리
+        &.blue {
+            background: $blue;
+            &:hover {
+                background: lighten($blue, 10%);
+            }
+        
+            &:active {
+                background: darken($blue, 10%);
+            }
+        }
+        
+        &.gray {
+            background: $gray;
+            &:hover {
+                background: lighten($gray, 10%);
+            }
+        
+            &:active {
+                background: darken($gray, 10%);
+            }
+        }
+        
+        &.pink {
+            background: $pink;
+            &:hover {
+                background: lighten($pink, 10%);
+            }
+        
+            &:active {
+                background: darken($pink, 10%);
+            }
+        }
+
+
+
+1. src/App.scss 수정 : button이 인접해 있을 때, 위 간격에 margin을 준다.
+    .App {
+        width: 512px;
+        margin: 0 auto;
+        margin-top: 4rem;
+        border: 1px solid black;
+        padding: 1rem;
+        .buttons + .buttons {
+            margin-top: 1rem;
+        }
+    }
+
+
+
+1. src/App.js 수정 : 각기 다른 색깔 prop을 준 버튼들을 배치한다.
+    return () 사이 내용을 수정
+        <div className="App">
+            <div className="buttons">
+                <Button size="large" color="blue">BUTTON</Button>
+                <Button size="medium" color="blue">BUTTON</Button>
+                <Button size="small" color="blue">BUTTON</Button>
+            </div>
+            <div className="buttons">
+                <Button size="large" color="gray">BUTTON</Button>
+                <Button size="medium" color="gray">BUTTON</Button>
+                <Button size="small" color="gray">BUTTON</Button>
+            </div>
+            <div className="buttons">
+                <Button size="large" color="pink">BUTTON</Button>
+                <Button size="medium" color="pink">BUTTON</Button>
+                <Button size="small" color="pink">BUTTON</Button>
+            </div>
+        </div>    
+
+
+
+1. 테스트 : 버튼이 색상별로 잘 나타나는 지 확인 (@mixin 사용 전)
+    cd app1
+    npm start
+
+
+
+1. 이제부터 @mixin을 사용해보도록 하겠다.
+
+
+
+1. src/components/Button.scss 다시 수정 : 위로 해도 돌아가지만, 다음과 같이 mixin을 이용해서 재사용되는 코드를 더 깔끔하게 정리할 수 있다.
+    "// 색상 변수" 밑에 다음을 추가
+        // 색상 mixin : 색상관리 부분에서 반복되는 코드들을, mixin을 이용해서 재사용한다.
+        @mixin button-color($color) {
+            background: $color;
+            &:hover {
+                background: lighten($color, 10%);
+            }
+            &:active {
+                background: darken($color, 10%);
+            }
+        }
+
+    "// 색상 관리" 부분을 다음으로 변경한다. 훨씬 깔끔하게 코드가 정리된 것을 볼 수 있다.
+        // 색상 관리
+        &.blue {
+            @include button-color($blue);
+        }
+    
+        &.gray {
+            @include button-color($gray);
+        }
+    
+        &.pink {
+            @include button-color($pink);
+        }
+
+
+
+1. 테스트 : 똑같은 결과가 나오는 지 확인 (@mixin 사용 후)
+    cd app1
+    npm start

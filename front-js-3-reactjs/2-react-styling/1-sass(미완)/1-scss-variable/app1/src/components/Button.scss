@@ -2,9 +2,10 @@
 $blue: #228be6;
 
 .Button {
-    // 변수 사용
+    // 색상 변수
     background: $blue;
 
+    // 버튼 스타일
     display: inline-flex;
     color: white;
     font-weight: bold;
@@ -12,7 +13,6 @@ $blue: #228be6;
     border-radius: 4px;
     border: none;
     cursor: pointer;
-
     align-items: center;
     justify-content: center;
     width: 110px;

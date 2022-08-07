@@ -1,5 +1,3 @@
-1. src/components/Button.js 수정
-
 import React from 'react'
 import classNames from 'classnames'
 import './Button.scss'
@@ -15,7 +13,8 @@ function Button ({ children, size }) {
     // classNames(['foo', 'bar']); // => 'foo bar'
     // classNames('foo', { bar: true, duck: false }, 'baz', { quux: true }); // => 'foo bar baz quux'
     // classNames(null, false, 'bar', undefined, 0, 1, { baz: null }, ''); // => 'bar 1' (* false, null, 0, undefined 는 무시된다.)
-    return <button className={classNames('Button', size)}>{children}</button>
+    return <button className={classNames('Button', size)}>{children}</button> // classnames 사용 후
+    // return <button className={['Button', size].join(' ')}>{children}</button> // classnames 사용 전
 }
 
 Button.defaultProps = {
@@ -23,6 +22,3 @@ Button.defaultProps = {
 }
 
 export default Button
-
-
-

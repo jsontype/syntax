@@ -1,4 +1,4 @@
-[리액트 컴포넌트 스타일링 - Sass]
+[Sass 변수]
 
 1. 리액트 컴포넌트를 스타일링하는 방법
     리액트에서 컴포넌트를 스타일링 하는 가장 기본적인 방법은 css 파일을 만들어서,
@@ -43,7 +43,7 @@
 
 
 
-1. React에 Scss 도입하기
+1. React에 Scss 프레임워크 도입하기
     npx create-react-app app1
     cd app1
     npm i node-sass (= yarn add node-sass)
@@ -78,17 +78,17 @@
     $blue: #228be6;
 
     .Button {
-        // 변수 사용
+        // 색상 변수
         background: $blue;
 
+        // 버튼 스타일
         display: inline-flex;
         color: white;
         font-weight: bold;
         outline: none;
         border-radius: 4px;
         border: none;
-        cursor: pointer;
-        
+        cursor: pointer;        
         align-items: center;
         justify-content: center;
         height: 2.25rem;
@@ -111,9 +111,23 @@
 
 
 
-1. src/App.js 수정
+1. src/App.css 이름 변경 : 이제 scss를 써야한다.
+    src/App.scss로 이름 변경
+
+1. src/App.scss 수정
+    .App {
+        width: 512px;
+        margin: 0 auto;
+        margin-top: 4rem;
+        border: 1px solid black;
+        padding: 1rem;
+    }
+
+
+
+1. src/App.js 수정 : Button을 임포트하는 김에, App.css 임포트 파일명도 같이 바꿔준다.
     import React from 'react'
-    import './App.css'
+    import './App.scss'
     import Button from './components/Button'
 
     function App () {
@@ -129,15 +143,6 @@
     export default App
 
 
-
-1. src/App.css 수정
-    .App {
-        width: 512px;
-        margin: 0 auto;
-        margin-top: 4rem;
-        border: 1px solid black;
-        padding: 1rem;
-    }
 
 1. 테스트 : 버튼이 잘 나타나는지 확인
     cd app1
