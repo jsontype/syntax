@@ -1,0 +1,94 @@
+[Sass 복수 클래스명 부여]
+
+1. React에 classnames 라이브러리 도입하기
+    npx create-react-app app1
+    cd app1
+    npm i classnames (= yarn add classnames)
+
+
+
+1. src/components/Button.js 수정 : 두 개 이상의 className을 적용하기
+    import React from 'react'
+    import classNames from 'classnames'
+    import './Button.scss'
+
+    function Button ({ children, size }) {
+        // classnames 라이브러리를 사용하면 다음과 같이 조건부 스타일링을 할 때 함수의 인자에 문자열, 배열, 객체 등을 전달하여 손쉽게 문자열을 조합 할 수 있다.
+        // classNames('foo', 'bar'); // => 'foo bar'
+        // classNames('foo', { bar: true }); // => 'foo bar'
+        // classNames({ 'foo-bar': true }); // => 'foo-bar'
+        // classNames({ 'foo-bar': false }); // => ''
+        // classNames({ foo: true }, { bar: true }); // => 'foo bar'
+        // classNames({ foo: true, bar: true }); // => 'foo bar'
+        // classNames(['foo', 'bar']); // => 'foo bar'
+        // classNames('foo', { bar: true, duck: false }, 'baz', { quux: true }); // => 'foo bar baz quux'
+        // classNames(null, false, 'bar', undefined, 0, 1, { baz: null }, ''); // => 'bar 1' (* false, null, 0, undefined 는 무시된다.)
+        return <button className={classNames('Button', size)}>{children}</button>
+        // return <button className={['Button', size].join(' ')}>{children}</button> // classnames 사용 전
+    }
+
+    Button.defaultProps = {
+        size: 'medium'
+    }
+
+    export default Button
+
+
+
+1. src/components/Button.scss 수정
+    맨 아래 "}" 위에 다음을 추가
+        // 사이즈 관리
+        &.large {
+            height: 3rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            font-size: 1.25rem;
+        }
+
+        &.medium {
+            height: 2.25rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            font-size: 1rem;
+        }
+
+        &.small {
+            height: 1.75rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            font-size: 0.875rem;
+        }
+
+        // 버튼이 함께 있을 때 우측 버튼에 여백을 설정
+        // & + &는 .Button + .Button를 의미한다.
+        // + 는 "인접했을 때"를 뜻하는 선택자 옵션이다.
+        & + & {
+            margin-left: 1rem;
+        }
+    
+
+
+1. src/App.js 수정 : 버튼을 2개 더 렌더링하고, size값도 설정한다. * size가 설정되지 않으면 default값인 medium이 들어간다.
+    import React from 'react'
+    import './App.scss'
+    import Button from './components/Button'
+
+    function App() {
+        return (
+            <div className="App">
+                <div className="buttons">
+                    <Button size="large">BUTTON</Button>
+                    <Button>BUTTON</Button>
+                    <Button size="small">BUTTON</Button>
+                </div>
+            </div>
+        )
+    }
+
+    export default App
+
+
+
+1. 테스트 : 버튼 사이즈 변경 확인
+    cd app1
+    npm start
