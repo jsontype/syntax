@@ -1,7 +1,9 @@
 [VSCode 필수 확장]
 
 1. 필수 확장
-    ★★ ★
+    ★★★
+    "Korean"
+        메뉴 한글확장
     "Tabnine"
         AI가 미리 칠 내용을 알려줘 오타도 방지하고, 탭 치면서 하면 더 빠르고 쉽게 코딩 가능
     "ES7+ React/Redux/React-Native snippets"
