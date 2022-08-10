@@ -1,0 +1,2231 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)https://react.vlpt.us/using-typescript/01-practice.html -->
+<html lang=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style>
+
+
+<title>1. 타입스크립트 연습 · GitBook</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="">
+<meta name="generator" content="GitBook 3.2.3">
+<link rel="stylesheet" href="./1. 타입스크립트 연습 · GitBook_files/style.css">
+<link rel="stylesheet" href="./1. 타입스크립트 연습 · GitBook_files/collapsible-chapters.css">
+<link rel="stylesheet" href="./1. 타입스크립트 연습 · GitBook_files/website.css">
+<link rel="stylesheet" href="./1. 타입스크립트 연습 · GitBook_files/search.css">
+<link rel="stylesheet" href="./1. 타입스크립트 연습 · GitBook_files/website(1).css">
+<meta name="HandheldFriendly" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://react.vlpt.us/gitbook/images/apple-touch-icon-precomposed-152.png">
+<link rel="shortcut icon" href="https://react.vlpt.us/gitbook/images/favicon.ico" type="image/x-icon">
+
+
+<link rel="prev" href="https://react.vlpt.us/using-typescript/"><link rel="next" href="https://react.vlpt.us/using-typescript/02-ts-react-basic.html"></head>
+<body>
+<div class="book without-animation with-summary font-size-2 font-family-1">
+<div class="book-summary">
+<div id="book-search-input" role="search">
+<input type="text" placeholder="Type to search">
+</div>
+<nav role="navigation">
+<ul class="summary">
+<li class="chapter " data-level="1.1" data-path="../">
+<a href="https://react.vlpt.us/">
+벨로퍼트와 함께하는 모던 리액트
+</a>
+</li>
+<li class="chapter " data-level="1.2" data-path="../basic/">
+<a href="https://react.vlpt.us/basic/">
+1장. 리액트 입문
+<i class="exc-trigger fa"></i></a>
+<ul class="articles">
+<li class="chapter " data-level="1.2.1" data-path="../basic/01-concept.html">
+<a href="https://react.vlpt.us/basic/01-concept.html">
+1. 리액트는 어쩌다가 만들어졌을까?
+</a>
+</li>
+<li class="chapter " data-level="1.2.2" data-path="../basic/02-prepare.html">
+<a href="https://react.vlpt.us/basic/02-prepare.html">
+2. 작업환경 준비
+</a>
+</li>
+<li class="chapter " data-level="1.2.3" data-path="../basic/03-first-component.html">
+<a href="https://react.vlpt.us/basic/03-first-component.html">
+3. 나의 첫번째 리액트 컴포넌트
+</a>
+</li>
+<li class="chapter " data-level="1.2.4" data-path="../basic/04-jsx.html">
+<a href="https://react.vlpt.us/basic/04-jsx.html">
+4. JSX
+</a>
+</li>
+<li class="chapter " data-level="1.2.5" data-path="../basic/05-props.html">
+<a href="https://react.vlpt.us/basic/05-props.html">
+5. props 를 통해 컴포넌트에게 값 전달하기
+</a>
+</li>
+<li class="chapter " data-level="1.2.6" data-path="../basic/06-conditional-rendering.html">
+<a href="https://react.vlpt.us/basic/06-conditional-rendering.html">
+6. 조건부 렌더링
+</a>
+</li>
+<li class="chapter " data-level="1.2.7" data-path="../basic/07-useState.html">
+<a href="https://react.vlpt.us/basic/07-useState.html">
+7. useState 를 통해 컴포넌트에서 바뀌는 값 관리하기
+</a>
+</li>
+<li class="chapter " data-level="1.2.8" data-path="../basic/08-manage-input.html">
+<a href="https://react.vlpt.us/basic/08-manage-input.html">
+8. input 상태 관리하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.2.9" data-path="../basic/09-multiple-inputs.html">
+<a href="https://react.vlpt.us/basic/09-multiple-inputs.html">
+9. 여러개의 input 상태 관리하기
+</a>
+</li>
+<li class="chapter " data-level="1.2.10" data-path="../basic/10-useRef.html">
+<a href="https://react.vlpt.us/basic/10-useRef.html">
+10. useRef 로 특정 DOM 선택하기
+</a>
+</li>
+<li class="chapter " data-level="1.2.11" data-path="../basic/11-render-array.html">
+<a href="https://react.vlpt.us/basic/11-render-array.html">
+11. 배열 렌더링하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.2.12" data-path="../basic/12-variable-with-useRef.html">
+<a href="https://react.vlpt.us/basic/12-variable-with-useRef.html">
+12. useRef 로 useRef 로 컴포넌트 안의 변수 만들기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.2.13" data-path="../basic/13-array-insert.html">
+<a href="https://react.vlpt.us/basic/13-array-insert.html">
+13. 배열에 항목 추가하기
+</a>
+</li>
+<li class="chapter " data-level="1.2.14" data-path="../basic/14-array-remove.html">
+<a href="https://react.vlpt.us/basic/14-array-remove.html">
+14. 배열에 항목 제거하기
+</a>
+</li>
+<li class="chapter " data-level="1.2.15" data-path="../basic/15-array-modify.html">
+<a href="https://react.vlpt.us/basic/15-array-modify.html">
+15. 배열에 항목 수정하기
+</a>
+</li>
+<li class="chapter " data-level="1.2.16" data-path="../basic/16-useEffect.html">
+<a href="https://react.vlpt.us/basic/16-useEffect.html">
+16. useEffect를 사용하여 마운트/언마운트/업데이트시 할 작업 설정하기
+</a>
+</li>
+<li class="chapter " data-level="1.2.17" data-path="../basic/17-useMemo.html">
+<a href="https://react.vlpt.us/basic/17-useMemo.html">
+17. useMemo 를 사용하여 연산한 값 재사용하기
+</a>
+</li>
+<li class="chapter " data-level="1.2.18" data-path="../basic/18-useCallback.html">
+<a href="https://react.vlpt.us/basic/18-useCallback.html">
+18. useCallback 를 사용하여 함수 재사용하기
+</a>
+</li>
+<li class="chapter " data-level="1.2.19" data-path="../basic/19-React.memo.html">
+<a href="https://react.vlpt.us/basic/19-React.memo.html">
+19. React.memo 를 사용한 컴포넌트 리렌더링 방지
+</a>
+</li>
+<li class="chapter " data-level="1.2.20" data-path="../basic/20-useReducer.html">
+<a href="https://react.vlpt.us/basic/20-useReducer.html">
+20. useReducer 를 사용하여 상태 업데이트 로직 분리하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.2.21" data-path="../basic/21-custom-hook.html">
+<a href="https://react.vlpt.us/basic/21-custom-hook.html">
+21. 커스텀 Hooks 만들기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.2.22" data-path="../basic/22-context-dispatch.html">
+<a href="https://react.vlpt.us/basic/22-context-dispatch.html">
+22. Context API 를 사용한 전역 값 관리
+</a>
+</li>
+<li class="chapter expanded" data-level="1.2.23" data-path="../basic/23-immer.html">
+<a href="https://react.vlpt.us/basic/23-immer.html">
+23. Immer 를 사용한 더 쉬운 불변성 관리
+</a>
+</li>
+<li class="chapter expanded" data-level="1.2.24" data-path="../basic/24-class-component.html">
+<a href="https://react.vlpt.us/basic/24-class-component.html">
+24. 클래스형 컴포넌트
+</a>
+</li>
+<li class="chapter expanded" data-level="1.2.25" data-path="../basic/25-lifecycle.html">
+<a href="https://react.vlpt.us/basic/25-lifecycle.html">
+25. LifeCycle Method
+</a>
+</li>
+<li class="chapter expanded" data-level="1.2.26" data-path="../basic/26-componentDidCatch-and-sentry.html">
+<a href="https://react.vlpt.us/basic/26-componentDidCatch-and-sentry.html">
+26. componentDidCatch 로 에러 잡아내기 / Sentry 연동
+</a>
+</li>
+<li class="chapter expanded" data-level="1.2.27" data-path="../basic/27-useful-tools.html">
+<a href="https://react.vlpt.us/basic/27-useful-tools.html">
+27. 리액트 개발 할 때 사용하면 편리한 도구들 - Prettier, ESLint, Snippet
+</a>
+</li>
+<li class="chapter expanded" data-level="1.2.28" data-path="../basic/CONCLUSION.html">
+<a href="https://react.vlpt.us/basic/CONCLUSION.html">
+리액트 입문 마무리
+</a>
+</li>
+</ul>
+
+</li>
+<li class="chapter expanded" data-level="1.3" data-path="../styling/">
+<a href="https://react.vlpt.us/styling/">
+2장. 리액트 컴포넌트 스타일링하기
+<i class="exc-trigger fa"></i></a>
+<ul class="articles">
+<li class="chapter expanded" data-level="1.3.1" data-path="../styling/01-sass.html">
+<a href="https://react.vlpt.us/styling/01-sass.html">
+1. Sass
+</a>
+</li>
+<li class="chapter expanded" data-level="1.3.2" data-path="../styling/02-css-module.html">
+<a href="https://react.vlpt.us/styling/02-css-module.html">
+2. CSS Module
+</a>
+</li>
+<li class="chapter expanded" data-level="1.3.3" data-path="../styling/03-styled-components.html">
+<a href="https://react.vlpt.us/styling/03-styled-components.html">
+3. styled-components
+</a>
+</li>
+<li class="chapter expanded" data-level="1.3.4" data-path="../styling/CONCLUSION.html">
+<a href="https://react.vlpt.us/styling/CONCLUSION.html">
+정리
+</a>
+</li>
+</ul>
+</li>
+<li class="chapter expanded" data-level="1.4" data-path="../mashup-todolist/">
+<a href="https://react.vlpt.us/mashup-todolist/">
+3장. 멋진 투두리스트 만들기
+<i class="exc-trigger fa"></i></a>
+<ul class="articles">
+<li class="chapter expanded" data-level="1.4.1" data-path="../mashup-todolist/01-create-components.html">
+<a href="https://react.vlpt.us/mashup-todolist/01-create-components.html">
+1. 컴포넌트 만들기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.4.2" data-path="../mashup-todolist/02-manage-state.html">
+<a href="https://react.vlpt.us/mashup-todolist/02-manage-state.html">
+2. Context API를 활용한 상태 관리
+</a>
+</li>
+<li class="chapter expanded" data-level="1.4.3" data-path="../mashup-todolist/03-implement.html">
+<a href="https://react.vlpt.us/mashup-todolist/03-implement.html">
+3. 기능 구현하기
+</a>
+</li>
+</ul>
+</li>
+<li class="chapter expanded" data-level="1.5" data-path="../integrate-api/">
+<a href="https://react.vlpt.us/integrate-api/">
+4장. API 연동하기
+<i class="exc-trigger fa"></i></a>
+<ul class="articles">
+<li class="chapter expanded" data-level="1.5.1" data-path="../integrate-api/01-basic.html">
+<a href="https://react.vlpt.us/integrate-api/01-basic.html">
+1. API 연동의 기본
+</a>
+</li>
+<li class="chapter expanded" data-level="1.5.2" data-path="../integrate-api/02-useReducer.html">
+<a href="https://react.vlpt.us/integrate-api/02-useReducer.html">
+2. useReducer 로 요청 상태 관리하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.5.3" data-path="../integrate-api/03-useAsync.html">
+<a href="https://react.vlpt.us/integrate-api/03-useAsync.html">
+3. useAsync 커스텀 Hook 만들어서 사용하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.5.4" data-path="../integrate-api/04-react-async.html">
+<a href="https://react.vlpt.us/integrate-api/04-react-async.html">
+4. react-async 로 요청 상태 관리하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.5.5" data-path="../integrate-api/05-using-with-context.html">
+<a href="https://react.vlpt.us/integrate-api/05-using-with-context.html">
+5. Context 와 함께 사용하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.5.6" data-path="../integrate-api/CONCLUSION.html">
+<a href="https://react.vlpt.us/integrate-api/CONCLUSION.html">
+정리
+</a>
+</li>
+</ul>
+</li>
+<li class="chapter expanded" data-level="1.6" data-path="../react-router/">
+<a href="https://react.vlpt.us/react-router/">
+5장. 리액트 라우터
+<i class="exc-trigger fa"></i></a>
+<ul class="articles">
+<li class="chapter expanded" data-level="1.6.1" data-path="../react-router/01-concepts.html">
+<a href="https://react.vlpt.us/react-router/01-concepts.html">
+1. 프로젝트 준비 및 기본적인 사용법
+</a>
+</li>
+<li class="chapter expanded" data-level="1.6.2" data-path="../react-router/02-params-and-query.html">
+<a href="https://react.vlpt.us/react-router/02-params-and-query.html">
+2. 파라미터와 쿼리
+</a>
+</li>
+<li class="chapter expanded" data-level="1.6.3" data-path="../react-router/03-subroutes.html">
+<a href="https://react.vlpt.us/react-router/03-subroutes.html">
+3. 서브라우트
+</a>
+</li>
+<li class="chapter expanded" data-level="1.6.4" data-path="../react-router/04-extra.html">
+<a href="https://react.vlpt.us/react-router/04-extra.html">
+4. 리액트 라우터 부가기능
+</a>
+</li>
+<li class="chapter expanded" data-level="1.6.5" data-path="../react-router/05-use-router-hook.html">
+<a href="https://react.vlpt.us/react-router/05-use-router-hook.html">
+5. useReactRouter Hook 사용하기
+</a>
+</li>
+</ul>
+</li>
+<li class="chapter expanded" data-level="1.7" data-path="../redux/">
+<a href="https://react.vlpt.us/redux/">
+6장. 리덕스
+<i class="exc-trigger fa"></i></a>
+<ul class="articles">
+<li class="chapter expanded" data-level="1.7.1" data-path="../redux/01-keywords.html">
+<a href="https://react.vlpt.us/redux/01-keywords.html">
+1. 리덕스에서 사용되는 키워드 숙지하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.7.2" data-path="../redux/02-rules.html">
+<a href="https://react.vlpt.us/redux/02-rules.html">
+2. 리덕스의 3가지 규칙
+</a>
+</li>
+<li class="chapter expanded" data-level="1.7.3" data-path="../redux/03-prepare.html">
+<a href="https://react.vlpt.us/redux/03-prepare.html">
+3. 리덕스 사용 할 준비하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.7.4" data-path="../redux/04-make-modules.html">
+<a href="https://react.vlpt.us/redux/04-make-modules.html">
+4. 리덕스 모듈 만들기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.7.5" data-path="../redux/05-counter.html">
+<a href="https://react.vlpt.us/redux/05-counter.html">
+5. 카운터 구현하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.7.6" data-path="../redux/06-redux-devtools.html">
+<a href="https://react.vlpt.us/redux/06-redux-devtools.html">
+6. 리덕스 개발자도구 적용하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.7.7" data-path="../redux/07-implement-todos.html">
+<a href="https://react.vlpt.us/redux/07-implement-todos.html">
+7. 할 일 목록 구현하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.7.8" data-path="../redux/08-optimize-useSelector.html">
+<a href="https://react.vlpt.us/redux/08-optimize-useSelector.html">
+8. useSelector 최적화
+</a>
+</li>
+<li class="chapter expanded" data-level="1.7.9" data-path="../redux/09-connect.html">
+<a href="https://react.vlpt.us/redux/09-connect.html">
+9. connect 함수
+</a>
+</li>
+<li class="chapter expanded" data-level="1.7.10" data-path="../redux/CONCLUSION.html">
+<a href="https://react.vlpt.us/redux/CONCLUSION.html">
+정리
+</a>
+</li>
+</ul>
+</li>
+<li class="chapter expanded" data-level="1.8" data-path="../redux-middleware/">
+<a href="https://react.vlpt.us/redux-middleware/">
+7장. 리덕스 미들웨어
+<i class="exc-trigger fa"></i></a>
+<ul class="articles">
+<li class="chapter expanded" data-level="1.8.1" data-path="../redux-middleware/01-prepare.html">
+<a href="https://react.vlpt.us/redux-middleware/01-prepare.html">
+1. 리덕스 프로젝트 준비하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.8.2" data-path="../redux-middleware/02-make-middleware.html">
+<a href="https://react.vlpt.us/redux-middleware/02-make-middleware.html">
+2. 미들웨어 만들어보고 이해하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.8.3" data-path="../redux-middleware/03-logger-and-devtools.html">
+<a href="https://react.vlpt.us/redux-middleware/03-logger-and-devtools.html">
+3. redux-logger 사용 및 미들웨어와 DevTools 함께 사용하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.8.4" data-path="../redux-middleware/04-redux-thunk.html">
+<a href="https://react.vlpt.us/redux-middleware/04-redux-thunk.html">
+4. redux-thunk
+</a>
+</li>
+<li class="chapter expanded" data-level="1.8.5" data-path="../redux-middleware/05-redux-thunk-with-promise.html">
+<a href="https://react.vlpt.us/redux-middleware/05-redux-thunk-with-promise.html">
+5. redux-thunk로 프로미스 다루기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.8.6" data-path="../redux-middleware/06-fix-reloading.html">
+<a href="https://react.vlpt.us/redux-middleware/06-fix-reloading.html">
+6. API 재로딩 문제 해결하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.8.7" data-path="../redux-middleware/07-router-with-thunk.html">
+<a href="https://react.vlpt.us/redux-middleware/07-router-with-thunk.html">
+7. thunk에서 라우터 연동하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.8.8" data-path="../redux-middleware/08-json-server.html">
+<a href="https://react.vlpt.us/redux-middleware/08-json-server.html">
+8. json-server
+</a>
+</li>
+<li class="chapter expanded" data-level="1.8.9" data-path="../redux-middleware/09-cors-and-proxy.html">
+<a href="https://react.vlpt.us/redux-middleware/09-cors-and-proxy.html">
+9. CORS 와 Webpack DevServer Proxy
+</a>
+</li>
+<li class="chapter expanded" data-level="1.8.10" data-path="../redux-middleware/10-redux-saga.html">
+<a href="https://react.vlpt.us/redux-middleware/10-redux-saga.html">
+10. redux-saga
+</a>
+</li>
+<li class="chapter expanded" data-level="1.8.11" data-path="../redux-middleware/11-redux-saga-with-promise.html">
+<a href="https://react.vlpt.us/redux-middleware/11-redux-saga-with-promise.html">
+11. redux-saga 로 프로미스 다루기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.8.12" data-path="../redux-middleware/12-redux-saga-with-router.html">
+<a href="https://react.vlpt.us/redux-middleware/12-redux-saga-with-router.html">
+12. saga에서 라우터 연동하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.8.13" data-path="../redux-middleware/CONCLUSION.html">
+<a href="https://react.vlpt.us/redux-middleware/CONCLUSION.html">
+정리
+</a>
+</li>
+</ul>
+</li>
+<li class="chapter expanded" data-level="1.9" data-path="./">
+<a href="https://react.vlpt.us/using-typescript/">
+8장. 리액트 프로젝트에서 타입스크립트 사용하기
+<i class="exc-trigger fa"></i></a>
+<ul class="articles">
+<li class="chapter active expanded" data-level="1.9.1" data-path="01-practice.html">
+<a href="https://react.vlpt.us/using-typescript/01-practice.html">
+1. 타입스크립트 연습
+</a>
+</li>
+<li class="chapter expanded" data-level="1.9.2" data-path="02-ts-react-basic.html">
+<a href="https://react.vlpt.us/using-typescript/02-ts-react-basic.html">
+2. 리액트 컴포넌트 타입스크립트로 작성하기
+</a>
+</li>
+<li class="chapter " data-level="1.9.3" data-path="03-ts-manage-state.html">
+<a href="https://react.vlpt.us/using-typescript/03-ts-manage-state.html">
+3. 타입스크립트로 리액트 상태 관리하기
+</a>
+</li>
+<li class="chapter " data-level="1.9.4" data-path="04-ts-context.html">
+<a href="https://react.vlpt.us/using-typescript/04-ts-context.html">
+4. TypeScript 와 Context API 활용하기
+</a>
+</li>
+<li class="chapter " data-level="1.9.5" data-path="05-ts-redux.html">
+<a href="https://react.vlpt.us/using-typescript/05-ts-redux.html">
+5. TypeScript 에서 리덕스 프로처럼 사용하기
+</a>
+</li>
+<li class="chapter " data-level="1.9.6" data-path="06-ts-redux-middleware.html">
+<a href="https://react.vlpt.us/using-typescript/06-ts-redux-middleware.html">
+6.타입스크립트에서 리덕스 미들웨어 사용하기 (redux-thunk, redux-saga)
+</a>
+</li>
+</ul>
+</li>
+<li class="divider"></li>
+<li>
+<a href="https://www.gitbook.com/" target="blank" class="gitbook-link" style="display: none;">
+Published with GitBook
+</a>
+</li>
+</ul>
+</nav>
+</div>
+<div class="book-body">
+<div class="body-inner">
+<div class="book-header" role="navigation">
+
+<a class="btn pull-left js-toolbar-action" aria-label="" href="https://react.vlpt.us/using-typescript/01-practice.html#"><i class="fa fa-align-justify"></i></a><a class="btn pull-right js-toolbar-action" aria-label="GitHub" href="https://react.vlpt.us/using-typescript/01-practice.html#"><i class="fa fa-github"></i></a><a class="btn pull-left js-toolbar-action" aria-label="" href="https://react.vlpt.us/using-typescript/01-practice.html#"><i class="fa fa-edit"></i> 수정 요청하기</a><div class="dropdown pull-right js-toolbar-action"><a class="btn toggle-dropdown" aria-label="Share" href="https://react.vlpt.us/using-typescript/01-practice.html#"><i class="fa fa-share-alt"></i></a><div class="dropdown-menu dropdown-left"><div class="dropdown-caret"><span class="caret-outer"></span><span class="caret-inner"></span></div><div class="buttons"><button class="button size-5 ">Facebook</button><button class="button size-5 ">Google+</button><button class="button size-5 ">Twitter</button><button class="button size-5 ">Weibo</button><button class="button size-5 ">Instapaper</button></div></div></div><a class="btn pull-right js-toolbar-action" aria-label="" href="https://react.vlpt.us/using-typescript/01-practice.html#"><i class="fa fa-facebook"></i></a><a class="btn pull-right js-toolbar-action" aria-label="" href="https://react.vlpt.us/using-typescript/01-practice.html#"><i class="fa fa-twitter"></i></a><div class="dropdown pull-left font-settings js-toolbar-action"><a class="btn toggle-dropdown" aria-label="Font Settings" href="https://react.vlpt.us/using-typescript/01-practice.html#"><i class="fa fa-font"></i></a><div class="dropdown-menu dropdown-right"><div class="dropdown-caret"><span class="caret-outer"></span><span class="caret-inner"></span></div><div class="buttons"><button class="button size-2 font-reduce">A</button><button class="button size-2 font-enlarge">A</button></div><div class="buttons"><button class="button size-2 ">Serif</button><button class="button size-2 ">Sans</button></div><div class="buttons"><button class="button size-3 ">White</button><button class="button size-3 ">Sepia</button><button class="button size-3 ">Night</button></div></div></div><h1>
+<i class="fa fa-circle-o-notch fa-spin"></i>
+<a href="https://react.vlpt.us/">1. 타입스크립트 연습</a>
+</h1>
+</div>
+<div class="page-wrapper" tabindex="-1" role="main">
+<div class="page-inner">
+<div id="book-search-results">
+<div class="search-noresults">
+<section class="normal markdown-section">
+<h2 id="01-타입스크립트-연습">01. 타입스크립트 연습</h2>
+<p>타입스크립트에서 가장 기본적인 것들을 연습해보겠습니다.</p>
+<p>먼저 새로운 자바스크립트 프로젝트를 생성해보겠습니다. </p>
+<p>터미널에서 다음 명령어들을 입력하세요.</p>
+<pre><code class="lang-bash">$ mkdir ts-practice <span class="hljs-comment"># ts-practice 라는 디렉터리 생성</span>
+$ <span class="hljs-built_in">cd</span> ts-practice <span class="hljs-comment"># 해당 디렉터리로 이동</span>
+$ yarn init -y <span class="hljs-comment"># 또는 npm init -y</span>
+</code></pre>
+<p>이렇게 하면 ts-practice 디렉터리에 package.json 이라는 파일이 만들어집니다.</p>
+<h3 id="타입스크립트-설정파일-생성하기">타입스크립트 설정파일 생성하기</h3>
+<p>이제 타입스크립트 설정파일 tsconfig.json 을 프로젝트 디렉터리 안에 생성해주겠습니다. </p>
+<p>이 파일을 생성 할 땐 직접 입력해서 만들 수도 있습니다.</p>
+<h4 id="tsconfigjson">tsconfig.json</h4>
+<pre><code class="lang-json">{
+  <span class="hljs-string">"compilerOptions"</span>: {
+    <span class="hljs-string">"target"</span>: <span class="hljs-string">"es5"</span>,
+    <span class="hljs-string">"module"</span>: <span class="hljs-string">"commonjs"</span>,
+    <span class="hljs-string">"strict"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-string">"esModuleInterop"</span>: <span class="hljs-literal">true</span>
+  }
+}
+</code></pre>
+<p>하지만 일반적으로는 명령어를 사용해서 생성합니다.</p>
+<p>먼저 typescript 를 글로벌로 설치해주세요.</p>
+<pre><code class="lang-bash">$ yarn global add typescript
+</code></pre>
+<p>그리고 프로젝트 디렉터리 안에서 <code>tsc --init</code> 명령어를 입력하면 tsconfig.json 파일이 자동생성됩니다.</p>
+<blockquote>
+<p>만약 명령어가 작동하지 않는다면 <code>npm install -g typescript</code> 를 해보시고 다시 명령어를 실행해보세요.</p>
+</blockquote>
+<p>이 파일에서는 타입스크립트가 컴파일 될 때 필요한 옵션을 지정하는데요, <code>tsc --init</code> 명령어를 통해서 기본적으로 설정되어있는 것들이 어떤 의미를 갖고 있는지 한번 알아봅시다.</p>
+<ul>
+<li><strong>target</strong>: 컴파일된 코드가 어떤 환경에서 실행될 지 정의합니다. 예를들어서 화살표 함수를 사용하고 target 을 es5 로 한다면 일반 function 키워드를 사용하는 함수로 변환을 해줍니다. 하지만 이를 es6 로 설정한다면 화살표 함수를 그대로 유지해줍니다.</li>
+<li><strong>module</strong>: 컴파일된 코드가 어던 모듈 시스템을 사용할지 정의합니다. 예를 들어서 이 값을 common 으로 하면 <code>export default Sample</code> 을 하게 됐을 때 컴파일 된 코드에서는 <code>exports.default = helloWorld</code> 로 변환해주지만 이 값을 es2015 로 하면 <code>export default Sample</code> 을 그대로 유지하게 됩니다.</li>
+<li><strong>strict</strong>: 모든 타입 체킹 옵션을 활성화한다는 것을 의미합니다.</li>
+<li><strong>esModuleInterop</strong>: commonjs 모듈 형태로 이루어진 파일을 es2015 모듈 형태로 불러올 수 있게 해줍니다. <a href="https://stackoverflow.com/questions/56238356/understanding-esmoduleinterop-in-tsconfig-file" target="_blank">(참고)</a></li>
+</ul>
+<p>현재 기본적으로 만들어진 설정에서 한가지 속성을 추가해봅시다. <code>outDir</code> 이라는 속성인데요, 이를 설정하면 컴파일된 파일들이 저장되는 경로를 지정 할 수 있습니다.</p>
+<h4 id="tsconfigjson">tsconfig.json</h4>
+<pre><code class="lang-javascript">{
+  <span class="hljs-string">"compilerOptions"</span>: {
+    <span class="hljs-string">"target"</span>: <span class="hljs-string">"es5"</span>,
+    <span class="hljs-string">"module"</span>: <span class="hljs-string">"commonjs"</span>,
+    <span class="hljs-string">"strict"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-string">"esModuleInterop"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-string">"outDir"</span>: <span class="hljs-string">"./dist"</span>
+  }
+}
+</code></pre>
+<h3 id="타입스크립트-파일-만들기">타입스크립트 파일 만들기</h3>
+<p>프로젝트에 src 디렉터리를 만들고, 그 안에 practice.ts 라는 파일을 만들어보세요.</p>
+<h4 id="srcpracticets">src/practice.ts</h4>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> message: string = <span class="hljs-string">'hello world'</span>;
+<span class="hljs-built_in">console</span>.log(message);
+</code></pre>
+<p>타입스크립트는 이렇게 <code>*.ts</code> 확장자를 사용합니다. message 값이 선언된 코드를 보시면 <code>: string</code> 이라는 코드를 넣었지요? 이는 해당 상수 값이 문자열 이라는 것을 명시해줍니다.</p>
+<p>만약에 해당 값을 숫자로 설정해버리게 된다면 에디터 상에서 오류가 나타나게 됩니다.</p>
+<p><img src="./1. 타입스크립트 연습 · GitBook_files/ehAqT3S.png" alt=""></p>
+<p>코드를 모두 작성하셨으면 해당 프로젝트의 디렉터리에 위치한 터미널에서 <code>tsc</code> 명령어를 입력해보세요.</p>
+<p>그러면 dist/practice.js 경로에 다음과 같이 파일이 생성될 것입니다.</p>
+<pre><code class="lang-javascript"><span class="hljs-meta">"use strict"</span>;
+<span class="hljs-keyword">var</span> message = <span class="hljs-string">'hello world'</span>;
+<span class="hljs-built_in">console</span>.log(message);
+</code></pre>
+<p>우리가 ts 파일에서 명시한 값의 타입은 컴파일이 되는 과정에서 모두 사라지게 된답니다.</p>
+<h3 id="기본-타입">기본 타입</h3>
+<p>자, 그럼 계속해서 타입스크립트 연습을 해봅시다.</p>
+<p><code>let</code> 과 <code>const</code> 를 사용하여 특정 값을 선언 할 때 여러가지 기본 타입을 지정하여 선언하는 것을 연습해볼까요?</p>
+<p>다음 코드를 한번 따라 작성해보세요.</p>
+<h4 id="srcpracticets">src/practice.ts</h4>
+<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> count = <span class="hljs-number">0</span>; <span class="hljs-comment">// 숫자</span>
+count += <span class="hljs-number">1</span>;
+count = <span class="hljs-string">'갑자기 분위기 문자열'</span>; <span class="hljs-comment">// 이러면 에러가 납니다!</span>
+
+<span class="hljs-keyword">const</span> message: string = <span class="hljs-string">'hello world'</span>; <span class="hljs-comment">// 문자열</span>
+
+<span class="hljs-keyword">const</span> done: boolean = <span class="hljs-literal">true</span>; <span class="hljs-comment">// 불리언 값</span>
+
+<span class="hljs-keyword">const</span> numbers: number[] = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]; <span class="hljs-comment">// 숫자 배열</span>
+<span class="hljs-keyword">const</span> messages: string[] = [<span class="hljs-string">'hello'</span>, <span class="hljs-string">'world'</span>]; <span class="hljs-comment">// 문자열 배열</span>
+
+messages.push(<span class="hljs-number">1</span>); <span class="hljs-comment">// 숫자 넣으려고 하면.. 안된다!</span>
+
+<span class="hljs-keyword">let</span> mightBeUndefined: string | <span class="hljs-literal">undefined</span> = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// string 일수도 있고 undefined 일수도 있음</span>
+<span class="hljs-keyword">let</span> nullableNumber: number | <span class="hljs-literal">null</span> = <span class="hljs-literal">null</span>; <span class="hljs-comment">// number 일수도 있고 null 일수도 있음</span>
+
+<span class="hljs-keyword">let</span> color: <span class="hljs-string">'red'</span> | <span class="hljs-string">'orange'</span> | <span class="hljs-string">'yellow'</span> = <span class="hljs-string">'red'</span>; <span class="hljs-comment">// red, orange, yellow 중 하나임</span>
+color = <span class="hljs-string">'yellow'</span>;
+color = <span class="hljs-string">'green'</span>; <span class="hljs-comment">// 에러 발생!</span>
+</code></pre>
+<p><img src="./1. 타입스크립트 연습 · GitBook_files/ZzDrLr9.png" alt=""></p>
+<p>TypeScript 를 사용하면 이렇게 특정 변수 또는 상수의 타입을 지정 할 수 있고 우리가 사전에 지정한 타입이 아닌 값이 설정 될 때 바로 에러를 발생시킵니다.</p>
+<p>이렇게 에러가 나타났을땐 컴파일이 되지 않습니다. 한번 <code>tsc</code> 명령어를 입력해서 컴파일을 하려고 하면 다음과 같이 실패할것입니다.</p>
+<p><img src="./1. 타입스크립트 연습 · GitBook_files/gC6VJWX.png" alt=""></p>
+<h3 id="함수에서-타입-정의하기">함수에서 타입 정의하기</h3>
+<p>이번에는 함수에서 타입을 정의하는 방법을 알아보겠습니다. </p>
+<p>기존 코드를 모두 지우고 다음과 같이 코드를 작성해보세요.</p>
+<h4 id="srcpracticets">src/practice.ts</h4>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sum</span>(<span class="hljs-params">x: number, y: number</span>): <span class="hljs-title">number</span> </span>{
+  <span class="hljs-keyword">return</span> x + y;
+}
+
+sum(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>);
+</code></pre>
+<p>타입스크립트를 사용하면 다음과 같이 코드를 작성하는 과정에서 함수의 파라미터로 어떤 타입을 넣어야 하는지 바로 알 수 있답니다.</p>
+<p><img src="./1. 타입스크립트 연습 · GitBook_files/ObAOm6n.png" alt=""></p>
+<p>위 코드의 첫번째 줄의 가장 우측을 보면 <code>: number</code> 가 있지요? 이는 해당 함수의 결과물이 숫자라는것을 명시합니다.</p>
+<p>만약에 이렇게 결과물이 number 라는 것을 명시해놓고 갑자기 null 을 반환한다면 오류가 뜨게 됩니다.</p>
+<p><img src="./1. 타입스크립트 연습 · GitBook_files/BaZ9F8j.png" alt=""></p>
+<p>이번에는 숫자 배열의 총합을 구하는 <code>sumArray</code> 라는 함수를 작성해볼까요?</p>
+<h4 id="srcpracticets">src/practice.ts</h4>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sumArray</span>(<span class="hljs-params">numbers: number[]</span>): <span class="hljs-title">number</span> </span>{
+  <span class="hljs-keyword">return</span> numbers.reduce((acc, current) =&gt; acc + current, <span class="hljs-number">0</span>);
+}
+
+<span class="hljs-keyword">const</span> total = sumArray([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]);
+</code></pre>
+<p>타입스크립트를 사용했을때 참 편리한 점은, 배열의 내장함수를 사용 할 때에도 타입 유추가 매우 잘 이루어진다는 것 입니다.</p>
+<p><img src="./1. 타입스크립트 연습 · GitBook_files/xzJIkSY.png" alt=""></p>
+<p>참고로 함수에서 만약 아무것도 반환하지 않아야 한다면 이를 반환 타입을 <code>void</code> 로 설정하면 됩니다.</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">returnNothing</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span> </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'I am just saying hello world'</span>);
+}
+</code></pre>
+<h3 id="interface-사용해보기">interface 사용해보기</h3>
+<p>interface는 클래스 또는 객체를 위한 타입을 지정 할 때 사용되는 문법입니다.</p>
+<h4 id="클래스에서-interface-를-implements-하기">클래스에서 interface 를 implements 하기</h4>
+<p>다음 코드를 따라 작성해보세요.</p>
+<h4 id="practicets">practice.ts</h4>
+<pre><code class="lang-javascript"><span class="hljs-comment">// Shape 라는 interface 를 선언합니다.</span>
+interface Shape {
+  getArea(): number; <span class="hljs-comment">// Shape interface 에는 getArea 라는 함수가 꼭 있어야 하며 해당 함수의 반환값은 숫자입니다.</span>
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Circle</span> <span class="hljs-title">implements</span> <span class="hljs-title">Shape</span> </span>{
+  <span class="hljs-comment">// `implements` 키워드를 사용하여 해당 클래스가 Shape interface 의 조건을 충족하겠다는 것을 명시합니다.</span>
+
+  radius: number; <span class="hljs-comment">// 멤버 변수 radius 값을 설정합니다.</span>
+
+  <span class="hljs-keyword">constructor</span>(radius: number) {
+    <span class="hljs-keyword">this</span>.radius = radius;
+  }
+
+  <span class="hljs-comment">// 너비를 가져오는 함수를 구현합니다.</span>
+  getArea() {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.radius * <span class="hljs-keyword">this</span>.radius * <span class="hljs-built_in">Math</span>.PI;
+  }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Rectangle</span> <span class="hljs-title">implements</span> <span class="hljs-title">Shape</span> </span>{
+  width: number;
+  height: number;
+  <span class="hljs-keyword">constructor</span>(width: number, height: number) {
+    <span class="hljs-keyword">this</span>.width = width;
+    <span class="hljs-keyword">this</span>.height = height;
+  }
+  getArea() {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.width * <span class="hljs-keyword">this</span>.height;
+  }
+}
+
+<span class="hljs-keyword">const</span> shapes: Shape[] = [<span class="hljs-keyword">new</span> Circle(<span class="hljs-number">5</span>), <span class="hljs-keyword">new</span> Rectangle(<span class="hljs-number">10</span>, <span class="hljs-number">5</span>)];
+
+shapes.forEach(shape =&gt; {
+  <span class="hljs-built_in">console</span>.log(shape.getArea());
+});
+</code></pre>
+<p>여기까지 코드를 작성하고 <code>tsc</code> 명령어를 입력해보세요. 그 다음엔, <code>node dist/practice</code> 명령어를 입력하여 컴파일된 스크립트를 실행시켜보세요.</p>
+<p><img src="./1. 타입스크립트 연습 · GitBook_files/xpyFzd9.png" alt=""></p>
+<p>잘 작동하지요?</p>
+<p>우리가 기존에 작성했던 코드를 보면</p>
+<pre><code class="lang-javascript">  width: number;
+  height: number;
+  <span class="hljs-keyword">constructor</span>(width: number, height: number) {
+    <span class="hljs-keyword">this</span>.width = width;
+    <span class="hljs-keyword">this</span>.height = height;
+  }
+</code></pre>
+<p>이런식으로 width, height 멤버 변수를 선언한 다음에 constructor 에서 해당 값들을 하나 하나 설정해주었는데요, 타입스크립트에서는 constructor 의 파라미터 쪽에 <code>public</code> 또는 <code>private</code> <a href="https://www.typescriptlang.org/docs/handbook/classes.html#accessors" target="_blank">accessor</a> 를 사용하면 직접 하나하나 설정해주는 작업을 생략해줄 수 있습니다.</p>
+<h4 id="srcpracticets"><code>src/practice.ts</code></h4>
+<pre><code class="lang-javascript"><span class="hljs-comment">// Shape 라는 interface 를 선언합니다.</span>
+interface Shape {
+  getArea(): number; <span class="hljs-comment">// Shape interface 에는 getArea 라는 함수가 꼭 있어야 하며 해당 함수의 반환값은 숫자입니다.</span>
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Circle</span> <span class="hljs-title">implements</span> <span class="hljs-title">Shape</span> </span>{
+  <span class="hljs-comment">// `implements` 키워드를 사용하여 해당 클래스가 Shape interface 의 조건을 충족하겠다는 것을 명시합니다.</span>
+  <span class="hljs-keyword">constructor</span>(public radius: number) {
+    <span class="hljs-keyword">this</span>.radius = radius;
+  }
+
+  <span class="hljs-comment">// 너비를 가져오는 함수를 구현합니다.</span>
+  getArea() {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.radius * <span class="hljs-keyword">this</span>.radius * <span class="hljs-built_in">Math</span>.PI;
+  }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Rectangle</span> <span class="hljs-title">implements</span> <span class="hljs-title">Shape</span> </span>{
+  <span class="hljs-keyword">constructor</span>(private width: number, private height: number) {
+    <span class="hljs-keyword">this</span>.width = width;
+    <span class="hljs-keyword">this</span>.height = height;
+  }
+  getArea() {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.width * <span class="hljs-keyword">this</span>.height;
+  }
+}
+
+<span class="hljs-keyword">const</span> circle = <span class="hljs-keyword">new</span> Circle(<span class="hljs-number">5</span>);
+<span class="hljs-keyword">const</span> rectangle = <span class="hljs-keyword">new</span> Rectangle(<span class="hljs-number">10</span>, <span class="hljs-number">5</span>);
+
+<span class="hljs-built_in">console</span>.log(circle.radius);
+<span class="hljs-built_in">console</span>.log(rectangle.width);
+
+<span class="hljs-keyword">const</span> shapes: Shape[] = [<span class="hljs-keyword">new</span> Circle(<span class="hljs-number">5</span>), <span class="hljs-keyword">new</span> Rectangle(<span class="hljs-number">10</span>, <span class="hljs-number">5</span>)];
+
+shapes.forEach(shape =&gt; {
+  <span class="hljs-built_in">console</span>.log(shape.getArea());
+});
+</code></pre>
+<p><code>public</code> 으로 선언된 값은 클래스 외부에서 조회 할 수 있으며 <code>private</code>으로 선언된 값은 클래스 내부에서만 조회 할 수 있습니다. 따라서 위 코드에서는 circle 의 radius 값은 클래스 외부에서 조회 할 수 있지만, rectangle 의 width 또는 height 값은 클래스 외부에서 조회 할 수 없습니다.</p>
+<p>문제가 되는 <code>console.log(rectangle.width);</code> 코드를 지우고, <code>tsc</code> 명령어를 실행하여 코드를 컴파일 한뒤 <code>node dist/practice</code> 명령어를 실행해서 이전과 동일하게 작동되는지 확인해보세요.</p>
+<h4 id="일반-객체를-interface-로-타입-설정하기">일반 객체를 interface 로 타입 설정하기</h4>
+<p>이번에는 클래스가 아닌 일반 객체를 interface 를 사용하여 타입을 지정하는 방법을 알아보도록 하겠습니다. </p>
+<h4 id="srcpracticets">src/practice.ts</h4>
+<pre><code class="lang-typescript"><span class="hljs-keyword">interface</span> Person {
+  name: <span class="hljs-built_in">string</span>;
+  age?: <span class="hljs-built_in">number</span>; <span class="hljs-comment">// 물음표가 들어갔다는 것은, 설정을 해도 되고 안해도 되는 값이라는 것을 의미합니다.</span>
+}
+<span class="hljs-keyword">interface</span> Developer {
+  name: <span class="hljs-built_in">string</span>;
+  age?: <span class="hljs-built_in">number</span>;
+  skills: <span class="hljs-built_in">string</span>[];
+}
+
+<span class="hljs-keyword">const</span> person: Person = {
+  name: <span class="hljs-string">'김사람'</span>,
+  age: <span class="hljs-number">20</span>
+};
+
+<span class="hljs-keyword">const</span> expert: Developer = {
+  name: <span class="hljs-string">'김개발'</span>,
+  skills: [<span class="hljs-string">'javascript'</span>, <span class="hljs-string">'react'</span>]
+};
+</code></pre>
+<p>지금 보면 Person 과 Developer 가 형태가 유사하지요? 이럴 땐 interface 를 선언 할 때 다른 interface 를 <code>extends</code> 키워드를 사용해서 상속받을 수 있습니다.</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">interface</span> Person {
+  name: <span class="hljs-built_in">string</span>;
+  age?: <span class="hljs-built_in">number</span>; <span class="hljs-comment">// 물음표가 들어갔다는 것은, 설정을 해도 되고 안해도 되는 값이라는 것을 의미합니다.</span>
+}
+<span class="hljs-keyword">interface</span> Developer <span class="hljs-keyword">extends</span> Person {
+  skills: <span class="hljs-built_in">string</span>[];
+}
+
+<span class="hljs-keyword">const</span> person: Person = {
+  name: <span class="hljs-string">'김사람'</span>,
+  age: <span class="hljs-number">20</span>
+};
+
+<span class="hljs-keyword">const</span> expert: Developer = {
+  name: <span class="hljs-string">'김개발'</span>,
+  skills: [<span class="hljs-string">'javascript'</span>, <span class="hljs-string">'react'</span>]
+};
+
+<span class="hljs-keyword">const</span> people: Person[] = [person, expert];
+</code></pre>
+<h3 id="type-alias-사용하기">Type Alias 사용하기</h3>
+<p><code>type</code> 은 특정 타입에 별칭을 붙이는 용도로 사용합니다. 이를 사용하여 객체를 위한 타입을 설정할 수도 있고, 배열, 또는 그 어떤 타입이던 별칭을 지어줄 수 있습니다.</p>
+<h4 id="srcpracticets">src/practice.ts</h4>
+<pre><code class="lang-javascript">type Person = {
+  name: string;
+  age?: number; <span class="hljs-comment">// 물음표가 들어갔다는 것은, 설정을 해도 되고 안해도 되는 값이라는 것을 의미합니다.</span>
+};
+
+<span class="hljs-comment">// &amp; 는 Intersection 으로서 두개 이상의 타입들을 합쳐줍니다.</span>
+<span class="hljs-comment">// 참고: https://www.typescriptlang.org/docs/handbook/advanced-types.html#intersection-types</span>
+type Developer = Person &amp; {
+  skills: string[];
+};
+
+<span class="hljs-keyword">const</span> person: Person = {
+  name: <span class="hljs-string">'김사람'</span>
+};
+
+<span class="hljs-keyword">const</span> expert: Developer = {
+  name: <span class="hljs-string">'김개발'</span>,
+  skills: [<span class="hljs-string">'javascript'</span>, <span class="hljs-string">'react'</span>]
+};
+
+type People = Person[]; <span class="hljs-comment">// Person[] 를 이제 앞으로 People 이라는 타입으로 사용 할 수 있습니다.</span>
+<span class="hljs-keyword">const</span> people: People = [person, expert];
+
+type Color = <span class="hljs-string">'red'</span> | <span class="hljs-string">'orange'</span> | <span class="hljs-string">'yellow'</span>;
+<span class="hljs-keyword">const</span> color: Color = <span class="hljs-string">'red'</span>;
+<span class="hljs-keyword">const</span> colors: Color[] = [<span class="hljs-string">'red'</span>, <span class="hljs-string">'orange'</span>];
+</code></pre>
+<p>우리가 이번에 type 과 interface 를 배웠는데, 어떤 용도로 사용을 해야 할까요? 클래스와 관련된 타입의 경우엔 interface 를 사용하는게 좋고, 일반 객체의 타입의 경우엔 그냥 type을 사용해도 무방합니다. 사실 객체를 위한 타입을 정의할때 무엇이든 써도 상관 없는데 일관성 있게만 쓰시면 됩니다.</p>
+<p>이에 대한 자세한 내용은 다음 링크에 자세히 서술되어 있습니다.</p>
+<ul>
+<li><a href="https://medium.com/@martin_hotell/interface-vs-type-alias-in-typescript-2-7-2a8f1777af4c" target="_blank">https://medium.com/@martin_hotell/interface-vs-type-alias-in-typescript-2-7-2a8f1777af4c</a></li>
+<li><a href="https://joonsungum.github.io/post/2019-02-25-typescript-interface-and-type-alias/" target="_blank">https://joonsungum.github.io/post/2019-02-25-typescript-interface-and-type-alias/</a></li>
+</ul>
+<h3 id="generics">Generics</h3>
+<p>제너릭(Generics)은 타입스크립트에서 함수, 클래스, interface, type alias 를 사용하게 될 때 여러 종류의 타입에 대하여 호환을 맞춰야 하는 상황에서 사용하는 문법입니다.</p>
+<h4 id="함수에서-generics-사용하기">함수에서 Generics 사용하기</h4>
+<p>예를 들어서 우리가 객체 A 와 객체 B 를 합쳐주는 merge 라는 함수를 만든다고 가정해봅시다. 그런 상황에서는 A 와 B 가 어떤 타입이 올 지 모르기 떄문에 이런 상황에서는 any 라는 타입을 쓸 수도 있습니다.</p>
+<h4 id="practicets">practice.ts</h4>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">merge</span>(<span class="hljs-params">a: any, b: any</span>): <span class="hljs-title">any</span> </span>{
+  <span class="hljs-keyword">return</span> {
+    ...a,
+    ...b
+  };
+}
+
+<span class="hljs-keyword">const</span> merged = merge({ foo: <span class="hljs-number">1</span> }, { bar: <span class="hljs-number">1</span> });
+</code></pre>
+<p>그런데, 이렇게 하면 타입 유추가 모두 깨진거나 다름이 없습니다. 결과가 any 라는 것은 즉 merged 안에 무엇이 있는지 알 수 없다는 것 입니다.</p>
+<p><img src="./1. 타입스크립트 연습 · GitBook_files/AVikBS7.png" alt=""></p>
+<p>이런 상황에 Generics 를 사용하면 됩니다. Generics 는 다음과 같이 사용합니다.</p>
+<h4 id="srcpracticets">src/practice.ts</h4>
+<pre><code class="lang-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">merge</span>&lt;<span class="hljs-title">A</span>, <span class="hljs-title">B</span>&gt;(<span class="hljs-params">a: A, b: B</span>): <span class="hljs-title">A</span> &amp; <span class="hljs-title">B</span> </span>{
+  <span class="hljs-keyword">return</span> {
+    ...a,
+    ...b
+  };
+}
+
+<span class="hljs-keyword">const</span> merged = merge({ foo: <span class="hljs-number">1</span> }, { bar: <span class="hljs-number">1</span> });
+</code></pre>
+<p>또 다른 예시를 알아볼까요?</p>
+<h4 id="srcpracticets">src/practice.ts</h4>
+<pre><code class="lang-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">wrap</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">param: T</span>) </span>{
+  <span class="hljs-keyword">return</span> {
+    param
+  }
+}
+
+<span class="hljs-keyword">const</span> wrapped = wrap(<span class="hljs-number">10</span>);
+</code></pre>
+<p><img src="./1. 타입스크립트 연습 · GitBook_files/OJmi5Xb.png" alt=""></p>
+<p>이렇게 함수에서 Generics 를 사용하면 파라미터로 다양한 타입을 넣을 수도 있고 타입 지원을 지켜낼 수 있습니다.</p>
+<h4 id="interface-에서-generics-사용하기">interface 에서 Generics 사용하기</h4>
+<p>이번엔 interface 에서 Generics 를 사용하는 방법을 알아봅시다.</p>
+<h4 id="srcpracticets">src/practice.ts</h4>
+<pre><code class="lang-javascript">interface Items&lt;T&gt; {
+  list: T[];
+}
+
+<span class="hljs-keyword">const</span> items: Items&lt;string&gt; = {
+  list: [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>]
+};
+</code></pre>
+<h4 id="type-에서-generics-사용하기">type 에서 Generics 사용하기</h4>
+<p>방금 interface 에서 Generics를 사용한것과 매우 유사합니다.</p>
+<h4 id="srcpracticets">src/practice.ts</h4>
+<pre><code class="lang-javascript">type Items&lt;T&gt; = {
+  list: T[];
+};
+
+<span class="hljs-keyword">const</span> items: Items&lt;string&gt; = {
+  list: [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>]
+};
+</code></pre>
+<h4 id="클래스에서-generics-사용하기">클래스에서 Generics 사용하기</h4>
+<p>이번에는 클래스에서 Generics 를 사용해볼까요? Queue 라는 클래스를 만들어봅시다. Queue 는 데이터를 등록 할 수 있는 자료형이며, 먼저 등록(enqueue)한 항목을 먼저 뽑아올 수(dequeue) 있는 성질을 가지고 있습니다.</p>
+<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Queue</span>&lt;<span class="hljs-title">T</span>&gt; </span>{
+  list: T[] = [];
+  get length() {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.list.length;
+  }
+  enqueue(item: T) {
+    <span class="hljs-keyword">this</span>.list.push(item);
+  }
+  dequeue() {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.list.shift();
+  }
+}
+
+<span class="hljs-keyword">const</span> queue = <span class="hljs-keyword">new</span> Queue&lt;number&gt;();
+queue.enqueue(<span class="hljs-number">0</span>);
+queue.enqueue(<span class="hljs-number">1</span>);
+queue.enqueue(<span class="hljs-number">2</span>);
+queue.enqueue(<span class="hljs-number">3</span>);
+queue.enqueue(<span class="hljs-number">4</span>);
+<span class="hljs-built_in">console</span>.log(queue.dequeue());
+<span class="hljs-built_in">console</span>.log(queue.dequeue());
+<span class="hljs-built_in">console</span>.log(queue.dequeue());
+<span class="hljs-built_in">console</span>.log(queue.dequeue());
+<span class="hljs-built_in">console</span>.log(queue.dequeue());
+</code></pre>
+<p>이제 해당 코드를 컴파일하고 실행해보세요.</p>
+<pre><code class="lang-bash">$ tsc
+$ node dist/practice
+
+0
+1
+2
+3
+4
+</code></pre>
+<p>잘 작동하나요?</p>
+<p>여기까지 쭉 잘 따라오셨다면, 타입스크립트를 리액트와 함께 쓰기위한 준비를 마치신 겁니다. 다음 섹션에서 본격적으로 리액트에서 타입스크립트를 사용해보도록 하겠습니다.<script>
+      function attachComments() {
+        const el = document.querySelector('.markdown-section');
+        if (!el) return;
+        const script = document.createElement('script');
+        script.src = 'https://utteranc.es/client.js';
+        script.setAttribute('repo', 'velopert/react-tutorial');
+        script.setAttribute('issue-term', 'title');
+        script.setAttribute('crossorigin', 'anonymous');
+        script.setAttribute('label', 'comments');
+        el.appendChild(script);
+      }
+      setTimeout(attachComments, 100);
+    </script></p>
+<div class="utterances">
+    <iframe class="utterances-frame" title="Comments" scrolling="no" src="./1. 타입스크립트 연습 · GitBook_files/utterances.html" loading="lazy"></iframe>
+  </div></section>
+</div>
+<div class="search-results">
+<div class="has-results">
+<h1 class="search-results-title"><span class="search-results-count"></span> results matching "<span class="search-query"></span>"</h1>
+<ul class="search-results-list"></ul>
+</div>
+<div class="no-results">
+<h1 class="search-results-title">No results matching "<span class="search-query"></span>"</h1>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<a href="https://react.vlpt.us/using-typescript/" class="navigation navigation-prev " aria-label="Previous page: 8장. 리액트 프로젝트에서 타입스크립트 사용하기">
+<i class="fa fa-angle-left"></i>
+</a>
+<a href="https://react.vlpt.us/using-typescript/02-ts-react-basic.html" class="navigation navigation-next " aria-label="Next page: 2. 리액트 컴포넌트 타입스크립트로 작성하기" style="margin-right: 0px;">
+<i class="fa fa-angle-right"></i>
+</a>
+</div>
+<script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"1. 타입스크립트 연습","level":"1.9.1","depth":2,"next":{"title":"2. 리액트 컴포넌트 타입스크립트로 작성하기","level":"1.9.2","depth":2,"path":"using-typescript/02-ts-react-basic.md","ref":"./using-typescript/02-ts-react-basic.md","articles":[]},"previous":{"title":"8장. 리액트 프로젝트에서 타입스크립트 사용하기","level":"1.9","depth":1,"path":"using-typescript/README.md","ref":"./using-typescript/README.md","articles":[{"title":"1. 타입스크립트 연습","level":"1.9.1","depth":2,"path":"using-typescript/01-practice.md","ref":"./using-typescript/01-practice.md","articles":[]},{"title":"2. 리액트 컴포넌트 타입스크립트로 작성하기","level":"1.9.2","depth":2,"path":"using-typescript/02-ts-react-basic.md","ref":"./using-typescript/02-ts-react-basic.md","articles":[]},{"title":"3. 타입스크립트로 리액트 상태 관리하기","level":"1.9.3","depth":2,"path":"using-typescript/03-ts-manage-state.md","ref":"./using-typescript/03-ts-manage-state.md","articles":[]},{"title":"4. TypeScript 와 Context API 활용하기","level":"1.9.4","depth":2,"path":"using-typescript/04-ts-context.md","ref":"./using-typescript/04-ts-context.md","articles":[]},{"title":"5. TypeScript 에서 리덕스 프로처럼 사용하기","level":"1.9.5","depth":2,"path":"using-typescript/05-ts-redux.md","ref":"./using-typescript/05-ts-redux.md","articles":[]},{"title":"6.타입스크립트에서 리덕스 미들웨어 사용하기 (redux-thunk, redux-saga)","level":"1.9.6","depth":2,"path":"using-typescript/06-ts-redux-middleware.md","ref":"./using-typescript/06-ts-redux-middleware.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["collapsible-chapters","comment","hide-published-with","github","edit-link"],"pluginsConfig":{"github":{"url":"https://github.com/velopert/react-tutorial"},"search":{},"collapsible-chapters":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"수정 요청하기","base":"https://github.com/velopert/react-tutorial/edit/master"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"comment":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"using-typescript/01-practice.md","mtime":"2019-09-22T18:49:02.099Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-09-25T13:34:28.960Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+<script src="./1. 타입스크립트 연습 · GitBook_files/gitbook.js"></script>
+<script src="./1. 타입스크립트 연습 · GitBook_files/theme.js"></script>
+<script src="./1. 타입스크립트 연습 · GitBook_files/collapsible-chapters.js"></script>
+<script src="./1. 타입스크립트 연습 · GitBook_files/plugin.js"></script>
+<script src="./1. 타입스크립트 연습 · GitBook_files/plugin(1).js"></script>
+<script src="./1. 타입스크립트 연습 · GitBook_files/plugin(2).js"></script>
+<script src="./1. 타입스크립트 연습 · GitBook_files/search-engine.js"></script>
+<script src="./1. 타입스크립트 연습 · GitBook_files/search.js"></script>
+<script src="./1. 타입스크립트 연습 · GitBook_files/lunr.min.js"></script>
+<script src="./1. 타입스크립트 연습 · GitBook_files/search-lunr.js"></script>
+<script src="./1. 타입스크립트 연습 · GitBook_files/buttons.js"></script>
+<script src="./1. 타입스크립트 연습 · GitBook_files/fontsettings.js"></script>
+
+
+</body></html>
