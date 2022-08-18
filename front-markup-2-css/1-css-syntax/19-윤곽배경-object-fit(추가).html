@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h2 {
+            font-family: Courier New, monospace;
+            font-size: 1em;
+            margin: 1em 0 0.3em;
+        }
+
+        .wide {
+            width: 150px;
+            height: 100px;
+            border: 1px solid #000;
+            margin: 10px 0;
+        }
+
+        .narrow {
+            width: 100px;
+            height: 150px;
+            border: 1px solid #000;
+            margin: 10px 0;            
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <h2>object-fit = CSS의 object-fit 속성은 image나 video등의 미디어를, 컨테이너안에 어떻게 끼울지를 설정합니다.</h2>
+
+        <h2>object-fit: fill = 종횡비를 콘텐츠 박스 크기만큼 늘린다.</h2>
+        <img style="object-fit: fill;" src="dog.png" alt="MDN Logo" class="wide">
+        <img style="object-fit: fill;" src="dog.png" alt="MDN Logo" class="narrow">
+      
+        <h2>object-fit: contain = 종횡비를 유지한 채 콘텐츠 박스 크기만큼 확대 축소한다.</h2>
+        <img style="object-fit: contain;" src="dog.png" alt="MDN Logo" class="wide">
+        <img style="object-fit: contain;" src="dog.png" alt="MDN Logo" class="narrow">
+      
+        <h2>object-fit: cover = 종횡비를 유지한 채 콘텐츠 박스의 종횡 중 큰 쪽의 크기만큼 확대 축소한다.</h2>
+        <img style="object-fit: cover;" src="dog.png" alt="MDN Logo" class="wide">
+        <img style="object-fit: cover;" src="dog.png" alt="MDN Logo" class="narrow">
+      
+        <h2>object-fit: none = 종횡비를 수정하지 않는다.</h2>
+        <img style="object-fit: none;" src="dog.png" alt="MDN Logo" class="wide">
+        <img style="object-fit: none;" src="dog.png" alt="MDN Logo" class="narrow">
+      
+        <h2>object-fit: scale-down = contain과 같지만, 오브젝트의 실제 크기가 작다면 none처럼 종횡비를 수정하지 않는다.</h2>
+        <img style="object-fit: scale-down;" src="dog.png" alt="MDN Logo" class="wide">
+        <img style="object-fit: scale-down;" src="dog.png" alt="MDN Logo" class="narrow">
+    </section>
+</body>
+</html>
