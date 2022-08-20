@@ -17,7 +17,8 @@
     Del키 : Fn Delete
     스프레드시트 매크로용 shift ctrl alt 숫자키 : shift opt cmd 숫자키
     vs코드 확대/축소 : cmd shift - / cmd -
-    크롬 확대 축소 : （일본어키보드에서) 시트하나 열고 cmd shift +, (영어키보드에서) cmd
+    크롬 확대/축소 : （일본어키보드에서) 시트하나 열고 cmd shift +, (영어키보드에서) cmd
+    크롬 콘솔로그 확대/축소 : cmd - / cmd ~ (매직키보드 말고 맥북내 키보드로 해야함)
     크롬 새로고침(F5) : cmd r
     시스템 종료(Alt F4) : ctrl 전원키
     백슬래쉬 : (영어키보드에서) opt ¥
