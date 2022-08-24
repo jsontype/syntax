@@ -6,7 +6,7 @@
 
 1. NextJS 시작
     mkdir app1
-    cd app1
+    $ cd app1
     npm init
         프로젝트명: app1
         author: D.Yang

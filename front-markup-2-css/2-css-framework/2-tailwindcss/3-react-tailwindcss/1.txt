@@ -2,8 +2,8 @@
 # https://tailwindcss.com/docs/guides/create-react-app 이건 뭐지?
 
 1. 설치
-    npx create-react-app app1
-    cd app1
+    $ npx create-react-app app1
+    $ cd app1
     npm install -D tailwindcss postcss autoprefixer : 리액트 앱에 tailwindcss을 devDeps에 설치
     npx tailwindcss init -p : tailwind.config.js 생성하는 명령문
 

@@ -23,7 +23,7 @@
     npx create-nuxt-app app1
     선택 : app1, JavaScript, Npm, Element(UI), Axios, None, Universal (SSR / SSG), Server (Node.js hosting), 그 뒤로 전부 enter
     설치 끝
-    cd app1
+    $ cd app1
     package.json에서 실행 명령어 찾기 : "script" 안의 "dev"
     npm run dev
     http://localhost:3000/ 들어가서 작동 확인

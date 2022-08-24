@@ -44,8 +44,8 @@
 
 
 1. React에 Scss 프레임워크 도입하기
-    npx create-react-app app1
-    cd app1
+    $ npx create-react-app app1
+    $ cd app1
     npm i node-sass (= yarn add node-sass)
 
 
@@ -146,5 +146,5 @@
 
 
 1. 테스트 : 버튼이 잘 나타나는지 확인
-    cd app1
+    $ cd app1
     npm start

@@ -20,7 +20,7 @@
     yarn add node-sass (= npm i node-sass)
 
 1. npx 명령어
-    npx create-react-app app1
+    $ npx create-react-app app1
 
 1. nvm 명령어
     nvm list

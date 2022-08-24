@@ -6,7 +6,7 @@
         Router, Vuex(Store) 선택
         3.x 선택
         엔터 연타
-    cd app1
+    $ cd app1
     code .
         * code . 로 열리지 않는 경우, command + shift + p 누른 뒤, code 입력, 첫번째 것을 인스톨하면 된다.
         * 만일 github 등으로 당겨온 앱이라면 npm i를 통해서 vue.cmd 웹빌드를 해야한다.

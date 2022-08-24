@@ -5,6 +5,6 @@
 アップリを作る
 1. Folderに右クリックしたら、四番目に「ターミナルを開ける」ボタンを押下する。
 1. Terminalを開ける。
-1. npx create-react-app app1
-1. cd app1
+1. $ npx create-react-app app1
+1. $ cd app1
 1. npm start

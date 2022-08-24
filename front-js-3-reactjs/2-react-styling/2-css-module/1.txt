@@ -18,7 +18,7 @@
 
 
 
-1. npx create-react-app app1
+1. $ npx create-react-app app1
 
 
 
@@ -91,5 +91,5 @@
 
 
 1. 테스트
-    cd app1
+    $ cd app1
     npm start
