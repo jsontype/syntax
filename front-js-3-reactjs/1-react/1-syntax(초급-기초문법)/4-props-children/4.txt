@@ -62,5 +62,5 @@
 
 
 1. 테스트 : 콘솔로그도 확인해서, children이 복수의 경우 배열에 담겨 나오는지 확인
-    cd app1
+    $ cd app1
     npm start

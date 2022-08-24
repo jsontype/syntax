@@ -44,8 +44,8 @@
 
 
 1. 리액트 앱 생성
-    npx create-react-app app1
-    cd app1
+    $ npx create-react-app app1
+    $ cd app1
     npm i node-sass (= yarn add node-sass)
     불필요 파일 및 코드 지우기
 
@@ -272,5 +272,5 @@
 
 
 1. 테스트
-    cd app1
+    $ cd app1
     npm start

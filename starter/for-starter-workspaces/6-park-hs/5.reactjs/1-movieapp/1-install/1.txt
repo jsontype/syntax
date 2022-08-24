@@ -13,4 +13,4 @@ JS SPA 라이브러리
     장점 : 커뮤니티성, 구조가 단순(ts, tsx)
 
 React 앱 설치방법
-    npx create-react-app app1
+    $ npx create-react-app app1

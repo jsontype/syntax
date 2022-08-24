@@ -1,7 +1,7 @@
 [JSX]
 
 1. 설치 : nodejs 필요
-    npx create-react-app app1
+    $ npx create-react-app app1
 
 
 
@@ -69,6 +69,6 @@
 
 
 1. 테스트
-    cd app1
+    $ cd app1
     npm start (또는 yarn start)
     http://localhost:3000/

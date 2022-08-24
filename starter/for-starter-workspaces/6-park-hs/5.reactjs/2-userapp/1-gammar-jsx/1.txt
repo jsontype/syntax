@@ -1,7 +1,7 @@
 [Install]
 1. 새 프로젝트 만들어보기
-    npx create-react-app app1
-    cd app1
+    $ npx create-react-app app1
+    $ cd app1
     npm start
     http://localhost:3000/
 

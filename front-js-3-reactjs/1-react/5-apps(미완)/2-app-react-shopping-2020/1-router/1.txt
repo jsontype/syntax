@@ -12,7 +12,7 @@ _layout.tsx 추출용 깃주소: https://github.com/zoubingwu/vite-plugin-next-r
         project name: app1
         react 선택
         react-ts 선택
-    cd app1
+    $ cd app1
 
 1. 실행확인
     yarn

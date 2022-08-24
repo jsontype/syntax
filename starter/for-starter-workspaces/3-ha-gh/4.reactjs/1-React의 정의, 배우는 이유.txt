@@ -6,10 +6,10 @@
 
 [React 설치]
 1. 리액트, 웹팩 동시 설치
-    npx create-react-app app1
+    $ npx create-react-app app1
 
 1. 리액트 실행
-    cd app1
+    $ cd app1
     npm start
     localhost:3000에 가본다.
 

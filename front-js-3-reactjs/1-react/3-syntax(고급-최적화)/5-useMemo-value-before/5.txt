@@ -43,5 +43,5 @@
 
 
 1. 테스트 : count1을 눌렀을 때에 변하지 않는 값인 count2 state까지 재렌더링 되는 것을 확인
-    cd app1
+    $ cd app1
     npm start
