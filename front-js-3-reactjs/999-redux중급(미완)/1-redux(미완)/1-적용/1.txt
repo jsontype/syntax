@@ -13,7 +13,7 @@
         물론, 하나의 component 안에서만 쓸 자원이라면 State만 써도 되고, 컴포넌트 간에 연계성이 있는 State라면, 리덕스에 다 넣어서 관리하는 게 편하다.
 
 1. 리덕스 설치 후 적용해보기
-    npm init : 다 yes
+    $ npm init : 다 yes
     npx i redux
     1.js 작성
     redux 공식문서 보기

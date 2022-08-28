@@ -9,7 +9,7 @@
     $ cd app1
     code .
         * code . 로 열리지 않는 경우, command + shift + p 누른 뒤, code 입력, 첫번째 것을 인스톨하면 된다.
-        * 만일 github 등으로 당겨온 앱이라면 npm i를 통해서 vue.cmd 웹빌드를 해야한다.
+        * 만일 github 등으로 당겨온 앱이라면 $ npm i를 통해서 vue.cmd 웹빌드를 해야한다.
 
 1. package.json
     npm run serve : * 해당 파일내의 "serve"를 실행

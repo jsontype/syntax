@@ -24,10 +24,10 @@
         ESlint같이, 코드를 검사해서, 불필요한 공백을 줄여준다거나, 추가해준다거나 할 수 있다.
 
 1. 웹팩 설치 순서
-    npm init
+    $ npm init
         package name: app1
         이후 다 엔터
-    npm i webpack --save-dev    
+    $ npm i webpack --save-dev    
     package.json 열기 → "devDependencies" 키 안의 "webpack" 키를 확인
     package.json 의 "scripts" 키 안에 "build"를 아래와 같이 추가
         "scripts": {

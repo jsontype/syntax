@@ -52,7 +52,7 @@
     DB의 갱신 요청이 완료가 됐을 때 그 때 스토어도 커밋을 해서 보내주게 되는 것입니다.
 
     작업순서
-        1. npm install --save axios 로 axios 설치
+        1. $ npm install --save axios 로 axios 설치
         1. store/index.js의 actions:{}에 추가
         1. App.vue에 import axios하면서 메소드 추가
         1. components들 수정    

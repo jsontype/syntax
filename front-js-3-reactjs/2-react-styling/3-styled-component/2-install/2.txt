@@ -15,7 +15,7 @@
 
 1. styled-components 설치
     $ cd app1
-    $ npm i styled-components (yarn add styled-components)
+    $ $ npm i styled-components (yarn add styled-components)
     $ npm audit fix
 
 
@@ -52,4 +52,4 @@
 
 1. 테스트 : function App()의 리턴 부분을 하나씩 스위칭해서 확인
     cd app1
-    npm start
+    $ npm start

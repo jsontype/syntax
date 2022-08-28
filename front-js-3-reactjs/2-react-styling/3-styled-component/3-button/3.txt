@@ -1,7 +1,7 @@
 [Button 만들기]
 
 1. polished의 스타일 관련 유틸 함수 사용하기 : lighten() 또는 darken()등의 함수를 사용할 수 있다.
-    npm i polished (= yarn add polished)
+    $ npm i polished (= yarn add polished)
 
 
 
@@ -259,4 +259,4 @@
 
 1. 테스트 : 1~4순으로 구현된 버튼들의 프롭이 잘 동작하는 지 확인
     cd app1
-    npm start
+    $ npm start

@@ -10,4 +10,4 @@ js 실행 :
     node *.js
 
 npm : node package manager. javascript 라이브러리들을 관리하는 CLI
-    npm i [깔고싶은 라이브러리나 프레임워크이름]
+    $ npm i [깔고싶은 라이브러리나 프레임워크이름]

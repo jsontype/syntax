@@ -34,7 +34,7 @@
 
 1. 테스트
     $ cd app1
-    npm start
+    $ npm start
 
 
 

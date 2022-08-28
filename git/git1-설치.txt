@@ -19,7 +19,7 @@
     사전에 node가 설치되어 있지 않은 경우 node 설치
     원하는 위치에 소스코드 workspace 폴더를 생성
     터미널(powershell이 아닌 git bash 터미널로 할 것)에 들어감
-    npm install -g @vue/cli @vue/cli-service-global 로 뷰 클리 설치
+    $ npm install -g @vue/cli @vue/cli-service-global 로 뷰 클리 설치
     $vue create test
     default로 설치
     연동 준비가 완료됨

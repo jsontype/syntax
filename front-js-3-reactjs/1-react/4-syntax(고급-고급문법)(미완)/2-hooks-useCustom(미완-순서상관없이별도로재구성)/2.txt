@@ -94,7 +94,7 @@
 
 1. 테스트 : 결과는 이전과 똑같다.
     $ cd app1
-    npm start
+    $ npm start
 
 
 
@@ -145,4 +145,4 @@
 
 1. 테스트 : 결과는 이전과 똑같다.
     $ cd app1
-    npm start
+    $ npm start

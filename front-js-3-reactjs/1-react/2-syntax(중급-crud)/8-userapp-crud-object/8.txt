@@ -72,4 +72,4 @@
 
 1. 테스트 : 더미데이터 대신, API 호출한 데이터가 제대로 들어가는 지 확인
     $ cd app1
-    npm start
+    $ npm start

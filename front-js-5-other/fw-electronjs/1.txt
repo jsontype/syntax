@@ -19,12 +19,12 @@ Chromium 을 사용해서 HTML, CSS, 자바스크립트를 이용해 애플리�
 05. tray, dialog, shell 처리 이벤트 삽입
 
 <NodeJS 커맨드>
-$ npm i : 인스톨
+$ $ npm i : 인스톨
 $ npm start : 앱 실행
 
 <배포>
 start-kit/app 폴더안에 배포를 원하는 html, css, js를 담는다.
-$ npm i
+$ $ npm i
 $ npm run dev 로 작동을 확인한다.
 package.json 파일 안에 dependencies 항목을 devDependancies 안에 옮겨담기
 package.json 파일 안의 helloElectron이라고 하는 제품 이름, 인스톨 이름, 버전 등 기본 정의 데이터을 변경

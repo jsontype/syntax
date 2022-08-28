@@ -3,7 +3,7 @@
 1. React에 classnames 라이브러리 도입하기
     $ npx create-react-app app1
     $ cd app1
-    npm i classnames (= yarn add classnames)
+    $ npm i classnames (= yarn add classnames)
 
 
 
@@ -91,4 +91,4 @@
 
 1. 테스트 : 버튼 사이즈 변경 확인
     $ cd app1
-    npm start
+    $ npm start

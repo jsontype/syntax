@@ -2,8 +2,8 @@
 
 1. 모듈 설치 방법
     npm으로 모듈을 설치하는 명령어는 다음과 같다.
-    npm init
-    npm i [모듈이름] // 예) npm i express
+    $ npm init
+    $ npm i [모듈이름] // 예) $ npm i express
     package.json과 node_modules 폴더가 생성된 것을 확인
         package.json이란 해당 패키지의 의존성(dependency)들을 선언하는 파일이다.
         설치되는 모듈은 node_modules 폴더에 들어오게 된다.
@@ -15,8 +15,8 @@
             당시 의존성에 대한 정보를 모두 가지고 있다. 따라서 생성된 package-lock.json 파일은 소스 저장소에 커밋해 둬야 한다.
 
 1. express 모듈을 사용해서, 서버를 구축, 구동해보기
-    npm i express
-    npm i ws
+    $ npm i express
+    $ npm i ws
     index.html 작성
     2.js 작성
     node 2.js

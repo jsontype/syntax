@@ -4,7 +4,7 @@
         1. vue.cmd create app9
         1. 기존 components와 views 안의 내용 삭제
         1. app8의 public, src 폴더 복사해오기    
-        1. npm install --save axios
+        1. $ npm install --save axios
 
     작업시작
         1. store/modules/user.js　←　store/index.js

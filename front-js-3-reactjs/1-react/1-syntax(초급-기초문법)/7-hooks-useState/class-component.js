@@ -20,7 +20,7 @@ import React from "react";
   [PropType]
     1. PropType : React에서 TS를 쓰지 않을 때에, 변수내에 들어갈 데이터가 잘못 들어가지 않게 Type을 제한하는 라이브러리
       설치방법 : 
-        npm i prop-types -> npm i
+        $ npm i prop-types -> $ npm i
       사용방법 : 
         ShowList.propTypes = {
             name: PropTypes.string.isRequired,

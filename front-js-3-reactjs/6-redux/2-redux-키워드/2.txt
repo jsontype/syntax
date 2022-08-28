@@ -1,0 +1,58 @@
+[리덕스 키워드]
+
+1. 액션 (Action)
+  상태에 변화가 필요할 때 발생시킴 (객체하나로 표현)
+  type을 필수로 그외의 값들은 개발자 마음대로 생성
+
+  {
+    type: "ADD_TODO",
+    data: {
+      id: 0,
+      text: "리덕스 배우기"
+    }
+  }
+
+
+
+1. 액션 생성함수 (Action Creator)
+  컴포넌트에서 더욱 쉽게 액션을 발생시키기 위해, 다른 파일에서 import해서 사용
+  필수 아님
+
+  export function addTodo(data) {
+    return {
+      type: "ADD_TODO",
+      data
+    }
+  }
+
+
+
+1. 리듀서 (Reducer)
+  변화를 일으키는 함수
+  현재의 상태와 액션을 참조하여 새로운 상태를 반환
+
+  function counter(state, action) {
+    switch (action.type) {
+      case 'INCREASE':
+        return state + 1;
+      case 'DECREASE':
+        return state - 1;
+      default:
+        return state;
+    }
+  }
+
+
+
+1. 스토어 (Store)
+  한 애플리케이션당 하나의 스토어
+  현재의 앱 상태와, 리듀서, 내장함수 포함
+
+1. 디스패치 (dispatch)
+  스토어의 내장함수
+  액션을 발생 시키는 것
+
+1. 구독 (subscribe)
+  스토어의 내장함수
+  subscribe()가 함수를 인자로 전달해주면, 액션이 디스패치 되었을 때 마다 해당 함수가 호출
+  (리액트에서는 잘 안쓰고 대신 connect 함수 또는 useSelector Hook을 사용)

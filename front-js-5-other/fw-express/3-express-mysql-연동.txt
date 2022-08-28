@@ -1,6 +1,6 @@
 [MariaDB 연결]
 
-1. node> npm i mysql
+1. node> $ npm i mysql
 2. 5.js안에 /db 라우터 만들기
 3. 구글에 npm mysql 검색 후 Pooling connections 복붙해서 5.js에 삽입
 4. a5m2를 설치 - 새 DB 열기 - mysql/mariadb 선택(기존 것 없다면 mysql 설치 후 *.db 셋업) - import 버튼

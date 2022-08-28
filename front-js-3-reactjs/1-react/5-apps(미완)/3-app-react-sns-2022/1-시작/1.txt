@@ -7,11 +7,11 @@
 1. NextJS 시작
     mkdir app1
     $ cd app1
-    npm init
+    $ npm init
         프로젝트명: app1
         author: D.Yang
-    npm i next@9
-    npm i react react-dom // 두개 동시설치
+    $ npm i next@9
+    $ npm i react react-dom // 두개 동시설치
     npm audit fix --force // 빌드 꼬였을 때
     package.json에서 "scripts"에 다음을 추가
         "dev": "next",

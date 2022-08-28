@@ -7,4 +7,4 @@
 1. Terminalを開ける。
 1. $ npx create-react-app app1
 1. $ cd app1
-1. npm start
+1. $ npm start

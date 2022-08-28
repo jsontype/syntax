@@ -2,7 +2,7 @@
     document.getElementsByTagName('a')[0].__vue__.$store.state
 
 ### 실행
-    npm i
+    $ npm i
     npm audit fix
     npm run serve
 

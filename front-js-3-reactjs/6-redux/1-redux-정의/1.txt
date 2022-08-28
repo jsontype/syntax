@@ -1,0 +1,73 @@
+[Redux 정의]
+
+1. Redux
+    * Redux란?
+    Redux는 state 관리 라이브러리이다.
+    컴포넌트의 state 관련 로직을 다른 파일로 분리시킬수 있고,
+    Global state 관리를 할 수 있다.
+    (Context API도 useReducer Hook을 사용해 위 처리가 가능하다.)
+
+
+
+[Redux를 사용하는 것 과 Context API를 사용하는 것의 차이]
+
+1. Redux에는 미들웨어(Middleware)라는 개념이 존재한다.
+    Redux의 미들웨어를 사용하면 action 객체가 리듀서에서 처리되기 전에 다양한 작업을 수행 할 수 있다. 
+    예를 들자면..
+    미들웨어는 주로 비동기 작업을 처리 할 때 많이 사용된다.
+        특정 조건에 따라 action이 무시되게 만들 수 있다.
+        action을 콘솔에 출력하거나, 서버쪽에 로깅을 할 수 있다.
+        action이 디스패치 됐을 때 이를 수정해서 리듀서에게 전달되도록 할 수 있다.
+        특정 action이 발생했을 때 특정 자바스크립트 함수를 실행시킬 수 있다.
+        특정 action이 발생했을 때 특정 action이 발생되도록 할 수 있다.
+
+1. 유용한 함수와, Hooks
+    Context API 와 useReducer를 사용 할 때에는,
+    Context도 새로 만들고, 
+    Context의 Provider 설정도 하고,
+    Context를 편하게 사용하기 위해 전용 커스텀 Hook을 따로 만들어서 사용하기도 했다.
+
+    Redux에서는 이 작업을 더 편하게 해주는 여러 기능들이 존재한다.
+    connect 함수를 사용하면,
+    Redux의 state 또는 action 생성 함수를 컴포넌트의 props로 받아올 수 있으며, 
+    useSelector, useDispatch, useStore과 같은 Hooks를 사용해 쉽게 state를 조회할 수 있고,
+    action을 디스패치할 수도 있다.
+
+    connect 함수와 useSelector 함수에는 내부적으로 최적화가 잘 이루어져있어서,
+    실제 state가 바뀔때만 컴포넌트가 리렌더링되지만,
+    Context API를 사용할 때에는 그러한 최적화가 자동으로 이루어져있지 않기 때문에,
+    Context가 지니고 있는 state가 바뀌면 해당 Context 의 Provider 내부 컴포넌트들이 모두 리렌더링된다.
+
+1. 하나의 커다란 state
+    Context API를 사용해서 Global state를 관리 할 때에는,
+    기능별로 Context를 만들어서 사용하는 것이 일반적이다. (물론 꼭 그렇게 할 필요는 없다.)
+    반면 Redux에서는 모든 Global state를 하나의 커다란 state 객체에 넣어서 사용하는 것이 필수이다. 
+    때문에 매번 Context를 새로 만드는 수고로움을 덜 수 있다.
+
+
+
+[Redux를 언제, 왜 써야 할까]
+
+1. Redux 언제 써야 할까?
+    Redux를 프로젝트에 써야 할지 말지 고민될 때는 다음 사항들을 고려해보자.
+    Q. 프로젝트의 규모가 큰가?
+        Yes: Redux
+        No: Context API
+    Q. 비동기 작업을 자주 하게 되는가?
+        Yes: Redux
+        No: Context API
+    Q. Redux를 배워보니까 사용하는게 편한가?
+        Yes: Redux
+        No: Context API 또는 MobX
+
+1. Redux 왜 써야 할까?
+    사실 앞으로 배울 것만 따지고 보면,
+    Context API의 Global state 관리와 크게 다를 것이 없다.
+    그냥 유용한 함수 및 Hook이 있는 정도의 차이다.
+    게다가, Redux는 초반에 진입장벽이 조금 있다.
+    그러므로, 과연 유용한 것인가 의구심이 들 수도 있다.
+
+    그럼에도 불구하고, 
+    Redux는 프로젝트 규모가 커질수록 정말 편하다. (작은 프로젝트만 만들기 때문에 잘 모를 수 있지만)
+    Redux 미들웨어와 함께라면 일반 Context API와 비교했을 때 아주 큰 차이점이 존재한다.
+    또 앵귤러, 리액트를 통틀어 가장 많이 사용하는 state 관리 라이브러리이다.

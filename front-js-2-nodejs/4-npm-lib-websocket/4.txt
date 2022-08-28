@@ -18,8 +18,8 @@
 
 
 1. 웹소켓을 써서 양방향통신 서버를 구축해보기    
-    npm i express
-    npm i ws
+    $ npm i express
+    $ npm i ws
     index.html 작성
     3.js 작성
     node 3.js

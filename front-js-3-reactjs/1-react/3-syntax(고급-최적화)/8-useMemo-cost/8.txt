@@ -81,5 +81,5 @@
 
 1. 테스트 : lighthouse "기간 모드, 데스크톱 기기"에 체크해서 각각의 성능점수를 테스트 해본다.
     $ cd app1
-    npm start
+    $ npm start
     lighthouse "기간 모드, 데스크톱 기기"에 체크

@@ -40,4 +40,4 @@
 
 1. 테스트 : 개발자도구를 켜고, react context devtool의 profiler를 켠 뒤 둘다 렌더링이 되는 것을 확인
     $ cd app1
-    npm start
+    $ npm start
