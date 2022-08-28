@@ -90,5 +90,5 @@
         closed request 누른 뒤, 삭제
         리모트 브랜치 삭제, 로컬 브랜치 삭제
         git삭제, 모든 워크스페이스 내의 파일 백업후 삭제
-        npm i , npm start 후 테스트
+        $ npm i , $ npm start 후 테스트
         feature/name으로 새 로컬 브랜치 작성

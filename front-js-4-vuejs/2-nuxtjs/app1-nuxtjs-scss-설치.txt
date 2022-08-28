@@ -41,8 +41,8 @@
 1. Tutorial.vue 삭제
 
 1. sass-loader 설치
-    npm i sass-loader@10
-    npm i node-sass@6
+    $ npm i sass-loader@10
+    $ npm i node-sass@6
     package.json에서 node-sass, sass-loader 존재 확인
 
 1. assets 폴더 생성

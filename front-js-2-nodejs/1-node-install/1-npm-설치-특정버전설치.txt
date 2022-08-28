@@ -22,14 +22,14 @@
 
         npm이란 이러한 패키지를 관리하는 장소이자 도구, 방법이다.
             주로 사용하는 npm에는 다음과 같은 명령어가 있다.
-                npm init : npm 앱 시작
-                npm i <모듈명> : 모듈 설치
+                $ npm init : npm 앱 시작
+                $ npm i <모듈명> : 모듈 설치
                 npm uninstall <모듈명> : 모듈 삭제
                 npm update <모듈명> : 모듈 업데이트
-                npm start : package.json 스크립트 안에서 "start" 안에 있는 것을 실행
+                $ npm start : package.json 스크립트 안에서 "start" 안에 있는 것을 실행
                 npm run dev : package.json 스크립트 안에서 "dev" 안에 있는 것을 실행
-                npm i : 최초 깃 포크 또는 폴더를 변경하는 등의 변화가 있으면, 최초에 npm i를 통해 node_modules 안에 있어야할 것들을 받아주고 package.json을 갱신한다.
-                npm audit fix : npm i 를 하고난 뒤, 발견된 취약점들을 고쳐준다. 보통 npm i 이후에 세트로 사용한다.
+                $ npm i : 최초 깃 포크 또는 폴더를 변경하는 등의 변화가 있으면, 최초에 $ npm i를 통해 node_modules 안에 있어야할 것들을 받아주고 package.json을 갱신한다.
+                npm audit fix : $ npm i 를 하고난 뒤, 발견된 취약점들을 고쳐준다. 보통 $ npm i 이후에 세트로 사용한다.
 
 
 
@@ -48,6 +48,6 @@
     brew unlink node@16 && brew link --force node@16 (nvm use를 안하더라도 다음부터는 터미널 열때의 기본값이 된다.)
 
 1. npm 특정버전 설치 및 사용버전 설정
-    npm i -g npm@4.6.1 : 설치와 동시에 자동으로 해당 npm 버전으로 지정됨. 버전을 바꾸고 싶으면 @ 뒤를 바꿔서 재설치하면 됨.
+    $ npm i -g npm@4.6.1 : 설치와 동시에 자동으로 해당 npm 버전으로 지정됨. 버전을 바꾸고 싶으면 @ 뒤를 바꿔서 재설치하면 됨.
     * 업그레이드를 하고 싶은 경우는 npm update를 실행
     

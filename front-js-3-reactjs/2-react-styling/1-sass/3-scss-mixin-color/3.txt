@@ -109,7 +109,7 @@
 
 1. 테스트 : 버튼이 색상별로 잘 나타나는 지 확인 (@mixin 사용 전)
     $ cd app1
-    npm start
+    $ npm start
 
 
 
@@ -148,4 +148,4 @@
 
 1. 테스트 : 똑같은 결과가 나오는 지 확인 (@mixin 사용 후)
     $ cd app1
-    npm start
+    $ npm start

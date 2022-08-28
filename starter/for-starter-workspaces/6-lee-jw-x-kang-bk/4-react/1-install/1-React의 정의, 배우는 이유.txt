@@ -9,7 +9,7 @@
 
 1. 리액트 설치하기 전 필수 설치 항목 : nodejs, npx
     nodejs 설치 : brew install node
-    npx 설치 : npm install npx -g
+    npx 설치 : $ npm install npx -g
 
 1. 리액트, 웹팩(리액트 등을 브라우져에서 돌아가게 해주는 모듈) 동시 설치
     $ npx create-react-app app1

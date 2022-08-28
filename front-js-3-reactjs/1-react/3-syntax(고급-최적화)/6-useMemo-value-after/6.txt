@@ -51,4 +51,4 @@
 
 1. 테스트 : Increment(fast)를 눌렀을 때 메모화가 되어서 {doubledCount} 변수값이 재렌더링 되지 않는 것을 확인
     $ cd app1
-    npm start
+    $ npm start

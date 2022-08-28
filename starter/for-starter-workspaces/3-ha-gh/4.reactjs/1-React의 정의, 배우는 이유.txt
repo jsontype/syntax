@@ -10,7 +10,7 @@
 
 1. 리액트 실행
     $ cd app1
-    npm start
+    $ npm start
     localhost:3000에 가본다.
 
 1. 테스트

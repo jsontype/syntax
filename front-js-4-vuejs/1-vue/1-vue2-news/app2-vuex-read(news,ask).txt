@@ -1,9 +1,9 @@
 [Vuex - Read]
 
 1. Vuex 설치
-  npm i vuex@3.6.2
+  $ npm i vuex@3.6.2
     * 버전을 잘못 깔았을 경우 : node_modules 폴더를 삭제하고 package.json의 버전정보를 수정한 뒤, 
-    npm i 로 다시 설치한다.
+    $ npm i 로 다시 설치한다.
     
   사용할 API주소 : https://api.hnpwa.com/v0/news/1.json
 
@@ -147,7 +147,7 @@ export default {
 
 
 ### 1. [Action] src/store/actions.js ###
-    npm i axios
+    $ npm i axios
         우선 fetch를 하기 위해서는 axios 라이브러리가 필요하다.
             * 다른 fetch 방식도 있지만 비동기처리가 되는 axios를 주로 사용한다.
     FETCH_NEWS, FETCH_ASK 두개의 액션을 준비해보자.

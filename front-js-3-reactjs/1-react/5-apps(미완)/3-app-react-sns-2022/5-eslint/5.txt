@@ -2,9 +2,9 @@
 
 1. ESLint를 패키지 안에 넣어두자.
 
-1. npm i eslint-plugin-import -D --force // -D: 개발때만 쓰는 devDependencies에 포함된다. // --force: 의존성 경합이 있어도 강제로 설치한다.
+1. $ npm i eslint-plugin-import -D --force // -D: 개발때만 쓰는 devDependencies에 포함된다. // --force: 의존성 경합이 있어도 강제로 설치한다.
 
-1. npm i eslint-plugin-react-hooks -D --force 
+1. $ npm i eslint-plugin-react-hooks -D --force 
 
 1. app1/.eslintrc 파일 생성 : .이 붙으면 리눅스나 맥에서 숨김파일이 된다. 확장자는 없다. 안에는 JSON 형태가 들어간다.
     {

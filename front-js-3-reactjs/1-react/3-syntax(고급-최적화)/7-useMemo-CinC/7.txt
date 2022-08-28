@@ -70,8 +70,8 @@
 
 1. 테스트 : C in C에서, 서브컴포넌트에 React.memo나 함수를 쓰면 안되는 케이스를 확인
     $ cd app1
-    npm start
+    $ npm start
 
 1. 테스트 : C in C에서, 서브컴포넌트에 useMemo를 썼을 때, 제대로 Count1을 조작해도 Count2가 실행되지 않음을 확인
     $ cd app1
-    npm start
+    $ npm start

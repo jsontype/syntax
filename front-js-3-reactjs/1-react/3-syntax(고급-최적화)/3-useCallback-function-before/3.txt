@@ -28,4 +28,4 @@
 
 1. 테스트 : Child를 눌렀을 때 메모화를 했음에도 전체가 재렌더링 되는 것을 확인
     $ cd app1
-    npm start
+    $ npm start

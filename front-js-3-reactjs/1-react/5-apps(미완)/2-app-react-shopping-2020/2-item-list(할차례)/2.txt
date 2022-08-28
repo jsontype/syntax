@@ -2,7 +2,7 @@
     쇼핑몰 Rest API: https://fakestoreapi.com/products
     URL: react-query 검색후 https://react-query.tanstack.com/ 접속 -> Docs -> Quick Start, Devtools
 
-1. npm i react-query
+1. $ npm i react-query
 
 1. src/queryClient.ts 생성
     fetch('https://fakestoreapi.com/products')

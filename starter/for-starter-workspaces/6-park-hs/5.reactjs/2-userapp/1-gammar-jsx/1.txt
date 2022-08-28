@@ -2,7 +2,7 @@
 1. 새 프로젝트 만들어보기
     $ npx create-react-app app1
     $ cd app1
-    npm start
+    $ npm start
     http://localhost:3000/
 
 1. src/Hello.js 생성

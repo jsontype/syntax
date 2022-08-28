@@ -43,7 +43,7 @@
 
 1. 테스트 : 똑같이 작동하는 지 확인
     $ cd app1
-    npm start
+    $ npm start
 
 
     

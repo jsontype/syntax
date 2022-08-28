@@ -6,18 +6,18 @@
 
 1. npm 명령어
     npm -v
-    npm i
+    $ npm i
     npm audit fix
     npm audit fix --force
     npm test
-    npm start
+    $ npm start
     npm run dev
     npm run storybook
     npm run lint
     npm run lint:type
 
 1. yarn 명령어
-    yarn add node-sass (= npm i node-sass)
+    yarn add node-sass (= $ npm i node-sass)
 
 1. npx 명령어
     $ npx create-react-app app1

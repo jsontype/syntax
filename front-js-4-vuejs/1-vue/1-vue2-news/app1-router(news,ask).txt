@@ -13,7 +13,7 @@
     npm -v
 
 1. vue cli 설치
-    npm install -g @vue/cli
+    $ npm install -g @vue/cli
     vue.cmd --version
 
 1. vue 앱 생성
@@ -22,7 +22,7 @@
     $ cd app1
     code .
         * code . 로 열리지 않는 경우, command + shift + p 누른 뒤, code 입력, 첫번째 것을 인스톨하면 된다.
-        * 만일 github 등으로 당겨온 앱이라면 npm i를 통해서 vue.cmd 웹빌드를 해야한다.
+        * 만일 github 등으로 당겨온 앱이라면 $ npm i를 통해서 vue.cmd 웹빌드를 해야한다.
 
 1. package.json
     npm run serve : * 해당 파일내의 "serve"를 실행
@@ -41,7 +41,7 @@
     <앱 제작 순서>
     1. src/App.vue 비우기
     2. 라우터 설치
-        npm i vue-router@3.0.1
+        $ npm i vue-router@3.0.1
         npm audit fix
     3. src/routes/index.js : 라우터
     4. src/main.js : 어떤 라이브러리를 사용하는지를 담아두는 곳
@@ -64,9 +64,9 @@
 
 ### 1. Router 설치 ###
   * Router란? : 루터(라우터)는 네트워크와 네트워크 간의 경로(Route)를 설정하고 맞는 길로 트래픽을 설정해주는 장비
-    npm i vue-router@3.0.1
+    $ npm i vue-router@3.0.1
   * 버전을 잘못 깔았을 경우 : node_modules 폴더를 삭제하고 package.json의 버전정보를 수정한 뒤, 
-    npm i 로 다시 설치한다.
+    $ npm i 로 다시 설치한다.
 
 
 

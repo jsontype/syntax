@@ -106,7 +106,7 @@
     
 1. 테스트
     $ cd app1
-    npm start
+    $ npm start
     
 1. src/index.js : 잘 작동한다면 다시 App을 렌더링하도록 돌려놓자.
     다음을 삭제
@@ -278,7 +278,7 @@
 
 1. 테스트 : src/CreateUser.js와 src/UserList.js가 여전히 잘 동작하는 지 확인
     $ cd app1
-    npm start
+    $ npm start
     
   
 

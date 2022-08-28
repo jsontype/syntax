@@ -2,7 +2,7 @@
 
 1. ts파일 실행하는 법: ts는 js와 달리 컴파일이 필요하다.
     - 2.ts 파일을 작성한다.
-    - npm i typescript -g
+    - $ npm i typescript -g
     - tsc 2.ts
     - 2.js로 컴파일됨을 확인한다.
         2.ts는 2.js와 중복된 함수 설정으로 인해 빨간줄이 뜰 것이고, 이후 삭제할 녀석이 된다.

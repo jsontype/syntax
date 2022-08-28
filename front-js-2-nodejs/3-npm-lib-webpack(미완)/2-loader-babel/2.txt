@@ -14,10 +14,10 @@
 
 1. 바벨 설치 순서
     webpack 폴더내의 app1을 그대로 복붙해 온다.
-    npm i
-    npm i babel-loader
+    $ npm i
+    $ npm i babel-loader
     npm audit fix
-    npm i babel-preset-env --save-dev
+    $ npm i babel-preset-env --save-dev
     webpack.config.js의 rules 키에 추가
         rules: [{
             test: /\.js$/,

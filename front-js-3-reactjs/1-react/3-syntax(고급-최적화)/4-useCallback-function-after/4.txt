@@ -40,7 +40,7 @@
 
 1. 테스트 : Child를 눌렀을 때, 다른 곳이 재렌더링 되지 않음을 확인
     $ cd app1
-    npm start
+    $ npm start
 
 
 
