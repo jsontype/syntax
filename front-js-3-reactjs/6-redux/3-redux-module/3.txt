@@ -172,8 +172,8 @@
     // 브라우져의 콘솔창을 확인해보면, counter, todos 서브 리듀서의 상태가 합쳐져 있다.
 
     ReactDOM.render(
-        // Provider로 store를 넣어서 App을 감싸게 되면,
-        // 렌더링하는 것이 어떤 컴포넌트던지 리덕스 스토어에 접근 할 수 있게 된다.
+        // Provider로 store를 넣어서 App을 감싸게 되면(nesting 하면),
+        // App 컴포넌트에 속한 모든 컴포넌트에서 리덕스 스토어에 접근 할 수 있게 된다.
         <Provider store={store}>
             <App />
         </Provider>,
@@ -188,7 +188,7 @@
 
 
 
-1. ★★ 요약 : Redux 스토어 만드는 법 (모루스/액액초리)
+1. ★★ 요약 : Redux 스토어 만들기 (모루스)
     모듈 만들기 (src/modules/*.js) : 액션타입 -> 액션생성함수 -> 초기상태 -> 리듀서 순으로 생성 (액액초리)
     루트리듀서 만들기 (src/modules/index.js)
     스토어 만들기 (src/index.js)

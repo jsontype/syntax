@@ -13,8 +13,8 @@ console.log(store.getState())
 // 브라우져의 콘솔창을 확인해보면, counter, todos 서브 리듀서의 상태가 합쳐져 있다.
 
 ReactDOM.render(
-  // Provider로 store를 넣어서 App을 감싸게 되면,
-  // 렌더링하는 것이 어떤 컴포넌트던지 리덕스 스토어에 접근 할 수 있게 된다.
+  // Provider로 store를 넣어서 App을 감싸게 되면(nesting 하면),
+  // App 컴포넌트에 속한 모든 컴포넌트에서 리덕스 스토어에 접근 할 수 있게 된다.
   <Provider store={store}>
     <App />
   </Provider>,
