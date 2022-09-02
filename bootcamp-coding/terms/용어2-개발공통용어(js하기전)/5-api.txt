@@ -1,0 +1,31 @@
+[API]
+
+1. 개발자라면 절대 몰라서는 안되는 개념이다. 
+    PHP 개인 프로젝트의 경우에는 DB를 불러올 때 API를 쓰지 않았다.
+    이는 프론트와 백엔드를 구분짓지 못하게 되어 유지보수성이 제로가 되어있다.
+    내가 개발하지 않은 경우에 
+
+1. API : Application Programming Interface (Interface: 사용자가 입력을 넣는 것)
+    서버에서 미리 만들어둔 기능. 서버 개발자가 클라이언트 개발자와 미리 한 약속. 주소를 이렇게 갖고 오세요 그럼 정보를 이렇게 만들어 드릴게요. 라고 미리 회의를 해서 약속한 대로 만들어서 준다. API의 쿼리스트링은 보통 http://서버위치/api주소/프로퍼티=데이터?옵션=옵션값 이런 형태로 이뤄진다
+    주소예 https://movie.naver.com/movie/bi/mi/basic.naver?code=10016
+    대화예 서버개발자님, 이거 신규 피쳐인데 api하나 따주세요. = 새로운 기능 창구 하나 만들어주세요.
+    api개발은 끝났고, 클라이언트는 아직이에요. = 서버 창구는 다 만들었는데, 요청하는 쪽이 아직 작업중이에요.
+    예) 기상청 서버로 다음과 같이 데이터를 요청하면,
+        "date:191031, place:Seoul, which:temperature"
+        이렇게 답이 올거라는 것이 정해져있다.
+        "17degree"
+        이처럼 소프트웨어가 다른 소프트웨어로 지정된 형식으로 요청, 명령을 받을 수 있는 것을 API라고 한다.    
+1. API 명세서 : API를 어떻게 호출해서 사용하는지를 적어둔 것. 
+    명세서예 https://yts.mx/api
+1. API(Application Programming Interface), API Doc
+1. Open API : 누구나 요청할 수 있게 열어둔 API.
+1. Rest API : RESTful API
+    Rest API의 가장 큰 특징은,
+    프론트엔드 웹에서 서버에 데이터를 요청할 때, 
+    "각 요청이 어떤 동작이나 정보를 위한 것인지를 그 요청의 모습 자체로 추론 가능하다는 것"이다.
+    예를 들면,
+    https://(사이트도메인)/login : 로그인 요청
+    https://(사이트도메인)/ins/member : 회원가입 요청
+    https://(사이트도메인)/del/member?no=153 : 153번 회원탈퇴 요청
+    등, 요청을 보내는 URI주소만으로도, CRUD 작업의 어떤 부분을 사용하는 지 알수 있다.
+    REST API와 POSTMAN 설치 관련 참조 URL: https://jeongchul.tistory.com/302
