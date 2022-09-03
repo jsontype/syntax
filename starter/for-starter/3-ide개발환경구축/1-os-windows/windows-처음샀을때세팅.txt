@@ -3,13 +3,6 @@
 1. malware 있을 시 초기화
 1. 크롬 설치 후 구글 동기화
 1. vscode과 html css support 확장
-    community material theme
-    material icon theme
-    vetur
-    vue
-    ESLint
-    tabnine
-    html css support
 1. vscode 현재 파일 위치로 터미널 열기 설정
     vscode 설정 아이콘을 누른다.
     terminal.integrated.cwd

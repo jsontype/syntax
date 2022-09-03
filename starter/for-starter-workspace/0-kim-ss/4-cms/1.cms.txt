@@ -1,4 +1,5 @@
-[CMS]
+[Content Mangement System]
+
 1. CMS란?
     Content Management System 이라는 뜻. 워드프레소가 가장 대표적인 CMS.
     디자이너들이 ui-ux를 디자인해서 목업 소스를 만드는 툴을 의미한다.
