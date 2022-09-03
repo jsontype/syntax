@@ -11,26 +11,9 @@
         back : php, python
 
     - 장점 : 터미널과 연동
-
-    - 설치 : https://kr.vuejs.org/v2/guide/installation.html
-
-    - 참고자료 : https://kr.vuejs.org/v2/guide/index.html
-
-    - 추가 Extenstion 설치 목록 : 
-        CSS Peek : html 안의 class="" 를 클릭하면 적용된 CSS로 바로 이동해줌
-        Live Server : 코딩 실시간으로 브라우져에서 확인 가능, 아래 파란 옵션창에서 Go Live 클릭하면 나옴.
-
-    - 기본 Settings 변경 목록 : 
-        파일위치로 새 터미널 생성시키기 
-            File – Preferences – Settings 를 열고, terminal.integrated.cwd 를 입력하여 찾아간 후, 대화상자에 다음 값을 넣는다.
-            ${fileDirname}
             
 1. eclipse
 
 1. atom
 
 1. android studio
-
-1. sakura editor
-
-1. json fommater
