@@ -4,8 +4,11 @@
 
 1. Living
     youtube adblock
+    
+1. JavaScript 관련
+    json viewer
 
 1. React 관련
     react developer tools
     react context devtool
-    json viewer
+    Redux DevTools

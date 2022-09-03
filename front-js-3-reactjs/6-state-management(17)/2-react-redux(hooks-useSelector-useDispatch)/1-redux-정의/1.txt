@@ -33,7 +33,7 @@
     Redux에서는 이 작업을 더 편하게 해주는 여러 기능들이 존재한다.
     connect 함수를 사용하면,
     Redux의 state 또는 action 생성 함수를 컴포넌트의 props로 받아올 수 있으며, 
-    useSelector, useDispatch, useStore과 같은 Hooks를 사용해 쉽게 state를 조회할 수 있고,
+    useSelector, useDispatch 같은 Hooks를 사용해 쉽게 state를 조회할 수 있고,
     action을 디스패치할 수도 있다.
 
     connect 함수와 useSelector 함수에는 내부적으로 최적화가 잘 이루어져있어서,
