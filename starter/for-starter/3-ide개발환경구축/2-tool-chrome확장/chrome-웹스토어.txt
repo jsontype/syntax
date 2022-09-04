@@ -9,6 +9,6 @@
     json viewer
 
 1. React 관련
-    react developer tools
+    react developer tools(option)
     react context devtool
-    Redux DevTools
+    redux devtools
