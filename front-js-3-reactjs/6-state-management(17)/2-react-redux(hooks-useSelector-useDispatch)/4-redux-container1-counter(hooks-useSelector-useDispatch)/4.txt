@@ -1,4 +1,4 @@
-[Redux Components 구현하기]
+[Redux Components 구현하기 1 : Counter 기능 만들기]
 
 1. Redux상에서 Counter.js를 구현해보도록 하겠다.
 
@@ -76,7 +76,7 @@
 
 
 
-1. src/App.js 수정 : 컨테이너 컴포넌트를 렌더링
+1. src/App.js 수정 : Counter 컨테이너 컴포넌트 렌더링을 추가
     import React from 'react'
     // 컨테이너 컴포넌트를 렌더링
     import CounterContainer from './components/CounterContainer'

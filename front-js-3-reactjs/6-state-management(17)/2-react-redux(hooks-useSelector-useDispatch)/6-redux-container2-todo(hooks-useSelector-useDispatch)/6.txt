@@ -1,0 +1,119 @@
+[Redux Components 구현하기 2 : Todo 기능 만들기]
+
+1. Redux상에서 Todos.js를 구현해보도록 하겠다.
+    이 파일에는 TodoItem, TodoList, Todos 이렇게 총 3가지의 컴포넌트를 작성한다.
+    여러개의 컴포넌트를 만드는 이유는 컴포넌트의 리렌더링 성능을 최적화하기 위해서이다.
+    지금은 편의상 한 파일에 모두 작성을 할건데, 취향에 따라 각각 다른 파일에 분리하셔도 상관없다.
+
+
+
+1. 폴더 이동
+    src/components/Counter.js -> src/components/Counter/Counter.js
+    src/components/CounterContainer.js -> src/components/counter/CounterContainer.js
+    src/components/CounterContainer.js의 "import { increase, decrease, setDiff } from '../modules/counter'" -> "import { increase, decrease, setDiff } from '../../modules/counter'"
+    src/App.js의 "import CounterContainer from './components/CounterContainer'" -> "import CounterContainer from './components/counter/CounterContainer'"
+
+
+
+1. src/components/Todos/Todos.js 생성 : 프리젠테이셔널 컴포넌트 만들기
+    import React, { useState } from 'react'
+
+    // 컴포넌트 최적화를 위하여 React.memo를 사용한다.
+    const TodoItem = React.memo(function TodoItem({ todo, onToggle }) {
+        return (
+            <li
+                style={{ textDecoration: todo.done ? 'line-through' : 'none' }}
+                onClick={() => onToggle(todo.id)}
+            >
+                {todo.text}
+            </li>
+        )
+    })
+
+    // 컴포넌트 최적화를 위하여 React.memo를 사용한다.
+    const TodoList = React.memo(function TodoList({ todos, onToggle }) {
+        return (
+            <ul>
+                {todos.map(todo => (
+                    <TodoItem key={todo.id} todo={todo} onToggle={onToggle} />
+                ))}
+            </ul>
+        )
+    })
+
+    function Todos({ todos, onCreate, onToggle }) {
+        // 리덕스를 사용한다고 해서 모든 상태를 리덕스에서 관리해야하는 것은 아니다.
+        const [text, setText] = useState('')
+        const onChange = e => setText(e.target.value)
+        const onSubmit = e => {
+            // Submit 이벤트 발생했을 때 새로고침 방지
+            e.preventDefault()
+            onCreate(text)
+            // 인풋 초기화
+            setText('') 
+        }
+
+        return (
+            <div>
+                <form onSubmit={onSubmit}>
+                    <input
+                        value={text}
+                        placeholder="할 일을 입력하세요."
+                        onChange={onChange}
+                    />
+                    <button type="submit">등록</button>
+                </form>
+                <TodoList todos={todos} onToggle={onToggle} />
+            </div>
+        )
+    }
+
+    export default Todos
+
+
+1. src/components/Todos/TodosContainer.js 생성 : 컨테이너 컴포넌트 만들기
+    import React, { useCallback } from 'react'
+    import { useSelector, useDispatch } from 'react-redux'
+    import Todos from './Todos'
+    import { addTodo, toggleTodo } from '../../modules/todos'
+
+    function TodosContainer() {
+        // useSelector 에서 꼭 객체를 반환 할 필요는 없습니다.
+        // 한 종류의 값만 조회하고 싶으면 그냥 원하는 값만 바로 반환하면 됩니다.
+        const todos = useSelector(state => state.todos)
+        const dispatch = useDispatch()
+
+        // 최적화 할 필요가 없으므로 useCallBack 미사용 : onCreate는 React Memo가 적용된 하위 컴포넌트로 내려보내지 않기 때문이다.
+        const onCreate = text => dispatch(addTodo(text))
+        // 최적화 할 필요가 있으므로 useCallBack 사용 : onToggle 은 리렌더링이 빈번하게 이루어지는 TodoItem 까지 내려가기 때문이다. 이 때, Deps에 dispatch가 없으면 eslint에서 exhaustive-deps가 뜬다.
+        const onToggle = useCallback(id => dispatch(toggleTodo(id)), [dispatch])
+      
+        return <Todos todos={todos} onCreate={onCreate} onToggle={onToggle} />
+    }
+
+    export default TodosContainer
+
+
+
+1. src/App.js 수정 : Todos 컨테이너 컴포넌트 렌더링을 추가
+    import React from 'react'
+    import CounterContainer from './components/Counter/CounterContainer'
+    import TodosContainer from './components/Todos/TodosContainer'
+
+    function App() {
+        return (
+            <div>
+                <CounterContainer />
+                <hr />
+                <TodosContainer />
+            </div>
+        )
+    }
+
+    export default App
+
+
+
+1. 테스트 : 새 항목이 잘 등록되는지, 항목을 클릭했을때 토글이 잘되는지 확인
+    $ cd app1
+    $ npm start
