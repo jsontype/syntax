@@ -1,0 +1,155 @@
+[Redux 정의]
+
+1. Redux
+    Redux : "state 관리 라이브러리"이다. 
+        * 컴포넌트의 global state 관련 로직을 다른 파일로 분리시켜서 관리할 수 있다.
+            분리하는 이유는 재사용성 때문이다.
+        * 구체적으로 말하면, 
+            함수형 컴포넌트에서 "Store의 state 값이나, action dispatch를 props로 받아와서 사용"할 수 있게 해준다.
+        * Redux를 써야만 state를 관리할 수 있는 것은 아니다.
+            Context API도 useReducer Hook을 사용해 위 처리가 가능하다.
+            클래스형 컴포넌트도 hook은 못쓰지만 connect 함수를 사용해 위 처리가 가능하다.
+        * Redux가 React에 전속된 것은 아니다.
+            Angular에서 쓰는 것은 angular-redux라 불리고,
+            React에서 쓰는 것은 react-redux라고 불린다.
+
+
+
+[Redux를 사용하는 것 과 Context API를 사용하는 것의 차이]
+
+1. Redux에는 미들웨어(Middleware)라는 개념이 존재한다.
+    Redux의 미들웨어를 사용하면,
+    action 객체가 리듀서에서 처리되기 전에 다양한 작업을 수행 할 수 있다.
+        - 특정 조건에 따라 action이 무시되게 만들 수 있다.
+        - action을 콘솔에 출력하거나, 서버쪽에 로깅을 할 수 있다.
+        - action이 디스패치 됐을 때 이를 수정해서 리듀서에게 전달되도록 할 수 있다.
+        - 특정 action이 발생했을 때 특정 자바스크립트 함수를 실행시킬 수 있다.
+        - 특정 action이 발생했을 때 특정 action이 발생되도록 할 수 있다.
+    미들웨어는 주로 비동기 작업을 처리 할 때 많이 사용된다.
+
+1. 유용한 함수와, Hooks
+    Context API 와 useReducer를 사용 할 때에는,
+    Context도 새로 만들고, 
+    Context의 Provider 설정도 하고,
+    Context를 편하게 사용하기 위해 전용 커스텀 Hook을 따로 만들어서 사용하기도 했다.
+
+    Redux에서는 이 작업을 더 편하게 해주는 여러 기능들이 존재한다.
+    connect 함수를 사용하면,
+    Redux의 state 또는 action 생성 함수를 컴포넌트의 props로 받아올 수 있으며, 
+    useSelector, useDispatch 같은 Hooks를 사용하면,
+    쉽게 state를 조회할 수 있고,
+    action을 디스패치할 수도 있다.
+
+    connect 함수와 useSelector 함수에는 내부적으로 최적화가 잘 이루어져있어서,
+    실제 state가 바뀔때만 컴포넌트가 리렌더링되지만,
+    Context API를 사용할 때에는 그러한 최적화가 자동으로 이루어져있지 않기 때문에,
+    Context가 지니고 있는 state가 바뀌면 해당 Context 의 Provider 내부 컴포넌트들이 모두 리렌더링된다.
+
+1. 하나의 커다란 state
+    Context API를 사용해서 Global state를 관리 할 때에는,
+    기능별로 Context를 만들어서 사용하는 것이 일반적이다. (물론 꼭 그렇게 할 필요는 없다.)
+    반면 Redux에서는 모든 Global state를 하나의 커다란 state 객체에 넣어서 사용하는 것이 필수이다. 
+    때문에 매번 Context를 새로 만드는 수고로움을 덜 수 있다.
+
+
+
+[Redux를 언제, 왜 써야 할까]
+
+1. Redux 언제 써야 할까?
+    Redux를 프로젝트에 써야 할지 말지 고민될 때는 다음 사항들을 고려해보자.
+    Q. 프로젝트의 규모가 큰가?
+        Yes: Redux
+        No: Context API
+    Q. 비동기 작업을 자주 하게 되는가?
+        Yes: Redux
+        No: Context API
+    Q. Redux를 배워보니까 사용하는게 편한가?
+        Yes: Redux
+        No: Context API 또는 MobX
+
+1. Redux 왜 써야 할까?
+    사실 앞으로 배울 것만 따지고 보면,
+    Context API의 Global state 관리와 크게 다를 것이 없다.
+    그냥 유용한 함수 및 Hook이 있는 정도의 차이다.
+    게다가, Redux는 초반에 진입장벽이 조금 있다.
+    그러므로, 과연 유용한 것인가 의구심이 들 수도 있다.
+
+    그럼에도 불구하고, 
+    Redux는 프로젝트 규모가 커질수록 정말 편하다. (작은 프로젝트만 만들기 때문에 잘 모를 수 있지만)
+    Redux 미들웨어와 함께라면 일반 Context API와 비교했을 때 아주 큰 차이점이 존재한다.
+    또 앵귤러, 리액트를 통틀어 가장 많이 사용하는 state 관리 라이브러리이다.
+
+
+
+[Redux를 쓰기 전에 숙지해야 할 키워드]
+
+1. 액션 (Action)
+    상태에 변화가 필요할 때 발생시킴 (객체하나로 표현)
+    type을 필수로 그외의 값들은 개발자 마음대로 생성
+    {
+        type: "ADD_TODO",
+        data: {
+            id: 0,
+            text: "리덕스 배우기"
+        }
+    }
+    
+1. 액션 생성함수 (Action Creator)
+    컴포넌트에서 더욱 쉽게 액션을 발생시키기 위해, 다른 파일에서 import해서 사용
+    필수 아님    
+    export function addTodo(data) {
+        return {
+            type: "ADD_TODO",
+            data
+        }
+    }
+
+1. 리듀서 (Reducer)
+    변화를 일으키는 함수
+    현재의 상태와 액션을 참조하여 새로운 상태를 반환
+    function counter(state, action) {
+        switch (action.type) {
+            case 'INCREASE':
+            return state + 1;
+            case 'DECREASE':
+            return state - 1;
+            default:
+            return state;
+        }
+    }
+
+1. 스토어 (Store)
+    한 애플리케이션당 하나의 스토어
+    현재의 앱 상태와, 리듀서, 내장함수 포함
+
+1. 디스패치 (dispatch)
+    스토어의 내장함수
+    액션을 발생 시키는 것
+
+1. 구독 (subscribe)
+    스토어의 내장함수
+    subscribe()가 함수를 인자로 전달해주면, 액션이 디스패치 되었을 때 마다 해당 함수가 호출
+    (리액트에서는 잘 안쓰고 대신 connect 함수 또는 useSelector라는 Redux Hook을 사용)
+
+
+
+[Redux의 3가지 규칙]
+
+    1. 하나의 애플리케이션에 하나의 스토어만 쓸 것
+        * 특정 업데이트가 너무 빈번하게 일어나거나, 애플리케이션의 특정 부분을 완전 분리시킬 때, 여러개의 스토어를 만들 수도 있다.
+            하지만 그렇게 하면, 개발 도구를 활용하지 못하게 된다.
+    
+    1. state는 읽기전용으로 해서 불변성을 지킬 것
+        * Redux에서 불변성을 유지해야 하는 이유
+            내부적으로 데이터가 변경 되는 것을 감지하기 위하여 shallow equality 검사를 통해,
+            객체의 변화를 감지 할 때 객체의 깊숙한 안쪽까지 비교를 하는 것이 아니라 겉핥기 식으로 비교를 해서,
+            "더 좋은 성능을 유지하기 위해서이다."
+    
+    1. 리듀서는 순수한 함수여야 할 것
+        * 순수한 함수란?
+            "동일한 인풋 => 동일한 아웃풋"을 가진 함수이다.
+            반면, 실행 할 때마다 다른 결과값이 나타날 수도 있는 
+            new Date(), 랜덤 숫자 생성, 네트워크에 요청 등은 
+            순수하지 않은 작업이므로 리듀서 함수 밖에서 처리해야한다.
+            (이때 Redux 미들웨어라는 것을 사용한다.)
+    
