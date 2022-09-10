@@ -1,6 +1,6 @@
 [React]
 
-1. 설치 : nodejs 필요
+1. 앱 설치
     $ npx create-react-app app1
 
 1. 불필요 부분을, 연동까지 삭제

@@ -6,8 +6,8 @@
     이를 지키지 않으면 타 개발자에게 보여질 때 욕을 무조건 먹을 것이다.
 
 1. 케이스의 종류
-    - camelCase (=lowCamelCase) : 변수명, 함수명에 주로 사용
-    - PascalCase (=UpCamelCase) : 파일명에 주로 사용
+    - camelCase : 변수명, 함수명에 주로 사용
+    - PascalCase : 파일명에 주로 사용
     - kebab-case : 컨트롤러에서 주소창에 입력할 URL Path에 주로 사용
     - snake_case : DB명, DB컬럼명에 주로 사용
     - UPPER_CASE : 상수(consts)명에 주로 사용
