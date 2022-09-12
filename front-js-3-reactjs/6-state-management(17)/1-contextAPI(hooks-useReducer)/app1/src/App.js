@@ -1,7 +1,7 @@
 import React, { useRef, useReducer, useMemo, useCallback } from 'react'
+import useInputs from './hooks/useInputs'
 import UserList from './UserList'
 import CreateUser from './CreateUser'
-import useInputs from './hooks/useInputs'
 
 const initialState = {
     users: [
