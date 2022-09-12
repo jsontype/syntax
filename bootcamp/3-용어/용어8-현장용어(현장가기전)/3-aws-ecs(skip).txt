@@ -9,7 +9,7 @@
     Amazon ECS : 
         대기업이든 스타트업이든 관계없이 컨테이너를 신속하게 실행하는 데 도움이 되는 다양한 도구를 제공한다.
     Docker Desktop의 Amazon ECS : 
-        Docker Desktop의 Amazon ECS와의 통합 에서 컨테이너를 시작한다.        
+        Docker Desktop의 Amazon ECS와의 통합 컨테이너를 시작한다.        
     Amazon ECS CLI :     
         Docker Compose 앱을 ECS에 배포해서 로컬 컨테이너를 테스트한다.
 
