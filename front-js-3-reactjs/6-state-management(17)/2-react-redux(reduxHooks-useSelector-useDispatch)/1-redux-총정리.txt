@@ -5,10 +5,11 @@
     $ cd app1
     $ npm i redux (= yarn add redux)
     
-1. Redux 스토어 만들기 : 모루스
+1. Redux 스토어 만들기 (모루스프)
     모듈 만들기 (src/modules/*.js) : 액션타입 -> 액션생성함수 -> 초기상태 -> 리듀서 순으로 생성 (액액초리)
     루트리듀서 만들기 (src/modules/index.js)
     스토어 만들기 (src/index.js)
+    프로바이더 컴포넌트로 App 컴포넌트 감싸기 (src/index.js)
 
 1. Redux 컴포넌트 만들기 : 컴콘렌
     컴포넌트 만들기(src/components/*.js) : ui 선언에 집중하는 components를 만들고, redux에 직접 접근하지 않고 state(값), action(함수)를 props를 통해 받는다.

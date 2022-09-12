@@ -13,12 +13,12 @@ const dispatch = useContext(UserDispatch)
 
 const onCreate = () => {
     dispatch({
-    type: 'CREATE_USER',
-    user: {
-        id: nextId.current,
-        username,
-        email
-    }
+        type: 'CREATE_USER',
+        user: {
+            id: nextId.current,
+            username,
+            email
+        }
     })
     reset()
     nextId.current += 1
