@@ -61,7 +61,6 @@
 
 
 [Vuex Getters & Map Helper]
-
     Vuex Getters의 사용    
         1. CompletedTodo.vue
         1. store/index.js
