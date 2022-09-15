@@ -60,7 +60,7 @@ console.error('a')
 console.log(Math.PI) // Math라고 하는 JS 내장 객체의 변수중 하나.
 console.log(Math.floor(3.14)) // Math라고 하는 내장 객체의 함수중 하나.
 
-// JSON 타입 : JS Object Notation
+// JSON 타입 : API로부터 DB데이터를 취득하기 위한 JS Object Notation 데이터타입
 const user2 = { id: 'user2', name: 'Hong', pw: 'sdafkjdsafl', no: 116 }
 const user3 = { id: 'user3', name: 'Park', pw: 'sdafsdafkjdsafl', no: 117 }
 const user4 = { id: 'user4', name: 'Kim', pw: 'sdafkjdsasdaffl', no: 118 }
