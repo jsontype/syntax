@@ -14,6 +14,15 @@ a = a ** 2 // n승
 a = a % 3 // n으로 나눈 나머지
 let b = '12' // 연산 불가능
 let c = true
+// 숫자 : +=
+// 숫자 : ++
+let i = 0
+i++ // = ( i = i + 1 )
+i++
+i++
+i++
+i++
+console.log('i: ', i)
 
 // String 관련 데이터타입들 명칭
 console.log('Yang') // Char
@@ -26,9 +35,9 @@ console.log(`
     저는 ${name}입니다. 
     직업은 ${job}입니다. 
     올해로 ${age}살이 됩니다.
-`)    
+`)
 
-// 배열(array)타입 : 인덱스와 밸류로 이루어짐
+// 배열(array)타입 : 하나의 변수에 여러개의 값을 넣음, 그것을 인덱스를 통해 구분, 인덱스와 밸류를 매칭, 순서 있음
 const arr = [1, 2, 5] 
 console.log('arr: ', arr)
 console.log('arr[0]: ', arr[0]) // 인덱스는 0부터 시작
@@ -48,7 +57,7 @@ arr.shift()
 arr.splice(2, 1) // 인덱스, 삭제할 수
 console.log(arr)
 
-// 객체(object)타입 : 하나의 변수에 여러개의 값을 넣음, 키를 통해서 구분
+// 객체(object)타입 : 하나의 변수에 여러개의 값을 넣음, 그것을 키를 통해 구분, 키와 밸류를 매칭, 배열과 달리 순서 없음
 const movie1 = { title: 'Titanic', image: 'a.jpg' }
 const user1 = { id: 'user1', name: 'Yang', pw: 'sdafkjdsafl', no: 115 }
 console.log('movie1.title: ', movie1.title)
@@ -73,3 +82,6 @@ for (let i = 0; i < userList.length; i++) {
 // 암묵적 캐스팅 : String > Number > Boolean 순
 const cast = 'Str' + 1 + true
 console.log(cast) // 'Str1true'라는 String이 됨
+
+// 변수, 함수명은 camel case로 지정한다.
+const camelCaseHere = null
