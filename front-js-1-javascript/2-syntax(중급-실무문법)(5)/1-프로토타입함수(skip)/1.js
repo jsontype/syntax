@@ -10,18 +10,25 @@
         22.html을 브라우저에서 켜서 아래를 실행하고 콘솔로그를 보면 각 객체의 프로토타입을 볼 수 있다.
 */
 const obj = {
-    no: 153,
-    id: "azumaapp",
-    name: "yang"
+    name: '강아지',
+    sound: '멍멍',
+    lifespan: 15
 }
-const arr = [obj]
-const str = 'hello'
+const arr = [obj, {name: '야옹이', sound: '야옹', lifespan: 18}]
 
-// 객체는 프로토타입 함수를 함께 갖고 있다.
+// 객체, 배열 타입들은 각각 다른 종류의 프로토타입 함수를 갖고 있다. 콘솔로그에서 해당 타입들의 [[Prototype]]을 클릭해보자.
 console.log('obj: ', obj)
 console.log('arr: ', arr)
-console.log('str: ', str)
 
-// 프로토타입 함수는 다음과 같이 꺼내서 사용한다.
-// 프로토타입 함수들 중 자주 쓰는 것을 가능한 한 알아두는 것이 좋다. 제일 많이 쓰이는 배열고차함수들도 이 안에 담겨져있다.
+// 객체에서 프로토타입 함수 사용하기
+// obj.entries : [[키, 값], [키, 값]] 형태의 배열로 변환
+console.log(Object.entries(obj))
+// obj.keys : [키, 키, 키] 형태의 배열로 변환
+console.log(Object.keys(obj))
+// obj.values: [값, 값, 값] 형태의 배열로 변환
+console.log(Object.values(obj))
+
+// 배열에서 프로토타입 함수 사용하기
 console.log('arr.includes(obj): ', arr.includes(obj))
+// 프로토타입 함수들 중 자주 쓰는 것을 가능한 한 알아두는 것이 좋다. 제일 많이 쓰이는 배열고차함수들도 이 안에 담겨져있다.
+console.log('arr.map((item) => {item.id = index}): ', arr.map((item) => {return item.name}))
