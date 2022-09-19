@@ -1,0 +1,51 @@
+[아나콘다 설치 및 파이썬 모듈 다루기]
+참조: https://wikidocs.net/2825
+
+1. 개요
+아나콘다는 Anaconda(이전: Continuum Analytics)라는 곳에서 만든 파이썬 배포판으로, 수백 개의 파이썬 패키지를 포함하고 있다.
+또한 회사 내에서도 상업용으로 무료로 사용할 수 있다는 장점이 있다.
+
+1. 설치하기
+https://www.anaconda.com/ 에 접속하여 자신의 OS 및 파이썬 버전에 맞게 다운로드
+설치 프로그램 실행
+Next 반복하다가 All Users 선택
+Destination Folder를 c:\Anaconda3 로 지정
+Add PATH, Register 둘다 체크한뒤 Install
+설치 완료
+
+1. 파이썬 인터프리터(idle) 실행해보기
+탐색기를 켜고 폴더 이동: C:\Anaconda3\Lib\idlelib
+idle.bat을 찾고 숏컷 생성 후 바탕화면으로 이동시킴 (*idle? : Integrated DeveLopment Environment, 즉 통합개발환경을 의미한다. 이후 ide라 부르겠다.)
+idle.bat 숏컷 실행
+print("Hello Anaconda3")
+
+1. 모듈 제작, 임포트, 모듈 내 메소드 실행
+ide에서 file탭 -> new file -> stock.py 안에 있는 코드 입력 (타 ide로 만들어도 상관없음)
+제작 후 저장: 위치는 C:/Anaconda3/stock.py
+ide내에서 임포트: >>> import stock
+ide에서 모듈 내 메소드 실행 테스트: 
+>>> print(stock.author)
+pystock
+>>> stock.cal_upper(10000)
+13000.0
+>>> stock.cal_lower(10000)
+7000.0
+>>> stock.cal_upper(stock.cal_upper(10000))
+16900.0
+
+1. 모듈 자체 실행
+ide에서 file탭 -> open -> C:/Anaconda3/stock.py 열기
+run탭 -> run module
+
+1. 모듈을 통째로 임포트해서 실행: import 모듈
+>>> import stock
+>>> run stock.cal_upper(1000)
+13000.0
+* import stock 할 때도 모듈이 실행되버리는 문제 수정: stock.py 파일 참조
+* import stock as st 해도 된다. 그럼 ide에서 st.cal_power(10000) 이렇게 사용가능하다. 장점은 코딩양 줄일 수 있음. 주의점은 동명변수사용시의 중복에러다.
+
+1. 모듈내의 특정 클래스만 임포트해서 실행: from 모듈 import 클래스
+모듈이 큰 경우 사용할 클래스까지 구체적으로 명시해서 임포트하는 게 좋다.
+장점은 해당 클래스만을 사용하기 때문에 임포트시의 무게가 현저히 줄어든다. (로딩속도 향상)
+from stock import [class명]을 써서, stock내의 [class명]안의 변수와 메소드를 불러오는 거다. * 지금은 stock.py에 클래스가 없으므로 재현 불가
+용례는 from os import listdir 한다음 listdir.[listdir클래스내 메소드명](파라미터) 를 사용하는 식이다.

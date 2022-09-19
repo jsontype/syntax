@@ -1,0 +1,116 @@
+[Vite로 환경 세팅 및 라우터 처리]
+검색키워드: vite-plugin-next-react-router
+_layout.tsx 추출용 깃주소: https://github.com/zoubingwu/vite-plugin-next-react-router/tree/master/examples/react/src/pages
+
+1. Yarn 설치
+    Homebrew 설치: $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    Yarn 설치: brew install yarn --ignore-dependencies
+    yarn -v
+
+1. Vite(비토) 앱 생성: 리액트, 리액트돔, 타입스크립트를 묶어서 설치
+    yarn create vite
+        project name: app1
+        react 선택
+        react-ts 선택
+    $ cd app1
+
+1. 실행확인
+    yarn
+    yarn run dev
+    localhost:3000 : 카운팅 앱 동작 확인
+
+
+
+1. Vite(비토) 플러그인 추가: 리액트, 리액트돔, 라우터, 넥스트를 묶어서 추가
+    vite react router next를 구글 검색, 첫번째 나오는 것 들어가기
+    https://www.npmjs.com/package/vite-plugin-next-react-router 보고 그대로 하면 됨
+
+1. Vite 플러그인 추가 실제 절차
+    yarn add vite-plugin-next-react-router
+    vite.config.js 파일 안에 다음을 추가 적용
+        import { reactRouterPlugin } from 'vite-plugin-next-react-router';
+        // https://vitejs.dev/config/
+        export default defineConfig({
+            plugins: [
+                //...
+                reactRouterPlugin(),
+            ],
+        });
+    vite.config.js에 위 코드를 추가 적용한 결과는 다음과 같게 된다.
+        import { defineConfig } from 'vite'
+        import { reactRouterPlugin } from 'vite-plugin-next-react-router'
+        import react from '@vitejs/plugin-react'
+
+        export default defineConfig({
+        plugins: [react(), reactRouterPlugin()],
+        })    
+
+1. 라우터돔을 설치한다.
+    yarn add react-router-dom
+    src 폴더 내에서, src/main.tsx, src/vite-env.d.ts 파일을 제외한 모든 파일 삭제
+    
+1. src/main.tsx을 다음과 같이 수정한다.
+    import React from 'react'
+    import ReactDOM from 'react-dom'
+    import { BrowserRouter } from 'react-router-dom'
+    import App from './app'
+
+    ReactDOM.render(
+        <React.StrictMode>
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
+        </React.StrictMode>,
+        document.getElementById('root'),
+    )
+
+1. src/app.tsx 생성
+    import { useRoutes } from 'react-router-dom'
+    import { routes } from './routes'
+
+    const App = () => {
+        const elem = useRoutes(routes)
+        return elem
+    }
+
+    export default App
+
+1. src/pages/index.tsx 생성
+    const MainPage = () => <div>메인페이지</div>
+    
+    export default MainPage
+
+1. src/pages/products/[id].tsx 생성
+    const ProductDetail = () => <div>상세페이지</div>
+
+    export default ProductDetail
+
+1. src/pages/products/index.tsx 생성
+    const ProductList = () => <div>상품목록</div>
+
+    export default ProductList
+
+1. src/pages/_layout.tsx 생성
+    import React, { Suspense } from "react"
+    import { Outlet } from "react-router-dom"
+
+    const Layout: React.FC = () => {
+        return (
+            <div>
+                <Suspense fallback={'loading...'}>
+                    <Outlet />
+                </Suspense>
+            </div>
+        )
+    }
+
+    export default Layout
+
+
+
+1. 실행확인
+    yarn run dev
+    localhost:3000
+    * 실행하면 자동으로 routes.tsx 라우터가 생성된다.
+    * 만일 안된다면 tsconfig.json 파일안에 다음 키가 아래 경로대로 되어 있는지 확인해본다.
+        "include": ["src/pages"],

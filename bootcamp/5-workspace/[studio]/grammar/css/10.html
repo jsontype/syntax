@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 
+            미디어쿼리 (Media Query) : 조건을 붙여서 스타일 적용하고 싶을 때 사용
+        
+            @media (조건) {스타일}
+        */
+        @media (max-width: 800px) {
+            .a {
+                color: white;
+                background-color: tomato;
+            }
+        }
+
+        @media (min-width: 800px) {
+            .a {
+                color: white;
+                background-color: blue;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .desktop {
+                display: none;
+            }
+        }
+
+        @media (min-width: 1000px) {
+            .mobile {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="a">안녕하세요</div>
+
+    <div class="desktop">데스크톱</div>
+    <div class="mobile">모바일</div>
+
+</body>
+
+</html>

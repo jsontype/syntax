@@ -1,0 +1,39 @@
+[VSCode 필수 확장]
+
+1. 필수 확장    
+    "Korean"
+        메뉴 한글확장
+    "Tabnine"
+        AI가 미리 칠 내용을 알려줘 오타도 방지하고, 탭 치면서 하면 더 빠르고 쉽게 코딩 가능
+    "ES7+ React/Redux/React-Native snippets"
+        rcc라고 치면 클래스형 컴포넌트, rfc로 치면 함수형 컴포넌트 자동완성 (★★ rcc, rfs외에도 rfsp 등 가능)
+    "HTML CSS Support"
+        HTML, CSS 스니펫 지원
+    "Prettier"
+        탭 위계 선으로 표시해줌
+    "Eslint"
+        lint 기능(문법 오류, 코드 컨벤션 등을 잡아주는 검사기능)
+    "Auto Import - ES6, TS, JSX, TSX"
+        빨간 줄에 커서를 대고 자동수정을 누르면, 풀다운이 뜨고 거기서 원 출처를 선택하면 자동으로 import 코드가 생성됨
+    "Gitlens"
+        협업시 누가 구현한 코드인지를 짙은 회색 글씨로 알려줌
+    "ESLint"
+        ES(Ecma Script) Lint(에러가 있는 코드에 표시를 달아놓는 것을 의미)는, 자바스크립트 문법에서의 에러를 표시해줌
+
+1. 추천 확장
+    "Material Icon Theme"
+        HTML, CSS, JS등의 아이콘이나 폴더명을 보다 더 알기 쉽게 변경
+    "Txt Syntax"
+        Txt 파일에서 예쁘게 기호별 포인트를 정리해주고 "폴딩, 짝찾기, 주석" 기능도 제공함 "", '', 123, [{()}], *, ..., #
+    "CSS Peek"
+        html 안의 class="" 를 클릭하면 적용된 CSS로 바로 이동해줌
+    "Live Server"
+        코딩 실시간으로 브라우져에서 확인 가능, 아래 파란 옵션창에서 Go Live 클릭하면 나옴.
+
+1. 선택 확장
+    "IntelliCode"
+        객체에 . 찍으면 키 리스트 표시
+    "JavaScript(ES6) Code Snippets"
+        JS 스니펫 지원
+    "Vue, Vue.js Extension Pack, VueHelper, Vetur"
+        Vue 개발 도구 관련 확장들

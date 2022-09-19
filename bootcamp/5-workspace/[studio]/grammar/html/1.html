@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<!-- comment (주석) : 눈에 보이지 않게 메모하는 부분 -->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML</title>
+    <style>
+        .red {
+            color:red;
+            font-size:10px;
+            font-weight:bold;
+        }
+        .blue {
+            color:blue;
+        }
+        img {
+            display:block;
+            /* display:inline; */
+        }
+        #red {
+            color:pink;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- A To Z -->
+    <a href="https://google.com" target="_blank">링크</a><br>
+    <b>굵은 글씨</b> 일반 글씨<br>
+    <button oncontextmenu="alert('오른쪽 버튼!'); alert('두번째!')" onclick="alert('왼쪽 버튼!')">버튼</button>
+    <form action="https://google.com" method="POST">
+        <input type="text" name="id" placeholder="id를 입력하세요."><br>
+        <input type="email" name="email" placeholder="email를 입력하세요."><br>
+        <input type="number" name="age" placeholder="age를 입력하세요."><br>
+        <input type="password" name="password" placeholder="password를 입력하세요."><br>
+        <input type="radio" name="gender" value="male" checked>남<br>
+        <input type="checkbox" name="gender" value="female">여<br>
+        <input type="submit" value="회원가입">
+    </form>
+    <h1>제목</h1>
+    <h2>제목</h2>
+    <h3>제목</h3>
+    <h4>제목</h4>
+    <h5>제목</h5>
+    <h6 style="color:red; font-size:20px;">제목</h6>
+    <hr>
+    <img src="dog.png" width="100px">
+    <img src="dog.png" height="200px">
+    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/F-l6hW0rKaY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>    
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sequi quis consequuntur ipsa dolorem optio modi numquam provident, animi iste. Minima dolore qui omnis ex labore necessitatibus! Dolore, voluptates dolorum?</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi non sed perferendis aperiam sequi quasi fugiat eum doloremque? Itaque non laboriosam animi harum aperiam sit tenetur voluptatibus, eveniet atque delectus.</p>
+    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quisquam dolor voluptas quod repellendus, incidunt eveniet temporibus dicta saepe! Soluta quidem voluptates incidunt omnis porro facere vero tenetur deleniti culpa harum?</p>
+    <!-- dropdown -->
+    <select>
+        <option>선택1</option>
+        <option>선택2</option>
+        <option>선택3</option>
+    </select>
+    <!-- ordered list -->
+    <ol>
+        <li>강아지</li>
+        <li>고양이</li>
+        <li>돼지</li>
+    </ol>
+    <!-- unnumbered list -->
+    <ul>
+        <li>강아지</li>
+        <li>고양이</li>
+        <li>돼지</li>
+    </ul>
+    <table>
+        <thead>
+            <tr>                
+                <th>이름</th>
+                <th>부서</th>
+                <th>성별</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>김말자</td>
+                <td>영업부</td>
+                <td>여</td>
+            </tr>
+            <tr>
+                <td>박찬호</td>
+                <td>개발부</td>
+                <td>남</td>
+            </tr>
+            <tr>
+                <td>박세리</td>
+                <td>개발부</td>
+                <td>여</td>
+            </tr>
+            <tr>
+                <td>손흥민</td>
+                <td>홍보부</td>
+                <td>남</td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- 그 외의 태그 : 디스플레이 block -->
+    <div class="red">어떤 아이템1</div>
+    <div class="blue">어떤 아이템2</div>
+    <div class="red">어떤 아이템3</div>
+    <!-- 그 외의 태그 : 디스플레이 inline -->
+    <span class="red">어떤 아이템1</span>
+    <span class="blue">어떤 아이템2</span>
+    <span id="red">어떤 아이템3</span>
+</body>
+</html>

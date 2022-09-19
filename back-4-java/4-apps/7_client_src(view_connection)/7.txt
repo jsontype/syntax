@@ -1,0 +1,9 @@
+<< View >>
+
+1. View와 연결점
+[app_name]-cli/index.html: 초기 페이지. 아이콘 연결
+[app_name]-cli/src/constants/url.js: REST API의 URI 연결
+[app_name]-cli/src/components/pages/Search/contents/SearchResult.vue: 초기 제원ID 가져오는 부분, linkUrl 연결
+[app_name]-cli/config/index.js : dev 빌드 부분으로 초기 페이지 view와 mc 연동
+[app_name]-cli/config/dev.env.js : dev 빌드 부분으로 환경 연동
+[app_name]-cli/config/dev.env.js : dev 빌드 부분으로 에러페이지 연동

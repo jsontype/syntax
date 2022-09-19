@@ -1,0 +1,84 @@
+{% include 'lib/top.html'  ignore missing %}
+
+{% if session['id'] %}
+
+{% for bbsmodrow in bbs1modrows %}
+<!-- start sectoion contact -->
+<div id="contact" class="paddsection">
+  <div class="container">
+    <div class="contact-block1">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="contact-contact">
+            <h2 class="mb-30">Change the Memo</h2>
+            <ul class="contact-details">
+              <li><span>新しいメモを</span></li>
+              <li><span>ここに入力してください。</span></li>
+              <li><span>開発者の連絡先</span></li>
+              <li><span><a href="mailto:d.yang@rtmedias.com">d.yang@rtmedias.com</a></span></li>
+              <li><span><a href="mailto:h.aoki@rtmedias.com">h.aoki@rtmedias.com</a></span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Write A Memo! -->
+        <div class="col-lg-6">
+          <form action="{{ url_for('bbs1modpost') }}" method="post" role="form" class="contactForm" enctype="multipart/form-data">
+            <div class="row">
+              <!-- <div id="sendmessage">Your message has been sent. Thank you!</div>
+              <div id="errormessage"></div> -->
+              <div class="col-lg-6">
+                <div class="form-group contact-block1">
+                  <input type="text" class="form-control" name="nickname" id="nickname" placeholder="nickname" value="{{ bbsmodrow['nickname'] }}" maxlength="15" readonly />
+                  <div class="validation"></div>
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <input type="text" class="form-control" name="category" id="category" placeholder="category" maxlength="15" value="{{ bbsmodrow['category'] }}" />
+                  <div class="validation"></div>
+                </div>
+              </div>
+
+              <div class="col-lg-12">
+                <div class="form-group contact-block1">
+                  <input type="text" class="form-control" name="title" id="title" placeholder="title" data-rule="required" data-msg="Titleを入力してください" maxlength="70" value="{{ bbsmodrow['title'] }}" />
+                  <div class="validation"></div>
+                </div>
+              </div>
+
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <textarea class="form-control" name="content" rows="30" data-rule="required" data-msg="本文を入力してください" placeholder="content" style="height:214px;">{{ bbsmodrow['category'] }}</textarea>
+                  <div class="validation"></div>
+                </div>
+              </div>
+
+              <div class="col-lg-12">
+                <div class="form-group">
+                  'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif' Only
+                  <input type="file" class="form-control" name="img_file1" id="img_file1" placeholder="File" value="{{ bbsmodrow['img_file1'] }}"/>
+                  <input type="hidden" name="no" value="{{ bbsmodrow['no'] }}"/>
+                  <div class="validation"></div>
+                  <input type="submit" class="btn btn-defeault btn-send" value="SEND">
+                </div>
+              </div>
+
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- start sectoion contact -->
+
+{% endfor %}
+
+{% else %}
+<p>ログインしてみてください。</p>
+{% endif %}
+
+{% include 'lib/bottom.html'  ignore missing %}

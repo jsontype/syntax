@@ -1,0 +1,13 @@
+# 헬스 트레이너
+
+1. teachablemachine.withgoogle.com - pose
+1. stand, squat, bent 포즈 넣고 train
+1. tensorFlow.js 모델 다운
+1. html에 들어갈 코드 카피해서 body 태그에 넣기
+
+1. "js 코드 수정"
+
+1. 깃헙 repository 생성후 commit
+1. 깃헙 setting에서 github page의 branch main으로 설정
+1. 만들어진 ~.github.io/repository 에서 확인
+1. html , css 수정

@@ -1,0 +1,92 @@
+/* 전체 영역 */
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+* {
+  font-family: 'Nanum Gothic';
+}
+
+a {
+  color: #000000;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #bbbbbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 네비게이션 영역 */
+/* 배경색 */
+.navbar-default {
+  background-color: #000000;
+  border-color: #000000;
+}
+/* 제목색 */
+.navbar-default .navbar-brand {
+  color: #ffffff;
+}
+/* 제목에 마우스 올렸을 때 */
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand {
+  background-color: transparent;
+  color: #bbbbbb;
+}
+/* 현재 선택된 네비게이션색 */
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  color: white;
+  background-color: #000000;
+}
+/* 네비게이션 글자에 마우스 올렸을 때 */
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: white;
+  background-color: #000000;
+}
+/* 드랍다운 열렸을 때 마우스 색 */
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  color: #000000;
+  background-color: #ffffff;
+  text-decoration: none;
+}
+/* 네이게이션 기본 색상 */
+.navbar-default .navbar-nav > li > a {
+  color: white;
+}
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #ffffff;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #bbbbbb;
+  }
+}
+
+/* 인용구 영역 */
+blockquote {
+  background: #f9f9f9;
+  border-left: 10px solid #cccccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C""\201D""\2018""\2019";
+}
+blockquote:before {
+  color: #cccccc;
+  content: open-quote;
+  font-size: 3em;
+  line-height: 0.1em;
+  margin-left: 0.25em;
+  vertical-align: -0.4em;
+}
+blockquote:after {
+  color: #cccccc;
+  content: close-quote;
+  font-size: 3em;
+  line-height: 0.1em;
+  margin-left: 0.25em;
+  vertical-align: -0.4em;
+}

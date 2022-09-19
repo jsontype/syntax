@@ -1,0 +1,42 @@
+.app {
+    margin: 20px;
+}
+
+.input {
+    padding-bottom: 20px;
+}
+
+.inputArea {
+    width: 200px;
+}
+
+/* 가상요소 */
+.inputArea::placeholder {
+    font-size: 8px;
+}
+
+.inputSendButton {
+    margin-left: 10px;
+}
+
+.todos {
+    padding-bottom: 20px;
+}
+
+.todo {
+    color: darkslategrey;
+}
+
+.title {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* 가상클래스 */
+.title:hover {
+    background-color: gray;
+}
+
+.buttons {
+    margin-left: 10px;
+}

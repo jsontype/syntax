@@ -1,0 +1,78 @@
+<!-- App3 : Node와 Link를 그룹으로 묶기 -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoJS</title>
+
+    <!-- GoJS 적용 -->
+    <script src="go.js"></script>
+
+    <script>
+        function init() {
+            var $ = go.GraphObject.make
+            myDiagram = $(go.Diagram, "myDiagramDiv") // DIV HTML 태그에 들어갈 다이어그램을 만듭니다.
+
+
+
+            // App3 : Node와 Link를 그룹으로 묶기
+            var nodeDataArray = [
+                { key: "Alpha", color: "lime" },
+                { key: "Beta", color: "cyan" },
+                // 여기서 Node를 좀 더 추가해보겠습니다.
+                { key: "Zeta", isGroup: true },
+                { key: "Delta", color: "pink", group: "Zeta" },
+                { key: "Gamma", color: "maroon", group: "Zeta" }
+            ]
+
+            var linkDataArray = [
+                { from: "Alpha", to: "Beta" },
+                { from: "Alpha", to: "Zeta" },
+                { from: "Delta", to: "Gamma" }
+            ]
+
+
+            // 노드와 링크를 적용합니다.
+            myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray)
+
+
+            // 노드와 링크 템플릿을 적용합니다. : 노드와 링크를 꾸밉니다.
+            myDiagram.nodeTemplate =
+                $(go.Node, "Auto",
+                    $(go.Shape, "RoundedRectangle", { fill: "white" },
+                        new go.Binding("fill", "color")
+                    ),
+                    $(go.TextBlock, "text", { margin: 10 },
+                        new go.Binding("text", "key")
+                    )
+                )
+            myDiagram.linkTemplate = 
+                $(go.Link,
+                    $(go.Shape, { strokeWidth: 3 },
+                        new go.Bingding("stroke", "color")
+                    ),
+                    $(go.Shape, { toArrow: "Standard", stroke: null},
+                        new go.Binding("fill", "color")
+                    )
+                )
+
+
+        }
+
+
+
+    </script>
+
+</head>
+
+<!-- 화면이 시작되면 init()으로 시작데이터를 세트합니다. --> 
+<body onload="init()">    
+    <!-- div 안에서 세팅된 다이어그램을 표시합니다. -->
+    <div id="myDiagramDiv" style="width: 300px; height: 300px; border: 1px solid black"></div>
+</body>
+
+</html>

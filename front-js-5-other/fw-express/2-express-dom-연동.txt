@@ -1,0 +1,8 @@
+[Express 모듈을 DOM과 연결하기]
+
+1. views/index.html 생성
+2. npm ejs를 검색 및 설치. html안에서 js를 같이 쓸수 있게 해주는 템플릿.
+3. $ npm i ejs
+4. 4.js 생성 (render를 통해 index.html을 불러옴)
+5. 브라우져에서 localhost:3000을 통해 확인하기
+6. 만들기 어려운 웹서버를 굉장히 빠르게 설치했음을 알 수 있다.

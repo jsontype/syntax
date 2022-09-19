@@ -1,0 +1,52 @@
+[React의 정의, 배우는 이유]
+1. 리액트란?
+    페이스북에서 개발한 JS SPA 라이브러리이다.
+
+
+
+[React 설치]
+1. 리액트, 웹팩 동시 설치
+    $ npx create-react-app app1
+
+1. 리액트 실행
+    $ cd app1
+    $ npm start
+    localhost:3000에 가본다.
+
+1. 테스트
+    src/App.js 에서 a태그를 삭제하고, p태그안의 문구를 Hello React로 변경
+
+    
+
+1. 리액트 폴더구조, 컴포넌트 소개
+    src/index.js
+        react-dom : 리액트와 돔을 연결한다.
+        App : 앱 컴포넌트를 연결한다.
+    src/index.js의 <React.StrictMode>에 대해서
+        StricMode란, 애플리케이션 내의 잠재적인 문제를 알아내기 위한 도구이며,
+        자손들에 대한 부가적인 검사와 경고를 활성화한다.
+        개발 모드에서만 활성화되기 때문에, 프로덕션 빌드에는 영향을 끼치지 않는다.
+    src/App.js
+        메인화면을 App()이라는 함수로 구현하고 있다.
+        리액트는 JSX라는 문법을 사용.
+            class 대신 className 을 씀.
+            하나의 컴포넌트는 하나의 태그로 다 감싸줘야한다.
+
+
+
+1. 초기 세팅
+    src/index.js
+        reportWebVitals 삭제
+    src/App.js
+        <div className="App"> 내부를 다음과 같이 바꾼다.
+            Hello React
+    src/내 불필요한 파일 삭제
+        사용하지 않는 logo.svg 파일, 임포트허눈 부분을 지운다.
+        사용하지 않는 App.css 파일, 임포트허눈 부분을 지운다.
+        사용하지 않는 reportWebVitals.js 파일 삭제
+
+
+
+1. 리액트 실행
+    npm run start
+    localhost:3000에 가본다.

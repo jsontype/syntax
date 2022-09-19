@@ -1,0 +1,19 @@
+[IDE의 정의]
+    IDE란 : 통합 개발 환경(Integrated Development Environment)의 약자로, 코딩을 할 수 있는 개발툴
+    * 메모장도 일종의 개발툴이지만, 컴파일링, 디버깅을 포함하여 다양한 기능이 전무하므로 IDE라고는 하지 않는다.
+
+
+    
+[IDE의 종류]
+1. vscode
+    - 주로 사용하는 언어
+        front : javascript
+        back : php, python
+
+    - 장점 : 터미널과 연동
+            
+1. eclipse
+
+1. atom
+
+1. android studio

@@ -1,0 +1,30 @@
+[뷰JS 미니프로젝트]TODO APP만들기
+
+1. 새롭게 시작! todo-app 설치
+    cd 3
+    vue.cmd create app6
+    cd todo
+    npm run serve
+    브라우저에서 localhost:8080 구동확인
+
+1. router 수정
+
+    src/router/index.js에서 
+        import Home from '../views/Home.vue' 행 삭제
+        const routes = []에서 []안의 부분 모두 삭제
+    src/views폴더의 Home.vue, About.vue 삭제
+    src/components폴더의 HelloWorld.vue 삭제
+
+1. getbootstrap.com 에 가서 index.html에 css only 부분을 카피
+
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    위 코드를 index.html의 타이틀 위에다가 설치
+
+1. 작업 순서
+
+    App.vue
+    Todo.vue
+    

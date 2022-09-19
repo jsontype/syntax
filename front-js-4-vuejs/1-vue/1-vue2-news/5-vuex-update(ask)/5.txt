@@ -1,0 +1,179 @@
+[Vuex - Update]
+
+### 1. src/views/AskView.vue 수정 ### : onInputView 메소드 추가. 화면쪽 부르는 쪽도 추가. 수정 표시 버튼 추가.
+
+<template>
+  <div>
+    Ask 페이지
+    <button @click="fetchAsk">ASK Load</button>
+
+    <ul v-if="ask.length > 0">
+      <li
+        v-for="item in ask"
+        :key="item.id"
+      >
+        {{ item.id }} {{ item.title }} <button @click="deleteAsk(item.id)">Delete</button>
+        <button @click="onInputView(item.title )">수정 Input 표시</button>
+        <div v-if="isUpdate">
+          title: <input
+            type="text"
+            v-model="updateAskValue"
+          /><button @click="updateAsk(item.id)">수정</button>
+        </div>
+        <hr>
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      isUpdate: false,
+      updateAskValue: null,
+    }
+  },
+  computed: {
+    ask () {
+      return this.$store.state.ask
+    }
+  },
+  methods: {
+    fetchAsk () {
+      this.$store.dispatch('FETCH_ASK')
+    },
+    deleteAsk (id) {
+      console.log('id: ', id)
+      this.$store.commit('DELETE_ASK', id)
+    },
+    onInputView (title) {
+      this.isUpdate = !this.isUpdate
+      this.updateAskValue = title
+    },
+    updateAsk (id) {
+      const datas = {
+        id, // id: id, 처럼 같은 경우 생략 가능
+        title: this.updateAskValue
+      }
+      this.$store.commit('UPDATE_ASK', datas)
+    }
+  }
+}
+</script>
+
+
+
+### 1. src/components/UpdateForm.vue 생성 ### : 
+  Component로 하지 않으면 모든 창에 수정 input을 불러오기 때문에 생성한다.
+  이후 src/views/AskView.vue에서도 연동부분을 수정해주어야 한다.
+
+
+
+### 1. src/components/UpdateForm.vue 수정 ### : updateAsk()
+
+<template>
+  <div>
+
+    {{ item.id }} {{ item.title }} <button @click="deleteAsk(item.id)">Delete</button>
+    <button @click="onInputView(item.title )">수정 Input 표시</button>
+    <div v-if="isUpdate">
+      title: <input
+        type="text"
+        v-model="updateAskValue"
+      /><button @click="updateAsk(item.id)">수정</button>
+    </div>
+
+  </div>
+</template>
+
+<script>
+export default {
+  props: ['item'],
+
+  // 아래는 전부 src/views/AskView.vue에서 가져온 것들
+  data () {
+    return {
+      isUpdate: false,
+      updateAskValue: null,
+    }
+  },
+
+  methods: {
+    onInputView (title) {
+      this.isUpdate = !this.isUpdate
+      this.updateAskValue = title
+    },
+    deleteAsk (id) {
+      console.log('id: ', id)
+      this.$store.commit('DELETE_ASK', id)
+    },
+    updateAsk (id) {
+      console.log('id: ', id)
+      const datas = {
+        id, // id: id, 처럼 같은 경우 생략 가능
+        title: this.updateAskValue
+      }
+      this.$store.commit('UPDATE_ASK', datas)
+    }
+  }
+}
+</script>
+
+
+
+### 1. src/store/mutations.js에 추가 ###
+
+,
+UPDATE_ASK (state, payload) {
+    const index = state.ask.findIndex(v => v.id === payload.id)
+    state.ask[index].title = payload.title
+}
+
+
+
+### 1. src/views/AskView.vue 수정 ### : 
+  UpdateForm.vue를 import한 뒤 Component화 한 뒤 템플릿 안에 태그 처리
+
+<template>
+  <div>
+    Ask 페이지
+    <button @click="fetchAsk">ASK Load</button>
+
+    <ul v-if="ask.length > 0">
+      <li
+        v-for="item in ask"
+        :key="item.id"
+      >
+        <update-form :item="item"></update-form>
+        <hr>
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script>
+import UpdateForm from "../components/UpdateForm.vue"
+
+export default {
+  components: {
+    UpdateForm,
+  },
+  data () {
+    return {
+      isUpdate: false,
+      updateAskValue: null,
+    }
+  },
+  computed: {
+    ask () {
+      return this.$store.state.ask
+    }
+  },
+  methods: {
+    fetchAsk () {
+      this.$store.dispatch('FETCH_ASK')
+    }
+  }
+}
+</script>
