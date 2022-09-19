@@ -1,0 +1,16 @@
+[Context API 사용한 전역 값 관리]
+
+1. Context API를 쓰는 이유
+    useState를 이용해서 state를 컴포넌트별로 관리하는 기존의 방식은,
+    state 변수들, on~ 등의 함수들을 컴포넌트 하나에 다 관리를 한다.
+    그러나, 현장에서는 3~4개 이상의 자식 컴포넌트에 props를 건네줘서 전달을 계속 해야 하는 일이 발생하게 된다.
+    이는 매우 번거로울 것이다.
+
+    context를 쓰면, 각 하위 컴포넌트들이 state와 action을 자신의 컴포넌트에서 직접 선언하지 않고, 
+    각 컴포넌트가 import를 통해서 context에서 가져올 수 있어서, state를 관리하는 것을 편하게 할 수 있다.
+    이것을 global state 관리라고 한다.    
+    이렇게 하면, 기존에 props로 넘겨주던 복잡한 구조를 해결 할 수 있다.
+    단, Context API를 쓰려면 state를 쓸 때 useState가 아닌 useReducer 방식을 사용해야한다.
+
+    우선, Context API 를 사용해여 새로운 Context 를 만드는 방법을 알아보겠다.
+

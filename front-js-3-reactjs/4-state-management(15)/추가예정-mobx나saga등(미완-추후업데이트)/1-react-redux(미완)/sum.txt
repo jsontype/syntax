@@ -1,0 +1,1 @@
+Dispatch를 하면, 동기 Action이 -> redux-saga나 redux-thunk 같은 미들웨어를 거쳐 -> Reducer랑 매칭이 되고 -> 

@@ -1,0 +1,28 @@
+[Page]
+
+1. pages/profile.js 생성
+    import React from 'react'
+
+    const Profile = () => {
+    return <div>내 프로필</div>
+    }
+
+    export default Profile
+    
+1. pages/signup.js 생성
+    import React from 'react'
+
+    const Signup = () => {
+    return <div>회원가입 페이지</div>
+    }
+
+    export default Signup;
+
+1. 실행해보기
+    npm run dev
+    http://localhost:3000/
+    http://localhost:3000/profile
+    http://localhost:3000/signup
+
+
+

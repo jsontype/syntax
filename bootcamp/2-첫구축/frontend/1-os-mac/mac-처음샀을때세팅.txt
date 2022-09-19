@@ -1,0 +1,80 @@
+[맥 처음 샀을 때 세팅]
+
+1. 도커에 불필요한 아이콘들을 모두 삭제 (맵, 미리알림 등)
+1. command + space 누르고 terminal
+1. brew install (크롬에 검색 후 명령어 복붙해서 설치)
+1. brew --version
+1. iterm2 검색 후 설치
+1. finder - 애플리케이션 - chrome, vscode, iterm2 설치 확인
+1. chrome, vscode, iterm2를 도커에 올려놓는다.
+1. iterm2을 열고, 위쪽 메뉴에서 iterm2을 클릭
+1. preference 탭 - appearance - general - theme - minimal 선택
+1. profiles 탭 - session - status bar 체크 - 최하단 configure status bar 버튼 클릭
+1. Battery, CPU, RAM, Network, Clock을 아래로 드래그
+1. 최하단 Auto-Rainbow 옆 풀다운 클릭 - Light Colors 선택 - OK 버튼 선택
+1. profiles 탭 - color - 우측 하단 color presets 풀다운 - Dark background 선택
+1. safari나, 기존 터미널은 이제 사용하지 않으므로 끈다. 도커 내 사파리도 삭제.
+1. chrome을 연다.
+1. oh my zsh 검색 (z shell : bash보다 많은 기능과 플러그인으로 개선된 터미널)
+1. 설치 명령어를 복사해서 터미널에 붙여넣기
+1. powerlevel 10k 검색후 깃허브에 들어간다.
+1. 밑으로 내려서 installation 클릭
+1. oh my zsh 클릭
+1. git clone 으로 시작하는 명령어 터미널에 복붙
+
+1. 터미널에 code ~/.zshrc 입력하고 vscode에서 .zshrc 파일을 연다.
+    * code해도 vscode가 안열리는 경우
+        vscode를 연다
+        shift + command + p
+        그 다음 밑에 Shell Command: Install 'code' command in PATH 를 눌러주면 끝이다.
+    해당 파일안에 다음 변수값을 수정 : ZSH_THEME="powerlevel10k/powerlevel10k"
+
+1. 전부 다 끈 뒤 iterm을 다시 켠다.
+1. y 입력 후 엔터해서 nerd 폰트를 다운받는다.
+1. iterm을 다시 한번 끄고 켠다.
+1. 가운데 그림문자에 다이아몬드가 안 보인다면, 다음의 명령어를 통해 iterm2를 재설치한다.
+    brew reinstall --cask iterm2
+    연 다음 check automatically 클릭
+1. 다이아몬드가 보인다면 y
+1. 소용돌이가 보인다면 y
+1. 오버랩 안되어 있다면 y
+
+1. Classic 2번
+1. Unicode 1번
+1. Light 2번
+1. 24-hour format 2번
+1. Angled 1번
+1. Sharp 1번
+1. Flat 1번
+1. One line 1번
+1. Sparse 2번
+1. Many icons 2번
+1. Fluent 2번
+1. 문제없으면 y - Verbose 1 - y
+1. vscode를 연다.
+1. get started 탭이 뜨면 show welcome 체크를 해지하고 탭을 닫는다.
+1. 윗쪽 메뉴에서 Terminal - New Terminal
+1. vscode 세팅 - settings - terminal font 검색 - 최상단 font family - MesloLGS NF 입력
+1. vscode terminal 폰트 안 깨진 것 확인
+1. vscode를 끈다.
+1. iterm 터미널에 돌아간다.
+
+*** 1. brew install nvm
+1. 구글에 검색 : export nvm_dir
+1. 해당 페이지에서 export 검색
+1. "export NVM_DIR ~ ...중략... ~ # This loads nvm bash_completion" 부분을 찾아서 복사
+1. code ~/.zshrc
+1. vscode에서 제일 밑으로 감
+1. 제일 밑에다가 한칸 띄고 아까 복사한 것을 붙여넣기
+1. 저장하고 vscode를 끈다.
+1. 다시 iterm 터미널을 연다.
+1. nvm --version
+1. nvm ls-remote : 설치 가능한 node 버전이 나온다. 이중 latest LTS를 찾는다. (* 초록색으로 표시되는 버전이 있다.)
+1. nvm install 16.14.0 : latest LTS 버전을 입력한다.
+1. nvm list
+    만일 다른 버전을 설치한 경우
+    nvm install 17.5.0
+    nvm list
+    nvm use 17.5.0를 하면 node 재설치없이도 버전을 변경할 수 있다.
+1. * M1의 경우, 로제타 인스톨을 검색하여 로제타를 인스톨한다.
+1. 다음 수순으로 : vscode 설치 및 확장, chrome 확장, devtools 설치

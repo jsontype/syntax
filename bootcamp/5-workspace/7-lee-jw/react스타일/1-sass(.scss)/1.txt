@@ -1,0 +1,28 @@
+1. Sass (싸스)
+    Sass (Syntactically Awesome Style Sheets: 문법적으로 짱 멋진 스타일시트)는 CSS pre-processor(전처리기)로서,
+    큰 장점은 코드의 재활용성, 코드의 가독성을 높여줘 유지보수를 쉽게 해준다.
+    Sass 에서는 두가지의 확장자 (.scss/.sass) 를 지원한다.
+    Scss는 css와 같은 문법을 쓰고 싶은 사람을 위해 나중에 추가된 문법이다.
+
+1. 문법
+    Sass 문법
+        $font-stack: Helvetica, sans-serif
+        $primary-color: #333
+        body
+        font: 100% $font-stack
+        color: $primary-color
+
+    Scss 문법 (에스씨에스에스)
+        $font-stack: Helvetica, sans-serif;
+        $primary-color: #333;
+        body {
+            font: 100% $font-stack;
+            color: $primary-color;
+        }
+
+1. React에 Scss 프레임워크 도입하기
+    $ npx create-react-app app1
+    $ cd app1
+    $ npm i node-sass (= yarn add node-sass)
+
+

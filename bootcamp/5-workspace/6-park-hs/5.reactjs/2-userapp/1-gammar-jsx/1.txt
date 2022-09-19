@@ -1,0 +1,23 @@
+[Install]
+1. 새 프로젝트 만들어보기
+    $ npx create-react-app app1
+    $ cd app1
+    $ npm start
+    http://localhost:3000/
+
+1. src/Hello.js 생성
+    import React from 'react'
+
+    function Hello() {
+        return <div>안녕하세요</div>
+    }
+
+    export default Hello
+
+1. JSX란
+    react에서 사용하는 js문법으로, html과 js를 하나로 통합해놓은 것
+    jsx 문법이 기존과 다른 것
+        - return하는 DOM은 하나의 div 태그나 fragment로 감싸기
+        - JS 변수값, Style object(CSSOM)을 return하는 DOM에 적용할 수 있다.
+        - div class대신 className
+        - JS 함수나 변수값을 HTML내에 사용할 때 {}로 감싸기

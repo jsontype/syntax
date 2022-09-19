@@ -1,0 +1,9 @@
+종복변수 1개 : 주가
+독립변수 1개 : 단변량 단순선형회귀모델 univariate simple linear regression model
+독립변수 2개이상 : 단변량 다중선형회귀모델 univariate multiple linear regression model 
+
+종속변수 2개이상
+독립변수 1개 : 다변량 단순선형회귀모델 multivariate simple linear regression model
+독립변수 2개이상 : 다변량 다중선형회귀모델 multivariate multiple linear regression model
+
+기타 참조자료 : https://m.blog.naver.com/PostView.nhn?blogId=istech7&logNo=50152984368&proxyReferer=https:%2F%2Fwww.google.com%2F

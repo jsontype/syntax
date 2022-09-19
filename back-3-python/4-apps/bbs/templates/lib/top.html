@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <!-- meta -->
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <!-- title -->
+  <title>Bucket List</title>
+  <meta content="memo" name="keywords">
+  <meta content="To do list Memo" name="description">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,500,500i,600,600i,700,700i|Playfair+Display:400,400i,700,700i,900,900i" rel="stylesheet">
+  <!-- Bootstrap CSS File -->
+  <link href="{{ url_for('static', filename='lib/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <!-- Libraries CSS Files -->
+  <link href="{{ url_for('static', filename='lib/ionicons/css/ionicons.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='lib/magnific-popup/magnific-popup.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='lib/hover/hover.min.css') }}" rel="stylesheet">
+  <!-- Main Stylesheet File -->
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+  <!-- Responsive css -->
+  <link href="{{ url_for('static', filename='css/responsive.css') }}" rel="stylesheet">
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="images/favicon.png">
+</head>
+
+<body>
+
+  <!-- start section navbar -->
+  <nav id="main-nav">
+    <div class="row">
+      <div class="container">
+
+        <div class="logo">
+          <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="logo"></a>
+        </div>
+
+        <div class="responsive"><i data-icon="m" class="ion-navicon-round"></i></div>
+
+        <ul class="nav-menu list-unstyled">
+          <li><a href="{{ url_for('index') }}" class="smoothScroll">Memo</a></li>
+
+          {% if session['member'] %}
+            <li><a href="{{ url_for('logout') }}" class="smoothScroll">Logout</a></li>
+
+            <li><a href="{{ url_for('memberinfo') }}" class="smoothScroll">【{{session['realname']}}様】</a></li>
+
+          {% else %}
+            <li><a href="{{ url_for('login') }}" class="smoothScroll">Login / Join</a></li>
+          {% endif %}
+
+        </ul>
+
+      </div>
+    </div>
+  </nav>
+  <!-- End section navbar -->

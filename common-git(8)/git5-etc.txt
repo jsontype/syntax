@@ -1,0 +1,13 @@
+[기타 대응]
+
+1. SSH Git을 pull 받을 경우
+    github 암호키로 들어가려고 하면 ssh git 받는게 안됨.
+        ssh-keygen -t rsa를 해서 키를 생성
+        cd로 ~/.ssh/id_rsa 에 들어감
+        vi id_rsa.pub를 눌러서 내용 복사
+    대응법 : https://qiita.com/shizuma/items/2b2f873a0034839e47ce
+
+1. commitlint가 있는 경우
+    git commit -m "feat: 커밋명" 이렇게 해야함
+    네이밍 룰은 깃허브의 풀리퀘스트 탭에서 다른 사람꺼 보고 따라하면 됨
+    대응법 : https://qiita.com/ybiquitous/items/74225bc4bf0a9ddcd7dd

@@ -1,0 +1,100 @@
+/* =================================== */
+/*  Departments Page Styles
+/* =================================== */
+
+
+/*-------- Start Info area Style  -------------*/
+
+.dep-offred-service{
+    background:$white;
+    .offred-wrap{
+        border-bottom:1px solid #eee;
+    }
+}
+
+.sidebar-offered-service{
+    padding:30px 0px!important;
+}
+
+.sidebar-appointment{
+    margin-top:30px;
+      background-color: #f9f9ff;
+            padding:40px 30px;
+            .form-control{
+                margin-bottom:10px;
+                border-radius:0px;
+                padding: 0.675rem 0.75rem;                
+                font-size:13px;
+                font-weight:300;
+                background:transparent;
+                &:focus{
+                    box-shadow:none;
+                }
+            }
+            .current{
+                margin-left:-32px;
+                font-size:13px;
+            }
+            .form-select .nice-select{
+                border: 1px solid #ced4da;
+                margin-bottom: 10px;  
+                background:transparent!important;              
+            }
+            .form-select .nice-select .list .option{
+                padding-left:15px;
+            }            
+            .primary-btn{
+                width:100%;
+                margin-top:5px;
+                @extend .p1-gradient-bg;
+            }
+            textarea{
+                width:100%;
+                border:1px solid #ced4da;
+                margin-bottom:30px;
+                padding: 0.675rem 0.75rem;                
+                font-size:13px;
+                font-weight:300;
+                background:transparent;                
+            }
+          
+}
+
+.sidebar-service-hr{
+          background-color: #f9f9ff;
+          margin-top:30px;
+          padding:30px;
+          text-align: center;
+        h1{
+            margin-bottom:20px;
+            @media(max-width:991px){
+                font-size:30px;
+            }
+        } 
+        p{
+           max-width:370px;
+        }   
+        @media(max-width:991px){
+            padding-top:120px;
+            margin-bottom:40px;
+        }   
+        .time-list{
+            margin-top:50px;
+            li{
+                border-bottom:1px solid #eee;
+                font-size:14px;
+                font-weight:400;
+                color:$black;
+                margin-bottom:20px;
+                padding-bottom:20px;
+                &:last-child{
+                    border-bottom:none;
+                }
+            }
+        }    
+}
+
+
+/*-------- End Info area Style  -------------*/
+
+

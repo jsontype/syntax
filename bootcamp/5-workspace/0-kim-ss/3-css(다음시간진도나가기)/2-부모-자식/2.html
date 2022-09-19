@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS 초급</title>
+    <link rel="stylesheet" href="2.css">
+</head>
+<body>
+    <!-- 선택자의 위계 : tag < class < id의 순으로 유니크한 게 더 먼저 적용된다. -->
+    <a class="a" id="a" href="#">구글</a>
+
+    <!-- 부모, 자식간의 위계 (.father > .son인 경우) : 자식인 .son이 먼저 적용된다. -->
+    <div class="father">
+        <div class="son">자식</div>
+        <div class="son">자식</div>
+        <div class="son">자식</div>
+    </div>
+</body>
+</html>

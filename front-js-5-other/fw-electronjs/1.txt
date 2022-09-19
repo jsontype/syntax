@@ -1,0 +1,34 @@
+<출처>
+원글 - https://goldenthumb.net/electron-tutorial
+예제 소스 - https://github.com/goldenthumb/electron-tutorial.git
+이 튜토리얼은 https://electronjs.org/docs 를 참고하여 만들었습니다.
+
+<정의>
+일렉트론이란?
+Electron 은 웹 기술(Chromium 과 Node.js)을 이용해서 Native Desktop App 을 만드는 기술입니다.
+Electron 은 네이티브 애플리케이션이며 자바스크립트, HTML, CSS 로 이루어진 프레임워크입니다.
+Node.js 와 OS 의 이벤트 루프를 합쳐 네이티브 UI 를 제어하며, 
+Chromium 을 사용해서 HTML, CSS, 자바스크립트를 이용해 애플리케이션을 만들수 있도록 해줍니다. 
+그리고 Electron 을 이용해 작성한 앱은 Mac, Windows, 리눅스용으로 패키지할 수 있습니다.
+
+<폴더별 예제 설명>
+01. 간단하게 app 의 lifecycle 을 살펴보고 BrowserWindow 를 이용해서 창을 띄우기
+02. Main BrowserWindow로부터 child window를 띄우기
+03. 비동기(async)와 동기(sync) 방식의 메소드 적용
+04. top nav 메뉴와 context 메뉴를 변경
+05. tray, dialog, shell 처리 이벤트 삽입
+
+<NodeJS 커맨드>
+$ $ npm i : 인스톨
+$ npm start : 앱 실행
+
+<배포>
+start-kit/app 폴더안에 배포를 원하는 html, css, js를 담는다.
+$ $ npm i
+$ npm run dev 로 작동을 확인한다.
+package.json 파일 안에 dependencies 항목을 devDependancies 안에 옮겨담기
+package.json 파일 안의 helloElectron이라고 하는 제품 이름, 인스톨 이름, 버전 등 기본 정의 데이터을 변경
+start-kit/resources/installer 폴더 안의 icon.png, icon.ico를 동일비율의 아이콘 파일로 바꿔준다.
+* .ico 파일은 인터넷 검색으로 변경툴을 찾아 만들면 된다.
+$ npm run package : 앱 배포
+start-kit/release가 새로 생성되는데 이것으로 배포를 하면 된다. (Demo Setup 0.0.1.exe 파일만 쓰면 된다.)

@@ -1,0 +1,7 @@
+<< 컨트롤러 >>
+
+1. 앱을 실행하는 컨트롤러
+[app_name]-ui/src/main/java/jp/co/[company_name]/[main_system_name]/IndoorSimUiApplication.java
+
+1. view에서 시작된 SIDU 명령 호출 관련 컨트롤러 (get, post 매핑)
+[app_name]-ui/src/main/java/jp/co/[company_name]/[main_system_name]/is/controller/[table_name]Controller.java

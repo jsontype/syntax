@@ -1,0 +1,58 @@
+[Component]
+
+1. vscode 확장 설치 필요
+    react 쳤을 때 처음 나오는 거 설치 : "ES7+ React/Redux/React-Native snippets"
+    rfc, rcc 등으로 편하게 컴포넌트를 만들기 위함
+    
+
+
+1. 컴포넌트 만드는 법 요약
+    자식컴포넌트 만든다. → 자식컴포넌트 익스포트한다. → 부모컴포넌트에서 임포트한다. → 부모컴포넌트에서 사용한다.
+
+
+
+1. src/App.js 수정
+    import './App.css'
+    // 3. 컴포넌트 임포트한다.
+    import Hello from './Hello'
+
+    export default function App() {  
+        return (
+            <div className="hello">
+                {/* 4. 컴포넌트 쓴다. */}
+                <Hello />
+                <Hello />
+                <Hello />
+            </div>
+        )
+    }
+
+    // export default App : 익스포트를 하기 위한 건데, 그냥 export default를 함수 앞으로 놓아도 된다.
+
+
+
+1. src/App.css 수정
+    .hello {
+        font-size: 22px;
+    }
+
+    
+
+1. src/Hello.js 생성 : rfc 입력시 함수형 컴포넌트 자동 생성하므로 참조 (rcc는 클래스형 컴포넌트)
+    // 1. 컴포넌트 만든다.
+    import React from 'react'
+
+    export default function Hello() {
+        return (
+            <div>Hello</div>
+        )
+    }
+    
+    // 2. 컴포넌트 익스포트한다.
+    // export default Hello : 익스포트를 하기 위한 건데, 그냥 export default를 함수 앞으로 놓아도 된다.
+
+
+
+1. 테스트
+    $ cd app1
+    $ npm start

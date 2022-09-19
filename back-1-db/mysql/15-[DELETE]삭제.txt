@@ -1,0 +1,40 @@
+[INSERT문: 기본 데이터 삭제]
+참조: https://stricky.tistory.com/282
+
+1. 절차
+A5M2에서 mysql에 접속한 뒤, Query-1 탭을 클릭
+SQL 입력 (★ A5M2에 입력할 때는 마지막 구분자 ;를 쓰지 않는다.)
+커런트스키마에서 ctrl + F5로 커밋결과 리프레쉬
+
+1. 데이터 삭제하기
+delete는 말 그대로 테이블에서 데이터를 삭제할 때 사용하는 DML 명령어입니다.
+
+1) 기본 delete문 사용방법
+사용법 : delete from <테이블명> where <조건문> and <추가조건>...
+delete문은 위 박스와 같이 delete from이라는 명령어로 시작하고 그 뒤에 <테이블명>이 따라옵니다. <테이블명>에 기입된 테이블의 데이터를 지우겠다는 의미입니다.
+
+예시 :
+select * from mysql.table_9th
+delete from mysql.table_9th where seq = 10
+select * from mysql.table_9th
+delete from mysql.table_9th where seq > 6
+select * from mysql.table_9th
+
+2) 테이블내 모든 데이터를 삭제하는 delete 문
+이번에는 테이블내 모든 데이터를 삭제하는 delete 문을 작성해보겠습니다.
+매우 간단합니다. 우선 mysql.table_10th라는 테이블 내 데이터를 확인해보겠습니다.
+
+delete from mysql.table_10th
+delete from mysql.table_10th where 1=1 # 같은 의미입니다.
+select * from mysql.table_10th
+
+* delete from mysql.table_10th where 1=2
+* 이 경우는 삭제가 안됩니다. where절에 1=2라고 입력을 했는데, 1은 2가 아니기 때문에 아무 데이터도 삭제가 되지 않습니다.
+
+3) select 한 결과로 delete 하는 방법
+어떤 다른 테이블을 select 하여 조건을 불러와 또 다른 테이블의 데이터를 삭제할 수도 있습니다.
+
+delete from mysql.table_9th where seq in (select seq from mysql.table_10th)
+select * from mysql.table_9th
+mysql.table_10th 테이블에는 seq가 4,5,6만 존재하기 때문에 
+mysql.table_9th 테이블에서 seq가 4,5,6인 것만 삭제가 되고, 나머지 1,2,3만 남은 상태가 됩니다.

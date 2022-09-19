@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/.tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/ch4/front/.next" />
+      <excludeFolder url="file://$MODULE_DIR$/ch5/front/.next" />
+      <excludeFolder url="file://$MODULE_DIR$/ch6/front/.next" />
+      <excludeFolder url="file://$MODULE_DIR$/ch7/front/.next" />
+      <excludeFolder url="file://$MODULE_DIR$/ch8/front/.next" />
+      <excludeFolder url="file://$MODULE_DIR$/lecture/front/build" />
+      <excludeFolder url="file://$MODULE_DIR$/prepare/front/build" />
+      <excludeFolder url="file://$MODULE_DIR$/prepare/front/bundles" />
+      <excludeFolder url="file://$MODULE_DIR$/temp" />
+      <excludeFolder url="file://$MODULE_DIR$/tmp" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="R Skeletons" level="application" />
+    <orderEntry type="library" name="R User Library" level="project" />
+    <orderEntry type="library" name="antd" level="application" />
+  </component>
+</module>

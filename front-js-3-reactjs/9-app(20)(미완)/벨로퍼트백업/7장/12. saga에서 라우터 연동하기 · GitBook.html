@@ -1,0 +1,1753 @@
+<!DOCTYPE html>
+<!-- saved from url=(0069)https://react.vlpt.us/redux-middleware/12-redux-saga-with-router.html -->
+<html lang=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style>
+
+
+<title>12. saga에서 라우터 연동하기 · GitBook</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="">
+<meta name="generator" content="GitBook 3.2.3">
+<link rel="stylesheet" href="./12. saga에서 라우터 연동하기 · GitBook_files/style.css">
+<link rel="stylesheet" href="./12. saga에서 라우터 연동하기 · GitBook_files/collapsible-chapters.css">
+<link rel="stylesheet" href="./12. saga에서 라우터 연동하기 · GitBook_files/website.css">
+<link rel="stylesheet" href="./12. saga에서 라우터 연동하기 · GitBook_files/search.css">
+<link rel="stylesheet" href="./12. saga에서 라우터 연동하기 · GitBook_files/website(1).css">
+<meta name="HandheldFriendly" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://react.vlpt.us/gitbook/images/apple-touch-icon-precomposed-152.png">
+<link rel="shortcut icon" href="https://react.vlpt.us/gitbook/images/favicon.ico" type="image/x-icon">
+
+
+<link rel="prev" href="https://react.vlpt.us/redux-middleware/11-redux-saga-with-promise.html"><link rel="next" href="https://react.vlpt.us/redux-middleware/CONCLUSION.html"></head>
+<body>
+<div class="book without-animation with-summary font-size-2 font-family-1">
+<div class="book-summary">
+<div id="book-search-input" role="search">
+<input type="text" placeholder="Type to search">
+</div>
+<nav role="navigation">
+<ul class="summary">
+<li class="chapter " data-level="1.1" data-path="../">
+<a href="https://react.vlpt.us/">
+벨로퍼트와 함께하는 모던 리액트
+</a>
+</li>
+<li class="chapter " data-level="1.2" data-path="../basic/">
+<a href="https://react.vlpt.us/basic/">
+1장. 리액트 입문
+<i class="exc-trigger fa"></i></a>
+<ul class="articles">
+<li class="chapter " data-level="1.2.1" data-path="../basic/01-concept.html">
+<a href="https://react.vlpt.us/basic/01-concept.html">
+1. 리액트는 어쩌다가 만들어졌을까?
+</a>
+</li>
+<li class="chapter " data-level="1.2.2" data-path="../basic/02-prepare.html">
+<a href="https://react.vlpt.us/basic/02-prepare.html">
+2. 작업환경 준비
+</a>
+</li>
+<li class="chapter " data-level="1.2.3" data-path="../basic/03-first-component.html">
+<a href="https://react.vlpt.us/basic/03-first-component.html">
+3. 나의 첫번째 리액트 컴포넌트
+</a>
+</li>
+<li class="chapter " data-level="1.2.4" data-path="../basic/04-jsx.html">
+<a href="https://react.vlpt.us/basic/04-jsx.html">
+4. JSX
+</a>
+</li>
+<li class="chapter " data-level="1.2.5" data-path="../basic/05-props.html">
+<a href="https://react.vlpt.us/basic/05-props.html">
+5. props 를 통해 컴포넌트에게 값 전달하기
+</a>
+</li>
+<li class="chapter " data-level="1.2.6" data-path="../basic/06-conditional-rendering.html">
+<a href="https://react.vlpt.us/basic/06-conditional-rendering.html">
+6. 조건부 렌더링
+</a>
+</li>
+<li class="chapter " data-level="1.2.7" data-path="../basic/07-useState.html">
+<a href="https://react.vlpt.us/basic/07-useState.html">
+7. useState 를 통해 컴포넌트에서 바뀌는 값 관리하기
+</a>
+</li>
+<li class="chapter " data-level="1.2.8" data-path="../basic/08-manage-input.html">
+<a href="https://react.vlpt.us/basic/08-manage-input.html">
+8. input 상태 관리하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.2.9" data-path="../basic/09-multiple-inputs.html">
+<a href="https://react.vlpt.us/basic/09-multiple-inputs.html">
+9. 여러개의 input 상태 관리하기
+</a>
+</li>
+<li class="chapter " data-level="1.2.10" data-path="../basic/10-useRef.html">
+<a href="https://react.vlpt.us/basic/10-useRef.html">
+10. useRef 로 특정 DOM 선택하기
+</a>
+</li>
+<li class="chapter " data-level="1.2.11" data-path="../basic/11-render-array.html">
+<a href="https://react.vlpt.us/basic/11-render-array.html">
+11. 배열 렌더링하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.2.12" data-path="../basic/12-variable-with-useRef.html">
+<a href="https://react.vlpt.us/basic/12-variable-with-useRef.html">
+12. useRef 로 useRef 로 컴포넌트 안의 변수 만들기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.2.13" data-path="../basic/13-array-insert.html">
+<a href="https://react.vlpt.us/basic/13-array-insert.html">
+13. 배열에 항목 추가하기
+</a>
+</li>
+<li class="chapter " data-level="1.2.14" data-path="../basic/14-array-remove.html">
+<a href="https://react.vlpt.us/basic/14-array-remove.html">
+14. 배열에 항목 제거하기
+</a>
+</li>
+<li class="chapter " data-level="1.2.15" data-path="../basic/15-array-modify.html">
+<a href="https://react.vlpt.us/basic/15-array-modify.html">
+15. 배열에 항목 수정하기
+</a>
+</li>
+<li class="chapter " data-level="1.2.16" data-path="../basic/16-useEffect.html">
+<a href="https://react.vlpt.us/basic/16-useEffect.html">
+16. useEffect를 사용하여 마운트/언마운트/업데이트시 할 작업 설정하기
+</a>
+</li>
+<li class="chapter " data-level="1.2.17" data-path="../basic/17-useMemo.html">
+<a href="https://react.vlpt.us/basic/17-useMemo.html">
+17. useMemo 를 사용하여 연산한 값 재사용하기
+</a>
+</li>
+<li class="chapter " data-level="1.2.18" data-path="../basic/18-useCallback.html">
+<a href="https://react.vlpt.us/basic/18-useCallback.html">
+18. useCallback 를 사용하여 함수 재사용하기
+</a>
+</li>
+<li class="chapter " data-level="1.2.19" data-path="../basic/19-React.memo.html">
+<a href="https://react.vlpt.us/basic/19-React.memo.html">
+19. React.memo 를 사용한 컴포넌트 리렌더링 방지
+</a>
+</li>
+<li class="chapter " data-level="1.2.20" data-path="../basic/20-useReducer.html">
+<a href="https://react.vlpt.us/basic/20-useReducer.html">
+20. useReducer 를 사용하여 상태 업데이트 로직 분리하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.2.21" data-path="../basic/21-custom-hook.html">
+<a href="https://react.vlpt.us/basic/21-custom-hook.html">
+21. 커스텀 Hooks 만들기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.2.22" data-path="../basic/22-context-dispatch.html">
+<a href="https://react.vlpt.us/basic/22-context-dispatch.html">
+22. Context API 를 사용한 전역 값 관리
+</a>
+</li>
+<li class="chapter expanded" data-level="1.2.23" data-path="../basic/23-immer.html">
+<a href="https://react.vlpt.us/basic/23-immer.html">
+23. Immer 를 사용한 더 쉬운 불변성 관리
+</a>
+</li>
+<li class="chapter expanded" data-level="1.2.24" data-path="../basic/24-class-component.html">
+<a href="https://react.vlpt.us/basic/24-class-component.html">
+24. 클래스형 컴포넌트
+</a>
+</li>
+<li class="chapter expanded" data-level="1.2.25" data-path="../basic/25-lifecycle.html">
+<a href="https://react.vlpt.us/basic/25-lifecycle.html">
+25. LifeCycle Method
+</a>
+</li>
+<li class="chapter expanded" data-level="1.2.26" data-path="../basic/26-componentDidCatch-and-sentry.html">
+<a href="https://react.vlpt.us/basic/26-componentDidCatch-and-sentry.html">
+26. componentDidCatch 로 에러 잡아내기 / Sentry 연동
+</a>
+</li>
+<li class="chapter expanded" data-level="1.2.27" data-path="../basic/27-useful-tools.html">
+<a href="https://react.vlpt.us/basic/27-useful-tools.html">
+27. 리액트 개발 할 때 사용하면 편리한 도구들 - Prettier, ESLint, Snippet
+</a>
+</li>
+<li class="chapter expanded" data-level="1.2.28" data-path="../basic/CONCLUSION.html">
+<a href="https://react.vlpt.us/basic/CONCLUSION.html">
+리액트 입문 마무리
+</a>
+</li>
+</ul>
+</li>
+<li class="chapter expanded" data-level="1.3" data-path="../styling/">
+<a href="https://react.vlpt.us/styling/">
+2장. 리액트 컴포넌트 스타일링하기
+<i class="exc-trigger fa"></i></a>
+<ul class="articles">
+<li class="chapter expanded" data-level="1.3.1" data-path="../styling/01-sass.html">
+<a href="https://react.vlpt.us/styling/01-sass.html">
+1. Sass
+</a>
+</li>
+<li class="chapter expanded" data-level="1.3.2" data-path="../styling/02-css-module.html">
+<a href="https://react.vlpt.us/styling/02-css-module.html">
+2. CSS Module
+</a>
+</li>
+<li class="chapter expanded" data-level="1.3.3" data-path="../styling/03-styled-components.html">
+<a href="https://react.vlpt.us/styling/03-styled-components.html">
+3. styled-components
+</a>
+</li>
+<li class="chapter expanded" data-level="1.3.4" data-path="../styling/CONCLUSION.html">
+<a href="https://react.vlpt.us/styling/CONCLUSION.html">
+정리
+</a>
+</li>
+</ul>
+</li>
+<li class="chapter expanded" data-level="1.4" data-path="../mashup-todolist/">
+<a href="https://react.vlpt.us/mashup-todolist/">
+3장. 멋진 투두리스트 만들기
+<i class="exc-trigger fa"></i></a>
+<ul class="articles">
+<li class="chapter expanded" data-level="1.4.1" data-path="../mashup-todolist/01-create-components.html">
+<a href="https://react.vlpt.us/mashup-todolist/01-create-components.html">
+1. 컴포넌트 만들기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.4.2" data-path="../mashup-todolist/02-manage-state.html">
+<a href="https://react.vlpt.us/mashup-todolist/02-manage-state.html">
+2. Context API를 활용한 상태 관리
+</a>
+</li>
+<li class="chapter expanded" data-level="1.4.3" data-path="../mashup-todolist/03-implement.html">
+<a href="https://react.vlpt.us/mashup-todolist/03-implement.html">
+3. 기능 구현하기
+</a>
+</li>
+</ul>
+</li>
+<li class="chapter expanded" data-level="1.5" data-path="../integrate-api/">
+<a href="https://react.vlpt.us/integrate-api/">
+4장. API 연동하기
+<i class="exc-trigger fa"></i></a>
+<ul class="articles">
+<li class="chapter expanded" data-level="1.5.1" data-path="../integrate-api/01-basic.html">
+<a href="https://react.vlpt.us/integrate-api/01-basic.html">
+1. API 연동의 기본
+</a>
+</li>
+<li class="chapter expanded" data-level="1.5.2" data-path="../integrate-api/02-useReducer.html">
+<a href="https://react.vlpt.us/integrate-api/02-useReducer.html">
+2. useReducer 로 요청 상태 관리하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.5.3" data-path="../integrate-api/03-useAsync.html">
+<a href="https://react.vlpt.us/integrate-api/03-useAsync.html">
+3. useAsync 커스텀 Hook 만들어서 사용하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.5.4" data-path="../integrate-api/04-react-async.html">
+<a href="https://react.vlpt.us/integrate-api/04-react-async.html">
+4. react-async 로 요청 상태 관리하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.5.5" data-path="../integrate-api/05-using-with-context.html">
+<a href="https://react.vlpt.us/integrate-api/05-using-with-context.html">
+5. Context 와 함께 사용하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.5.6" data-path="../integrate-api/CONCLUSION.html">
+<a href="https://react.vlpt.us/integrate-api/CONCLUSION.html">
+정리
+</a>
+</li>
+</ul>
+</li>
+<li class="chapter expanded" data-level="1.6" data-path="../react-router/">
+<a href="https://react.vlpt.us/react-router/">
+5장. 리액트 라우터
+<i class="exc-trigger fa"></i></a>
+<ul class="articles">
+<li class="chapter expanded" data-level="1.6.1" data-path="../react-router/01-concepts.html">
+
+<a href="https://react.vlpt.us/react-router/01-concepts.html">
+1. 프로젝트 준비 및 기본적인 사용법
+</a>
+</li>
+<li class="chapter expanded" data-level="1.6.2" data-path="../react-router/02-params-and-query.html">
+<a href="https://react.vlpt.us/react-router/02-params-and-query.html">
+2. 파라미터와 쿼리
+</a>
+</li>
+<li class="chapter expanded" data-level="1.6.3" data-path="../react-router/03-subroutes.html">
+<a href="https://react.vlpt.us/react-router/03-subroutes.html">
+3. 서브라우트
+</a>
+</li>
+<li class="chapter expanded" data-level="1.6.4" data-path="../react-router/04-extra.html">
+<a href="https://react.vlpt.us/react-router/04-extra.html">
+4. 리액트 라우터 부가기능
+</a>
+</li>
+<li class="chapter expanded" data-level="1.6.5" data-path="../react-router/05-use-router-hook.html">
+<a href="https://react.vlpt.us/react-router/05-use-router-hook.html">
+5. useReactRouter Hook 사용하기
+</a>
+</li>
+</ul>
+</li>
+<li class="chapter expanded" data-level="1.7" data-path="../redux/">
+<a href="https://react.vlpt.us/redux/">
+6장. 리덕스
+<i class="exc-trigger fa"></i></a>
+<ul class="articles">
+<li class="chapter expanded" data-level="1.7.1" data-path="../redux/01-keywords.html">
+<a href="https://react.vlpt.us/redux/01-keywords.html">
+1. 리덕스에서 사용되는 키워드 숙지하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.7.2" data-path="../redux/02-rules.html">
+<a href="https://react.vlpt.us/redux/02-rules.html">
+2. 리덕스의 3가지 규칙
+</a>
+</li>
+<li class="chapter expanded" data-level="1.7.3" data-path="../redux/03-prepare.html">
+<a href="https://react.vlpt.us/redux/03-prepare.html">
+3. 리덕스 사용 할 준비하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.7.4" data-path="../redux/04-make-modules.html">
+<a href="https://react.vlpt.us/redux/04-make-modules.html">
+4. 리덕스 모듈 만들기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.7.5" data-path="../redux/05-counter.html">
+<a href="https://react.vlpt.us/redux/05-counter.html">
+5. 카운터 구현하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.7.6" data-path="../redux/06-redux-devtools.html">
+<a href="https://react.vlpt.us/redux/06-redux-devtools.html">
+6. 리덕스 개발자도구 적용하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.7.7" data-path="../redux/07-implement-todos.html">
+<a href="https://react.vlpt.us/redux/07-implement-todos.html">
+
+7. 할 일 목록 구현하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.7.8" data-path="../redux/08-optimize-useSelector.html">
+<a href="https://react.vlpt.us/redux/08-optimize-useSelector.html">
+8. useSelector 최적화
+</a>
+</li>
+<li class="chapter expanded" data-level="1.7.9" data-path="../redux/09-connect.html">
+<a href="https://react.vlpt.us/redux/09-connect.html">
+9. connect 함수
+</a>
+</li>
+<li class="chapter expanded" data-level="1.7.10" data-path="../redux/CONCLUSION.html">
+<a href="https://react.vlpt.us/redux/CONCLUSION.html">
+정리
+</a>
+</li>
+</ul>
+</li>
+<li class="chapter expanded" data-level="1.8" data-path="./">
+<a href="https://react.vlpt.us/redux-middleware/">
+7장. 리덕스 미들웨어
+<i class="exc-trigger fa"></i></a>
+<ul class="articles">
+<li class="chapter expanded" data-level="1.8.1" data-path="01-prepare.html">
+<a href="https://react.vlpt.us/redux-middleware/01-prepare.html">
+1. 리덕스 프로젝트 준비하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.8.2" data-path="02-make-middleware.html">
+<a href="https://react.vlpt.us/redux-middleware/02-make-middleware.html">
+2. 미들웨어 만들어보고 이해하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.8.3" data-path="03-logger-and-devtools.html">
+<a href="https://react.vlpt.us/redux-middleware/03-logger-and-devtools.html">
+3. redux-logger 사용 및 미들웨어와 DevTools 함께 사용하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.8.4" data-path="04-redux-thunk.html">
+<a href="https://react.vlpt.us/redux-middleware/04-redux-thunk.html">
+4. redux-thunk
+</a>
+</li>
+<li class="chapter expanded" data-level="1.8.5" data-path="05-redux-thunk-with-promise.html">
+<a href="https://react.vlpt.us/redux-middleware/05-redux-thunk-with-promise.html">
+5. redux-thunk로 프로미스 다루기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.8.6" data-path="06-fix-reloading.html">
+<a href="https://react.vlpt.us/redux-middleware/06-fix-reloading.html">
+6. API 재로딩 문제 해결하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.8.7" data-path="07-router-with-thunk.html">
+<a href="https://react.vlpt.us/redux-middleware/07-router-with-thunk.html">
+7. thunk에서 라우터 연동하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.8.8" data-path="08-json-server.html">
+<a href="https://react.vlpt.us/redux-middleware/08-json-server.html">
+8. json-server
+</a>
+</li>
+<li class="chapter expanded" data-level="1.8.9" data-path="09-cors-and-proxy.html">
+ <a href="https://react.vlpt.us/redux-middleware/09-cors-and-proxy.html">
+9. CORS 와 Webpack DevServer Proxy
+</a>
+</li>
+<li class="chapter expanded" data-level="1.8.10" data-path="10-redux-saga.html">
+<a href="https://react.vlpt.us/redux-middleware/10-redux-saga.html">
+10. redux-saga
+</a>
+</li>
+<li class="chapter expanded" data-level="1.8.11" data-path="11-redux-saga-with-promise.html">
+<a href="https://react.vlpt.us/redux-middleware/11-redux-saga-with-promise.html">
+11. redux-saga 로 프로미스 다루기
+</a>
+</li>
+<li class="chapter active expanded" data-level="1.8.12" data-path="12-redux-saga-with-router.html">
+<a href="https://react.vlpt.us/redux-middleware/12-redux-saga-with-router.html">
+12. saga에서 라우터 연동하기
+</a>
+</li>
+<li class="chapter " data-level="1.8.13" data-path="CONCLUSION.html">
+<a href="https://react.vlpt.us/redux-middleware/CONCLUSION.html">
+정리
+</a>
+</li>
+</ul>
+</li>
+<li class="chapter expanded" data-level="1.9" data-path="../using-typescript/">
+<a href="https://react.vlpt.us/using-typescript/">
+8장. 리액트 프로젝트에서 타입스크립트 사용하기
+<i class="exc-trigger fa"></i></a>
+<ul class="articles">
+<li class="chapter " data-level="1.9.1" data-path="../using-typescript/01-practice.html">
+<a href="https://react.vlpt.us/using-typescript/01-practice.html">
+1. 타입스크립트 연습
+</a>
+</li>
+<li class="chapter " data-level="1.9.2" data-path="../using-typescript/02-ts-react-basic.html">
+<a href="https://react.vlpt.us/using-typescript/02-ts-react-basic.html">
+2. 리액트 컴포넌트 타입스크립트로 작성하기
+</a>
+</li>
+<li class="chapter " data-level="1.9.3" data-path="../using-typescript/03-ts-manage-state.html">
+<a href="https://react.vlpt.us/using-typescript/03-ts-manage-state.html">
+3. 타입스크립트로 리액트 상태 관리하기
+</a>
+</li>
+<li class="chapter " data-level="1.9.4" data-path="../using-typescript/04-ts-context.html">
+<a href="https://react.vlpt.us/using-typescript/04-ts-context.html">
+4. TypeScript 와 Context API 활용하기
+</a>
+</li>
+<li class="chapter " data-level="1.9.5" data-path="../using-typescript/05-ts-redux.html">
+<a href="https://react.vlpt.us/using-typescript/05-ts-redux.html">
+5. TypeScript 에서 리덕스 프로처럼 사용하기
+</a>
+</li>
+<li class="chapter " data-level="1.9.6" data-path="../using-typescript/06-ts-redux-middleware.html">
+<a href="https://react.vlpt.us/using-typescript/06-ts-redux-middleware.html">
+6.타입스크립트에서 리덕스 미들웨어 사용하기 (redux-thunk, redux-saga)
+</a>
+
+</li>
+</ul>
+</li>
+<li class="divider"></li>
+<li>
+<a href="https://www.gitbook.com/" target="blank" class="gitbook-link" style="display: none;">
+Published with GitBook
+</a>
+</li>
+</ul>
+</nav>
+</div>
+<div class="book-body">
+<div class="body-inner">
+<div class="book-header" role="navigation">
+
+<a class="btn pull-left js-toolbar-action" aria-label="" href="https://react.vlpt.us/redux-middleware/12-redux-saga-with-router.html#"><i class="fa fa-align-justify"></i></a><a class="btn pull-right js-toolbar-action" aria-label="GitHub" href="https://react.vlpt.us/redux-middleware/12-redux-saga-with-router.html#"><i class="fa fa-github"></i></a><a class="btn pull-left js-toolbar-action" aria-label="" href="https://react.vlpt.us/redux-middleware/12-redux-saga-with-router.html#"><i class="fa fa-edit"></i> 수정 요청하기</a><div class="dropdown pull-right js-toolbar-action"><a class="btn toggle-dropdown" aria-label="Share" href="https://react.vlpt.us/redux-middleware/12-redux-saga-with-router.html#"><i class="fa fa-share-alt"></i></a><div class="dropdown-menu dropdown-left"><div class="dropdown-caret"><span class="caret-outer"></span><span class="caret-inner"></span></div><div class="buttons"><button class="button size-5 ">Facebook</button><button class="button size-5 ">Google+</button><button class="button size-5 ">Twitter</button><button class="button size-5 ">Weibo</button><button class="button size-5 ">Instapaper</button></div></div></div><a class="btn pull-right js-toolbar-action" aria-label="" href="https://react.vlpt.us/redux-middleware/12-redux-saga-with-router.html#"><i class="fa fa-facebook"></i></a><a class="btn pull-right js-toolbar-action" aria-label="" href="https://react.vlpt.us/redux-middleware/12-redux-saga-with-router.html#"><i class="fa fa-twitter"></i></a><div class="dropdown pull-left font-settings js-toolbar-action"><a class="btn toggle-dropdown" aria-label="Font Settings" href="https://react.vlpt.us/redux-middleware/12-redux-saga-with-router.html#"><i class="fa fa-font"></i></a><div class="dropdown-menu dropdown-right"><div class="dropdown-caret"><span class="caret-outer"></span><span class="caret-inner"></span></div><div class="buttons"><button class="button size-2 font-reduce">A</button><button class="button size-2 font-enlarge">A</button></div><div class="buttons"><button class="button size-2 ">Serif</button><button class="button size-2 ">Sans</button></div><div class="buttons"><button class="button size-3 ">White</button><button class="button size-3 ">Sepia</button><button class="button size-3 ">Night</button></div></div></div><h1>
+<i class="fa fa-circle-o-notch fa-spin"></i>
+<a href="https://react.vlpt.us/">12. saga에서 라우터 연동하기</a>
+</h1>
+</div>
+<div class="page-wrapper" tabindex="-1" role="main">
+<div class="page-inner">
+<div id="book-search-results">
+<div class="search-noresults">
+<section class="normal markdown-section">
+<h2 id="12-saga에서-라우터-연동하기">12. saga에서 라우터 연동하기</h2>
+<p>우리가 이전에 redux-thunk를 배울 때 thunk함수에서 리액트 라우터의 history 를 사용하는 방법을 배워보았습니다. </p>
+<p>예를 들어서 로그인 요청을 할 때 성공 할 시 특정 주소로 이동시키고, 실패 할 시엔 그대로 유지하는 기능을 구현 해야 된다면, 컨테이너 컴포넌트에서 <code>withRouter</code>를 사용해서 구현을 하는 것 보다 사가 내부에서 처리를 하는것이 훨씬 편합니다.</p>
+<p>구현 방식은 redux-thunk에서 했던 방식과 꽤나 비슷합니다. 미들웨어를 만들 때 <code>context</code>를 설정해주면 추후 사가에서 <code>getContext</code> 함수를 통해 조회 할 수 있습니다.</p>
+<h4 id="indexjs">index.js</h4>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">'./index.css'</span>;
+<span class="hljs-keyword">import</span> App <span class="hljs-keyword">from</span> <span class="hljs-string">'./App'</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> serviceWorker <span class="hljs-keyword">from</span> <span class="hljs-string">'./serviceWorker'</span>;
+<span class="hljs-keyword">import</span> { createStore, applyMiddleware } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>;
+<span class="hljs-keyword">import</span> { Provider } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-redux'</span>;
+<span class="hljs-keyword">import</span> rootReducer, { rootSaga } <span class="hljs-keyword">from</span> <span class="hljs-string">'./modules'</span>;
+<span class="hljs-keyword">import</span> logger <span class="hljs-keyword">from</span> <span class="hljs-string">'redux-logger'</span>;
+<span class="hljs-keyword">import</span> { composeWithDevTools } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux-devtools-extension'</span>;
+<span class="hljs-keyword">import</span> ReduxThunk <span class="hljs-keyword">from</span> <span class="hljs-string">'redux-thunk'</span>;
+<span class="hljs-keyword">import</span> { Router } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
+<span class="hljs-keyword">import</span> { createBrowserHistory } <span class="hljs-keyword">from</span> <span class="hljs-string">'history'</span>;
+<span class="hljs-keyword">import</span> createSagaMiddleware <span class="hljs-keyword">from</span> <span class="hljs-string">'redux-saga'</span>;
+
+<span class="hljs-keyword">const</span> customHistory = createBrowserHistory();
+<span class="hljs-keyword">const</span> sagaMiddleware = createSagaMiddleware({
+  context: {
+    history: customHistory
+  }
+}); <span class="hljs-comment">// 사가 미들웨어를 만듭니다.</span>
+
+<span class="hljs-keyword">const</span> store = createStore(
+  rootReducer,
+  <span class="hljs-comment">// logger 를 사용하는 경우, logger가 가장 마지막에 와야합니다.</span>
+  composeWithDevTools(
+    applyMiddleware(
+      ReduxThunk.withExtraArgument({ history: customHistory }),
+      sagaMiddleware, <span class="hljs-comment">// 사가 미들웨어를 적용하고</span>
+      logger
+    )
+  )
+); <span class="hljs-comment">// 여러개의 미들웨어를 적용 할 수 있습니다.</span>
+
+sagaMiddleware.run(rootSaga); <span class="hljs-comment">// 루트 사가를 실행해줍니다.</span>
+<span class="hljs-comment">// 주의: 스토어 생성이 된 다음에 위 코드를 실행해야합니다.</span>
+
+ReactDOM.render(
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Router</span> <span class="hljs-attr">history</span>=<span class="hljs-string">{customHistory}</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Provider</span> <span class="hljs-attr">store</span>=<span class="hljs-string">{store}</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">App</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">Provider</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">Router</span>&gt;</span>,
+  document.getElementById('root')
+);
+
+serviceWorker.unregister();
+</span></code></pre>
+<p>그 다음엔, <code>GOTO_HOME</code> 이라는 액션이 디스패치 되면 <code>/</code> 경로로 이동하는 기능을 사가로 구현을 해보겠습니다.</p>
+<h4 id="modulespostsjs">modules/posts.js</h4>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> postsAPI <span class="hljs-keyword">from</span> <span class="hljs-string">'../api/posts'</span>; <span class="hljs-comment">// api/posts 안의 함수 모두 불러오기</span>
+<span class="hljs-keyword">import</span> {
+  reducerUtils,
+  handleAsyncActions,
+  handleAsyncActionsById,
+  createPromiseSaga,
+  createPromiseSagaById
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'../lib/asyncUtils'</span>;
+<span class="hljs-keyword">import</span> { takeEvery, getContext } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux-saga/effects'</span>;
+
+<span class="hljs-comment">/* 액션 타입 */</span>
+
+<span class="hljs-comment">// 포스트 여러개 조회하기</span>
+<span class="hljs-keyword">const</span> GET_POSTS = <span class="hljs-string">'GET_POSTS'</span>; <span class="hljs-comment">// 요청 시작</span>
+<span class="hljs-keyword">const</span> GET_POSTS_SUCCESS = <span class="hljs-string">'GET_POSTS_SUCCESS'</span>; <span class="hljs-comment">// 요청 성공</span>
+<span class="hljs-keyword">const</span> GET_POSTS_ERROR = <span class="hljs-string">'GET_POSTS_ERROR'</span>; <span class="hljs-comment">// 요청 실패</span>
+
+<span class="hljs-comment">// 포스트 하나 조회하기</span>
+<span class="hljs-keyword">const</span> GET_POST = <span class="hljs-string">'GET_POST'</span>;
+<span class="hljs-keyword">const</span> GET_POST_SUCCESS = <span class="hljs-string">'GET_POST_SUCCESS'</span>;
+<span class="hljs-keyword">const</span> GET_POST_ERROR = <span class="hljs-string">'GET_POST_ERROR'</span>;
+<span class="hljs-keyword">const</span> GO_TO_HOME = <span class="hljs-string">'GO_TO_HOME'</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> getPosts = () =&gt; ({ type: GET_POSTS });
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> getPost = id =&gt; ({ type: GET_POST, payload: id, meta: id });
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> goToHome = () =&gt; ({ type: GO_TO_HOME });
+
+<span class="hljs-keyword">const</span> getPostsSaga = createPromiseSaga(GET_POSTS, postsAPI.getPosts);
+<span class="hljs-keyword">const</span> getPostSaga = createPromiseSagaById(GET_POST, postsAPI.getPostById);
+<span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">goToHomeSaga</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> history = <span class="hljs-keyword">yield</span> getContext(<span class="hljs-string">'history'</span>);
+  history.push(<span class="hljs-string">'/'</span>);
+}
+<span class="hljs-comment">// 사가들을 합치기</span>
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">postsSaga</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">yield</span> takeEvery(GET_POSTS, getPostsSaga);
+  <span class="hljs-keyword">yield</span> takeEvery(GET_POST, getPostSaga);
+  <span class="hljs-keyword">yield</span> takeEvery(GO_TO_HOME, goToHomeSaga);
+}
+
+(...)
+</code></pre>
+<p>이제 <code>GO_TO_HOME</code> 액션이 디스패치되면 / 경로로 이동 될 것입니다.</p>
+<blockquote>
+<p>지금까지의 코드는 <a href="https://codesandbox.io/s/dxiz0" target="_blank">여기</a>서 확인 할 수 있습니다.<script>
+      function attachComments() {
+        const el = document.querySelector('.markdown-section');
+        if (!el) return;
+        const script = document.createElement('script');
+        script.src = 'https://utteranc.es/client.js';
+        script.setAttribute('repo', 'velopert/react-tutorial');
+        script.setAttribute('issue-term', 'title');
+        script.setAttribute('crossorigin', 'anonymous');
+        script.setAttribute('label', 'comments');
+        el.appendChild(script);
+      }
+      setTimeout(attachComments, 100);
+    </script></p>
+</blockquote>
+<div class="utterances">
+    <iframe class="utterances-frame" title="Comments" scrolling="no" src="./12. saga에서 라우터 연동하기 · GitBook_files/utterances.html" loading="lazy"></iframe>
+  </div></section>
+</div>
+<div class="search-results">
+<div class="has-results">
+<h1 class="search-results-title"><span class="search-results-count"></span> results matching "<span class="search-query"></span>"</h1>
+<ul class="search-results-list"></ul>
+</div>
+<div class="no-results">
+<h1 class="search-results-title">No results matching "<span class="search-query"></span>"</h1>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<a href="https://react.vlpt.us/redux-middleware/11-redux-saga-with-promise.html" class="navigation navigation-prev " aria-label="Previous page: 11. redux-saga 로 프로미스 다루기">
+<i class="fa fa-angle-left"></i>
+</a>
+<a href="https://react.vlpt.us/redux-middleware/CONCLUSION.html" class="navigation navigation-next " aria-label="Next page: 정리" style="margin-right: 0px;">
+<i class="fa fa-angle-right"></i>
+</a>
+</div>
+<script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"12. saga에서 라우터 연동하기","level":"1.8.12","depth":2,"next":{"title":"정리","level":"1.8.13","depth":2,"path":"redux-middleware/CONCLUSION.md","ref":"./redux-middleware/CONCLUSION.md","articles":[]},"previous":{"title":"11. redux-saga 로 프로미스 다루기","level":"1.8.11","depth":2,"path":"redux-middleware/11-redux-saga-with-promise.md","ref":"./redux-middleware/11-redux-saga-with-promise.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["collapsible-chapters","comment","hide-published-with","github","edit-link"],"pluginsConfig":{"github":{"url":"https://github.com/velopert/react-tutorial"},"search":{},"collapsible-chapters":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"수정 요청하기","base":"https://github.com/velopert/react-tutorial/edit/master"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"comment":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"redux-middleware/12-redux-saga-with-router.md","mtime":"2019-08-17T03:53:56.122Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-09-25T13:34:28.960Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+<script src="./12. saga에서 라우터 연동하기 · GitBook_files/gitbook.js"></script>
+<script src="./12. saga에서 라우터 연동하기 · GitBook_files/theme.js"></script>
+<script src="./12. saga에서 라우터 연동하기 · GitBook_files/collapsible-chapters.js"></script>
+<script src="./12. saga에서 라우터 연동하기 · GitBook_files/plugin.js"></script>
+<script src="./12. saga에서 라우터 연동하기 · GitBook_files/plugin(1).js"></script>
+<script src="./12. saga에서 라우터 연동하기 · GitBook_files/plugin(2).js"></script>
+<script src="./12. saga에서 라우터 연동하기 · GitBook_files/search-engine.js"></script>
+<script src="./12. saga에서 라우터 연동하기 · GitBook_files/search.js"></script>
+<script src="./12. saga에서 라우터 연동하기 · GitBook_files/lunr.min.js"></script>
+<script src="./12. saga에서 라우터 연동하기 · GitBook_files/search-lunr.js"></script>
+<script src="./12. saga에서 라우터 연동하기 · GitBook_files/buttons.js"></script>
+<script src="./12. saga에서 라우터 연동하기 · GitBook_files/fontsettings.js"></script>
+
+
+</body></html>
