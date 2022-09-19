@@ -1,6 +1,0 @@
-Hello Agian, Python!
-Nice to see you! 
-How have you been? 
-LTE
-5G
-WCDMA

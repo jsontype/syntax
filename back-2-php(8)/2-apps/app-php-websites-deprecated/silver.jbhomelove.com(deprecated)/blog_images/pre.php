@@ -1,1 +1,0 @@
-http://azuma.pc.to
