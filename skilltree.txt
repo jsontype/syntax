@@ -1,17 +1,17 @@
 [스킬트리]
 
-1. 스킬트리 : 25가 Max 레벨이라고 했을 때 배울 깊이의 정도
-    HTML : 15
-    CSS : 15
+1. 리액트 추천 스킬트리 : Max는 10레벨
+    HTML : Max
+    CSS : Max
     CMS : 1
     JS : Max
     Git : Max
     PHP : 1
-    NodeJS : 3
+    NodeJS : 1
     React : Max
     Next : Max
-    Vue : 8
-    Nuxt : 1
+    Vue : 1 or 0
+    Nuxt : 1 or 0
 
 
 
@@ -20,32 +20,45 @@
 1. 수업시 기본지침
     - 용어의 경우는, 검색능력이 중요하니, 설명이 불필요한 것은 직접 찾아보도록 검색을 시킬 것. 봐도 모를 때만 설명해주기.
     - 로지컬하게 생각할 줄 아는 능력, 스케쥴 관리 능력, 검색이든 뭐든 해서 독립적인 문제해결능력이 중요하다는 것을 강조.
+    - 스킬트리를 아래와 같이 왔다갔다 하면서 만드는 이유 설명.        
+        한 언어를 배울 때 그 언어에 대해 처음부터 다 가르치려고 하지 않고, 
+        다음 단계로 넘어가면서 "필요해질 때마다" 추가로 가르칠 예정이다.
+        그렇게 하는 이유는, 분류한다고 처음부터 전부 다 바텀업으로 공부를 해버리면,
+        어차피 이해도 안되고, 쓸 일도 당장 없어서 반드시 잊어먹기 때문이다.
+        먼저 필요에 의한 실용적 공부를 시키고,
+        이후에 학생의 학습전략에 따라 "재구조화"를 할 수 있는 여지를 두는 것이 낫다고 판단.
+        * 학생의 학습전략이 타인에게 가르치는 것이라면 이 커리큘럼대로 정리하거나, 자신의 교육철학대로 변경하는 것을 추천.
 
-1. 커리큘럼
-    - 용어1        
+1. 커리큘럼 : 총 레벨 20으로 구성. 이후의 레벨은 실무 경험으로 가능. (쥬니어 20~50, 인터미디엇 70~98, 시니어 99)
+    - bootcamp : 첫상담, 첫구축
+    - skilltree 설명
+    - bootcamp : it용어1
     (1) HTML : 마크업
     (2) CSS : 문법
-    (3) CMS : Figma
-    - 용어2
-    (4) JS : 초급문법, API 연동 무비앱 1
-    (5) JS : 중급문법, API 연동 무비앱 2
-    (6) Git : 마크업 프로젝트 배포를 통해 깃허브에 익숙해지기
-    - 용어3
-    (7) CSS Bootstrap : 프레임워크 기본 익히기
-    - 용어4
-    (8) PHP : DB, 서버, 호스팅 이해하기
-    - 용어6
-    (9) NodeJS : node, npm 개념 이해하기
-    (10) JS : 고급문법
-    (11) ReactJS : 문법, API 연동 무비앱 3
-    - 용어7
-    (12) ReactJS 최적화 : useMemo, useCallback
+    - bootcamp : it용어2
+    (3) CSS Bootstrap : 프레임워크 기본 익히기
+    (4) CMS : Figma
+    (5) JS : 초급문법
+    - bootcamp : it용어3
+    (6) JS : API 연동 무비앱 1, (부록-Full버전은 필요하다 생각하는 것만 옵셔널하게 진행)
+    (7) JS : 중급문법, API 연동 무비앱 2
+    (8) Git : 마크업 프로젝트 배포를 통해 깃허브에 익숙해지기
+    - bootcamp : it용어4
+    (9) PHP : DB, 서버, 호스팅 이해하기 (Java, Python이 하는 일)
+    - bootcamp : it용어5
+    (10) NodeJS : node, npm, typescript, npm중 필수 lib와 fw들의 개념 이해하기
+    (11) JS : 고급문법
+    (12) ReactJS : 문법, API 연동 무비앱 3
     (13) ReactJS 스타일링 : SASS, CSS Module, Styled-Components
-    (17) ReactJS State관리 : ContextAPI, react-redux, mobx-react, react-redux-saga
-        ******************************
-            <이 사이 계속 업데이트 필요> 
-        ******************************
-    - 용어8
-    (20) ReactJS Next : 이후 학습 계획임...
-    - 용어9
+    - bootcamp : it용어6
+    (14) ReactJS 최적화 : useMemo, useCallback
+    (15) ReactJS State관리 : ContextAPI, react-redux, mobx-react, react-redux-saga
+    - bootcamp : it용어7
+    (16) ReactJS Router
+    (17) ReactJS Typescript
+    (18) ReactJS Next : SSR, SEO, MPA
+    - bootcamp : it용어8
+    스킬시트작성
     면접준비
+    (19) ReactJS Sum : 요약의 암기
+    (20) ReactJS App : 다양한 종류의 어플 제작방법 무한 학습
