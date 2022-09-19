@@ -1,9 +1,0 @@
-<!-- Jinja2문법 : HTML안에 넣는 Python문법 -->
-{% include 'lib/top.html' %}
-
-    <section class="main">
-        <h1 onclick="alertHello()">안녕하세요 플라스크!</h1>
-        <img src="{{ url_for('static', filename='img/dog.png') }}" width="100px">
-    </section>
-
-{% include 'lib/bottom.html' %}
