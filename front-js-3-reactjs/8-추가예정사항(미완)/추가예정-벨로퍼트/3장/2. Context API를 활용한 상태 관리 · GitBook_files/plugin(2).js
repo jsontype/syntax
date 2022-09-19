@@ -1,3 +1,0 @@
-require(["gitbook","jQuery"],function(gitbook,$){gitbook.events.bind('start',function(e,config){var conf=config['edit-link'];var label=conf.label;var base=conf.base;var lang=gitbook.state.innerLanguage;if(lang){if(typeof label==='object')label=label[lang];lang=lang+'/';}
-if(base.slice(-1)!="/"){base=base+"/";}
-gitbook.toolbar.createButton({icon:'fa fa-edit',text:label,onClick:function(){var filepath=gitbook.state.filepath;window.open(base+lang+filepath);}});});});
