@@ -1,5 +1,0 @@
-[Shell 필수 기본 명령어]
-
-cd
-ls
-mkdir
