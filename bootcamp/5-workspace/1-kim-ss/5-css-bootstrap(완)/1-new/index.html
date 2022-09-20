@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- 
+        자기소개 홈페이지 with 부트스트랩5
+        메뉴 : 로고, 홈, 게시판, 블로그, 로그인
+        컨텐츠 : 홈 화면, 게시판 화면, 블로그 화면, 로그인 화면
+        푸터 : 저작권, 기타링크
+    -->
+
+    <!-- 네비게이션바 -->
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Samsung</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">홈</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="bbs.html">게시판</a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2 searchInput" type="search" placeholder="원하는 항목을 검색해주세요." aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit"><span class="searchBtn">검색</span></button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 컨텐츠 -->
+    <!-- Hero -->
+    <div class="p-5 text-center bg-image rounded-3" style="
+        background-image: url('assets/img/bg.jpg');
+        height: 1000px;
+    ">
+        <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+            <div class="d-flex justify-content-center align-items-center h-100">
+                <div class="text-white">
+                    <h1 class="mb-3">Heading</h1>
+                    <h4 class="mb-3">Subheading</h4>
+                    <a class="btn btn-outline-light btn-lg" href="#!" role="button">Call to action</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero -->
+
+    <script src="assets/js/bootstrap.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+.searchInput {
+    width: 200px;
+}
+
+.searchInput::placeholder {
+    font-size: 12px;
+}
+
+.searchBtn {
+    font-size: 12px;
+}

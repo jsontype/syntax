@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        p {color: red; border: 1px solid gray;}
+        p.ex1 {display: none; height: 100px;} /* 크기 적용은 의미가 없음 */
+        p.ex2 {display: inline; height: 100px;} /* 크기 적용은 의미가 없음 */
+        p.ex3 {display: block; height: 100px;} /* 크기 적용 가능 */
+        p.ex4 {display: inline-block; height: 100px;} /* 나열은 span처럼 수평으로 하지만, div처럼 크기 적용 가능 */
+        
+        .flex {display: flex;}
+        p.flex1 {flex: 1; height: 100px;} /* flex 1/10 */
+        p.flex2 {flex: 2; height: 100px;} /* flex 2/10 */
+        p.flex3 {flex: 3; height: 100px;} /* flex 3/10 */
+        p.flex4 {flex: 4; height: 100px;} /* flex 4/10 */
+    </style>
+</head>
+<body>
+    <h2>display: none</h2>
+    <div>
+        <p class="ex1">HELLO WORLD!</p>
+        Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
+    </div>
+
+    <h2>display: inline</h2>
+    <div>
+        <p class="ex2">HELLO WORLD!</p>
+        Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
+    </div>
+
+    <h2>display: block</h2>
+    <div>
+        <p class="ex3">HELLO WORLD!</p>
+        Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
+    </div>
+
+    <h2>display: inline-block</h2>
+    <div>
+        <p class="ex4">HELLO WORLD!</p>
+        Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
+    </div>
+
+    <h2>display: flex</h2>
+    <div class="flex">
+        <p class="flex1">HELLO WORLD!</p>
+        <p class="flex2">Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.</p>
+        <p class="flex3">Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.</p>
+        <p class="flex4">Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.</p>
+    </div>
+</body>
+</html>
