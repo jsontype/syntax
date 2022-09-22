@@ -13,9 +13,9 @@
 1. 설정
     cmd + shift + p : 설정 검색
     cmd + shift + p → 표시언어구성 → ko 변경하고 재시작 : 맥에서 가끔 한글 키보드 먹히는 현상 해결법. (ko로 되어있더라도, 다시 설정하고 재시작을 해야 고쳐짐)
-
+    
 1. 탐색
-    ★★ cmd + shift + p → relative 친 다음 enter : 열린 File의 위치를 저장 (다음부턴 relative 안 쳐도 됨)
+    cmd + shift + p → "relative" (한글일 때는 "경로") 친 다음 enter : 열린 File의 위치를 저장 (다음부턴 relative 안 쳐도 됨)
     ctrl + tab : 이전 파일 이동 / 돌아오기 (토글)
 
 1. 복수 선택
