@@ -1,0 +1,12 @@
+[EcmaScript6 주요 변화점]
+
+1. let, const : hoisting 문제를 해결함
+1. arrow expression : 함수 표현식을 간소화함
+1. backtick : 템플릿 리터럴 문법을 가능하게 함
+1. spreading 배열, 객체의 복사 : 딮 카피를 위해 쓰던 기존 JSON.parse(JSON.stringify(obj))문법을 간소화함
+
+
+
+[EcmaScript8 주요 변화점]
+
+1. async/await : promise를 더욱 쉽게 사용 할 수 있게 해준다.
