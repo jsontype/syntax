@@ -1,5 +1,5 @@
 /* 
-    [async/await]
+    [async/await의 fetch를 이용한 예시]
 
     1. Promise에 fetch 함수를 사용한 예시
         Promise/then 문법 사이에, async/await 문법을 다음 순서대로 추가해서 사용한다.
