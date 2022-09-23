@@ -1,50 +1,31 @@
 /* 
-    [async/await]
+    [async/await 에러처리]
 
-    1. 사용법 : Promise/then 문법 사이에, async/await 문법을 다음 순서대로 추가해서 사용한다.
+    1. 사용법 : async 함수에서 에러를 발생 시킬때에는 throw를 사용하고, 에러를 잡아낼 때에는 try/catch문을 사용한다.
 */
 
-
-
-// 1. Promise에 setTimeout 함수를 사용한 예시
-
-// 순서1. Promise 리턴 함수(Promise를 리턴하는 함수)를 만든다.
 function sleep (ms) {
-    return new Promise(resolve => setTimeout(resolve, ms)) // 이것은 ms 파라미터에 넣어준 시간 만큼 기다리는 Promise이다. 여기서 reject 프롭은 생략했다.
+    return new Promise(resolve => setTimeout(resolve, ms))
 }
 
-// 순서2. async를 붙인다.
-async function process () {
-    console.log('안녕하세요!')
-    // 순서3. await를 붙인다. 그 뒤 Promise 리턴 함수를 붙인다.
-    await sleep(1000) // 1초 쉰다.
-    console.log('반갑습니다!')
+async function makeError () {
     await sleep(1000)
+    const error = new Error() // 순서1. 에러를 선언한다.    
+    if (error) { // 순서2. 조건 분기를 통해, 에러가 있는 분기에 에러를 던진다.
+        error.name = '강제로 발생시킨 에러'
+        throw error
+    }
+}
+
+async function process () {
+    try { // 순서3. try를 하는 도중에 에러가 발생되면
+        await makeError()
+    } catch (e) { // 순서4. catch를 통해 에러를 콘솔에 출력한다.
+        console.error('에러발생: ', e.name) // e.name이 아닌 e를 출력하면 에러 발생 위치 등 에러의 상세정보를 볼 수 있다.
+    }
 }
 
 process()
-    .then(process)
-    .then(process)
-    .then(process)
-    .then(process)
-    .then(process)
-    .then(process)
-
-
-
-// 예시2. : setTimeout 비동기 함수 사용
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*
     1. Promise/then 문법에 async/await 문법을 추가했을 때의 장점
