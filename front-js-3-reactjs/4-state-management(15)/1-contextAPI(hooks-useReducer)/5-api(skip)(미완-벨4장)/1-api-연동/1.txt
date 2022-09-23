@@ -1,6 +1,6 @@
-[Context API를 통해, API 연동하기]
+[Context API를 통해 API 연동하기까지의 흐름 코스]
 
-1. Context API는 거쳐가는 과정
+1. Context API는 거쳐가는 과정이다.
     사실 API 연동할 때, 실무에서는 주로 Redux, Mobx를 함께 사용하여 구현한다. 이유는 다음과 같다.
     - Redux/Mobx를 사용할 경우, 더 체계적으로 비동기 관련 액션들을 관리할 수 있다.
     - Redux의 경우, Redux-saga, Redux-observable 같은 미들웨어 라이브러리들을 사용해서, 복잡한 비동기 작업을 조금 더 편하게 처리할 수 있다.
@@ -11,7 +11,7 @@
     먼저, 비동기 처리에 대한 기본적인 개념(Promise 와 async/await의 기본적인 개념)을 알아야한다.
     모른다면 JS에서 Promise 관련 부분을 학습하고 오자.
 
-1. 이번에 배울 것
+1. 이번 코스를 통해 배울 것
     컴포넌트 내부에서 Hooks를 사용하는 것
     Context와 함께 사용하는 것
     유틸 함수 몇가지를 만들어서 코드를 간결하게 만드는 법
@@ -124,39 +124,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-axios를 사용해서 GET, PUT, POST, DELETE 등의 메서드로 API 요청을 할 수 있는데요, 만약 이 메서드들에 대하여 잘 모르시는 경우에는 REST API 에 대한 글을 한번 읽어보세요.
-
-간단하게 설명을 드리자면, REST API 를 사용 할 때에는 하고 싶은 작업에 따라 다른 메서드로 요청을 할 수 있는데 메서드들은 다음 의미를 가지고 있습니다.
-
-GET: 데이터 조회
-POST: 데이터 등록
-PUT: 데이터 수정
-DELETE: 데이터 제거
-참고로 이 메서드 외에도 PATCH, HEAD 와 같은 메서드들도 있습니다.
-
-axios 의 사용법은 다음과 같습니다.
-
-import axios from 'axios';
-
-axios.get('/users/1');
-get 이 위치한 자리에는 메서드 이름을 소문자로 넣습니다. 예를 들어서 새로운 데이터를 등록하고 싶다면 axios.post() 를 사용하면 됩니다.
-
-그리고, 파라미터에는 API 의 주소를 넣습니다.
-
-axios.post() 로 데이터를 등록 할 때에는 두번째 파라미터에 등록하고자 하는 정보를 넣을 수 있습니다.
-
-axios.post('/users', {
-  username: 'blabla',
-  name: 'blabla'
-});
+1. 테스트
+    $ cd app1
+    $ npm start
