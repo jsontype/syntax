@@ -1,0 +1,133 @@
+[본 코스에 대한 숙지사항]
+
+1. 사전명시사항 : 리액트의 API 연동의 다양한 방법을 히스토리컬 순으로 배우는 것으로, 최신 현장의 도입방식과는 다를 수 있다.
+    useReducer -> useAsync 커스텀 Hook -> useAsync 라이브러리 -> ContextAPI의 흐름대로 배우지만, 역시 리액트의 API 연동의 발전과정일 뿐이다.
+    사실 API 연동할 때, 실무에서는 주로 Redux, Mobx를 함께 사용하여 구현한다. 이유는 다음과 같다.
+    - Redux/Mobx를 사용할 경우, 더 체계적으로 비동기 관련 액션들을 관리할 수 있다.
+    - Redux의 경우, Redux-saga, Redux-observable 같은 미들웨어 라이브러리들을 사용해서, 복잡한 비동기 작업을 조금 더 편하게 처리할 수 있다.
+    - 추가적으로, 나중에 SSR을 구현하게 될 시, 서버에서 들고 있는 데이터를 쉽게 보존하여 그대로 브라우저에게 전달 하게 되는 과정이 훨씬 쉬워지기도 한다.
+    따라서, Context-api은 별도 라이브러리 없이 API 연동을 구현할 수 있다는 의미에서 배워두자.
+
+1. 사전숙지사항 : API 구현을 하기 위해 알아둬야할 것
+    먼저, 비동기 처리에 대한 기본적인 개념(Promise 와 async/await의 기본적인 개념)을 알아야한다.
+    모른다면 JS에서 Promise 관련 부분을 학습하고 오자.
+
+1. 학습목표 : 이번 코스를 통해 순차적으로 배워나갈 것
+    axios 라이브러리를 사용해 api를 연동하는 법
+    컴포넌트 내부에서 API의 request state 관리를 위해 useReducer를 사용하는 법
+    컴포넌트 내부에서 API의 global request state 관리를 위해 커스텀 Hooks를 사용하는 법
+    컴포넌트 내부에서 API의 global request state 관리를 위해 react-async 라이브러리를 사용하는 법
+    컴포넌트 내부에서 API의 global request state 관리를 위해 ContextAPI와 함께 사용하는 것
+    유틸 함수 몇가지를 만들어서 코드를 간결하게 만드는 법
+
+
+
+[API 연동의 기본]
+
+1. 앱 설치
+    $ npx create-react-app app1
+
+1. 불필요 부분을, 연동까지 삭제
+    App.test.js
+    index.css
+    logo.svg
+    reportWebVitals.js
+    setupTests.js    
+    App.css (코드만 비워두기)
+    세미콜론 ; 지우기
+    README.MD 지우기
+
+1. axios 라이브러리 설치 : API를 호출하는 함수 라이브러리
+    $ cd app1
+    $ npm i axios (= yarn add axios)
+    
+1. axios와 fetch의 차이 : axios가 fetch보다 발전된 점은 다음과 같다.
+    REST API 문법의 메소드를 사용한다.
+        GET: 데이터 조회 (axios.get('/users/1'))
+        POST: 데이터 등록 (axios.post('/users', { username: 'blabla', name: 'blabla' }))
+        PUT: 데이터 수정
+        DELETE: 데이터 제거
+    속도가 더 빠르다. 
+    try catch 에러처리에 .then이 필요없어 더 간결하다. 
+    딮카피를 위한 JSON 문자화(=JSON.stringify(res))를 자동으로 해준다.
+    API 호출한 원 데이터의 JSON 파싱(=res.json())을 자동으로 해준다.
+    * 참조 : https://velog.io/@eunbinn/Axios-vs-Fetch
+
+1. 사용할 API 주소
+    https://jsonplaceholder.typicode.com/users
+
+
+
+1. src/App.js 수정 : User 컴포넌트를 불러온다.
+    import React from 'react'
+    import Users from './Users'
+
+    function App () {
+        return <Users />
+    }
+
+    export default App
+
+
+
+1. src/Users.js 생성 : API를 호출해서 결과값을 렌더링하는 컴포넌트이다.
+    import React, { useState, useEffect } from 'react'
+    // axios 임포트
+    import axios from 'axios'
+
+    function Users () {
+        // 1. state 선언
+        const [users, setUsers] = useState(null) // 요청결과 state 선언
+        const [loading, setLoading] = useState(false) // 로딩상태 state 선언
+        const [error, setError] = useState(null) // 에러 state 선언
+
+        // 2. async/await를 통해서 axios로 api를 호출
+        const fetchUsers = async () => { // useEffect에 첫번째 파라미터로 등록하는 함수에는 async를 사용할 수 없으므로 함수 내부에서 async를 사용하는 새로운 함수를 선언했다.
+            try {
+                // 요청이 시작 할 때에는 error와 users를 초기화하고
+                setError(null)
+                setUsers(null)
+                // loading 상태를 true 로 바꾼다.
+                setLoading(true)
+                // axios로 api를 호출한다.            
+                const response = await axios.get('https://jsonplaceholder.typicode.com/users')
+                // const response = await axios.get('https://jsonplaceholder.typicode.com/usersError') // 잘못된 api 호출시 에러출력 테스트용 토글
+                // response.data 안에 들어있는 데이터로 요청결과 state를 설정
+                setUsers(response.data)
+            // 잘못된 api 호출시 에러를 출력
+            } catch (e) {
+                setError(e)
+            }
+            setLoading(false)
+        }
+
+        useEffect(() => {
+            fetchUsers()
+        }, [])
+
+        if (loading) return <div>로딩중..</div>
+        if (error) return <div>에러가 발생했습니다</div>
+        if (!users) return null
+
+        // 3. XML에서 map을 통해 api 호출 결과를 렌더링
+        return (
+            <>
+                <ul>
+                    {users.map(user => (
+                        <li key={user.id}>
+                            {user.username} ({user.name})
+                        </li>
+                    ))}
+                </ul>
+                <button onClick={fetchUsers}>다시 불러오기</button>
+            </>
+        )
+    }
+
+    export default Users
+
+
+
+1. 테스트
+    $ cd app1
+    $ npm start

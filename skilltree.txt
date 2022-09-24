@@ -43,14 +43,15 @@
     (14) ReactJS 최적화 : useMemo, useCallback
     (15) ReactJS State관리 : ContextAPI, react-redux, mobx-react, react-redux-saga
     - bootcamp : it용어7
-    (16) ReactJS Router
-    (17) ReactJS Typescript
-    (18) ReactJS Next : SSR, SEO, MPA
+    (16) ReactJS API연동 : ContextAPI, reactQuery, redux-saga, mobx
+    (17) ReactJS Router
+    (18) ReactJS Typescript
+    (19) ReactJS Next : SSR, SEO, MPA
     - bootcamp : it용어8
     스킬시트작성
     면접준비
-    (19) ReactJS Sum : 요약의 암기
     (20) ReactJS App : 다양한 종류의 어플 제작방법 무한 학습
+    (21) ReactJS Sum : 요약의 암기
     < 내려가는 지점 >
     - bootcamp : it용어5
     (10) NodeJS : node, npm, typescript, npm중 필수 lib와 fw들의 개념 이해하기
