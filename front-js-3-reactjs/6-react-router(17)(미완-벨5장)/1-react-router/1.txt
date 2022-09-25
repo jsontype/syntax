@@ -1,0 +1,26 @@
+[React-router를 통한 리액트 싱글 페이지 애플리케이션 만들기]
+
+1. SPA에 적용하는 Router
+    SPA에서 여러 화면으로 구성된 웹 어플리케이션을 만들게 된다면, react-router는 필수 라이브러리이다.
+    이 라이브러리는 클라이언트 사이드에서 이뤄지는 라우팅을 간단하게 해준다.
+    (추가로 서버 사이드 렌더링도 도와주는 도구들도 함께 딸려온다.)
+
+1. 앱 설치
+    $ npx create-react-app app1
+
+1. 불필요 부분을, 연동까지 삭제
+    App.test.js
+    index.css
+    logo.svg
+    reportWebVitals.js
+    setupTests.js    
+    App.css (코드만 비워두기)
+    세미콜론 ; 지우기
+    README.MD 지우기
+
+......................
+https://react.vlpt.us/react-router/01-concepts.html
+
+1. 테스트
+    $ cd app1
+    $ npm start (또는 yarn start)
