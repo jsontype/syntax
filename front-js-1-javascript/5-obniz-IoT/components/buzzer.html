@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="https://unpkg.com/obniz@3.8.0/obniz.js"></script>
+    </head>
+    <body>
+        <h1>부저 컴포넌트</h1>
+        <button id="on">ON</button>
+        <button id="off">OFF</button>
+        <script>
+            // "OBNIZ_ID를 아래에 입력한다."
+            var obniz = new Obniz("2654-7254");
+            obniz.onconnect = async function() {
+                var speaker = obniz.wired("Keyestudio_Buzzer", {gnd:0, vcc:1, signal:2});
+                    $("#on").on("click",function(){
+                        speaker.play(1000);
+                });
+                    $("#off").on("click",function(){
+                        speaker.stop();
+                });
+            };
+        </script>
+    </body>
+</html>
