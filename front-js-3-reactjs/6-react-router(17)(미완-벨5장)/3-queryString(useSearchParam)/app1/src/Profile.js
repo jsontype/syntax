@@ -10,13 +10,14 @@ const profileData = {
             'Frontend Engineer'
     },
     kimkim12: {
-        name: 'kimmaldong',
+        name: 'K.Kim',
         description: 'Backend Engineer'
     }
 }
 
 /**
  * URL내의 파라미터를 통해 username과 profile 정보를 추출하여 표시한다.
+ * /profile/username 이런식으로 뒷부분에 username을 넣어줄 때 해당 값을 파라미터로 받을 것이다.
  * @param {object} match 현재 URL주소가 Route 컴포넌트에서 정한 규칙과 어떻게 일치하는지에 대한 정보가 들어있다.
  * @returns 렌더링 엘리먼트
  */
