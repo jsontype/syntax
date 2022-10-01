@@ -1,0 +1,40 @@
+.title {
+    display: block;
+    text-decoration: none;
+    color: black;
+    border: 1px solid gray;
+    width: 230px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.title:hover {
+    background: gray;
+}
+
+.movieImage {
+    width: 230px;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.rank {
+    font-size: 20px;
+    color: gray;
+}
+
+.rank-blue {
+    color: blue;
+}
+
+.rank-orange {
+    color: orange;
+}
+
+.rank-red {
+    color: red;
+}
+
+.icon {
+    padding-left: 5px;
+}
