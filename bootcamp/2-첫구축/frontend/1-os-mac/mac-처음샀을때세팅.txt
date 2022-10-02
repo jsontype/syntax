@@ -77,4 +77,4 @@
     nvm list
     nvm use 17.5.0를 하면 node 재설치없이도 버전을 변경할 수 있다.
 1. * M1의 경우, 로제타 인스톨을 검색하여 로제타를 인스톨한다.
-1. 다음 수순으로 : vscode 설치 및 확장, chrome 확장, devtools 설치
+1. 다음 수순으로 : vscode 설치 및 확장, chrome 확장, devtools, git 설치
