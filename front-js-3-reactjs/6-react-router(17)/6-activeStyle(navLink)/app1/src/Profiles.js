@@ -1,5 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+// 액티브클래스 적용을 위해 CSS 임포트
+import './Profiles.css'
 
 const Profiles = () => {
     return (
@@ -9,7 +11,7 @@ const Profiles = () => {
                 <li>
                     <NavLink
                         to="/profile/jsontype"
-                        activeStyle={{ background: 'black', color: 'white' }}
+                        style={{ background: 'black', color: 'white' }}
                     >
                         velopert
                     </NavLink>
@@ -17,7 +19,7 @@ const Profiles = () => {
                 <li>
                     <NavLink
                         to="/profile/kimkim12"
-                        activeStyle={{ background: 'black', color: 'white' }}
+                        className={"red"}
                     >
                         kimkim12
                     </NavLink>

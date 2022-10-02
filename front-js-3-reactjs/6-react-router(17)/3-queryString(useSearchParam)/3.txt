@@ -14,6 +14,8 @@
         }
     }
     한편, 쿼리가 담겨있는 문자열 ?details=true를 "쿼리스트링"이라고 한다.
+
+
     
 1. src/About.js 수정 : 쿼리스트링 ?detail=true를 추가시 추가정보 표시하기
     import React from 'react'
