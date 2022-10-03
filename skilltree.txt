@@ -11,13 +11,13 @@
     (4) CMS : Figma
     (5) JS : 초급문법
     - bootcamp : it용어3
-    (6) JS : API 연동 무비앱 1, (부록-Full버전은 필요하다 생각하는 것만 옵셔널하게 진행)
+    (6) JS : API 연동 무비앱 1, (추가로 JS 풀버전 중 필요하다 생각하는 것만 옵셔널하게 진행)
     (7) JS : 중급문법, API 연동 무비앱 2
     (8) Git : 마크업 프로젝트 배포를 통해 깃허브에 익숙해지기
     - bootcamp : it용어4
-    (9) PHP : DB, 서버, 호스팅 이해하기 (Java, Python이 하는 일)
-    - bootcamp : it용어5
+    (9) PHP : DB, 서버, 호스팅 이해하기 (Java, Python이 하는 일, 스킵가능)
     (10) NodeJS : node, npm, typescript, npm중 필수 lib와 fw들의 개념 이해하기
+    - bootcamp : it용어5
     (11) JS : 고급문법
     (12) ReactJS : 문법, API 연동 무비앱 3
     (13) ReactJS 스타일링 : SASS, CSS Module, Styled-Components
@@ -35,42 +35,6 @@
     (20) ReactJS Sum : 요약의 암기
     (21) ReactJS App : 다양한 종류의 어플 제작방법 무한 학습
 
-1. 커리큘럼 Top-down : 스피드 (각 챕터별로 앱 만드는 것 먼저 보여주기)
-    - bootcamp : 첫상담, 첫구축
-    (12) ReactJS : 문법, API 연동 무비앱 3
-    (13) ReactJS 스타일링 : SASS, CSS Module, Styled-Components
-    <어플 3개 이상 만들기>
-    - bootcamp : it용어6
-    (14) ReactJS 최적화 : useMemo, useCallback
-    (15) ReactJS State관리 : ContextAPI, react-redux, mobx-react, react-redux-saga
-    (16) ReactJS API연동 : ContextAPI, reactQuery, redux-saga, mobx
-    - bootcamp : it용어7
-    (17) ReactJS Router : react-router
-    (18) ReactJS Typescript
-    (19) ReactJS SSR : react-router(SPA에서 SSR), Next(MPA에서 SSR, 정석적 방법)
-    - bootcamp : it용어8
-    스킬시트작성
-    면접준비
-    (20) ReactJS App : 다양한 종류의 어플 제작방법 무한 학습
-    (21) ReactJS Sum : 요약의 암기
-    < 내려가는 지점 >
-    - bootcamp : it용어5
-    (10) NodeJS : node, npm, typescript, npm중 필수 lib와 fw들의 개념 이해하기
-    (11) JS : 고급문법
-    - bootcamp : it용어4
-    (9) PHP : DB, 서버, 호스팅 이해하기 (Java, Python이 하는 일)
-    - bootcamp : it용어3
-    (6) JS : API 연동 무비앱 1, (부록-Full버전은 필요하다 생각하는 것만 옵셔널하게 진행)
-    (7) JS : 중급문법, API 연동 무비앱 2
-    (8) Git : 마크업 프로젝트 배포를 통해 깃허브에 익숙해지기
-    - bootcamp : it용어2
-    (3) CSS Bootstrap : 프레임워크 기본 익히기
-    (4) CMS : Figma
-    (5) JS : 초급문법
-    - bootcamp : it용어1
-    (1) HTML : 마크업
-    (2) CSS : 문법
-
 
 
 [스킬트리]
@@ -81,7 +45,7 @@
     CMS : 1
     JS : Max
     Git : Max
-    PHP : 1
+    PHP : 1 or 0
     NodeJS : 1
     React : Max
     Next : Max
