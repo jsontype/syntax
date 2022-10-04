@@ -4,6 +4,7 @@
 
 1. Living
     youtube adblock
+    Zoom to Fill - Ultrawide Video : 32대9 화면일 때 좋다.
     
 1. JavaScript 관련
     json viewer
