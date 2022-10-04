@@ -1,0 +1,169 @@
+[미들웨어 만들어보고 이해하기]
+
+사실 실무에서는 리덕스 미들웨어를 직접 만들게 되는 일은 거의 없습니다. 하지만, 한번 직접 만들어보게 된다면 미들웨어가 어떤 역할인지 훨씬 쉽게 이해 할 수 있습니다.
+...
+
+1. 리덕스 미들웨어
+    리덕스 미들웨어는 리덕스가 지니고 있는 핵심 기능으로, 
+    주로 API 연동등 비동기 작업을 처리 할 때 비동기 작업을 더 효율적으로 만들어준다.
+    그냥 axios를 써도 되지만, 미들웨어를 함께 사용하면,
+    액션이 디스패치 된 다음, 리듀서에서 해당 액션을 받아와서 업데이트하기 전에 추가적인 작업을 할 수 있다. 
+    (리덕스가 Context API, MobX와 차별화가 되는 부분이다.)
+    추가적인 작업들은 다음과 같다.
+        특정 조건에서 액션을 무시
+        특정 액션이 발생했을 때 다른 액션, 함수 실행
+        액션이 디스패치 됐을 때 수정해서 리듀서에게 전달
+
+1. 리덕스 + 리덕스 미들웨어를 도입해야할 때
+    프로젝트의 규모가 커졌을 때
+    상태를 전역적으로 사용해야 할 때
+    비동기 작업을 자주 하게 될 때
+
+1. 리덕스 미들웨어 종류
+    redux-saga
+    redux-thunk
+
+
+
+[리덕스 프로젝트 준비하기]
+
+1. 앱 설치
+    $ npx create-react-app app1
+
+1. 불필요 부분을, 연동까지 삭제
+    App.test.js
+    index.css
+    logo.svg
+    reportWebVitals.js
+    setupTests.js    
+    App.css (코드만 비워두기)
+    세미콜론 ; 지우기
+    README.MD 지우기
+
+1. redux, react-redux 설치
+    $ cd app1
+    $ npm i redux react-redux
+
+
+
+1. src/modules/counter.js 생성 : 모듈 만들기
+    // 액션타입, 액션생성함수, 초기값, 리듀서를 한 파일에 작성하는 Ducks 패턴을 사용한다.
+
+    // 액션타입
+    const INCREASE = 'INCREASE'
+    const DECREASE = 'DECREASE'
+
+    // 액션생성함수 : Ducks 패턴을 따르는 리덕스모듈에서는 원래 중복을 피하기위해 액션이름에 'counter/INCREASE' 이런식으로 앞부분에 접두어를 둬야한다. (이번엔 생략)
+    export const increase = () => ({ type: INCREASE })
+    export const decrease = () => ({ type: DECREASE })
+
+    // 초기값 (상태가 객체가 아니라 그냥 숫자여도 상관 없다.)
+    const initialState = 0
+
+    // 리듀서
+    export default function counter(state = initialState, action) {
+        switch (action.type) {
+            case INCREASE:
+                return state + 1
+            case DECREASE:
+                return state - 1
+            default:
+                return state
+        }
+    }
+
+
+
+1. src/modules/index.js 생성 : 루트리듀서 만들기
+    import { combineReducers } from 'redux'
+    import counter from './counter'
+
+    // 루트리듀서 생성 : 지금은 서브리듀서가 counter 하나밖에 없는 상황이지만, 나중에 몇개 더 만들 것이다.
+    const rootReducer = combineReducers({ counter })
+
+    export default rootReducer
+
+
+
+1. src/index.js 수정 : 프로젝트에 리덕스 적용
+    import React from 'react'
+    import ReactDOM from 'react-dom'
+    import App from './App'
+    import { createStore } from 'redux'
+    // 프로젝트에 리덕스를 적용 1 : Provider와, 만든 rootReducer를 임포트한다.
+    import { Provider } from 'react-redux'
+    import rootReducer from './modules'
+
+    // 프로젝트에 리덕스를 적용 2 : 루트리듀서를 인자값으로 새로운 스토어를 만든다.
+    const store = createStore(rootReducer)
+
+    ReactDOM.render(
+        // 프로젝트에 리덕스를 적용 3 : Provider를 사용해서 프로젝트에 적용한다.
+        <Provider store={store}>
+            <App />
+        </Provider>,
+        document.getElementById('root')
+    )
+
+
+
+1. src/containers/Counter.js 생성 : 프리젠테이셔널 컴포넌트 만들기
+    import React from 'react'
+
+    // Counter의 프리젠테이셔널 컴포넌트 만들기 : 이 컴포넌트에서는 number, onIncrease, onDecrease를 props로 받아온다. 
+    function Counter ({ number, onIncrease, onDecrease }) {
+        return (
+            <div>
+                <h1>{number}</h1>
+                <button onClick={onIncrease}>+1</button>
+                <button onClick={onDecrease}>-1</button>
+            </div>
+        )
+    }
+
+    export default Counter
+
+
+
+1. src/containers/CounterContainer.js 생성 : 컨테이너 컴포넌트 만들기
+    import React from 'react'
+    import Counter from './Counter'
+    import { useSelector, useDispatch } from 'react-redux'
+    import { increase, decrease } from '../modules/counter'
+
+    // Counter의 컨테이너 컴포넌트 만들기
+    function CounterContainer () {
+        const number = useSelector(state => state.counter)
+        const dispatch = useDispatch()
+
+        const onIncrease = () => {
+            dispatch(increase())
+        }
+        const onDecrease = () => {
+            dispatch(decrease())
+        }
+
+        return (
+            <Counter number={number} onIncrease={onIncrease} onDecrease={onDecrease} />
+        )
+    }
+
+    export default CounterContainer
+
+
+
+1. src/App.js 수정 : CounterContainer를 렌더링
+    import React from 'react'
+    import CounterContainer from './components/CounterContainer'
+
+    function App () {
+        return <CounterContainer />
+    }
+
+    export default App
+
+
+
+1. 테스트 : 카운터 작동이 확인되면, 리덕스 미들웨어를 다룰 준비가 끝났다.
+    $ cd app1
+    $ npm start
