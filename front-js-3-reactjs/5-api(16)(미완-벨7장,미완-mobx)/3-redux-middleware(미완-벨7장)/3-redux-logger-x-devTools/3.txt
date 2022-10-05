@@ -2,8 +2,8 @@
 
 1. 설치
     $ cd app1
-    $ npm i redux-logger : Redux-logger를 설치한다.
-    $ npm i redux-devtools-extension : DevTools를 설치한다.
+    $ npm i redux-logger : redux-logger를 설치한다.
+    $ npm i redux-devtools-extension : devTools를 설치한다.
 
 
     
@@ -43,10 +43,10 @@
 
 
 1. src/middlewares 폴더 삭제
-    Redux-logger로 구현을 했기 때문에, 직접 만든 미들웨어는 이제 불필요하므로 삭제해준다.
+    redux-logger로 구현을 했기 때문에, 직접 만든 미들웨어는 이제 불필요하므로 삭제해준다.
 
 
 
-1. 테스트 : 콘솔로그에서 Redux-logger가 잘 작동하는지, Redux탭에서 DevTools가 잘 작동하는지 각각 확인
+1. 테스트 : console탭에서 redux-logger가 잘 작동하여 (콘솔로그에) 출력되는지, redux탭에서 devTools가 잘 작동하여 출력되는지 각각 확인
     $ cd app1
     $ npm start
