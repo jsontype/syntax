@@ -1,0 +1,60 @@
+[Redux-thunk에 React-router 적용하기]
+
+1. react-router를 프로젝트에 적용해서 특정 포스트를 읽는 기능을 구현해보겠다.
+
+1. 설치
+    $ npm i react-router-dom
+
+1. src/index.js 수정 : BrowserRouter로 Provider를 감싸줘서, Router를 사용할 수 있게 하기
+    import React from 'react'
+    import ReactDOM from 'react-dom'
+    import App from './App'
+    import { createStore, applyMiddleware } from 'redux'
+    import { Provider } from 'react-redux'
+    import rootReducer from './modules'
+    import logger from 'redux-logger'
+    import { composeWithDevTools } from 'redux-devtools-extension'
+    import ReduxThunk from 'redux-thunk'
+    // BrowserRouter 컴포넌트를 임포트
+    import { BrowserRouter } from 'react-router-dom'
+
+    const store = createStore(
+        rootReducer,
+        composeWithDevTools(applyMiddleware(ReduxThunk, logger))
+    )
+    ReactDOM.render(
+        // BrowserRouter로 Provider를 감싸주면, Router를 사용할 수 있다.
+        <BrowserRouter>
+            <Provider store={store}>
+            <App />
+            </Provider>
+        </BrowserRouter>,
+        document.getElementById('root')
+    )
+
+
+
+1. src/components/Post.js 생성 : 포스트 조회하기
+이번에는 포스트 하나를 조회하는 기능을 구현해보겠습니다. 우선 프리젠테이셔널 컴포넌트 Post.js 를 만들어주세요.
+
+1. src/containers/PostContainer.js 생성
+이제 PostContainer 컴포넌트도 만들어보겠습니다.
+이 컴포넌트는 postId 값을 props로 받아옵니다. 해당 값은 라우트의 URL 파라미터에서 읽어올 것입니다.
+
+1. src/pages/PostListPage.js 생성
+라우트 설정하기1
+이제 라우트를 설정해봅시다. pages 디렉터리에 PostListPage.js 와 PostPage.js 를 다음과 같이 작성해주세요.
+
+1. src/pages/PostPage.js 생성
+라우트 설정하기2
+
+1. src/App.js 수정
+페이지 관련 컴포넌트들을 모두 다 작성하셨으면, App 에서 라우트 설정을 해봅시다.
+
+1. src/components/PostList.js 수정
+
+
+
+1. 테스트 : 콘솔로그 열고 비동기 작업이 잘 처리되고 있는지 확인
+    $ cd app1
+    $ npm start
