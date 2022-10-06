@@ -36,10 +36,10 @@
     (13) ReactJS 스타일링 : SASS, CSS Module, Styled-Components, API 연동 무비앱 6 (Styled-components 적용버전)
     - bootcamp : it용어6
     (14) ReactJS 최적화 : useMemo, useCallback
-    (15) ReactJS State관리 : ContextAPI, react-redux, mobx-react, react-redux-saga
-    (16) ReactJS API연동 : ContextAPI, reactQuery, redux-saga, mobx
+    (15) ReactJS Router : react-router
+    (16) ReactJS State관리 : ContextAPI, react-redux, mobx-react, react-redux-saga
+    (17) ReactJS API연동 : ContextAPI, reactQuery, redux-middleware, mobx
     - bootcamp : it용어7
-    (17) ReactJS Router : react-router
     (18) ReactJS Typescript
     (19) ReactJS SSR : react-router(SPA에서 SSR), Next(MPA에서 SSR, 정석적 방법)
     - bootcamp : it용어8
