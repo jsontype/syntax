@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS 중급</title>
+    <style>
+        /* 
+            속성 기입순서의 암묵적인 룰(Convention) : Mozilla에서 제안한 CSS 속성 기술 순서는 다음과 같다.
+                ★★ 암기 : 표위크윤글내
+
+                .myClass {
+                ├── 표현방식
+                │ ├── display
+                │ └── list-style
+                │
+                ├── 위치, 좌표
+                │ ├── position
+                │ ├── float
+                │ └── clear
+                │
+                ├── 크기, 여백
+                │ ├── width / height
+                │ └── padding / margin : top, right, bottom, left 순
+                │
+                ├── 윤곽, 배경
+                │ └── border / background
+                │
+                ├── 글자, 정렬
+                │ ├── color / font
+                │ ├── text-decoration
+                │ ├── text-align / vertical-align
+                │ └── white-space
+                │
+                └── 내용
+                └── content
+            }
+
+            선택자(Selector) : 선택을 해주는 요소. 이를 통해 특정 요소를 선택해 스타일을 적용할 수 있게 된다.
+                선택자의 위계 : tag > class > id
+                선택자의 표기 : (none) . #
+        */
+        ol {
+            /* 표현방식 */
+            display: inline;
+            list-style: circle;
+            /* 위치, 좌표 */
+            position: relative;
+            float: right;
+            clear: right;
+            /* 크기, 여백 */
+            width: 200px;
+            height: 100px;
+            padding: 20px;
+            margin: 20px;
+            /* 윤곽, 배경 */
+            border: 1px solid gray;
+            background-color: white;
+            /* 글자, 정렬 */
+            color: gray;
+            font-size: 18px; /* font-weight: bold; font-family: 'Times New Roman', Times, serif; */
+            text-decoration: none;
+            text-align: center;
+            vertical-align: center;
+            /* 내용 */
+        }
+    </style>
+</head>
+<body>
+    <div>   
+        <ol>
+            <li>안녕!</li>
+            <li>안녕!</li>
+            <li>안녕!</li>
+        </ol>
+        <ol>
+            <li>안녕!</li>
+            <li>안녕!</li>
+            <li>안녕!</li>
+        </ol>
+    </div>
+</body>
+</html>

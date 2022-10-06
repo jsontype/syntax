@@ -56,6 +56,5 @@ function getMovie (url) {
     }
 }
 
-
 // 초기 화면 설정
 init()

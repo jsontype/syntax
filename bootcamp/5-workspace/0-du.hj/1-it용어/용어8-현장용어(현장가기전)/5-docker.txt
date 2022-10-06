@@ -1,0 +1,9 @@
+[Docker]
+
+1. 도커 실행전 준비
+    docker를 설치한다.
+    터미널을 켜고 프로젝트 소스코드의 부모듈에 간다.
+
+1. 도커 실행과 종료
+    실행 : docker-compose up -d
+    종료 : docker-compose down
