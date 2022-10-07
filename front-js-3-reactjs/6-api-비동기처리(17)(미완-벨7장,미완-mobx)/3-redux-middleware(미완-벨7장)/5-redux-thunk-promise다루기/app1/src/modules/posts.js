@@ -51,7 +51,7 @@ export default function posts (state = initialState, action) {
         case GET_POST_SUCCESS:
         case GET_POST_ERROR:
             // return handleAsyncActions(GET_POST, 'post')(state, action) // 아래 리턴과 동일하다.
-            const postReducer = handleAsyncActions(GET_POSTS, 'posts')
+            const postReducer = handleAsyncActions(GET_POST, 'post')
             return postReducer(state, action)
         default:
             return state
