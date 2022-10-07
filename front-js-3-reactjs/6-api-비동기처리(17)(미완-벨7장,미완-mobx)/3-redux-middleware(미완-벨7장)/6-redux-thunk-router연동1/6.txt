@@ -1,9 +1,12 @@
 [Redux-thunk에 React-router 적용하기]
 
-1. react-router를 프로젝트에 적용해서 특정 포스트를 읽는 기능을 구현해보겠다.
+1. react-router-dom을 프로젝트에 적용해서 특정 포스트를 읽는 기능을 구현해보겠다.
 
-1. 설치
+1. react-router-dom 설치
+    $ cd app1
     $ npm i react-router-dom
+
+
 
 1. src/index.js 수정 : BrowserRouter로 Provider를 감싸줘서, Router를 사용할 수 있게 하기
     import React from 'react'
@@ -26,7 +29,7 @@
         // BrowserRouter로 Provider를 감싸주면, Router를 사용할 수 있다.
         <BrowserRouter>
             <Provider store={store}>
-            <App />
+                <App />
             </Provider>
         </BrowserRouter>,
         document.getElementById('root')
@@ -34,27 +37,131 @@
 
 
 
-1. src/components/Post.js 생성 : 포스트 조회하기
-이번에는 포스트 하나를 조회하는 기능을 구현해보겠습니다. 우선 프리젠테이셔널 컴포넌트 Post.js 를 만들어주세요.
+1. src/components/Post.js 생성 : 포스트를 조회하는 컴포넌트의 프레젠테이셔널 컴포넌트 만들기
+    import React from 'react'
 
-1. src/containers/PostContainer.js 생성
-이제 PostContainer 컴포넌트도 만들어보겠습니다.
-이 컴포넌트는 postId 값을 props로 받아옵니다. 해당 값은 라우트의 URL 파라미터에서 읽어올 것입니다.
+    function Post ({ post }) {
+        const { title, body } = post
+        return (
+            <div>
+                <h1>{title}</h1>
+                <p>{body}</p>
+            </div>
+        )
+    }
 
-1. src/pages/PostListPage.js 생성
-라우트 설정하기1
-이제 라우트를 설정해봅시다. pages 디렉터리에 PostListPage.js 와 PostPage.js 를 다음과 같이 작성해주세요.
+    export default Post
+
+
+
+1. src/containers/PostContainer.js 생성 : 포스트를 조회하는 컴포넌트의 컨테이너 컴포넌트 만들기
+    import React, { useEffect } from 'react'
+    import { useSelector, useDispatch } from 'react-redux'
+    import PostList from '../components/PostList'
+    import { getPosts } from '../modules/posts'
+
+    function PostListContainer () {
+        const { data, loading, error } = useSelector(state => state.posts.posts)
+        const dispatch = useDispatch()
+
+        // 컴포넌트 마운트 후 포스트 목록 요청
+        useEffect(() => {
+            dispatch(getPosts())
+        }, [dispatch])
+
+        if (loading) return <div>로딩중...</div>
+        if (error) return <div>에러 발생!</div>
+        if (!data) return null
+        return <PostList posts={data} />
+    }
+
+    export default PostListContainer
+
+
+
+1. src/pages/PostListPage.js 생성 : 이제 router를 설정해본다.
+    import PostListContainer from "../containers/PostListContainer"
+    // Outlet 임포트 : 중첩 라우팅할 때 필요
+    import { Outlet } from "react-router-dom"
+
+    const PostListPage = () => {
+        return (
+            <>
+                <PostListContainer />
+                {/* <Outlet />을 사용해야 (이미 상위 라우터를 통해 이동하는) PostList.js 안에 Post의 하위 라우터(Link/Route) 추가가 가능하다. */}
+                <Outlet />
+            </>
+        )
+    }
+
+    export default PostListPage
+
+
 
 1. src/pages/PostPage.js 생성
-라우트 설정하기2
+    import PostContainer from "../containers/PostContainer"
+    import { useParams } from "react-router-dom"
 
-1. src/App.js 수정
-페이지 관련 컴포넌트들을 모두 다 작성하셨으면, App 에서 라우트 설정을 해봅시다.
+    const PostPage = () => {
+        // URL 파라미터를 조회한다.
+        const params = useParams()
+        // URL 파라미터 값은 문자열이기 때문에 parseInt를 사용하여 숫자로 변환해주어야 한다.
+        return <PostContainer postId={parseInt(params.id, 10)} />
+    }
 
-1. src/components/PostList.js 수정
+    export default PostPage
 
 
 
-1. 테스트 : 콘솔로그 열고 비동기 작업이 잘 처리되고 있는지 확인
+1. src/components/PostList.js 수정 : PostList에서 Link 컴포넌트를 사용하도록 수정하기
+    import React from 'react'
+    import { Link } from 'react-router-dom'
+
+    function PostList ({ posts }) {
+        return (
+            <ul>
+                {posts.map(post => (
+                    <li key={post.id}>
+                        <Link to={`/${post.id}`}>{post.title}</Link>
+                    </li>
+                ))}
+            </ul>
+        )
+    }
+
+    export default PostList
+
+
+
+1. src/App.js 수정 : App에 라우트 적용시키기
+    import React from 'react'
+    import { Routes, Route } from 'react-router-dom'
+    import PostListPage from './pages/PostListPage'
+    import PostPage from './pages/PostPage'
+
+    function App () {
+        return (
+            <Routes>
+                <Route path="/" element={<PostListPage />} exact={true}>
+                    <Route path=":id" element={<PostPage />} />
+                </Route>
+            </Routes>
+        )
+    }
+
+    export default App
+
+
+
+1. 테스트 : 포스트 목록 중 하나를 클릭하면 해당 포스트가 표시되는지 확인
     $ cd app1
     $ npm start
+
+
+
+1. 정리 : 아직 남아있는 이슈
+    잘 작동하긴 하는데 두 가지 문제점이 있다.
+        첫째, 특정 포스트를 연 다음에 뒤로 갔을 때, 포스트 목록을 또 다시 불러오게 되면서 로딩중...이 나타나게 된다.
+        둘째, 특정 포스트를 연 다음에 뒤로 갔을 때, 다른 포스트를 열면 이전에 열었던 포스트가 잠깐 보여졌다가 로딩중...이 나타나게 된다.
+    위 두가지 문제로 인하여 사용자에게 좋지 못한 경험을 제공하게 될 수 있다.
+    이 문제를 해결하는 방법은 다음 섹션에서 다뤄보도록 하겠다.

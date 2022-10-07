@@ -1,15 +1,16 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
-import PostListPage from './pages/PostListPage';
-import PostPage from './pages/PostPage';
+import React from 'react'
+import { Routes, Route } from 'react-router-dom'
+import PostListPage from './pages/PostListPage'
+import PostPage from './pages/PostPage'
 
 function App () {
   return (
-    <>
-      <Route path="/" component={PostListPage} exact={true} />
-      <Route path="/:id" component={PostPage} />
-    </>
-  );
+    <Routes>
+      <Route path="/" element={<PostListPage />} exact={true}>
+        <Route path=":id" element={<PostPage />} />
+      </Route>
+    </Routes>
+  )
 }
 
-export default App;
+export default App
