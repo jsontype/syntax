@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* content는 :before 또는 :after 가상클래스를 사용하여 앞이나 뒤에 텍스트를 표시할 수 있다. */
+        /* content로 된 내용은 복사, 붙여넣기를 할 수 없다. */
+        .text:before {
+            content: '【필독】 ';
+        }
+        .text:after {
+            content: ' 🔥';
+        }
+    </style>
+</head>
+<body>
+    <div class="text">반드시 봐야할 CSS 프로퍼티 모음</div>
+    <div class="text"></div>
+</body>
+</html>
