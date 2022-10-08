@@ -31,8 +31,11 @@
 
 1. 전부 다 끈 뒤 iterm을 다시 켠다.
 1. y 입력 후 엔터해서 nerd 폰트를 다운받는다.
-1. iterm을 다시 한번 끄고 켠다.
-1. 가운데 그림문자에 다이아몬드가 안 보인다면, 다음의 명령어를 통해 iterm2를 재설치한다.
+1. iterm을 다시 한번 끈다.
+1. vscode에서 터미널을 연다.
+1. vscode 세팅 - settings - terminal font 검색 - 최상단 font family - MesloLGS NF 입력
+1. vscode terminal 폰트 안 깨진 것 확인
+1. 그래도 가운데 그림문자에 다이아몬드가 안 보인다면, 다음의 명령어를 통해 iterm2를 재설치한다.
     brew reinstall --cask iterm2
     연 다음 check automatically 클릭
 1. 다이아몬드가 보인다면 y
@@ -51,11 +54,6 @@
 1. Many icons 2번
 1. Fluent 2번
 1. 문제없으면 y - Verbose 1 - y
-1. vscode를 연다.
-1. get started 탭이 뜨면 show welcome 체크를 해지하고 탭을 닫는다.
-1. 윗쪽 메뉴에서 Terminal - New Terminal
-1. vscode 세팅 - settings - terminal font 검색 - 최상단 font family - MesloLGS NF 입력
-1. vscode terminal 폰트 안 깨진 것 확인
 1. vscode를 끈다.
 1. iterm 터미널에 돌아간다.
 
@@ -78,3 +76,21 @@
     nvm use 17.5.0를 하면 node 재설치없이도 버전을 변경할 수 있다.
 1. * M1의 경우, 로제타 인스톨을 검색하여 로제타를 인스톨한다.
 1. 다음 수순으로 : vscode 설치 및 확장, chrome 확장, devtools, git 설치
+
+
+
+[개발자 입장에서 보는 주관적인 맥의 장단점]
+
+1. 장점
+    쉘, 배시등 리눅스 기반 터미널을 쓸때 단축키가 맥os ui를 쓸때와 같다. cmd + c, v 등
+    깃 푸시가 훨씬 빠르다.
+    빌드가 빠르다.
+    타 애플 기기와의 연동성이 좋다는 점은 일반 유저 뿐 아니라 아이폰 등 주변 기기를 보조로 사용하는 개발자 입장에서도 꽤 편리하다는 장점이 된다.
+    영상제작 앱, 스프레드시트, 피그마 등 넓은 화면의 경우 수평이동이 편리하다.
+    화상의 캡쳐가 더 직관적이며 편리하다.
+    
+1. 단점
+    크롬 번역이 원활치 않다.
+    윈도우를 기준으로 설계된 일부 앱과 호환성 이슈가 있다.
+    (나의 경우 스프레드시트) 브라우저 확대 축소에서 윈도우의 컨트롤 + 휠업다운이 훨씬 직관적이다. 
+    코덱, 영상 뷰어등의 인터페이스는 윈도우기반이 훨씬 직관적이다.

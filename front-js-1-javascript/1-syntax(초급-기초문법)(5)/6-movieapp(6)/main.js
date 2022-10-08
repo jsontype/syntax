@@ -31,7 +31,7 @@ function getMovie (url) {
  */
  function addItem(movies) {
     // API 호출
-    let arr = movies[0]
+    const arr = movies[0]
     console.log(arr)
 
     for (let i = 0; i < arr.length; i++) {
