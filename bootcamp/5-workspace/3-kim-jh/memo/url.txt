@@ -1,0 +1,5 @@
+깃 주소 : https://github.com/jsontype
+수업소스 : https://github.com/jsontype/syntax/tree/master/bootcamp/5-workspace -> [n]-kim-hj 폴더
+유투브 채널 : https://www.youtube.com/channel/UCt76J5CYnXL-uoJmQPG2Azw
+맥북 초기 세팅 : https://www.youtube.com/watch?v=zLpnbnRB0kU&list=PLeHxhn3Z3YS_B9lVEFvCy38WtjNZ4jXCY&index=9 (스펙타클 spectacle 설치)
+수업내용 목록 : https://www.youtube.com/playlist?list=PLeHxhn3Z3YS-tKdo8hMjUpiKCzz8pygPD
