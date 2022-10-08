@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<!-- saved from url=(0064)https://react.vlpt.us/basic/26-componentDidCatch-and-sentry.html -->
+<html lang=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style>
+
+
+<title>26. componentDidCatch 로 에러 잡아내기 / Sentry 연동 · GitBook</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="">
+<meta name="generator" content="GitBook 3.2.3">
+<link rel="stylesheet" href="./26. componentDidCatch 로 에러 잡아내기 _ Sentry 연동 · GitBook_files/style.css">
+<link rel="stylesheet" href="./26. componentDidCatch 로 에러 잡아내기 _ Sentry 연동 · GitBook_files/collapsible-chapters.css">
+<link rel="stylesheet" href="./26. componentDidCatch 로 에러 잡아내기 _ Sentry 연동 · GitBook_files/website.css">
+<link rel="stylesheet" href="./26. componentDidCatch 로 에러 잡아내기 _ Sentry 연동 · GitBook_files/search.css">
+<link rel="stylesheet" href="./26. componentDidCatch 로 에러 잡아내기 _ Sentry 연동 · GitBook_files/website(1).css">
+<meta name="HandheldFriendly" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://react.vlpt.us/gitbook/images/apple-touch-icon-precomposed-152.png">
+<link rel="shortcut icon" href="https://react.vlpt.us/gitbook/images/favicon.ico" type="image/x-icon">
+
+
+<link rel="prev" href="https://react.vlpt.us/basic/25-lifecycle.html"><link rel="next" href="https://react.vlpt.us/basic/27-useful-tools.html"></head>
+<body>
+<div class="book without-animation with-summary">
+<div class="book-summary">
+<div id="book-search-input" role="search">
+<input type="text" placeholder="Type to search">
+</div>
+<nav role="navigation">
+<ul class="summary">
+<li class="chapter expanded" data-level="1.1" data-path="../">
+<a href="https://react.vlpt.us/">
+벨로퍼트와 함께하는 모던 리액트
+</a>
+</li>
+<li class="chapter expanded" data-level="1.2" data-path="./">
+<a href="https://react.vlpt.us/basic/">
+1장. 리액트 입문
+<i class="exc-trigger fa"></i></a>
+<ul class="articles">
+<li class="chapter " data-level="1.2.1" data-path="01-concept.html">
+<a href="https://react.vlpt.us/basic/01-concept.html">
+1. 리액트는 어쩌다가 만들어졌을까?
+</a>
+</li>
+<li class="chapter " data-level="1.2.2" data-path="02-prepare.html">
+<a href="https://react.vlpt.us/basic/02-prepare.html">
+2. 작업환경 준비
+</a>
+</li>
+<li class="chapter " data-level="1.2.3" data-path="03-first-component.html">
+<a href="https://react.vlpt.us/basic/03-first-component.html">
+3. 나의 첫번째 리액트 컴포넌트
+</a>
+</li>
+<li class="chapter " data-level="1.2.4" data-path="04-jsx.html">
+<a href="https://react.vlpt.us/basic/04-jsx.html">
+4. JSX
+</a>
+</li>
+<li class="chapter " data-level="1.2.5" data-path="05-props.html">
+<a href="https://react.vlpt.us/basic/05-props.html">
+5. props 를 통해 컴포넌트에게 값 전달하기
+</a>
+</li>
+<li class="chapter " data-level="1.2.6" data-path="06-conditional-rendering.html">
+<a href="https://react.vlpt.us/basic/06-conditional-rendering.html">
+6. 조건부 렌더링
+</a>
+</li>
+<li class="chapter " data-level="1.2.7" data-path="07-useState.html">
+<a href="https://react.vlpt.us/basic/07-useState.html">
+7. useState 를 통해 컴포넌트에서 바뀌는 값 관리하기
+</a>
+</li>
+<li class="chapter " data-level="1.2.8" data-path="08-manage-input.html">
+<a href="https://react.vlpt.us/basic/08-manage-input.html">
+8. input 상태 관리하기
+</a>
+</li>
+<li class="chapter " data-level="1.2.9" data-path="09-multiple-inputs.html">
+<a href="https://react.vlpt.us/basic/09-multiple-inputs.html">
+9. 여러개의 input 상태 관리하기
+</a>
+</li>
+<li class="chapter " data-level="1.2.10" data-path="10-useRef.html">
+<a href="https://react.vlpt.us/basic/10-useRef.html">
+10. useRef 로 특정 DOM 선택하기
+</a>
+</li>
+<li class="chapter " data-level="1.2.11" data-path="11-render-array.html">
+<a href="https://react.vlpt.us/basic/11-render-array.html">
+11. 배열 렌더링하기
+</a>
+</li>
+<li class="chapter " data-level="1.2.12" data-path="12-variable-with-useRef.html">
+<a href="https://react.vlpt.us/basic/12-variable-with-useRef.html">
+12. useRef 로 useRef 로 컴포넌트 안의 변수 만들기
+</a>
+</li>
+<li class="chapter " data-level="1.2.13" data-path="13-array-insert.html">
+<a href="https://react.vlpt.us/basic/13-array-insert.html">
+13. 배열에 항목 추가하기
+</a>
+</li>
+<li class="chapter " data-level="1.2.14" data-path="14-array-remove.html">
+<a href="https://react.vlpt.us/basic/14-array-remove.html">
+14. 배열에 항목 제거하기
+</a>
+</li>
+<li class="chapter " data-level="1.2.15" data-path="15-array-modify.html">
+<a href="https://react.vlpt.us/basic/15-array-modify.html">
+15. 배열에 항목 수정하기
+</a>
+</li>
+<li class="chapter " data-level="1.2.16" data-path="16-useEffect.html">
+<a href="https://react.vlpt.us/basic/16-useEffect.html">
+16. useEffect를 사용하여 마운트/언마운트/업데이트시 할 작업 설정하기
+</a>
+</li>
+<li class="chapter " data-level="1.2.17" data-path="17-useMemo.html">
+<a href="https://react.vlpt.us/basic/17-useMemo.html">
+17. useMemo 를 사용하여 연산한 값 재사용하기
+</a>
+</li>
+<li class="chapter " data-level="1.2.18" data-path="18-useCallback.html">
+<a href="https://react.vlpt.us/basic/18-useCallback.html">
+18. useCallback 를 사용하여 함수 재사용하기
+</a>
+</li>
+<li class="chapter " data-level="1.2.19" data-path="19-React.memo.html">
+<a href="https://react.vlpt.us/basic/19-React.memo.html">
+19. React.memo 를 사용한 컴포넌트 리렌더링 방지
+</a>
+</li>
+<li class="chapter " data-level="1.2.20" data-path="20-useReducer.html">
+<a href="https://react.vlpt.us/basic/20-useReducer.html">
+20. useReducer 를 사용하여 상태 업데이트 로직 분리하기
+</a>
+</li>
+<li class="chapter " data-level="1.2.21" data-path="21-custom-hook.html">
+<a href="https://react.vlpt.us/basic/21-custom-hook.html">
+21. 커스텀 Hooks 만들기
+</a>
+</li>
+<li class="chapter " data-level="1.2.22" data-path="22-context-dispatch.html">
+<a href="https://react.vlpt.us/basic/22-context-dispatch.html">
+22. Context API 를 사용한 전역 값 관리
+</a>
+</li>
+<li class="chapter expanded" data-level="1.2.23" data-path="23-immer.html">
+<a href="https://react.vlpt.us/basic/23-immer.html">
+23. Immer 를 사용한 더 쉬운 불변성 관리
+</a>
+</li>
+<li class="chapter expanded" data-level="1.2.24" data-path="24-class-component.html">
+<a href="https://react.vlpt.us/basic/24-class-component.html">
+24. 클래스형 컴포넌트
+</a>
+</li>
+<li class="chapter expanded" data-level="1.2.25" data-path="25-lifecycle.html">
+<a href="https://react.vlpt.us/basic/25-lifecycle.html">
+25. LifeCycle Method
+</a>
+</li>
+<li class="chapter active expanded" data-level="1.2.26" data-path="26-componentDidCatch-and-sentry.html">
+<a href="https://react.vlpt.us/basic/26-componentDidCatch-and-sentry.html">
+26. componentDidCatch 로 에러 잡아내기 / Sentry 연동
+</a>
+</li>
+<li class="chapter expanded" data-level="1.2.27" data-path="27-useful-tools.html">
+<a href="https://react.vlpt.us/basic/27-useful-tools.html">
+27. 리액트 개발 할 때 사용하면 편리한 도구들 - Prettier, ESLint, Snippet
+</a>
+ </li>
+<li class="chapter expanded" data-level="1.2.28" data-path="CONCLUSION.html">
+<a href="https://react.vlpt.us/basic/CONCLUSION.html">
+리액트 입문 마무리
+</a>
+</li>
+</ul>
+</li>
+<li class="chapter " data-level="1.3" data-path="../styling/">
+<a href="https://react.vlpt.us/styling/">
+2장. 리액트 컴포넌트 스타일링하기
+<i class="exc-trigger fa"></i></a>
+<ul class="articles">
+<li class="chapter expanded" data-level="1.3.1" data-path="../styling/01-sass.html">
+<a href="https://react.vlpt.us/styling/01-sass.html">
+1. Sass
+</a>
+</li>
+<li class="chapter expanded" data-level="1.3.2" data-path="../styling/02-css-module.html">
+<a href="https://react.vlpt.us/styling/02-css-module.html">
+2. CSS Module
+</a>
+</li>
+<li class="chapter expanded" data-level="1.3.3" data-path="../styling/03-styled-components.html">
+<a href="https://react.vlpt.us/styling/03-styled-components.html">
+3. styled-components
+</a>
+</li>
+<li class="chapter expanded" data-level="1.3.4" data-path="../styling/CONCLUSION.html">
+<a href="https://react.vlpt.us/styling/CONCLUSION.html">
+정리
+</a>
+</li>
+</ul>
+</li>
+<li class="chapter " data-level="1.4" data-path="../mashup-todolist/">
+<a href="https://react.vlpt.us/mashup-todolist/">
+3장. 멋진 투두리스트 만들기
+<i class="exc-trigger fa"></i></a>
+<ul class="articles">
+<li class="chapter expanded" data-level="1.4.1" data-path="../mashup-todolist/01-create-components.html">
+<a href="https://react.vlpt.us/mashup-todolist/01-create-components.html">
+1. 컴포넌트 만들기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.4.2" data-path="../mashup-todolist/02-manage-state.html">
+<a href="https://react.vlpt.us/mashup-todolist/02-manage-state.html">
+2. Context API를 활용한 상태 관리
+</a>
+</li>
+<li class="chapter expanded" data-level="1.4.3" data-path="../mashup-todolist/03-implement.html">
+<a href="https://react.vlpt.us/mashup-todolist/03-implement.html">
+3. 기능 구현하기
+</a>
+</li>
+</ul>
+</li>
+<li class="chapter " data-level="1.5" data-path="../integrate-api/">
+<a href="https://react.vlpt.us/integrate-api/">
+4장. API 연동하기
+<i class="exc-trigger fa"></i></a>
+<ul class="articles">
+<li class="chapter expanded" data-level="1.5.1" data-path="../integrate-api/01-basic.html">
+<a href="https://react.vlpt.us/integrate-api/01-basic.html">
+1. API 연동의 기본
+</a>
+</li>
+<li class="chapter expanded" data-level="1.5.2" data-path="../integrate-api/02-useReducer.html">
+<a href="https://react.vlpt.us/integrate-api/02-useReducer.html">
+2. useReducer 로 요청 상태 관리하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.5.3" data-path="../integrate-api/03-useAsync.html">
+<a href="https://react.vlpt.us/integrate-api/03-useAsync.html">
+3. useAsync 커스텀 Hook 만들어서 사용하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.5.4" data-path="../integrate-api/04-react-async.html">
+<a href="https://react.vlpt.us/integrate-api/04-react-async.html">
+4. react-async 로 요청 상태 관리하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.5.5" data-path="../integrate-api/05-using-with-context.html">
+<a href="https://react.vlpt.us/integrate-api/05-using-with-context.html">
+5. Context 와 함께 사용하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.5.6" data-path="../integrate-api/CONCLUSION.html">
+<a href="https://react.vlpt.us/integrate-api/CONCLUSION.html">
+정리
+</a>
+</li>
+</ul>
+</li>
+<li class="chapter " data-level="1.6" data-path="../react-router/">
+<a href="https://react.vlpt.us/react-router/">
+5장. 리액트 라우터
+<i class="exc-trigger fa"></i></a>
+<ul class="articles">
+<li class="chapter expanded" data-level="1.6.1" data-path="../react-router/01-concepts.html">
+<a href="https://react.vlpt.us/react-router/01-concepts.html">
+1. 프로젝트 준비 및 기본적인 사용법
+</a>
+</li>
+<li class="chapter expanded" data-level="1.6.2" data-path="../react-router/02-params-and-query.html">
+<a href="https://react.vlpt.us/react-router/02-params-and-query.html">
+2. 파라미터와 쿼리
+</a>
+</li>
+<li class="chapter expanded" data-level="1.6.3" data-path="../react-router/03-subroutes.html">
+<a href="https://react.vlpt.us/react-router/03-subroutes.html">
+3. 서브라우트
+</a>
+</li>
+<li class="chapter expanded" data-level="1.6.4" data-path="../react-router/04-extra.html">
+<a href="https://react.vlpt.us/react-router/04-extra.html">
+4. 리액트 라우터 부가기능
+</a>
+</li>
+<li class="chapter expanded" data-level="1.6.5" data-path="../react-router/05-use-router-hook.html">
+<a href="https://react.vlpt.us/react-router/05-use-router-hook.html">
+5. useReactRouter Hook 사용하기
+</a>
+</li>
+</ul>
+</li>
+<li class="chapter expanded" data-level="1.7" data-path="../redux/">
+<a href="https://react.vlpt.us/redux/">
+6장. 리덕스
+<i class="exc-trigger fa"></i></a>
+ <ul class="articles">
+<li class="chapter expanded" data-level="1.7.1" data-path="../redux/01-keywords.html">
+<a href="https://react.vlpt.us/redux/01-keywords.html">
+1. 리덕스에서 사용되는 키워드 숙지하기
+</a>
+</li>
+<li class="chapter " data-level="1.7.2" data-path="../redux/02-rules.html">
+<a href="https://react.vlpt.us/redux/02-rules.html">
+2. 리덕스의 3가지 규칙
+</a>
+</li>
+<li class="chapter " data-level="1.7.3" data-path="../redux/03-prepare.html">
+<a href="https://react.vlpt.us/redux/03-prepare.html">
+3. 리덕스 사용 할 준비하기
+</a>
+</li>
+<li class="chapter " data-level="1.7.4" data-path="../redux/04-make-modules.html">
+<a href="https://react.vlpt.us/redux/04-make-modules.html">
+4. 리덕스 모듈 만들기
+</a>
+</li>
+<li class="chapter " data-level="1.7.5" data-path="../redux/05-counter.html">
+<a href="https://react.vlpt.us/redux/05-counter.html">
+5. 카운터 구현하기
+</a>
+</li>
+<li class="chapter " data-level="1.7.6" data-path="../redux/06-redux-devtools.html">
+<a href="https://react.vlpt.us/redux/06-redux-devtools.html">
+6. 리덕스 개발자도구 적용하기
+</a>
+</li>
+<li class="chapter " data-level="1.7.7" data-path="../redux/07-implement-todos.html">
+<a href="https://react.vlpt.us/redux/07-implement-todos.html">
+7. 할 일 목록 구현하기
+</a>
+</li>
+<li class="chapter " data-level="1.7.8" data-path="../redux/08-optimize-useSelector.html">
+<a href="https://react.vlpt.us/redux/08-optimize-useSelector.html">
+8. useSelector 최적화
+</a>
+</li>
+<li class="chapter " data-level="1.7.9" data-path="../redux/09-connect.html">
+<a href="https://react.vlpt.us/redux/09-connect.html">
+9. connect 함수
+</a>
+</li>
+<li class="chapter expanded" data-level="1.7.10" data-path="../redux/CONCLUSION.html">
+<a href="https://react.vlpt.us/redux/CONCLUSION.html">
+정리
+</a>
+</li>
+</ul>
+</li>
+<li class="chapter expanded" data-level="1.8" data-path="../redux-middleware/">
+<a href="https://react.vlpt.us/redux-middleware/">
+7장. 리덕스 미들웨어
+<i class="exc-trigger fa"></i></a>
+<ul class="articles">
+<li class="chapter expanded" data-level="1.8.1" data-path="../redux-middleware/01-prepare.html">
+<a href="https://react.vlpt.us/redux-middleware/01-prepare.html">
+1. 리덕스 프로젝트 준비하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.8.2" data-path="../redux-middleware/02-make-middleware.html">
+<a href="https://react.vlpt.us/redux-middleware/02-make-middleware.html">
+2. 미들웨어 만들어보고 이해하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.8.3" data-path="../redux-middleware/03-logger-and-devtools.html">
+<a href="https://react.vlpt.us/redux-middleware/03-logger-and-devtools.html">
+3. redux-logger 사용 및 미들웨어와 DevTools 함께 사용하기
+</a>
+</li>
+<li class="chapter " data-level="1.8.4" data-path="../redux-middleware/04-redux-thunk.html">
+<a href="https://react.vlpt.us/redux-middleware/04-redux-thunk.html">
+4. redux-thunk
+</a>
+</li>
+<li class="chapter " data-level="1.8.5" data-path="../redux-middleware/05-redux-thunk-with-promise.html">
+<a href="https://react.vlpt.us/redux-middleware/05-redux-thunk-with-promise.html">
+5. redux-thunk로 프로미스 다루기
+</a>
+</li>
+<li class="chapter " data-level="1.8.6" data-path="../redux-middleware/06-fix-reloading.html">
+<a href="https://react.vlpt.us/redux-middleware/06-fix-reloading.html">
+6. API 재로딩 문제 해결하기
+</a>
+</li>
+<li class="chapter " data-level="1.8.7" data-path="../redux-middleware/07-router-with-thunk.html">
+<a href="https://react.vlpt.us/redux-middleware/07-router-with-thunk.html">
+7. thunk에서 라우터 연동하기
+</a>
+</li>
+<li class="chapter " data-level="1.8.8" data-path="../redux-middleware/08-json-server.html">
+<a href="https://react.vlpt.us/redux-middleware/08-json-server.html">
+8. json-server
+</a>
+</li>
+<li class="chapter " data-level="1.8.9" data-path="../redux-middleware/09-cors-and-proxy.html">
+<a href="https://react.vlpt.us/redux-middleware/09-cors-and-proxy.html">
+9. CORS 와 Webpack DevServer Proxy
+</a>
+</li>
+<li class="chapter " data-level="1.8.10" data-path="../redux-middleware/10-redux-saga.html">
+<a href="https://react.vlpt.us/redux-middleware/10-redux-saga.html">
+10. redux-saga
+</a>
+</li>
+<li class="chapter " data-level="1.8.11" data-path="../redux-middleware/11-redux-saga-with-promise.html">
+<a href="https://react.vlpt.us/redux-middleware/11-redux-saga-with-promise.html">
+11. redux-saga 로 프로미스 다루기
+</a>
+</li>
+<li class="chapter " data-level="1.8.12" data-path="../redux-middleware/12-redux-saga-with-router.html">
+<a href="https://react.vlpt.us/redux-middleware/12-redux-saga-with-router.html">
+12. saga에서 라우터 연동하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.8.13" data-path="../redux-middleware/CONCLUSION.html">
+<a href="https://react.vlpt.us/redux-middleware/CONCLUSION.html">
+ 정리
+</a>
+</li>
+</ul>
+</li>
+<li class="chapter expanded" data-level="1.9" data-path="../using-typescript/">
+<a href="https://react.vlpt.us/using-typescript/">
+8장. 리액트 프로젝트에서 타입스크립트 사용하기
+<i class="exc-trigger fa"></i></a>
+<ul class="articles">
+<li class="chapter expanded" data-level="1.9.1" data-path="../using-typescript/01-practice.html">
+<a href="https://react.vlpt.us/using-typescript/01-practice.html">
+1. 타입스크립트 연습
+</a>
+</li>
+<li class="chapter expanded" data-level="1.9.2" data-path="../using-typescript/02-ts-react-basic.html">
+<a href="https://react.vlpt.us/using-typescript/02-ts-react-basic.html">
+2. 리액트 컴포넌트 타입스크립트로 작성하기
+</a>
+</li>
+<li class="chapter expanded" data-level="1.9.3" data-path="../using-typescript/03-ts-manage-state.html">
+<a href="https://react.vlpt.us/using-typescript/03-ts-manage-state.html">
+3. 타입스크립트로 리액트 상태 관리하기
+</a>
+</li>
+<li class="chapter " data-level="1.9.4" data-path="../using-typescript/04-ts-context.html">
+<a href="https://react.vlpt.us/using-typescript/04-ts-context.html">
+4. TypeScript 와 Context API 활용하기
+</a>
+</li>
+<li class="chapter " data-level="1.9.5" data-path="../using-typescript/05-ts-redux.html">
+<a href="https://react.vlpt.us/using-typescript/05-ts-redux.html">
+5. TypeScript 에서 리덕스 프로처럼 사용하기
+</a>
+</li>
+<li class="chapter " data-level="1.9.6" data-path="../using-typescript/06-ts-redux-middleware.html">
+<a href="https://react.vlpt.us/using-typescript/06-ts-redux-middleware.html">
+6.타입스크립트에서 리덕스 미들웨어 사용하기 (redux-thunk, redux-saga)
+</a>
+</li>
+</ul>
+</li>
+<li class="divider"></li>
+<li>
+<a href="https://www.gitbook.com/" target="blank" class="gitbook-link" style="display: none;">
+Published with GitBook
+</a>
+</li>
+</ul>
+</nav>
+</div>
+<div class="book-body">
+<div class="body-inner">
+<div class="book-header" role="navigation">
+
+<a class="btn pull-left js-toolbar-action" aria-label="" href="https://react.vlpt.us/basic/26-componentDidCatch-and-sentry.html#"><i class="fa fa-align-justify"></i></a><a class="btn pull-right js-toolbar-action" aria-label="GitHub" href="https://react.vlpt.us/basic/26-componentDidCatch-and-sentry.html#"><i class="fa fa-github"></i></a><div class="dropdown pull-right js-toolbar-action"><a class="btn toggle-dropdown" aria-label="Share" href="https://react.vlpt.us/basic/26-componentDidCatch-and-sentry.html#"><i class="fa fa-share-alt"></i></a><div class="dropdown-menu dropdown-left"><div class="dropdown-caret"><span class="caret-outer"></span><span class="caret-inner"></span></div><div class="buttons"><button class="button size-5 ">Facebook</button><button class="button size-5 ">Google+</button><button class="button size-5 ">Twitter</button><button class="button size-5 ">Weibo</button><button class="button size-5 ">Instapaper</button></div></div></div><a class="btn pull-right js-toolbar-action" aria-label="" href="https://react.vlpt.us/basic/26-componentDidCatch-and-sentry.html#"><i class="fa fa-facebook"></i></a><a class="btn pull-right js-toolbar-action" aria-label="" href="https://react.vlpt.us/basic/26-componentDidCatch-and-sentry.html#"><i class="fa fa-twitter"></i></a><h1>
+<i class="fa fa-circle-o-notch fa-spin"></i>
+<a href="https://react.vlpt.us/">26. componentDidCatch 로 에러 잡아내기 / Sentry 연동</a>
+</h1>
+</div>
+<div class="page-wrapper" tabindex="-1" role="main">
+<div class="page-inner">
+<div id="book-search-results">
+<div class="search-noresults">
+<section class="normal markdown-section">
+<h2 id="26-componentdidcatch-로-에러-잡아내기--sentry-연동">26. componentDidCatch 로 에러 잡아내기 / Sentry 연동</h2>
+<p>이번에는, <code>componentDidCatch</code> 라는 생명주기 메서드를 사용하여 리액트 애플리케이션에서 발생하는 에러를 처리하는 방법을 알아보도록 하겠습니다.</p>
+<p>먼저, 이번 튜토리얼을 진행 하기 위하여 새로운 프로젝트를 만들어주세요.</p>
+<pre><code class="lang-bash">$ npx create-react-app error-catch
+</code></pre>
+<p>그 다음에, 해당 디렉터리를 에디터로 열고, 개발 서버를 시작해주세요.</p>
+<pre><code>$ cd error-catch
+$ yarn start
+</code></pre><h3 id="리액트-앱에서-에러가-발생하는-상황">리액트 앱에서 에러가 발생하는 상황</h3>
+<p>리액트 앱이 어떤 상황에서 에러가 발생하게 되는지 알아봅시다.</p>
+<p>우선, User.js 라는 파일을 src 디렉터리에 생성하여 다음과 같이 컴포넌트 코드를 작성해보세요.</p>
+<h4 id="userjs">User.js</h4>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">User</span>(<span class="hljs-params">{ user }</span>) </span>{
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">b</span>&gt;</span>ID<span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span>: {user.id}
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">b</span>&gt;</span>Username:<span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span> {user.username}
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+  );
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> User;
+</code></pre>
+<p>이 컴포넌트는 <code>user</code> 라는 props 를 받아와서 해당 데이터의 <code>id</code> 와 <code>username</code> 값을 보여줍니다.</p>
+<p>이 컴포넌트를 한번 App 컴포넌트에서 사용해보세요.</p>
+<h4 id="appjs">App.js</h4>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<span class="hljs-keyword">import</span> User <span class="hljs-keyword">from</span> <span class="hljs-string">'./User'</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> user = {
+    id: <span class="hljs-number">1</span>,
+    username: <span class="hljs-string">'velopert'</span>
+  };
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">User</span> <span class="hljs-attr">user</span>=<span class="hljs-string">{user}</span> /&gt;</span>;
+}
+
+export default App;
+</span></code></pre>
+<p><img src="./26. componentDidCatch 로 에러 잡아내기 _ Sentry 연동 · GitBook_files/yyQtF97.png" alt=""></p>
+<p>이런 결과가 나타날 것입니다. 하지만, 만약에 <code>user</code> props 를 제대로 설정하지 않았다면 어떨까요?</p>
+<h4 id="appjs">App.js</h4>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<span class="hljs-keyword">import</span> User <span class="hljs-keyword">from</span> <span class="hljs-string">'./User'</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> user = {
+    id: <span class="hljs-number">1</span>,
+    username: <span class="hljs-string">'velopert'</span>
+  };
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">User</span> /&gt;</span>;
+}
+
+export default App;
+</span></code></pre>
+<p><img src="./26. componentDidCatch 로 에러 잡아내기 _ Sentry 연동 · GitBook_files/iGioIFG.png" alt=""></p>
+<p>이렇게 에러가 발생하게 됩니다. 이 화면은 개발환경에서만 보여지는 에러화면인데요, 우측 상단의 X 버튼을 눌러보시면 실제 환경에서 보여지는 화면이 나타나게 됩니다.</p>
+<p><img src="./26. componentDidCatch 로 에러 잡아내기 _ Sentry 연동 · GitBook_files/sdt9TRl.png" alt=""></p>
+<p>실제 환경에서는 아무것도 렌더링되지 않고 흰 페이지만 나타나게 됩니다. 만약에 여러분이 만든 서비스에서 사용자가 이러한 상황을 겪게 된다면 상당히 당황스럽겠지요?</p>
+<p>이번 튜토리얼에서는 이런 상황에 이렇게 흰 화면을 보여주는 대신에, 에러가 발생했다는 것을 알려주는 방법에 대하여 알아볼것입니다.</p>
+<p>이에 대하여 진행하기 전에 어떤 상황에 또 이런 에러가 발생하는지 알아보고, 에러를 방지 할 수 있는 방법에 대해서도 알아보겠습니다.</p>
+<p>일단, 방금과 같은 에러를 방지하려면 User 컴포넌트에서 다음과 같은 작업을 하시면 됩니다.</p>
+<h4 id="userjs">User.js</h4>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">User</span>(<span class="hljs-params">{ user }</span>) </span>{
+  <span class="hljs-keyword">if</span> (!user) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+  }
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">b</span>&gt;</span>ID<span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span>: {user.id}
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">b</span>&gt;</span>Username:<span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span> {user.username}
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+  );
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> User;
+</code></pre>
+<p>이렇게 하시면 <code>user</code> 값이 존재하지 않는다면 <code>null</code> 을 렌더링하게 됩니다. 리액트 컴포넌트에서 <code>null</code> 을 렌더링하게되면 아무것도 나타나지 않게 됩니다. 이를 "null checking" 이라고 부릅니다.</p>
+<p>코드를 이렇게 작성해주시면, 화면에 아무것도 보여지지 않는것은 마찬가지이지만, 적어도 에러는 발생하지 않습니다. 보통 데이터를 네트워크 요청을 통하여 나중에 데이터를 받아오게 되는 상황이 발생하는 경우 이렇게 데이터가 없으면 <code>null</code> 을 보여주거나, 아니면 <code>&lt;div&gt;로딩중&lt;/div&gt;</code>과 같은 결과물을 렌더링하시면 됩니다.</p>
+<p>에러가 발생 할 수 있는 또 다른 상황에 대해서 알아봅시다.</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Users</span>(<span class="hljs-params">{ users }</span>) </span>{
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+      {users.map(user =&gt; (
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{user.id}</span>&gt;</span>{user.username}<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+      ))}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span>
+  );
+}
+</code></pre>
+<p>만약에 위와 같은 컴포넌트에 <code>users</code> 값을 설정해주지 않았을 때에도 렌더링 과정에서 오류가 발생하게 됩니다. <code>users</code> 가 <code>undefined</code> 이면 당연히 배열의 내장함수 <code>map</code> 또한 존재하지 않기 때문이죠.</p>
+<p>때문에 다음과 같이 <code>users</code> 가 없으면 다른 결과물을 반환하는 작업을 해주셔야 합니다.</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Users</span>(<span class="hljs-params">{ users }</span>) </span>{
+  <span class="hljs-keyword">if</span> (!users) <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+      {users.map(user =&gt; (
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{user.id}</span>&gt;</span>{user.username}<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+      ))}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span>
+  );
+}
+</code></pre>
+<p>또 다른 상황으로는 다음과 같은 상황이 있습니다.</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Users</span>(<span class="hljs-params">{ users, onToggle }</span>) </span>{
+  <span class="hljs-keyword">if</span> (!users) <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+      {users.map(user =&gt; (
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{user.id}</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> onToggle(user.id)}&gt;
+          {user.username}
+        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+      ))}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span>
+  );
+}
+</code></pre>
+<p>만약에 위 컴포넌트에 <code>onToggle</code> props 를 전달하지 않으면, 에러가 발생하게 될 것입니다. 에러를 방지하기 위해선 <code>onToggle</code> 을 props 로 넣어주는 것을 까먹지 않기 위해서 다음과 같이 <code>defaultProps</code> 설정을 해주는 방법이 있습니다.</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Users</span>(<span class="hljs-params">{ users, onToggle }</span>) </span>{
+  <span class="hljs-keyword">if</span> (!users) <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+      {users.map(user =&gt; (
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{user.id}</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> onToggle(user.id)}&gt;
+          {user.username}
+        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+      ))}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span>
+  );
+}
+
+Users.defaultProps = {
+  onToggle: () =&gt; {
+    <span class="hljs-built_in">console</span>.warn(<span class="hljs-string">'onToggle is missing!'</span>);
+  }
+};
+</code></pre>
+<p>다른 솔루션으로는 <a href="https://ko.reactjs.org/docs/typechecking-with-proptypes.html" target="_blank">PropTypes</a> 라는 것을 사용하는 방법도 있습니다. PropTypes 를 사용하면 필요한 데이터를 넣지 않았을 때 개발 단계에서 경고를 볼 수 있기 때문에 실수로 props 설정을 깜박하는 일을 방지 할 수 있습니다. 단, 사용법이 좀 불편하고 귀찮기 때문에 이를 사용하는 것 대신에 나중에 TypeScript 또는 Flow 를 사용해서 관리 하는 것을 권장 드립니다. (이 강좌에서는 추후 TypeScript 를 사용하게 됩니다.)</p>
+<h3 id="componentdidcatch-로-에러-잡아내기">componentDidCatch 로 에러 잡아내기</h3>
+<p>자, 이번에는 <code>componentDidCatch</code> 생명주기 메서드를 사용하여 우리가 사전에 예외처리를 하지 않은 에러가 발생 했을 때 사용자에게 에러가 발생했다고 알려주는 화면을 보여줘봅시다.</p>
+<p>우선, src 디렉터리에 ErrorBoundary 라는 컴포넌트를 만들어보세요.</p>
+<h4 id="errorboundaryjs">ErrorBoundary.js</h4>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ErrorBoundary</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+  state = {
+    error: <span class="hljs-literal">false</span>
+  };
+
+  componentDidCatch(error, info) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'에러가 발생했습니다.'</span>);
+    <span class="hljs-built_in">console</span>.log({
+      error,
+      info
+    });
+    <span class="hljs-keyword">this</span>.setState({
+      error: <span class="hljs-literal">true</span>
+    });
+  }
+
+  render() {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.state.error) {
+      <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>에러 발생!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>;
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.props.children;
+  }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> ErrorBoundary;
+</code></pre>
+<p>여기서 <code>componentDidCatch</code> 메서드에는 두개의 파라미터를 사용하게 되는데 첫번째 파라미터는 에러의 내용, 두번째 파라미터에서는 에러가 발생한 위치를 알려줍니다.</p>
+<p>이 메서드에서 현재 컴포넌트 상태 <code>error</code> 를 <code>true</code> 로 설정을 해주고, <code>render()</code> 메서드에서는 만약 <code>this.state.error</code> 값이 <code>true</code> 라면 에러가 발생했다는 문구를 렌더링하도록 하고 그렇지 않다면 <code>this.props.children</code> 을 렌더링하도록 처리를 해주세요.</p>
+<p>그 다음에 App 컴포넌트에서 <code>&lt;User /&gt;</code> 컴포넌트를 감싸주세요.</p>
+<h4 id="appjs">App.js</h4>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<span class="hljs-keyword">import</span> User <span class="hljs-keyword">from</span> <span class="hljs-string">'./User'</span>;
+<span class="hljs-keyword">import</span> ErrorBoundary <span class="hljs-keyword">from</span> <span class="hljs-string">'./ErrorBoundary'</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> user = {
+    id: <span class="hljs-number">1</span>,
+    username: <span class="hljs-string">'velopert'</span>
+  };
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">ErrorBoundary</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">User</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ErrorBoundary</span>&gt;</span>
+  );
+}
+
+export default App;
+</span></code></pre>
+<p>그리고 이전에 User 컴포넌트에서 null checking 을 하는 코드를 주석처리해보세요.</p>
+<h4 id="userjs">User.js</h4>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">User</span>(<span class="hljs-params">{ user }</span>) </span>{
+  <span class="hljs-comment">// if (!user) {</span>
+  <span class="hljs-comment">//   return null;</span>
+  <span class="hljs-comment">// }</span>
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">b</span>&gt;</span>ID<span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span>: {user.id}
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">b</span>&gt;</span>Username:<span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span> {user.username}
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+  );
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> User;
+</code></pre>
+<p>그리고 나서 브라우저를 열어보면 다음과 같이 아까전에 봤었던 에러 화면이 나타나겠지만,</p>
+<p><img src="./26. componentDidCatch 로 에러 잡아내기 _ Sentry 연동 · GitBook_files/mNOml2Z.png" alt=""></p>
+<p>우측 상단의 X 버튼을 누르고 나면 흰 화면이 아닌 "에러 발생!" 이라는 문구가 보여지게 될 것입니다.</p>
+<p><img src="./26. componentDidCatch 로 에러 잡아내기 _ Sentry 연동 · GitBook_files/lTIGuay.png" alt=""></p>
+<h3 id="sentry-연동">Sentry 연동</h3>
+<p><code>componentDidCatch</code> 를 사용해서 앱에서 에러가 발생했을 때 사용자에게 에러가 발생했음을 인지시켜줄 수 는 있지만, <code>componentDidCatch</code> 가 실제로 호출되는 일은 서비스에서 "없어야 하는게" 맞습니다. 만약에 우리가 놓진 에러가 있다면, 우리가 이를 알아내어 예외 처리를 해주어야 합니다.</p>
+<p>우리는 발견해내지 못했지만, 사용자가 발견하게 되는 그런 오류들이 있겠죠? 그럴 때는 <code>componentDidCatch</code> 에서 <code>error</code> 와 <code>info</code> 값을 네트워크를 통하여 다른 곳으로 전달을 해주면 됩니다. 다만 이를 위해서 따로 서버를 만드는건 굉장히 번거로운 작업입니다. 굉장히 괜찮은 솔루션으로, <a href="https://sentry.io/" target="_blank">Sentry</a> 라는 상용서비스가 있습니다. 돈내고 쓰면 더 많은 작업을 할 수 있지만, 무료 모델로도 충분히 사용을 할 수 있으므로, 장기적으로 작업하는 프로젝트에 적용을 하시는 것을 권장합니다.</p>
+<p><img src="./26. componentDidCatch 로 에러 잡아내기 _ Sentry 연동 · GitBook_files/HhBCTcs.png" alt=""></p>
+<p><a href="https://sentry.io/" target="_blank">Sentry</a> 에서 회원가입 및 로그인을 하시고 새 프로젝트를 생성하세요. 회원가입 과정에서는 팀 이름은 실제로 속해있는 곳이 없다면 아무거나 자유롭게 입력하셔도 됩니다.</p>
+<p><img src="./26. componentDidCatch 로 에러 잡아내기 _ Sentry 연동 · GitBook_files/0FKG4k8.png" alt=""></p>
+<p>React 를 선택 후 프로젝트에 이름을 작성해주세요.</p>
+<p>그러면 다음과 같이 Sentry 를 여러분의 프로젝트에 적용하는 방법이 나타납니다.</p>
+<p><img src="./26. componentDidCatch 로 에러 잡아내기 _ Sentry 연동 · GitBook_files/4tkMVsy.png" alt=""></p>
+<p>우리가 아까 만든 프로젝트에 한번 적용을 해보겠습니다.</p>
+<p>프로젝트 디렉터리에서 <code>@sentry/browser</code> 를 설치하세요.</p>
+<pre><code>$ yarn add @sentry/browser
+</code></pre><p>그리고 아까 Sentry 페이지에서 나타났던 Instruction 에 나타났던 대로 작업을 해주시면 됩니다.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">'./index.css'</span>;
+<span class="hljs-keyword">import</span> App <span class="hljs-keyword">from</span> <span class="hljs-string">'./App'</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> Sentry <span class="hljs-keyword">from</span> <span class="hljs-string">'@sentry/browser'</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> serviceWorker <span class="hljs-keyword">from</span> <span class="hljs-string">'./serviceWorker'</span>;
+
+Sentry.init({
+  dsn: <span class="hljs-string">'https://87fba3b585d940f58806848807325ffb@sentry.io/1493504'</span>
+});
+
+ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">App</span> /&gt;</span>, document.getElementById('root'));
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();
+</span></code></pre>
+<p><code>Sentry.init()</code> 을 사용 할 때 넣는 <code>dsn</code> 값은 프로젝트마다 다르니, 여러분의 <code>dsn</code> 값을 넣어주세요.</p>
+<p>작업을 완료 후, 리액트 앱을 브라우저에서 새로고침을 해보세요.</p>
+<p><img src="./26. componentDidCatch 로 에러 잡아내기 _ Sentry 연동 · GitBook_files/5GXxdu3.png" alt=""></p>
+<p>그러면 이렇게 실시간으로 확인을 할 수 있습니다.</p>
+<p><img src="./26. componentDidCatch 로 에러 잡아내기 _ Sentry 연동 · GitBook_files/jjKTGGK.png" alt=""></p>
+<p>그런데 여기서 끝이 아닙니다. 이렇게 에러가 발생 했을 때 Sentry 쪽으로 전달이 되는 것은 개발모드일땐 별도의 작업을 하지 않아도 잘 되지만, 나중에 프로젝트를 완성하여 실제 배포를 하게 됐을 때는 <code>componentDidCatch</code> 로 이미 에러를 잡아줬을 경우 Sentry 에게 자동으로 전달이 되지 않습니다.</p>
+<p>때문에 ErrorBoundary 에서 다음과 같이 처리를 해주셔야 합니다.</p>
+<h4 id="errorboundaryjs">ErrorBoundary.js</h4>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> Sentry <span class="hljs-keyword">from</span> <span class="hljs-string">'@sentry/browser'</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ErrorBoundary</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+  state = {
+    error: <span class="hljs-literal">false</span>
+  };
+
+  componentDidCatch(error, info) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'에러가 발생했습니다.'</span>);
+    <span class="hljs-built_in">console</span>.log({
+      error,
+      info
+    });
+    <span class="hljs-keyword">this</span>.setState({
+      error: <span class="hljs-literal">true</span>
+    });
+    <span class="hljs-keyword">if</span> (process.env.NODE_ENV === <span class="hljs-string">'production'</span>) {
+      Sentry.captureException(error, { extra: info });
+    }
+  }
+
+  render() {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.state.error) {
+      <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>에러 발생!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>;
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.props.children;
+  }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> ErrorBoundary;
+</code></pre>
+<p><code>componentDidCatch</code> 에서 <code>process.env.NODE_ENV</code> 값을 조회했는데요, 이를 통하여 현재 환경에 개발 환경인지 프로덕션 환경인지 (production / development) 확인 할 수 있습니다. 개발 환경에서는 <code>captureException</code> 을 사용 할 필<a href="http://localhost:5000/%EC%9A%94%EA%B0%80" target="_blank">http://localhost:5000/요가</a> 없으므로 프로덕션에서만 이 작업을 해주었습니다.</p>
+<h3 id="프로덕션-환경에서-잘-작동하는지-확인하기">프로덕션 환경에서 잘 작동하는지 확인하기</h3>
+<p>프로덕션 환경에서도 잘 작동하는지 확인하기 위해서는 프로젝트를 빌드해주어야 합니다. 프로젝트 디렉터리에서 다음 명령어를 실행해주세요.</p>
+<pre><code>$yarn build
+</code></pre><p>조금 기다리면 결과물이 build 디렉터리에 나타납니다. build 디렉터리에 있는 파일들을 제공하는 서버를 실행하기 위해서는 다음 명령어를 실행해주세요.</p>
+<pre><code>$ npx serve ./build
+</code></pre><p><a href="https://www.npmjs.com/package/serve" target="_blank">serve</a> 는 웹서버를 열어서 특정 디렉터리에 있는 파일을 제공해주는 도구입니다.</p>
+<p><a href="http://localhost:5000/" target="_blank">http://localhost:5000/</a> 을 브라우저로 들어가본 뒤, Sentry 에 새로운 항목이 추가됐는지 확인해보세요.</p>
+<p><img src="./26. componentDidCatch 로 에러 잡아내기 _ Sentry 연동 · GitBook_files/ZBqyGJ1.png" alt=""></p>
+<p>이번에는 아까와 달리 에러가 어디서 발생했는지 상세한 정보를 알아보기 쉽지가 않은데요,</p>
+<p><img src="./26. componentDidCatch 로 에러 잡아내기 _ Sentry 연동 · GitBook_files/2rfDI91.png" alt=""></p>
+<p>이는 빌드 과정에서 코드가 minify 되면서 이름이 c, Xo, Ui, qa 이런식으로 축소됐기 때문입니다.</p>
+<p>만약에 코드 위치를 제대로 파악을 하고 싶다면 이 <a href="https://docs.sentry.io/platforms/javascript/sourcemaps/#webpack" target="_blank">링크</a> 를 참조하시면 됩니다.</p>
+<p>Sentry 에서 minified 되지 않은 이름을 보려면 Sourcemap 이란것을 사용해야 하는데요, 빌드를 할 때마다 <a href="https://docs.sentry.io/platforms/javascript/sourcemaps/#webpack" target="_blank">자동으로 업로드</a> 되도록 설정 할 수 있고, <a href="https://docs.sentry.io/platforms/javascript/sourcemaps/#uploading-source-maps-to-sentry" target="_blank">직접 업로드</a> 할 수도 있고, 만약에 <a href="https://docs.sentry.io/platforms/javascript/sourcemaps/#hosting-source-map-files" target="_blank">Sourcemap 파일이 공개</a> 되어 있다면 별도의 설정 없이 바로 minified 되지 않은 이름을 볼 수 있습니다.</p>
+<h3 id="정리">정리</h3>
+<p>이번 튜토리얼에서는 <code>componentDidCatch</code> 의 사용법을 알아보고, Sentry 와 연동하는 방법도 알아보았습니다. Sentry와 연동하는 작업은 필수는 아니지만, 해두면 여러분의 프로젝트에서 발생 할 수 있는 버그를 관리 할 때 매우 도움이 될 것입니다.</p>
+<script>
+      function attachComments() {
+        const el = document.querySelector('.markdown-section');
+        if (!el) return;
+        const script = document.createElement('script');
+        script.src = 'https://utteranc.es/client.js';
+        script.setAttribute('repo', 'velopert/react-tutorial');
+        script.setAttribute('issue-term', 'title');
+        script.setAttribute('crossorigin', 'anonymous');
+        script.setAttribute('label', 'comments');
+        el.appendChild(script);
+      }
+      setTimeout(attachComments, 100);
+    </script>
+<div class="utterances">
+    <iframe class="utterances-frame" title="Comments" scrolling="no" src="./26. componentDidCatch 로 에러 잡아내기 _ Sentry 연동 · GitBook_files/utterances.html" loading="lazy"></iframe>
+  </div></section>
+</div>
+<div class="search-results">
+<div class="has-results">
+<h1 class="search-results-title"><span class="search-results-count"></span> results matching "<span class="search-query"></span>"</h1>
+<ul class="search-results-list"></ul>
+</div>
+<div class="no-results">
+<h1 class="search-results-title">No results matching "<span class="search-query"></span>"</h1>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<a href="https://react.vlpt.us/basic/25-lifecycle.html" class="navigation navigation-prev " aria-label="Previous page: 25. LifeCycle Method">
+<i class="fa fa-angle-left"></i>
+</a>
+<a href="https://react.vlpt.us/basic/27-useful-tools.html" class="navigation navigation-next " aria-label="Next page: 27. 리액트 개발 할 때 사용하면 편리한 도구들 - Prettier, ESLint, Snippet" style="margin-right: 16px;">
+<i class="fa fa-angle-right"></i>
+</a>
+</div>
+<script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"26. componentDidCatch 로 에러 잡아내기 / Sentry 연동","level":"1.2.26","depth":2,"next":{"title":"27. 리액트 개발 할 때 사용하면 편리한 도구들 - Prettier, ESLint, Snippet","level":"1.2.27","depth":2,"path":"basic/27-useful-tools.md","ref":"./basic/27-useful-tools.md","articles":[]},"previous":{"title":"25. LifeCycle Method","level":"1.2.25","depth":2,"path":"basic/25-lifecycle.md","ref":"./basic/25-lifecycle.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["collapsible-chapters","comment","hide-published-with","github","edit-link"],"pluginsConfig":{"github":{"url":"https://github.com/velopert/react-tutorial"},"search":{},"collapsible-chapters":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"수정 요청하기","base":"https://github.com/velopert/react-tutorial/edit/master"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"comment":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"basic/26-componentDidCatch-and-sentry.md","mtime":"2019-06-30T08:29:44.898Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-09-25T13:34:28.960Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+<script src="./26. componentDidCatch 로 에러 잡아내기 _ Sentry 연동 · GitBook_files/gitbook.js.다운로드"></script>
+<script src="./26. componentDidCatch 로 에러 잡아내기 _ Sentry 연동 · GitBook_files/theme.js.다운로드"></script>
+<script src="./26. componentDidCatch 로 에러 잡아내기 _ Sentry 연동 · GitBook_files/collapsible-chapters.js.다운로드"></script>
+<script src="./26. componentDidCatch 로 에러 잡아내기 _ Sentry 연동 · GitBook_files/plugin.js.다운로드"></script>
+<script src="./26. componentDidCatch 로 에러 잡아내기 _ Sentry 연동 · GitBook_files/plugin.js(1).다운로드"></script>
+<script src="./26. componentDidCatch 로 에러 잡아내기 _ Sentry 연동 · GitBook_files/plugin.js(2).다운로드"></script>
+<script src="./26. componentDidCatch 로 에러 잡아내기 _ Sentry 연동 · GitBook_files/search-engine.js.다운로드"></script>
+<script src="./26. componentDidCatch 로 에러 잡아내기 _ Sentry 연동 · GitBook_files/search.js.다운로드"></script>
+<script src="./26. componentDidCatch 로 에러 잡아내기 _ Sentry 연동 · GitBook_files/lunr.min.js.다운로드"></script>
+<script src="./26. componentDidCatch 로 에러 잡아내기 _ Sentry 연동 · GitBook_files/search-lunr.js.다운로드"></script>
+<script src="./26. componentDidCatch 로 에러 잡아내기 _ Sentry 연동 · GitBook_files/buttons.js.다운로드"></script>
+<script src="./26. componentDidCatch 로 에러 잡아내기 _ Sentry 연동 · GitBook_files/fontsettings.js.다운로드"></script>
+
+
+</body></html>
