@@ -1,0 +1,12 @@
+a {
+    display: block;
+    margin: 30px;
+}
+
+.title {
+    color: blue;
+}
+
+.topic {
+    color: red;
+}

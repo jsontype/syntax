@@ -1,10 +1,20 @@
-// 변수 선언
-// let a = 1 // 변수.
-// const b = 1 // 상수(값이 안 바뀜).
-
-// 데이터 타입
-// let으로 선언, 일반 데이터타입 (값 참조형) : Number, String, Boolean
-// const로 선언, 객체 데이터타입 (주소 참조형) : Array, Object
+/*
+    변수의 데이터타입
+        Number : 실수(정수, 소수를 포함)
+        String : 문자열('hello')
+        Null : 변수안에 값이 없음 // "휴지에 심지만 있다"
+        Undefined : 변수에 값을 지정한 적이 없음 // "휴지에 심지도 없다"
+        Boolean : 논리(true/false)
+        Object : 객체 { 'key1':value1, 'key2':value2, ... } // 콘솔은 객체로 이루어져있다.
+        Array : 배열 [1, 2, 3, ...] // List라고도 부름
+        Function : 함수
+        Map : 순서가 있는 배열 // 해쉬맵, 해쉬테이블 (나중에 배울 것)
+        Set : 집합 Set {1, 2, 3} // 중복제거 집합 (나중에 배울 것)
+    
+    선언 방식
+        Number, String, Boolean (값 참조형) : let으로 선언
+        Array, Object, Function (주소 참조형, 또는 상수) : const로 선언
+*/
 
 // Number 타입
 let a = 1 // 연산 가능
@@ -31,7 +41,7 @@ console.log(`Yang`) // Backtick : 기호 `를 백틱이라 한다. 백틱을 사
 let name = 'Yang'
 let job = 'Dev'
 let age = 30
-// 백틱은 다음과 같이 사용하며, 이런 형태의 문자열을 템플릿 문자열이라고 한다.
+// 백틱은 다음과 같이 사용하며, 이런 형태의 문자열을 "템플릿 리터럴"이라고 한다.
 console.log(`
     저는 ${name}입니다. 
     직업은 ${job}입니다. 
@@ -98,22 +108,24 @@ for (let i = 0; i < userList.length; i++) {
     console.log(userList[i].id)
 }
 
-// 암묵적 캐스팅 : String > Number > Boolean 순
-const cast = 'Str' + 1 + true
-console.log(cast) // 'Str1true'라는 String이 됨
+
+
+/* 케이스 */
 
 // 변수명은 camel case로 지정한다.
 const camelCaseHere = null
 
-/*
-    변수의 데이터타입 총정리
-    Number : 실수(정수, 소수를 포함)
-    String : 문자열('hello')
-    Null : 변수안에 값이 없음 // "휴지에 심지만 있다"
-    Undefined : 변수에 값을 지정한 적이 없음 // "휴지에 심지도 없다"
-    Boolean : 논리(true/false)
-    Object : 객체 { 'key1':value1, 'key2':value2, ... } // 파이썬에서 Dict와 같음
-    Array : 배열 [1, 2, 3, ...] // 파이썬에서 List와 같음
-    Map : 순서가 있는 배열 // 해쉬맵, 해쉬테이블 (나중에 배울 것)
-    Set : 집합 Set {1, 2, 3} // 중복제거 집합 (나중에 배울 것)
-*/
+
+
+/* 캐스팅 */
+
+// 암묵적 캐스팅 : String > Number > Boolean 순
+const cast = 'Str' + 1 + true
+console.log(cast) // 'Str1true'라는 String이 됨
+
+// 직접 캐스팅 : 데이터타입을 변환 Number(), String(), Boolean(), ....
+let value = '150'
+let cast1 = Number(value)
+let cast2 = String(value)
+let cast3 = Boolean(value)
+console.log(`${cast1}, ${cast2}, ${cast3}`)

@@ -60,7 +60,7 @@ switch (device) {
     console.log('모르겠네요..')
 }
 
-// 토글링 (Toggle)
+// 토글 (Toggle)
 const switch1 = false // 초기값을 off 상태라고 한다면
 let toggle = !switch1 // 이러면 실행할 때마다 on, off를 반복하는 토글이 된다. 이를 버튼에 넣어서 쓰게 되면 그게 토글링이다.
 console.log('토글 1회 실행 값: ', toggle)
