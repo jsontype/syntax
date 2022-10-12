@@ -1,0 +1,45 @@
+[json-server]
+
+1. json-server 정의
+    프론트엔드 개발 연습을 위해서 프런트엔드 프로젝트에서 실무와 비슷한 느낌으로 하기 위하여 가짜 API 서버를 만들어주는 도구이다.
+    이 도구를 사용하면 json 파일 하나만 있으면 연습용 서버를 쉽게 구성해주므로, 직접 백엔드를 구현하지 않아도 된다.
+
+1. json-server 주의사항
+    프로덕션에서 사용하기위하여 만들어진것이 아니기 때문에 이 서버를 사용하여 실제 프로젝트를 개발하면 안된다.
+    실제 프로젝트를 개발할 때는 백엔드쪽 공부를 해서, 서버를 직접 준비하거나 Firebase를 사용해서 구현을 해야한다.
+
+
+    
+1. data.json : 가짜 API 서버 열기 (* src 디렉토리 바깥에 생성한다.)
+
+
+1. 서버를 열어보겠습니다.
+    $ npx json-server ./data.json --port 4000
+
+1. json-server 를 실행하시면 터미널에 다음과 같이 결과물이 뜹니다.
+
+\{^_^}/ hi!
+
+Loading ./data.json
+Done
+
+Resources
+http://localhost:4000/posts
+
+Home
+http://localhost:4000
+
+1. 그러면 우리의 가짜 API 서버가 4000 포트로 열립니다. 한번 다음 링크에 들어가보세요.
+
+http://localhost:4000/posts
+http://localhost:4000/posts/1
+각각 데이터가 잘 조회되나요?
+서버가 모두 준비 완료 되었습니다. 이제 기존 가짜 API 함수들이 실제 API 를 요청하게끔 구현을 해보겠습니다.
+
+1. 설치
+우선 프로젝트에 REST API Client인 axios를 설치해주세요.
+$ yarn add axios
+
+1. api/posts.js
+axios 를 사용하여 API 요청하기
+이제 브라우저를 확인해보세요. 기존과 동일하게 작동하나요?

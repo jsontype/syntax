@@ -1,0 +1,8 @@
+.App {
+  margin: 20px;
+}
+
+.movieTitle {
+  text-decoration: none;
+  color: gray;
+}
