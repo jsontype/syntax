@@ -13,7 +13,7 @@
     모른다면 JS에서 Promise 관련 부분을 학습하고 오자.
 
 1. 학습목표 : 이번 코스를 통해 순차적으로 배워나갈 것
-    axios 라이브러리를 사용해 api를 연동하는 법
+    axios 라이브러리를 사용해 REST API의 형태로 api를 연동하는 법
     컴포넌트 내부에서 API의 request state 관리를 위해 useReducer를 사용하는 법
     컴포넌트 내부에서 API의 global request state 관리를 위해 커스텀 Hooks를 사용하는 법
     컴포넌트 내부에서 API의 global request state 관리를 위해 react-async 라이브러리를 사용하는 법
@@ -41,7 +41,7 @@
     $ cd app1
     $ npm i axios (= yarn add axios)
     
-1. axios와 fetch의 차이 : axios가 fetch보다 발전된 점은 다음과 같다.
+1. ★★ axios와 fetch의 차이 : axios가 fetch보다 발전된 점은 다음과 같다.
     REST API 문법의 메소드를 사용한다.
         GET: 데이터 조회 (axios.get('/users/1'))
         POST: 데이터 등록 (axios.post('/users', { username: 'blabla', name: 'blabla' }))
