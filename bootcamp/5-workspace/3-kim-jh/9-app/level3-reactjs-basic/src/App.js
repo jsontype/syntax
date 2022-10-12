@@ -1,26 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from 'react'
+import MovieList from './components/MovieList'
+import './App.css'
 
-function App() { 
-  
+function App() {
+  // JS
+  const [movies, setMovies] = useState([])
+  useEffect(() => {
+    fetch('https://yts.mx/api/v2/list_movies.json?sort_by=rating')
+    // fetch('https://yts.mx/api/v2/list_movies.json')
+      .then(res => res.json())
+      .then(json => { setMovies(json.data.movies) })
+  }, [])
+  // console.log(movies)
+
+  // XML
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>무비 리스트</h1>
+      <MovieList movies={movies} />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
