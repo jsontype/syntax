@@ -10,36 +10,61 @@
 
 
     
-1. data.json : 가짜 API 서버 열기 (* src 디렉토리 바깥에 생성한다.)
+1. data.json : 가짜 API 서버 만들기 (* src 디렉토리 바깥에 생성한다.)
+    {
+        "posts": [
+            {
+                "id": 1,
+                "title": "리덕스 미들웨어를 배워봅시다",
+                "body": "리덕스 미들웨어를 직접 만들어보면 이해하기 쉽죠."
+            },
+            {
+                "id": 2,
+                "title": "redux-thunk를 사용해봅시다",
+                "body": "redux-thunk를 사용해서 비동기 작업을 처리해봅시다!"
+            },
+            {
+                "id": 3,
+                "title": "redux-saga도 사용해봅시다",
+                "body": "나중엔 redux-saga를 사용해서 비동기 작업을 처리하는 방법도 배워볼 거예요."
+            }
+        ]
+    }
 
 
-1. 서버를 열어보겠습니다.
+
+1. API 열어보기
+    $ cd app1
     $ npx json-server ./data.json --port 4000
 
-1. json-server 를 실행하시면 터미널에 다음과 같이 결과물이 뜹니다.
+1. API 테스트 : 브라우져에서 JSON 데이터가 보이면, API 서버 준비 완료
+    http://localhost:4000/posts
+    http://localhost:4000/posts/1
 
-\{^_^}/ hi!
 
-Loading ./data.json
-Done
 
-Resources
-http://localhost:4000/posts
+1. axios 설치 : REST API(get, post, put, delete) 문법으로 API를 취득하기 위해서, REST API Client인 axios 라이브러리를 설치하기
+    $ cd app1
+    $ npm i axios
 
-Home
-http://localhost:4000
+1. src/api/posts.js : axios를 사용하여 REST API 문법으로 API 요청하기
+    // axios 임포트 : REST API 문법(get, post, put, delete)으로 API를 요청하는 라이브러리
+    import axios from 'axios'
 
-1. 그러면 우리의 가짜 API 서버가 4000 포트로 열립니다. 한번 다음 링크에 들어가보세요.
+    // post 목록을 가져오는 비동기 함수
+    export const getPosts = async () => {
+        const response = await axios.get('http://localhost:4000/posts')
+        return response.data
+    }
 
-http://localhost:4000/posts
-http://localhost:4000/posts/1
-각각 데이터가 잘 조회되나요?
-서버가 모두 준비 완료 되었습니다. 이제 기존 가짜 API 함수들이 실제 API 를 요청하게끔 구현을 해보겠습니다.
+    // ID로 post를 조회하는 비동기 함수
+    export const getPostById = async id => {
+        const response = await axios.get(`http://localhost:4000/posts/${id}`)
+        return response.data
+    }
 
-1. 설치
-우선 프로젝트에 REST API Client인 axios를 설치해주세요.
-$ yarn add axios
 
-1. api/posts.js
-axios 를 사용하여 API 요청하기
-이제 브라우저를 확인해보세요. 기존과 동일하게 작동하나요?
+
+1. 테스트 : 기존과 동일하게 작동하는지 확인
+    $ cd app1
+    $ npm start
