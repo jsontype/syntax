@@ -1,0 +1,19 @@
+- react 앱 설치 및 실행
+    1. node 설치
+    2. npx create-react-app app1 설치
+    3. cd app1
+    4. npm start
+
+- 불필요 부분을, 연동까지 삭제
+    App.test.js
+    index.css
+    logo.svg
+    reportWebVitals.js
+    setupTests.js    
+    App.css (코드만 비워두기)
+    세미콜론 ; 지우기
+    README.MD 지우기
+
+1. 테스트
+    $ cd app1
+    $ npm start (또는 yarn start)

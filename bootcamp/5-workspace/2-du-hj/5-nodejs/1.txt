@@ -1,0 +1,11 @@
+nodejs : node runtime
+npm i 라이브러리명 : 필요한 라이브러리를 가져올 수 있다.
+    필수 라이브러리
+        websocket : 서버가 선톡
+        webpack5 : 종합선물세트
+            babel-loader : 브라우저 환경별로 js 버전을 맞춰서 바꿔줌
+            ts-loader : typescript로 코딩을 하면, javascript로 알아서 바꿈
+            bundler : js가 import, export 지원할 수 있도록 bundle.js라는 하나의 파일로 bundling을 해준다.
+            ...
+        server관련
+        ...
