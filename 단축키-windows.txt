@@ -10,17 +10,17 @@
     misinfo32 : 시스템정보
 
 1. 작업
-    win+ctrl+d : 대쉬보드 추가
-    win+ctrl+f4 : 대쉬보드 삭제
-    win+ctrl+방향키 : 대쉬보드 전환
-    win+tab : 대쉬보드 작업보기
-    ★★ win+shift+s : 빠른 스크린샷
-    win+l : 락
-    win+x : 제어판메뉴
-    win+; : 이모티콘
-    win+g : 녹화시작
-    ctrl+alt+tab : 알트탭 고정
-    ctrl+shift+esc 작업관리자
+    win + ctrl + d : 대쉬보드 추가
+    win + ctrl + f4 : 대쉬보드 삭제
+    win + ctrl + 방향키 : 대쉬보드 전환
+    win + tab : 대쉬보드 작업보기
+    ★★ win + shift + s : 빠른 스크린샷
+    win + l : 락
+    win + x : 제어판메뉴
+    win + ; : 이모티콘
+    win + g : 녹화시작
+    ctrl + alt + tab : 알트탭 고정
+    ctrl + shift + esc 작업관리자
 
 1. 디스플레이
-    win+p : 디스플레이 확장 복제 변경
+    win + p : 디스플레이 확장 복제 변경
