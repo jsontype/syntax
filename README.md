@@ -17,7 +17,7 @@
         API: https://jsonplaceholder.typicode.com/users/1
         API: https://jsonplaceholder.typicode.com/todos
         API: https://jsonplaceholder.typicode.com/posts
-        DOC: https://jsonplaceholder.typicode.com/
+        DOC: https://jsonplaceholder.typicode.com
 
     영화
         API: https://yts.mx/api/v2/list_movies.json?sort_by=rating
