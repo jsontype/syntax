@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*
+            수동 개행 : 코드 상의 개행
+            자동 개행 : 브라우저 상의 개행
+        */
+
+        /* 수동 개행 미반영, 자동 개행 반영 */
+        .normal {
+            white-space: normal;
+        }
+        /* 수동 개행 미반영, 자동 개행 미반영 */
+        .nowrap {
+            white-space: nowrap;
+        }
+        /* 수동 개행 반영, 자동 개행 반영 */
+        .pre-wrap {
+            white-space: pre-wrap;
+        }
+        /* 수동 개행 반영, 자동 개행 미반영 */
+        .pre {
+            white-space: pre;
+        }
+    </style>
+</head>
+<body>
+    <h2>수동 개행 미반영, 자동 개행 반영</h2>
+    <p class="normal">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis repudiandae ducimus esse itaque eveniet modi natus facilis corrupti voluptatum tempora totam architecto molestiae, doloremque quis autem. Aperiam fugiat ea aliquam?
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+        Tempore, voluptatum quo voluptas laboriosam obcaecati est eaque blanditiis vel maxime autem nemo aliquam ab sunt, deleniti enim? Vitae animi quia itaque?
+    </p>
+    <h2>수동 개행 미반영, 자동 개행 미반영</h2>
+    <p class="nowrap">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis repudiandae ducimus esse itaque eveniet modi natus facilis corrupti voluptatum tempora totam architecto molestiae, doloremque quis autem. Aperiam fugiat ea aliquam?
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+        Tempore, voluptatum quo voluptas laboriosam obcaecati est eaque blanditiis vel maxime autem nemo aliquam ab sunt, deleniti enim? Vitae animi quia itaque?
+    </p>
+    <h2>수동 개행 반영, 자동 개행 반영</h2>
+    <p class="pre-wrap">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis repudiandae ducimus esse itaque eveniet modi natus facilis corrupti voluptatum tempora totam architecto molestiae, doloremque quis autem. Aperiam fugiat ea aliquam?
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+        Tempore, voluptatum quo voluptas laboriosam obcaecati est eaque blanditiis vel maxime autem nemo aliquam ab sunt, deleniti enim? Vitae animi quia itaque?
+    </p>
+    <h2>수동 개행 반영, 자동 개행 미반영</h2>
+    <p class="pre">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis repudiandae ducimus esse itaque eveniet modi natus facilis corrupti voluptatum tempora totam architecto molestiae, doloremque quis autem. Aperiam fugiat ea aliquam?
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+        Tempore, voluptatum quo voluptas laboriosam obcaecati est eaque blanditiis vel maxime autem nemo aliquam ab sunt, deleniti enim? Vitae animi quia itaque?
+    </p>
+</body>
+</html>
