@@ -13,7 +13,7 @@
     google meeting : google calendar와 연동 가능. 북마킹해두면 됨.
 
 1. 개발보조
-    winmerge : 소스 비교 (요즘은 그냥 vscode에서 비교해도 됨)
+    winmerge : 소스 비교 (그냥 vscode에서 비교해도 됨)
     spectacle : 맥북 화면보조앱
 
 1. 버전관리

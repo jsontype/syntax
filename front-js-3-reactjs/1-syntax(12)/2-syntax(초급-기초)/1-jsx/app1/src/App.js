@@ -6,7 +6,7 @@ function App() {
     console.log('hello')
     const name = 'Shin'
 
-    // HTML 돔
+    // XML 돔
     return (
         <div className="hello">
             <div>{console.log('hello')}</div>

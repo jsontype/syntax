@@ -16,13 +16,13 @@
     현재 개발서버의 주소로 요청을 하게 된다.
     그러면 Webpack DevServer에서 해당 요청을 받아 그대로 백엔드 서버로 전달하고,
     백엔드 서버에서 응답한 내용을 다시 브라우저쪽으로 반환한다.
+    (10.png 참조)
 
 1. Proxy 설정하는 법
     Webpack DevServer의 proxy 설정은 원래 웹팩 설정을 통해서 적용을 하지만,
     create-react-app(=CRA)를 통해 만든 리액트 프로젝트에서는 package.json에서 "proxy" 값을 설정하여 쉽게 적용 할 수 있다.
     package.json을 열으셔서 맨 아래에 다음과 같이 "proxy" 값을 설정한다.
-    (10.png 참조)
-
+    
     
 
 1. package.json : Webpack DevServer proxy 설정
@@ -62,7 +62,7 @@
     만약에 API 의 도메인과 서비스의 도메인이 다르다면 (예: 서비스는 google.com, API는 api.com),
     axios의 글로벌 baseURL을 설정하면 된다.
     예를 들어 index.js 에서 다음과 같이 작성을 하면 된다.
-        axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? '/' : 'https://api.velog.io/'
+        axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? '/' : 'https://api.com/'
     위와 같은 설정을 하면, 개발 환경에선 프록시 서버 쪽으로 요청하고, 프로덕션에선 실제 API 서버로 요청을 하게 된다.
     이러한 설정은 아까 언급한 것처럼 API 도메인이 실서비스의 도메인과 다를때만 하면 된다.
     프로젝트를 개발 할 때 proxy 를 사용하는 것은 필수적인건 아니지만,
