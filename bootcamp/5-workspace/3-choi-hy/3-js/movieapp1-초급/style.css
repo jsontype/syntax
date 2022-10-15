@@ -16,3 +16,15 @@
     border: 1px solid gray;
     border-radius: 5px;
 }
+
+.movieRankGood {
+    color: blue;
+}
+
+.movieRankSoso {
+    color: orange;
+}
+
+.movieRankBad {
+    color: red;
+}
