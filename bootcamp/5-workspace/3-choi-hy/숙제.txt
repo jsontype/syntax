@@ -36,3 +36,7 @@
 3. JS 폴더 안에서, 중급 문법 버전으로 무비앱 만들기
 
 4. react 폴더 안에서, 클론 코딩해오기 : 4-react 폴더의 0-initial-app 복사해와서 하면 됨
+
+참고 URL
+https://github.com/jsontype 
+https://www.youtube.com/playlist?list=PL3YFT2H5CJPCnB3SGnOmLpOz7oJTbQddp
