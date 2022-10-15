@@ -1,4 +1,5 @@
 let url = "https://yts.mx/api/v2/list_movies.json?sort_by=rating"
+// let url = "https://yts.mx/api/v2/list_movies.json"
 const movies = []
 
 function getMovie (url) {
@@ -27,9 +28,22 @@ function render (movies) {
 
         // 평점
         let addRank = document.createElement('div')
-        addRank.setAttribute('class', 'movieRank')
+        if (arr[i].rating >= 9) {
+            addRank.setAttribute('class', 'movieRankGood')
+        } else if (arr[i].rating >= 7) {
+            addRank.setAttribute('class', 'movieRankSoso')
+        } else {
+            addRank.setAttribute('class', 'movieRankBad')
+        }
         addRank.innerHTML = `평점 : ${arr[i].rating} / 10점`
         app.appendChild(addRank)
+
+        // 추천아이콘
+        let addHotIcon = document.createElement('span')
+        if (arr[i].rating >= 9) {
+            addHotIcon.innerHTML = '💥'
+        }
+        addRank.appendChild(addHotIcon)
 
         // 무비이미지
         let addImg = document.createElement('img')
