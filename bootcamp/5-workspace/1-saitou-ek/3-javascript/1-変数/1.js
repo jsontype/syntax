@@ -13,6 +13,9 @@ console.log(c)
 let d = 'hello'
 console.log(d)
 
+// Boolean : true or false 論理変数
+let bool1 = a > b // true or false
+
 // Array 配列 : 住所参照のタイプ
 const e = [1, 2, 3, 'hello']
 console.log(e)

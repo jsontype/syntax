@@ -1,0 +1,11 @@
+.hi {
+    color: red;
+    font-size: 100px;
+
+    /* block */
+    border: 1px solid gray;
+    width: 500px;
+    background: lightgray;
+    border-radius: 10px;
+    text-align: center;
+}

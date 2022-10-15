@@ -17,7 +17,6 @@ function print (movies) {
     for (let i = 0; i < arr.length; i++) {
         console.log('movies配列の', i, '番目のインデクスのyear値は？', arr[i].year)
     }
-
 }
 
 getMovie(url)
