@@ -21,6 +21,8 @@ export const createPromiseSagaById = (type, promiseCreator) => {
     const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`]
     // saga 제네레이터 함수를 생성 : 액션을 모니터링한다. 액션이 지니고 있는 값을 모니터링하고 싶다면, action을 파라미터로 받아와서 사용하면 된다.
     return function* saga (action) {
+        // saga를 통해 비동기 작업을 처리 할 때, API 함수의 인자는 액션에서부터 참조한다.
+        // 예를 들어, 특정 id를 위한 비동기작업을 처리하는 createPromiseSagaById와 handleAsyncActionsById에서는 id값을 action.meta에서 참조하고 있다.
         const id = action.meta
         try {
             const payload = yield call(promiseCreator, action.payload)

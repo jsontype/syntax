@@ -1,3 +1,4 @@
+// thunk -> saga로 변경하기 : saga를 사용하면 순수 액션 객체만을 디스패치해서 비동기 작업을 처리하게 된다.
 // api/posts.js 안의 모든 함수들을 임포트
 import * as postsAPI from '../api/posts'
 // lib/asyncUtils 안의 리팩토링용 함수들을 임포트
@@ -21,12 +22,17 @@ const GET_POST_ERROR = 'GET_POST_ERROR' // 요청 실패
 // 액션타입함수를 Thunk 함수에서 Saga 함수로 대체한다.
 export const getPosts = () => ({ type: GET_POSTS })
 export const getPost = id => ({ type: GET_POST, payload: id, meta: id }) // payload는 파라미터 용도, meta는 리듀서에서 id를 알기위한 용도
+// ↑ meta를 통해 id를 알아야하는 이유는, 이전에 만들었던 handleAsyncActionsById를 호환시키기 위한 용도이다. (사용하지 않는다면 meta를 생략해도 된다.)
 
 // getPostsSaga와 getPostSaga 함수를 asyncUitls.js에서 정의된 함수로 생성
+// redux-thunk로 구현할 때에는 getPosts와 getPost는 thunk 함수이지만,
+// redux-saga로 구현할 때에는 순수 액션 객체를 반환하는 "액션 생성" 함수이다.
 const getPostsSaga = createPromiseSaga(GET_POSTS, postsAPI.getPosts)
 const getPostSaga = createPromiseSagaById(GET_POST, postsAPI.getPostById)
+// ↑ getPostSaga의 경우엔 액션을 파라미터로 받아와서 해당 액션의 id값을 참조할 수 있다.
+// ↑ 예를 들어, dispatch({ type: GET_POST, payload: 1, meta: 1 })이란 코드가 실행 되면 액션에서 action.payload값을 추출하여 API를 호출 할 때 인자로 넣어서 호출한다.
 
-// saga 함수들을 합치기
+// saga 함수들을 합치기 : 이후 modules/index.js의 rootSaga에 postsSaga를 등록할 것이다.
 export function* postsSaga () {
     yield takeEvery(GET_POSTS, getPostsSaga)
     yield takeEvery(GET_POST, getPostSaga)
