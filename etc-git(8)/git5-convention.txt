@@ -10,20 +10,22 @@
 
     1. type는 다음 중 하나여야 한다. (type-enum 규칙)
         build: 빌드
-        ci: 거기
-        chore: 잡사(카테고라이즈 할 필요 없는 것)
+        ci: ci
+        chore: 잡동사니 (카테고라이즈 할 필요 없는 것)
         docs: 문서
         feat: 새로운 기능
         fix: 버그 수정
         perf: 성능
         refactor: 리팩토링
-        revert: 커밋 취소 ( git revert)
-        style: 코드 스타일
+        revert: 커밋 취소 (git revert)
+        style: 스타일
         test: 테스트
-        type소문자여야 합니다( type-case규칙).
-        type는 반드시 지정해야 한다( type-empty규칙).
-        scope소문자여야 합니다( scope-case규칙).
-        subject는 다음 형식 중 하나여야 합니다( subject-case규칙).
+
+    1. 커밋명 규칙
+        type소문자여야 합니다(type-case규칙).
+        type는 반드시 지정해야 한다(type-empty규칙).
+        scope소문자여야 합니다(scope-case규칙).
+        subject는 다음 형식 중 하나여야 합니다(subject-case규칙).
         sentence-case: (예. Sentence case)
         start-case: (예. Start Case)
         pascal-case: (예. PascalCase)
