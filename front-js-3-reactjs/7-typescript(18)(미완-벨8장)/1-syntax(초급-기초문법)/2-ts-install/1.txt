@@ -1,0 +1,84 @@
+
+01. 타입스크립트 연습
+타입스크립트에서 가장 기본적인 것들을 연습해보겠습니다.
+
+먼저 새로운 자바스크립트 프로젝트를 생성해보겠습니다.
+
+터미널에서 다음 명령어들을 입력하세요.
+
+$ mkdir ts-practice # ts-practice 라는 디렉터리 생성
+$ cd ts-practice # 해당 디렉터리로 이동
+$ yarn init -y # 또는 npm init -y
+
+이렇게 하면 ts-practice 디렉터리에 package.json 이라는 파일이 만들어집니다.
+
+
+1. tsconfig.json : 타입스크립트 설정파일 생성하기
+이제 타입스크립트 설정파일 tsconfig.json 을 프로젝트 디렉터리 안에 생성해주겠습니다.
+
+이 파일을 생성 할 땐 직접 입력해서 만들 수도 있습니다.
+
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true
+  }
+}
+
+하지만 일반적으로는 명령어를 사용해서 생성합니다.
+
+먼저 typescript 를 글로벌로 설치해주세요.
+
+$ yarn global add typescript
+
+그리고 프로젝트 디렉터리 안에서 tsc --init 명령어를 입력하면 tsconfig.json 파일이 자동생성됩니다.
+만약 명령어가 작동하지 않는다면 npm install -g typescript 를 해보시고 다시 명령어를 실행해보세요.
+
+이 파일에서는 타입스크립트가 컴파일 될 때 필요한 옵션을 지정하는데요, tsc --init 명령어를 통해서 기본적으로 설정되어있는 것들이 어떤 의미를 갖고 있는지 한번 알아봅시다.
+
+    target: 컴파일된 코드가 어떤 환경에서 실행될 지 정의합니다. 예를들어서 화살표 함수를 사용하고 target 을 es5 로 한다면 일반 function 키워드를 사용하는 함수로 변환을 해줍니다. 하지만 이를 es6 로 설정한다면 화살표 함수를 그대로 유지해줍니다.
+    module: 컴파일된 코드가 어던 모듈 시스템을 사용할지 정의합니다. 예를 들어서 이 값을 common 으로 하면 export default Sample 을 하게 됐을 때 컴파일 된 코드에서는 exports.default = helloWorld 로 변환해주지만 이 값을 es2015 로 하면 export default Sample 을 그대로 유지하게 됩니다.
+    strict: 모든 타입 체킹 옵션을 활성화한다는 것을 의미합니다.
+    esModuleInterop: commonjs 모듈 형태로 이루어진 파일을 es2015 모듈 형태로 불러올 수 있게 해줍니다.
+
+
+1. tsconfig.json : 현재 기본적으로 만들어진 설정에서 한가지 속성을 추가해봅시다. outDir 이라는 속성인데요, 이를 설정하면 컴파일된 파일들이 저장되는 경로를 지정 할 수 있습니다.
+
+
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "outDir": "./dist"
+  }
+}
+
+
+1. src/practice.ts : 타입스크립트 파일 만들기
+프로젝트에 src 디렉터리를 만들고, 그 안에 practice.ts 라는 파일을 만들어보세요.
+
+    const message: string = 'hello world';
+    console.log(message);
+
+
+타입스크립트는 이렇게 *.ts 확장자를 사용합니다. message 값이 선언된 코드를 보시면 : string 이라는 코드를 넣었지요? 이는 해당 상수 값이 문자열 이라는 것을 명시해줍니다.
+
+만약에 해당 값을 숫자로 설정해버리게 된다면 에디터 상에서 오류가 나타나게 됩니다.
+코드를 모두 작성하셨으면 해당 프로젝트의 디렉터리에 위치한 터미널에서 tsc 명령어를 입력해보세요.
+
+그러면 dist/practice.js 경로에 다음과 같이 파일이 생성될 것입니다.
+
+"use strict";
+var message = 'hello world';
+console.log(message);
+우리가 ts 파일에서 명시한 값의 타입은 컴파일이 되는 과정에서 모두 사라지게 된답니다.
+
+
+
+1. 기본 타입
+
+

@@ -32,7 +32,7 @@ function act() {
     console.log(arr[arr.length - 1]) // 마지막 값
 
     // 객체(Object) : 키와 밸류로 이루어짐
-    const obj = { id: 'azumaapp', pw: 'sdfjewflk', name: 'yang dh', no: 154 }
+    const obj = { id: 'jsontyper', pw: 'sdfjewflk', name: 'yang dh', no: 154 }
     console.log(obj['id']) // 이렇게도 꺼낼 수 있다.
     console.log(obj.pw)
     console.log(obj.name)
@@ -40,7 +40,7 @@ function act() {
 
     // JSON 데이터타입
     const userInfo = [
-        { id: 'azumaapp', pw: 'sdfjewflk', name: 'yang', no: 154 },
+        { id: 'jsontyper', pw: 'sdfjewflk', name: 'yang', no: 154 },
         { id: 'kimikimi', pw: 'df134wflk', name: 'kim', no: 155 },
         { id: 'parkupaku', pw: 'sdjew1234flk', name: 'park', no: 156 },
         { id: 'kang123', pw: '1aafjewflk', name: 'kang', no: 157 }

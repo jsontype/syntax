@@ -47,7 +47,7 @@ CREATE TABLE `azuma_php_user1` (
 --
 
 INSERT INTO `azuma_php_user1` (`no`, `id`, `pw`, `username`, `nickname`, `birth`, `gender`, `tel`, `email`, `addr`, `regdate`) VALUES
-(26, 'admin', '21232f297a57a5a743894a0e4a801fc3', '아즈마', '관리자', '19860226', '남자', '01044410015', 'yangdonghwa@hanmail.net', 'South Korea, Jeonrabukdo, Iksan city, Hamyeoleup Yongji1 Gil', '2019-09-23'),
+(26, 'admin', '21232f297a57a5a743894a0e4a801fc3', '아즈마', '관리자', '19860226', '남자', '12341234', 'testtest@test.com', 'South Korea, Seoul', '2019-09-23'),
 (34, 'testbrbr', '098f6bcd4621d373cade4e832627b4f6', 'test&lt;br&gt;', 'test&lt;br&gt;', '', '남자', '', 'test@test.com', 'test&lt;br&gt;', '2019-09-23'),
 (35, 'testbr', '453061fbb6190dc2a6be7ac8e7523fb5', '양동화&lt;br&gt;', '테스트&lt;br&gt;', '', '남자', '', 'test@test.com', '테스트&lt;br&gt;', '2019-09-25'),
 (36, 'testbr1', '453061fbb6190dc2a6be7ac8e7523fb5', 'test명&lt;br&gt;', 'test닉&lt;br&gt;', '', '남자', '', 'test@test.com', '테스트주소&lt;br&gt;', '2019-09-25');
