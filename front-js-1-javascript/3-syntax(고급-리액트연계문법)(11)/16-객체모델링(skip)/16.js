@@ -10,7 +10,7 @@
 
 // 1. 함수로 생성
 function getObj() {
-    const id = "azumaapp"
+    const id = "jsontyper"
     const name = "Yang"
     const getId = function () {
         return id;
@@ -36,7 +36,7 @@ console.log('user1.getName():', user1.getName())
 
 // 2. 객체로 생성 : 함수 부분을 "일반 표현식"으로 넣기
 const user2 = {
-    id: "azumaapp",
+    id: "jsontyper",
     name: "Yang",
     getName() {
         return this.name;        
@@ -55,7 +55,7 @@ console.log('user2.getName():', user2.getName())
 
 // 3. 객체로 생성 : 함수 부분을 "즉각 표현식"으로 넣기 (* 여기서 "화살표 표현식"은 안 된다.)
 const user3 = {
-    id: "azumaapp",
+    id: "jsontyper",
     name: "Yang",
     getName: function () {
         return this.name;        
@@ -74,7 +74,7 @@ console.log('user3.getName():', user3.getName())
 
 // 4. Object.assign 으로 생성
 const user4 = Object.assign(Object.create(user3), {
-    id: "azumaapp",
+    id: "jsontyper",
     name: "Kang"
 })
 
