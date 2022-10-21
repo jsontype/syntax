@@ -1,0 +1,17 @@
+[TypeScript Generics]
+
+1. TypeScript에서 Generics 사용하기
+    제너릭(Generics)은 타입스크립트에서 함수, 클래스, interface, type alias를 사용하게 될 때
+    여러 종류의 타입에 대하여 호환을 맞춰야 하는 상황에서 사용하는 문법이다.
+
+
+
+1. src/practice.js 수정
+
+
+
+1. 테스트
+    $ cd app1
+    $ tsc
+    app1/dist/practice.js에서 컴파일 확인
+    $ node dist/practice    
