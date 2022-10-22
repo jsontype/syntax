@@ -1,7 +1,9 @@
 // 1. 함수에서 Generics 사용하기
 // 예를 들어, 객체A와 객체B를 합쳐주는 merge라는 함수를 만든다고 가정해보자.
 // 그런 상황에서는 A와 B가 어떤 타입이 올 지 모르기 떄문에, 이런 상황에서는 아래와 같이 any라는 타입을 쓸 수도 있지만,
-// 그렇게 하면, 타입 유추가 모두 깨진거나 다름이 없다. 결과가 any라는 것은 즉 merged 안에 무엇이 있는지 알 수 없다는 것이다.
+// 결과가 any라는 것은 즉 merged 안에 무엇이 있는지 알 수 없다는 것이기 때문에, 타입 유추가 모두 깨진거나 다름이 없다.
+// 이런 상황에선, 주석 처리된 첫번째 merge 대신, 두번째 merge처럼 Generics를 사용하면 된다.
+
 // function merge(a: any, b: any): any {
 //     return {
 //         ...a,
@@ -10,7 +12,6 @@
 // }
 // const merged = merge({ foo: 1 }, { bar: 1 })
 
-// 이런 상황에선, 위 코드 대신, 아래와 같이 Generics를 사용하면 된다. Generics는 다음과 같이 사용한다.
 function merge<A, B>(a: A, b: B): A & B {
     return {
         ...a,
@@ -19,7 +20,7 @@ function merge<A, B>(a: A, b: B): A & B {
 }
 const merged = merge({ foo: 1 }, { bar: 1 })
 
-// 또 다른 예시를 알아볼까요? 이렇게 함수에서 Generics를 사용하면 파라미터로 다양한 타입을 넣을 수도 있고 타입 지원을 지켜낼 수 있습니다.
+// Generic 다른 예 : 함수에서 Generics를 사용하면 파라미터로 다양한 타입을 넣을 수도 있고 타입 지원을 지켜낼 수 있다.
 function wrap<T>(param: T) {
   return {
     param

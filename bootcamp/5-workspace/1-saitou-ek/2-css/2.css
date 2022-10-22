@@ -1,0 +1,15 @@
+.father {
+    color: blue;
+}
+
+.father > .son {
+    color: red;
+}
+
+.ancient {
+    color: blue;
+}
+
+.ancient .descendant {
+    color: red;
+}

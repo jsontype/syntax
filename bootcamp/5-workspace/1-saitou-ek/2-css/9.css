@@ -1,0 +1,37 @@
+/* tagの位置を基準にて、座標が変更される */
+
+/* offset X */
+.static {
+    position: static;
+    background-color: pink;
+    top: 50px;
+    left: 50px;
+}
+
+/* offset O */
+.relative {
+    position: relative;
+    background-color: red;
+    top: 50px;
+    left: 50px;
+}
+
+
+
+/* offsetの位置を基準にて、座標が変更される */
+
+/* html内のoffset基準 */
+.absolute {
+    position: absolute;
+    background-color: blue;
+    top: 50px;
+    left: 50px;
+}
+
+/* browser内のoffset基準 */
+.fixed {
+    position: fixed;
+    background-color: purple;
+    top: 50px;
+    left: 50px;
+}
