@@ -1,3 +1,8 @@
+/* selector : tag < class < id */
+h1 {
+    color: gray;
+}
+
 .hi {
     color: red;
     font-size: 100px;
@@ -8,4 +13,8 @@
     background: lightgray;
     border-radius: 10px;
     text-align: center;
+}
+
+#app {
+    color: blue;
 }

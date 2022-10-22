@@ -1,0 +1,29 @@
+/* 疑似要素 pseudo-element */
+p::first-letter {
+    color: #ff0000;
+    font-size: xx-large;
+}
+
+p::first-line {
+    color: #ff0000;
+    font-variant: small-caps;
+}
+
+p::selection {
+    color: white;
+    background-color: orange;
+}
+
+input::placeholder {
+    color: gray;
+}
+
+h1::before {
+    color: gray;
+    content: "Hello ";
+}
+
+h1::after {
+    color: red;
+    content: " ← 추천!";
+}

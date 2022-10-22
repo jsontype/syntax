@@ -1,0 +1,20 @@
+/* 疑似クラス pseudo-class */
+a:link {
+    color: black;
+}
+
+a:visited {
+    color: gray;
+}
+
+a:hover {
+    color: red;
+}
+
+a:active {
+    color: yellow;
+}
+
+input:focus {
+    color: red;
+}

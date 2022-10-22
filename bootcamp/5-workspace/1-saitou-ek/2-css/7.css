@@ -1,0 +1,30 @@
+.d-inline {
+    display: inline;
+}
+
+.d-block {
+    display: block;
+}
+
+
+
+/* Flex!!! */
+
+.d-flex {
+    display: flex;
+}
+
+.first {
+    flex: 3;
+    background: blue;
+}
+
+.second {
+    flex: 2;
+    background: orange;
+}
+
+.third {
+    flex: 1;
+    background: red;
+}
