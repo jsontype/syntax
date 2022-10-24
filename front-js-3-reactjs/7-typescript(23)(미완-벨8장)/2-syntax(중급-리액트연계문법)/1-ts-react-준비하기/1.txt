@@ -1,0 +1,29 @@
+[리액트 컴포넌트 타입스크립트로 작성하기]
+
+1. 타입스크립트를 사용하는 리액트 프로젝트 설치
+    $ npx create-react-app app1 --template typescript
+    (= yarn create react-app app1 --template typescript)
+    src 폴더에 가서 App 파일이 *.tsx 확장자로 되어있는지 확인 : 타입스크립트를 사용하는 리액트 컴포넌트는 *.tsx 확장자를 사용한다. 
+
+1. 기존 Create React App 프로젝트에 TypeScript 를 추가하는 법
+    $ npm install --save typescript @types/node @types/react @types/react-dom @types/jest
+    (= yarn add typescript @types/node @types/react @types/react-dom @types/jest)
+    모든 파일의 이름을 TypeScript 파일로 직접 변경(예: src/index.js는 src/index.tsx로)
+    개발 서버를 다시 시작
+    * 참조 URL : https://create-react-app.dev/docs/adding-typescript/
+
+1. 불필요 부분을, 연동까지 삭제
+    App.test.js
+    index.css
+    logo.svg
+    reportWebVitals.js
+    setupTests.js
+    react-app-env.d.ts
+    App.css (제일 위 Margin 남겨놓고 다 비워두기)
+    세미콜론 ; 지우기    
+    README.MD 지우기
+    App.tsx, App.css, index.tsx의 들여쓰기 4로 변경
+
+1. 테스트
+    $ cd app1
+    $ npm start (또는 yarn start)

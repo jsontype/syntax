@@ -1,0 +1,38 @@
+[새로운 컴포넌트 만들기]
+
+1. 함수형 컴포넌트를 선언하는 또 다른 방법 : 화살표함수 + React.FC로 선언하기
+    function 키워드가 아니라, 이렇게 화살표함수를 사용하여 선언하고, React.FC라는 것을 사용하여 컴포넌트의 타입을 지정해도 된다.
+    React.FC를 사용 할 때는 props의 타입을 Generics로 넣어서 사용한다. 
+
+1. 화살표함수 + React.FC를 사용할 때의 장점
+    장점1 : props에 기본적으로 children이 들어가있다.
+    장점2 : 컴포넌트의 defaultProps, propTypes, contextTypes를 설정 할 때 자동완성이 될 수 있다.
+
+1. 화살표함수 + React.FC를 사용할 때의 단점
+    단점1 : React.FC는 (아직까지는) defaultProps가 제대로 작동하지 않는다.
+        예를 들어 Greetings 같이 defaultProps가 있는 컴포넌트에서는 쓰지 못한다.
+    단점2 : children이 옵셔널 형태로 들어가다보니 컴포넌트의 props 의 타입이 명백하지 않다. 
+        예를 들어 어떤 컴포넌트는 children이 반드시 있어야 하는 경우도 있을 것이고, 어떤 컴포넌트는 children 이 들어가면 안되는 경우도 있을텐데, 
+        React.FC 를 사용하면 기본적으로는 이에 대한 처리를 제대로 못하게 된다.
+        만약에 하고 싶다면 결국 Props 타입 안에 children 을 설정해야한다.
+
+
+
+1. src/App.tsx 수정 : App
+    import React from 'react'
+    import Greetings from './Greetings'
+
+    const App: React.FC = () => {
+        const onClick = (name: string) => {
+            console.log(`${name} says hello`)
+        }
+        return <Greetings name="Hello" onClick={onClick} />
+    }
+
+    export default App
+
+
+
+1. 테스트
+    $ cd app1
+    $ npm start
