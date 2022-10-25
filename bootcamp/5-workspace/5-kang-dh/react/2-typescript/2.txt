@@ -1,0 +1,1 @@
+설치방법 : npx create-react-app movieapp-ts --template typescript
