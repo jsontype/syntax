@@ -28,8 +28,8 @@
         $primary-color: #333
 
         body
-        font: 100% $font-stack
-        color: $primary-color
+            font: 100% $font-stack
+            color: $primary-color
 
     Scss 문법 (에스씨에스에스)
         $font-stack: Helvetica, sans-serif;

@@ -16,6 +16,7 @@
 1. styled-components 설치
     $ cd app1
     $ npm i styled-components (yarn add styled-components)
+    안되면 $ npm i --save-dev @types/styled-components
 
 
 
