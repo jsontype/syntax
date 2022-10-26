@@ -36,6 +36,10 @@ type Items2<T> = { // 타입명 옆에 :any 대신 <T>을 쓰고,
   list: T[] // T 타입으로 된 배열을 내부에서 설정해준다.
 }
 
-const items2: Items2<string> = {// string 배열을 넣을 거라면 :string 대신 :type명<string>을 쓰고,
+const items2: Items2<string> = {// string 배열을 넣을 거라면 :any 대신 :type명<T>을 쓰고,
   list: ['a', 'b', 'c'] // string 타입으로 된 배열을 내부에서 설정해준다.
+}
+
+const items3: Items2<number> = {// number 배열을 넣을 거라면 :any 대신 :type명<T>을 쓰고,
+  list: [1, 2, 3] // number 타입으로 된 배열을 내부에서 설정해준다.
 }
