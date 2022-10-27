@@ -32,7 +32,7 @@ const expert: Developer = {
     skills: ['javascript', 'react']
 }
 
-// Person Type 사용
+// People Type 사용
 const people: People = [person, expert]
 
 // Color Type 사용1
@@ -40,3 +40,4 @@ const color: Color = 'red'
 
 // Color Type 사용2 : 타입을 Color[]로 지정하면, Color 타입들로 이뤄진 배열을 타입으로 지정한다.
 const colors: Color[] = ['red', 'orange']
+// const colors: Color[] = ['red', 'orange', 'green'] -> 에러!

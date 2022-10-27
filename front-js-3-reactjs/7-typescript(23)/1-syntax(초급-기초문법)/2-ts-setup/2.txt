@@ -1,13 +1,11 @@
 [TypeScript 설치 및 설정하기]
 
 1. package.json 생성 : 노드패키지 설정파일
-	$ mkdir app1
-	$ cd app1
 	$ npm init -y (= yarn init -y)
   
 1. tsconfig.json 생성 : 타입스크립트 설정파일
-	$ npm i -g typescript (= yarn global add typescript)
-	$ cd app1
+	$ npm i typescript
+	# 글로벌로 할 때 : $ npm i -g typescript (= yarn global add typescript)
 	$ tsc --init
 
 	위 명령어를 통해 자동생성이 되지만, 다음과 같이 직접 쳐서 작성해도 된다.

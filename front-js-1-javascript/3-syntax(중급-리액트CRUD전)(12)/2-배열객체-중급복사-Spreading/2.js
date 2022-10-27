@@ -23,28 +23,6 @@ const addObj = { ...obj, newKey: 456 } // 객체 추가
 const modObj = { ...obj, oldKey: 456 } // 객체 변경
 const { oldKey, ...delObj } = obj // 객체 삭제
 
-// 1. 문제 : 다음 함수를, 숫자 배열이 주어졌을 때, 10보다 큰 숫자의 "개수"를 반환하는 함수로 만들어라.
-// function countBiggerThanTen(numbers) {}
-// const count = countBiggerThanTen([1, 2, 3, 5, 10, 20, 30, 40, 50, 60])
-// console.log(count) // 5이 나와야 한다.
-
-// 1. 답1
-// function countBiggerThanTen (numbers) {
-//   const result = numbers.filter(n => n > 10).length
-//   return result
-// }
-// const count = countBiggerThanTen([1, 2, 3, 5, 10, 20, 30, 40, 50, 60])
-// console.log(count) // 5이 나와야 한다.
-
-// 1. 답2
-// function countBiggerThanTen (numbers) {
-//   let count = 0
-//   numbers.forEach(n => { n > 10 && count++ })
-//   return count
-// }
-// const count = countBiggerThanTen([1, 2, 3, 5, 10, 20, 30, 40, 50, 60])
-// console.log(count) // 5이 나와야 한다.
-
 /*
   [보충설명] - 리액트 배울 때 알아둘 것
     1. 리액트에서 객체, 배열을 변경할 때 "불변성의 법칙"을 지켜야하는 이유

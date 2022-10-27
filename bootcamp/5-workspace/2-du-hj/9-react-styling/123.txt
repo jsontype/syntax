@@ -1,0 +1,24 @@
+리액트 스타일링 방식은 여러가지가 있는데, 대표적인 3가지
+
+1. sass
+
+    *.css
+        body {
+            font-family: Helvetica, sans-serif
+            color: red;
+        }
+
+    sass의 *.sass
+        $font-stack: Helvetica, sans-serif
+        $primary-color: 'red'
+        body
+            font: 100% $font-stack
+            color: $primary-color
+
+    sass의 *.scss
+        $font-stack: Helvetica, sans-serif;
+        $primary-color: #333;        
+        body {
+            font: 100% $font-stack;
+            color: $primary-color;
+        }
