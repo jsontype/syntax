@@ -1,0 +1,7 @@
+1. 새로 설치
+    $ npx create-react-app app1 --template typescript
+
+1. 기존 Create React App 프로젝트에 TypeScript 를 추가하는 법
+    $ npm i --save typescript @types/node @types/react @types/react-dom @types/jest
+    모든 파일의 이름을 TypeScript 파일로 직접 변경(예: src/index.js는 src/index.tsx로)
+    개발 서버 재시작

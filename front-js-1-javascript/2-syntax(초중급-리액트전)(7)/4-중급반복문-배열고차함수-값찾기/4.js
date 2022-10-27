@@ -32,3 +32,27 @@ for (let i = 0; i < arr.length; i++) {
 // < 정리 >
 // 속도 비교 : for > reduce > filter > forEach > map >>> $.each(jquery)
 // * 함수형 반복문은, 파라미터를 늘리면, value, index, array자체 모두를 취할 수 있다.
+
+
+
+// 1. 문제 : 다음 함수를, 숫자 배열이 주어졌을 때, 10보다 큰 숫자의 "개수"를 반환하는 함수로 만들어라.
+// function countBiggerThanTen(numbers) {}
+// const count = countBiggerThanTen([1, 2, 3, 5, 10, 20, 30, 40, 50, 60])
+// console.log(count) // 5이 나와야 한다.
+
+// 1. 답1
+// function countBiggerThanTen (numbers) {
+//   const result = numbers.filter(n => n > 10).length
+//   return result
+// }
+// const count = countBiggerThanTen([1, 2, 3, 5, 10, 20, 30, 40, 50, 60])
+// console.log(count) // 5이 나와야 한다.
+
+// 1. 답2
+// function countBiggerThanTen (numbers) {
+//   let count = 0
+//   numbers.forEach(n => { n > 10 && count++ })
+//   return count
+// }
+// const count = countBiggerThanTen([1, 2, 3, 5, 10, 20, 30, 40, 50, 60])
+// console.log(count) // 5이 나와야 한다.
