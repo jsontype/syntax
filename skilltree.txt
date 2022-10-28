@@ -14,49 +14,44 @@
     Nuxt : 1 or 0
 
 1. 리액트 스킬트리의 Bottom-up 커리큘럼
-    - bootcamp : 첫상담, 첫구축
-    < skilltree 설명 >
-    - bootcamp : it용어1
-    (1) HTML : 마크업
-    (2) CSS : 문법
-    - bootcamp : it용어2
-    (skip) (3) CSS Bootstrap : 프레임워크 기본 익히기
-    (4) CMS : Figma
-    (5) JS : 초급문법
-    - bootcamp : it용어3
-    (6) JS : API 연동 무비앱 1 (For문), If문 무비앱 2 (If문)
-    (7) JS : 초중급문법, API 연동 무비앱 2 (중급 For/If문)
-    - bootcamp : it용어4
-    (skip) (8) PHP : DB, 서버, 호스팅 이해하기 (Java, Python이 하는 일)
-    (9) NodeJS : node, npm, typescript, npm중 필수 lib와 fw들의 개념 이해하기
-    - bootcamp : it용어5
-    (10) Git : 마크업 프로젝트 배포를 통해 깃허브에 익숙해지기, API 연동 뉴스앱 4 (Git 연동, 다른 API 연결해보기)
-    (11) ReactJS : 초급문법, API 연동 무비앱 5 (React 버전)
-    (12) JS : 중급문법
-    (13) ReactJS : 중급문법, CRUD 유저앱 5 (React 버전)
-    (14) ReactJS 스타일링 : SASS, CSS Module, Styled-Components, API 연동 무비앱 6 (Styled-components 적용버전)
-    - bootcamp : it용어6
-    (15) ReactJS 최적화 : useMemo, useCallback
-    (16) ReactJS Router : react-router
-    (17) ReactJS State관리 : ContextAPI, react-redux, ***! 추가예정 : mobx-react
-    (18) ReactJS API연동 : ContextAPI
-    (19) ReactJS API연동 : reactQuery
-    (20) ReactJS API연동 : redux-middleware, ***! 추가예정 : mobx
-    (21) JS : 고급문법
-    (22) ReactJS API연동 redux-middleware : redux-saga
-    - bootcamp : it용어7
-    (23) ReactJS Typescript
-    (24) ReactJS SSR : react-router(SPA에서 SSR), Next(MPA에서 SSR, 정석적 방법)
-    - bootcamp : it용어8
-    스킬시트작성
-    면접준비
-    (25) ReactJS Sum : 요약의 암기
-    (26) ReactJS App : 다양한 종류의 어플 제작방법 무한 학습
+    <bootcamp>
+        - 첫상담, 첫구축, skilltree 설명
+        - it용어1 : 개발직군
+            (1) HTML : 마크업
+            (2) CSS : 문법
+        - it용어2 : 좋은 개발 특성, framework-library
+            (3)(skip) CSS Bootstrap : 프레임워크 기본 익히기
+            (4) CMS : figma
+            (5) JS : 초급문법
+        - it용어3 : api-ajax, async
+            (6) JS : 무비앱
+            (7) JS : 중급문법
+        - it용어4 : achitecture, semVer
+            (8)(skip) PHP : DB, 서버, 호스팅 이해하기 (Java, Python이 하는 일로, 백엔드 경험 있는 사람은 Skip)
+            (9) Node : node, npm, typescript, npm중 필수 lib와 fw들의 개념 이해하기
+        - it용어5 : 극단적사고-애매모호함, npm-yarn-npx-nvm, rest-api
+            (10) Git : 마크업 프로젝트 배포를 통해 깃허브에 익숙해지기, 뉴스앱 (Git)
+            (11) React 초급문법 : 무비앱 (API 호출)
+            (12) JS : 고급문법
+            (13) React 중급문법 : 유저앱 (CRUD 게시판)
+            (14) React 스타일 : SASS, CSS Module, Styled-Components
+        - it용어6 : spa-mpa-csr-ssr
+            (15) React global-state : context-api, react-redux, mobx-react
+            (16) React async : context-api, reactQuery, redux-middleware(logger, thunk, saga), mobx
+            (11-17) (Loop) React typescript : 11-17 구간에서 하나 끝날 때마다 "Typescript 문법 학습 / 무비앱 깃 업그레이드" 반복
+        - it용어7 : throttling, process-thread, lighthouse
+            (17) React performance-tuning : useMemo, useCallback
+            (18) React ssr : react-router(SPA에서 SSR), next(MPA에서 SSR, 정석적 방법)
+            (19) React sum : 요약의 암기
+            (20) React app : 다양한 종류의 어플 제작방법 무한 학습
+        - it용어8 : workflow, scrum, dev-sta-pro, aws-ecs, docker, jest, shell-vi, batch
+        - 스킬시트작성 & 면접연습 & 취업활동개시 & 사후멘토링
+    </bootcamp>
 
 1. 수업지침
     - 용어의 경우는, 검색능력이 중요하니, 설명이 불필요한 것은 직접 찾아보도록 검색을 시킬 것. 봐도 모를 때만 설명해주기.
     - 로지컬하게 생각할 줄 아는 능력, 스케쥴 관리 능력, 검색이든 뭐든 해서 독립적인 문제해결능력이 중요하다는 것을 강조.
-    - 스킬트리를 아래와 같이 왔다갔다 하면서 만드는 이유 설명.
+    - 커리큘럼의 순서가 비선형인 이유.
         한 언어를 배울 때 그 언어에 대해 처음부터 다 가르치려고 하지 않고, 
         다음 단계로 넘어가면서 "필요해질 때마다" 추가로 가르칠 예정이다.
         그렇게 하는 이유는, 분류한다고 처음부터 전부 다 바텀업으로 공부를 해버리면,
