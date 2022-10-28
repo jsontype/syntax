@@ -1,0 +1,93 @@
+[Redux-thunk]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. redux-thunk란?
+    redux-thunk는 리덕스에서 비동기 작업을 처리 할 때 가장 많이 사용하는 미들웨어이다. 
+
+1. Thunk 함수란?
+    redux-thunk 미들웨어를 이용해 디스패치하는 함수를 말한다.
+    redux-thunk 미들웨어 안에서는 액션생성함수 객체가 아닌 그냥 "함수"를 디스패치 할 수 있고, (이것을 Thunk 함수라고 부름)
+    이때 중간에 여러 비동기처리를 함께 넣어서 처리할 수 있다. 
+    단, Thunk 함수를 디스패치 할 때에는, 해당 함수에서 dispatch와 getState를 파라미터로 받아와줘야 한다.
+    이번엔 setTimeout 처리를 추가한 Thunk 함수를 만들어보자.
+
+1. 설치
+    $ cd app1
+    $ npm i redux-thunk : Redux-thunk를 설치한다.
+
+
+
+1. src/index.js 수정 : redux-thunk 적용하기
+    import React from 'react'
+    import ReactDOM from 'react-dom'
+    import App from './App'
+    import { createStore, applyMiddleware } from 'redux'
+    import { Provider } from 'react-redux'
+    import rootReducer from './modules'
+    import logger from 'redux-logger'
+    import { composeWithDevTools } from 'redux-devtools-extension'
+    import ReduxThunk from 'redux-thunk'
+
+    // 스토어에 applyMiddleware를 넣어서 미들웨어를 적용한다.
+    const store = createStore(
+        // 루트리듀서 적용 : 한개의 루트리듀서를 적용한다.
+        rootReducer,
+        // 미들웨어 적용 : ReduxThunk, logger를 적용한다.
+        composeWithDevTools(applyMiddleware(ReduxThunk, logger))
+        // 미들웨어 추가 가능 : 이 밑으로, 여러개의 미들웨어를 추가 적용할 수도 있다.
+        // composeWithDevTools(applyMiddleware(다른 미들웨어함수))
+    )
+    ReactDOM.render(
+        <Provider store={store}>
+            <App />
+        </Provider>,
+        document.getElementById('root')
+    )
+
+
+
+1. src/modules/counter.js 수정 : 카운터 1초씩 딜레이하는 Thunk 함수 만들기
+    아래 코드를 "액션생성함수"와 "초기값" 사이에 넣는다.
+        // ★ 액션타입함수를 Thunk 함수로 대체 : 액션타입함수를 생성하는 대신 Thunk 함수를 생성한다. 
+        export const increaseAsync = () => dispatch => { // getState를 쓰지 않는다면 굳이 파라미터를 받아올 필요없다.
+            setTimeout(() => dispatch(increase()), 1000) // ★ 비동기처리 추가 : setTimeout를 사용하여 액션이 디스패치되는 것을 1초씩 딜레이시킨다.
+        }
+        export const decreaseAsync = () => dispatch => {
+            setTimeout(() => dispatch(decrease()), 1000) // ★ 비동기처리 추가 : setTimeout를 사용하여 액션이 디스패치되는 것을 1초씩 딜레이시킨다.
+        }
+
+
+        
+1. src/containers/CounterContainer.js 수정 : Thunk 함수 적용하기
+    import React from 'react'
+    import Counter from '../components/Counter'
+    import { useSelector, useDispatch } from 'react-redux'
+    // Thunk 함수명으로 임포트 변경
+    import { increaseAsync, decreaseAsync } from '../modules/counter'
+
+    function CounterContainer() {
+        const number = useSelector(state => state.counter)
+        const dispatch = useDispatch()
+
+        // counter 컴포넌트에 선언한 Thunk 함수 onIncrease 사용
+        const onIncrease = () => {
+            dispatch(increaseAsync())
+        }
+        // counter 컴포넌트에 선언한 Thunk 함수 onDecrease 사용
+        const onDecrease = () => {
+            dispatch(decreaseAsync())
+        }
+
+        return (
+            <Counter number={number} onIncrease={onIncrease} onDecrease={onDecrease} />
+        )
+    }
+
+    export default CounterContainer
+
+
+
+1. 테스트 : Redux-thunk안의 thunk 함수가 작동하여, 액션 디스패치가 딜레이 되는지 확인
+    $ cd app1
+    $ npm start
