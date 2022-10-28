@@ -66,3 +66,12 @@ let toggle = !switch1 // 이러면 실행할 때마다 on, off를 반복하는 �
 console.log('토글 1회 실행 값: ', toggle)
 toggle = !switch1
 console.log('토글 2회 실행 값: ', toggle)
+
+
+
+// 문제 : 변수 x가 10보다 크고 20보다 작을 때 변수 x를 출력하는 조건식을 완성하라.
+let x = 15
+// 변수 x가 10보다 크고 20보다 작을 때 변수 x를 출력하는 조건식을 완성하라.
+// if (...) {
+//   console.log(x)
+// }
