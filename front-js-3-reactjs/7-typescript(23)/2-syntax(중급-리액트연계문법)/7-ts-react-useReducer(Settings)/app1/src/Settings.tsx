@@ -1,5 +1,8 @@
 import { useReducer } from 'react'
 
+/* 필요한 타입들을 미리 선언 */
+    
+// Color의 데이터타입
 type Color = 'red' | 'orange' | 'yellow'
 
 // State의 데이터타입
@@ -54,12 +57,14 @@ export default function Settings() {
         isGood: true
     })
 
-    // 액션타입 만들 때 액션타입 외의 값들에 데이터타입 정의를 했기 때문에, 디스패치하는 곳에서 해당 변수를 넣지 않거나, 데이터타입이 다를 때 에러를 발생해준다.
+    // 액션타입 만들 때 액션타입 외의 값들에 데이터타입 정의를 했기 때문에, 
+    // 디스패치하는 곳에서 해당 변수를 넣지 않거나, 데이터타입이 다를 때 에러를 발생해준다.
     const setCount = () => dispatch({ type: 'SET_COUNT', count: 5 }) // count를 넣지 않거나, 데이터타입이 다를 경우 에러발생
     const setText = () => dispatch({ type: 'SET_TEXT', text: 'bye' }) // text를 넣지 않거나, 데이터타입이 다를 경우 에러발생
     const setColor = () => dispatch({ type: 'SET_COLOR', color: 'orange' }) // orange를 넣지 않거나, 데이터타입이 다를 경우 에러발생
     const toggleGood = () => dispatch({ type: 'TOGGLE_GOOD' })
 
+    // 렌더링
     return (
         <div>
             <p>
