@@ -16,7 +16,7 @@ console.log(d)
 // Boolean : true or false 論理変数
 let bool1 = a > b // true or false
 
-// Array 配列 : 住所参照のタイプ
+// Array 配列 : 住所参照のタイプ // index: value
 const e = [1, 2, 3, 'hello']
 console.log(e)
 // e[index]
@@ -30,3 +30,11 @@ f.push(6)
 console.log(f)
 console.log(f.length)
 console.log(f[f.length - 1])
+
+// Object 客体 : 住所参照のタイプ // key: value
+const g = { id: 'yang', pw: 'sdajkfsadf' }
+console.log(g)
+console.log(g.id)
+console.log(g.pw)
+console.log(g['id'])
+console.log(g['pw'])
