@@ -25,7 +25,7 @@ for (let i = 0; i < arr.length; i++) {
 // filter문 용도 : 배열 추려서 새 배열 만들 때
 // arr.filter(function (item) { return item > 3 }) // newArr === [4, 4, 5]
 
-// reduce문 용도 : 배열값들을 이용해 수학적 계산이 필요한 경우s(예 : 각 과목 점수들의 평균을 계산)
+// reduce문 용도 : 배열값들을 이용해 수학적 계산이 필요한 경우 (예 : 각 과목 점수들의 평균을 계산)
 // arr.reduce(function (acc, item) { return acc + item }) // sum
 // arr.reduce(function (acc, item) { return acc + item / arr.length }) // average
 
