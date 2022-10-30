@@ -1,0 +1,17 @@
+[Redux로 선언한 State의 데이터타입 관리하기 - Counter 컴포넌트 편]
+
+1. src/modules/counter.ts : Counter의 Redux 모듈 작성하기
+    
+1. src/modules/index.ts : 프로젝트에 루트 리듀서 만들고 리덕스 적용하기
+
+1. src/index.tsx : 스토어를 만들고, Provider 컴포넌트를 사용하여 스토어를 프로젝트에 적용
+
+1. src/components/Counter.tsx : Counter의 프리젠테이셔널 컴포넌트 만들기
+
+1. src/containers/CounterContainer.tsx : Counter의 컨테이너 컴포넌트 만들기
+
+1. src/App.tsx : CounterContainer를 렌더링
+
+1. 테스트
+    $ cd app1
+    $ npm start
