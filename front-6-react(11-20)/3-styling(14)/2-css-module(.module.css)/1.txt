@@ -12,7 +12,7 @@
     예를 들어, box.module.css 라는 파일을 만들고,
     .box {} 를 넣고,
     컴포넌트에서 해당 CSS 파일을 import styles from "./Box.module.css"로 임포트하고,
-    <div className={styles.Box}>Hello</div> 라는 식으로 사용하면,
+    <div className={styles.Checkbox}>Hello</div> 라는 식으로 사용하면,
     <div class="Checkbox_checkbox__x6F91"> 처럼 HTML에서 변경되어,
     CSS 파일에 선언한 클래스 이름들이 모두 고유해진다.
 
