@@ -36,17 +36,16 @@
     장르: genres
     런타임: runtime
     평점: rating
-    시놉시스: synopsis
-    토렌트 다운로드 링크: torrents
-    * 선택한 id만 나올 필요는 일단 없지만, 상세정보 컴포넌트는 분리해서 관리한다.
+    줄거리: summary
+    토렌트 다운로드 링크: torrents // 링크1 링크2 ... 
 
 [리팩토링 이슈]
-리팩토링: 메뉴 제목의 컴포넌트화
+리팩토링: MenuTitle 컴포넌트화
     const [menu, setMenu] = useState('무비 리스트') 로 기존 제목을 {menu} 스테이트로 변경
     App.js의 <h1>무비 리스트</h1> 부분을 Title.js 만들어서 
     <Title menu={menu} /> 로 컴포넌트화해서 분리시키기 (프롭도 줄것 menu)
 리팩토링: MovieList 컴포넌트화
-리팩토링: 컴포넌트 쪼개기
+리팩토링: Typescript 도입
 퍼포먼스튜닝: MovieList 컴포넌트 랜더링 최적화
 
 [옵션]

@@ -1,11 +1,12 @@
-// Counter의 Redux 모듈 작성하기
+/* Counter의 Redux 모듈 작성하기 */
 // Redux 관련 코드를 작성할 때 Ducks 패턴을 사용 할 것이다.
 // 즉, 액션타입, 액션생성함수, 리듀서를 모두 한 파일에 작성하겠다는 의미이다.
 
-// 액션 타입을 선언합니다
-// 뒤에 as const 를 붙여줌으로써 나중에 액션 객체를 만들게 action.type 의 값을 추론하는 과정에서
-// action.type 이 string 으로 추론되지 않고 'counter/INCREASE' 와 같이 실제 문자열 값으로 추론 되도록 해줍니다.
-const INCREASE = 'counter/INCREASE' as const
+/* 액션 타입 선언 */
+// 뒤에 as const를 붙여줌으로써 나중에 액션 객체를 만들기 위해 action.type의 값을 추론하는 과정에서
+// action.type이 "단순 string"으로 추론되지 않고 'counter/INCREASE' 와 같이 "변수안에 들어가는 실제 문자열 값"으로 추론 되도록 한다.
+// 무슨 말이냐면 string으로 했을 때의 타입은 { type: string; }이 되고, { type: "counter/INCREASE_BY"; payload: number; }
+const INCREASE = 'counter/INCREASE' as string
 const DECREASE = 'counter/DECREASE' as const
 const INCREASE_BY = 'counter/INCREASE_BY' as const
 
