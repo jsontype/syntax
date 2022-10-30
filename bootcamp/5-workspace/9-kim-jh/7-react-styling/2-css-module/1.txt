@@ -1,1 +1,8 @@
-..
+// CSS Module
+[CSS Module]
+
+1. CSS Module 사용법
+    확장자 Box.css -> Box.module.css 로 변경 (윗단에서 세팅하면 css로만 써도 됨)
+    Box.module.css를 생성후, 사용하는 컴포넌트에서 임포트한다.
+    <div className="CheckBox">Hello</div> 이렇게 사용하면,
+    실제로는 <div class="Checkbox_checkbox__x6F91"> 식으로 고유의 클래스명을 가지게 된다.

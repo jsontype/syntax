@@ -1,3 +1,6 @@
+/* Counter의 프리젠테이셔널 컴포넌트 만들기 */
+
+// props 타입 정의
 type CounterProps = {
     count: number
     onIncrease: () => void
@@ -5,13 +8,14 @@ type CounterProps = {
     onIncreaseBy: (diff: number) => void
 }
 
-// 컴포넌트에서 필요한 값과 함수들을 모두 props 로 받아오게 했습니다.
-function Counter({
+// 컴포넌트에서 필요한 값과 함수들을 모두 props로 받아온다.
+export default function Counter({
     count,
     onIncrease,
     onDecrease,
     onIncreaseBy
 }: CounterProps) {
+    // 카운터를 렌더링한다.
     return (
         <div>
             <h1>{count}</h1>
@@ -21,5 +25,3 @@ function Counter({
         </div>
     )
 }
-
-export default Counter

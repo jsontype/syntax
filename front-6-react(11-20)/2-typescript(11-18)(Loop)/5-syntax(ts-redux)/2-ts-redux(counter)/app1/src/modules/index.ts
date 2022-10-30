@@ -1,15 +1,13 @@
-
-
 import { combineReducers } from 'redux'
 import counter from './counter'
 
+// 루트리듀서 만들기
 const rootReducer = combineReducers({
     counter
 })
 
-// 루트 리듀서를 내보내주세요.
+// 루트리듀서 익스포트 해두기
 export default rootReducer
 
-// 루트 리듀서의 반환값를 유추해줍니다
-// 추후 이 타입을 컨테이너 컴포넌트에서 불러와서 사용해야 하므로 내보내줍니다.
+// 루트리듀서의 리턴값 타입 정의 : 추후 이 타입을 컨테이너 컴포넌트에서 불러와서 사용할 수 있게 익스포트 해두기
 export type RootState = ReturnType<typeof rootReducer>
