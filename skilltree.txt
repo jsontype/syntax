@@ -20,7 +20,7 @@
         (1) HTML : 마크업
         (2) CSS : 문법
         - it용어2 : 좋은 개발 특성, framework-library
-        (3)(skip) CSS Bootstrap : 프레임워크 기본 익히기
+        (3)(skip) CSS Bootstrap : fw 기본 익히기
         (4) CMS : figma
         (5) JS : 초급문법
         - it용어3 : api-ajax, async
@@ -30,7 +30,7 @@
         (8)(skip) PHP : DB, 서버, 호스팅 이해하기 (Java, Python이 하는 일로, 백엔드 경험 있는 사람은 Skip)
         (9) Node : node, npm, typescript, npm중 필수 lib와 fw들의 개념 이해하기
         - it용어5 : 극단적사고-애매모호함, npm-yarn-npx-nvm, rest-api
-        (10) Git : 마크업 프로젝트 배포를 통해 깃허브에 익숙해지기, 뉴스앱 (Git)
+        (10) Git : 프로젝트 협업을 통해 깃허브에 익숙해지기
         (11-18) (Loop) React typescript : 11-17 구간에서 하나 끝날 때마다 "Typescript 문법 학습 / 무비앱 깃 업그레이드" 반복
             (11) React 초급문법 : 무비앱 (API 호출)
             (12) JS : 고급문법
@@ -42,8 +42,8 @@
             - it용어7 : throttling, process-thread, lighthouse
             (17) React performance-tuning : useMemo, useCallback
             (18) React ssr : react-router(SPA에서 SSR), next(MPA에서 SSR, 정석적 방법)
-        (19) React sum : 요약의 암기
-        (20) React app : 다양한 종류의 어플 제작방법 무한 학습
+        (19) React sum : 요약 암기
+        (20) React app : 포트폴리오 제작
         - it용어8 : workflow, scrum, dev-sta-pro, aws-ecs, docker, jest, shell-vi, batch
         - 스킬시트작성 & 면접연습 & 취업활동개시 & 사후멘토링
     </bootcamp>
