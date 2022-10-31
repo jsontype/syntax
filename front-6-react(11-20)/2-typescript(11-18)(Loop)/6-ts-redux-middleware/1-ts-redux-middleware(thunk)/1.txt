@@ -1,0 +1,11 @@
+[타입스크립트에서 리덕스 미들웨어 사용하기 (redux-thunk)]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. 타입스크립트에서 리덕스 미들웨어 사용하기 (redux-thunk)
+    이번 튜토리얼에서는 redux-thunk 미들웨어를 타입스크립트 환경에서 사용 할 때에는 어떻게 사용하는지 알아보도록 하겠다.
+    ...
+
+
+
+    https://react.vlpt.us/using-typescript/06-ts-redux-middleware.html
