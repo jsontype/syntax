@@ -1,11 +1,12 @@
 import ReactDOM from 'react-dom'
 import App from './App'
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
+import Thunk from 'redux-thunk'
 import rootReducer from './modules'
 
-// 스토어를 만들고,
-const store = createStore(rootReducer)
+// 스토어에 applyMiddleware(Thunk)를 이용해 redux-thunk 적용
+const store = createStore(rootReducer, applyMiddleware(Thunk))
 
 ReactDOM.render(
     // Provider 컴포넌트를 사용하여 스토어를 프로젝트에 적용
