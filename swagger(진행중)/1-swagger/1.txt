@@ -1,0 +1,38 @@
+[스웨거 API, 스웨거 허브]
+
+1. 스웨거 API 정의
+    스웨거는 Open Api Specification(OAS)를 위한 프레임워크이다.
+
+    구체적으로 말해서,
+    스웨거는 서버쪽에서 클라이언트에게 API를 전달할 때,
+    데이터가 정확히 어떠한 구조인지, 어떠한 방식으로 받을지에 대한 명세가 필요하다.
+    이를 API 명세라고 하는데,
+    옛날에는 *.xlsx 엑셀파일로 전달하거는 등으로 API 명세를 해주었지만,
+    이제는 API 관리 기능을 지원해주는 스웨거 서비스가 API 명세를 덜 번거롭게 해준다.
+    보통은 여러명의 개발자가 스웨거 허브를 통해 하나의 프로젝트에 대한 API를 작성한다.
+    스웨거 Hub URL : https://swagger.io/tools/swaggerhub
+
+    스웨거는 기본적으로 REST API를 채택한다.
+    서비스를 마이크로하게 개발하는 구조에 잘 어울린다.
+    테스트 패킷을 보내서, 제대로 동작하는 지 테스트할 수 있다.
+
+        
+
+1. Open API 정의
+    OPEN API란, REST API를 위한 표준 API 명세 규격을 의미한다.
+    
+    
+
+1. 스웨거 허브 UI 살펴보기
+    스웨거 허브에 접속하여, 회원가입(github 계정으로) 및 로그인 : https://swagger.io/tools/swaggerhub
+    새로 만들기 → 새 API 생성
+        Specification : 3.0.x
+        Template : Petstore (연습용 예제)
+        Name : api1
+        Visibility : Public
+        Auto Mock API : On
+    자동으로 해당 API가 열리는 것을 확인
+        총 3개의 탭이 있는데, 좌측에 네비게이션, 가운데에 YANG이라는 규격을 갖춘 문서를 수정할 수 있는 에디터, 우측에 API 명세서의 전체내용이 출력된다.
+        네비게이션 탭 : 클릭해서 해당 API의 YANG 문서와, 명세서를 열 수 있다.
+        에디터 탭 : 이 에디터탭에서 YANG 문서를 수정하면, API 명세서가 바뀌게 된다.
+        API 명세서 탭 : 명세서도 보고, 실제 API를 호출하며 테스트해볼 수 있다.

@@ -37,8 +37,12 @@
     에어드랍 사용법 : https://support.apple.com/ko-kr/HT204144
 
 
-
+    
 1. COMMON
+    알트탭 류
+        프로그램간 이동 : 순방향 Command + Tab 
+        역방향 :  Command + Shift + Tab)
+        창간 이동 :  Command + @ // 탭간 이동 : Tab + Ctrl
     Cmd +
         A = Select All
         C = Copy
@@ -129,6 +133,7 @@
     Opt : Boot Manager
     D : Diagnostics
     Cmd + R : Recovery
+
 
 
 1. Hold at Startup (M1 Chip)

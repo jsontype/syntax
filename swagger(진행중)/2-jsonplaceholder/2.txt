@@ -1,0 +1,29 @@
+[Swagger로 간단한 REST API 명세해보기 - Jsonplaceholder API]
+
+1. 새로 시작하기
+    새로 만들기 → 새 API 생성
+        Specification : 3.0.x
+        Template : ---None---
+        Name : api2
+        Version : 1.0.0
+        Visibility : Public
+        Auto Mock API : On
+        Title : API2
+        Visibility : Public
+        Auto Mock API : On
+    https://jsonplaceholder.typicode.com/ 에 들어가서 Try it 쪽을 복사해두기
+        fetch('https://jsonplaceholder.typicode.com/todos/1')
+            .then(response => response.json())
+            .then(json => console.log(json))
+    에디터를 api2.yang을 복사 후 붙여넣기 같이 수정
+    save를 클릭
+
+
+
+1. 테스트
+    우측 상단의 view documentation 버튼을 클릭 (문서 아이콘)
+    서버의 풀다운 클릭 후 https://jsonplaceholder.typicode.com - JSON Placeholder API 를 클릭
+    GET /todos/{id} 클릭
+    Try it out 클릭
+    id에 7을 입력
+    반환 결과가 실제로 브라우저에 https://jsonplaceholder.typicode.com/todos/7 를 입력했을 때의 반환 결과가 동일함을 확인

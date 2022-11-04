@@ -1,0 +1,38 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: API_Example
+  description: ''
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/JSONTYPER/api2/1.0.0
+  - description: JSON Placeholder API
+    url: https://jsonplaceholder.typicode.com
+paths:
+  /todos/{id}:
+    get:
+      summary: Returns a user by ID
+      parameters: 
+        - name: id
+          in: path
+          required: true
+          description: The ID of the user to return
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userId:
+                      type: integer
+                  id:
+                      type: integer
+                  title:
+                      type: string
+                  completed:
+                      type: boolean
