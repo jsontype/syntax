@@ -1,0 +1,7 @@
+[Swagger로 간단한 REST API 명세해보기 - 구글 자동완성 API]
+
+1. 새로 만들기
+
+    https://www.youtube.com/watch?v=ARi-cXdIIj8&list=PLRx0vPvlEmdAezo0wkmUdT6WBCch0_1ie&index=2
+
+    8:56부터...
