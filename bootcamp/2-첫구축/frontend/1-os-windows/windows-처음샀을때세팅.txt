@@ -4,9 +4,6 @@
 1. chrome 설치 후 구글 동기화
 1. chrome 웹스토어 확장 설치 
 1. vscode 설치
-1. vscode 확장 설치
-1. vscode 현재 파일 위치로 터미널 열기 설정
-    vscode 설정 아이콘을 누른다.
-    terminal.integrated.cwd
+1. vscode 확장 설치 및 cwd 설정
     ${fileDirname}
-1. 다음 수순으로 : devtools, git 설치
+1. 다음 수순으로 : node, git, devtools 설치
