@@ -46,12 +46,24 @@
     <Title menu={menu} /> 로 컴포넌트화해서 분리시키기 (프롭도 줄것 menu)
 리팩토링: MovieList 컴포넌트화
 리팩토링: Typescript 도입
-퍼포먼스튜닝: MovieList 컴포넌트 랜더링 최적화
+리팩토링: scss 도입 후, 변수를 글로벌화 해서 임포트하는 방식으로 변경
+    1. npm i node-sass
+    2. css 확장자를 모두 scss로 변경
+    3. 다음 파일에 변수 선언
+        src/style/font.scss
+        src/style/color.scss
+    4. 기존 cssㄹ모든 font-size와 color 변수화
+        예 : $blue: '#??????'
+        예 : $font-md: '15px' 사이즈는 임의로
+        $font-xl, $font-lg, $font-md, $font-sm, $font-xs
+    5. 루트글로벌변수파일 src/style/resources.scss 생성
+            @import './font.scss'
+            @import './color.scss'
+    6. 기존 스타일 파일에 @import 글로벌 '~/style/resouces.scss'로 임포트시켜놓고 해당 변수 사용
+리팩토링: MovieList 컴포넌트 랜더링의 퍼포먼스튜닝(최적화)
 
-[옵션]
-리팩토링: TodoList API를 불러와서 투두리스트 메뉴 및 컴포넌트 구현
+[기능 추가]
+기능: TodoList API를 불러와서 투두리스트 메뉴 및 컴포넌트 구현
     API: https://jsonplaceholder.typicode.com/todos
-리팩토링: UserList API를 불러와서 유저리스트 메뉴 및 컴포넌트 구현
+기능: UserList API를 불러와서 유저리스트 메뉴 및 컴포넌트 구현
     API: https://jsonplaceholder.typicode.com/users
-퍼포먼스튜닝: TodoList 컴포넌트 랜더링 최적화
-퍼포먼스튜닝: UserList 컴포넌트 랜더링 최적화
