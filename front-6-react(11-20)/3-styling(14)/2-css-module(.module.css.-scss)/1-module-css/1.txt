@@ -35,61 +35,48 @@
 
 
 1. src/App.js 생성
-    import React, { useState } from 'react'
-    import CheckBox from './components/CheckBox'
+    import React from 'react'
+    import Button from './Button'
 
-    function App() {
-        const [check, setCheck] = useState(false)
-        const onChange = e => {
-            setCheck(e.target.checked)
-        }
-        return (
-            <div>
-                <CheckBox onChange={onChange} checked={check} />
-                <p>
-                    <b>check: </b>
-                    {check ? 'true' : 'false'}
-                </p>
-            </div>
-        )
+    function App () {
+    return (
+        <div>
+        <Button />
+        </div>
+    )
     }
 
     export default App
 
 
 
-1. src/components/CheckBox.js 생성 : ...rest로, name, onChange 같은 값을 그대로 input 에게 넣어준다.
+1. src/components/Button.js 생성
     import React from 'react'
-    import styles from './CheckBox.module.css'
+    import styles from './Button.module.css'
 
-    function CheckBox({ children, checked, ...rest }) {
+    export default function Button () {
+        const onClick = () => {
+            alert('Button이 클릭되었습니다.')
+        }
+
         return (
-            <div className={styles.checkbox}>
-                <label>
-                    <input type="checkbox" checked={checked} {...rest} />
-                    <div>{checked ? '체크됨' : '체크 안됨'}</div>
-                </label>
-                <span>{children}</span>
+            <div className={styles.btn} onClick={onClick}>
+                <button className='primary'>버튼</button>
             </div>
         )
     }
 
-    export default CheckBox
 
 
-
-1. src/components/CheckBox.module.css 생성
-    .checkbox label {
-        color: red;
-        cursor: pointer;
-    }
-
-    .checkbox span {
+1. src/components/Button.module.css 생성
+    .btn .primary {
+        background: blue;
+        color: white;
         font-size: 1.125rem;
     }
 
 
 
-1. 테스트
+1. 테스트 : 브라우져의 F12에서, Button의 클래스 이름이 고유한 클래스명으로 자동변경된 것을 확인
     $ cd app1
     $ npm start

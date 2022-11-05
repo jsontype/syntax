@@ -1,15 +1,17 @@
 import React from 'react'
 import './App.scss'
-import Button from './components/Button'
+import Button from './components/common/Button/Button'
+import TextBox from './components/common/TextBox/TextBox'
 
-function App () {
+export default function App () {
+  // JS
+
+  // XML
   return (
-    <div className="App">
-      <div className="buttons">
-        <Button>BUTTON</Button>
-      </div>
+    <div>
+      Hello React!
+      <Button />
+      <TextBox text='아무거나' />
     </div>
   )
 }
-
-export default App

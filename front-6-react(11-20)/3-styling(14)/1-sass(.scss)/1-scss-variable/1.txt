@@ -43,7 +43,7 @@
             font: 100% $font-stack;
             color: $primary-color;
         }
-
+        
     여기서는 보통 더 많이 사용되는 .scss 확장자로 스타일을 작성해보겠다.
 
 
