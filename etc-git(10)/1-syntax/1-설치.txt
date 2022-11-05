@@ -44,8 +44,8 @@
 
     이메일 설정 : 최초의 경우, git 유저 정보 터미널에 입력
         git config --global list
-        git config --global user.email "you@example.com"
-        git config --global user.name "Your Name"
+        git config --global user.email "jsontyper@gmail.com"
+        git config --global user.name "jsontype"
 
     추가학습 : 관련 용어들
         Repository : 깃 저장소
