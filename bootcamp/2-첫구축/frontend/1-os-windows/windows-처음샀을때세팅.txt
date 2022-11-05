@@ -7,3 +7,4 @@
 1. vscode 확장 설치 및 cwd 설정
     ${fileDirname}
 1. 다음 수순으로 : node, git, devtools 설치
+1. logicool g hub
