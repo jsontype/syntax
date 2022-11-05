@@ -67,86 +67,110 @@
 
 
 
-1. src/components/Button.js 생성 : button 컴포넌트를 만든다.
+1. src/styles/color.scss 생성 : 컬러 글로벌 변수
+    $blue: blue;
+    $red: red;
+    $light-gray: lightgray;
+    $gray: gray;
+
+
+
+1. src/styles/font.scss 생성 : 폰트사이즈 글로벌 변수
+    $font-2xl: '20px';
+    $font-xl: '18px';
+    $font-lg: '16px';
+    $font-md: '14px';
+    $font-sm: '12px';
+    $font-xs: '10px';
+    $font-2xs: '8px';
+
+
+
+1. src/styles/resources.scss 생성 : 모든 글로벌 변수의 임포트 그룹, 나중에 이것만 임포트하면 다 임포트된다.
+    @import './color.scss';
+    @import './font.scss';
+        
+
+
+1. src/components/common/Button/Button.js 생성 : button의 common 컴포넌트를 만든다.
     import React from 'react'
     import './Button.scss'
 
-    function Button({ children }) {
-        return <button className="Button">{children}</button>
+    function Button () {
+        return (
+            <button className="Button">버튼</button>
+        )
     }
 
     export default Button
 
 
 
-1. src/components/Button.scss 생성 : 기존 css 에서는 사용하지 못하던 문법들이 사용되었다. (주석 참조)
-    // 변수 선언
-    $blue: #228be6;
+1. src/components/common/Button/Button.scss 생성 : 기존 css 에서는 사용하지 못하던 문법들이 사용되었다. (주석 참조)
+    // 글로벌 변수 그룹 임포트
+    @import '../../../styles/resources.scss';
 
     .Button {
-        // 색상 변수
         background: $blue;
-
-        // 버튼 스타일
-        display: inline-flex;
-        color: white;
-        font-weight: bold;
-        outline: none;
-        border-radius: 4px;
-        border: none;
-        cursor: pointer;        
-        align-items: center;
-        justify-content: center;
-        height: 2.25rem;
-        padding-left: 1rem;
-        padding-right: 1rem;
-        font-size: 1rem;
-
-        // 가상 클래스
-        // &:hover는 .Button:hover를 의미한다.
         &:hover {
-            // lighten() : 색상 10% 밝게
             background: lighten($blue, 10%);
         }
-
         &:active {
-            // darken() : 색상 10% 어둡게
             background: darken($blue, 10%);
         }
     }
 
 
 
-1. src/App.css 이름 변경 : 이제 scss를 써야한다.
-    src/App.scss로 이름 변경
-
-1. src/App.scss 수정
-    .App {
-        width: 512px;
-        margin: 0 auto;
-        margin-top: 4rem;
-        border: 1px solid black;
-        padding: 1rem;
-    }
-
-
-
-1. src/App.js 수정 : Button을 임포트하는 김에, App.css 임포트 파일명도 같이 바꿔준다.
+1. src/components/common/TextBox/TextBox.js 생성 : TextBox의 common 컴포넌트를 만든다.
     import React from 'react'
-    import './App.scss'
-    import Button from './components/Button'
+    import './TextBox.scss'
 
-    function App () {
+    export default function TextBox ({ text }) {
         return (
-            <div className="App">
-                <div className="buttons">
-                    <Button>BUTTON</Button>
-                </div>
+            <div className='TextBox'>
+                {text}
             </div>
         )
     }
 
-    export default App
+
+
+1. src/components/common/TextBox/TextBox.scss 생성 : 기존 css 에서는 사용하지 못하던 문법들이 사용되었다. (주석 참조)
+    // 글로벌 변수 그룹 임포트
+    @import '../../../styles/resources.scss';
+
+    .TextBox {
+        width: 200px;
+        padding: 20px;
+        background: $light-gray;
+    }
+
+
+
+1. src/App.css 이름 변경 : 이제 scss를 써야한다.
+    src/App.scss로 이름 변경
+  
+
+
+1. src/App.js 수정 : Button와 TextBox를 임포트하는 김에, App.css 임포트 파일명도 같이 바꿔준다.
+    import React from 'react'
+    import './App.scss'
+    import Button from './components/common/Button/Button'
+    import TextBox from './components/common/TextBox/TextBox'
+
+    export default function App () {
+        // JS
+
+        // XML
+        return (
+            <div>
+                Hello React!
+                <Button />
+                <TextBox text='아무거나' />
+            </div>
+        )
+    }
 
 
 
