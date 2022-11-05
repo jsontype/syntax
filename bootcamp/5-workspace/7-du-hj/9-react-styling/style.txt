@@ -1,7 +1,6 @@
 리액트 스타일링 방식은 여러가지가 있는데, 대표적인 3가지
 
 1. sass
-
     *.css
         body {
             font-family: Helvetica, sans-serif
