@@ -36,7 +36,7 @@
 
 
 
-1. src/components/CounterContainer.js 생성 : 컨테이너 컴포넌트 만들기
+1. src/containers/CounterContainer.js 생성 : 컨테이너 컴포넌트 만들기
     import React from 'react'
     import { useSelector, useDispatch } from 'react-redux'
     import Counter from './Counter'
