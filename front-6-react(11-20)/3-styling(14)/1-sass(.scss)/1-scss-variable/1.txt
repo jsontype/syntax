@@ -23,10 +23,15 @@
     Sass 에서는 두가지의 확장자 (.scss/.sass) 를 지원한다.
     Scss는 css와 같은 문법을 쓰고 싶은 사람을 위해 나중에 추가된 문법이다.
 
+    CSS 문법
+        body {
+            font: 100% Helvetica, sans-serif
+            color: #333
+        }
+
     Sass 문법
         $font-stack: Helvetica, sans-serif
         $primary-color: #333
-
         body
             font: 100% $font-stack
             color: $primary-color
