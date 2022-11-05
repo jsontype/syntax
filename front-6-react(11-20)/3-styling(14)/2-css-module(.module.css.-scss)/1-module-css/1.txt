@@ -39,18 +39,18 @@
     import Button from './Button'
 
     function App () {
-    return (
-        <div>
-        <Button />
-        </div>
-    )
+        return (
+            <div>
+                <Button />
+            </div>
+        )
     }
 
     export default App
 
 
 
-1. src/components/Button.js 생성
+1. src/Button.js 생성
     import React from 'react'
     import styles from './Button.module.css'
 
@@ -68,7 +68,7 @@
 
 
 
-1. src/components/Button.module.css 생성
+1. src/Button.module.css 생성
     .btn .primary {
         background: blue;
         color: white;

@@ -1,0 +1,13 @@
+$color-blue: blue;
+$color-white: white;
+$font-md: 1.125rem;
+
+@mixin primary () {
+    background: $color-blue;
+    color: $color-white;
+    font-size: $font-md;
+}
+
+.btn .primary {
+    @include primary();
+}
