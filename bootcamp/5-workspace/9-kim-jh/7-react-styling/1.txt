@@ -1,0 +1,66 @@
+// Sass
+    Sass (Syntactically Awesome Style Sheets: 문법적으로 짱 멋진 스타일시트)는 CSS pre-processor(전처리기)로서,
+    큰 장점은 코드의 재활용성, 코드의 가독성을 높여줘 유지보수를 쉽게 해준다.
+    Sass 에서는 두가지의 확장자 (.scss/.sass) 를 지원한다.
+    Scss는 css와 같은 문법을 쓰고 싶은 사람을 위해 나중에 추가된 문법이다.
+
+    CSS 문법
+        body {
+            font: 100% Helvetica, sans-serif
+            color: #333
+        }
+
+    Sass 문법
+        $font-stack: Helvetica, sans-serif
+        $primary-color: #333
+        body
+            font: 100% $font-stack
+            color: $primary-color
+
+    Scss 문법 (에스씨에스에스)
+        $font-stack: Helvetica, sans-serif;
+        $primary-color: #333;
+        body {
+            font: 100% $font-stack;
+            color: $primary-color;
+        }
+
+1. React에 Scss 프레임워크 도입하기
+    $ npm i node-sass (= yarn add node-sass)
+
+
+1. src/components/Button.scss 생성 : 기존 css 에서는 사용하지 못하던 문법들이 사용되었다. (주석 참조)
+    // 변수 선언
+    $blue: #228be6;
+
+    .Button {
+        // 색상 변수
+        background: $blue;
+
+        // 버튼 스타일
+        display: inline-flex;
+        color: white;
+        font-weight: bold;
+        outline: none;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;        
+        align-items: center;
+        justify-content: center;
+        height: 2.25rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        font-size: 1rem;
+
+        // 가상 클래스
+        // &:hover는 .Button:hover를 의미한다.
+        &:hover {
+            // lighten() : 색상 10% 밝게
+            background: lighten($blue, 10%);
+        }
+
+        &:active {
+            // darken() : 색상 10% 어둡게
+            background: darken($blue, 10%);
+        }
+    }
