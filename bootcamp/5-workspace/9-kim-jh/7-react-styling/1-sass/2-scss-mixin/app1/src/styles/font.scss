@@ -1,0 +1,16 @@
+@import './color.scss';
+
+@mixin header-md () {
+    $font-xl: 20px;
+    color: $red;
+    font-weight: 457;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+$font-2xl: 22px;
+$font-xl: 20px;
+$font-lg: 18px;
+$font-md: 16px;
+$font-sm: 14px;
+$font-xs: 12px;
+$font-2xs: 10px;

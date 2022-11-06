@@ -1,0 +1,20 @@
+$blue: blue;
+$red: red;
+$light-gray: lightgray;
+$gray: gray;
+
+
+@mixin button-color ($color) {
+    background: $color;
+    color: white;
+    border: 1px solid gray;
+    border-radius: 5px;
+
+    &:hover {
+        background: lighten($color, 10%)
+    }
+
+    &:active {
+        background: darken($color, 20%)
+    }
+}

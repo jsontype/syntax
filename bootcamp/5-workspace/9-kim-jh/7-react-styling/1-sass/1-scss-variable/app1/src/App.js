@@ -1,4 +1,5 @@
-import './App.css'
+import './App.scss'
+import Title from './components/Title'
 
 function App() {
   // JS
@@ -6,7 +7,7 @@ function App() {
   // XML
   return (
     <div className="App">
-      <h1>Hello React</h1>
+      <Title />
     </div>
   )
 }

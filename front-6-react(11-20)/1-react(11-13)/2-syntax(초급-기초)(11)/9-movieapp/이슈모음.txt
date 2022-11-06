@@ -60,9 +60,9 @@
             @import './font.scss'
             @import './color.scss'
     6. 기존 스타일 파일에 @import 글로벌 '~/style/resouces.scss'로 임포트시켜놓고 해당 변수 사용
-리팩토링: MovieList 컴포넌트 랜더링의 퍼포먼스튜닝(최적화)
 리팩토링 : css-module 적용
     확장자 *.module.* 로 바꾸고 임포트 부분 설정도 같이 변경
+리팩토링: MovieList 컴포넌트 랜더링의 퍼포먼스튜닝(최적화)
 
 [기능 추가]
 기능: TodoList API를 불러와서 투두리스트 메뉴 및 컴포넌트 구현
