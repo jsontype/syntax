@@ -1,0 +1,9 @@
+@import '../../styles/resources.scss';
+
+.title {
+    // font-size: $font-xl;
+    // color: $red;
+    text-decoration: none;
+
+    @include header-md;
+}
