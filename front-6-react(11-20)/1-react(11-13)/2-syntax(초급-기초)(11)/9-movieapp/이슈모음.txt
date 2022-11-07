@@ -45,6 +45,11 @@
     App.js의 <h1>무비 리스트</h1> 부분을 Title.js 만들어서 
     <Title menu={menu} /> 로 컴포넌트화해서 분리시키기 (프롭도 줄것 menu)
 리팩토링: MovieList 컴포넌트화
+리팩토링: 컴포넌트 폴더 정리
+    src/components/MovieList/index.js 형태로 바꿀 것
+    src/components/MovieList/style.css
+    src/components/Title/index.js
+    src/components/Title/index.css
 리팩토링: Typescript 도입
 리팩토링: scss 도입 후, 변수를 글로벌화 해서 임포트하는 방식으로 변경
     1. npm i node-sass
