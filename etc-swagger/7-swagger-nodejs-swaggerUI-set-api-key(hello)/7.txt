@@ -1,0 +1,40 @@
+[Node.js Swagger UI 패키지 사용 - API Key 설정하기]
+
+1. API Key 설정하기 : Private한 접근권한설정
+    실무에서는 보안을 위해 API Key를 설정해놓는다.
+    호출할 때 이것을 사용해야만 Access 권한을 얻는다.
+    
+
+
+
+1. app.js 수정 : var config 부분의 appRoot: __dirname에 ","를 추가하고, 해당 행 아래에 다음 소스코드를 추가해, API 키 설정하기
+    // 4. API Key를 설정(1) : 요청 헤더값이 api_key이고, 값이 'my_key'일 경우에만 실행을 허용한다.
+    swaggerSecurityHandlers: {
+        api_key: function (req, authOrSecDef, scopesOrApiKey, cb) {
+            if ('my_key' === scopesOrApiKey) {
+                cb();
+            } else {
+                cb(new Error('Access Denined!'));
+            }
+        }
+    }
+
+
+
+1. api/swagger/swagger.yaml 수정 : 하단부의 definitions: 행 위에 다음을 추가 (* 위계 주의 : securityDefinitions:와 security:와 definitions:은 형제)
+    # 5. API Key를 설정(2)
+    securityDefinitions:
+        api_key:
+            type: apiKey
+            in: query
+            name: api_key
+    security:
+        - api_key: []
+
+
+
+1. 테스트 : API Key 도입 확인
+    $ cd app1
+    $ swagger project start
+    브라우져에서 동작 확인 : http://127.0.0.1:10010/docs/ -> default -> /hello -> name에 아무거나 입력 -> Access Denied가 뜨면 정상
+    브라우져에서 동작 확인 : http://127.0.0.1:10010/docs/ -> default -> /hello -> name에 아무거나 입력 -> 우상단 api_key 부분에 'my_key' 입력 -> 정상작동 확인

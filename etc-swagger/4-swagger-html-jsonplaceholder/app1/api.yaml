@@ -1,0 +1,44 @@
+---
+openapi: 3.0.0
+info:
+  title: Jsonplaceholder API
+  description: ""
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/JSONTYPER/api2/1.0.0
+  description: SwaggerHub API Auto Mocking
+- url: https://jsonplaceholder.typicode.com
+  description: JSON Placeholder API
+paths:
+  /todos/{id}:
+    get:
+      summary: Returns a user by ID
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the user to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+components:
+  schemas:
+    inline_response_200:
+      type: object
+      properties:
+        userId:
+          type: integer
+        id:
+          type: integer
+        title:
+          type: string
+        completed:
+          type: boolean
