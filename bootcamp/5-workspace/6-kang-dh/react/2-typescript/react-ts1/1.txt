@@ -1,0 +1,14 @@
+설치방법 : 
+    npx create-react-app movieapp-ts --template typescript
+
+추가방법 :
+    npm i --save typescript @types/node @types/react @types/react-dom @types/jest
+    모든 *.js 파일의 확장자를 *.tsx 파일로 변경
+    tsconfig.json 생성 : tsc --init
+    tsconfig.json 파일 열어서, "compilerOptions": { 밑에 다음을 추가하여 jsx가 적용되도록 하기
+        "jsx": "react",
+    src/index.js의 다음 스탭을 수정 : document.getElementById('root') -> document.getElementById('root') as HTMLElement
+    * 참조 URL : https://create-react-app.dev/docs/adding-typescript/
+
+1. Components의 타입 : React.FC
+1. Props 타입은 type Alias를 사용한다.

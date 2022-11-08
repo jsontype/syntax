@@ -36,5 +36,5 @@
 1. 테스트 : API Key 도입 확인
     $ cd app1
     $ swagger project start
-    브라우져에서 동작 확인 : http://127.0.0.1:10010/docs/ -> default -> /hello -> name에 아무거나 입력 -> Access Denied가 뜨면 정상
-    브라우져에서 동작 확인 : http://127.0.0.1:10010/docs/ -> default -> /hello -> name에 아무거나 입력 -> 우상단 api_key 부분에 'my_key' 입력 -> 정상작동 확인
+    브라우져에서 동작 확인 : http://127.0.0.1:10010/docs/ -> default -> /hello -> try it out -> name 입력 -> Access Denied가 뜨면 정상
+    브라우져에서 동작 확인 : http://127.0.0.1:10010/docs/ -> default -> /hello -> try it out -> name 입력 -> 우상단 api_key 부분에 'my_key' 입력 -> 정상작동

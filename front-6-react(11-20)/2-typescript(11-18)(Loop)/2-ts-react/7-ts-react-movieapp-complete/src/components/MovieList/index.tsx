@@ -2,8 +2,19 @@ import React, { useState } from 'react'
 import MovieDetail from './MovieDetail'
 import './style.css'
 
+type MovieListItemProps = {
+  rating: number,
+  id: number,
+  url: string,
+  title: string,
+  large_cover_image: string,
+  genres: string[],
+  runtime: number,
+  summary: string,  
+}
+
 type MovieListProps = {
-    movies: any[]
+  movies: MovieListItemProps[]
 }
 
 export default function MovieList({ movies }: MovieListProps) {
@@ -12,8 +23,9 @@ export default function MovieList({ movies }: MovieListProps) {
 
     const render = movies.map(item => {
         const onClick = () => {
-            isDetail && id !== item.id ? setIsDetail(true) : setIsDetail(!isDetail)
+            setIsDetail(true)
             setId(item.id)
+            id === item.id && setIsDetail(!isDetail)          
         }
 
         console.log(isDetail)
