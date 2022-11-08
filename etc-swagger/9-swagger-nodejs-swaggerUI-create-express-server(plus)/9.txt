@@ -1,0 +1,41 @@
+[Node.js로 API 구현]
+
+1. Node.js의 express를 통해 API를 로컬호스트 서버를 통해 구동하기
+  서버 개발자 입장에서 Nodejs의 express를 통해 간단한 API를 로컬호스트 서버를 통해 구동해보자.
+
+
+
+1. 설치
+  $ cd app1
+  $ npm init
+  엔터 계속 치기
+  $ npm i --save express
+
+
+
+1. app.js 생성
+  const express = require('express');
+  const app = express();
+
+  app.get('/', function (req, res) {
+    res.send('Hello World!');
+  });
+
+  // 더하기 API 작성
+  app.get('/plus', function (req, res) {
+    const a = req.query.a;
+    const b = req.query.b;
+    const result = Number(a) + Number(b);
+    res.send(String(result))
+  });
+
+  app.listen(3000, function () {
+    console.log('Server Listening on port 3000!');
+  });
+
+
+
+1. 테스트 : 서버 구동 및 확인
+  $ node app.js
+  브라우져에 입력 : localhost:3000 // Hello World! 출력 확인
+  브라우져에 입력 : localhost:3000/plus?a=1&b=2 // 3 출력 확인 (주의 : 중간에 소스 바뀌면 재기동해야함. 웹소켓 없어서 자동 새로고침 안됨)

@@ -1,0 +1,149 @@
+[기존의 Node.js 웹 서버에 SwaggerUI 입혀보기]
+
+1. 기존의 Node.js 웹 서버에 SwaggerUI 입혀보기
+  SwaggerUI를 별도의 독립된 문서 형태로 구현해서, Nodejs 서버에 API를 호출해보자.
+  이를 통해 Firebase, Node, Spring, PHP 어떤 프로그래밍 언어든 간에 SwaggerUI를 붙여볼 수 있게 되겠다.
+
+
+
+1. app.js 수정 : express의 static 함수를 이용해서 public이라는 폴더를 누구나 접속해서 문서를 읽을 수 있게 하기
+  const express = require('express');
+  const app = express();
+
+  // express의 static 함수를 이용해서 public이라는 폴더를 누구나 접속해서 문서를 읽을 수 있게 하기
+  app.use(express.static('public'));
+
+  app.get('/', function (req, res) {
+    res.send('Hello World!');
+  });
+
+  // 더하기 API
+  app.get('/plus', function (req, res) {
+    const a = req.query.a;
+    const b = req.query.b;
+    const result = Number(a) + Number(b);
+    res.send(String(result))
+  });
+
+  app.listen(3000, function () {
+    console.log('Server Listening on port 3000!');
+  });
+
+
+
+1. public/test.html 생성 : 정적문서 연결 테스트용
+  <h1>Hello World!</h1>
+
+
+
+1. 테스트
+  $ cd app1
+  $ node app1
+  브라우져에서 http://localhost:3000/test.html 들어가서 출력 확인
+
+
+
+[정적파일을 제공하는 폴더 public에 swaggerUI 명세서를 넣어서 정적문서로 관리하기]
+
+1. swaggerUI 명세서를 준비
+  깃허브 접속 : https://github.com/swagger-api/swagger-ui
+  download zip
+  압축풀기
+  압축푼 파일중 dist 폴더를 제외하고 모두 삭제
+  app1/public 폴더에 dist 폴더 넣기
+  dist 폴더명을 docs로 변경 : swaggerUI 명세서의 관습적인 폴더명이 docs이다.
+  $ npm start
+  브라우져에서 localhost:3000/docs/ 접속
+  petstore 기본예제가 실행된다.
+
+
+
+1. public/docs/swagger.yaml 생성 : swaggerUI 명세서를 실제 사용하는 명세서로 변경 (* 탭 위계 정확하게 작성)
+  openapi: 3.0.0
+  info:
+    version: "1.0.0"
+    title: "Plus API"
+    description: "두 인자값을 더해주는 간단한 API"
+  servers:
+    - description: Plus API
+      url: http://localhost:3000/
+  host: localhost:3000
+  basePath: /
+  schemes:
+    - http
+    - https
+  consumes:
+    - application/json
+  produces:
+    - application/json
+  paths:
+    /plus:
+      get:
+        description: Plus API
+        parameters:
+          - name: a
+            in: query
+            description: First Value
+            required: true
+            type: integer
+          - name: b
+            in: query
+            description: Second Value
+            required: true
+            type: integer          
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/PlusResponse" # 성공시 리턴값
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse" # 실패시 리턴값
+  # 리턴 형식 작성
+  definitions:
+    PlusResponse:
+      required:
+        - result # 리턴값 명칭
+      properties:
+        result:
+          type: integer # 리턴값 타입
+    ErrorResponse:
+      required:
+        - message
+      properties:
+        message:
+          type: string
+        
+          
+
+1. public/docs/swagger-initializer.js 수정 : Swagger url 연결
+  window.onload = function() {
+    //<editor-fold desc="Changeable Configuration Block">
+
+    // the following lines will be replaced by docker/configurator, when it runs in a docker-container
+    window.ui = SwaggerUIBundle({
+      url: "http://localhost:3000/docs/swagger.yaml",
+      // ↑ app.js에서 static('public') 함수를 썼으므로, 기본이 public 폴더를 바라보게 되어있음. 
+      // ↑ http를 쓰는 이유는, SSL 인증서를 넣지 않았으므로 https를 쓰지 못해서임.
+      dom_id: '#swagger-ui',
+      deepLinking: true,
+      presets: [
+        SwaggerUIBundle.presets.apis,
+        SwaggerUIStandalonePreset
+      ],
+      plugins: [
+        SwaggerUIBundle.plugins.DownloadUrl
+      ],
+      layout: "StandaloneLayout"
+    });
+
+    //</editor-fold>
+  };
+
+
+
+1. 테스트
+  $ cd app1
+  $ node app1
+  브라우져에서 동작 확인 : http://localhost:3000/docs/ -> default -> /plus -> try it out -> a, b에 숫자 입력 -> 정상작동

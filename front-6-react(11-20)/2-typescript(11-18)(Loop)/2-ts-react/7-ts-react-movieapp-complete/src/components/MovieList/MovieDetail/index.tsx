@@ -1,8 +1,19 @@
 import React from 'react'
 import './style.css'
 
+type MovieDetailItemProps = {
+    rating: number,
+    id: number,
+    url: string,
+    title: string,
+    large_cover_image: string,
+    genres: string[],
+    runtime: number,
+    summary: string,
+}
+
 type MovieDetailProps = {
-    item: any
+    item: MovieDetailItemProps
 }
 
 export default function MovieDetail({ item }: MovieDetailProps) {
