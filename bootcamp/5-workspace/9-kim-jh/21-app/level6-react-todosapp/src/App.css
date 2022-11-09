@@ -1,0 +1,16 @@
+.App {
+  margin: 20px;
+}
+
+h1 {
+  text-decoration: none;
+  color: gray;
+}
+
+.checked {
+  color: gray;
+}
+
+.deleteBtn {
+  font-size: 3px;
+}
