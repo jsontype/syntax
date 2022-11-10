@@ -1,0 +1,67 @@
+[자식컴포넌트가 부모컴포넌트에게 프롭 주기]
+
+1. 자식컴포넌트가 부모에게 프롭을 주는 방법
+    기존에는 부모컴포넌트가 자식에게 프롭을 전달했지만, 
+    (자식이 더 훌륭한 경우?) 경우에 따라 자식컴포넌트가 부모에게 프롭을 전달하는 경우도 있다.
+
+
+
+1. 설치
+    $ npx create-react-app app1
+    불필요 파일 삭제
+
+
+
+1. src/App.js 수정 : 부모컴포넌트가 Props 받게 된다.
+    import { useState } from 'react'
+    import Child from './Child'
+
+    // [자식컴포넌트에게 부모가 props을 받는 방법]
+    export default function App() {
+        // 4. (선물 받으면 놓을 공간(주차장)을 준비해둔다.)
+        const [item, setItem] = useState('')
+
+        // 5. 부모컴포넌트에서 콜백함수를 정의한다. (선물 받아서 어떻게 할 건지를 즐겁게 계획해둔다.) 
+        const onGift = (gift) => { setItem(gift) }
+
+        return (
+            <>
+                {/* 6. 자식에게 콜백함수를 넘겨준다. (선물 보내라 요청한다.) */}
+                <Child onGift={onGift} />
+                {/* 7. (주차장에 넣어놓은 차를 꺼내서 즐겁게 탄다.) */}
+                {item}
+            </>
+        )
+    }
+
+
+
+1. src/Child.js : 자식이 부모에게 Prop주도록 한다.
+    import React, { useState, useEffect } from 'react'
+
+    export default function Child({onGift}) {
+        // 1. 자식이 선물을 준비한다.
+        const [gift, setGift] = useState('')
+
+        // 2. 이벤트를 실행해서 선물 state를 준비한다.(산다.)
+        const onClick = () => {
+            setGift('Grandeur')
+        }
+
+        // 3. gift라는 선물이 준비되고(null -> 'Grandeur'), onGift라는 부모의 요청이 있을 때, 보낸다.
+        useEffect(() => {
+            onGift && onGift(gift)
+        }, [gift, onGift])
+        
+        return (
+            <>
+                <button onClick={onClick}>Send</button>            
+            </>
+        )
+    }
+
+
+
+1. 테스트
+    $ cd app1
+    $ npm start

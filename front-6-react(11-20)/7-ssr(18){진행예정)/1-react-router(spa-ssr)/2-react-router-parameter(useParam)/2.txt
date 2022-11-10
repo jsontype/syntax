@@ -4,7 +4,7 @@
     값을 페이지 주소로 전달해야 할 때, 그 형태는 파라미터와 쿼리로 나뉘어질 수 있다.
 
 1. 파라미터로 페이지 주소 정의
-    파라미터 : /profiles/velopert (특정 id나 이름을 가지고 조회를 할 때 주로 사용)
+    파라미터 : /profiles/yang (특정 id나 이름을 가지고 조회를 할 때 주로 사용)
 
     
 
@@ -32,7 +32,7 @@
     * @param {object} match 현재 URL주소가 Route 컴포넌트에서 정한 규칙과 어떻게 일치하는지에 대한 정보가 들어있다.
     * @returns 렌더링 엘리먼트
     */
-    const Profile = () => {
+    export default function Profile () {
         // 파라미터를 받아올 땐 useParams() 값을 참조한다.
         const params = useParams()
         const { username } = params
@@ -51,15 +51,13 @@
         )
     }
 
-    export default Profile
-
 
 
 1. src/Profiles.js 생성 : 프로필리스트 페이지 만들기
     import React from 'react'
     import { Link } from 'react-router-dom'
 
-    const Profiles = () => {
+    export default function Profiles () {
         return (
             <div>
                 <h3>유저 목록:</h3>
@@ -76,8 +74,6 @@
         )
     }
 
-    export default Profiles
-
 
 
 1. src/App.js 수정 : 이제 Profile을 App 에서 적용한다. 
@@ -91,7 +87,7 @@
     // 프로필리스트 임포트
     import Profiles from './Profiles'
 
-    const App = () => {
+    export default function App () {
         return (
             <div>
                 <ul>
@@ -119,8 +115,6 @@
             </div>
         )
     }
-
-    export default App
 
 
 

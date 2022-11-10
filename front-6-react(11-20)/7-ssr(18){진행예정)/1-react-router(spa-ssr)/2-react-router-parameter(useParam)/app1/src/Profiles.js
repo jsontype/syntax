@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const Profiles = () => {
+export default function Profiles () {
     return (
         <div>
             <h3>유저 목록:</h3>
@@ -17,5 +17,3 @@ const Profiles = () => {
         </div>
     )
 }
-
-export default Profiles
