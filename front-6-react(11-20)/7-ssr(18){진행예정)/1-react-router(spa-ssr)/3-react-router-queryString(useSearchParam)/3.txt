@@ -22,7 +22,7 @@
     // 쿼리 값을 받기 위해 useSearchParams 임포트
     import { useSearchParams } from 'react-router-dom'
 
-    const About = () => {
+    export default function About () {
         // search 값에있는 detail 값을 받아와서, 해당 값이 true일 때 추가정보를 보여주기
         const [searchParams] = useSearchParams()
         const detail = searchParams.get('detail') === 'true'
@@ -36,8 +36,6 @@
             </div>
         )
     }
-
-    export default About
 
 
 
