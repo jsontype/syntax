@@ -9,12 +9,12 @@
 
     
 1. src/practice.ts 수정
-    /* Type 지정 */
+    /* Type Alias(별칭) 지정 */
 
     // Person 객체 Type 지정 : 새 타입은 이렇게 지정한다.
     type Person = {
         name: string
-        age?: number // 물음표가 들어갔다는 것은, 설정을 해도 되고 안해도 되는 값이라는 것을 의미한다.
+        age?: number // 옵셔널 체이닝 : 물음표가 들어갔다는 것은, 설정을 해도 되고 안해도 되는 값이라는 것을 의미한다.
     }
 
     // Developer 객체 Type 지정 : &을 이용해, 기존 타입(Person)을 extends 받아서, 새로운 타입(Developer)을 지정할 수도 있다.
