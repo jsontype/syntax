@@ -1,0 +1,9 @@
+app1 : 처음부터 타입스크립트 적용해서 설치
+    $ npx create-react-app app1 --template typescript
+
+app2 : 리액트앱에 타입스크립트를 나중에 도입
+    $ npm i --save typescript @types/node @types/react @types/react-dom @types/jest
+    *.jsx 파일의 확장자를 *.tsx 파일로 변경
+    app1에서 tsconfig.json 복붙해서 src 폴더 안에 이동
+    src/index.tsx에서 아래 코드 한줄을 수정
+        const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
