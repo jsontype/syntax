@@ -1,6 +1,6 @@
 [Button 만들기]
 
-1. polished의 스타일 관련 유틸 함수 사용하기 : lighten() 또는 darken()등의 함수를 사용할 수 있다.
+1. polished의 스타일 관련 유틸 함수 사용하기 : lighten() 또는 darken()등의 함수를 사용할 수 있다. (이제는 없어도 됨)
     $ npm i polished (= yarn add polished)
 
 
