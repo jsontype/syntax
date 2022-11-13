@@ -1,0 +1,7 @@
+[글로벌 스테이트로 todo 관리]
+
+1. 화면 ui 만들기
+1. 모듈 (리듀서) 만들기 : 액액초리 = 액션타입 / 액션생성함수 / 초기값 / 리듀서
+1. 컨테이너 ui 만들기 : 스테이트, 액션 붙여준다
+1. app.js 에서 ui 렌더링에서 컨테이너 렌더링으로 변경 
+1. index.js 에서 provider 로 감싸기 : CPR = { createStore } from redux / { Provider } from react-redux / rootReducer from module

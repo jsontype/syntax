@@ -35,17 +35,14 @@ const initialState = [
 
 export default function todos(state = initialState, action) {
     switch (action.type) {
-        case ADD_TODO:
-            return state.concat(action.todo);
-        case TOGGLE_TODO:
-            return state.map(
-                todo =>
-                    // id가 일치하면, done을 토글링하고, 아니면 그대로 놔둔다.
-                    todo.id === action.id
-                        ? { ...todo, done: !todo.done }
-                        : todo 
-            )
-            default:
-        return state
+      case ADD_TODO:
+        return state.concat(action.todo);
+      case TOGGLE_TODO:
+        return state.map((todo) =>
+          // id가 일치하면, done을 토글링하고, 아니면 그대로 놔둔다.
+          todo.id === action.id ? { ...todo, done: !todo.done } : todo
+        );
+      default:
+        return state;
     }
 }
