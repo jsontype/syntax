@@ -68,7 +68,8 @@
         }
     }
 
-    // 1. Context 만들기 : React.createContext() 라는 함수를 사용해서, UserDispatch 라는 이름으로 내보내준다. () 안에는 Context의 값을 따로 지정하지 않을 경우 사용되는 기본값을 넣어준다.
+    // 1. Context 만들기 : React.createContext() 라는 함수를 사용해서, UserDispatch 라는 이름으로 내보내준다. 
+    // () 안에는 Context의 값을 따로 지정하지 않을 경우 사용되는 기본값을 넣어준다.
     // 이렇게 내보내는 작업을 해주면, 나중에 사용하고 싶을 때 다음과 같이 불러와서 사용 할 수 있다. import { UserDispatch } from './App'
     export const UserDispatch = React.createContext(null)
 
@@ -100,7 +101,8 @@
         const count = useMemo(() => countActiveUsers(users), [users])
 
         return (
-            // 2. Context 값 지정하기 : Context를 만들면 Provider라는 컴포넌트가 들어있는데 이 컴포넌트 안의 value안에 값을 넣어서 Context의 값을 정할 수 있다.
+            // 2. Context 값 지정하기 : Context를 만들면 Provider라는 컴포넌트가 들어있는데 이 컴포넌트 안의 value안에 값을 넣어서 
+            // Context의 값을 정할 수 있다.
             // 이렇게 설정해주고 나면 Provider 에 의하여 감싸진 컴포넌트 중 어디서든지 Context의 값을 다른 곳에서 바로 조회해서 사용 할 수 있다. 
             // 지금은 우선 App 컴포넌트 에서 Context 를 만들고, 사용하고, 내보내는 작업을 해준다.
             // 여기까지 한다면 UserDispatch라는 Context를 만들어서, 어디서든지 dispatch를 꺼내 쓸 수 있도록 준비를 해준 것이다.
@@ -189,7 +191,8 @@
 
 
 1. 문제 : 
-    User 컴포넌트에게 따로 onToggle / onRemove 를 props로 전달하지 않고 바로 dispatch 를 사용했던 것 처럼, CreateUser 컴포넌트에서도 dispatch 를 직접 하도록 구현을 해보세요.
+    User 컴포넌트에게 따로 onToggle / onRemove 를 props로 전달하지 않고 바로 dispatch 를 사용했던 것 처럼, 
+    CreateUser 컴포넌트에서도 dispatch 를 직접 하도록 구현을 해보세요.
     (조건: CreateUser 에게는 아무 props 도 전달하지 않는다. CreateUser 컴포넌트 내부에서 useInputs 를 사용한다. useRef 를 사용한 nextId 값을 CreateUser 에서 관리한다.)
         답은 다음과 같다.
 
