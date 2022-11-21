@@ -1,0 +1,6 @@
+@import './styles/resources.scss';
+
+.textBox2 {
+  @include textBox();
+  background: orange;
+}

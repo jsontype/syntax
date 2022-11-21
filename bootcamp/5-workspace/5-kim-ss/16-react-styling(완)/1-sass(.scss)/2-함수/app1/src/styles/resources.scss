@@ -1,0 +1,25 @@
+@import './color.scss';
+@import './font.scss';
+@import './radius.scss';
+
+@mixin button-color($color) {
+  background: $color;
+  border: 1px solid $white;
+  border-radius: $radius-circle;
+  color: white;
+
+  &:hover {
+    background-color: lighten($color, 10%);
+  }
+
+  &:active {
+    background-color: darken($color, 20%);
+  }
+}
+
+@mixin textBox() {
+  background: $light-gray;
+  width: 100px;
+  padding: 20px;
+  text-align: center;
+}
