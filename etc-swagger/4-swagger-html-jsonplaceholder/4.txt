@@ -39,5 +39,5 @@
     API 구동 서버 주소가 나온다.
         http://192.168.3.30:8080/api.yaml 에 접속해서 출력 확인 (http://192.168.3.30:8080/로 접속하면 디렉토리가 나온다)
     dist/swagger-initializer.js 파일의 url 부분을 http://192.168.3.30:8080/api.yaml 로 수정한다. (만일 api.yaml 내용을 수정할 경우, 기존 캐쉬 삭제 필요)
-    dist/index.html 실행 (또는 http://192.168.3.30:8080/dist 접속) : 정상적으로 Jsonplaceholder API의 Swagger가 출력되는지 확인 
+    dist/index.html 실행 (또는 http://192.168.3.30:8080/dist 접속) : 정상적으로 Jsonplaceholder API의 Swagger가 출력되는지 확인
     테스트 : Jsonplaceholder API의 Swagger를 Try it out 해서 작동하는지 확인 (API3 - Google 검색 자동완성은 http 환경이 아니면 허용하지 않아서 패스)

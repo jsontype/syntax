@@ -1,0 +1,16 @@
+@import './styles/resources.scss';
+
+.button {
+  background: $blue;
+  border: 1px solid $white;
+  border-radius: $radius-circle;
+  color: white;
+
+  &:hover {
+    background-color: lighten($blue, 10%);
+  }
+
+  &:active {
+    background-color: darken($blue, 20%);
+  }
+}
