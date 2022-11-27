@@ -1,0 +1,104 @@
+[Redux 정의]
+
+1. Redux 이미지로 이해하기
+    https://zenn.dev/jojo/articles/25c10b27783093
+
+1. Redux
+    ★★ Redux는, "Global State 관리 라이브러리"이다. 
+        Global State 관리라는 것은,
+            (useState Hook과 같이 일부 컴포넌트에서만 선언해서 사용하는 State가 아니라 모든 컴포넌트에서 사용할 수 있는)
+            "Redux Store에 있는 전역 State값"을 조회하고,
+            "그 State들의 수정 방법인 Actions의 Dispatch"를 포괄한다.
+        왜 쓰는가? Redux를 사용하면 컴포넌트의 Global State 관련 로직을 
+        다른 파일로 분리시켜서 관리할 수 있어서 
+        컴포넌트의 재사용성이 향상되기 때문이다.
+        왜 재사용성이 향상되는가? 파일을 분리하지 않으면, 매번 동일 State를 불러오는 
+        모든 컴포넌트에 중복된 로직을 계속 사용해야하기 때문이다.
+    ★★ 더 구체적으로 Redux는, "함수형 컴포넌트에서 Redux Hook인 useSelector를 통해 Store의 state 값을 props로 받아와서 사용하거나,
+        useDispatch를 통해 action dispatch를 props로 받아와서 사용할 수 있게 해준다."
+
+    Redux를 써야만 state를 관리할 수 있는 것은 아니다.
+        Context API도 useReducer Hook을 사용해 위 처리가 가능하다.
+        클래스형 컴포넌트도 hook은 못쓰지만 connect 함수를 사용해 위 처리가 가능하다.
+        
+    Redux가 React에 전속된 것은 아니다.
+        Angular에서 쓰는 것은 angular-redux라 불리고,
+        React에서 쓰는 것은 react-redux라고 불린다.
+
+1. Redux 왜 써야 할까?
+    사실 앞으로 배울 것만 따지고 보면,
+    Context API의 Global state 관리와 크게 다를 것이 없다.
+    그냥 유용한 함수 및 Hook이 있는 정도의 차이다.
+    게다가, Redux는 초반에 진입장벽이 조금 있다.
+    그러므로, 과연 유용한 것인가 의구심이 들 수도 있다.
+
+    그럼에도 불구하고, 
+    Redux는 프로젝트 규모가 커질수록 정말 편하다. (작은 프로젝트만 만들기 때문에 잘 모를 수 있지만)
+    Redux 미들웨어와 함께라면 일반 Context API와 비교했을 때 아주 큰 차이점이 존재한다.
+    또 앵귤러, 리액트를 통틀어 가장 많이 사용하는 state 관리 라이브러리이다.
+
+
+
+[Redux를 쓰기 전에 숙지해야 할 키워드]
+
+1. 액션 (Action)
+    상태에 변화가 필요할 때 발생시킴 (객체하나로 표현)
+    type을 필수로 그외의 값들은 개발자 마음대로 생성
+    {
+        type: "ADD_TODO",
+        data: {
+            id: 0,
+            text: "리덕스 배우기"
+        }
+    }
+    
+1. 액션 생성함수 (Action Creator)
+    컴포넌트에서 더욱 쉽게 액션을 발생시키기 위해, 다른 파일에서 import해서 사용
+    필수 아님    
+    export function addTodo(data) {
+        return {
+            type: "ADD_TODO",
+            data
+        }
+    }
+
+1. 리듀서 (Reducer)
+    변화를 일으키는 함수
+    현재의 상태와 액션을 참조하여 새로운 상태를 반환
+    function counter(state, action) {
+        switch (action.type) {
+            case 'INCREASE':
+                return state + 1;
+            case 'DECREASE':
+                return state - 1;
+            default:
+                return state;
+        }
+    }
+
+1. 스토어 (Store)
+    한 애플리케이션당 하나의 스토어
+    현재의 앱 상태와, 리듀서, 내장함수 포함
+
+1. 디스패치 (dispatch)
+    스토어의 내장함수인 "액션"을 발생 시키는 것
+    
+
+
+[요약]
+
+1. Redux 스토어 만들기 (모루스프)
+    모듈 만들기 (src/modules/*.js) : 액션타입 -> 액션생성함수 -> 초기상태 -> 리듀서 순으로 생성 (액액초리)
+    루트리듀서 만들기 (src/modules/index.js)
+    스토어 만들기 (src/index.js)
+    프로바이더 컴포넌트로 App 컴포넌트 감싸기 (src/index.js)
+    
+1. Redux 컴포넌트 만들기
+    컴포넌트 만들기(src/components/*.js) : 
+        ui 선언에 집중하는 components를 만들고, redux에 직접 접근하지 않고 state(값), action(함수)를 props를 통해 받는다.
+    콘테이너 만들기(src/components/*Container.js) : 
+        redux에 대신 접근하여 component가 state(값), action(함수)를 가져올 수 있게 한다.
+            state는 "useSelector" Hook을 사용하고,
+            action은 "useDispatch" Hook을 사용한다.
+    렌더링하기(src/App.js) : 원하는 곳에 container를 임포트해와서 렌더링한다.
+    
