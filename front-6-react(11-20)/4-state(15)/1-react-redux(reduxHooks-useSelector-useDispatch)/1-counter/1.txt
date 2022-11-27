@@ -9,8 +9,11 @@
             (useState Hook과 같이 일부 컴포넌트에서만 선언해서 사용하는 State가 아니라 모든 컴포넌트에서 사용할 수 있는)
             "Redux Store에 있는 전역 State값"을 조회하고,
             "그 State들의 수정 방법인 Actions의 Dispatch"를 포괄한다.
-        왜 쓰는가? Redux를 사용하면 컴포넌트의 Global State 관련 로직을 다른 파일로 분리시켜서 관리할 수 있어서 컴포넌트의 재사용성이 향상되기 때문이다.
-        왜 재사용성이 향상되는가? 파일을 분리하지 않으면, 매번 동일 State를 불러오는 모든 컴포넌트에 중복된 로직을 계속 사용해야하기 때문이다.
+        왜 쓰는가? Redux를 사용하면 컴포넌트의 Global State 관련 로직을 
+        다른 파일로 분리시켜서 관리할 수 있어서 
+        컴포넌트의 재사용성이 향상되기 때문이다.
+        왜 재사용성이 향상되는가? 파일을 분리하지 않으면, 매번 동일 State를 불러오는 
+        모든 컴포넌트에 중복된 로직을 계속 사용해야하기 때문이다.
     ★★ 더 구체적으로 Redux는, "함수형 컴포넌트에서 Redux Hook인 useSelector를 통해 Store의 state 값을 props로 받아와서 사용하거나,
         useDispatch를 통해 action dispatch를 props로 받아와서 사용할 수 있게 해준다."
 
