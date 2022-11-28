@@ -1,4 +1,4 @@
-// 8. useContext를 임포트
+// 8. 리액트에서 useContext를 임포트
 import React, { useContext } from "react";
 // 9. context를 임포트
 import { CounterContext } from "./App";

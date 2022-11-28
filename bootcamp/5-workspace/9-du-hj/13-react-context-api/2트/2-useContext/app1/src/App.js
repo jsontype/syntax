@@ -28,7 +28,7 @@ function CounterReducer(state, action) {
 }
 
 export default function App() {
-  // 5. useReducer를 통해서 state를 선언
+  // 5. useReducer를 통해서 global state를 선언 : useReducer(리듀서함수, 초기값)
   const [CounterState, CounterDispatch] = useReducer(
     CounterReducer,
     initialState
