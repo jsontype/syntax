@@ -2,39 +2,31 @@
 
 1. useReducer란?
     상태를 관리하게 될 때 useState 외에도 useReducer를 사용할 수 있다. 
-    이 Hook 함수를 사용하면 컴포넌트 상태 업데이트 로직을 컴포넌트에서 분리시킬 수 있다. 
-    상태 업데이트 로직을 컴포넌트 바깥에 작성 할 수도 있고, 심지어 다른 파일에 작성 후 불러와서 사용 할 수도 있다.
+    이 Hook 함수를 사용하면 컴포넌트 state 업데이트 로직을 컴포넌트에서 분리시킬 수 있다. 
+    state 업데이트 로직을 컴포넌트 바깥에 작성 할 수도 있고, 심지어 다른 파일에 작성 후 불러와서 사용 할 수도 있다.
 
     
 
 [Counter 만들기]
 
 1. src/App.js : useState 를 처음 배울 때 만들었던 Counter.js 컴포넌트를 불러와서 쓰던 기존 App.js 소스를 가져오자.
-    import React, { useState } from 'react'
+    import "./App.css";
+    import Counter from "./Counter";
 
-    export default function Counter() {
-        const [number, setNumber] = useState(0)
+    function App() {
+        // JS
 
-        const onIncrease = () => {
-            setNumber(prevNumber => prevNumber + 1) // 함수형 업데이트 전 : setNumber(number + 1)
-        }
-
-        const onDecrease = () => {
-            setNumber(prevNumber => prevNumber - 1) // 함수형 업데이트 전 : setNumber(number - 1)
-        }
-
+        // XML
         return (
-            <div>
-            <h1>{number}</h1>
-            <button onClick={onIncrease}>+1</button>
-            <button onClick={onDecrease}>-1</button>
+            <div className="App">
+                <Counter />
             </div>
-        )
+        );
     }
 
+    export default App;
 
 
-1. src/Counter-original.js : 참조하기
 
 1. src/Counter.js : useState 를 처음 배울 때 만들었던 Counter.js 컴포넌트를 사용한 기존소스를 가져오자.
     import React, { useState } from 'react'
@@ -58,6 +50,8 @@
             </div>
         )
     }
+
+1. src/Counter-original.js : Counter.js 복붙해놓기 (* useReducer와의 비교를 위해)
 
 
 
@@ -154,10 +148,10 @@
             <div>
                 {users.map(user => (
                     <User
-                    user={user}
-                    key={user.id}
-                    onRemove={onRemove}
-                    onToggle={onToggle}
+                        user={user}
+                        key={user.id}
+                        onRemove={onRemove}
+                        onToggle={onToggle}
                     />
                 ))}
             </div>
