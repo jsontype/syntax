@@ -1,0 +1,54 @@
+[퍼포먼스튜닝 - useMemo로 값 최적화하기 - 후]
+
+1. useMemo를 사용하는 이유 첫번째
+    컴포넌트에 어떤 "값"을 사용하고 있을 때, 다른 부분의 값을 바꿔도 그 값 역시 재랜더링이 되는데,
+        이를 useMemo로 메모화시켜 Props로 전달하여 구성 요소의 불필요한 재 렌더링을 건너뛸 수 있다.
+    useMemo는 Deps 배열에는 가 사용하는 변수들을 담아줘야 한다.
+        예시) const result = useMemo(() => count * 2, [count])
+        뒤의 [count]는 useMemo의 의존성 배열(Deps)이다. 
+            의존성 배열(Deps)이란, 값을 계산하는 로직이 "(값의 계산을 위해) 의존하고 있는 요소"가 저장된 배열을 말한다.
+            예를 들면, count라는 변수의 값을 2배로 한 값을 메모화하고 싶은 경우는 위의 예시와 같은 코드가 된다.
+            그리고 의존성 배열안에 담긴 "종속 요소" count가 업데이트되면 값이 다시 계산된다.
+
+
+
+1. src/App.js
+    import React, { useState, useMemo } from "react"
+
+    export default function App() {
+        const [count1, setCount1] = useState(0)
+        const [count2, setCount2] = useState(0)
+
+        // 파라미터의 수치를 2배로 해서 리턴한다.
+        // 불필요한 루프를 실행해서, 계산에 시간이 꽤 걸리는 상태이다.
+        const double = count => {
+            let i = 0
+            while (i < 3000000000) i++
+            console.log('run double')
+            return count * 2
+        }
+
+        // 현재의 상황:
+        // count2를 참조하는 doubledCount를 메모화해서 count1을 변경할 때에는 count2가 발생하지 않도록 했다.
+
+        // count2를 2배로 한 수치
+        const doubledCount = useMemo(() => double(count2), [count2])
+
+        return (
+            <>
+                <h2>Increment(fast)</h2>
+                <p>Counter: {count1}</p>
+                <button onClick={() => setCount1(count1 + 1)}>Increment(fast)</button>
+
+                <h2>Increment(slow)</h2>
+                <p>Counter: {count2}, {doubledCount}</p>
+                <button onClick={() => setCount2(count2 + 1)}>Increment(slow)</button>
+            </>
+        )
+    }
+
+
+
+1. 테스트 : Increment(fast)를 눌렀을 때 메모화가 되어서 {doubledCount} 변수값이 재렌더링 되지 않는 것을 확인
+    $ cd app1
+    $ npm start
