@@ -34,7 +34,7 @@
         // HTML
         return (
             <div>
-                <div>{arr[arr.length - 1]} </div>
+                <div>{arr.join(' ,')} </div>
                 <button onClick={addArr}>배열 추가</button>
                 <button onClick={modArr}>배열 수정</button>
                 <button onClick={delArr}>배열 삭제</button>

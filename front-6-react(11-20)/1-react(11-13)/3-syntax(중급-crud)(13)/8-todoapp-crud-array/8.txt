@@ -47,11 +47,11 @@
       setTodos(todos.map((item) => { return item.id === id ? {...item, completed: !item.completed } : {...item} }))
     }
 
-    // 간접적으로 render 되어지는 컴포넌트안의 하위 컴포넌트일 경우 + 상위 컴포넌트의 이벤트를 관리할 경우 => 함수형 업데이트 필요
     const render = todos.map((item) => {
       return (
         <div key={item.id}>
           <span>#{item.id} / </span>
+          {/* ★★ 간접적으로 render 되어지는 하위 컴포넌트는 () => onDelete처럼 "함수형 업데이트" 필요 */}
           <span className={item.completed ? 'done' : ''} onClick={() => onCompleted(item.id)}>{item.title} {item.completed === true && '👍'}</span>
           <span onClick={() => onDelete(item.id)}>❌</span>
         </div>
