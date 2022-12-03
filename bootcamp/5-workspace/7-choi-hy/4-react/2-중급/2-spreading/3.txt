@@ -1,0 +1,7 @@
+[배열객체 - Spreading 문법으로 CRUD 구현]
+
+1. CRUD는 Create, Read, Update, Delete를 말한다.
+    배열은 concat, map, filter를 사용해서,
+    객체는 Spreading 문법을 사용해서,
+    추가, 수정, 삭제를 구현한다.
+    불변성의 법칙을 지키기 위해, push등의 기존 문법은 지양한다.
