@@ -4,6 +4,7 @@
     $ cd app1
     $ npm i redux-logger : redux-logger를 설치한다.
     $ npm i redux-devtools-extension : devTools를 설치한다.
+    $ 웹스토어 설치 : redux-devtools-extension (쓸때만)
 
 
     

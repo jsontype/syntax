@@ -1,0 +1,11 @@
+[useReducer로 request state 관리하기]
+
+1. useReducer의 사용 흐름
+    useReducer를 사용하여 LOADING, SUCCESS, ERROR 액션에 따라 다르게 처리를 할 수 있다. 
+
+1. useState 대신에 useReducer를 사용해서 구현을 할 때의 장점
+    useState의 setState 함수를 여러번 사용하지 않아도 된다는 점
+    리듀서로 로직을 분리했으니 다른곳에서도 쉽게 재사용을 할 수 있다는 점
+    만든 reducer 를 기반으로, 커스텀 Hook을 만들 수 있다는 점 (다음 챕터에 배울 예정)
+
+

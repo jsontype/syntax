@@ -9,10 +9,10 @@
         export const getPosts = () => async dispatch => {
             dispatch({ type: GET_POSTS }) // 요청 시작
             try {
-            const posts = postsAPI.getPosts() // API 호출
-            dispatch({ type: GET_POSTS_SUCCESS, posts }) // 성공
+                const posts = postsAPI.getPosts() // API 호출
+                dispatch({ type: GET_POSTS_SUCCESS, posts }) // 성공
             } catch (e) {
-            dispatch({ type: GET_POSTS_ERROR, error: e }) // 실패
+                dispatch({ type: GET_POSTS_ERROR, error: e }) // 실패
             }
         }
     redux-saga는 비동기 작업을 처리 할 때 다른 방식으로 처리한다.
@@ -220,6 +220,25 @@
             }
         }
     }
+
+
+
+1. src/modules/index.js : 루트사가에 postsSaga 적용
+    import { combineReducers } from "redux";
+    import counter, { counterSaga } from "./counter";
+    import posts, { postsSaga } from "./posts";
+    // 4. 루트 사가 만드는 all 함수 임포트
+    import { all } from "redux-saga/effects";
+
+    // 루트리듀서 생성 : 지금은 서브리듀서가 counter, posts 두개가 되었다.
+    const rootReducer = combineReducers({ counter, posts });
+
+    // 5. 루트사가 생성
+    export function* rootSaga() {
+        yield all([counterSaga(), postsSaga()]); // all은 배열 안의 여러 사가를 동시에 실행시켜준다.
+    }
+
+    export default rootReducer;
 
 
 

@@ -55,7 +55,7 @@
     export const decrease = () => ({ type: DECREASE })
 
     // 초기값 (상태가 객체가 아니라 그냥 숫자여도 상관 없다.)
-    const initialState = 0
+    const initialState = 0  
 
     // 리듀서
     export default function counter(state = initialState, action) {
