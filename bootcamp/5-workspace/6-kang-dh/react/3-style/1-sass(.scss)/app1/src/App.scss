@@ -1,0 +1,19 @@
+@import './styles/resources.scss';
+
+.App {
+    font-size: $font-md;
+    color: $red;
+}
+
+.primary-btn {
+    @include button-color($blue);
+}
+
+.warning-btn {
+    @include button-color($red);
+}
+
+.danger-btn {
+    @include button-color($orange);
+    width: 50px;
+}
