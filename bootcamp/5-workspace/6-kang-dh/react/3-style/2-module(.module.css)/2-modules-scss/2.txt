@@ -1,0 +1,6 @@
+[sass, css-module 조합]
+
+1. sass, css-module의 조합이 가능할까?
+    물론이다.
+    ★ sass, css-module는 서로 배타적인 것이 아니라, 함께 사용할 수 있다. (*.module.scss 확장자 사용)
+    ★ styled-component의 *.js(또는 *.jsx, *.tsx 등)을 함께 쓴다면, 셋을 동시에 쓸수도 있는 것이다.
