@@ -1,0 +1,55 @@
+[퍼포먼스튜닝 - useCallback으로 함수 최적화하기 - 후]
+
+1. useCallback을 사용하는 이유
+    보다 구체적으로 말하면, memo로 메모화 하더라도 컴포넌트에 "함수"를 사용하고 있다면 재랜더링이 되는데,
+        이를 useCallback로 메모화시켜 Props로 전달하여 구성 요소의 불필요한 재 렌더링을 건너뛸 수 있다.
+    useCallback은 Deps 배열에는 콜백함수가 사용하는 변수들을 담아줘야 한다.
+        예시1) const result = useCallback(() => console.log("doSomething"), []);
+        예시2) const result = useCallback(() => console.log(count), [count])
+
+
+
+1. src/App.js
+    import React, { useState, useCallback } from "react"
+
+    const Child = memo(props => {
+        console.log("render Child")
+        return <button onClick={props.handleClick}>Child</button>
+    })
+
+    export default function App() {
+        console.log("render App")
+        const [count, setCount] = useState(0)
+
+        // Before: App이 업데이트 될 때마다 Child에도 함수가 걸려있어 재렌더링 된다. 때문에 App을 업데이트할 때에도 Child 컴포넌트가 재렌더링된다.
+        // const handleClick = () => { console.log("click") }, []
+      
+        // After: 아래처럼 함수를 유즈콜백으로 메모화시키면, 신, 구 handleClick는 동일한 값을 갖게 되어, Child 컴포넌트는 재렌더링되지 않는다.
+        const handleClick = useCallback(() => { console.log("click") }, [])
+
+        return (
+            <>
+                <p>Counter: {count}</p>
+                <button onClick={() => setCount(count + 1)}>Increment count</button>
+                <Child handleClick={handleClick} />
+            </>
+        )
+    }
+
+
+
+1. 테스트 : Child를 눌렀을 때, 다른 곳이 재렌더링 되지 않음을 확인
+    $ cd app1
+    $ npm start
+
+
+
+1. useCallback의 주의점
+    useCallback는 memo와 병용하는 것이므로, 
+    useCallback을 쓰더라도 다음과 같이 쓴다면 컴퍼넌트의 불필요한 재렌더링을 막을 수 없으므로 주의.
+    - memo 메모화하지 않은 구성 요소에 useCallback 메모화 된 콜백 함수 전달 : 
+        const Child에 memo가 없으면 useCallback을 쓰더라도 Child 컴포넌트는 항상 재렌더링 된다.
+    - useCallback로 메모화한 콜백 함수를, 그것을 생성한 컴퍼넌트 스스로 이용 : 
+        Child가 컴포넌트화 되어있지 않고 App 컴포넌트의 리턴 안에 
+        <button onClick={handleClick}>logging</button>의 형태로 들어가있으면, 
+        useCallback을 쓰더라도 해당 button 태그는 항상 재렌더링 된다.

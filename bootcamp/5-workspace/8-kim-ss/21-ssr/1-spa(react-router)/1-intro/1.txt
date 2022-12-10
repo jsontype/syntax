@@ -1,0 +1,116 @@
+[React-router를 통해 SPA 애플리케이션 만들기]
+
+1. react-router의 용도 : SPA에 필수인 Router(라우터, 루터)를 적용하는 라이브러리
+    SPA에서 여러 화면으로 구성된 웹 어플리케이션을 만들게 된다면, react-router는 필수 라이브러리이다.
+    이 라이브러리는 클라이언트 사이드에서 이뤄지는 라우팅(루팅)을 간단하게 해준다.
+    (추가로 서버 사이드 렌더링도 도와주는 도구들도 함께 딸려온다.)
+
+
+
+[SPA x 라우터의 프로젝트 준비 및 기본적인 사용법]
+
+1. 앱 설치
+    $ npx create-react-app app1
+
+1. 불필요 부분을, 연동까지 삭제
+    App.test.js
+    index.css
+    logo.svg
+    reportWebVitals.js
+    setupTests.js    
+    App.css (코드만 비워두기)
+    세미콜론 ; 지우기
+    README.MD 지우기
+
+1. 라우터 라이브러리 설치
+    $ cd app1
+    $ npm i react-dom
+    $ npm i react-router-dom
+
+
+
+1. src/index.js 수정 : BrowserRouter 컴포넌트를 사용하여 프로젝트에 라우터를 적용한다.
+    import React from 'react'
+    import ReactDOM from 'react-dom'
+    // react-router-dom 라이브러리로부터 BrowserRouter 함수를 임포트한다.
+    import { BrowserRouter } from 'react-router-dom'
+    import App from './App'
+
+    ReactDOM.render(
+        // App을 BrowserRouter로 감싸면 라우터를 사용할 수 있게 된다.
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>,
+        document.getElementById('root')
+    )
+
+
+
+1. src/Home.js 생성 : Home의 컨텐츠 부분에 들어갈 컴포넌트를 만든다.
+    import React from 'react'
+
+    const Home = () => {
+        return (
+            <div>
+                <h1>홈</h1>
+                <p>홈 페이지 컨텐츠</p>
+            </div>
+        )
+    }
+
+    export default Home
+
+
+
+1. src/About.js 생성 : About의 컨텐츠 부분에 들어갈 컴포넌트를 만든다.
+    import React from 'react'
+
+    const About = () => {
+        return (
+            <div>
+                <h1>소개</h1>
+                <p>소개 페이지 컨텐츠</p>
+            </div>
+        )
+    }
+
+    export default About
+
+
+
+1. src/App.js 수정 : Link, Routes, Route 함수를 사용하여 라우터를 구현한다. import { BrowserRouter } from 'react-router-dom'을 index.js가 아닌, 여기에 써도 된다.
+    import React from 'react'
+    import { Routes, Route, Link } from 'react-router-dom'
+    import About from './About'
+    import Home from './Home'
+    import './App.css'
+
+    const App = () => {
+        return (
+            <div>
+                <ul>
+                    <li>
+                        {/* 1. Link를 통해, 누르면 to의 값을 router의 path로 전달한다. react-router-dom를 쓰는 XML의 <Link to="">는 HTML의 <A href="">와 같다. */}
+                        <Link to="/">홈</Link>
+                    </li>
+                    <li>
+                        <Link to="/about">소개</Link>
+                    </li>
+                </ul>
+                <hr />
+                {/* 2. Route를 통해, 각 Link를 통해 받아온 path에 컴포넌트를 연결한다. 모든 Route들은 Routes 컴포넌트 안에 넣어야 한다. */}
+                <Routes>
+                    <Route path="/" exact={true} element={<Home/>} />
+                    <Route path="/about" element={<About/>} />
+                </Routes>
+            </div>
+        )
+    }
+
+    export default App
+
+
+
+1. 테스트 : 각 링크를 누를 때 컨텐츠가 바뀌는 지 확인해보자.
+    $ cd app1
+    $ npm start (또는 yarn start)

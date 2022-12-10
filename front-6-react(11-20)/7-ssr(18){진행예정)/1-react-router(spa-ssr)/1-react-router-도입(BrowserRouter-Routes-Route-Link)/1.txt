@@ -24,14 +24,16 @@
 
 1. 라우터 라이브러리 설치
     $ cd app1
+    $ npm i react-dom
     $ npm i react-router-dom
 
 
 
 1. src/index.js 수정 : BrowserRouter 컴포넌트를 사용하여 프로젝트에 라우터를 적용한다.
     import React from 'react'
+    // react-dom 라이브러리로부터 ReactDOM 클래스를 임포트한다.
     import ReactDOM from 'react-dom'
-    // react-router-dom 라이브러리로부터 BrowserRouter 함수를 임포트한다.
+    // react-router-dom 라이브러리로부터 BrowserRouter 컴포넌트 함수를 임포트한다.
     import { BrowserRouter } from 'react-router-dom'
     import App from './App'
 

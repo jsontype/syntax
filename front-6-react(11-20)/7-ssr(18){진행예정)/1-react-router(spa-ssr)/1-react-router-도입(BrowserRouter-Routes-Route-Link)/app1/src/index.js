@@ -1,6 +1,7 @@
 import React from 'react'
+// react-dom 라이브러리로부터 ReactDOM 클래스를 임포트한다.
 import ReactDOM from 'react-dom'
-// react-router-dom 라이브러리로부터 BrowserRouter 함수를 임포트한다.
+// react-router-dom 라이브러리로부터 BrowserRouter 컴포넌트 함수를 임포트한다.
 import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 

@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 
+// ★★ 컴포넌트 메모화
 const Child = React.memo(props => {
   let i = 0
   while (i < 3000000000) i++

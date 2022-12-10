@@ -1,20 +1,30 @@
-import React from 'react'
-// 쿼리 값을 받기 위해 useSearchParams 임포트
-import { useSearchParams } from 'react-router-dom'
+// localhost:3000/about?detail=true
+import React from "react";
+import { useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const About = () => {
-    // search 값에있는 detail 값을 받아와서, 해당 값이 true일 때 추가정보를 보여주기
-    const [searchParams] = useSearchParams()
-    const detail = searchParams.get('detail') === 'true'
+export default function About() {
+  const [searchParams] = useSearchParams();
+  const detail = searchParams.get("detail");
 
-    // 보여줄 내용 렌더링
-    return (
-        <div>
-            <h1>소개</h1>
-            <p>이 프로젝트는 리액트 라우터 기초를 실습해보는 예제 프로젝트랍니다.</p>
-            {detail && <p>추가적인 정보가 어쩌고 저쩌고..</p>}
-        </div>
-    )
+  return (
+    <div>
+      <h1>소개</h1>
+      <p>소개 페이지 컨텐츠</p>
+
+      {!detail && <Link to="/about?detail=true">세부정보 보기</Link>}
+
+      {detail && (
+        <>
+          <p>
+            추가적인 정보가 어쩌고.... Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Architecto obcaecati aliquid quae sequi rerum cum
+            laboriosam reiciendis fugit quasi ducimus nam eligendi assumenda,
+            dolor, placeat corporis, optio laborum sapiente natus!
+          </p>
+          <Link to="/about">세부정보 닫기</Link>
+        </>
+      )}
+    </div>
+  );
 }
-
-export default About
