@@ -63,10 +63,10 @@
                 <h3>유저 목록:</h3>
                 <ul>
                     <li>
-                        <Link to="/profile/jsontype">jsontype</Link>
+                        <Link to="../profile/jsontype">jsontype</Link>
                     </li>
                     <li>
-                        <Link to="/profile/kimkim12">kimkim12</Link>
+                        <Link to="../profile/kimkim12">kimkim12</Link>
                     </li>
                 </ul>
                 <div>유저를 선택해주세요.</div>

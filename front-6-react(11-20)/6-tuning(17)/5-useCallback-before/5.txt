@@ -1,29 +1,34 @@
 [퍼포먼스튜닝 - useCallback으로 함수 최적화하기 - 전]
 
 1. src/App.js
-    import React, { useState } from "react"
+    import React, { useState, memo } from "react";
 
-    const Child = React.memo(props => {
-        console.log("render Child")
-        return <button onClick={props.handleClick}>Child</button>
-    })
+    const Child = memo((props) => {
+        let i = 0;
+        while (i < 3000000000) i++;
+        console.log("render Child");
+        return <button onClick={props.onClick}>Child: {props.count}</button>;
+    });
 
-    export default function App() {
-        console.log("render App")
-        const [count, setCount] = useState(0)
+    function App() {
+        const [count1, setCount1] = useState(0);
+        const [count2, setCount2] = useState(0);
 
-        // Before: 아래처럼 함수가 들어있다면, 
-        // Child 컴포넌트가 설령 React.memo화 되어있다 하더라도, 함수가 렌더링 되므로 Child 컴포넌트도 재렌더링이 되어버린다.
-        const handleClick = () => { console.log("click") }
+        // Child 컴포넌트가 memo화 되어있지만 여기서 함수를 넘겨주면서 재렌더링이 다시 된다. (1)
+        const onClick = () => {
+            setCount2(count2 + 1);
+        };
 
         return (
             <>
-                <p>Counter: {count}</p>
-                <button onClick={() => setCount(count + 1)}>Increment count</button>
-                <Child handleClick={handleClick} />
+                <button onClick={() => setCount1(count1 + 1)}>App: {count1}</button>
+                {/* Child 컴포넌트가 memo화 되어있지만 여기서 함수를 넘겨주면서 재렌더링이 다시 된다. (2) */}
+                <Child onClick={onClick} count={count2} />
             </>
-        )
+        );
     }
+
+    export default App;
 
 
 
