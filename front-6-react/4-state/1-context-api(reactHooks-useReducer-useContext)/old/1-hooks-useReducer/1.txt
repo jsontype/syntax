@@ -1,0 +1,370 @@
+[useReducer를 사용하여 상태 업데이트 로직 분리하기]
+
+1. useReducer란?
+    상태를 관리하게 될 때 useState 외에도 useReducer를 사용할 수 있다. 
+    이 Hook 함수를 사용하면 컴포넌트 state 업데이트 로직을 컴포넌트에서 분리시킬 수 있다. 
+    state 업데이트 로직을 컴포넌트 바깥에 작성 할 수도 있고, 심지어 다른 파일에 작성 후 불러와서 사용 할 수도 있다.
+
+    
+
+[Counter 만들기]
+
+1. src/App.js : useState 를 처음 배울 때 만들었던 Counter.js 컴포넌트를 불러와서 쓰던 기존 App.js 소스를 가져오자.
+    import "./App.css";
+    import Counter from "./Counter";
+
+    function App() {
+        // JS
+
+        // XML
+        return (
+            <div className="App">
+                <Counter />
+            </div>
+        );
+    }
+
+    export default App;
+
+
+
+1. src/Counter.js : useState 를 처음 배울 때 만들었던 Counter.js 컴포넌트를 사용한 기존소스를 가져오자.
+    import React, { useState } from 'react'
+
+    export default function Counter() {
+        const [number, setNumber] = useState(0)
+
+        const onIncrease = () => {
+            setNumber(prevNumber => prevNumber + 1)
+        }
+
+        const onDecrease = () => {
+            setNumber(prevNumber => prevNumber - 1)
+        }
+
+        return (
+            <div>
+            <h1>{number}</h1>
+            <button onClick={onIncrease}>+1</button>
+            <button onClick={onDecrease}>-1</button>
+            </div>
+        )
+    }
+
+1. src/Counter-original.js : Counter.js 복붙해놓기 (* useReducer와의 비교를 위해)
+
+
+
+1. src/Counter.js 수정 :  이번에는 useState대신 useReducer를 사용해보자.
+    import React, { useReducer } from 'react'
+
+    function reducer(state, action) {
+        switch (action.type) {
+            case 'INCREMENT':
+                return state + 1
+            case 'DECREMENT':
+                return state - 1
+            default:
+                return state
+        }
+    }
+
+    export default function Counter() {
+        const [number, dispatch] = useReducer(reducer, 0)
+
+        const onIncrease = () => {
+            dispatch({ type: 'INCREMENT' })
+        }
+
+        const onDecrease = () => {
+            dispatch({ type: 'DECREMENT' })
+        }
+
+        return (
+            <div>
+                <h1>{number}</h1>
+                <button onClick={onIncrease}>+1</button>
+                <button onClick={onDecrease}>-1</button>
+            </div>
+        )
+    }
+
+
+
+1. src/index.js : index.js 파일을 열어서 App 대신 Counter를 렌더링해보자.
+    import React from 'react'
+    import ReactDOM from 'react-dom/client'
+    import App from './App'
+    import Counter from './Counter'
+    
+    const root = ReactDOM.createRoot(document.getElementById('root'))
+    root.render(
+        <Counter />
+    )
+    
+1. 테스트
+    $ cd app1
+    $ npm start
+    
+1. src/index.js : 잘 작동한다면 다시 App을 렌더링하도록 돌려놓자.
+    다음을 삭제
+        import Counter from './Counter'
+
+    <Counter />를 변경
+        <App />
+
+
+
+[CreateUser 만들기]
+
+1. src/UserList.js 생성
+    import React, { useEffect } from 'react'
+
+    const User = React.memo(({ user, onRemove, onToggle }) => {
+        useEffect(() => {
+            console.log(user);
+        })
+        return (
+            <div>
+                <b
+                    style={{
+                        cursor: 'pointer',
+                        color: user.active ? 'green' : 'black'
+                    }}
+                    onClick={() => onToggle(user.id)}
+                >
+                    {user.username}
+                </b>
+                &nbsp;
+                <span>({user.email})</span>
+                <button onClick={() => onRemove(user.id)}>삭제</button>
+            </div>
+        )
+        }
+    ) // React.memo() 닫기
+
+    function UserList({ users, onRemove, onToggle }) {
+        return (
+            <div>
+                {users.map(user => (
+                    <User
+                        user={user}
+                        key={user.id}
+                        onRemove={onRemove}
+                        onToggle={onToggle}
+                    />
+                ))}
+            </div>
+        )
+    }
+
+    export default React.memo(UserList)
+
+
+
+1. src/CreateUser.js 생성
+    import React from 'react'
+
+    function CreateUser({ username, email, onChange, onCreate }) {
+        return (
+            <div>
+                <input
+                    name="username"
+                    placeholder="계정명"
+                    onChange={onChange}
+                    value={username}
+                />
+                <input
+                    name="email"
+                    placeholder="이메일"
+                    onChange={onChange}
+                    value={email}
+                />
+                <button onClick={onCreate}>등록</button>
+            </div>
+        )
+    }
+
+    export default React.memo(CreateUser)
+
+
+
+1. src/App.js 수정
+    import React, { useRef, useReducer, useMemo, useCallback } from 'react'
+    import UserList from './UserList'
+    import CreateUser from './CreateUser'
+
+    // API로부터 fetch해서 받아올 초기값 (가상)
+    const initialState = {
+        inputs: {
+            username: '',
+            email: ''
+        },
+        users: [
+            {
+                id: 1,
+                username: 'admin',
+                email: 'admin@test.com',
+                active: true
+            },
+            {
+                id: 2,
+                username: 'tester',
+                email: 'test@test.com',
+                active: false
+            },
+            {
+                id: 3,
+                username: 'yang',
+                email: 'yang@test.com',
+                active: false
+            }
+        ]
+    }
+
+    // 리듀서를 쓰기 위한 첫번째 준비 - 액션 타입별 액션 설정 : useReducer를 사용하는 부분
+    function reducer(state, action) {
+        switch (action.type) {
+            // 인풋값 입력대로 수정하는 액션타입 : state 객체의 불변성을 지키기 위해 spread 연산자 사용
+            case 'CHANGE_INPUT':
+                return {
+                    ...state,
+                    inputs: {
+                        ...state.inputs,
+                        [action.name]: action.value
+                    }
+                }
+
+            // 사용자 추가하는 액션타입
+            case 'CREATE_USER':
+                console.log(action)
+                return { 
+                    inputs: initialState.inputs,
+                    users: [ ...state.users, action.user ] // arr.push 대신, spread 연산자를 사용하는 방법
+                    // users: state.users.concat(action.user) // arr.push 대신, concat 함수를 사용하는 방법
+                }
+
+            // 사용자 수정하는 액션타입 : state 객체의 불변성을 지키기 위해 spread 연산자 사용
+            case 'TOGGLE_USER':
+                return {
+                    ...state,
+                        users: state.users.map(user =>
+                        user.id === action.id ? { ...user, active: !user.active } : user
+                    )
+                }
+
+            // 사용자 삭제하는 액션타입 : state 객체의 불변성을 지키기 위해 spread 연산자 사용
+            case 'REMOVE_USER':
+                return {
+                    ...state, 
+                    users: state.users.filter(user => user.id !== action.id)
+                }
+
+            // 사용자 조회하는 액션타입
+            default:
+                return state
+        }
+    }
+
+    export default function App() {
+        // 리듀서를 쓰기 위한 두번째 준비 - 번수 선언 : useReducer를 사용하는 부분
+        // const [state, 액션] = [리듀서, 초기값]
+        // onEvent함수에서 dispath.type를 주면 -> reducer에서 맞아떨어지는 action.type별 함수를 리턴값으로 부르고 -> 이를 실행해서 각 prop에 넣어준다.
+        const [state, dispatch] = useReducer(reducer, initialState)
+
+        // 리랜더링 되지 않는 변수 설정
+        const nextId = useRef(4)
+
+        // ★비구조화 할당 문법 : 아래와 같이 하면, state에서 필요한 값들을 추출하여 각 컴포넌트에게 prop으로 전달할 수 있다.
+        const { users } = state
+        const { username, email } = state.inputs
+
+        // 인풋창의 입력을 반영하는 로직 : useReducer를 사용하는 부분
+        const onChange = useCallback(e => {
+            const { name, value } = e.target
+            dispatch({
+                type: 'CHANGE_INPUT',
+                name,
+                value
+            })
+        }, [])
+
+        // 추가하는 로직 : useReducer를 사용하는 부분
+        const onCreate = useCallback(() => {
+            dispatch({
+                type: 'CREATE_USER',
+                user: {
+                    id: nextId.current,
+                    username,
+                    email
+                }
+            })
+            nextId.current += 1
+        }, [username, email])
+
+        // 활성 사용자로 변경하는 로직 : useReducer를 사용하는 부분
+        const onToggle = useCallback(id => {
+            dispatch({
+                type: 'TOGGLE_USER',
+                id
+            })
+        }, [])
+
+        // 삭제하는 로직 : useReducer를 사용하는 부분
+        const onRemove = useCallback(id => {
+            dispatch({
+                type: 'REMOVE_USER',
+                id
+            })
+        }, [])
+
+        // 최적화 : "users 배열이 바뀔 때만" 활성 사용자수 구하는 로직을 호출해서 count에 담음
+        const count = useMemo(() => countActiveUsers(users), [users])
+
+        return (
+            <>
+                {/* 유저추가 폼 표시 */}
+                <CreateUser
+                    username={username}
+                    email={email}
+                    onChange={onChange}
+                    onCreate={onCreate}
+                />
+
+                {/* 유저리스트 표시 */}
+                <UserList users={users} onToggle={onToggle} onRemove={onRemove} />
+
+                {/* 활성 사용자수 표시 */}
+                <div>활성사용자 수 : {count}</div>
+            </>
+        ) 
+    }
+
+    // 활성 사용자수 구하는 로직
+    function countActiveUsers(users) {
+        console.log('활성 사용자 수를 세는중...')
+        return users.filter(user => user.active).length
+    }
+
+
+
+1. 테스트 : src/CreateUser.js와 src/UserList.js가 여전히 잘 동작하는 지 확인
+    $ cd app1
+    $ npm start
+    
+  
+
+1. 결론 : useReducer vs useState, 뭐 쓸까?
+  어떨 때 useReducer를 쓰고 어떨 때 useState를 써야 할까?
+  컴포넌트에서 관리하는 값이 딱 하나고, 그 값이 단순한 숫자, 문자열 또는 boolean 값이라면 useState로 관리하는게 편하다.
+    const [value, setValue] = useState(true)
+  하지만, 만약에 컴포넌트에서 관리하는 값이 여러개가 되어서 상태의 구조가 복잡해진다면 useReducer로 관리하는 것이 편할 수 있다.
+  예를 들어, 다음과 같이, setState를 한 함수에서 여러번 사용해야 하는 일이 발생한다면
+    setUsers(users => users.concat(user))
+    setInputs({
+      username: '',
+      email: ''
+    })
+  그 때부터 useReducer를 쓸까? 에 대한 고민을 시작하면 된다.
+  useReducer를 썼을때 편해질 것 같으면 useReducer 를 쓰고, 딱히 그럴것같지 않으면 useState 를 유지하면 된다.
+  이에 대한 결정은, 앞으로 useState, useReducer 를 자주 사용해보고 맘에드는 방식을 선택하자.
