@@ -233,4 +233,9 @@ export default {
 
 
 
-1. 끝
+  
+
+1. store 설치 : 글로벌 스테이트
+  $ npm i vuex@3.6.2
+
+1. src/views/MovieView.vue 수정 ### : 로딩 화면 추가
