@@ -1,14 +1,14 @@
 import React from "react";
 
-export default function ChractorCount() {
+export default function CharacterCount() {
   const charCountState = selector({
     key: "charCountState", // unique ID (with respect to other atoms/selectors)
     get: ({ get }) => {
-      const text = get(textState);
-      return text.length;
+      const text = get(textState)
+      return text.length
     },
-  });
-  const count = useRecoilValue(charCountState);
+  })
+  const count = useRecoilValue(charCountState)
 
-  return <>Character Count: {count}</>;
+  return <>Character Count: {count}</>
 }

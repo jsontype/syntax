@@ -1,13 +1,13 @@
 import React from "react";
-import CharactorCount from "../Selector/CharactorCount";
+import CharacterCounter from "../Selector/CharacterCounter"
 
-export default function CharactorCounter() {
+export default function CharacterCounter() {
   return (
     <div>
       <TextInput />
-      <CharactorCount />
+      <CharacterCounter />
     </div>
-  );
+  )
 }
 
 const textState = atom({
