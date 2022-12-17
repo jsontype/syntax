@@ -19,7 +19,7 @@
         [redux-saga의 effects 함수로 액션을 디스패치하고, 모니터링 처리하기]
 
         'redux-saga/effects'의 유틸함수 중 put 함수: 새로운 액션을 디스패치
-        'redux-saga/effects'의 유틸함수 중 takeEvery, takeLatest 함수: 특정 액션 타입에 대하여 디스패치되는 모든 액션들을 모니터링 처리
+        'redux-saga/effects'의 유틸함수 중 takeEvery 함수: 특정 액션 타입에 대하여 디스패치되는 모든 액션들을 모니터링 처리
         'redux-saga/effects'의 유틸함수 중 takeLatest 함수: 특정 액션 타입에 대하여 디스패치된 가장 마지막 액션만을 모니터링 처리
         (예를 들면, 특정 액션을 처리하고 있는 동안 동일한 타입의 새로운 액션이 디스패치되면 기존에 하던 작업을 무시 처리하고 새로운 작업을 시작한다.)
     */

@@ -24,6 +24,7 @@ function* generatorFunction() {
 const generator1 = generatorFunction();
 generator1.next();
 generator1.next();
+generator1.next();
 
 // next를 호출 할 때 인자를 전달하여 이를 제너레이터 함수 내부에서 사용 할 수도 있다.
 function* sumGenerator() {
@@ -36,9 +37,9 @@ function* sumGenerator() {
 }
 const generator2 = sumGenerator();
 generator2.next();
-generator2.next(1);
-generator2.next(2);
-generator2.next();
+generator2.next(1); // a값을 받았습니다.
+generator2.next(2); // b값을 받았습니다.
+generator2.next(); // 3
 
 // Generator로 액션을 모니터링할 수도 있다.
 // * 추후에 redux-saga에서, 아래의 특성을 이용해서 액션을 모니터링하고, 특정 액션이 발생했을 때 원하는 코드를 실행시켜준다.
