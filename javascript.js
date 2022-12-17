@@ -1,4 +1,4 @@
-// [Useful JS Tricks]
+// Useful JS Tricks
 
 // JS 정규식 사용법
 let regEx1 = /^[0-9]*$/,
