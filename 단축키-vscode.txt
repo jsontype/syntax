@@ -3,7 +3,9 @@
 
 1. 표시
     ! (치고 Fn + Ctrl + Space) : HTML 자동생성
-    code . : 해당 디렉토리 쉽게 열기
+    code . : 터미널에서 해당 디렉토리 열기
+        * code . 로 열리지 않는 경우, command + shift + p 누른 뒤, code 입력, 첫번째 것을 인스톨하면 된다.
+        * 만일 github 등으로 당겨온 앱이라면 $ npm i를 통해서 vue.cmd 웹빌드를 해야한다.
     cmd + , : 설정 화면 열기
     cmd + b : 사이드바 닫기/열기 토클
     cmd + p : 파일명 검색
