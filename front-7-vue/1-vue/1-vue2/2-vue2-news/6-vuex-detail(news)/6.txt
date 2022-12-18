@@ -1,4 +1,4 @@
-[Router - params]
+[Router Params를 통해 deatil 뷰 작성]
   * 라우터 파라미터를 통해서 타 뷰로 값을 보내는 방법
 
 

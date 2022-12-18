@@ -1,0 +1,15 @@
+[Vue2 무비앱 만들기]
+
+1. 이전 앱 복사 후 구동 확인하기
+  $ cd app1
+  $ npm run serve
+  http://localhost:8080/
+
+1. ERROR in Conflict: Multiple assets emit different content to the same filename index.html 에러 발생시
+  vue.cmd create app1 로 재생성
+  $ cd app1
+  $ npm run serve
+  http://localhost:8080/
+  ... 안되는데?
+
+1. 

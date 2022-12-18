@@ -1,0 +1,88 @@
+[Vue CLI를 통해 Vue2 앱 설치하기]
+
+1. Vue CLI 정의
+  Vue Command Line Interface의 약자로, 커맨드 라인의 인터페이스를 통해,
+  Vue와 관련된 패키지를 설치할 때 cmd 명령어로 간단히 설치할 수 있게 하는 도구이다.
+
+1. 사전준비 : nodejs 설치
+  nodejs.org/ko 접속 - 안정적, 신뢰도 높은 LTS버전 다운로드
+  $ npm -v
+
+1. vue cli 설치
+  $ npm i -g @vue/cli
+  $ vue.cmd --version
+
+1. vue 앱 생성
+  $ vue.cmd create app1 : default vue2 선택
+  $ cd app1
+
+1. package.json
+  npm run serve : * 해당 파일내의 "serve"를 실행
+    
+1. 구동 확인하기
+  http://localhost:8080/ : 구동확인
+
+
+
+1. src/App.vue 수정 : 인덱스 화면, 프롭을 주면서 자식컴포넌트를 호출하고 있다.
+  <template>
+    <div class="app">
+      <HelloWorld msg="Hello" />
+    </div>
+  </template>
+
+  <script>
+  import HelloWorld from './components/HelloWorld.vue'
+
+  export default {
+    name: 'App',
+    components: {
+      HelloWorld
+    }
+  }
+  </script>
+
+  <style>
+  .app {
+    margin: 20px;
+  }
+  </style>
+
+
+
+1. src/components/HelloWorld.vue 수정 : 컴포넌트 UI 화면, 부모컴포넌트로부터 프롭을 받아서 사용하고 있다.
+  <template>
+    <div class="hello">
+      <h1>{{ msg }}</h1>
+    </div>
+  </template>
+
+  <script>
+  export default {
+    name: 'HelloWorld',
+    props: {
+      msg: String
+    }
+  }
+  </script>
+
+  <style scoped>
+  .hello {
+    color: red;
+  }
+  </style>
+
+
+
+1. src/main.js : 사용할 라이브러리들을 적용하는 곳이다. (리액트의 src/index.js와 같다.)
+
+
+
+1. Vue의 컨벤션
+  컴포넌트명으로 Hello는 안된다. HelloWorld처럼 여러개의 단어로 구성된 컴포넌트만 허용한다.
+  
+
+
+1. 테스트
+  $ cd app1
+  $ npm run serve
