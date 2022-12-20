@@ -27,7 +27,7 @@
 1. src/App.vue 수정 : 인덱스 화면, 프롭을 주면서 자식컴포넌트를 호출하고 있다.
   <template>
     <div class="app">
-      <HelloWorld msg="Hello" />
+      <HelloWorld msg="Hello Vue2!" />
     </div>
   </template>
 
