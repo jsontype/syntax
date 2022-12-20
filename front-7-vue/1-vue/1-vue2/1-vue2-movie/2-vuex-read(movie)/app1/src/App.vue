@@ -1,16 +1,16 @@
 <template>
   <div class="app">
-    <HelloWorld msg="Hello Vue2!" />
+    <MovieList title="무비앱" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import MovieList from './components/MovieList.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    MovieList
   }
 }
 </script>
