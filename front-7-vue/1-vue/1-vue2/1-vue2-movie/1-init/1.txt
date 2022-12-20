@@ -10,7 +10,7 @@
 
 1. vue cli 설치
   $ npm i -g @vue/cli
-  $ vue.cmd --version
+  $ vue.cmd --version (Mac의 경우에는 .cmd가 필요없다.)
 
 1. vue 앱 생성
   $ vue.cmd create app1 : default vue2 선택
@@ -81,6 +81,13 @@
 1. Vue의 컨벤션
   컴포넌트명으로 Hello는 안된다. HelloWorld처럼 여러개의 단어로 구성된 컴포넌트만 허용한다.
   
+
+
+1. 에러 트러블슈팅
+  app1을 복사하면 다음과 같은 에러가 발생한다.
+  # Multiple assets emit different content to the same filename index.html
+  해결방법은 vue.cmd create app1 으로 재 설치한뒤, src만 바꾸어끼우면 된다.
+
 
 
 1. 테스트
