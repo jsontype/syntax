@@ -5,11 +5,7 @@
   $ npm run serve
   http://localhost:8080/
 
-1. ERROR in Conflict: Multiple assets emit different content to the same filename index.html 에러 발생시
-  vue.cmd create app1 로 재생성
-  $ cd app1
-  $ npm run serve
-  http://localhost:8080/
-  ... 안되는데?
-
-1. 
+1. ERROR in Conflict: Multiple assets emit different content to the same filename index.html
+  app1을 복사하면 다음과 같은 에러가 발생한다.
+  # ERROR in Conflict: Multiple assets emit different content to the same filename index.html
+  해결방법은 vue.cmd create app1 으로 재 설치한뒤, src만 바꾸어끼우면 된다.
