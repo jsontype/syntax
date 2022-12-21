@@ -11,6 +11,9 @@
     리스트 간의 간격을 10px 정도 주기 (좌우 주면 안되고 하단만 주기)
 
 [로직 이슈]
+로직: 영화 제작년도의 표시
+    렌더링 부분에 <div className='movieYear'>{item.year}</div>를 추가하기
+    (CSS) .movie .movieYear { }의 경우, 폰트사이즈를 0.5rem, 색을 red로 표시하기      
 로직: 영화 평점의 표시
     title 옆에 (8/10)의 형태로 표시
 로직: 영화 평점별 폰트 컬러 변경
@@ -40,10 +43,9 @@
     토렌트 다운로드 링크: torrents // 링크1 링크2 ... 
 
 [리팩토링 이슈]
-리팩토링: MenuTitle 컴포넌트화
-    const [menu, setMenu] = useState('무비 리스트') 로 기존 제목을 {menu} 스테이트로 변경
-    App.js의 <h1>무비 리스트</h1> 부분을 Title.js 만들어서 
-    <Title menu={menu} /> 로 컴포넌트화해서 분리시키기 (프롭도 줄것 menu)
+리팩토링: Title 컴포넌트화
+    <h1>무비리스트</h1>
+    text는 title props를 건네줄 것
 리팩토링: MovieList 컴포넌트화
 리팩토링: 컴포넌트 폴더 정리
     src/components/MovieList/index.js 형태로 바꿀 것
