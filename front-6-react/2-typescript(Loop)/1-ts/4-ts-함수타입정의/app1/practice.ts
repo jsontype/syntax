@@ -16,3 +16,9 @@ function returnNothing(): void {
     console.log('1')
 }
 returnNothing()
+
+// 1. 유니온 타입(Union Type) : string | number 처럼 앰퍼센드를 이용해서 두개 이상의 타입을 지니게 하는 것이다.
+function plusOne(a: string | number): number {
+    return Number(a) + 1
+}
+console.log(plusOne('1')) // 2
