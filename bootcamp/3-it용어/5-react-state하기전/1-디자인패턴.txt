@@ -1,0 +1,22 @@
+[디자인 패턴]
+
+1. 디자인 패턴이란?
+    웹개발을 할 때 각각의 역할을 나눠 코드 관리를 하기 위해서 고안한 코드 분리 패턴이다.
+
+1. ★★ MVC 패턴 : Controller -> Model -> View ---> 다시 Controller ...
+    Model : 앱에서 사용되는 데이터와 그 데이터를 처리하는 부분이다.
+    View : 사용자에서 보여지는 UI 부분이다.
+    Controller : 사용자의 입력(Action)을 받고 처리하는 부분이다.
+
+1. MVP 패턴 : Controller 대신 Presenter를 사용한다.
+    Presenter : View와 Model의 인스턴스를 가지고, 서로 붙여주는 역할을 한다.
+
+1. MVVM 패턴 : Controller 대신 View Model을 사용한다.
+    View Model : View에서 호출하는 Model로, 이후 데이터바인딩을 통해 View를 바꿔준다.
+
+1. ★★ Flux 패턴 : Action -> Dispatcher -> Store -> View ---> 다시 Action ...
+    ★ 리액트에서, context API나, redux 등을 이용한 방식이다. Flux의 문제는, reducer가 상당히 비대해질 수 있다는 것이다.
+    Action : 정확히는 Action Creator이며 클릭 같은 이벤트가 발생했을 때 Action 정보를 담고 있는 객체를 만들어내서 그 이벤트가 발생했음을 Dispatcher에 전달하는 역할을 한다.
+    Dispatcher : 들어오는 Action 객체 정보를 받아 실제로 어떤 행동을 할지 결정하는 곳이다. 주로 switch 문으로 들어오는 Action 객체를 type별로 나누어 처리한다. 
+    Store : 데이터, State를 담고 있다. React에서 우리는 이 Store를 Dispatcher와 연결해 Store에 접근할 수 있도록 callback 명령을 제공할 수 있다.
+    View : Store에서 어떤 이벤트(변경 등)가 발생하면 View는 변경된 점을 가져오고, 이를 바탕으로 화면을 다시 랜더링한다. 이때 랜더링 처리방식이 성능에 큰 영향을 끼친다.

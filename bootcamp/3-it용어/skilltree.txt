@@ -13,7 +13,7 @@
     Vue : 1 or 0
     Nuxt : 1 or 0
 
-1. 리액트 스킬트리의 Bottom-up 커리큘럼
+1. 리액트 기준 커리큘럼
     - 첫상담, 첫구축, skilltree 설명
     - it용어1
         HTML : 마크업
@@ -25,24 +25,26 @@
         JS : 중급문법
     - it용어3
         Node : node, npm, typescript
-    - it용어4
+    - it용어4 : 뷰 변경 타이밍
         Git : 프로젝트 협업을 통해 깃허브에 익숙해지기
         React 초급문법 : 무비앱 (API 호출)
         React typescript : 11-17 구간에서 하나 끝날 때마다 "Typescript 문법 학습 / 무비앱 깃 업그레이드" 반복
         JS : 고급문법
         React 중급문법 : 유저앱 (CRUD 게시판)
         React 스타일 : SASS, CSS Module, Styled-Components
+    - it용어5
         React 스테이트 : context-api, react-redux, mobx-react
         React api : context-api, reactQuery, redux-middleware(logger, thunk, saga), mobx
-    - it용어5
-        React 튜닝 : useMemo, useCallback
     - it용어6
+        React 튜닝 : useMemo, useCallback
         React 라우터 : react-router(SPA에서 라우팅), next(MPA에서 라우팅) 
     - it용어7
         React ssr : react-router(SPA에서 SSR), next(MPA에서 SSR, 정석적 방법)
+    - it용어8
+        React tdd : 테스트 코드 작성하는 법
         React sum : 요약 암기
         React app : 포트폴리오 제작
-    - it용어8
+    - it용어9
         스킬시트작성 & 면접연습 & 취업활동개시 & 사후멘토링
 
 1. 수업지침
