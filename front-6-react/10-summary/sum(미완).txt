@@ -1,9 +1,7 @@
 [React Hooks 총정리]
 
 1. useState
-
 1. useEffect
-
 ...
 
 
@@ -30,6 +28,3 @@
     렌더링하기(src/App.js) : 원하는 곳에 container를 임포트해와서 렌더링한다.
 
 1. Redux DevTools 임포트
-
-1. ...
-    ...    이어서    ...
