@@ -1,9 +1,0 @@
-[프론트엔드 리뷰 기준]
-
-프론트 코드 리뷰 하는법, 타입스크립트 자주하는 실수 검색어 추가
-https://www.google.com/search?q=%ED%94%84%EB%A1%A0%ED%8A%B8+%EB%A6%AC%EB%B7%B0%ED%95%98%EB%8A%94%EB%B2%95&oq=%ED%94%84%EB%A1%A0%ED%8A%B8+%EB%A6%AC%EB%B7%B0%ED%95%98%EB%8A%94%EB%B2%95&aqs=chrome..69i57.9928j0j7&sourceid=chrome&ie=UTF-8
-
-https://techblog.woowahan.com/2712/
-
-https://dreamsh19.github.io/frontend/Frontend-%EC%BD%94%EB%93%9C%EB%A6%AC%EB%B7%B0-%EC%A0%95%EB%A6%AC/
-
