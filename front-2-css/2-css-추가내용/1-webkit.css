@@ -1,0 +1,22 @@
+/* 
+  CSS를 브라우져별로 다르게 적용하는 법
+    프로퍼티의 값 부분의 앞에 다음을 추가한다.    
+      -webkit : 크롬, 사파리에 적용한다.
+      -moz : 파이어폭스에 적용한다.
+      -o : 오페라 브라우저에 적용한다.
+      
+    * -webkit, -moz 등을 쳤을 때 나오는 특정 함수들만 가능하다.  
+    * -ms도 있지만 보통은 생략한다.
+*/
+
+#sample {
+    height: 200px;
+    /* 기본값 : 익스플로러 포함(-ms 생략) */
+    background: linear-gradient(right, black, white);
+    /* 크롬, 사파리 */
+    background: -webkit-linear-gradient(left, black, red);
+    /* 파이어폭스 */
+    background: -moz-linear-gradient(left, black, blue);
+    /* 오페라 */
+    background: -o-linear-gradient(left, black, orange);
+}
