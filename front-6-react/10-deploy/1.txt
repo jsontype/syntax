@@ -1,0 +1,34 @@
+[React 앱을 Github Pages에 호스팅하기]
+
+1. Github Pages란?
+    Github Pages는 정적인 페이지를 호스팅 해주는 서비스이다.
+    많은 호스팅 서비스 중에 Github Pages를 선택한 이유는 다음과 같다.
+        호스팅하는 소스코드를 공개할 경우 무료
+        깃허브 리포지토리의 소스코드를 직접 호스팅해줌
+        버전 관리 시스템인 Git을 통해 안정적으로 코드를 관리할 수 있음
+
+1. 웹 앱 호스팅하기 절차
+    Github에 배포용 레포지토리를 생성
+    배포를 원하는 폴더에 클론
+    배포를 원하는 폴더에 코드를 넣고 master 브랜치에 푸시
+    $ cd app1
+    $ npm i gh-pages --save-dev 
+    브라우져를 열고, Github의 해당 레포지토리에 들어감 -> Settings -> Pages -> master/root 브랜치로 변경
+    package.json 수정 : homepage 주소를 수정하고 scripts 안에 predeploy, deploy를 추가한다.    
+        "homepage": "https://jsontyper.github.io/deploy-test-for-react/",
+            ...
+            "scripts": {
+                ...
+                "predeploy": "npm run build",
+                "deploy": "gh-pages -d build"
+            }
+    $ npm run deploy
+    다시 커밋 후 master 브랜치에 푸시
+
+1. 트러블슈팅
+    한번 배포한 레포지토리에서 다시 배포할 때 "gh-pages 브랜치가 이미 존재합니다."라는 에러가 뜨는데,
+    이때는 node_modules/.cache/gh-pages 폴더를 수동으로 제거하고 다시 디플로이 해보자.
+
+1. 테스트
+    배포 후 몇분이 지난 이후에, 브라우져에서 아래 주소에 접속
+    https://jsontype.github.io/deploy-test-for-react/
