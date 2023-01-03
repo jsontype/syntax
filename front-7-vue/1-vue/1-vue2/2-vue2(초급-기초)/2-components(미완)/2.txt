@@ -1,0 +1,6 @@
+[Component]
+
+https://v3-docs.vuejs-korea.org/guide/essentials/template-syntax.html 참조
+C:\Users\ydhvo\Desktop\workspace\syntax\front-6-react\1-react(4)\2-syntax(초급-기초)\2-components\2.txt 참조
+
+계속...
