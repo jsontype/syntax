@@ -1,0 +1,10 @@
+[React]
+
+1. 앱 설치
+    $ npx create-react-app app1
+
+1. 불필요 부분을, 연동까지 삭제
+
+1. 테스트
+    $ cd app1
+    $ npm start (또는 yarn start)

@@ -23,18 +23,10 @@
 
 
 1. 불필요 부분을, 연동까지 삭제
-    App.test.js
-    index.css
-    logo.svg
-    reportWebVitals.js
-    setupTests.js
-    App.css (코드만 비워두기)
-    세미콜론 ; 지우기
-    README.MD 지우기
 
 
 
-1. src/App.js 생성
+1. src/App.js 수정
     import React from 'react'
     import Button from './Button'
 

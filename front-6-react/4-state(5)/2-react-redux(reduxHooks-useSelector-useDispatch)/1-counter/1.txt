@@ -93,14 +93,6 @@
     $ npx create-react-app app1
 
 1. 불필요 부분을, 연동까지 삭제
-    App.test.js
-    index.css
-    logo.svg
-    reportWebVitals.js
-    setupTests.js    
-    App.css (코드만 비워두기)
-    세미콜론 ; 지우기
-    README.MD 지우기
 
 1. redux 라이브러리를 설치
     $ cd app1

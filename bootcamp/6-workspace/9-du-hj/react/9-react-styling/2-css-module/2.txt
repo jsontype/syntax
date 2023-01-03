@@ -1,0 +1,87 @@
+[CSS Module]
+
+1. CSS Module 사용법
+    CSS Module은 CSS를 도입하는 방법론 중 하나로,
+    레거시 프로젝트에 리액트를 도입하게 될 때, 또는 클래스 이름 짓는 규칙을 정하기 힘든 상황이거나 번거로울 때 사용하면 편하다.
+    웹팩에서 사용하는 css-loader에서 지원하므로, 리액트 앱에서 특별히 라이브러리 추가는 필요없다.
+    CSS Module을 사용하는 방법은, 그냥 CSS 파일의 확장자를 .module.css 로 하면 된다.
+    SASS, SCSS와 함께 사용할 수 있다.
+
+1. CSS Module 장점
+    CSS 클래스가 중첩되는 것을 완벽히 방지할 수 있다.
+    예를 들어, box.module.css 라는 파일을 만들고,
+    .box {} 를 넣고,
+    컴포넌트에서 해당 CSS 파일을 import styles from "./Box.module.css"로 임포트하고,
+    <div className={styles.Checkbox}>Hello</div> 라는 식으로 사용하면,
+    <div class="Checkbox_checkbox__x6F91"> 처럼 HTML에서 변경되어,
+    CSS 파일에 선언한 클래스 이름들이 모두 고유해진다.
+
+
+
+1. $ npx create-react-app app1
+
+
+
+1. 불필요 부분을, 연동까지 삭제
+
+
+
+1. src/App.js 수정
+    import React, { useState } from 'react'
+    import CheckBox from './components/CheckBox'
+
+    function App() {
+        const [check, setCheck] = useState(false)
+        const onChange = e => {
+            setCheck(e.target.checked)
+        }
+        return (
+            <div>
+                <CheckBox onChange={onChange} checked={check} />
+                <p>
+                    <b>check: </b>
+                    {check ? 'true' : 'false'}
+                </p>
+            </div>
+        )
+    }
+
+    export default App
+
+
+
+1. src/components/CheckBox.js 생성 : ...rest로, name, onChange 같은 값을 그대로 input 에게 넣어준다.
+    import React from 'react'
+    import styles from './CheckBox.module.css'
+
+    function CheckBox({ children, checked, ...rest }) {
+        return (
+            <div className={styles.checkbox}>
+                <label>
+                    <input type="checkbox" checked={checked} {...rest} />
+                    <div>{checked ? '체크됨' : '체크 안됨'}</div>
+                </label>
+                <span>{children}</span>
+            </div>
+        )
+    }
+
+    export default CheckBox
+
+
+
+1. src/components/CheckBox.module.css 생성
+    .checkbox label {
+        color: red;
+        cursor: pointer;
+    }
+
+    .checkbox span {
+        font-size: 1.125rem;
+    }
+
+
+
+1. 테스트
+    $ cd app1
+    $ npm start

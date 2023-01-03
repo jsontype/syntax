@@ -8,13 +8,16 @@
     View : 사용자에서 보여지는 UI 부분이다.
     Controller : 사용자의 입력(Action)을 받고 처리하는 부분이다.
 
-1. MVP 패턴 : Controller 대신 Presenter를 사용한다.
+1. MVP 패턴 : Controller 대신 Presenter를 사용한다. 안드로이드에서 주로 사용.
     Presenter : View와 Model의 인스턴스를 가지고, 서로 붙여주는 역할을 한다.
+    mvc 패턴에서 파생되었다.
 
-1. MVVM 패턴 : Controller 대신 View Model을 사용한다.
+1. ★★ MVVM 패턴 : View Model -> Model -> View ---> 다시  View Model ... 리액트/뷰에서 주로 사용.
     View Model : View에서 호출하는 Model로, 이후 데이터바인딩을 통해 View를 바꿔준다.
+    글로벌 스테이트가 아닌 로컬 스테이트를 쓰지 않는 react, vue 단계가 이 패턴이다.
+    mvp 패턴에서 파생되었다.
 
-1. ★★ Flux 패턴 : Action -> Dispatcher -> Store -> View ---> 다시 Action ...
+1. ★★ Flux 패턴 : Action -> Dispatcher -> Store -> View ---> 다시 Action ... 리덕스에서 주로 사용.
     ★ 리액트에서, context API나, redux 등을 이용한 방식이다. Flux의 문제는, reducer가 상당히 비대해질 수 있다는 것이다.
     Action : 정확히는 Action Creator이며 클릭 같은 이벤트가 발생했을 때 Action 정보를 담고 있는 객체를 만들어내서 그 이벤트가 발생했음을 Dispatcher에 전달하는 역할을 한다.
     Dispatcher : 들어오는 Action 객체 정보를 받아 실제로 어떤 행동을 할지 결정하는 곳이다. 주로 switch 문으로 들어오는 Action 객체를 type별로 나누어 처리한다. 

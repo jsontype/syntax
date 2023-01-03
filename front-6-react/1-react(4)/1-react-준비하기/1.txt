@@ -9,9 +9,10 @@
     logo.svg
     reportWebVitals.js
     setupTests.js    
-    App.css (코드만 비워두기)
+    App.css (코드만 비워두기)    
     세미콜론 ; 지우기
     README.MD 지우기
+    App.js 수정
 
 1. 테스트
     $ cd app1
