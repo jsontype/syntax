@@ -5,8 +5,6 @@
   $ npm run serve
   http://localhost:8080/
 
-
-
 1. VSCode 확장 설치
   Vue Language Features (Volar) : vue 개발용
   Vue VSCode Snippets : vbase라고 치면 vue 확장자에 한해서 자동 컴포넌트 생성

@@ -14,6 +14,7 @@
 
 1. ★★ Template 문법 특징
   Template 부분에 JS 변수나 함수 쓸 때는 {{}}으로 묶어서
+  Template 문법상, 프롭을 변수로 줄때는 :을 사용한다.
   컴포넌트명으로 Hello는 안된다. HelloWorld처럼 여러개의 단어로 구성된 컴포넌트만 허용한다.
   App.vue를 제외한 컴포넌트들은 모두 <style scoped>을 써서 중복 클래스명 적용문제를 사전 차단한다.
 

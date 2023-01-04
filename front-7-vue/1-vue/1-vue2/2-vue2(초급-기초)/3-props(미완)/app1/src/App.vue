@@ -3,20 +3,18 @@
     <Hello />
     <Hello />
     <Hello />
-    {{ name }}!
+    <!-- 1. 프롭 준다. ★ Template 문법상, 프롭을 변수로 줄때는 :을 사용한다. -->
+    <Hello :name="name" mark="!" />
   </div>
 </template>
 
 <script>
-// 1. 컴포넌트 임포트한다.
 import Hello from './Hello'
 
-// export default App : 익스포트를 하기 위한 것으로, 템플릿 문법에 의해 적용된다.
 export default {
   name: 'App',
-  // 2. 쓰고자 하는 자식컴포넌트들을 components 객체 안에 담는다.
   components: {
-    Hello, // = HelloWorld: HelloWorld,
+    Hello,
   },
   data() {
     return {
