@@ -1,9 +1,10 @@
 [Component]
 
-1. vscode 확장 설치 필요
-    react 쳤을 때 처음 나오는 거 설치 : "ES7+ React/Redux/React-Native snippets"
-    rfc, rcc 등으로 편하게 컴포넌트를 만들기 위함
-    
+1. VSCode 확장 설치 필요
+    ES7+ React/Redux/React-Native snippets : 
+        react 쳤을 때 바로 나옴. 
+        rfc, rcc 등으로 편하게 컴포넌트를 만들기 위함 
+
 
 
 1. 컴포넌트 만드는 법 요약
@@ -16,7 +17,7 @@
     // 3. 컴포넌트 임포트한다.
     import Hello from './Hello'
 
-    export default function App() {  
+    export default function App() {
         return (
             <div className="hello">
                 {/* 4. 컴포넌트 쓴다. */}
@@ -27,7 +28,8 @@
         )
     }
 
-    // export default App : 익스포트를 하기 위한 건데, 그냥 export default를 함수 앞으로 놓아도 된다.
+    // 아래는 익스포트를 하기 위한 건데, 그냥 export default를 함수 앞으로 놓아도 된다.
+    // export default App
 
 
 
