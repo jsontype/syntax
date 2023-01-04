@@ -1,0 +1,23 @@
+[개념 잡기]
+
+1. 올바른 질문에 대한 개념 잡기
+    질문은 개발자가 성장하기 위해 굉장히 중요한 스킬이다.
+    그러나, 많은 질문이 즉 양질의 질문이라 착각해서는 안된다.
+    질문의 양이 중요한 게 아니라, 질문의 질이 상당히 중요하다.
+    어느 현장에 가서도, 주니어가 질낮은 질문을 반복하게 되면,
+    현장의 상사들이나 선배들에게 무시당하고,
+    어느 순간 귀찮고 도움이 되지 않는 인력이라는 인식이 박혀버릴 것이다.
+    그러므로 질문은 가장 중요하면서도, 가장 조심해야한다.
+    다음은 해서는 안되는 질문 리스트이다.
+
+    - 질문하는 법 (스스로 고민해보지 않고 처음부터 끝까지 알려달라고 하는 질문)
+        https://www.youtube.com/watch?v=LjcMes6LJHs&list=PLW_uvsSPlijvEGUPKXOTPaJFlSAZ12Tfy&index=3
+
+    - 이런 질문 좀 하지마요. (자신의 불안함을 없애기 위한 의미없는 질문)
+        https://youtu.be/qscDsTs9gKA
+
+    - 학원 다닐까? 끊을까? (스스로 답을 아는 질문)
+        https://youtube.com/shorts/mU-5sTFFza0?feature=share
+
+    - 업무대화 중 소설 안 쓰는 방법 (자신의 감정을 분출하기 위한 의미없는 질문)
+        https://www.youtube.com/watch?v=XdKcH8Kt2OQ&list=PLW_uvsSPlijvEGUPKXOTPaJFlSAZ12Tfy&index=25
