@@ -1,7 +1,7 @@
 [기존의 Node.js 웹 서버에 SwaggerUI 입혀보기]
 
 1. 기존의 Node.js 웹 서버에 SwaggerUI 입혀보기
-  SwaggerUI를 별도의 독립된 문서 형태로 구현해서, Nodejs 서버에 API를 호출해보자.
+  SwaggerUI를 별도의 독립된 문서 형태로 구현해서, Node.js 서버에 API를 호출해보자.
   이를 통해 Firebase, Node, Spring, PHP 어떤 프로그래밍 언어든 간에 SwaggerUI를 붙여볼 수 있게 되겠다.
 
 

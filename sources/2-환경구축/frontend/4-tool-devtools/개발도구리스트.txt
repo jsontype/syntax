@@ -23,7 +23,7 @@
 
 1. 터미널
     git bash : TUI 기반 git 관리 툴
-    NodeJS : TUI 기반 JS 런타임
+    node.js : TUI 기반 JS 런타임
     powershell : 윈도우용 터미널
     iTerm2 : 맥용 터미널
 

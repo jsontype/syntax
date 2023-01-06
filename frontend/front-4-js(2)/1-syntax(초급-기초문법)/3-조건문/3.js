@@ -1,20 +1,20 @@
-// runtime : 구동 환경. 브라우져(js), 터미널(nodejs)
+// runtime : 구동 환경. 브라우져(js), 터미널(node.js)
 
 // 조건문
 let a = 3
 let b = 3
 
 if (a < b) {
-    console.log('b가 더 큼')
+  console.log("b가 더 큼")
 } else if (a === b) {
-    console.log('b가 a와 동일함');
+  console.log("b가 a와 동일함")
 } else {
-    console.log('b가 더 크지 않음')
+  console.log("b가 더 크지 않음")
 }
 
 // 두개 이상의 조건 : and (&&), or (||)
-if (a > 0 && b < 2 && b >0) {
-    console.log('나올까요?')
+if (a > 0 && b < 2 && b > 0) {
+  console.log("나올까요?")
 }
 
 // 문제
@@ -29,11 +29,11 @@ let people = 4
 let apple = 4
 
 if (orange >= people) {
-    console.log('오렌지로 충분하다')
+  console.log("오렌지로 충분하다")
 } else if (apple >= people) {
-    console.log('사과로 충분하다')
+  console.log("사과로 충분하다")
 } else {
-    console.log('둘다 불충분하다')
+  console.log("둘다 불충분하다")
 }
 
 // 삼항연산자 Ternery Operator 문법 (조건 ? true일때의 변수 : false일때의 변수)
@@ -45,29 +45,27 @@ console.log(result)
 console.log(`${num1 < 10 ? `0${num1}` : num1}`)
 
 // 스위치문
-const device = 'iphone'
+const device = "iphone"
 switch (device) {
-  case 'iphone':
-    console.log('아이폰!')
+  case "iphone":
+    console.log("아이폰!")
     break
-  case 'ipad':
-    console.log('아이패드!')
+  case "ipad":
+    console.log("아이패드!")
     break
-  case 'galaxy note':
-    console.log('갤럭시 노트!')
+  case "galaxy note":
+    console.log("갤럭시 노트!")
     break
   default:
-    console.log('모르겠네요..')
+    console.log("모르겠네요..")
 }
 
 // 토글 (Toggle)
 const switch1 = false // 초기값을 off 상태라고 한다면
 let toggle = !switch1 // 이러면 실행할 때마다 on, off를 반복하는 토글이 된다. 이를 버튼에 넣어서 쓰게 되면 그게 토글링이다.
-console.log('토글 1회 실행 값: ', toggle)
+console.log("토글 1회 실행 값: ", toggle)
 toggle = !switch1
-console.log('토글 2회 실행 값: ', toggle)
-
-
+console.log("토글 2회 실행 값: ", toggle)
 
 // 문제 : 변수 x가 10보다 크고 20보다 작을 때 변수 x를 출력하는 조건식을 완성하라.
 let x = 15

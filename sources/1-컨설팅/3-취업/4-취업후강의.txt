@@ -29,13 +29,13 @@
         대상:초급자
         John Ahh(그외에도 여러가지 강의 추천)
         대상:초급자 
-    # ReactJS로 영화 웹 서비스 만들기
+    # React.js로 영화 웹 서비스 만들기
     #     노마드 코더
     #     https://nomadcoders.co/react-for-beginners/lectures/3257
     # [필수] Redux vs MobX (둘 다 배우자!)
     #     조헌영(제로초)
     #     대상:초급자 
-    # ReactJS 마스터클래스
+    # React.js 마스터클래스
     #     노마드 코더
     #     대상:중급자
 

@@ -15,7 +15,7 @@
     sourcetree
     zoom
     slack
-    nodejs
+    node.js
     xampp
     pleiades eclipse
     a5m2
