@@ -1,0 +1,61 @@
+[스킬트리]
+
+1. 리액트 스킬트리
+    HTML : Max
+    CSS : Max
+    CMS : 1
+    JS : Max
+    Git : Max
+    PHP : 1 or 0
+    Node.js : 1
+    React : Max
+    Next : Max
+    Vue : 1 or 0
+    Nuxt : 1 or 0
+
+1. 리액트 스킬트리의 Bottom-up 커리큘럼
+    <bootcamp>
+        - 첫상담, 첫구축, skilltree 설명
+        - it용어1 : 개발직군
+        (1) HTML : 마크업
+        (2) CSS : 문법
+        - it용어2 : 좋은 개발 특성, framework-library
+        (3)(skip) CSS Bootstrap : 프레임워크 기본 익히기
+        (4) CMS : figma
+        (5) JS : 초급문법
+        - it용어3 : api-ajax, async
+        (6) JS : 무비앱
+        (7) JS : 중급문법
+        - it용어4 : achitecture, semVer
+        (8)(skip) PHP : DB, 서버, 호스팅 이해하기 (Java, Python이 하는 일로, 백엔드 경험 있는 사람은 Skip)
+        (9) Node : node, npm, typescript, npm중 필수 lib와 fw들의 개념 이해하기
+        - it용어5 : 극단적사고-애매모호함, npm-yarn-npx-nvm, rest-api
+        (10) Git : 마크업 프로젝트 배포를 통해 깃허브에 익숙해지기, 뉴스앱 (Git)
+        (11-18) (Loop) React typescript : 11-17 구간에서 하나 끝날 때마다 "Typescript 문법 학습 / 무비앱 깃 업그레이드" 반복
+            (11) React 초급문법 : 무비앱 (API 호출)
+            (12) JS : 고급문법
+            (13) React 중급문법 : 유저앱 (CRUD 게시판)
+            (14) React 스타일 : SASS, CSS Module, Styled-Components
+            - it용어6 : spa-mpa-csr-ssr
+            (15) React global-state : context-api, react-redux, mobx-react
+            (16) React async : context-api, reactQuery, redux-middleware(logger, thunk, saga), mobx
+            - it용어7 : throttling, process-thread, lighthouse
+            (17) React performance-tuning : useMemo, useCallback
+            (18) React ssr : react-router(SPA에서 SSR), next(MPA에서 SSR, 정석적 방법)
+        (19) React sum : 요약의 암기
+        (20) React app : 다양한 종류의 어플 제작방법 무한 학습
+        - it용어8 : workflow, scrum, dev-sta-pro, aws-ecs, docker, jest, shell-vi, batch
+        - 스킬시트작성 & 면접연습 & 취업활동개시 & 사후멘토링
+    </bootcamp>
+
+1. 수업지침
+    - 용어의 경우는, 검색능력이 중요하니, 설명이 불필요한 것은 직접 찾아보도록 검색을 시킬 것. 봐도 모를 때만 설명해주기.
+    - 로지컬하게 생각할 줄 아는 능력, 스케쥴 관리 능력, 검색이든 뭐든 해서 독립적인 문제해결능력이 중요하다는 것을 강조.
+    - 커리큘럼의 순서가 비선형인 이유.
+        한 언어를 배울 때 그 언어에 대해 처음부터 다 가르치려고 하지 않고, 
+        다음 단계로 넘어가면서 "필요해질 때마다" 추가로 가르칠 예정이다.
+        그렇게 하는 이유는, 분류한다고 처음부터 전부 다 바텀업으로 공부를 해버리면,
+        어차피 이해도 안되고, 쓸 일도 당장 없어서 반드시 잊어먹기 때문이다.
+        먼저 필요에 의한 실용적 공부를 시키고,
+        이후에 학생의 학습전략에 따라 "재구조화"를 할 수 있는 여지를 두는 것이 낫다고 판단.
+        * 학생의 학습전략이 타인에게 가르치는 것이라면 이 커리큘럼대로 정리하거나, 자신의 교육철학대로 변경하는 것을 추천.

@@ -8,7 +8,7 @@
 
 
 
-1. nodejs 설치
+1. node.js 설치
   nodejs.org/ko 접속 - 안정적, 신뢰도 높은 LTS버전 다운로드
   $ npm -v
 

@@ -18,7 +18,7 @@ Chromium 을 사용해서 HTML, CSS, 자바스크립트를 이용해 애플리�
 04. top nav 메뉴와 context 메뉴를 변경
 05. tray, dialog, shell 처리 이벤트 삽입
 
-<NodeJS 커맨드>
+<node.js 커맨드>
 $ $ npm i : 인스톨
 $ npm start : 앱 실행
 

@@ -1,7 +1,7 @@
 [Node.js로 API 구현]
 
 1. Node.js의 express를 통해 API를 로컬호스트 서버를 통해 구동하기
-  서버 개발자 입장에서 Nodejs의 express를 통해 간단한 API를 로컬호스트 서버를 통해 구동해보자.
+  서버 개발자 입장에서 node.js의 express를 통해 간단한 API를 로컬호스트 서버를 통해 구동해보자.
 
 
 
