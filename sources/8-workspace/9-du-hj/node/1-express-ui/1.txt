@@ -1,0 +1,14 @@
+[서버 구축을 위해 express 모듈 설치하기]
+
+1. 사전 용어 체크
+    공통 : server(공통적인), port
+    프론트엔드 : front, ui/ux, 화면, client, view
+    백엔드 : back, api/uri, server(백엔드적인), db
+    백엔드 언어 : nodejs(백을 포함한 포괄적의미가 있음), java, php, python, go, c/c++, ruby
+
+1. 설치
+    $ mkdir app1
+    $ npm i express
+
+
+[express 서버에 string 하나 연동해보기]

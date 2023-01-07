@@ -12,6 +12,9 @@
 
 [vi, vim 필수 기본 명령어]
 
+1. Vi, Vim 설치 : 맥은 불필요
+    vim.org에서 튜토리얼을 확인하고 설치
+
 1. Vi, Vim 열기 : 환경구축을 위해 config 파일 수정할 때 등에 사용한다.
     vi filename
     vim filename

@@ -37,7 +37,7 @@
   html 문서 중에서도 특히 SEO 순위에 많은 영향을 주는 elements이다.
     T <title>title 내 키워드 순위가 올라간다 </title>
     D <meta name="description" content="구글 검색결과에 표시하여 CTR을 개선할 수 있다">
-    H <h1>h1 내 키워드 순위가 올라간다 </h1>
+    H <h1>h1 내 키워드 순위가 올라간다</h1>
   TDH의 동적 제어의 예
     <title>{SEO 키워드}| 스탠바이 </title>
     <meta name="description" content="{캐치카피}의 {SEO 키워드} 정보">

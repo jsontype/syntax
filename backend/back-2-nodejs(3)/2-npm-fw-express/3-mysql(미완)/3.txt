@@ -1,3 +1,0 @@
-[MySQL x Node.js]
-
-..

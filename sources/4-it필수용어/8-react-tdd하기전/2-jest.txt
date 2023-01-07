@@ -10,7 +10,7 @@
 
 1. 설치
   $ npm init -y
-  $ npm install --save-dev jest
+  $ npm i jest --save-dev 
 
 1. package.json 수정 : scripts 프로퍼티에 명령어를 추가
   // package.json
@@ -29,7 +29,7 @@
   })
 
 1. 파일을 생성후 터미널에서 명령어를 실행하면, 테스트과 통과된 결과를 볼 수 있다.
-  $ npm run jest
+  $ npm run jest : (리액트로 깔았을 경우 npm test)
 
 1. 단위테스트를 작성하는 이유?
   가장 큰 이유는 내가 작성한 코드가 잘 동작 하는지 확인하기 위해서이다.
