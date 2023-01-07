@@ -27,23 +27,24 @@
         Node.js : node, npm, typescript
     - it필수용어4 : React.js 대신 Vue.js로 커리큘럼 변경 가능
         Git : 프로젝트 협업을 통해 깃허브에 익숙해지기
-        React.js 초급문법 : 무비앱 (API 호출)
-        React.js typescript : 11-17 구간에서 하나 끝날 때마다 "Typescript 문법 학습 / 무비앱 깃 업그레이드" 반복
+        React.js / Vue.js 초급문법 : 무비앱 (API 호출)
+        React.js / Vue.js typescript : 11-17 구간에서 하나 끝날 때마다 "Typescript 문법 학습 / 무비앱 깃 업그레이드" 반복
         JS : 고급문법
-        React.js 중급문법 : 유저앱 (CRUD 게시판)
-        React.js 스타일 : SASS, CSS Module, Styled-Components
+        React.js / Vue.js 중급문법 : 유저앱 (CRUD 게시판)
+        React.js / Vue.js style : SASS, CSS Module, Styled-Components
     - it필수용어5
-        React.js 스테이트 : context-api, React.js-redux, mobx-React.js
-        React.js api : context-api, React.jsQuery, redux-middleware(logger, thunk, saga), mobx
+        React.js / Vue.js state : context-api, React.js-redux, mobx-React.js
+        React.js / Vue.js api : context-api, React.jsQuery, redux-middleware(logger, thunk, saga), mobx
     - it필수용어6
-        React.js 튜닝 : useMemo, useCallback
-        React.js 라우터 : React.js-router(SPA에서 라우팅), next(MPA에서 라우팅) 
+        React.js / Vue.js tuning : useMemo, useCallback
+        React.js / Vue.js router : React.js-router(SPA에서 라우팅), next(MPA에서 라우팅) 
     - it필수용어7
-        React.js ssr : React.js-router(SPA에서 SSR), next(MPA에서 SSR, 정석적 방법)
+        React.js / Vue.js ssr : React.js-router(SPA에서 SSR), next(MPA에서 SSR, 정석적 방법)
     - it필수용어8
-        React.js tdd : 테스트 코드 작성하는 법
-        React.js sum : 요약 암기
-        React.js app : 포트폴리오 제작
+        React.js / Vue.js tdd : 테스트 코드 작성
+        React.js / Vue.js deploy : 배포
+        React.js / Vue.js summary : 요약 암기
+        React.js / Vue.js app : 포트폴리오 제작
     - it현장용어1~9
         스킬시트작성 & 면접연습 & 취업활동개시 & 사후멘토링
 

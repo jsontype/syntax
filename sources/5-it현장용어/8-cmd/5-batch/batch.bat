@@ -3,26 +3,38 @@
 :: 서버에서는 비밀번호 설정 후 일정 기간이 지났는지를 파악해 일정 기간(90일 등)이 지나면 변경 권장을 해야 한다. 
 :: 이를 로그인 요청마다 체크할 수도 있지만 주기적으로(1일 혹은 2일에 한번 등...) 
 :: 모든 계정에 대해 일정 기간이 지났는지 확인하는 방식으로 처리하면 오버헤드를 줄일 수 있다.
-:: 이와 같이 주기적으로 특정 동작을 수행하도록 하는 프로그램을 배치(Batch) 프로그램이라 하고, 실무에서도 굉장히 필수적일 것이라고 생각된다.
-:: ★ 웹에서 Batch로 할 수 있는 일들 : 휴면계정 관리, 광고, 업데이트 소식, 알림, 청구 등의 기능 (Batch로 무엇을 할 수 있는지를 이해하면 됨)
+:: 이와 같이 주기적으로 특정 동작을 수행하도록 하는 프로그램을 배치(Batch) 프로그램이라 하고, 
+:: 실무에서도 굉장히 필수적일 것이라고 생각된다.
+:: ★ 웹에서 Batch로 할 수 있는 일들 : 휴면계정 관리, 광고, 업데이트 소식, 알림, 청구 등의 기능 
+:: (Batch로 무엇을 할 수 있는지를 이해하면 됨)
 :: 여기서는 Batch를 더 잘 이해할 수 있도록 간단히, 개인적으로 만들 수 있는 간단한 Batch 앱들을 만들어보도록 하겠다.
 
 
 
 :: 1. PC 예약종료 프로그램
-:시간 입력받기
-:set /p hour=How many hours after? (1~24) :
-:set /a delay=%hour%*60*60
+::시간 입력받기
+::set /p hour=How many hours after? (1~24) :
+::set /a delay=%hour%*60*60
 
-:예약종료
-:shutdown -s -t %delay%
+::예약종료
+::shutdown -s -t %delay%
 
-:예약종료 취소
-:shutdown -a
+::예약종료 취소
+::shutdown -a
 
 
 
-:: 2. 출근도장 프로그램
+:: 2. 동시에 여러 앱을 여는 프로그램
+@echo off
+echo "Workspace Ready..."
+Start "" "C:\Users\ydhvo\AppData\Local\Programs\Microsoft VS Code\Code.exe"
+Start "" "C:\Program Files\Google\Chrome\Application\chrome.exe"
+exit
+@echo off
+
+
+
+:: 3. 출근도장 프로그램
 ::불필요한 로그 숨기기
 @echo off
 :::컴퓨터키면 자동실행되는 위치 C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp

@@ -7,20 +7,42 @@
         깃허브 리포지토리의 소스코드를 직접 호스팅해줌
         버전 관리 시스템인 Git을 통해 안정적으로 코드를 관리할 수 있음
 
-1. 웹 앱 호스팅하기 절차
+1. 웹앱 빌드 사전 준비
     Github에 배포용 레포지토리를 생성
     배포를 원하는 폴더에 클론
     배포를 원하는 폴더에 코드를 넣고 master 브랜치에 푸시
-    브라우져를 열고, Github의 해당 레포지토리에 들어감 -> Settings -> Pages -> master/docs 브랜치로 변경
-    vue.config.js 수정 : 다음과 같이 outputDir와 publicPath를 추가해준다. 
-            const { defineConfig } = require('@vue/cli-service')
-                module.exports = defineConfig({
-                    // outputDir : 이걸 안 적어주고 github pages에서 루트폴더를 master/(root)로 하려면, npm run build 후에 dist 폴더의 내용물을 app의 루트 디렉토리에 매번 옮겨넣어야하는데, 소스코드를 따로 관리하고 싶다면 그냥 원래대로 docs에 담아서 넣고 github pages에서 루트폴더를 master/docs/ 폴더로 설정해주면 된다.
-                    outputDir: './docs',
-                    // publicPath : 이걸 안 적어주면 https://domain.com/ 이 경로에 앱이 있을거라 상정하게 되는데, 깃허브는 https://jsontyper.github.io/<RepoName>/ 으로 레포지토리 이름이 subpath가 되기 때문에 이를 적어주어야 한다.
-                    publicPath: '/deploy-test-for-vue',  
-                    transpileDependencies: true
-            })
+
+1. vue.config.js 수정 : 다음과 같이 outputDir와 publicPath를 추가해준다. 
+    const { defineConfig } = require("@vue/cli-service")
+        module.exports = defineConfig({
+        outputDir: "./docs",
+        publicPath: "/deploy-vue", // 레포지토리명
+        transpileDependencies: true,
+    })
+    
+    /* 
+        [상세설명]
+        
+        publicPath : 
+            이걸 안 적어주면 
+            도메인 경로에 앱이 있을거라 상정하게 되는데,
+            깃허브는 https://jsontype.github.io/<RepoName>/ 으로 
+            레포지토리 이름이 subpath가 되기 때문에 이를 적어주어야 한다.
+            https://jsontype.github.io/ : 여기까지가 Domain
+            /deploy-vue : 여기가 Path
+        
+        outputDir : 
+            이걸 안 적어주고 github pages에서 루트폴더를 master/(root)로 하려면,
+            npm run build 후에 dist 폴더의 내용물을 
+            app의 루트 디렉토리에 매번 옮겨넣어야하는데, 
+            근데 그러면 본 소스코드와 섞이니까, 개발 소스코드를 따로 관리하고 싶다면
+            docs에 담아서 넣고 
+            github pages에서 루트폴더를 master/docs/ 폴더로 설정해주면 된다.
+    */
+    
+1. 빌드
+    브라우져를 열고, Github의 해당 레포지토리에 들어간 다음, 
+        Settings -> Pages -> master/docs 브랜치로 변경
     $ cd app1
     $ npm run build
     다시 커밋 후 master 브랜치에 푸시
