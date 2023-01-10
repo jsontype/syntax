@@ -1,30 +1,35 @@
 [JS와 MySQL을 연동하기]
+참조 URL : https://reffect.co.jp/node-js/express-js-connect-mysql
 
 1. mysql 설치 및 db 준비 (xampp 이용)
     xampp에서 설치
-        xampp 설치 후 "관리자 권한으로 실행"
+        xampp 설치 후 "관리자 권한으로 실행" 설정하고 작업표시줄에 고정
+            "관리자 권한으로 실행 설정방법" : 
+                아이콘을 마우스로 우클릭해서 속성을 클릭
+                "호환성" 탭에서 "관리자 권한으로 이 프로그램 실행"을 체크해주고 적용
         xampp에서 apache, mysql의 좌측 x 버튼 눌러 설치
         xampp에서 apache, mysql의 start 버튼 눌러 실행
         xampp에서 mysql의 admin 버튼 눌러 실행
         mysql admin에서 `db1` 데이터베이스 생성
-    xampp가 싫다면? (자신 있으면 검색하면서 해보자)
+    xampp가 싫다면?
         mysql 공식사이트에서 설치 후, (msi를 통해 설치하면 자동으로 환경변수에 설치됨) 
         mysql cli를 통해서 `db1` 데이터베이스 생성
+        server 구동 app을 따로 만들고 실행 (app2 참조)
 
-1. mysql admin에서 다음 sql 입력
+1. mysql phpmyadmin에서 다음 sql 입력
     -- 유저 테이블 생성
     CREATE TABLE `user` (
-    `no` int(15) NOT NULL,
-    `id` char(15) NOT NULL,
-    `pw` char(255) NOT NULL,
-    `username` char(15) NOT NULL,
-    `nickname` char(15) NOT NULL,
-    `birth` char(8) NOT NULL,
-    `gender` char(6) NOT NULL,
-    `tel` char(15) NOT NULL,
-    `email` char(30) NOT NULL,
-    `addr` char(100) NOT NULL,
-    `regdate` date DEFAULT current_timestamp()
+        `no` int(15) NOT NULL,
+        `id` char(15) NOT NULL,
+        `pw` char(255) NOT NULL,
+        `username` char(15) NOT NULL,
+        `nickname` char(15) NOT NULL,
+        `birth` char(8) NOT NULL,
+        `gender` char(6) NOT NULL,
+        `tel` char(15) NOT NULL,
+        `email` char(30) NOT NULL,
+        `addr` char(100) NOT NULL,
+        `regdate` date DEFAULT current_timestamp()
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
     -- 덤프데이터 입력 
@@ -125,5 +130,5 @@
 
 1. 테스트
     $ cd app1
-    $ node main
-    main.js의 CRUD 로직 하나씩 주석 풀면서, xampp의 mysql gui 상에서 db가 변경되는지 확인
+    $ node app
+    app 파일 내의 CRUD 로직을 하나씩 주석 풀면서, xampp의 mysql gui 상에서 db가 변경되는지 확인

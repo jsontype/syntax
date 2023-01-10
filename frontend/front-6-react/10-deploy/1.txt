@@ -14,7 +14,7 @@
     $ cd app1
     $ npm i gh-pages --save-dev
     package.json 수정 : homepage 주소를 수정하고 scripts 안에 predeploy, deploy를 추가한다.
-        "homepage": "https://jsontyper.github.io/deploy-test-for-react/",
+        "homepage": "https://jsontype.github.io/deploy-test-for-react/",
             ...
             "scripts": {
                 ...

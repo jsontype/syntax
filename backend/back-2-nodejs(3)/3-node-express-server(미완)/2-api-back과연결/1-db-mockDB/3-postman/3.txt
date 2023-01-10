@@ -3,7 +3,9 @@
 1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
 
 1. API테스트 준비
-  - 테스트 준비 1 : API 테스트 프로그램 (Postman 또는 Insomnia)를 설치
+  - 테스트 준비 1 : API 테스트 프로그램을 설치
+    ★★ 추천 API 테스트 프로그램 : Postman, Insomnia, REST Client(VSCode 확장)
+      ★ REST Client 사용법 : .rest, .http 파일에 GET http://127.0.0.1:3000/api/user 등을 입력 후 Send Request 버튼 눌러서 확인 가능
     GET만 테스트할 거라면 브라우져 상에서 api 주소를 입력해도 되지만,
     GET외의 경우에는 Postman 또는 Insomnia 등의 API 테스트 프로그램이 필수이다.
   - 테스트 준비 2 : express 앱을 실행시켜서 서버를 구동해두자.
