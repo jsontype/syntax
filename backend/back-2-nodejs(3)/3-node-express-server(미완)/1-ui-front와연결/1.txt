@@ -1,0 +1,61 @@
+[서버 구축을 위해 express 모듈 설치하기]
+
+1. 사전 용어 체크
+    공통 : server(공통적인), port
+    프론트엔드 : front, ui/화면, client, view
+    백엔드 : back, api/uri, server(백엔드적인), db
+    백엔드 언어 : nodejs(백을 포함한 포괄적의미가 있음), java, php, python, go, c/c++, ruby
+
+1. 설치
+    $ mkdir app1
+    $ npm i express
+
+
+
+[express 서버에 string 하나 연동해보기]
+
+1. app.js 생성 : string을 띄울 서버 구축
+    const express = require('express')
+    const app = express()
+    const port = 3000
+
+    app.get('/', (req, res) => res.send('Hello World!'))
+
+    app.listen(port, () => console.log(`listening on port ${port}!`))
+
+1. 테스트
+    $ cd app1
+    $ node app
+    
+
+
+[express 서버에 프론트화면 연동하기]
+
+1. app.js 수정 : 프론트화면 UI를 띄울 웹 서버 구축
+    const express = require('express')
+    const app = express()
+    const port = 3000
+    
+    // app.get('/', (req, res) => res.send('Hello World!'))
+    app.use("/", (req, res) => res.sendFile(__dirname + '/index.html'))
+    
+    app.listen(port, () => console.log(`listening on port ${port}!`))
+
+1. index.html 생성 : 프론트화면 UI 작성
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <h4>채팅페이지입니다</h4>
+        <button id="send">메시지 보내기</button>
+    </body>
+    </html>
+        
+1. 테스트
+    $ cd app1
+    $ node app
