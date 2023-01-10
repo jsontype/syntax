@@ -1,0 +1,1 @@
+http://golang.site/go/article/7-Go-%EC%A1%B0%EA%B1%B4%EB%AC%B8 부터 시작

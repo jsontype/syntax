@@ -1,0 +1,43 @@
+[GO 설치]
+참조 URL : http://golang.site/go/article/1-Go
+
+1. Go란?
+  Go는 전통적인 컴파일, 링크 모델을 따르는 범용 프로그래밍 언어이다. 
+  Go는 일차적으로 시스템 프로그래밍을 위해 개발되었으며, 
+  C++, Java, Python의 장점들을 뽑아 만들어졌다.
+  C++와 같이 Go는 컴파일러를 통해 컴파일되며, 
+  정적 타입 (Statically Typed)의 언어이다. 
+  또한 Java와 같이 Go는 Garbage Collection 기능을 제공한다. 
+  Go는 단순하고 간결한 프로그래밍 언어를 지향하였는데, 
+  Java의 절반에 해당하는 25개의 키워드만으로 프로그래밍이 가능하게 하였다. 
+  마지막으로 Go의 큰 특징으로, Go는
+  Communicating Sequential Processes (CSP) 스타일의 Concurrent 프로그래밍을 지원한다.
+    * Concurrent Programming란?
+      "여러 클라이언트의 접속을 처리하고
+      각 클라이언트의 요청에 응답하기 위해 멀티스레드를 사용하는" 프로그래밍이
+      Concurrent Programming(동시적인 프로그래밍)이다.
+      이는 "다중 CPU 혹은 코어를 가진 컴퓨터에서
+      어떤 복잡한 계산을 빠르게 수행하는 프로그램을 만들기 위해 멀티스레드를 사용하는"
+      Parallel Programming(병렬적 프로그래밍)과는 다르다.
+      서버에서 Concurrent Programming을 잘 하는 것은, 
+      서버가 동시에 처리할 수 있는 클라이언트 수를 증가시켜주기는 하지만, 
+      한 클라이언트의 응답속도를 높여주지는 못한다. 
+      그렇게 하려면 Parallel Programming을 도입해야 하는 것이다.
+
+1. 설치 
+  Go 공식 웹사이트인 https://go.dev/dl/ 에서 해당 OS 버젼의 Go를 찾아 설치 
+  윈도우즈의 경우, MSI가 자동으로 설치된 go 폴더 안의 bin 폴더를 PATH 환경변수를 추가한다.
+  PATH 환경변수가 적용될 수 있도록 VSCode와 내부터미널을 다시 연다.
+
+1. app1/1.go 생성
+  package main
+
+  func main() {
+      println("Hello Go!")
+  }
+
+1. 테스트 : 실행
+  $ go run 1.go
+
+1. 테스트 : exe 실행파일로 빌드
+  $ go build 1.go
