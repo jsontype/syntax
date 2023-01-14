@@ -18,7 +18,6 @@
       @toggle-checkbox="toggleCheckbox"
       @click-delete="deleteTodo"
     />
-
     {{ todos }}
   </div>
 </template>

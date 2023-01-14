@@ -12,11 +12,11 @@
     iterm2 검색 후 설치
     finder - 애플리케이션 - chrome, vscode, iterm2 설치 확인
     chrome, vscode, iterm2를 도커에 올려놓는다.
-    iterm2을 열고, 위쪽 메뉴에서 iterm2을 클릭
-    preference 탭 - appearance - general - theme - minimal 선택
+    iterm2을 열고, 위쪽 메뉴에서 iterm2 탭에서 settings 클릭
+    appearance 탭 - general - theme - minimal 선택
     profiles 탭 - session - status bar 체크 - 최하단 configure status bar 버튼 클릭
-    Battery, CPU, RAM, Network, Clock을 아래로 드래그
-    최하단 Auto-Rainbow 옆 풀다운 클릭 - Light Colors 선택 - OK 버튼 선택
+        Battery, CPU, RAM, Network, Clock을 아래로 드래그
+        최하단 Auto-Rainbow 옆 풀다운 클릭 - Light Colors 선택 - OK 버튼 선택
     profiles 탭 - color - 우측 하단 color presets 풀다운 - Dark background 선택
     safari나, 기존 터미널은 이제 사용하지 않으므로 끈다. 도커 내 사파리도 삭제.
     chrome을 연다.
