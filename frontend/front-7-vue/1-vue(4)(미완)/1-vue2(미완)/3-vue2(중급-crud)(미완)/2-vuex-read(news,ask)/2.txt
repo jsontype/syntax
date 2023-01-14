@@ -107,43 +107,6 @@ new Vue({
       ★ https://kr.vuejs.org/v2/guide/instance.html
       ★ https://v3.ko.vuejs.org/api/options-lifecycle-hooks.html#beforecreate
 
-### 1. [Dispatch] src/views/NewsView.vue 수정 ### : 
-    앞으로 만들 FETCH_NEWS()라는 action을 불러오려면 이 안에 dispatch가 필요하다.
-    dispatch를 불러올 라이프사이클은 created로 정했다.
-
-<template>
-  <div>
-    뉴스 페이지
-  </div>
-</template>
-
-<script>
-export default {
-  created () {
-    this.$store.dispatch('FETCH_NEWS')
-  }
-}
-</script>
-    
-
-
-### 1. [Dispatch] src/views/AskView.vue 수정 ### : 
-    앞으로 만들 FETCH_ASK()라는 action을 불러오려면 이 안에 dispatch가 필요하다.
-
-<template>
-  <div>
-    Ask 페이지
-  </div>
-</template>
-
-<script>
-export default {
-  created () {
-    this.$store.dispatch('FETCH_ASK')
-  }
-}
-</script>
-
 
 
 ### 1. [Action] src/store/actions.js ###
@@ -187,6 +150,44 @@ export default new Vuex.Store({
     actions
 })
 
+
+
+### 1. [Dispatch] src/views/NewsView.vue 수정 ### : 
+앞으로 만들 FETCH_NEWS()라는 action을 불러오려면 이 안에 dispatch가 필요하다.
+dispatch를 불러올 라이프사이클은 created로 정했다.
+
+<template>
+<div>
+뉴스 페이지
+</div>
+</template>
+
+<script>
+export default {
+created () {
+this.$store.dispatch('FETCH_NEWS')
+}
+}
+</script>
+
+
+
+### 1. [Dispatch] src/views/AskView.vue 수정 ### : 
+앞으로 만들 FETCH_ASK()라는 action을 불러오려면 이 안에 dispatch가 필요하다.
+
+<template>
+<div>
+Ask 페이지
+</div>
+</template>
+
+<script>
+export default {
+created () {
+this.$store.dispatch('FETCH_ASK')
+}
+}
+</script>
 
 
 1. [Action의 확인] npm run serve

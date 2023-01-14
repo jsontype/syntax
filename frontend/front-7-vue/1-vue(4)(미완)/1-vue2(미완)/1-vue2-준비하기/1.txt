@@ -12,6 +12,33 @@
   세미콜론 ; 지우기
   README.MD 지우기
 
+1. VSCode 확장 설치
+  vue2의 경우 : Vue VSCode Snippets(vbase 기능), Vetur(Vue 에러있을 때 빨간 줄)
+  vue3의 경우 : Vue Language Features (Volar) (vbase 기능)  
+
+
+  
+1. src/App.js 수정 : vbase 이용
+  <template>
+    <div class="app">
+      Hello Vue2
+    </div>
+  </template>
+
+  <script>
+  export default {
+    name: 'App',
+  }
+  </script>
+
+  <style>
+  .app {
+    font-size: 20px;
+  }
+  </style>
+
+
+
 1. 테스트
   $ cd app1
   $ npm run serve
