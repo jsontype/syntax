@@ -1,0 +1,85 @@
+[Emit]
+
+1. Emit
+  자식 컴포넌트에서 부모 컴포넌트의 함수를 호출해서, 부모에게 데이터를 보내는 방법이다.
+
+
+
+1. src/App.vue 수정 : 자식컴포넌트에게 name 변수와 updateName 함수를 전달한다.
+  <template>
+    <div>
+      <InputField name="아무거나" @update-name="updateName" />
+      {{ name }}
+    </div>
+  </template>
+
+  <script>
+  import InputField from "@/components/InputField.vue"
+
+  export default {
+    name: "App",
+    components: {
+      InputField,
+    },
+    data() {
+      return {
+        name: '',
+      }
+    },
+    methods: {
+      updateName(name) {
+        this.name = name
+      }
+    }
+  }
+  </script>
+
+  <style scoped>
+  h1 {
+    color: red;
+  }
+  </style>
+
+  
+
+1. src/components/InputField.vue 생성 : 부모로부터 전달받은 함수를 사용해 부모에게 name 데이터 보내기
+  <template>
+    <div>
+      <h1>홈페이지</h1>
+      <InputField name="아무거나" @update-name="updateName" />
+      {{ name }}
+    </div>
+  </template>
+
+  <script>
+  import InputField from "@/components/InputField.vue"
+
+  export default {
+    name: "App",
+    components: {
+      InputField,
+    },
+    data() {
+      return {
+        name: '',
+      }
+    },
+    methods: {
+      updateName(name) {
+        this.name = name
+      }
+    }
+  }
+  </script>
+
+  <style scoped>
+  h1 {
+    color: red;
+  }
+  </style>
+
+
+
+1. 테스트
+  $ cd app1
+  $ npm run serve
