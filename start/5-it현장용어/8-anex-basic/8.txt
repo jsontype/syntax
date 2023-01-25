@@ -1,0 +1,19 @@
+[Anex 기초학습 점검]
+
+■　HTML, CSS , JAVASCRIPT 
+    1. HTML기초 : https://www.inflearn.com/course/%EC%9E%85%EB%AC%B8%EC%9E%90-html-%EA%B8%B0%EC%B4%88%EA%B0%95%EC%9D%98#curriculum
+    1. CSS기초 : https://www.inflearn.com/course/%EC%9E%85%EB%AC%B8%EC%9E%90-css-%EA%B8%B0%EC%B4%88%EA%B0%95%EC%9D%98#curriculum
+    1. Javascript 기초(유료) 1900-2300円程度(예상시간 3-4일) : https://www.inflearn.com/course/%EC%9E%85%EB%AC%B8%EC%9E%90-%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EA%B8%B0%EC%B4%88%EA%B0%95%EC%9D%98#curriculum
+
+■　Github
+    1. Github강의 보고 공부 : https://youtube.com/watch?v=Z9dvM7qgN9s
+    1. Git 기초, 실무 - 1,2,3의 작업을 본인 강의에서 배운대로 적용사켜보기(Github Repositories에 따라하기 한거 업로드)
+    ※ 적어도 html, css, javascript, vue or react 각 4개씩 올리기
+    
+■　Vue or React
+    * 1, 2, 3 선행학습 후 어느정도 이해가 된 사람들 기준으로 진행 (중요)
+    1. Vue 기초강의 (Vue를 목표로 하는 사람) : https://www.inflearn.com/course/web-game-vue#curriculum
+    1. React 기초강의 (React를 목표로 하는 사람) : https://www.inflearn.com/course/web-game-React
+    
+■　면접연습   
+    * 위에 스케줄 다 끝난 사람부터 면접연습시작 (※ 3주 정도 예상이지만, 3주는 가상의 스케줄일뿐 시간차에 따라 연습시작일 조정)

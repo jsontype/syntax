@@ -1,0 +1,30 @@
+[Shell 명령어 모음]
+
+1. 터미널 언어 종류
+    powershell : windows 기본
+    zsh (zshell) : Mac 기본
+    oh my zsh : zsh보다 더 많은 기능
+    bash : Mac, Git
+
+1. 기본 shell 명령어
+    cd : 현재 디렉토리를 바꾼다. (change directory)
+    ls / dir : 디렉토리에 있는 파일과 하위 목록을 가로 리스트로 보여준다.
+    ls -al : 디렉토리에 있는 파일과 하위 목록을 세로 리스트로 보여준다. (맥북)
+    color a : 콘솔색을 변경한다.
+    echo : 출력한다.
+
+1. Powershell에서 제공하는 것들
+    date : 날짜를 보여준다.
+    calc : 계산기 실행
+    control : 제어판 실행
+    explorer . : 탐색기 실행
+    code . : vscode 실행
+    java -version : 자바 버전 확인
+    mspaint : 그림판 실행
+    ipconfig -all : IP 구성
+    ping : 네트워크 상태 확인
+    tracert : 네트워크 경로 추적
+    mstsc : 원격 데스크톱 실행
+
+1. Zshell에서 제공하는 것들 (맥북)
+    검색해보자.

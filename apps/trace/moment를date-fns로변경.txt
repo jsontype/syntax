@@ -1,0 +1,30 @@
+1. moment(date)
+moment:moment(date)
+
+date-fns:new Date(date)
+
+2. format()
+moment:moment(date).format()
+
+date-fns:format(new Date(), 'yyyy-MM-dd HH:mm:ss') // https://date-fns.org/v2.29.3/docs/format
+
+3. add
+moment:moment(date).add()
+
+date-fns:
+
+4. format + add
+var date = new Date("2021-10-11 10:30:25.495");
+format(date, "yyyy-MM-dd HH:mm:ss.SSS")
+format(
+  add(date, {
+    years: 1,
+    months: 2,
+    weeks: 1,
+    days: 7,
+    hours: 5,
+    minutes: 15,
+    seconds: 10,
+  }),
+  "yyyy-MM-dd HH:mm:ss"
+); // 2022-12-25 15:45:35  https://jsikim1.tistory.com/197
