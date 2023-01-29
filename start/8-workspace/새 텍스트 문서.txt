@@ -1,0 +1,29 @@
+git --version
+
+semantic version
+semVer 2.37.1
+major ver
+minor ver
+patch ver
+
+git clone https://....
+create README.MD
+
+# 무비앱
+## 개요
+- 백엔드로부터 영화 API를 취득하여 화면에 띄운다.
+- 영화를 다운받거나 볼 수 있는 어플리케이션 
+
+cmd + s
+
+git add .
+git commit -m "feat: readme 수정"
+git push origin main
+
+github 로그인
+github 확인
+
+
+
+
+
