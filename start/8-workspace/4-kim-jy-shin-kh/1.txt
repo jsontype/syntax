@@ -1,6 +1,14 @@
-김준엽 32 신기호 30
-
+- url
 수업한 내용 URL: https://github.com/jsontype
+  syntax -> start -> 8 workplace -> 4-kim-jy
+  https://github.com/jsontype/syntax/tree/master/start/8-workspace/4-kim-jy-shin-kh
 유튜브 영상 녹화: https://www.youtube.com/watch?v=EKfZegSCTho&list=PLeHxhn3Z3YS8xfiQBxHUQG-MQU5tEBoXd
 
-
+- 진도
+html
+css
+js
+nodejs
+ts
+react
+portfolio

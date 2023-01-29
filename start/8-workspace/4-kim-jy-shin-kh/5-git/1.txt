@@ -1,0 +1,21 @@
+0. 최초만 설정
+git clone [url]
+npm i
+npm start
+
+
+
+
+1. 브랜치 생성
+git checkout -b feat/1
+
+2. PR
+git add .
+git commit -m "feat: 기능설명"
+git push origin feat/1
+github 페이지에서 Pull Request
+승인이 되면 머지
+
+3. PR 승인 - 머지 후
+git checkout master
+git pull origin master

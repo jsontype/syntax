@@ -1,0 +1,5 @@
+
+[리액트]
+
+1. nodejs lts 버전으로 설치
+2. $ npx create-react-app movieapp-kim-shin
