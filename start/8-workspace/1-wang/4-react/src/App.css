@@ -1,0 +1,40 @@
+.App {
+  margin: 20px;
+  color: gray;
+}
+
+.movieList {
+  width: 300px;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+
+.movieList>* {
+  display: block;
+}
+
+.movieTitle {
+  color: gray;
+  text-decoration: none;
+}
+
+.movieTitle:hover {
+  color: pink;
+}
+
+.movieImage {
+  width: 100%;
+  margin: 10px 0px;
+}
+
+.good {
+  color: blue;
+}
+
+.soso {
+  color: orange;
+}
+
+.bad {
+  color: red;
+}
