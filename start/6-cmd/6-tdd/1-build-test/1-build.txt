@@ -1,0 +1,5 @@
+[빌드 테스트]
+
+1. 빌드 테스트
+  $ yarn build:prod // 빌드 후 에러가 있으면 에러로그가 뜬다. $ yarn run serve로도 에러로그 나옴
+  $ yarn build:prod > output.txt // 에러로그를 포함한 빌드 로그를 output.txt에 저장해준다.
