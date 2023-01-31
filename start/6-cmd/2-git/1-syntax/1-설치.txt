@@ -43,9 +43,9 @@
         생성했던 github의 레포지토리로 간다.
 
     이메일 설정 : 최초의 경우, git 유저 정보 터미널에 입력
-        git config --global list
-        git config --global user.email "jsontyper@gmail.com"
-        git config --global user.name "jsontype"
+        $ git config --global list
+        $ git config --global user.email "jsontyper@gmail.com"
+        $ git config --global user.name "jsontype"
 
     추가학습 : 관련 용어들
         Repository : 깃 저장소
@@ -71,9 +71,25 @@
     배쉬창에서 다음을 입력한다
 
     이메일 설정 : 최초의 경우, git 유저 정보 터미널에 입력
-        git config --global list
-        git config --global user.email "you@example.com"
-        git config --global user.name "Your Name"
+        $ git config --global list
+        $ git config --global user.email "you@example.com"
+        $ git config --global user.name "Your Name"
 
     윈도우 자격증명 수정 : 최초의 경우, 필수
         https://aroundlena.tistory.com/30
+
+
+
+[깃 config 명령어 모음]
+    $ git config --list : git 설정 확인 (q로 나감)
+    $ git config --global -e : 에디트모드로 git 글로벌 설정 확인
+    $ git config --global core.editor "code --wait" : vscode로 git 글로벌 설정 확인
+    $ git config --global user.name "jsontyper" : 깃허브 유저네임 연동
+    $ git config --global user.email "jsontyper@gmail.com" : 깃허브 이메일 연동
+    $ git config user.name : 깃허브 유저네임 확인
+    $ git config user.email : 깃허브 이메일 확인
+    $ git config --global core.autocrlf true : 윈도우에서 개행 통일 설정
+    $ git config --global core.autocrlf input : 맥에서 개행 통일 설정
+        * 개행 문자열이 os마다 다른데(윈도우는 \r\n, 맥은 \n), git repository의 줄바꿈 문자열이 달라지는데, 이것을 수정하는 설정
+    $ git config --global alias.st status : 커스텀 약어를 설정. 여기서는 git status 대신 git st로 써도 되게 만들어서 이후 편하게 쓸 수 있다.
+    $ git config --h : config에 대한 명령어의 추가 옵션들을 보여줌. (push, pull 등 타 명령어에도 --h 보기 가능)
