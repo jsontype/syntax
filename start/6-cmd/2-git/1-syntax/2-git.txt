@@ -1,6 +1,18 @@
-﻿[gitbash]
+﻿[git]
 
-1. 관련 용어
+1. Git Workflow 작업환경 일람
+    local : 내 PC안의 git 작업폴더
+        working directory : 작업하고 있는 폴더
+        staging area : 버전 히스토리에 저장할 준비가 되어있는 스테이징 지역
+            working directory에서 untracked / tracked 중 tracked만 staging에 갈 수 있다.
+            working directory의 tracked 중에서 unmodified / modified 중 modified만 staging에 갈 수 있다.
+        .git directory : (내 PC에 있는) 버전 히스토리를 가지고 있는 깃 리포지토리
+    remote : 깃허브 서버안의 git 작업폴더
+        .git directory : (깃혀브 서버에 있는) 버전 히스토리를 가지고 있는 깃 리포지토리
+
+
+        
+1. Git 관련 용어
     add . : 트럭에 바뀐 택배를 싣는 것 = staging
     commit -m "" : 택배 송장에 무슨 물건이지 적는 것
     pull request : develop 브랜치에 merge 해달라고 리뷰자에게 요청
@@ -9,8 +21,8 @@
     checkout : 보고있는 브랜치를 이동
     merge : 브랜치끼리 병합하는 것 (develop <- feat/이슈번호)
     conflict : 브랜치끼리 병합할 때에 소스가 서로 달라 충돌이 일어나는 것
-    local branch : 내 컴퓨터 안에 있는 브랜치
-    remote branch : 깃허브 안에 있는 브랜치
+    
+
 
 1. 다수 프로젝트 작업의 흐름
     초기 권한 세팅

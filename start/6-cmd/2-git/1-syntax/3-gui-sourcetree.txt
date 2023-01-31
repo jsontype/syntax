@@ -1,5 +1,10 @@
 [sourcetree]
 
+1. Git GUI 툴
+    sourcetree (다양한 기능 포함, 범용적으로 사용됨)
+    gitkraken (화려한 ui를 선호할 경우)
+    * 그러나 터미널의 기능이 가장 많다.
+
 1. 설치 및 사용법
     처음 유저 계정 등록 : https://whitekeyboard.tistory.com/332
     깃허브 로그인창이 자꾸 뜬다면? : https://gocoder.tistory.com/673
