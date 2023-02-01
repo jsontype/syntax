@@ -1,1 +1,8 @@
-..
+[Next.js 시작하기]
+참조URL: https://dev-yakuza.posstree.com/ko/react/nextjs/start
+
+1. 사전준비
+  Node 설치
+    $ brew install node
+  create-next-app 설치
+    $ npm i -g create-next-app
