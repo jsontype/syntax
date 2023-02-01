@@ -1,0 +1,36 @@
+[next 설치]
+참조URL: https://dev-yakuza.posstree.com/ko/react/nextjs/start
+
+1. 사전준비
+  Node 설치
+    $ brew install node
+    $ brew --version
+  create-next-app 설치
+    $ npm i -g create-next-app
+    $ create-next-app --version
+
+1. next 앱 설치
+  $ npx create-next-app app1
+  - 옵션 선택
+    Typescript, ESLint: Yes
+    그 외: No
+    alias: 기본값 @
+
+1. 구조 살피기
+  /public: 이미지 등 정적 파일 폴더
+  /pages: 뷰 폴더
+    index.js: 초기 페이지
+    _app.js: 레이아웃 등, 모든 페이지에 공통으로 사용되는 컴포넌트
+  /styles: 스타일 파일(css)을 저장하는데 사용하는 폴더
+    globals.css: 전체 페이지에 적용하는 스타일
+    Home.module.css: index.js 파일에서 사용하는 스타일
+  .eslintrc.json: 정적 코드 분석 툴인 ESLint 설정
+  next.config.js: Next.js 프로젝트 설정
+  tsconfig.json: 타입스크립트 설정
+  package.json: 라이브러리 관리
+
+1. 테스트
+  $ cd app1
+  $ npm run build
+  $ npm start
+  http://localhost:3000
