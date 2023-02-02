@@ -1,0 +1,92 @@
+[jest 테스트 코드]
+
+
+https://dev-yakuza.posstree.com/ko/react/nextjs/test/
+
+1. Jest와 React Testing Library 설치
+  $ npm install --save-dev jest @testing-library/react @testing-library/jest-dom jest-environment-jsdom
+
+1. jest.setup.js 생성 : Jest의 모든 테스트 코드에서 공통적으로 사용되는 설정이나 Mock를 정의
+  // Optional: configure or set up a testing framework before each test.
+  // If you delete this file, remove `setupFilesAfterEnv` from `jest.config.js`
+
+  // Used for __tests__/testing-library.js
+  // Learn more: https://github.com/testing-library/jest-dom
+  import '@testing-library/jest-dom/extend-expect'
+
+1. jest.config.js 생성 : 이 설정을 통해, Jest에서 Next.js의 기능(next.config.js, .env 등)을 사용할 수 있게 됨
+  const nextJest = require('next/jest')
+
+  const createJestConfig = nextJest({
+    dir: './',
+  })
+
+  const customJestConfig = {
+    setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+    moduleDirectories: ['node_modules', '<rootDir>/'],
+    testEnvironment: 'jest-environment-jsdom',
+  }
+
+  module.exports = createJestConfig(customJestConfig)
+
+1. tests/index/index.test.tsx 생성 : 첫 테스트 코드 작성
+  /*
+    create-next-app 명령어로 생성되는 기본 페이지 컴포넌트인 <Home />을 화면에 표시한 후,
+    weclome to next.js!라는 텍스트가 잘 표시되는지 확인하는 테스트 코드이다.
+  */
+
+  import isEmail from '../../pages/api/validation'
+
+  describe('테스트용 이메일 밸리데이션 함수', () => {
+    it('케이스1 : 입력한 이메일 주소에는 "@" 문자가 1개만 있어야 이메일 형식이다.', () => {
+      expect(isEmail('my-email@domain.com')).toEqual(true) // 1개만 있는 상황
+      expect(isEmail('my-email@@@@domain.com')).toEqual(false) // 여러개 있는 상황
+      expect(isEmail('my-emaildomain.com')).toEqual(false) // 하나도 없는 상황
+    })
+    
+    it('케이스2 : 입력한 이메일 주소에 공백(스페이스)이 존재하면 이메일 형식이 아니다.', () => {
+      expect(isEmail('myemail@domain.com')).toEqual(true)
+      expect(isEmail('my email@domain.com')).toEqual(false)
+    })
+    
+    it('케이스3 : 입력한 이메일 주소 맨 앞에 하이픈(-)이 있으면 이메일 형식이 아니다.', () => {
+      expect(isEmail('e-m-a-i-l@domain.com')).toEqual(true)
+      expect(isEmail('-email@domain.com')).toEqual(false)
+    })
+  })
+
+1. package.json 수정 : 아래의 두 test 명령어를 추가
+  "scripts": {
+    ... ,
+    "test": "jest --watch",
+    "test:ci": "jest --ci"
+  },
+
+1. pages/api/validation.ts 생성 : 테스트 코드 작성
+  export default function isEmail(value: string) {
+    const email = value || ''
+
+    if (email.split('@').length !== 2) {
+      return false
+    } else if (email.includes(' ')) {
+      return false
+    } else if (email[0] === '-') {
+      return false
+    }
+
+    return true
+  }
+
+1. 테스트 : Jest 전체 테스트하기
+  $ cd app1
+  $ npm run format:fix
+  $ npm test
+  a 키 누르기
+  문제가 없다는 테스트 결과가 나오는지 확인
+
+1. 테스트 : Jest 일부 테스트하기
+  vscode에서 Jest Runner 설치
+  vscode를 재기동
+  한 파일만 테스트 : vscode에서 왼쪽 익스플로러에서 index.spec.ts를 우클릭 한뒤, run Jest On Path 클릭
+  한 함수만 테스트 : vscode에서 index.spec.ts에 들어간 뒤, describe 위의 run을 실행
+  한 케이스만 테스트 : vscode에서 index.spec.ts에 들어간 뒤, it 위의 run을 실행

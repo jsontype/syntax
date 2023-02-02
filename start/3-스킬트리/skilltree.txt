@@ -39,9 +39,9 @@
         React.js / Vue.js tuning : useMemo, useCallback
         React.js / Vue.js router : React.js-router(SPA에서 라우팅), next(MPA에서 라우팅) 
     - it필수용어7
-        React.js / Vue.js ssr : React.js-router(SPA에서 SSR), next(MPA에서 SSR, 정석적 방법)
-    - it필수용어8
         React.js / Vue.js tdd : 테스트 코드 작성
+    - it필수용어8
+        React.js / Vue.js ssr : React.js-router(SPA에서 SSR), next(MPA에서 SSR, 정석적 방법)
         React.js / Vue.js deploy : 배포
         React.js / Vue.js summary : 요약 암기
         React.js / Vue.js app : 포트폴리오 제작
