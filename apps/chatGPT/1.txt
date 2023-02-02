@@ -1,0 +1,8 @@
+[ChatGPT 질문 모음]
+
+1. ChatGPT URL
+  https://chat.openai.com/auth/login
+
+1. 질문리스트
+  javascript 수업을 위한 유투브 대본을 짜줘. 
+  vue2와 vu3의 차이점을 요약해줘. 500자 이내로.
