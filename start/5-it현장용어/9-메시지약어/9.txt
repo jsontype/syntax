@@ -1,0 +1,5 @@
+[현장에서 자주 쓰는 약어]
+
+1. Git 관련 약어 리스트
+  LGTM : Looks Good To Me. PR 레뷰할 때 주로 씀.
+  WIP : Work In Progress. 머지를 요청하지 않는 PR의 제목에 씀.

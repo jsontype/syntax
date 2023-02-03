@@ -1,0 +1,27 @@
+[Storybook]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. Storybook 설치
+  $ cd app1
+  $ npm install --save-dev sb // Storybook 설치
+  $ npm audit fix // 취약점 해결
+  $ npx sb init --builder webpack5 // Storybook 초기화
+  ? Do you want to run the 'eslintPlugin' fix on your project? › (y/N) // y 선택
+
+1. 샘플 코드 확인하기
+  ./.storybook/...: Storybook에 대한 설정 파일
+  ./stories/...: Storybook의 샘플 코드
+
+1. package.json 수정
+  {
+    "scripts": {
+      ... ,
+      "storybook": "start-storybook -p 6006 -s ./public",
+      "build-storybook": "build-storybook -s public"
+    },
+  }
+
+1. 테스트 : Storybook 실행해보기
+  $ npm run storybook
+  http://localhost:6006
