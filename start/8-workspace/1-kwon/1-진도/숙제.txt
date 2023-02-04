@@ -1,0 +1,13 @@
+[숙제 현황]
+
+* 소스코드 위치 : https://github.com/jsontype/syntax/tree/master/start/8-workspace/1-kwon
+
+* 영상복습 위치 : youtube에서 코딩카페1 검색 -> "Frontend 취업반 초급" 재생목록에서 복습
+
+2월
+1. HTML
+  https://www.inflearn.com/course/%EC%9E%85%EB%AC%B8%EC%9E%90-html-%EA%B8%B0%EC%B4%88%EA%B0%95%EC%9D%98#curriculum
+1. Bootstrap 사용법
+  https://www.youtube.com/watch?v=IRXP-mqzb0o&list=PLeHxhn3Z3YS-aRMmEltw9i8KF_eqe8MSf&index=13
+1. Bootstrap 템플릿을 수정해서 자기 포트폴리오 사이트 만들기
+  참고 : https://jsontype.github.io/home/menu0.html
