@@ -8,9 +8,10 @@
 1. 리액트 스킬트리
   HTML : Max
   CSS : Max
-  Bootstrap : 1
-  CMS : 1
+  Bootstrap : 1 
+  -----------------
   JavaScript : Max
+  vscode 확장 설치
   Git : Max
   Node.js : Max
   React.js : Max
