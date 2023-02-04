@@ -19,3 +19,29 @@ github 페이지에서 Pull Request
 3. PR 승인 - 머지 후
 git checkout master
 git pull origin master
+
+
+4. 깃 컨플릭트
+- 컨플릭트 발생하는 이유
+동일한 파일을 동시에 두 개발자 이상이 수정했을 경우 발생한다.
+
+- 컨플릭트 발생 부분 분석
+conflict 발생 부분 : ==== 부분
+conflict 해결 방법 : 
+
+master : ----------------------x-----x======x----x----->
+							  |	      | 	     |      |
+feat/5 : 				        --------------->     |
+feat/6 : 				                  |----------->
+
+- 리뷰자로부터 conflict 대응해달라고 comment가 왔을 때의 대응법
+git checkout master : 로컬 마스터로 이동 
+git pull origin master : 리모트 마스터의 최신 소스로 로컬 마스터를 변경
+git checkout feat/6 : 로컬 feat/6으로 이동
+git merge master : 최신화된 로컬 마스터와 로컬 feat/6을 병합
+conflict 해결 : current / incoming / both
+git add .
+git commit -m "fix: conflict 대응"
+git push origin feat/6
+다시 review 요청
+
