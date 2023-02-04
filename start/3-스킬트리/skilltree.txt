@@ -3,11 +3,12 @@
 1. 리액트 스킬트리
     HTML : Max
     CSS : Max
-    CMS : 1
+    Bootstrap : 0 or 1
+    CMS : 0 or 1
     JS : Max
     Git : Max
-    PHP : 1 or 0
-    Node.js : 1
+    PHP : 0 or 1
+    Node.js : 1 or Max
     React.js : Max
     Next : Max
     Vue : 1 or Max
