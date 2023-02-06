@@ -112,3 +112,4 @@
 1. 테스트 : 브라우져 상에서 가능한 것은 GET뿐이므로 GET만 테스트
   $ cd app1
   $ npm start
+  http://localhost:3000/users/hihihi 에서 확인

@@ -1,3 +1,3 @@
-vue
+[vue]
 
-숙제 : movieapp level8을 typescript으로 만들어오기
+진도 : express, 스웨거, 포스트맨, git 명령어 정리 *(고급 문법까지)

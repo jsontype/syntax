@@ -18,7 +18,7 @@
   $ cd app1
   $ npm i --save-dev sb // Storybook 설치
   $ npx sb init --builder webpack5 // Storybook 초기화
-  eslintPlugin > (y/N) // y 선택
+  eslintPlugin > (Y/n) // y 선택
   npm7 migration? > (Y/n) // n 선택
 
 1. 샘플 코드 폴더 구조
