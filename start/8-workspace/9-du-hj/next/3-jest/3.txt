@@ -1,0 +1,4 @@
+$ npm i --save-dev jest @testing-library/react @testing-library/jest-dom jest-environment-jsdom
+
+1. jest.setup.js
+import '@testing-library/jest-dom/extend-expect'

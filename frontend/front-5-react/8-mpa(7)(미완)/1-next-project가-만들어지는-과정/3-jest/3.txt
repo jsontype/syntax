@@ -28,7 +28,7 @@
 
   module.exports = createJestConfig(customJestConfig)
 
-1. tests/index/index.test.tsx 생성 : 첫 테스트 코드 작성
+1. tests/index.spec.ts 생성 : 첫 테스트 코드 작성
   /*
     create-next-app 명령어로 생성되는 기본 페이지 컴포넌트인 <Home />을 화면에 표시한 후,
     weclome to next.js!라는 텍스트가 잘 표시되는지 확인하는 테스트 코드이다.
@@ -78,7 +78,6 @@
 
 1. 테스트 : Jest 전체 테스트하기
   $ cd app1
-  $ npm run format:fix
   $ npm test
   a 키 누르기
   문제가 없다는 테스트 결과가 나오는지 확인
