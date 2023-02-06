@@ -1,0 +1,10 @@
+.countLabel {
+  font-size: 50px;
+}
+
+.countBtn {
+  text-align: center;
+  font-size: 30px;
+  width: 50px;
+  height: 40px;
+}
