@@ -1,0 +1,60 @@
+[플러그인]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. 플러그인이란?
+  플러그인(plugin)은 웹팩의 기본적인 동작에 추가적인 기능을 제공하는 속성이다.
+  로더랑 비교하면 로더는 파일을 해석하고 변환하는 과정에 관여하는 반면, 
+  플러그인은 해당 결과물의 형태를 바꾸는 역할을 한다고 보면 된다.
+
+1. webpack.config.js 수정 : 플러그인은 아래와 같이 선언한다.
+  let path = require('path')
+
+  // 플러그인 임포트 추가
+  let webpack = require('webpack');
+  // 플러그인 임포트 추가
+  let HtmlWebpackPlugin = require('html-webpack-plugin');
+
+  module.exports = {
+    entry: './src/index.js',
+    output: {
+      filename: 'bundle.js',
+      path: path.resolve(__dirname, 'dist')
+    },
+    module: {
+      rules: [{
+        test: /\.js$/,
+        include: path.resolve(__dirname, 'src'),
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              ['env', {
+                'targets': {
+                  'browsers': ["last 2 versions", "ie 9", "ios 15"]
+                },
+                'debug': true
+              }]
+            ]
+          }
+        }
+      }]
+    },
+    plugins: [
+      // ProgressPlugin : 웹팩의 빌드 진행율을 표시해주는 플러그인
+      new webpack.ProgressPlugin(),
+      // HtmlWebpackPlugin : 웹팩으로 빌드한 결과물로 HTML 파일을 생성해주는 플러그인
+      new HtmlWebpackPlugin()
+    ]
+  }
+
+1. 테스트 : 맥에서 해야함
+  $ npm run build
+    웹팩의 빌드 진행율이 표시된다.
+
+1. 자주 사용하는 플러그인
+  eslint-plugin
+  split-chunks-plugin
+  clean-webpack-plugin
+  image-webpack-loader
+  webpack-bundle-analyzer-plugin
