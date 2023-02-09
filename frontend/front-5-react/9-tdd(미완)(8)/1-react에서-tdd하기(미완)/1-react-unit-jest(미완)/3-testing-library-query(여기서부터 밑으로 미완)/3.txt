@@ -1,0 +1,5 @@
+[@testing-library의 사용 - query]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+https://learn-react-test.vlpt.us/#/05-react-testing-library?id=%eb%8b%a4%ec%96%91%ed%95%9c-%ec%bf%bc%eb%a6%ac
