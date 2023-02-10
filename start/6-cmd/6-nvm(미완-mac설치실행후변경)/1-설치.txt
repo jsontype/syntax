@@ -1,38 +1,44 @@
 [nvm]
 
 1. nvm이란?
-    여러 개의 노드가 설치된 경우, 특정 노드 버전을 사용할 수 있게 해주는 CLI 툴
-    현장 또는 앱마다 다른 노드 버전이 필요한 경우에 사용한다.
+  여러 개의 노드가 설치된 경우, 특정 노드 버전을 사용할 수 있게 해주는 CLI 툴
+  현장 또는 앱마다 다른 노드 버전이 필요한 경우에 사용한다.
 
 
 
 [Windows에서 설치]
 
-1. 다음 주소에서 nvm-setup.exe 파일을 다운로드
-    https://github.com/coreybutler/nvm-windows/releases
+1. nvm 설치
+  다음 주소에서 nvm-setup.exe 파일을 다운로드 : https://github.com/coreybutler/nvm-windows/releases
+  다운로드한 파일을 실행시키면 nvm이 설치가 된다.
+  vscode를 재기동
+  $ nvm -v
 
-1. 해당 파일을 실행시키면 nvm이 설치가 된다.
-    vscode를 재기동
-    $ nvm -v
 
 
-    
 [Mac에서 설치]
 
-1. brew를 활용하여 nvm 설치
-    $ brew install nvm
+1. nvm 설치
+  iTerm을 열고 ~ 위치에서 다음을 입력
+    $ sudo curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | bash
+    $ code ~/.zshrc
+  vscode에서 연 ~/.zshrc 파일의 최하단에 다음을 추가
+    $ source ~/.nvm/nvm.sh
+  새 터미널을 열거나, iTerm 터미널 안에 다음을 입력
+    $ exec $SHELL -l
 
-    * 만약 설치도중 man 페이지 관련 에러가 발생한다면, 권한 설정을 해주자
-        sudo chown -R $(whoami) /usr/local/share/man/man3 /usr/local/share/man/man5 /usr/local/share/man/man7
-        Password:
-        sudo chmod u+w /usr/local/share/man/man3 /usr/local/share/man/man5 /usr/local/share/man/man7
+1. nvm 사용
+  $ nvm ls-remote : 설치할 수 있는 Node.js 목록을 표시한다.
+  $ nvm install v10.16.3 : 특정 버전의 Node.js를 설치한다.
+  $ nvm use v10.16.3 : 특정 버전의 Node.js를 사용한다.
+  $ nvm uninstall v10.16.3 : 특정 버전의 Node.js를 삭제한다.
 
-1. 환경 변수 설정
-    - ~/.nvm 디렉토리 생성
-        $ mkdir ~/.nvm
-    - ~/.zshrc 설정 (bash를 사용한다면 ~/.bash_profile 설정)
-        export NVM_DIR="$HOME/.nvm"
-        [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-        [ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
-    - 적용
-        $ source ~/.zshrc
+1. .nvmrc 확인 : 프로젝트별로 사용해야할 노드 버전을 아는 방법 
+  .nvmrc 파일은 Node.js 버전을 명시해두는 파일이다.
+  이동한 디렉토리(프로젝트)에 .nvmrc 파일이 있으면, Node.js를 해당 버전으로 변경해야한다.
+  .nvmrc가 있는 폴더에서, 다음을 입력하면 자동으로 변경된다.
+    $ nvm use
+
+1. .nvmrc 만들기
+  자신의 프로젝트에 노드 버전을 명시하며 .nvmrc 파일을 만들려면 다음과 같이 명령어를 입력한다.
+    $ echo "8.9.0" > .nvmrc 
