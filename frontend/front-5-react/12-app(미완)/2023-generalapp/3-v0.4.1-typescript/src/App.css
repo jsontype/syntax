@@ -1,0 +1,17 @@
+.App {
+  margin: 20px;
+}
+
+.navbarItem {
+  font-size: 40px;
+  border-radius: 10px;
+  border: 1px solid white;
+  background: gray;
+  color: #FFF;
+  margin: 10px;
+  padding: 5px;
+}
+
+h1 {
+  font-size: 40px;
+}
