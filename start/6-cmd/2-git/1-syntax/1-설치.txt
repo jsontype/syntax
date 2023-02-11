@@ -71,7 +71,7 @@
     배쉬창에서 다음을 입력한다
 
     이메일 설정 : 최초의 경우, git 유저 정보 터미널에 입력
-        $ git config --global list
+        $ git config --list
         $ git config --global user.email "you@example.com"
         $ git config --global user.name "Your Name"
 

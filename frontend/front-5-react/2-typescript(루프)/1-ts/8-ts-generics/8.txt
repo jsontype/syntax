@@ -13,7 +13,7 @@
     // 이런 상황에선, any 대신에 Generics를 사용하면 된다.
 
     // 함수에서 any를 사용 : 타입 유추가 모두 깨지며 타입 지원을 받을 수 없다.
-    function wrap1(param: any):any {
+    function wrap1(param: any): any {
         return {
             param
         }

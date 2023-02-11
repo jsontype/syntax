@@ -1,0 +1,7 @@
+.App {
+    font-size: 20px;
+}
+
+.inputs * {
+    display: block;
+}
