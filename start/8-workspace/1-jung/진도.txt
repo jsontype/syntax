@@ -3,8 +3,9 @@
 1. 리액트 목표
   HTML
   CSS
-  Bootstrap
   CMS : Figma
+  Bootstrap
+  -------------
   JS
   Git
   Node.JS  
