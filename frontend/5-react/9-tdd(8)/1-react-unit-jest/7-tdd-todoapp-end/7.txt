@@ -1,0 +1,121 @@
+[TDD 개발 흐름으로 TodoApp 만들기]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. src/TodoApp.spec.js : TodoApp 테스트 코드 먼저 개발하기
+  import React from 'react'
+  import TodoApp from './TodoApp'
+  import { render, fireEvent } from '@testing-library/react'
+  import { toHaveStyle } from '@testing-library/jest-dom'
+
+  describe('<TodoApp /> 컴포넌트 테스트', () => {
+    it('렌더링 결과에 TodoForm이 존재하는가?', () => {
+      const { getByText } = render(<TodoApp />)
+      getByText('등록') // TodoForm 존재유무 확인
+    })
+
+    it('렌더링 결과에 두개의 기본 todo 목록이 존재하는가?', () => {
+      const { getByText } = render(<TodoApp />)
+      getByText('TDD 배우기')
+      getByText('@testing-library/react 사용하기')
+    })
+
+    it('등록 버튼을 누르면 적어둔 input value가 전달되는가?', () => {
+      const { getByPlaceholderText } = render(<TodoApp />)
+      const input = getByPlaceholderText('할 일을 입력하세요')
+      fireEvent.change(input, {
+        target: {
+          value: '새 항목 추가하기'
+        }
+      })
+      expect(input.getAttribute('value')).toBe('새 항목 추가하기')
+    })
+
+    it('첫번째 todo를 클릭하면 첫번째 done 값이 토글링되는가?', () => {
+      const { getByText } = render(<TodoApp />)
+      const todoText = getByText('TDD 배우기')
+      expect(todoText).toHaveStyle({ 'text-decoration': 'line-through' })
+      fireEvent.click(todoText)
+      expect(todoText).not.toHaveStyle({ 'text-decoration': 'line-through' })
+      fireEvent.click(todoText)
+      expect(todoText).toHaveStyle({ 'text-decoration': 'line-through' })
+    })
+
+    it('첫번째 todo를 삭제하면 첫번째 todo가 페이지에서 사라지는가?', () => {
+      const { getByText } = render(<TodoApp />)
+      const todoText = getByText('TDD 배우기')
+      const removeButton = todoText.nextSibling
+      fireEvent.click(removeButton)
+      expect(todoText).not.toBeInTheDocument()
+    })
+  })
+
+1. src/TodoApp.js : 테스트 코드에 부응하도록 TodoApp 개발하기
+  import React, { useState, useCallback, useRef } from 'react'
+  import TodoList from './TodoList'
+  import TodoForm from './TodoForm'
+
+  export default function TodoApp () {
+    const [todos, setTodos] = useState([
+      {
+        id: 1,
+        text: 'TDD 배우기',
+        done: true
+      },
+      {
+        id: 2,
+        text: '@testing-library/react 사용하기',
+        done: true
+      }
+    ])
+
+    // 새로 추가 할 항목에서 사용 할 id
+    const nextId = useRef(3)
+
+    const onInsert = useCallback(
+      text => {
+        // 새 항목 추가 후
+        setTodos(
+          todos.concat({
+            id: nextId.current,
+            text,
+            done: false
+          })
+        )
+        // nextId 값에 1 더하기
+        nextId.current += 1
+      },
+      [todos]
+    )
+
+    const onToggle = useCallback(
+      id => {
+        setTodos(
+          todos.map(todo =>
+            todo.id === id ? { ...todo, done: !todo.done } : todo
+          )
+        )
+      },
+      [todos]
+    )
+
+    const onRemove = useCallback(
+      id => {
+        setTodos(todos.filter(todo => todo.id !== id))
+      },
+      [todos]
+    )
+
+    return (
+      <>
+        <TodoForm onInsert={onInsert} />
+        <TodoList todos={todos} onToggle={onToggle} onRemove={onRemove} />
+      </>
+    )
+  }
+
+1. 테스트
+  $ cd app1
+  $ npm test
+  a키 누르기
+  테스트가 모두 passed 되었는지 확인
