@@ -1,0 +1,74 @@
+[NAS 초기세팅]
+
+1. NAS 설치
+  NAS에 원하는 만큼의 NAS용 하드를 연결한다.
+  NAS와 파워 선을 연결한다.
+  NAS와 공유기 사이의 인터넷 선을 연결한다.
+  NAS를 켠다.
+  https://find.synology.com/ 에 접속한다.
+  연결이 비공개로 설정되어 있지 않습니다. 에러가 뜨면, 고급을 누른다.
+  안전하지 않은 이동을 한다.
+  NAS 화면에서, 시작을 누르고, 세팅을 한다.
+  지시에 따라 DSM을 설치한다.
+  - 볼륨 설정하기
+    raid0 : 모든 HDD를 합친 만큼 용량과 성능향상, 1개 HDD 장애시 모두 불능이 됨
+    raid1 : 2bay에서 사용이 가능하며, 모든 HDD를 합쳐서 하나의 HDD만큼 용량 제공, 1개 HDD 장애되어도 나머지 HDD가 정상이면 복구 가능
+    raid5 : 3bay이상부터 사용이 가능하며, n-1개의 HDD를 합친 만큼 용량과 성능향상, 나머지 1개는 복구 기능 탑재
+    raid6 : 4bay이상부터 사용이 가능하며, n-2개의 HDD를 합친 만큼 용량과 성능향상, 나머지 2개는 복구 기능 탑재
+    raid10 : raid1의 4bay 이상부터의 버전
+    * raid0 -> 포맷없이 raid1 이상으로의 변경은 불가능
+    * raid1 -> 포맷없이 raid5, 6, 10으로 변경 가능
+  - quickconnect.to 주소를 확인한다.
+    pc에서 접속 : [id].quickconnect.to
+    * 즐겨찾기에 추가해둔다.
+  quickconnet 계정명, 비밀번호, 계정이메일 등을 메모해둔다.
+  제어판에서 사용자 추가, 사용자 권한 등 설정 (admin 그룹의 계정은 하나만, 나머지는 users 그룹)
+
+1. http 접속 비공개 경고 해결
+  Let's Encrypt 인증서 설정 : 제어판 -> 외부 액서스 -> DDSN 탭 -> [추가]
+    아래와 같이 정보입력하기
+      서비스 공급자에 synology
+      호스트 이름에 quickconnect id    
+      Let's Encrypt 체크
+      Heart Beat 체크
+    확인 누르면 자동으로 웹 서버 다시 시작  
+  Let's Encrypt 인증서 확인1 : 제어판 -> 외부 액서스 -> DDSN 탭
+    *.synology.me 주소로 DDNS 등록되었는지 확인
+  Let's Encrypt 인증서 확인2 : 제어판 -> 보안 -> 인증서 탭 -> 등록한 DDNS가 Let's Encrypt 인증서와 연동되었는지 확인
+  * [제어판 - 보안 - 고급]의 [HTTP 압축 활성화]에 체크하면 속도를 높일 수 있다고 합니다.
+  * [제어판 - 네트워크 - DSM 설정]의 [HTTP/2 활성화]에 체크하면 속도를 높일 수 있다고 합니다.
+
+1. 패키지센터에서 다음의 패키지를 설치한다.
+  - 개발관련 패키지
+    Apach HTTP Server 2.4
+    Git Server
+    MariaDB
+    Docker
+    Git Server
+    Node.js v16
+    PHP 7.4 / 8.0
+    phpMyAdmin
+    Python3.9
+  - 서버관련 패키지
+    Synology Drive Server : 모바일 앱을 설치하기 위해 필수, 설치 후 열어서 팀폴더에서 원하는 폴더 사용 누르기
+    WebDAV Server
+    Web Station
+    Virtual Machine Manager
+    VPN Server
+
+1. 사용자별 폴더 권한 설정
+  https://parkjiwoo.tistory.com/m/23
+
+1. 모바일 어플리케이션 설정
+  모바일 앱스토어에서 DS Finder 검색후 설치 (ios/android)
+  NAS 연결
+  모바일 웹브라우져를 열고, [id].quickconnect.to 에 접속
+  좌측 익스플로러 하단의 모바일 앱 중 아래의 것을 설치
+    Synology Drive
+    DS file
+  각 앱에 quickconnect id 입력하고 계정 / 패스워드 입력해서 로그인
+
+1. 테스트
+  웹 앱에서 열람할 자료를 file station의 home에 넣기 (private은 admin 그룹 계정에만)
+  모바일 앱에서 admin 그룹 계정으로 로그인 후, 모두 열람 가능한지 확인
+  웹 앱에서 각 계정별 열람 권한이 다름을 확인
