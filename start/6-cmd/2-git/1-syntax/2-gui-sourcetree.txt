@@ -52,3 +52,7 @@
 
 1. 테스트
   sourcetree에서 정상적으로 fetch, push 등이 가능한지 확인해본다.        
+
+1. sourcetree 숙달하기
+  fetch, add commit push, pull, checkout, 로컬 / 리모트 브랜치 delete, stash 등 사용해보기
+  깃 작업할 때마다 깃 플로우의 트리 구조 보면서 보는 법에 익숙해지기
