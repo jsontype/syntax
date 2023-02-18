@@ -1,0 +1,6 @@
+[localhost 조작]
+
+1. 꺼지지 않은 로컬호스트 포트 킬링
+  $ netstate -ano
+  127.0.0.1:[port] 최우측의 PID 번호 (1~5자리 숫자) 복사
+  $ taskkill /f /pid [PID번호]
