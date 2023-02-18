@@ -68,13 +68,13 @@
 
 
 1. src/styles/font.scss 생성 : 폰트사이즈 글로벌 변수
-    $font-2xl: 50px;
-    $font-xl: 40px;
-    $font-lg: 30px;
-    $font-md: 20px;
-    $font-sm: 15px;
-    $font-xs: 10px;
-    $font-2xs: 5px;
+    $font-2xl: '20px';
+    $font-xl: '18px';
+    $font-lg: '16px';
+    $font-md: '14px';
+    $font-sm: '12px';
+    $font-xs: '10px';
+    $font-2xs: '8px';
 
 
 
