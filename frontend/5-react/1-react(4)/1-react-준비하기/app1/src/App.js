@@ -1,11 +1,9 @@
 import './App.css'
 
-function App() {
-    return (
-        <div className="App">
-            Hello React
-        </div>
-    )
+export default function App() {
+  return (
+    <div className="App">
+      <div>Hello React</div>
+    </div>
+  )
 }
-
-export default App
