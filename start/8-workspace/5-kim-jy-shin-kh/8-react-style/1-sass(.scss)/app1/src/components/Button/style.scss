@@ -1,0 +1,21 @@
+@import '../../../styles/resources.scss';
+
+.blueBtn {
+  @include button-color($blue);
+}
+
+.pinkBtn {
+  @include button-color($pink);
+}
+
+.redBtn {
+  @include button-color($red);
+}
+
+.grayBtn {
+  @include button-color($gray);
+}
+
+.yellowBtn {
+  @include button-color($yellow);
+}

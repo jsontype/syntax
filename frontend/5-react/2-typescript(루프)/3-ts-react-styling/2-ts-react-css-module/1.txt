@@ -1,0 +1,24 @@
+[TS기반 리액트 앱에 module 도입하기]
+참조URL: https://whales.tistory.com/101
+
+1. sass를 함께 사용한다면 설치 : css module은 별도 설치가 필요없다.
+  $ cd app1
+  $ npm i node-sass
+
+1. src/global.d.ts 생성 : ts에서는 sass 로더를 css module용으로 선언해야한다.
+  // 로더가 css module용으로 구성된 경우 아래와 같이 선언을 확장한다.
+  // css module은 쓰되 sass를 쓰지 않을 경우에는 아래 확장자를 '*.css'로 변경하면 된다.
+
+  declare module '*.scss' {
+    const content: Record<string, string>;
+    export default content;
+  }
+
+1. 변경작업
+  css 확장자를 *.module.scss로 변경
+  import 부분을 import styles from '*.module.scss' 형태로 변경
+  className="App"을 className={styles.App} 형태로 변경
+
+1. 테스트
+  $ cd app1
+  $ npm start

@@ -1,5 +1,5 @@
 [웹팩]
-참조 URL: https://joshua1988.github.io/webpack-guide/guide.html
+참조URL: https://joshua1988.github.io/webpack-guide/guide.html
 
 1. 웹팩이란? 
     웹팩은 "모듈 번들러" 라이브러리이다.
