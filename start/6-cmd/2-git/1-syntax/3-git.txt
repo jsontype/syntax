@@ -46,6 +46,8 @@
         * git checkout -b feat/1 : local에 feat/1이라는 branch를 생성하면서 체크아웃
             이슈를 해결할 브랜치를 github를 통해 만들지 않을 경우 이 방법을 쓴다. 단, 이때는 commit 명에 #이슈번호를 써서 연동해두는 게 좋다.    
 
+    $ git diff : 깃허브 브런치내의 기존 / 현재의 diff를 비교 조사한다. (vscode를 못 믿어서, 푸시가 되었는지 확실히 확인하고 싶을 때)
+
     $ git push : 제조 후엔 add, commit, push. 외워둘 것
         git add 올릴파일명(전부일경우에는 .)
         git commit -m "메시지"
