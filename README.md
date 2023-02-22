@@ -3,7 +3,7 @@
 
 
 ## Syntax 브랜치 현황  
-    데스크톱 alienware : dt-alienware (현 master)
+    데스크톱 alienware : dt-alienware
     데스크톱 rgb : dt-rgb
     맥북 arm : mac
     맥북 intel : imac
