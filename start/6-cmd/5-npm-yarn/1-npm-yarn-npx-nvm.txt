@@ -1,5 +1,9 @@
 [node npm 명령어 모음]
 
+1. 설치(Mac)
+    $ brew install node // npm
+    $ npm i -g yarn // yarn
+
 1. node 명령어
     $ node -v
     $ node 1.js

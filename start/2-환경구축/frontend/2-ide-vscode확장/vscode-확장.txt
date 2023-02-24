@@ -37,3 +37,5 @@
         html 안의 class="" 를 클릭하면 적용된 CSS로 바로 이동해줌
     "JavaScript(ES6) Code Snippets"
         JS 스니펫 지원
+    "vscode-styled-components"
+        스타일 컴포넌트에서 styled.div``처럼 쓸 때 백틱 안의 내용에 CSS 문법대로 텍스트 색깔을 적용해줘서 작업하기 편함
