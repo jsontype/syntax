@@ -1,0 +1,9 @@
+[리액트 네이티브 Todo App]
+
+1. 사전준비 : init 앱을 가지고 온다.
+
+1. https://www.inflearn.com/course/lecture?courseSlug=%EC%B2%98%EC%9D%8C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EB%A6%AC%EC%95%A1%ED%8A%B8-%EB%84%A4%EC%9D%B4%ED%8B%B0%EB%B8%8C&unitId=67019&tab=curriculum
+
+1. 테스트
+  $ cd app1
+  $ npm start / yarn start
