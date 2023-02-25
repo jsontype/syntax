@@ -7,6 +7,23 @@
     파라미터 : /profiles/yang (특정 id나 이름을 가지고 조회를 할 때 주로 사용)
 
     
+    
+1. src/index.js 수정 : 라우터를 연결
+  import React from 'react'
+  import ReactDOM from 'react-dom'
+  // react-router-dom 라이브러리로부터 BrowserRouter 함수를 임포트한다.
+  import { BrowserRouter } from 'react-router-dom'
+  import App from './App'
+
+  ReactDOM.render(
+    // App을 BrowserRouter로 감싸면 라우터를 사용할 수 있게 된다.
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>,
+    document.getElementById('root')
+  )
+
+
 
 1. src/Profile.js 생성 : 프로필 페이지 만들기
     import React from 'react'
