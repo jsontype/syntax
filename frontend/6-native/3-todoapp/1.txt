@@ -2,13 +2,51 @@
 
 1. 사전준비 : init 앱을 가지고 온다.
 
+1. static 아이콘을 다운
+  브라우저에서 다음에 접속 : https://material.io/resources/icons/?style=baseline
+  다음의 아이콘들을 검색 후 각각 iOS, 흰색, png로 다운로드
+    check_box
+    check_box_outline
+    delete
+    edit
+  압축을 풀고, 각각의 가장 큰 이미지 폴더에서 파일명을 다음과 같이 변경한 후 "assets/icons" 로 가지고 온다.
+    check@1x.png
+    check@2x.png
+    check@3x.png
+    uncheck@1x.png
+    uncheck@2x.png
+    uncheck@3x.png
+    delete@1x.png
+    delete@2x.png
+    delete@3x.png
+    edit@1x.png
+    edit@2x.png
+    edit@3x.png
+
 1. 라이브러리 설치
-  $ npm i -f styled-components prop-types
+  $ npm i -f styled-components // 스타일컴포넌트
+  $ npm i -f @react-native-async-storage/async-storage // 사용자의 로컬에 데이터를 저장시키는 라이브러리
+  $ npm i -f expo-app-loading // 로딩화면 관리
+  $ npm install -g eas-cli // 배포할 때
 
-1. 
-
-https://www.inflearn.com/course/lecture?courseSlug=%EC%B2%98%EC%9D%8C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EB%A6%AC%EC%95%A1%ED%8A%B8-%EB%84%A4%EC%9D%B4%ED%8B%B0%EB%B8%8C&unitId=67019&tab=curriculum
+1. ...
 
 1. 테스트
   $ cd app1
   $ npm start / yarn start
+
+
+
+[리액트 네이티브 앱 배포하기]
+
+1. app.json 수정
+
+
+1. 빌드
+  $ cd app1
+  $ npm i -g eas-cli
+  $ eas build --auto-submit
+  $ eas submit
+  expo.io에서 빌드상황 확인
+  expo.io에서 결과파일 다운로드
+  해당 파일을 휴대폰에 넣고 실행

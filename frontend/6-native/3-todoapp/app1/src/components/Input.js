@@ -1,16 +1,18 @@
 import React from "react"
 import styled from "styled-components/native"
-import { useWindowDimensions } from "react-native"
+import { Dimensions } from "react-native"
 
-const StyledInput = styled.TextInput`
-  width: 80%;
+const StyledInput = styled.TextInput.attrs({
+  placeholderTextColor: "gray",
+})`
+  color: ${({ theme }) => theme.text};
+  background-color: ${({ theme }) => theme.itemBackground};
+  font-size: 20px;
+  width: ${({ width }) => width - 40}px;
   height: 60px;
-  margin-top: 40px;
-  padding: 15px 20px;
   border-radius: 10px;
-  font-size: 15px;
-  background-color: white;
-  color: black;
+  padding: 15px 20px;
+  margin-top: 10px;
 `
 
 export default function Input({
@@ -18,9 +20,10 @@ export default function Input({
   value,
   onChangeText,
   onSubmitEditing,
+  onBlur,
 }) {
   // useWindowDimensions : 기기별 width를 계산해줌 + 기기 너비가 바뀔 때 자동업데이트
-  const width = useWindowDimensions().width
+  const width = Dimensions.get("window").width
 
   return (
     <StyledInput
@@ -33,6 +36,7 @@ export default function Input({
       value={value}
       onChangeText={onChangeText}
       onSubmitEditing={onSubmitEditing}
+      onBlur={onBlur}
     />
   )
 }
