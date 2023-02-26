@@ -38,3 +38,42 @@ if (d === "사과") {
 } else {
   console.log("모른다")
 }
+
+// 두개 이상의 조건
+let e1 = 1
+let e2 = 2
+if (e1 && e2) { // && = and (둘 다 true여야 true)
+  console.log("둘다 존재한다.")
+}
+if (e1 || e2) { // || = or (둘중 하나만 true여도 true)
+  console.log("둘중 하나는 존재한다.")
+}
+
+// 조건문
+let aa = 3
+let bb = 3
+
+// 두개 이상의 조건 : and (&&), or (||)
+if (aa > 0 && bb < 2 && bb > 0) {
+  console.log("나올까요?")
+}
+
+// 삼항연산자
+let result = aa === bb ? "same" : "diff"
+console.log(result)
+
+// 스위치문 : else if 가 많을 때, case 별로 관리하는 조건문
+const device = 'ipad'
+switch (device) {
+  case 'iphone':
+    console.log('아이폰')
+    break
+  case 'ipad':
+    console.log('아이패드')
+    break
+  case 'galaxy':
+    console.log('갤럭시')
+    break
+  default:
+    console.log('그 외의 기기입니다')
+}
