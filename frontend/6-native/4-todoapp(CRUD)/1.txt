@@ -29,7 +29,7 @@
   $ npm i -f expo-app-loading // 로딩화면 관리
   $ npm install -g eas-cli // 배포할 때
 
-1. ...
+1. app1 이닛 앱으로 시작... 소스 보면서 순서 잘 배치해서 강의 내가 만들기
 
 1. 테스트
   $ cd app1
@@ -43,10 +43,13 @@
 
 
 1. 빌드
+  아이폰에서 Apple Developer 앱을 설치 후 실행
+  -> 계정 탭을 탭해서 로그인 -> 동의 -> 지금 등록하기
+  -> 개인으로 등록 (https://developer.apple.com/kr/support/app-account/ 참조)
   $ cd app1
   $ npm i -g eas-cli
-  $ eas build --auto-submit
-  $ eas submit
+  $ eas build --auto-submit // Android 선택 (iOS는 Apple Developer 앱을 다운받고, 계정 탭에서 로그인하고, 개인으로 등록한 다음, 연간구독료를 지불해야함)
+  $ eas submit // 
   expo.io에서 빌드상황 확인
   expo.io에서 결과파일 다운로드
   해당 파일을 휴대폰에 넣고 실행
