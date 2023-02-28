@@ -9,11 +9,9 @@
 
 1. 웹 앱 호스팅하기 절차
     Github에 배포용 레포지토리를 생성
-    배포를 원하는 폴더에 클론
-    - 배포를 원하는 폴더에 코드를 넣고 master 브랜치에 add, commit, push
+    배포를 원하는 폴더에 클론    
     $ cd app1
     $ npm i gh-pages --save-dev
-
     - 리액트의 경우
         package.json 수정 : homepage 주소를 수정하고 scripts 안에 predeploy, deploy를 추가한다.
             * "predeploy"는 npm run deploy 할 때 기본적으로 함께 있어야한다.
@@ -24,9 +22,8 @@
                 "predeploy": "npm run build", 
                 "deploy": "gh-pages -d build"
             }
-
+    master 브랜치에 git add, commit, push
     $ npm run deploy // npm deploy 안됨
-    다시 커밋 후 master 브랜치에도 푸시 (소스 저장용)
     끝 (github pages settings는 건드릴 필요없고, 자동으로 gh-pages 브랜치로 배포됨)
 
 1. 트러블슈팅
