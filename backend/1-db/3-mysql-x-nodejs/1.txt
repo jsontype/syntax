@@ -1,6 +1,9 @@
 [JS와 MySQL을 연동하기]
 참조 URL : https://reffect.co.jp/node-js/express-js-connect-mysql
 
+1. mysql 라이브러리 설치
+    $ npm i mysql
+
 1. mysql 설치 및 db 준비 (xampp 이용)
     xampp에서 설치
         xampp 설치 후 "관리자 권한으로 실행" 설정하고 작업표시줄에 고정
