@@ -95,10 +95,10 @@ export default function App() {
   return isReady ? (
     <ThemeProvider theme={theme}>
       <Container>
-        <StatusBar
+        {/* <StatusBar
           barStyle="light-content"
           backgroundColor={theme.background}
-        />
+        /> */}
 
         <Title>TODOS</Title>
 

@@ -20,6 +20,9 @@
 
 1. 불필요 부분을, 연동까지 삭제
 
+1. tsconfig.json 수정 : "compilerOptions" 안에, 아래 내용 추가하여 import시에 ./를 쓰지 않고도 base를 src로 변경
+    "baseUrl": "src",
+
 1. 테스트
     $ cd app1
     $ npm start (또는 yarn start)
