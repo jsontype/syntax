@@ -1,0 +1,23 @@
+[useReducer를 사용하여 상태 업데이트 로직 분리하기]
+
+1. useReducer란?
+  상태를 관리하게 될 때 useState 외에도 useReducer를 사용할 수 있다. 
+  이 Hook 함수를 사용하면 컴포넌트 state 업데이트 로직을 컴포넌트에서 분리시킬 수 있다. 
+  state 업데이트 로직을 컴포넌트 바깥에 작성 할 수도 있고, 심지어 다른 파일에 작성 후 불러와서 사용 할 수도 있다.
+
+[Counter 만들기]
+
+[결론 : useReducer vs useState, 뭐 쓸까?]
+  어떨 때 useReducer를 쓰고 어떨 때 useState를 써야 할까?
+  컴포넌트에서 관리하는 값이 딱 하나고, 그 값이 단순한 숫자, 문자열 또는 boolean 값이라면 useState로 관리하는게 편하다.
+    const [value, setValue] = useState(true)
+  하지만, 만약에 컴포넌트에서 관리하는 값이 여러개가 되어서 상태의 구조가 복잡해진다면 useReducer로 관리하는 것이 편할 수 있다.
+  예를 들어, 다음과 같이, setState를 한 함수에서 여러번 사용해야 하는 일이 발생한다면
+    setUsers(users => users.concat(user))
+    setInputs({
+      username: '',
+      email: ''
+    })
+  그 때부터 useReducer를 쓸까? 에 대한 고민을 시작하면 된다.
+  useReducer를 썼을때 편해질 것 같으면 useReducer 를 쓰고, 딱히 그럴것같지 않으면 useState 를 유지하면 된다.
+  이에 대한 결정은, 앞으로 useState, useReducer 를 자주 사용해보고 맘에드는 방식을 선택하자.
