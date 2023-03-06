@@ -1,5 +1,5 @@
 [i18n 설치 : 다국어 대응 라이브러리]
-https://velog.io/@upisdown/React-%EB%8B%A4%EA%B5%AD%EC%96%B4-i18n-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-%EC%82%AC%EC%9A%A9%EB%B2%95
+참조URL: https://velog.io/@upisdown/React-%EB%8B%A4%EA%B5%AD%EC%96%B4-i18n-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-%EC%82%AC%EC%9A%A9%EB%B2%95
 
 1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
 
@@ -111,11 +111,11 @@ https://velog.io/@upisdown/React-%EB%8B%A4%EA%B5%AD%EC%96%B4-i18n-%EB%9D%BC%EC%9
   import i18n from "./i18n"
 
   const root = ReactDOM.createRoot(document.getElementById("root"))
-  root.render(<App i18n={i18n} />) // 프롭을 줄 필요는 없지만 warning 메시지 때문에 줌
+  root.render(<App i18n={i18n} />) // 여기서는 필수가 아니지만 나중에 TS에서 사용할 때는 필수가 됨 (타입은 any로 해서 넘길 것)
 
 
 
-1. src/App.js 수정 : i18n을 직접 사용하는 화면 작성
+1. src/Hello.js 생성 : i18n을 직접 사용하는 화면 작성
   import React from "react"
   import { useTranslation } from "react-i18next"
   import i18n from "i18next"
@@ -148,6 +148,20 @@ https://velog.io/@upisdown/React-%EB%8B%A4%EA%B5%AD%EC%96%B4-i18n-%EB%9D%BC%EC%9
   }
 
 
+
+1. src/App.js 수정 : Hello 컴포넌트 렌더링
+  import "./App.css"
+  import Hello from "./Hello"
+
+  export default function App() {
+    return (
+      <div className="App">
+        <Hello />
+      </div>
+    )
+  }
+
+  
 
 1. 테스트 : 각 버튼을 눌러 언어가 바뀌는지 확인
   $ cd app1

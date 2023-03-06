@@ -1,0 +1,98 @@
+[Material UI 얼럿]
+참조URL: https://mui.com/material-ui/react-alert/
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. src/components/Alert.js 생성 : @mui/material/Alert 작동 테스트
+  import React from "react"
+  import Alert from "@mui/material/Alert"
+  import AlertTitle from "@mui/material/AlertTitle"
+  import Button from "@mui/material/Button"
+  import Stack from "@mui/material/Stack"
+
+  export default function Alerts() {
+    return (
+      <>
+        <h1>얼럿</h1>
+        <h5>얼럿</h5>
+        <Stack sx={{ width: "100%" }} spacing={2}>
+          <Alert severity="error">This is an error alert — check it out!</Alert>
+          <Alert severity="warning">
+            This is a warning alert — check it out!
+          </Alert>
+          <Alert severity="info">This is an info alert — check it out!</Alert>
+          <Alert severity="success">
+            This is a success alert — check it out!
+          </Alert>
+        </Stack>
+        <h5>얼럿 타이틀</h5>
+        <Stack sx={{ width: "100%" }} spacing={2}>
+          <Alert severity="error">
+            <AlertTitle>Error</AlertTitle>
+            This is an error alert — <strong>check it out!</strong>
+          </Alert>
+          <Alert severity="warning">
+            <AlertTitle>Warning</AlertTitle>
+            This is a warning alert — <strong>check it out!</strong>
+          </Alert>
+          <Alert severity="info">
+            <AlertTitle>Info</AlertTitle>
+            This is an info alert — <strong>check it out!</strong>
+          </Alert>
+          <Alert severity="success">
+            <AlertTitle>Success</AlertTitle>
+            This is a success alert — <strong>check it out!</strong>
+          </Alert>
+        </Stack>
+        <h5>행동</h5>
+        <Stack sx={{ width: "100%" }} spacing={2}>
+          <Alert
+            onClose={() => {
+              alert("closed!")
+            }}
+          >
+            This is a success alert — check it out!
+          </Alert>
+          <Alert
+            action={
+              <Button
+                color="inherit"
+                size="small"
+                onClick={() => {
+                  alert("undone!")
+                }}
+              >
+                UNDO
+              </Button>
+            }
+          >
+            This is a success alert — check it out!
+          </Alert>
+        </Stack>
+      </>
+    )
+  }
+
+1. src/App.js 수정 : 레이팅 화면 렌더링
+  import React from "react"
+  import PullDowns from "./components/PullDowns"
+  import Buttons from "./components/Buttons"
+  import Ratings from "./components/Ratings"
+  import Alerts from "./components/Alerts"
+
+  import "./App.css"
+
+  export default function App() {
+    return (
+      <div className="App">
+        <PullDowns />
+        <Buttons />
+        <Ratings />
+        <Alerts />
+      </div>
+    )
+  }
+
+1. 테스트 : 다른 옵션들은 material ui의 공식 api 문서를 참조해보자.
+  $ cd app1
+  $ npm start

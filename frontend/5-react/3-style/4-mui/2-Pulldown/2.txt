@@ -1,0 +1,102 @@
+[Material UI 오토컴플리트 풀다운]
+참조URL: https://mui.com/material-ui/react-autocomplete/
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. src/App.css 수정 : 다른 항목이 추가되기 전에 미리, 항목간의 마진 설정해두기
+  .App {
+    font-size: 20px;
+  }
+
+  /* 항목간의 마진 설정 */
+  .App>* {
+    margin-top: 20px;
+  }
+
+1. src/components/PullDowns.js 생성 : @mui/material/Autocomplete의 작동 테스트
+  import React from "react"
+  import TextField from "@mui/material/TextField"
+  // 셀렉트 풀다운
+  import Box from "@mui/material/Box"
+  import InputLabel from "@mui/material/InputLabel"
+  import MenuItem from "@mui/material/MenuItem"
+  import FormControl from "@mui/material/FormControl"
+  import Select from "@mui/material/Select"
+  // 오토컴플리트 풀다운
+  import Autocomplete from "@mui/material/Autocomplete"
+
+  export default function PullDowns() {
+    const [age, setAge] = React.useState("")
+
+    const handleChange = (e) => {
+      setAge(e.target.value)
+    }
+
+    return (
+      <>
+        <h1>풀다운</h1>
+        <h5>셀렉트 풀다운 : 나이 {age ? age + "세" : "미상"}</h5>
+        <Box sx={{ minWidth: 120 }}>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Age</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={age}
+              label="Age"
+              onChange={handleChange}
+            >
+              <MenuItem value={10}>10</MenuItem>
+              <MenuItem value={20}>20</MenuItem>
+              <MenuItem value={30}>30</MenuItem>
+              <MenuItem value={40}>40</MenuItem>
+              <MenuItem value={50}>50</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
+
+        <h5>오토컴플리트 풀다운</h5>
+        <Autocomplete
+          disablePortal
+          id="combo-box-demo"
+          options={top10Films}
+          sx={{ width: 300 }}
+          renderInput={(params) => <TextField {...params} label="Movie" />}
+        />
+      </>
+    )
+  }
+
+  // 참조URL: http://www.imdb.com/chart/top (IMDb users들의 영화 순위)
+  const top10Films = [
+    { label: "The Shawshank Redemption", year: 1994 },
+    { label: "The Godfather", year: 1972 },
+    { label: "The Godfather: Part II", year: 1974 },
+    { label: "The Dark Knight", year: 2008 },
+    { label: "12 Angry Men", year: 1957 },
+    { label: "Schindler's List", year: 1993 },
+    { label: "Pulp Fiction", year: 1994 },
+    {
+      label: "The Lord of the Rings: The Return of the King",
+      year: 2003,
+    },
+    { label: "The Good, the Bad and the Ugly", year: 1966 },
+    { label: "Fight Club", year: 1999 },
+  ]
+
+1. src/App.js 수정 : 풀다운 화면 렌더링
+  import React from "react"
+  import PullDowns from "./components/PullDowns"
+  import "./App.css"
+
+  export default function App() {
+    return (
+      <div className="App">
+        <PullDowns />
+      </div>
+    )
+  }
+
+1. 테스트 : 다른 옵션들은 material ui의 공식 api 문서를 참조해보자.
+  $ cd app1
+  $ npm start
