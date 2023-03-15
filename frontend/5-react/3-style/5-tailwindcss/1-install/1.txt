@@ -1,0 +1,15 @@
+[React에 tailwindcss 끼얹기]
+
+1. 사전준비 : init 앱을 가지고 온다.
+
+1. 설치 : devDependencies에 추가
+  $ npm i -D tailwindcss postcss autoprefixer
+
+1. postcss.config.js 생성 : Postcss 설정 파일
+  module.exports = {
+    plugins: {
+      tailwindcss: { config: './tailwind.config.js' },
+      autoprefixer: {},
+    },
+  }
+
