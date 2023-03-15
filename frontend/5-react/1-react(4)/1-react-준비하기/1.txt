@@ -20,4 +20,3 @@
 1. 테스트
     $ cd app1
     $ npm start (또는 yarn start)
-    
