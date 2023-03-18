@@ -1,0 +1,168 @@
+[i18n 설치 : 다국어 대응 라이브러리]
+참조URL: https://velog.io/@upisdown/React-%EB%8B%A4%EA%B5%AD%EC%96%B4-i18n-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-%EC%82%AC%EC%9A%A9%EB%B2%95
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. 설치
+  $ npm i i18n react-i18next i18next --save
+
+
+  
+1. src/i18n/index.js 생성 : i18n 기본 설정하기
+  import i18n from "i18next"
+  import { initReactI18next } from "react-i18next"
+  import en from "./locales/en"
+  import ko from "./locales/ko"
+  import ja from "./locales/ja"
+
+  i18n
+    .use(initReactI18next) // i18n을 리액트에서 사용하겠다.
+    .init({
+      resources: {
+        en,
+        ko,
+        ja,
+      },
+      lng: "en", // 언어 디텍터를 사용한다면 lng 키를 지정할 필요없다.
+      interpolation: {
+        escapeValue: false,
+      },
+    })
+
+  export default i18n
+
+
+
+1. src/i18n/locales/en/index.js 생성 : 언어에 적용할 json 그룹 객체 선언해둔다.
+  import page from "./page.json"
+  import hello from "./hello.json"
+
+  const en = {
+    // 이후 json 파일을 추가해서 사용한다.
+    page,
+    hello,
+  }
+
+  export default en
+
+1. src/i18n/locales/ja/index.js 생성 : 언어에 적용할 json 그룹 객체 선언해둔다.
+  import page from "./page.json"
+  import hello from "./hello.json"
+
+  const ja = {
+    // 이후 json 파일을 추가해서 사용한다.
+    page,
+    hello,
+  }
+
+  export default ja
+
+1. src/i18n/locales/ko/index.js 생성 : 언어에 적용할 json 그룹 객체 선언해둔다.
+  import page from "./page.json"
+  import hello from "./hello.json"
+
+  const ko = {
+    // 이후 json 파일을 추가해서 사용한다.
+    page,
+    hello,
+  }
+
+  export default ko
+
+
+
+1. src/i18n/locales/en/page.json 생성
+  {
+    "startPage": "Start Page"
+  }
+
+1. src/i18n/locales/ja/page.json 생성
+  {
+    "startPage": "スタートページ"
+  }
+
+1. src/i18n/locales/ko/page.json 생성
+  {
+    "startPage": "시작페이지"
+  }
+
+1. src/i18n/locales/en/hello.json 생성
+  {
+    "hello": "Hello, I am Yang. Nice to meet you!"
+  }
+
+1. src/i18n/locales/ja/hello.json 생성
+  {
+    "hello": "お世話になります。私はITエンジニアのJSONTYPEです。宜しくお願い致します。"
+  }
+
+1. src/i18n/locales/ko/hello.json 생성
+  {
+    "hello": "안녕하세요, 저는 개발자 JSONTYPE입니다. 만나서 반가워요!"
+  }
+
+
+
+
+1. src/index.js 수정 : i18n 폴더안의 기본설정 파일을 도입해서 사용할 수 있도록 세팅
+  import React from "react"
+  import ReactDOM from "react-dom/client"
+  import App from "./App"
+  import i18n from "./i18n"
+
+  const root = ReactDOM.createRoot(document.getElementById("root"))
+  root.render(<App i18n={i18n} />) // 여기서는 필수가 아니지만 나중에 TS에서 사용할 때는 필수가 됨 (타입은 any로 해서 넘길 것)
+
+
+
+1. src/Hello.js 생성 : i18n을 직접 사용하는 화면 작성
+  import React from "react"
+  import { useTranslation } from "react-i18next"
+  import i18n from "i18next"
+
+  export default function Hello(props) {
+    const { t } = useTranslation(["page"])
+
+    const onChangeToKO = () => {
+      i18n.changeLanguage("ko")
+    }
+
+    const onChangeToEN = () => {
+      i18n.changeLanguage("en")
+    }
+
+    const onChangeToJA = () => {
+      i18n.changeLanguage("ja")
+    }
+
+    return (
+      <div>
+        <h2>{t("page:startPage")}</h2>
+        <p>{t("hello:hello")}</p>
+
+        <button onClick={onChangeToKO}>ko</button>
+        <button onClick={onChangeToEN}>en</button>
+        <button onClick={onChangeToJA}>ja</button>
+      </div>
+    )
+  }
+
+
+
+1. src/App.js 수정 : Hello 컴포넌트 렌더링
+  import "./App.css"
+  import Hello from "./Hello"
+
+  export default function App() {
+    return (
+      <div className="App">
+        <Hello />
+      </div>
+    )
+  }
+
+  
+
+1. 테스트 : 각 버튼을 눌러 언어가 바뀌는지 확인
+  $ cd app1
+  $ npm start

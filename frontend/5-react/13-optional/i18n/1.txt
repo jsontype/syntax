@@ -37,6 +37,7 @@
   import page from "./page.json"
   import hello from "./hello.json"
 
+  // 주의 : function형으로 사용하면 안됨!
   const en = {
     // 이후 json 파일을 추가해서 사용한다.
     page,
@@ -48,7 +49,8 @@
 1. src/i18n/locales/ja/index.js 생성 : 언어에 적용할 json 그룹 객체 선언해둔다.
   import page from "./page.json"
   import hello from "./hello.json"
-
+  
+  // 주의 : function형으로 사용하면 안됨!
   const ja = {
     // 이후 json 파일을 추가해서 사용한다.
     page,
@@ -61,6 +63,7 @@
   import page from "./page.json"
   import hello from "./hello.json"
 
+  // 주의 : function형으로 사용하면 안됨!
   const ko = {
     // 이후 json 파일을 추가해서 사용한다.
     page,
@@ -121,7 +124,7 @@
   import i18n from "i18next"
 
   export default function Hello(props) {
-    const { t } = useTranslation(["page"])
+    const { t } = useTranslation()
 
     const onChangeToKO = () => {
       i18n.changeLanguage("ko")
