@@ -31,9 +31,9 @@
     },
   })
 
-1. cypress/e2e/spec.cy.js 수정
+1. cypress/e2e/visit.cy.js 수정
+  // 대주제
   describe("메인메뉴 테스트", () => {
-    // 대주제
     it("npm start", () => {
       // 테스트 설명하는 제목
       cy.exec("npm start") // CLI로 실행되는 함수 (cli > yarn start를 실행)

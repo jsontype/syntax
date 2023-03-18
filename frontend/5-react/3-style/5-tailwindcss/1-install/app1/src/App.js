@@ -1,9 +1,10 @@
-import "./App.css"
+import React from "react"
 
 export default function App() {
   return (
-    <div className="App">
-      <div>Hello React</div>
-    </div>
+    <>
+      <h1 className="bg-blue-500 text-green-300">React</h1>
+      <p>How to setting the project</p>
+    </>
   )
 }

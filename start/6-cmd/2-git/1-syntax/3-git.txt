@@ -16,7 +16,7 @@
     add . : 트럭에 바뀐 택배를 싣는 것 = staging
     commit -m "" : 택배 송장에 무슨 물건이지 적는 것
     pull request : develop 브랜치에 merge 해달라고 리뷰자에게 요청
-    clone : 빈 폴더에 해당 develop 브랜치를 복제
+    clone : 빈 폴더에 해당 develop 브랜치를 복제 
     branch : 나뭇가지, 각 개발자가 해결해야할 이슈마다 다른 브랜치를 갖고 있다
     checkout : 보고있는 브랜치를 이동
     merge : 브랜치끼리 병합하는 것 (develop <- feat/이슈번호)

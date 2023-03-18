@@ -1,0 +1,54 @@
+[cypress 설치]
+참조URL: https://yoonjong-park.tistory.com/entry/React-cypress%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-React-%ED%85%8C%EC%8A%A4%ED%8A%B8-feat-%EC%8B%9C%EB%82%98%EB%A6%AC%EC%98%A4-%ED%85%8C%EC%8A%A4%ED%8A%B8-E2E-Test
+
+1. 사전준비 : init 앱을 가지고 온다.
+
+1. cypress 설치
+  $ cd app1
+  $ npm i -D cypress
+
+1. package.json 수정 : script를 interactive mode의 테스트 실행문을 추가한다. (* CLI로 실행하는 모드도 있지만, 직접 로그인이 필요하다.)
+  "scripts": {
+    ... , 
+    "test": "cypress open",
+    ... ,
+  }
+
+1. 테스트
+  $ npm test
+  electron으로 구성된 Cypress 툴이 켜지는 것을 확인한다.
+
+1. cypress.config.js 수정 : 먼저 cypress를 세팅한다.
+  const { defineConfig } = require("cypress")
+
+  module.exports = defineConfig({
+    e2e: {
+      baseUrl: "http://localhost:3000",
+      chromeWebSecurity: false,
+      setupNodeEvents(on, config) {
+        // implement node event listeners here
+      },
+    },
+  })
+
+1. cypress/e2e/spec.cy.js 수정
+  describe("메인메뉴 테스트", () => {
+    // 대주제
+    it("npm start", () => {
+      // 테스트 설명하는 제목
+      cy.exec("npm start") // CLI로 실행되는 함수 (cli > yarn start를 실행)
+    })
+    it("초기화면 이동", () => {
+      cy.visit("/") // BaseURL경로를 접속하게 된다.
+    })
+  })
+
+1. 테스트
+  $ cd app1
+  $ npm test
+  크롬 선택 -> visit.cy.js를 선택하고 실행 -> 테스트가 통과되는 것을 확인
+
+1. 이하 생략
+  더 자세한 내용을 공부하고 싶다면, 
+  https://docs.cypress.io/guides/getting-started/installing-cypress
+  에서 cypress 명령어들을 하나씩 공부해서 적용해보면 된다.

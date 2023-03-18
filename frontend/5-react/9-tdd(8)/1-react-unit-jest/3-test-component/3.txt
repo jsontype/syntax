@@ -69,10 +69,10 @@
     it("빼기 기능이 잘 동작하는가?", () => {
       const utils = render(<Counter />)
       const number = utils.getByText("0")
-      const plusButton = utils.getByText("-1")
+      const minusButton = utils.getByText("-1")
       // 클릭 이벤트를 두번 발생시키기
-      fireEvent.click(plusButton)
-      fireEvent.click(plusButton)
+      fireEvent.click(minusButton)
+      fireEvent.click(minusButton)
       expect(number.textContent).toBe("-2") // textContent를 직접 비교
     })
   })
