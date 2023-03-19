@@ -1,0 +1,17 @@
+.App {
+  text-align: start;
+  margin: 20px;
+}
+
+.user {
+  border: 1px solid gray;
+}
+
+.userName {
+  font-weight: bold;
+}
+
+.userEmail {
+  color: gray;
+  font-size: 12px;
+}

@@ -1,0 +1,14 @@
+[useEffect를 사용하여 마운트/언마운트/업데이트시 할 작업 설정하기]
+
+1. useEffect : 파라미터에 함수, deps 배열을 넣어서 life cycle method을 구현하는 Hook이다.
+    life cycle method : 함수를 특정 시점에서만 실행하는 구현 방식. 
+    life cycle 시점 :
+        mounted : 컴포넌트가 열리는 created 시점, updated 후 실제 화면에 랜더링되는 시점
+        updated : 컴포넌트가 수정되는 updated 시점
+        unmounted : 컴포넌트가 닫히는 destroy 시점
+
+    // useEffect(() => { 실행문 }, []) // Deps가 빈 배열 : initial mounted 될 때 실행해라.
+    // useEffect(() => { 실행문 }, [number]) // Deps에 state 변수가 있을 때 : 해당 state가 updated 될 때 실행해라.
+    // useEffect(() => { return () => { 실행문 } }, []) // Deps가 빈 배열이면서 return 값이 함수 : unmounted 될 때 실행해라.
+    
+    
