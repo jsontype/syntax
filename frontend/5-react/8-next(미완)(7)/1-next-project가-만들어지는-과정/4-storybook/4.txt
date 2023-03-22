@@ -1,5 +1,7 @@
 [Storybook]
 
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
 1. Storybook이란?
   React.js나 Next.js 프로젝트에서 컴포넌트를 개발할 때,
   개발 후의 적용 결과 화면 확인을 위해서, 화면 전체를 볼 필요없이,
@@ -12,8 +14,6 @@
   컴포넌트 주도 개발(Component Driven Development)이라고도 한다.
   - Storybook은 CDD를 위한 것이다.
 
-1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
-
 1. Storybook 설치
   $ cd app1
   $ npm i --save-dev sb // Storybook 설치
@@ -21,9 +21,16 @@
   eslintPlugin > (Y/n) // y 선택
   npm7 migration? > (Y/n) // n 선택
 
-1. 샘플 코드 폴더 구조
-  ./.storybook/...: Storybook에 대한 설정 파일
-  ./stories/...: Storybook의 샘플 코드
+1. Storybook 설치 확인
+  .storybook 폴더 확인 : Storybook에 대한 설정 파일이 들어있음을 확인
+  .stories 폴더 확인: Storybook의 샘플 코드
+  package.json에 아래 내용이 들어갔는지 확인 : 없으면 추가할 것
+  {
+    "scripts": {
+      "storybook": "start-storybook -p 6006",
+      "build-storybook": "build-storybook"
+    },
+  }
 
 1. stories/Button.tsx 수정 : 샘플 스토리북용 컴포넌트에 주석을 수정하면서 자세히 파악해보자. 
 ```
@@ -140,8 +147,9 @@
   }
 
 1. 테스트 : Storybook 실행해보기
+  $ cd app1
   $ npm i
   $ npm run storybook
   http://localhost:6006/
-  Introduction 화면 : ./stories/Introduction.stories.mdx 내용이 출력된다.
-  Button > Primary 화면 : ./stories/Introduction.stories.mdx 내용이 출력된다.
+  Exmaple / Introduction 화면 : ./stories/Introduction.stories.mdx 내용이 출력된다.
+  Exmaple / Button / Primary 화면 : ./stories/Button.stories.mdx 내용이 출력된다.
