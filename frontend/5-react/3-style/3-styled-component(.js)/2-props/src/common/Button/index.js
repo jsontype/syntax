@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from "styled-components"
 
 const Button = styled.button`
   display: block;
@@ -13,6 +13,6 @@ const Button = styled.button`
       width: 200px;
       height: 50px;
     `}
-`;
+`
 
-export default Button;
+export default Button
