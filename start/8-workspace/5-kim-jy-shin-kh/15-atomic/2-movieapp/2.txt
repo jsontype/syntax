@@ -12,7 +12,7 @@
   src/components/templates
   src/pages
 
-1. src/components/atoms/Button/index.js 생성 : * 작성 후 src/App.js에 여기까지 렌더링해서 테스트하기
+1. src/components/atoms/Button/index.js 생성 : * 작성 후 src/App.js에 띄워보고 테스트하기
   import styled, { css } from "styled-components"
 
   const Button = styled.button`
@@ -38,7 +38,7 @@
 
   export default Button
 
-1. src/components/moleculues/SearchBar/index.js 생성 : * 작성 후 src/App.js에 여기까지 렌더링해서 테스트하기
+1. src/components/moleculues/SearchBar/index.js 생성 : * 작성 후 src/App.js에 띄워보고 테스트하기
   import styled from "styled-components"
   import Button from "../../atoms/Button"
 
@@ -70,7 +70,7 @@
 
   export default SearchBar
 
-1. src/components/organisms/MovieList/index.js 생성 : * 작성 후 src/App.js에 여기까지 렌더링해서 테스트하기
+1. src/components/organisms/MovieList/index.js 생성 : * 작성 후 src/App.js에 띄워보고 테스트하기
   import React, { useState, useEffect } from "react"
   import SearchBar from "../../moluculues/SearchBar"
   import styled from "styled-components"
@@ -194,7 +194,7 @@
     )
   }
 
-1. src/components/templates/MovieLists/index.js 생성 : * 작성 후 src/App.js에 여기까지 렌더링해서 테스트하기
+1. src/components/templates/MovieLists/index.js 생성 : * 작성 후 src/App.js에 띄워보고 테스트하기
   import React, { useState } from "react"
   import Button from "../../atoms/Button"
   import MovieList from "../../organisms/MovieList"
@@ -222,23 +222,6 @@
         </Button>
         <MovieList sortByLabel={sortBy || "추천"} sortByValue={sortBy || ""} />
       </>
-    )
-  }
-
-1. src/pages/Movies/index.js 생성 : * 작성 후 src/App.js에 여기까지 렌더링해서 테스트하기
-  import React from "react"
-  import MovieLists from "../../components/templates/MovieLists"
-  import styled from "styled-components"
-
-  const MovieContainer = styled.div`
-    margin: 20px;
-  `
-
-  export default function Movies() {
-    return (
-      <MovieContainer>
-        <MovieLists />
-      </MovieContainer>
     )
   }
 
