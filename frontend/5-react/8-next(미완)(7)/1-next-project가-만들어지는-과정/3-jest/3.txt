@@ -6,11 +6,6 @@
   $ npm i --save-dev jest @testing-library/react @testing-library/jest-dom jest-environment-jsdom
 
 1. jest.setup.js 생성 : Jest의 모든 테스트 코드에서 공통적으로 사용되는 설정이나 Mock를 정의
-  // Optional: configure or set up a testing framework before each test.
-  // If you delete this file, remove `setupFilesAfterEnv` from `jest.config.js`
-
-  // Used for __tests__/testing-library.js
-  // Learn more: https://github.com/testing-library/jest-dom
   import '@testing-library/jest-dom/extend-expect'
 
 1. jest.config.js 생성 : 이 설정을 통해, Jest에서 Next.js의 기능(next.config.js, .env 등)을 사용할 수 있게 됨
@@ -28,7 +23,22 @@
 
   module.exports = createJestConfig(customJestConfig)
 
-1. tests/index.spec.ts 생성 : 첫 테스트 코드 작성
+1. pages/api/validation.ts 생성 : API 작성
+  export default function isEmail(value: string) {
+    const email = value || ''
+
+    if (email.split('@').length !== 2) {
+      return false
+    } else if (email.includes(' ')) {
+      return false
+    } else if (email[0] === '-') {
+      return false
+    }
+
+    return true
+  }
+
+1. tests/index.spec.ts 생성 : API에 대한 테스트 코드 작성
   /*
     create-next-app 명령어로 생성되는 기본 페이지 컴포넌트인 <Home />을 화면에 표시한 후,
     weclome to next.js!라는 텍스트가 잘 표시되는지 확인하는 테스트 코드이다.
@@ -60,21 +70,6 @@
     "test": "jest --watch",
     "test:ci": "jest --ci"
   },
-
-1. pages/api/validation.ts 생성 : 테스트 코드 작성
-  export default function isEmail(value: string) {
-    const email = value || ''
-
-    if (email.split('@').length !== 2) {
-      return false
-    } else if (email.includes(' ')) {
-      return false
-    } else if (email[0] === '-') {
-      return false
-    }
-
-    return true
-  }
 
 1. 테스트 : Jest 전체 테스트하기
   $ cd app1
