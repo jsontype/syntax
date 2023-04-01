@@ -1,19 +1,19 @@
 /*
-    변수의 데이터타입
-        Number : 실수(정수, 소수를 포함)
-        String : 문자열('hello')
-        Null : 변수안에 값이 없음 // "휴지에 심지만 있다"
-        Undefined : 변수에 값을 지정한 적이 없음 // "휴지에 심지도 없다"
-        Boolean : 논리(true/false)
-        Object : 객체 { 'key1':value1, 'key2':value2, ... } // 콘솔은 객체로 이루어져있다.
-        Array : 배열 [1, 2, 3, ...] // List라고도 부름
-        Function : 함수
-        Map : 순서가 있는 배열 // 해쉬맵, 해쉬테이블 (나중에 배울 것)
-        Set : 집합 Set {1, 2, 3} // 중복제거 집합 (나중에 배울 것)
-    
-    선언 방식
-        Number, String, Boolean (값 참조형) : let으로 선언
-        Array, Object, Function (주소 참조형, 또는 상수) : const로 선언
+  변수의 데이터타입
+    Number : 실수(정수, 소수를 포함)
+    String : 문자열('hello')
+    Null : 변수안에 값이 없음 // "휴지에 심지만 있다"
+    Undefined : 변수에 값을 지정한 적이 없음 // "휴지에 심지도 없다"
+    Boolean : 논리(true/false)
+    Object : 객체 { 'key1':value1, 'key2':value2, ... } // 콘솔은 객체로 이루어져있다.
+    Array : 배열 [1, 2, 3, ...] // List라고도 부름
+    Function : 함수
+    Map : 순서가 있는 배열 // 해쉬맵, 해쉬테이블 (나중에 배울 것)
+    Set : 집합 Set {1, 2, 3} // 중복제거 집합 (나중에 배울 것)
+  
+  선언 방식
+    Number, String, Boolean (값 참조형) : let으로 선언
+    Array, Object, Function (주소 참조형, 또는 상수) : const로 선언
 */
 
 // Number 타입
@@ -38,14 +38,14 @@ console.log('i: ', i)
 console.log('Yang') // Char
 console.log("Yang") // String
 console.log(`Yang`) // Backtick : 기호 `를 백틱이라 한다. 백틱을 사용하면 줄바꿈도 인식해주고, ${}를 사용해서 문자열과 변수를 적절히 같이 사용할 수 있다.
-let name = 'Yang'
-let job = 'Dev'
+let username = "Yang"
+let job = "Dev"
 let age = 30
 // 백틱은 다음과 같이 사용하며, 이런 형태의 문자열을 "템플릿 리터럴"이라고 한다.
 console.log(`
-    저는 ${name}입니다. 
-    직업은 ${job}입니다. 
-    올해로 ${age}살이 됩니다.
+  저는 ${username}입니다. 
+  직업은 ${job}입니다. 
+  올해로 ${age}살이 됩니다.
 `)
 
 // Null 타입 : 변수안에 값이 없음 // "휴지에 심지만 있다"

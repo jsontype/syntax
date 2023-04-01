@@ -29,16 +29,16 @@
 
 1. nvm 사용
   $ nvm ls-remote : 설치할 수 있는 Node.js 목록을 표시한다.
-  $ nvm install v10.16.3 : 특정 버전의 Node.js를 설치한다.
-  $ nvm use v10.16.3 : 특정 버전의 Node.js를 사용한다.
-  $ nvm uninstall v10.16.3 : 특정 버전의 Node.js를 삭제한다.
+  $ nvm install 16.18.1 : 특정 버전의 Node.js를 설치한다.
+  $ nvm use 16.18.1 : 특정 버전의 Node.js를 사용한다.
+  $ nvm uninstall 16.18.1 : 특정 버전의 Node.js를 삭제한다.
 
-1. .nvmrc 확인 : 프로젝트별로 사용해야할 노드 버전을 아는 방법 
-  .nvmrc 파일은 Node.js 버전을 명시해두는 파일이다.
-  이동한 디렉토리(프로젝트)에 .nvmrc 파일이 있으면, Node.js를 해당 버전으로 변경해야한다.
-  .nvmrc가 있는 폴더에서, 다음을 입력하면 자동으로 변경된다.
-    $ nvm use
-
-1. .nvmrc 만들기
-  자신의 프로젝트에 노드 버전을 명시하며 .nvmrc 파일을 만들려면 다음과 같이 명령어를 입력한다.
-    $ echo "8.9.0" > .nvmrc 
+1. 프로젝트별로 사용해야할 노드 버전을 아는 방법 
+  - .nvmrc 확인하기
+    .nvmrc 파일은 Node.js 버전을 명시해두는 파일이다.
+    이동한 디렉토리(프로젝트)에 .nvmrc 파일이 있으면, Node.js를 해당 버전으로 변경해야한다.
+    .nvmrc가 있는 폴더에서, 다음을 입력하면 자동으로 변경된다.
+      $ nvm use
+  - .nvmrc 만들기
+    자신의 프로젝트에 노드 버전을 명시하며 .nvmrc 파일을 만들려면 다음과 같이 명령어를 입력한다.
+      $ echo "8.9.0" > .nvmrc 

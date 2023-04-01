@@ -1,8 +1,10 @@
 [VSCode 확장 리스트]
 
 1. 필수
+    "ES7+ React/Redux/React-Native snippets"
+        React 검색 후 맨 처음 나오는 것을 설치. rfc로 치면 함수형 컴포넌트 자동완성(★★ rfs, rcc, rfsp ... 등 가능)
     "Korean"
-        메뉴 한글확장        
+        메뉴 한글확장
     "Tabnine"
         AI가 미리 칠 내용을 알려줘 오타도 방지하고, 탭 치면서 하면 더 빠르고 쉽게 코딩 가능
     "IntelliCode"
@@ -19,16 +21,16 @@
         협업시 누가 구현한 코드인지를 짙은 회색 글씨로 알려줌
     "Jest Runner"
         Jest 테스트 코드를 편리하게 실행해주는 확장
-    "ES7+ React/Redux/React-Native snippets"
-        React 검색 후 맨 처음 나오는 것을 설치. rfc로 치면 함수형 컴포넌트 자동완성(★★ rfs, rcc, rfsp ... 등 가능)
-    "Vue VSCode Snippets"
-        Vue Snippet 검색 후 설치. vbase라고 치면 vue 확장자에 한해서 자동 컴포넌트 생성
+    "vscode-styled-components"
+        스타일 컴포넌트에서 styled.div``처럼 쓸 때 백틱 안의 내용에 CSS 문법대로 텍스트 색깔을 적용해줘서 작업하기 편함
 
 1. 선택
-    "Auto Import - ES6, TS, JSX, TSX"
-        빨간 줄에 커서를 대고 자동수정을 누르면, 풀다운이 뜨고 거기서 원 출처를 선택하면 자동으로 import 코드가 생성됨
+    "Vue VSCode Snippets"
+        Vue Snippet 검색 후 설치. vbase라고 치면 vue 확장자에 한해서 자동 컴포넌트 생성
     "Vue Language Features (Volar)"
         Vue3 에러표시 등 개발용 툴
+    "Auto Import - ES6, TS, JSX, TSX"
+        빨간 줄에 커서를 대고 자동수정을 누르면, 풀다운이 뜨고 거기서 원 출처를 선택하면 자동으로 import 코드가 생성됨
     "Vetur"
         Vue2 에러표시 등 개발용 툴
     "HTML CSS Support"
@@ -37,5 +39,3 @@
         html 안의 class="" 를 클릭하면 적용된 CSS로 바로 이동해줌
     "JavaScript(ES6) Code Snippets"
         JS 스니펫 지원
-    "vscode-styled-components"
-        스타일 컴포넌트에서 styled.div``처럼 쓸 때 백틱 안의 내용에 CSS 문법대로 텍스트 색깔을 적용해줘서 작업하기 편함
