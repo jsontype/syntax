@@ -8,3 +8,9 @@
     ${fileDirname}
 1. 다음 수순으로 : node, git, devtools 설치
 1. logicool g hub
+1. microsoft store에서 powertoys 설치
+    alt + space : 맥의 spotlight와 같음
+        . : 프로그램 찾기
+        ! : 프로그램 찾아서 중지하기
+    windows + 백틱키 : 맥의 spectacle과 같음
+        단축키설정 : 화면분할 -> 설정 -> Fancy Zones -> 단축키와 프레임 지정 -> 쉬프트 누르고 윈도우창 이동하면 틀에 맞춰짐
