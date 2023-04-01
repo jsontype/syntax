@@ -39,7 +39,7 @@
             shift + command + p
             그 다음 밑에 Shell Command: Install 'code' command in PATH 를 눌러주면 끝이다.
         해당 파일안에 다음 변수값을 수정 : ZSH_THEME="powerlevel10k/powerlevel10k"    전부 다 끈 뒤 iterm을 다시 켠다.
-    y 입력 후 엔터해서 nerd 폰트를 다운받는다.
+    iterm을 재기동한 다음, y 입력 후 엔터해서 nerd 폰트를 다운받는다.
     iterm을 다시 한번 끈다.
     vscode에서 터미널을 연다.
     vscode 세팅 - settings - terminal font 검색 - 최상단 font family - MesloLGS NF 입력
@@ -68,28 +68,6 @@
 
 
 
-1. NVM을 설치한다. (* 선택)
-    brew install nvm
-    구글에 검색 : export nvm_dir
-    해당 페이지에서 export 검색
-    "export NVM_DIR ~ ...중략... ~ # This loads nvm bash_completion" 부분을 찾아서 복사
-    code ~/.zshrc
-    vscode에서 제일 밑으로 감
-    제일 밑에다가 한칸 띄고 아까 복사한 것을 붙여넣기
-    저장하고 vscode를 끈다.
-    다시 iterm 터미널을 연다.
-    nvm --version
-    nvm ls-remote : 설치 가능한 node 버전이 나온다. 이중 latest LTS를 찾는다. (* 초록색으로 표시되는 버전이 있다.)
-    nvm install 16.14.0 : latest LTS 버전을 입력한다.
-    nvm list 
-    만일 다른 버전을 설치했고, 그 버전을 사용하고 싶은 경우
-        nvm install 17.5.0
-        nvm list
-        nvm use 17.5.0를 하면 node 재설치없이도 버전을 변경할 수 있다.
-    * M1의 경우, 로제타 인스톨을 검색하여 로제타를 인스톨한다.
-    다음 수순으로 : vscode 설치 및 확장, chrome 확장, devtools, git 설치
-
-
 
 1. 그외 인스톨할 프로그램
     node 설치
@@ -100,12 +78,7 @@
         vscode 확장 설치
     docker 설치
     sourcetree 설치
-
-
-
-1. 맥북 시스템환경설정
-    배터리 화면 끄기 삭제 : 왼쪽상단 애플 마크 -> 시스템환경설정 -> 배터리 -> 배터리탭 -> 메뉴에 배터리 표시 외에는 전부 끔
-    어탭터 화면 끄기 삭제 : 왼쪽상단 애플 마크 -> 시스템환경설정 -> 어탭터 -> 어탭터탭 -> 메뉴에 배터리 표시 외에는 전부 끔
+    nvm 설치 : 신택스의 nvm 확인
 
 
 
