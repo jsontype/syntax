@@ -6,7 +6,7 @@
 1. vscode 설치
 1. vscode 확장 설치 및 cwd 설정
     ${fileDirname}
-1. 다음 수순으로 : node, git, devtools 설치
+1. 다음 수순으로 : (nvm 또는 검색으로) node, git, devtools 설치
 1. logicool g hub
 1. microsoft store에서 powertoys 설치
     alt + space : 맥의 spotlight와 같음
