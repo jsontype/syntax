@@ -1,0 +1,19 @@
+[현장에서 실전 리팩토링 하는 법]
+
+1. 조사를 원하는 함수형 컴포넌트의 렌더링 횟수 조사
+  const count = useRef(0)
+  count.current++
+  console.log(count.current)
+
+1. 컴포넌트 memo화 하기
+  export default React.memo(component)
+
+1. 컴포넌트내의 서브컴포넌트를 useMemo으로 감싸기
+  const memoizedSubcomponent = useMemo(() => { return (
+    <div>Something</div>
+  )}, []) // Deps가 있다면 추가
+
+1. 컴포넌트내의 함수를 useCallback으로 감싸기
+  const onClick = useCallback(() => {
+    setState(state + 1);
+  }, [state, setState])
