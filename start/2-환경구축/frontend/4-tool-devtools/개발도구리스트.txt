@@ -5,16 +5,16 @@
 
 1. 개발 IDE
     VSCode : Java 외 코딩 툴
-    Pleiades Eclipse : Java 코딩 툴
+    # Pleiades Eclipse : Java 코딩 툴
 
 1. 커뮤니케이션 툴
     slack : 40분 제한, 원격제어, 화면 필터링
-    team : 회의실에 로그인 없이도 접속 가능
-    google meeting : google calendar와 연동 가능. 북마킹해두면 됨.
+    # team : 회의실에 로그인 없이도 접속 가능
+    # google meeting : google calendar와 연동 가능. 북마킹해두면 됨.
 
 1. 개발보조
-    winmerge : 소스 비교 (그냥 vscode에서 비교해도 됨)
     spectacle : 맥북 화면보조앱
+    # winmerge : 소스 비교 (그냥 vscode에서 비교해도 됨)
 
 1. 버전관리
     github, gitlab : 협업
