@@ -15,30 +15,55 @@ function getAPI() {
       parent.innerHTML = ""
 
       // DOM (Document Object Model) 조작하기 : DOM은 JS가 (HTML 문서를 조작하기 위해) HTML 문서를 객체화해서 document에 담은 것
-      for (let i = 0; i < movies.length; i++) {
+      // for (let i = 0; i < movies.length; i++) {
+      //   // 타이틀
+      //   let movieTitle = document.createElement("a")
+      //   movieTitle.setAttribute("class", "movieTitle")
+      //   movieTitle.innerHTML = movies[i].title
+      //   movieTitle.href = movies[i].url
+      //   parent.appendChild(movieTitle)
+
+      //   // 레이팅
+      //   let movieRating = document.createElement("div")
+      //   movies[i].rating >= 9
+      //     ? movieRating.setAttribute("class", "movieRatingGood")
+      //     : movies[i].rating >= 7
+      //     ? movieRating.setAttribute("class", "movieRatingSoso")
+      //     : movieRating.setAttribute("class", "movieRatingBad")
+      //   goodIcon = movies[i].rating >= 9 ? "💥" : ""
+      //   movieRating.innerHTML = `평점: ${movies[i].rating} / 10점 ${goodIcon}`
+      //   parent.appendChild(movieRating)
+
+      //   // 이미지
+      //   let movieImage = document.createElement("img")
+      //   movieImage.src = movies[i].medium_cover_image
+      //   parent.appendChild(movieImage)
+      // }
+
+      movies.forEach((item) => {
         // 타이틀
         let movieTitle = document.createElement("a")
         movieTitle.setAttribute("class", "movieTitle")
-        movieTitle.innerHTML = movies[i].title
-        movieTitle.href = movies[i].url
+        movieTitle.innerHTML = item.title
+        movieTitle.href = item.url
         parent.appendChild(movieTitle)
 
         // 레이팅
         let movieRating = document.createElement("div")
-        movies[i].rating >= 9
+        item.rating >= 9
           ? movieRating.setAttribute("class", "movieRatingGood")
-          : movies[i].rating >= 7
+          : item.rating >= 7
           ? movieRating.setAttribute("class", "movieRatingSoso")
           : movieRating.setAttribute("class", "movieRatingBad")
-        goodIcon = movies[i].rating >= 9 ? "💥" : ""
-        movieRating.innerHTML = `평점: ${movies[i].rating} / 10점 ${goodIcon}`
+        goodIcon = item.rating >= 9 ? "💥" : ""
+        movieRating.innerHTML = `평점: ${item.rating} / 10점 ${goodIcon}`
         parent.appendChild(movieRating)
 
         // 이미지
         let movieImage = document.createElement("img")
-        movieImage.src = movies[i].medium_cover_image
+        movieImage.src = item.medium_cover_image
         parent.appendChild(movieImage)
-      }
+      })
     })
 }
 
