@@ -1,0 +1,36 @@
+.movie {
+  display: flex;
+  color: gray;
+  border: 1px solid gray;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.movieDetail {
+  flex: 9;
+  margin: 0px 10px;
+}
+
+.movieDetail>.movieTitle {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  margin-bottom: 5px;
+}
+
+.movieImage {
+  flex: 1;
+  border: 1px solid gray;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.good {
+  color: blue;
+}
+
+.soso {
+  color: orange;
+}
+
+.bad {
+  color: red;
+}
