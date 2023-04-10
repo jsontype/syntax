@@ -1,0 +1,20 @@
+[Github Copilot 이용해서 코드 자동완성 기능 사용하기]
+
+1. 계정 등록
+  https://github.com/features/copilot 에 접속한 뒤, 결재 플랜 선택
+  계좌 정보 걸고 Free Trial 시작하기
+
+1. 설치 : Github Copilot
+  VSCode에서 Github Copilot 확장을 설치한다.
+  VSCode 좌측 하단 사용자 아이콘 클릭후 Github 계정을 연결
+
+1. 트러블슈팅 : Tabnine
+  Tabnine 등 Tab을 사용하는 확장과 충돌해서 안될 수도 있다.
+  이때는 Tabnine을 한번 삭제하고 Copilot이 작동한 시점에서 다시 Tabnine을 설치하면 된다.
+
+1. 테스트
+  function calculateBMI() {} 까지 치고 기다리면 AI가 자동완성해준다.
+
+1. 구독 변경
+  https://github.com/settings/copilot 에서 퍼블릭코드 사용 등 리소스 관련 설정 가능
+  https://github.com/settings/billing/spending_limit 에서 Add-ons쪽 항목에서 "연관청구로 전환, 캔슬" 등 페이관련 설정 가능
