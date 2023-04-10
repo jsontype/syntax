@@ -6,9 +6,11 @@ export default function Button () {
     alert('Button이 클릭되었습니다.')
   }
 
+  const isOpen = false
+
   return (
-    <div className={styles.btn} onClick={onClick}>
-      <button className='primary'>버튼</button>
+    <div className={`${styles.btn} ${styles.border}`} onClick={onClick}>
+      <button className="primary">버튼</button>
     </div>
   )
 }
