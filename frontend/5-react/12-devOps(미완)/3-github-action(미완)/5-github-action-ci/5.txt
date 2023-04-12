@@ -112,6 +112,7 @@
   Hello React! 문자열을 살짝 바꿔본다.
 
 1. feat/1 브랜치에 푸시
+  $ npm run format:fix
   $ git add .
   $ git commit -m "feat: change text"
   $ git push origin feat/1
@@ -119,4 +120,5 @@
 1. 테스트
   github 사이트에서 PR 날려보기 : https://github.com/jsontype/init
   깃허브 사이트에서 ci가 돌아가는지 확인
-  * 혹시 PR을 날렸는데 ci 테스트가 돌지 않는다면 ci.yml 파일 내의 push branches를 잘 확인해 볼 것 !
+  * 혹시 PR을 날렸는데 ci 테스트가 돌지 않는다면 
+    ci.yml 파일 내의 push branches가 main인지, master인지 잘 확인해 볼 것 !
