@@ -1,0 +1,27 @@
+[Draft로 WIP 관리하기]
+
+1. WIP 관리
+  WIP 관리에는 여러 가지 방법이 있다고 생각한다.
+  보통 코드를 병합하고 싶지 않을 때는 WIP를 붙이는 운용이 일반적이다.
+  그러나, WIP을 붙였다고 해도 잘못해서 병합해 버리거나 해 버리는 일이 있을지도 모른다.
+  그래서 현장에 따라서, Draft Pull Request를 사용하기도 한다.
+
+1. Draft Pull Request의 장점
+  Draft의 경우, Draft를 해제하지 않으면 관리자도 master 브랜치에 병합할 수 없기 때문에,
+  안전하게 Repository 운용을 할 수 있는 이점이 있다.
+  그래서 다음의 경우에 사용하면 좋다.
+  "아직 병합하지는 않지만 구현 한 코드를보고 싶을 때"
+
+1. Draft Pull Request 날리는 법
+  - Github에서 Pull Request 탭에 들어간다.
+  - Create pull request의 초록색 버튼 우측의 화살표를 클릭한다.
+  - Create draft pull request를 클릭하여 PR을 날린다.
+
+1. Draft 해제하는 법 : Draft PR은 Draft를 해제하지 않는 한 병합할 수 없다.
+  - Draft PR을 한 페이지로 들어간다.
+  - 페이지 하단의 Ready for Review를 클릭하면 Draft가 해제된다.
+
+1. Draft 설정하는 법
+  - Draft PR을 한 페이지로 들어간다.
+  - 우측 사이드바의 Reviewers 부분 밑에, Still in Progress? Convert to draft 문구를 찾는다.
+  - Convert to draft 텍스트 버튼을 눌러주면 Draft로 변경된다.
