@@ -1,0 +1,4 @@
+[Chrome 단축키]
+
+1. Chrome 브라우져
+  ctrl/cmd + shift + n : 시크릿 모드로 새 창 열기

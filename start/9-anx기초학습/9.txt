@@ -1,4 +1,4 @@
-[선행학습 점검]
+[기초학습 점검]
 
 ■　HTML, CSS , JAVASCRIPT 
   1. HTML기초 : https://www.inflearn.com/course/%EC%9E%85%EB%AC%B8%EC%9E%90-html-%EA%B8%B0%EC%B4%88%EA%B0%95%EC%9D%98#curriculum

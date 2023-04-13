@@ -1,2 +1,0 @@
-https://github.com/jsontype/syntax.git
-https://github.com/jsontype/syntax-sub.git
