@@ -1,4 +1,11 @@
-[Chrome 단축키]
+[Chrome 공통 단축키]
+* VSCode, 그 외 다른 프로그램에서도 동일하게 실행된다.
 
 1. Chrome 브라우져
   ctrl/cmd + shift + n : 시크릿 모드로 새 창 열기
+    시크릿 모드는 로컬에서 라이트하우스 돌릴 때 필수이다.
+    왜냐하면, 일반모드에서 하면 크롬 확장이랑 쿠키가 영향줄 수 있기 때문이다.
+  ctrl/cmd + n : 새 창 열기
+  ctrl/cmd + t : 새 탭 열기
+  ctrl/cmd + tab : 탭 이동
+  ctrl/cmd + w : 탭 닫기
