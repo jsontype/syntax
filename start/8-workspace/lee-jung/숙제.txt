@@ -1,0 +1,24 @@
+[숙제]
+
+1. 지메일에서 콜라보레이터 초대 승인
+1. https://github.com/jsontype/generalapp2 들어가서 클론 따기
+1. npm i
+
+1. git 설치하고, vscode 세팅
+1. 설치 방법
+    $ brew install git
+     
+    이메일 설정 : 최초의 경우, git 유저 정보 터미널에 입력
+    $ git config --global list
+    $ git config --global user.email "jsontyper@gmail.com"
+    $ git config --global user.name "jsontype"
+
+    첫 푸시 할때 아이디 / 비밀번호 입력하라고 뜨면, (소스트리는 무조건 뜸)
+    ID : jsontyper
+    PW : https://github.com/settings/tokens에서 admin으로 설정한 토큰키
+
+1. git pull origin master
+1. git checkout -b feat/1 ... 하위 브랜치를 따기
+1. 작업후 add, commit, push
+
+1. 풀리퀘스트 날리기

@@ -10,7 +10,7 @@
 */
 
 #sample {
-    height: 200px;
+  height: 200px;
     /* 기본값 : 익스플로러 포함(-ms 생략) */
     background: linear-gradient(right, black, white);
     /* 크롬, 사파리 */

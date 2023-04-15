@@ -1,0 +1,42 @@
+[git 맨 처음 설치하고 프로젝트에 PR을 날리기까지의 과정 - 초보자용]
+
+1. github 가입 : *(주의!) 메일은 gmail로 입력할 것
+
+1. 프로젝트에 참가한다.
+  리더가 프로젝트의 collaborators에 추가하면, gmail 확인해서 프로젝트 참가 승인을 누른다.
+
+1. 이하의 내용을 기억해둔다. 
+  usernamse
+  email
+
+1. vscode 터미널 git 등록한다.
+  $ git config --global user.name [username]
+  $ git config --global user.email [email]
+
+1. 토큰 키 취득 : github의 우측 유저 아이콘 클릭 -> settings -> Developer settings -> Personal access tokens -> Tokens (Classic) -> Generate new token -> Generate new token (Classic) -> note에 admin 쓰고, Expiration 만기일 없음으로 하고, select scope 다 클릭 -> generate token 버튼 누름 -> 토큰 키 복사해서 어딘가에 저장
+
+1. 참가할 github project의 clone을 딴다.
+  $ git clone [git 주소]
+
+1. 이슈를 확인하고, branch를 만든다.
+  $ git checkout master // 로컬 master 브랜치로 이동
+  $ git pull origin master // 최신 리모트 master 브랜치를 로컬 master 브랜치에 반영
+  $ git checkout -b feat/1 // 최신이 된 로컬 master 브랜치로부터, feat/1 브랜치를 생성
+  $ git branch // 현재 브랜치 위치 확인용
+
+1. 작업
+
+1. 테스트
+  $ npm i // 설치는 처음에만 하거나, 새로운 라이브러리 npm i ...로 설치된 변경사항이 있을 때 또 하거나
+  $ npm start
+
+1. 이상 없으면 add commit push를 한다.
+  $ git add .
+  $ git commit -m "feat: 작업내용"
+  $ git push origin feat/1
+
+1. push가 처음일 때는 username과 password를 등록해야 할 것이다.
+  username? : [github 가입할 때의 username]
+  password? : [토큰 키]
+
+1. github에 가서, pull request를 날린다.
