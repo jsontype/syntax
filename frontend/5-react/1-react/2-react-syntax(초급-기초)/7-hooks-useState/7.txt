@@ -27,11 +27,11 @@
     prevNumber는 임의로 정한 것이다. 다른 이름으로 해도 동작한다.
     useState 함수를 개발자가 정한 것으로, 함수형 업데이트를 하면 저렇게 파라미터를 넘겨줄 때 이전 값을 넣어주는 걸로 개발이 된 것이다.
     이는 콜백함수 개념을 차용한 것으로, setNumber 내부를 이해하기 쉽게 설명하면 다음과 같다.
-        let prevNumber = 0 // 이 녀석은 여기 존재하고 있다.
-        function setNumber(callback) {
-          prevNumber = callback(prevNumber) 
-          // === 기존에 존재하던 prevNumber라는 녀석을 파라미터로 하는 callback함수를 실행한 뒤, 그 리턴값을 prevNumber에 넣어라.
-        }
+      let prevNumber = 0 // 이 녀석은 여기 존재하고 있다.
+      function setNumber(callback) {
+        prevNumber = callback(prevNumber) 
+        // === 기존에 존재하던 prevNumber라는 녀석을 파라미터로 하는 callback함수를 실행한 뒤, 그 리턴값을 prevNumber에 넣어라.
+      }
     위를 이용해서 다음과 같은 결과가 만들어진다.
       setNumber(prevNumber => prevNumber + 1) 
         // === function (prevNumber) { return prevNumber + 1 }를 실행한 뒤, 그 리턴값을 파라미터로 해서 setNumber를 실행하라. 
@@ -72,9 +72,9 @@
     import Counter from './Counter'
 
     export default function App () {
-        return (
-            <Counter />
-        )
+      return (
+        <Counter />
+      )
     }
 
 
