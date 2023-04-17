@@ -1,6 +1,0 @@
-폴더명 / 할일 리스트
-
-1-next-이용해-mpa-라우팅하기(미완)
-	next.router 이용
-2-next-이용해-mpa-ssr만들기(미완)
-	next.getssp 함수 이용

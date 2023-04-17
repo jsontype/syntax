@@ -1,10 +1,8 @@
 [JSX 문법]
 
-1. 리액트 구조
-  src/assets/ : 정적파일폴더(추후 추가)
-  src/components/ : 부품파일폴더(버튼 등)(추후 추가)
-  src/pages/ : UI페이지폴더(추후 추가)
-  src/api/ : API폴더(추후 추가)
+1. React.js 구조
+  public/ : 정적파일폴더(html, 이미지, 영상, 음악 파일 모음)(추후 추가)
+  src/components/ : 컴포넌트폴더(버튼같은 부품 모음)(추후 추가)
   src/App.js : 메인페이지
   src/index.js : 메인페이지 윗 단계로, 앱에서 사용할 라이브러리들을 적용하는 곳이다.
     react-dom : 리액트와 돔을 연결한다.
