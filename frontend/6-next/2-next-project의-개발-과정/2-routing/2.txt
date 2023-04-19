@@ -1,0 +1,124 @@
+[라우팅 만들기]
+
+1. Next에서 라우팅 만들기 
+  Next에서는 리다이렉팅 소스코드 짤 필요 없다.
+  src/app 폴더 안에 폴더, 파일 하나 만들면 라우팅 끝이다.
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. src/app/layout.js 수정 : 헤더, 푸터 작성
+  import "./globals.css"
+  import Link from "next/link"
+
+  export const metadata = {
+    title: "넥스트JS 앱",
+    description: "넥스트JS 학습용 앱",
+  }
+
+  export default function RootLayout({ children }) {
+    return (
+      <html lang="en">
+        <head>
+          <title>넥스트JS</title>
+        </head>
+        <body>
+          <header>
+            <Link className="navItem" href="/">
+              홈
+            </Link>
+            <Link className="navItem" href="/list">
+              상품목록
+            </Link>
+          </header>
+          <content>{children}</content>
+          <footer>
+            <div>
+              Copyright © 모든 권리 보유. 이 웹사이트의 콘텐츠는 저작권법에 의해
+              보호됩니다. 무단 전재, 복사, 배포 금지.
+            </div>
+          </footer>
+        </body>
+      </html>
+    )
+  }
+  
+1. src/globals.css 수정 : 헤더, 푸터 스타일 설정
+  /* Global */
+  body {
+    margin: 20px;
+  }
+
+  header {
+    position: relative;
+  }
+
+  .navItem {
+    color: gray;
+    text-decoration: none;
+    margin-right: 10px;
+  }
+
+  .navItem:hover {
+    color: pink;
+  }
+
+  content {
+    margin: 20px;
+  }
+
+  footer {
+    position: relative;
+    top: 100px;
+  }
+
+1. src/app/page.js 수정 : 홈 화면 작성
+  import styles from "./page.module.css"
+
+  export default function Home() {
+    return (
+      <div>
+        <h2 className={styles.title}>홈 화면</h2>
+      </div>
+    )
+  }
+
+1. src/app/page.module.css 수정 : 홈 화면 스타일 설정
+  .title {
+    color: gray;
+  }
+
+1. src/app/list/page.js 생성 : 상품목록 화면 작성
+  import React from "react"
+  import styles from "./page.module.css"
+
+  export default function List() {
+    return (
+      <div>
+        <h2 className={styles.title}>상품목록</h2>
+        <div>
+          <div className={styles.item}>상품1 $40</div>
+          <div className={styles.item}>상품2 $40</div>
+        </div>
+      </div>
+    )
+  }
+
+1. src/app/list/page.module.css 생성 : 상품목록 화면 스타일 설정
+  .title {
+    color: gray;
+  }
+
+  .item {
+    color: gray;
+    font-size: 14px;
+  }
+
+  .item:hover {
+    color: pink;
+  }
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
+  http://localhost:3000/
+  메뉴를 각각 눌러서 라우팅이 잘 되는지 확인

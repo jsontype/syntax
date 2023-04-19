@@ -22,6 +22,7 @@
   XML 부분에 JS 변수나 함수 쓸 때는 {}으로 묶어서
   XML 부분에 class 대신 className으로 사용
   XML 부분에 부모 Tag는 하나만 가능 : div 쓰기 싫을 때는 fragment(<></>) 써도 된다.
+  XML 부분에 태그에 style을 넣을 때는 style={{ fontSize: '30px' }}과 같이 객체형으로 넣는다.
 
 1. 불필요 부분을, 연동까지 삭제
 

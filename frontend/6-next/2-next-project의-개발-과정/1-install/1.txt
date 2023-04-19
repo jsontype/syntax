@@ -50,20 +50,23 @@
 
   export default function Home() {
     return (
-      <div className={styles.main}>
-        <div>Hello World</div>
-      </div>
+      <>
+        <div className={styles.red}>Hello World</div>
+      </>
     )
   }
 
 1. src/app/page.module.css 수정
-  .main {
-    margin: 20px;
+  .red {
+    color: red;
   }
 
 1. src/app/global.css 수정
   /* Global */
-
+  body {
+    margin: 20px;
+  }
+  
 1. 테스트
   $ cd app1
   $ npm run dev
