@@ -5,12 +5,14 @@
 1. chrome 웹스토어 확장 설치 
 1. vscode 설치
 1. vscode 확장 설치 및 cwd 설정
-    ${fileDirname}
+  ${fileDirname}
 1. 다음 수순으로 : (nvm 또는 검색으로) node, git, devtools 설치
 1. logicool g hub
-1. microsoft store에서 powertoys 설치
-    alt + space : 맥의 spotlight와 같음
-        . : 프로그램 찾기
-        ! : 프로그램 찾아서 중지하기
-    windows + 백틱키 : 맥의 spectacle과 같음
-        단축키설정 : 화면분할 -> 설정 -> Fancy Zones -> 단축키와 프레임 지정 -> 쉬프트 누르고 윈도우창 이동하면 틀에 맞춰짐
+1. microsoft store에서 powertoys 설치 : 맥의 spotlight, spectacle 기능을 윈도우에서 쓸 수 있게 해줌
+  alt + space : 맥의 spotlight와 같음
+    . : 프로그램 찾기
+    ! : 프로그램 찾아서 중지하기
+  windows + shift + backtick키 : 화면분할 설정 화면
+    단축키 설정 : 화면분할 -> 설정 -> Fancy Zones -> 단축키와 프레임 지정
+    그리드 설정 : 새 레이아웃 -> 화면 클릭하면 분할 / 구분선 클릭한 상태로 Delete 키 누르면 삭제
+    사용하기 : 쉬프트 누르고 윈도우창 이동하면 틀에 맞춰짐
