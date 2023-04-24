@@ -9,3 +9,6 @@
   ctrl/cmd + t : 새 탭 열기
   ctrl/cmd + tab : 탭 이동
   ctrl/cmd + w : 탭 닫기
+
+1. Chromebook OS
+  ctrl + space : 한영키 전환

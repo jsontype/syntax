@@ -1,5 +1,6 @@
 import React from "react"
 import styles from "./page.module.css"
+import Title from "./Title"
 
 export default function List() {
   const items = [
@@ -19,6 +20,7 @@ export default function List() {
   return (
     <div>
       <h2 className={styles.title}>상품목록</h2>
+      <Title />
       <div>{render}</div>
     </div>
   )
