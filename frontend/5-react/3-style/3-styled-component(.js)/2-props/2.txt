@@ -1,4 +1,4 @@
-[styled-components로 button 만들어보기]
+[Styled-Components에서 Button 만들고 Props 전달하기]
 
 1. src/common/Button/index.js 생성
   import styled, { css } from "styled-components";
