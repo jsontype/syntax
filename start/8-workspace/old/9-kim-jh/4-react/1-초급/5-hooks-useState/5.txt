@@ -1,6 +1,0 @@
-[useState를 통해 state 변수의 바뀌는 값을 여러 컴포넌트에서 관리하기]
-
-1. Hooks : 리액트의 함수형 컴포넌트가 클래스형 컴포넌트의 기능을 사용할 수 있도록 해주는 기능이다. 2019년도 리액트 16.8버전 이후 도입되었다.    
-    Hooks가 도입되면서, 함수형 컴포넌트에서도 state나 life cycle method 작업이 가능해졌다.
-        state : 함수형 컴포넌트에서도 state 관리를 할 수 있는 useState를 제공한다.
-        life cycle method : 함수형 컴포넌트에서도 실행 시점을 설정할 수 있는 useEffect 등의 기능을 제공한다.

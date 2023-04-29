@@ -1,8 +1,0 @@
-{
-    "compilerOptions": {
-        "target": "es5", // es5 버전으로 ts -> js 컴파일
-        "module": "commonjs",
-        "strict": true,
-        "esModuleInterop": true
-    }
-}

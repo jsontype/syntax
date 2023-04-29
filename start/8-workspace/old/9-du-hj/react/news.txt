@@ -1,3 +1,0 @@
-API: https://api.hnpwa.com/v0/news.json
-
-api 취득 -> a 태그 타이틀 넣고, 클릭하면 해당 url 가기

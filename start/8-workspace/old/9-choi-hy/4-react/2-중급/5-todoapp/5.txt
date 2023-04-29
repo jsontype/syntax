@@ -1,5 +1,0 @@
-[Todo 앱 만들기 - CRUD 배열 다루기]
-
-1. 리액트 초기앱 복사해오기
-1. src/App.js 수정 : 
-  https://jsonplaceholder.typicode.com/todos 을 이용해 get을 가져온 상태에서 시작

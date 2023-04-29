@@ -1,9 +1,0 @@
-@import '../../styles/resources.scss';
-
-.btn .primary {
-    @include button-color(skyblue);
-}
-
-.btn .warning {
-    @include button-color(orange);
-}

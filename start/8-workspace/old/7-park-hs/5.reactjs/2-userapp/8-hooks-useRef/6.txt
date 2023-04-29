@@ -1,9 +1,0 @@
-[useRef로 특정 DOM 선택하기]
-
-1. 다음 코드를 삭제
-    src/Counter.js
-
-1. useRef는 document.querySelector와 같은 역할을 한다.
-    리액트를 사용하는 프로젝트에서도 가끔 특정 DOM 을 직접 선택해야 하는 상황이 발생 할 때가 있다. 
-    그럴 땐, 함수형 컴포넌트에서는 useRef 라는 것을 사용한다.
-

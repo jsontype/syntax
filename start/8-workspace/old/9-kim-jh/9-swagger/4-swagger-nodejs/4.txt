@@ -1,5 +1,0 @@
-[Node.js Swagger UI 패키지 사용 - 설치]
-
-1. Node.js Swagger UI 패키지 사용
-    설치형 Swagger(Node.js로 구동되는 서버 안에서 swagger를 이용하도록 설정)를 통해, 
-    API 명세를 직접 기입하지 않고 만들어줘서, 더 빠르게 개발할 수 있는 방법이다.

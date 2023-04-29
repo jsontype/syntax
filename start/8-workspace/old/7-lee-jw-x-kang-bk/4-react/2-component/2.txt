@@ -1,9 +1,0 @@
-[Component]
-
-1. SPA에서 리액트의 화면단위
-1. (함수형)컴포넌트는 JS 로직, HTML 리턴하는 부분으로 나뉜다.
-1. JSX 문법
-    1-1. <div class="container"> ===> <div className="container">
-    1-2. return하는 부모 태그는 하나여야한다.
-    1-3. JS 변수나 함수를 JSX 안에 사용할 때는 {}를 붙인다.
-    

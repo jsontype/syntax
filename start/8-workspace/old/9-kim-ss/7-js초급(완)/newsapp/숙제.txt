@@ -1,4 +1,0 @@
-https://api.hnpwa.com/v0/news.json
-
-앱 이름 : 뉴스리스트
-타이틀 클릭했을 때 뉴스 url로 이동

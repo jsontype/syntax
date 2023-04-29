@@ -1,8 +1,0 @@
-무비 앱 : 리액트 클론코딩
-https://yts.mx/api/v2/list_movies.json?sort_by=rating
-
-뉴스 앱 : 뉴스 제목을 클릭하면 뉴스 컨텐츠가 나오게, url이 아니라
-https://api.hnpwa.com/v0/news.json
-
-게시판 앱 : 게시물 목록이 나오고, 클릭하면 상세 게시물이 나오게
-https://jsonplaceholder.typicode.com/posts
