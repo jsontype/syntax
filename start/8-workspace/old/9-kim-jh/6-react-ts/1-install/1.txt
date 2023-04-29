@@ -1,8 +1,0 @@
-[react-typescript]
-
-1. 설치 * 처음에 깔고 시작
-    $ npx create-react-app app1 --template typescript
-
-1. 기존 react에 설치 * 잘 안씀
-    $ npm i --save typescript @types/node @types/react @types/react-dom @types/jest
-    *.js, *.jsx -> *.ts, *.tsx로 확장자변경
