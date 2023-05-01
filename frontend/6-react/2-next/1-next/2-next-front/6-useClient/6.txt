@@ -1,0 +1,50 @@
+[useState, onClick]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. use client
+  Next 앱에서 useState를 쓰려면 'use client' 명령어가 필요하다.
+  넥스트 앱에서는 컴포넌트를 만들면 기본적으로 Server 컴포넌트가 되기 때문이다.
+
+1. Server 컴포넌트 vs Client 컴포넌트
+  - Server 컴포넌트
+    Server 컴포넌트는 백엔드 부분으로, DB나 파일 시스템에 기반한 작업들을 주로 다룬다.
+  - Client 컴포넌트
+    넥스트 앱에서는 파일 맨 위에 'use client' 넣고 만들면 Client 컴포넌트가 된다.
+    넥스트가 아닌 리액트 앱에서는 'use client'가 없어도 기본적으로 Client 컴포넌트이다.
+
+1. ★★ Next 앱 내 Server 컴포넌트의 제약 : 훅스, 이벤트, 함수전달 불가
+  - useState, useEffect 등 "훅스"를 사용하지 않는다.
+  - onClick 같은 "이벤트"를 포함하지 않는다.
+  - props에 "함수"를 전달할 수 없다.
+
+1. src/app/components/Cart/index.js 수정 : use client를 상단에 추가하면서 Client 컴포넌트로 변경하기
+  "use client"
+
+  import React, { useState } from "react"
+
+  export default function Cart({ price }) {
+    const [count, setCount] = useState(0)
+
+    const onIncrease = () => {
+      setCount(count + 1)
+    }
+
+    const onDecrease = () => {
+      count > 0 && setCount(count - 1)
+    }
+
+    return (
+      <div>
+        <div>수량: {count}</div>
+        <div>가격: {count * price}</div>
+        <button onClick={onIncrease}>+</button>
+        <button onClick={onDecrease}>-</button>
+      </div>
+    )
+  }
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
+  http://localhost:3000/
