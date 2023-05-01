@@ -67,3 +67,48 @@
 1. 제출 후, 세금을 납부신청한다.
 1. 완료가 되면 프린터로 신고서 내용을 인쇄해둔다.
 1. 신고서와 신고의 증명서류들은 봉인하여 백색의 경우 5년, 청색의 경우 7년간 보관한다.
+
+
+
+[인보이스 제도 신청하기 : 23년 10월까지 신청 필요]
+
+1. 인보이스 발행하기 위한 등록 신청
+  신청 홈 : https://www.nta.go.jp/taxes/shiraberu/zeimokubetsu/shohi/keigenzeiritsu/invoice_shinei.htm
+  신청 방법 영상 : https://www.nta.go.jp/publication/webtaxtv/202110_a/webtaxtv_wn.html
+  인보이스 발행하기 위해서, e-tax (https://clientweb.e-tax.nta.go.jp/UF_WEB/WP000/FCSE00001/SE00S010SCR.do?shift=Invoice) 에서 등록을 한다.
+    https://www.nta.go.jp/taxes/shiraberu/zeimokubetsu/shohi/keigenzeiritsu/pdf/invoice_shinei08.pdf 매뉴얼을 보면서 하면 된다. 
+    * 모르면 0120-205-553 인보이스 콜센터에 전화를 건다.
+  사전에 준비가 필요한 것은 "PC와 마이넘버카드 연결하는 어댑터(기타 선), 전자 증명서(마이 넘버 카드 등), 이용자 식별 번호 (※e-Tax 신청 홈페이지 https://clientweb.e-tax.nta.go.jp/UF_WEB/WP000/FCSE00001/SE00S010SCR.do?shift=Invoice에 로그인 후, 신청한 뒤 얻을 수도 있다.)"이다.
+    이용자 식별 번호를 아는 방법 : https://www.e-tax.nta.go.jp/toiawase/qa/kanbenka/25.htm
+    여기서, 적격 청구서 발행 사업소의 등록 신청을 한다. https://www.nta.go.jp/taxes/tetsuzuki/shinsei/annai/hojin/annai/invoice_01.htm
+  인보이스 등록번호를 저장해둔다. (인보이스제 등록을 위해 에이젼시에 알려야함)
+
+2. 등록 통지서 받기
+  "2개월~3개월 이내"의 시간이 지난 후에, 세무서에 있어서의 심사를 거쳐, 적격 청구서 발행 사업자로서 등록될 것이다. 
+    "전자 데이터로 수신을 희망할까"의 질문이 표시되기 때문에, "희망한다"를 선택
+  나중에 (등록 번호나 공표 정보등이 기재되어 있는) "등록 통지서"를 메일을 통해 "전자 데이터"로 받도록 다음 절차를 따른다.
+    적격 청구서 발행 사업소의 등록 신청이 끝난다는 메일이 온다.
+    메일로 전자 데이터를 받도록 등록하는 방법 : https://www.nta.go.jp/taxes/shiraberu/zeimokubetsu/shohi/keigenzeiritsu/pdf/invoice_shinei15.pdf    
+    메일로 전자 데이터를 받도록 등록이 끝나면, 세무서로부터 등록 통지 데이터를 저장한 후 확인한다. 확인에 있어서는 아래 설명서를 참조한다. : https://www.nta.go.jp/taxes/shiraberu/zeimokubetsu/shohi/keigenzeiritsu/pdf/invoice_shinei16.pdf
+    "전자 데이터"를 받는다. 받으면 이를 구글 드라이브에 저장해둔다.
+
+3. 장점
+  인보이스 제도를 통해 세금을 절약할 수 있다. (?)
+  법적으로 필수적으로 진행해야하는 제도이다. (?)
+  이를 안하면, 소비세 등이 공제가 안되게 된다.
+
+
+
+[법인 설립: 株式会社 東華 / 株式会社東華ホールディングス]
+
+1. 법인 설립을 위한 준비 : 세리사를 사용할 것
+  https://www.freee.co.jp/kb/kb-launch/before-found-comparing/
+
+2. 법인명의 계좌 만들기 : 세리사를 사용할 것
+  시간이 좀 걸림
+
+3. 계약 연장할 때, 인보이스 제도 법인 명의로 계약 변경하기
+  선행으로 법인명의 계좌가 있어야함
+
+4. 법인을 통한 세금 절약법을 세리사에게 물어보고 맡기기
+  구체적으로 어떻게 세금을 절약할 수 있는지 연수입 말하면서 묻기

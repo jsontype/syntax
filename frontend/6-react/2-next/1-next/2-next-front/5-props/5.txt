@@ -1,0 +1,44 @@
+[component]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. src/components/Cart/index.js 생성 : 새 컴포넌트 만들기
+  import React from "react"
+
+  export default function Card({ price }) {
+    return <div>가격: {price}</div>
+  }
+
+1. src/app/list/page.js 수정 : 컴포넌트에 프롭 넘겨주면서 사용
+  import React from "react"
+  import styles from "./page.module.css"
+  import Cart from "components/Cart"
+
+  export default function List() {
+    const items = [
+      { id: 1, name: "토마토", price: 5 },
+      { id: 2, name: "파스타", price: 30 },
+      { id: 3, name: "코코넛", price: 7 },
+    ]
+
+    const render = items.map((item) => {
+      return (
+        <div key={item.id}>
+          {item.name} ${item.price}
+          <Cart price={price} />
+        </div>
+      )
+    })
+
+    return (
+      <div>
+        <h2 className={styles.title}>상품목록</h2>
+        <div>{render}</div>
+      </div>
+    )
+  }
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
+  http://localhost:3000/
