@@ -1,5 +1,5 @@
 import styles from "./page.module.css"
-import { connectDB } from "../../util/database"
+import { connectDB } from "./api/connectDB"
 
 export default async function Home() {
   // db명 : "db1"

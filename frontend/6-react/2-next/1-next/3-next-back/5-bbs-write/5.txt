@@ -1,0 +1,164 @@
+[MongoDB 글쓰기 API 작성하기]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. 3 Tier Achitecture
+  유저가 DB에 글을 저장하고 싶을 때 바로 저장시키면 무엇을 넣을 지 모르기 때문에 위험하다. 
+  중간 프로그램으로 글을 전송해서 검사를 받게 한 다음 이상이 없으면 DB에 저장하는 식으로 저장한다.
+  이 중간 프로그램을 Server라고 한다.
+  이런 형식의 아키텍쳐를 3 Tier Architecture라고 한다.
+
+1. API란?
+  - 서버 개발자가 짜는 코드
+    "/abc GET : abc URL에서 GET 메소드을 요청하면 이런 일을 해주세요."
+    "/abc POST : abc URL에서 POST 메소드을 요청하면 이런 일을 해주세요."
+    "/def GET : def URL에서 GET 메소드을 요청하면 이런 일을 해주세요."
+    ...등등 /abc GET 과 같이 API URL과 요청 메소드를 합친 것을 API 라 한다.
+  - REST API에서의 메소드 종류
+    GET : 조회시
+    POST : 추가시
+    PUT : 수정시
+    DELETE : 삭제시
+
+1. Next에서 API 만드는 법 (예시)
+  export default function handler(req, res) {
+    if (req.method == "GET") {
+      res.status(200).json({ name: "안녕" })
+    }
+    if (req.method == "POST") {
+      res.status(200).json({ name: "바보" })
+    }
+  }
+
+1. Next에서 API를 부르는 방법 (예시)
+  - GET 요청의 경우
+    fetch("/api/abc")
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+  - POST 요청의 경우
+    - form 태그를 사용
+      쉬운 방법은 form 태그의 action="api/test" method="POST" 를 집어넣는 방법이 있다.
+      단, 여기서는 GET, POST 외 PUT, DELETE, PATCH 등의 메소드는 쓸 수 없다.
+    - fetch를 사용
+      fetch("/api/abc", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name: "안녕" }),
+      })
+        .then((res) => res.json())
+        .then((data) => console.log(data))
+    - axios를 사용
+      axios.post("/api/abc", { name: "안녕" }).then((result) => {
+        console.log(result.data)
+      })
+    
+1. src/app/bbs/write/page.js 생성 : 글쓰기 화면 작성
+  export default async function Write() {
+    return (
+      <div className="p-20">
+        <form action="/api/bbs/write" method="POST">
+          {/* _id는 자동저장이므로 보낼 필요 없음 */}
+          <input type="text" name="title" placeholder="글제목" />
+          <input type="text" name="content" placeholder="글내용" />
+          <button type="submit">전송</button>
+        </form>
+      </div>
+    )
+  }
+
+1. src/app/globals.css 수정 : 글쓰기 화면 스타일링
+  /* Global */
+  .list-bg {
+    background: rgb(249, 250, 255);
+    padding: 10px;
+  }
+  .list-item {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 5px;
+    box-shadow: rgb(224, 224, 224) 0px 2px 4px 0px;
+  }
+  .list-item h4 {
+    font-size: 20px;
+    font-weight: 800;
+    margin: 0;
+  }
+  .list-item p {
+    color: grey;
+    margin : 5px 0px;
+  }
+  .p-20 {
+    padding: 20px;
+  }
+  input {
+    box-sizing: border-box;
+    padding: 10px;
+    display: block;
+    margin-bottom: 10px;
+  }
+  button {
+    padding: 10px 15px;
+    background: lightgray;
+    border: none;
+    border-radius: 5px;
+  }
+
+1. src/pages/api/bbs/write.js 생성 : 글쓰기 API 작성
+  import { connectDB } from "@/app/api/connectDB"
+
+  export default async function handler(req, res) {
+    if (req.method == "POST") {
+      console.log(req.body)
+      if (req.body.title == "") {
+        return res.status(500).json("제목은 필수입니다.")
+      }
+      try {
+        const db = (await connectDB).db("db1")
+        await db.collection("bbs1").insertOne(req.body)
+        // return res.status(200).json("저장완료") // 이것도 가능하지만 아래처럼 하는게 더 좋다.
+        // return res.status(200).redirect("/bbs") // 이러면 리다이렉션도 해준다. 이것도 가능하지만 아래처럼 하는게 더 좋다. 
+        return res.redirect(302, "/bbs") // 이러면 리다이렉션이 더 빠르다. 이렇게 응답과 동시에 페이지 이동시키려면 302를 첫 인자로 넣어야한다. 
+      } catch (e) {
+        console.log(e)
+      }
+    }
+  }
+
+1. src/app/bbs/page.js 수정 : 글쓰기 페이지로 이동하는 버튼 추가
+  import { connectDB } from "@/app/api/connectDB"
+  // import Link from "next/link"
+  import Move from "./Move"
+
+  export default async function BBS() {
+    const db = (await connectDB).db("db1")
+    const result = await db.collection("bbs1").find().toArray()
+
+    const render = result.map((item) => {
+      return (
+        <div className="list-item" key={item._id}>
+          <h4>
+            제목: {item.title}{" "}
+            <Move url={`/bbs/detail/${item._id}`} title="자세히 보기" />
+          </h4>
+          <p>내용: {item.content}</p>
+        </div>
+      )
+    })
+
+    return (
+      <>
+        <div>
+          <Move url={`/bbs/write`} title="등록" />
+        </div>
+        <div className="list-bg">{render}</div>
+      </>
+    )
+  }
+
+1. 테스트 : * 주의점은 api쪽 수정은 서버를 껐다가 다시 켜야 적용된다는 것이다.
+  $ cd app1
+  $ npm run dev
+  http://localhost:3000/bbs/write
