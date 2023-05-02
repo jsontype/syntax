@@ -66,6 +66,8 @@
   body {
     margin: 20px;
   }
+
+1. src/app/api 삭제 : 불필요한 폴더 삭제
   
 1. 테스트
   $ cd app1

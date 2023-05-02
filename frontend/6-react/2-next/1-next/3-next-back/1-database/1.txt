@@ -16,6 +16,9 @@
   - 무관계형 데이터베이스
     MongoDB 등이 있다. (mongodb.com 가입시 무료용량제공)
     JSON 형태로 데이터를 저장한다. *(무관계형은 어떤 형태로든 가능)
+  
+  넥스트는 리액트의 풀스택 프레임워크로, 프론트엔드와 백엔드를 모두 개발할 수 있다.
+  기본적으로 서버 컴포넌트를 제공하므로써, 백엔드를 개발할 수 있다.
 
 1. MongoDB 웹호스팅 등록 : MongoDB를 로컬에 설치해도 되지만 서버의 유지를 위해 웹호스팅을 사용하겠다.
   mongodb.com 구글아이디로 가입 - 무료용량 선택
@@ -55,7 +58,7 @@
   해당 부분을 복사해서 아래 코드 작성할 때 url 변수 부분에 넣는다.
   (주의 : 이 프로젝트를 깃허브에 넣을 때는 코드 안에 비밀번호가 담기기 때문에 private 레포지토리에 넣어야 한다.)
 
-1. src/util/database.js 작성 : DB 연결하는 함수 "connectDB"를 export하는 server component 작성
+1. src/app/api/connectDB.js 생성 : DB 연결하는 함수 "connectDB"를 export하는 server component 작성
   import { MongoClient } from "mongodb"
   const url =
     "mongodb+srv://admin:2UBjZj82koinmYip@cluster0.coevunn.mongodb.net/test"
@@ -74,7 +77,7 @@
   
 1. src/app/page.js 수정 : mongodb 연결하는 server component 작성
   import styles from "./page.module.css"
-  import { connectDB } from "../../util/database"
+  import { connectDB } from "@/app/api/connectDB"
 
   export default async function Home() {
     // db명 : "db1"
