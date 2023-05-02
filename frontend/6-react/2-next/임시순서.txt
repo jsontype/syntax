@@ -1,8 +1,0 @@
-2-typescript-x-generalapp(루프)
-3-style
-4-router
-5-global-state(미완)
-6-api-async(미완)
-7-performance-tuning
-9-tdd
-10-library
