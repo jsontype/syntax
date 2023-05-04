@@ -1,0 +1,68 @@
+[IT 전문 용어]
+
+1. 설계 용어
+  Microservice : 많은 서버를 대동하여 많은 유저들에게 서비스를 제공
+  DDD : 도메인 주도 설계
+  TDD : 테스트 주도 개발
+  BDD : 행위 주도 개발
+  CI : 지속적인 통합
+  CD : 지속적인 배포
+  DevOps : 개발과 운영의 합성어
+  Agile : 애자일
+  Scrum : 스크럼
+  Kanban : 칸반
+  Lean : 리안
+  XP : 익스트림 프로그래밍
+  Pair Programming : 페어 프로그래밍
+  Mob Programming : 모브 프로그래밍
+  Refactoring : 리팩토링
+  Code Review : 코드 리뷰
+  Code Smell : 코드 스멜
+  Clean Code : 클린 코드
+  Clean Architecture : 클린 아키텍처
+  SOLID : 객체 지향 프로그래밍의 다섯 가지 설계 원칙
+  DRY : Don't Repeat Yourself
+  KISS : Keep It Simple, Stupid
+  YAGNI : You Aren't Gonna Need It
+  OOP : 객체 지향 프로그래밍
+  OOD : 객체 지향 설계
+  OOA : 객체 지향 분석
+
+2. 개발 용어
+  API : Application Programming Interface
+  REST : Representational State Transfer
+  SOAP : Simple Object Access Protocol
+  JSON : JavaScript Object Notation
+  XML : Extensible Markup Language
+  YAML : YAML Ain't Markup Language
+  ORM : Object Relational Mapping
+  ODM : Object Document Mapping
+  JWT : JSON Web Token
+  OAuth : Open Authorization
+  SSO : Single Sign On
+  SAML : Security Assertion Markup Language
+  LDAP : Lightweight Directory Access Protocol
+  CORS : Cross Origin Resource Sharing
+  SPA : Single Page Application
+  SSR : Server Side Rendering
+  CSR : Client Side Rendering
+  MPA : Multi Page Application
+  MVC : Model View Controller
+  MVVM : Model View ViewModel
+  MVP : Model View Presenter
+  MVW : Model View Whatever
+  IoC : Inversion of Control
+  DI : Dependency Injection
+  AOP : Aspect Oriented Programming
+  ORM : Object Relational Mapping
+  ODM : Object Document Mapping
+  MVP : Minimal Viable Product
+  MSA : Micro Service Architecture
+  SOA : Service Oriented Architecture
+  EDA : Event Driven Architecture
+  CQRS : Command Query Responsibility Segregation
+  BFF : Backend For Frontend
+  ETL : Extract Transform Load
+  EAI : Enterprise Application Integration
+  ESB : Enterprise Service Bus
+  EDA : Event Driven Architecture
