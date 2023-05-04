@@ -1,6 +1,6 @@
 import { MongoClient } from "mongodb"
 const url =
-  "mongodb+srv://admin:2UBjZj82koinmYip@cluster0.coevunn.mongodb.net/test"
+  "Next Back 용 url!"
 const options = { useNewUrlParser: true }
 let connectDB
 
