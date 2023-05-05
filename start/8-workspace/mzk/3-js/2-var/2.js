@@ -1,4 +1,4 @@
-// Variables
+// Let : aを1として宣言する (変更が出来る)
 let a = 1
 a = 2
 console.log(a)
@@ -10,7 +10,7 @@ console.log(b)
 let c = a + b
 console.log(c)
 
-// Const
+// Const : dを1として宣言する (変更ができない)
 const d = 1
 // d = 2 // error
 console.log(d)
