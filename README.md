@@ -1,25 +1,22 @@
-# 개발 메모
+## Syntax 마스터 브랜치 현황
 
-## Syntax 마스터 브랜치 현황  
     >>> 1. 데스크톱 : alienware
-    1. 데스크톱 : rgb 
+    1. 데스크톱 : rgb
     1. 맥북M1 : arm
     1. 맥북Intel : intel
     1. 랩톱 : fujitsu
     1. 미니랩톱 : onemix4
 
-
-
 ### Syntax 반복문구 리스트
+
     1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
     1. 사전준비 : init 앱을 가지고 온다.
     1. 테스트
         $ cd app1
         $ npm start
 
-
-
 ## API 리스트
+
     유저, 글, 앨범, 사진, 할일 등 종합
         API: https://jsonplaceholder.typicode.com/users
         API: https://jsonplaceholder.typicode.com/users/1
@@ -40,13 +37,14 @@
         API: https://fakestoreapi.com/products
         DOC: https://fakestoreapi.com/docs
 
-
-
 ## Github Markdown
+
 ```
 * [ ] 체크박스
 ```
-* [ ] 체크박스
+
+- [ ] 체크박스
+
 ```
 # H1
 ## H2
@@ -55,48 +53,69 @@
 ##### H5
 ###### H6
 ```
+
 # H1
+
 ## H2
+
 ### H3
+
 #### H4
+
 ##### H5
+
 ###### H6
+
 ```
 > 인용구
 >   > 인용구
 ```
+
 > 인용구
->   > 인용구
+>
+> > 인용구
+
 ```
 * 대항목
     * 중항목
         * 소항목
 ```
-* 대항목
-    * 중항목
-        * 소항목
+
+- 대항목
+  - 중항목
+    - 소항목
+
 ```
 수평선
 ***
 ```
+
 수평선
-***
+
+---
+
 ```
 https://google.com
 ```
+
 https://google.com
+
 ```
 *이탤릭체*
 **볼드체**
 ```
-*이탤릭체*
+
+_이탤릭체_
 **볼드체**
+
 ```
-2칸 이상 띄어서  
-줄바꿈하기  
+2칸 이상 띄어서
+줄바꿈하기
 ```
+
 2칸 이상 띄어서  
-줄바꿈하기  
+줄바꿈하기
+
 ```
 끝
 ```
