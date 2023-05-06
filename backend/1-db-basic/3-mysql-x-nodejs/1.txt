@@ -5,133 +5,115 @@
     $ npm i mysql
 
 1. mysql 설치 및 db 준비 (xampp 이용)
-    xampp에서 설치
-        xampp 설치 후 "관리자 권한으로 실행" 설정하고 작업표시줄에 고정
-            "관리자 권한으로 실행 설정방법" : 
-                아이콘을 마우스로 우클릭해서 속성을 클릭
-                "호환성" 탭에서 "관리자 권한으로 이 프로그램 실행"을 체크해주고 적용
-        xampp에서 apache, mysql의 좌측 x 버튼 눌러 설치
-        xampp에서 apache, mysql의 start 버튼 눌러 실행
-        xampp에서 mysql의 admin 버튼 눌러 실행
-        mysql admin에서 `db1` 데이터베이스 생성
-    xampp가 싫다면?
-        mysql 공식사이트에서 설치 후, (msi를 통해 설치하면 자동으로 환경변수에 설치됨) 
-        mysql cli를 통해서 `db1` 데이터베이스 생성
-        server 구동 app을 따로 만들고 실행 (app2 참조)
+  xampp에서 설치
+    xampp 설치 후 "관리자 권한으로 실행" 설정하고 작업표시줄에 고정
+      "관리자 권한으로 실행 설정방법" : 
+        아이콘을 마우스로 우클릭해서 속성을 클릭
+        "호환성" 탭에서 "관리자 권한으로 이 프로그램 실행"을 체크해주고 적용
+    xampp에서 apache, mysql의 좌측 x 버튼 눌러 설치
+    xampp에서 apache, mysql의 start 버튼 눌러 실행
+    xampp에서 mysql의 admin 버튼 눌러 실행
+    mysql admin에서 `db1` 데이터베이스 생성
+  xampp가 싫다면?
+    mysql 공식사이트에서 설치 후, (msi를 통해 설치하면 자동으로 환경변수에 설치됨) 
+    mysql cli를 통해서 `db1` 데이터베이스 생성
+    server 구동 app을 따로 만들고 실행 (app2 참조)
 
 1. mysql phpmyadmin에서 다음 sql 입력
-    -- 유저 테이블 생성
-    CREATE TABLE `user` (
-        `no` int(15) NOT NULL,
-        `id` char(15) NOT NULL,
-        `pw` char(255) NOT NULL,
-        `username` char(15) NOT NULL,
-        `nickname` char(15) NOT NULL,
-        `birth` char(8) NOT NULL,
-        `gender` char(6) NOT NULL,
-        `tel` char(15) NOT NULL,
-        `email` char(30) NOT NULL,
-        `addr` char(100) NOT NULL,
-        `regdate` date DEFAULT current_timestamp()
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+  -- 유저 테이블 생성
+  CREATE TABLE `user` (
+    `no` int(15) NOT NULL,
+    `id` char(15) NOT NULL,
+    `pw` char(255) NOT NULL,
+    `username` char(15) NOT NULL,
+    `nickname` char(15) NOT NULL,
+    `birth` char(8) NOT NULL,
+    `gender` char(6) NOT NULL,
+    `tel` char(15) NOT NULL,
+    `email` char(30) NOT NULL,
+    `addr` char(100) NOT NULL,
+    `regdate` date DEFAULT current_timestamp()
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
-    -- 덤프데이터 입력 
-    INSERT INTO `user` (`no`, `id`, `pw`, `username`, `nickname`, `birth`, `gender`, `tel`, `email`, `addr`, `regdate`) VALUES
-    (26, 'admin', '21232f297a57a5a743894a0e4a801fc3', '아즈마', '관리자', '19860226', '남자', '12341234', 'testtest@test.com', 'South Korea, Seoul', '2019-09-23'),
-    (34, 'testbrbr', '098f6bcd4621d373cade4e832627b4f6', 'test', '테스터', '', '남자', '', 'test@test.com', 'test&lt;br&gt;', '2019-09-23'),
-    (35, 'testbr', '453061fbb6190dc2a6be7ac8e7523fb5', '양동화', 'xss방어테스트&lt;br&gt;', '', '남자', '', 'test@test.com', '테스트&lt;br&gt;', '2019-09-25'),
-    (36, 'testbr1', '453061fbb6190dc2a6be7ac8e7523fb5', 'test명', 'test닉네임&lt;br&gt;', '', '남자', '', 'test@test.com', '테스트주소&lt;br&gt;', '2019-09-25');
+  -- 덤프데이터 입력 
+  INSERT INTO `user` (`no`, `id`, `pw`, `username`, `nickname`, `birth`, `gender`, `tel`, `email`, `addr`, `regdate`) VALUES
+  (26, 'admin', '21232f297a57a5a743894a0e4a801fc3', '아즈마', '관리자', '19860226', '남자', '12341234', 'testtest@test.com', 'South Korea, Seoul', '2019-09-23'),
+  (34, 'testbrbr', '098f6bcd4621d373cade4e832627b4f6', 'test', '테스터', '', '남자', '', 'test@test.com', 'test&lt;br&gt;', '2019-09-23'),
+  (35, 'testbr', '453061fbb6190dc2a6be7ac8e7523fb5', '양동화', 'xss방어테스트&lt;br&gt;', '', '남자', '', 'test@test.com', '테스트&lt;br&gt;', '2019-09-25'),
+  (36, 'testbr1', '453061fbb6190dc2a6be7ac8e7523fb5', 'test명', 'test닉네임&lt;br&gt;', '', '남자', '', 'test@test.com', '테스트주소&lt;br&gt;', '2019-09-25');
 
-    -- 덤프된 테이블의 인덱스 `user`
-    ALTER TABLE `user`
-    ADD PRIMARY KEY (`no`),
-    ADD UNIQUE KEY `id` (`id`);
+  -- 덤프된 테이블의 인덱스 `user`
+  ALTER TABLE `user`
+  ADD PRIMARY KEY (`no`),
+  ADD UNIQUE KEY `id` (`id`);
 
-    -- 덤프된 테이블의 AUTO_INCREMENT
-    ALTER TABLE `user`
-    MODIFY `no` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
-    COMMIT;
+  -- 덤프된 테이블의 AUTO_INCREMENT
+  ALTER TABLE `user`
+  MODIFY `no` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  COMMIT;
 
 
 
 1. src/main.js 생성
-    // 1. $ npm i mysql로 먼저 mysql을 앱 내에 설치해야한다.
+  const mysql = require("mysql") // mysql 모듈 로드
 
-    // 2. 먼저 DB 연동을 한다.
-    const mysql = require("mysql") // mysql 모듈 로드
-    const conn = {
-        // mysql 접속 설정
-        host: "127.0.0.1",
-        port: "3306",
-        user: "root",
-        password: "",
-        database: "db1",
-    }
+  const conn = {
+    // mysql 접속 설정
+    host: "127.0.0.1",
+    port: "3306",
+    user: "root",
+    password: "",
+    database: "db2",
+  }
 
-    // 3. 연동한 뒤, DB에 접속해서 DB를 조작한다.
-    let connection = mysql.createConnection(conn) // DB 커넥션 생성
-    connection.connect() // DB 접속
-    let table = "user" // DB의 table schema의 이름
-    let sql = "" // SQL문을 담을 변수 선언
-    let key = 9 // auto increment 적용된 primary key 값 (여기서는 no 컬럼에 넣을 값임)
+  const connection = mysql.createConnection(conn) // DB 커넥션 생성
+  connection.connect() // DB 접속
+  const table = "user" // DB의 table schema의 이름
+  let sql = "" // SQL문을 담을 변수 선언
+  let key = 9 // auto increment 적용된 primary key 값 (여기서는 no 컬럼에 넣을 값임)
 
-    // 삽입 : INSERT INTO [TABLE] VALUES (?, ?, ?)
-    sql = `INSERT INTO ${table} VALUES (${key}, 'test9', 'test1234', '김아무개', 'tester9', '00000101', '남자', '12341234', 'testtest@test.com', 'South Korea, Seoul', '2019-09-23')`
-    connection.query(sql, function (err, results, fields) {
-    // SQL문을 실행 : DB를 조작
-    if (err) {
-        console.log(err)
-    }
-    console.log(results)
-    })
+  // 삽입 : INSERT INTO [TABLE] VALUES (?, ?, ?)
+  // sql = `INSERT INTO ${table} VALUES (${key}, 'test9', 'test1234', '김아무개', 'tester9', '00000101', '남자', '12341234', 'testtest@test.com', 'South Korea, Seoul', current_timestamp())`
+  // connection.query(sql, function (err, results, fields) {
+  //   // SQL문을 실행 : DB를 조작
+  //   err ? console.log(err) : console.log(results) // 에러 또는 결과 처리
+  //   console.log(fields) // affectedRows, insertId, serverStatus, warningCount 등의 정보를 담고 있음
+  // })
 
-    // 수정 : UPDATE [TABLE] SET 컬럼 = 수정값1[, 컬럼2 = 수정값2 ...] WHERE [조건]
-    // let name = "헬로우"
-    // sql = `UPDATE ${table} SET username = ${name} WHERE no = ${key}`
-    // connection.query(sql, function (err, results, fields) {
-    //   // SQL문을 실행 : DB를 조작
-    //   if (err) {
-    //     console.log(err)
-    //   }
-    //   console.log(results)
-    // })
+  // 수정 : UPDATE [TABLE] SET 컬럼 = 수정값1[, 컬럼2 = 수정값2 ...] WHERE [조건]
+  // const updateName = "'헬로우'" // 수정할 값
+  // sql = `UPDATE ${table} SET username = ${updateName} WHERE no = ${key}`
+  // connection.query(sql, function (err, results) { // SQL문을 실행 : DB를 조작
+  //   err ? console.log(err) : console.log(results) // 에러 또는 결과 처리
+  // })
 
-    // 삭제 : DELETE FROM [TABLE] WHERE [조건]
-    // sql = `DELETE FROM ${table} WHERE no = ${key}`
-    // connection.query(sql, function (err, results, fields) {
-    //   // SQL문을 실행 : DB를 조작
-    //   if (err) {
-    //     console.log(err)
-    //   }
-    //   console.log(results)
-    // })
+  // 삭제 : DELETE FROM [TABLE] WHERE [조건]
+  // sql = `DELETE FROM ${table} WHERE no = ${key}`
+  // connection.query(sql, function (err, results) {
+  //   // SQL문을 실행 : DB를 조작
+  //   err ? console.log(err) : console.log(results) // 에러 또는 결과 처리
+  // })
 
-    // 전체 조회 : SELECT * FROM [TABLE]
-    sql = `SELECT * FROM ${table}`
-    connection.query(sql, function (err, results, fields) {
-    // SQL문을 실행 : DB를 조작
-    if (err) {
-        console.log(err)
-    }
-    console.log(results)
-    })
+  // 전체 조회 : SELECT * FROM [TABLE]
+  // sql = `SELECT * FROM ${table}`
+  // // SQL문을 실행 : DB를 조작
+  // connection.query(sql, function (err, results) {
+  //   err ? console.log(err) : console.log(results) // 에러 또는 결과 처리
+  // })
 
-    // 하나 조회 : SELECT * FROM [TABLE] WHERE [조건]
-    sql = `SELECT * FROM ${table} WHERE no = ${key}`
-    connection.query(sql, function (err, results, fields) {
-    // SQL문을 실행 : DB를 조작
-    if (err) {
-        console.log(err)
-    }
-    console.log(results)
-    })
+  // 하나 조회 : SELECT * FROM [TABLE] WHERE [조건]
+  sql = `SELECT * FROM ${table} WHERE no = ${key}`
+  // SQL문을 실행 : DB를 조작
+  connection.query(sql, function (err, results, fields) {
+    err ? console.log(err) : console.log(results) // 에러 또는 결과 처리
+  })
 
-    // 4. DB 접속 종료
-    connection.end()
+  // 4. DB 접속 종료
+  connection.end()
 
 
 
 1. 테스트
-    $ cd app1
-    $ node app
-    app 파일 내의 CRUD 로직을 하나씩 주석 풀면서, xampp의 mysql gui 상에서 db가 변경되는지 확인
+  $ cd app1
+  $ node app
+  app 파일 내의 CRUD 로직을 하나씩 주석 풀면서, xampp의 mysql gui 상에서 db가 변경되는지 확인

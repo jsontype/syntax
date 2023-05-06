@@ -7,8 +7,8 @@ import { connectDB } from "@/app/api/connectDB"
 export const authOptions = {
   providers: [
     GithubProvider({
-      clientId: "1de7686c8d5ee8fb7259",
-      clientSecret: "2f0f6080ec40d5d59b1bc70c504486e31e1adb9f",
+      clientId: "Next Back 용 secret!",
+      clientSecret: "Next Back 용 clientSecret!",
     }),
   ],
   secret: "admin",

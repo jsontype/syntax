@@ -1,6 +1,5 @@
 import { MongoClient } from "mongodb"
-const url =
-  "Next Back 용 url!"
+const url = process.env.NEXTAUTH_DB_URL
 const options = { useNewUrlParser: true }
 let connectDB
 

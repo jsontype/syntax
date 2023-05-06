@@ -1,0 +1,108 @@
+[댓글기능 만들기]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. src/app/bbs/detail/[id]/Comment.js 생성 : 댓글 컴포넌트 작성. CSR로 구현한다.
+  "use client"
+
+  import { useState, useEffect } from "react"
+
+  export default function Comment(props) {
+    const [data, setData] = useState([])
+
+    useEffect(() => {
+      fetch(`/api/comment/list?id=${props.parentsId}`)
+        .then((r) => r.json())
+        .then((result) => {
+          setData(result)
+        })
+    }, [])
+
+    return (
+      <div>
+        <div>댓글목록</div>
+        <div>
+          {data.length > 0
+            ? data.map((item, index) => <p key={index}>{item.content}</p>)
+            : "댓글없음"}
+        </div>
+
+        <form action="/api/comment/write" method="POST">
+          {/* _id는 자동저장이므로 보낼 필요 없음 */}
+          <input type="text" name="comment" placeholder="코멘트" />
+          <input type="hidden" name="parent" value={props.parentsId} />
+          <button type="submit">전송</button>
+        </form>
+      </div>
+    )
+  }
+
+1. src/app/bbs/detail/[id]/page.js 수정 : 댓글 컴포넌트를 임포트 후 붙이기
+  // DB상의 _id에는 단순 string 값이 아닌 _id: ObjectId('6450863eddd0d9ea6f2236c7')의 형태가 들어가기 때문에 ObjectId 클래스를 import 해서 써줘야 한다.
+  import { ObjectId } from "mongodb"
+  import { connectDB } from "@/app/api/connectDB"
+  import Comment from "./Comment.js"
+
+  export default async function Detail(props) {
+    const db = (await connectDB).db("db1")
+    // props.params = 유저가 주소창에 localhost:3000/detail 뒤에 입력한 값
+    const result = await db
+      .collection("bbs1")
+      // ObjectId 클래스를 사용해서 _id 객체를 생성: '6450863eddd0d9ea6f2236c7'를 ObjectId('6450863eddd0d9ea6f2236c7') 의 형태로 변환
+      .findOne({ _id: new ObjectId(props.params.id) })
+
+    return (
+      <div>
+        <h4>상세페이지</h4>
+        <h4>{result.title}</h4>
+        <p>{result.content}</p>
+        <Comment parentsId={props.params.id} />
+      </div>
+    )
+  }
+
+1. src/app/pages/api/comment/write.js 생성 : 댓글 쓰기 API 작성
+  import { connectDB } from "@/app/api/connectDB"
+  import { ObjectId } from "mongodb"
+  import { getServerSession } from "next-auth"
+  import { authOptions } from "../auth/[...nextauth]"
+
+  export default async function handler(req, res) {
+    const session = await getServerSession(req, res, authOptions)
+
+    if (req.method == "POST") {
+      req.body = JSON.parse(JSON.stringify(req.body))
+      const data = {
+        content: req.body.comment,
+        parent: req.body.parent,
+        writer: session.user.email,
+      }
+      const db = (await connectDB).db("db1")
+      await db.collection("comment1").insertOne(data)
+      res.status(200).json("저장완료")
+    }
+  }
+
+1. src/app/pages/api/comment/list.js 생성 : 댓글 조회 API 작성
+  import { connectDB } from "@/app/api/connectDB"
+
+  export default async function handler(req, res) {
+    const db = (await connectDB).db("db1")
+    const result = await db
+      .collection("comment1")
+      .find({ parent: req.query.id })
+      .toArray()
+    console.log("result: ", result)
+    res.status(200).json(result)
+  }
+
+
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
+  http://localhost:3000/bbs
+  로그인 한다.
+  글을 몇개 등록한 뒤, 각 글의 상세페이지에 들어간다.
+  댓글 인풋창에 코멘트를 입력하고 댓글전송 버튼을 누른다. 각 글마다 이를 반복한다.
+  각 글에 해당하는 댓글들이 보이는 지 확인한다.
