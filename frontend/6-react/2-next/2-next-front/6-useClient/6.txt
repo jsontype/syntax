@@ -8,15 +8,27 @@
 
 1. Server 컴포넌트 vs Client 컴포넌트
   - Server 컴포넌트
-    Server 컴포넌트는 백엔드 부분으로, DB나 파일 시스템에 기반한 작업들을 주로 다룬다.
+    Next의 기본값이다.
+    SSR(Server Side Rendering)을 하는 컴포넌트이다.
+    Server 컴포넌트는 Server에 직접 접근하는 프론트엔드이거나, 순수한 백엔드 부분으로, DB나 파일 시스템에 기반한 작업들을 주로 다룬다.
   - Client 컴포넌트
-    넥스트 앱에서는 파일 맨 위에 'use client' 넣고 만들면 Client 컴포넌트가 된다.
+    React는 기본값이며,
+    Next에서는 파일 상단에 'use client' 넣어야 Client 컴포넌트로 바뀐다.
+    CSR(Client Side Rendering)을 하는 컴포넌트이다.
+    브라우저에서 html 생성, 수정, 삭제를 해줄 수 있기 때문에
+    부드럽고 이쁜 사이트를 만들 수 있지만 검색노출(SEO)은 잘 안될 수 있다.
+    검색노출(SEO) 잘 안되어도 괜찮은 Atoms 단위의 컴포넌트에 주로 사용한다.
+    넥스트 앱에서는 파일 맨 위에 Client 컴포넌트가 된다.
     넥스트가 아닌 리액트 앱에서는 'use client'가 없어도 기본적으로 Client 컴포넌트이다.
 
 1. ★★ Next 앱 내 Server 컴포넌트의 제약 : 훅스, 이벤트, 함수전달 불가
   - useState, useEffect 등 "훅스"를 사용하지 않는다.
   - onClick 같은 "이벤트"를 포함하지 않는다.
   - props에 "함수"를 전달할 수 없다.
+
+  * 반대로 Client 컴포넌트들은 위의 기능들을 제약없이 사용해야 할 때, 
+    검색노출(SEO) 잘 안되어도 될 때,
+    등에 어울리는 Atoms 단위의 컴포넌트에 주로 사용한다.
 
 1. src/app/components/Cart/index.js 수정 : use client를 상단에 추가하면서 Client 컴포넌트로 변경하기
   "use client"

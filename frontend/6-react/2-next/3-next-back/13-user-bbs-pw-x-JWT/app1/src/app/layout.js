@@ -3,7 +3,7 @@ import Link from "next/link"
 import LoginBtn from "./LoginBtn.js"
 import LogoutBtn from "./LogoutBtn.js"
 import { getServerSession } from "next-auth"
-import { authOptions } from "@/pages/api/auth/[...NextAuth].js"
+import { authOptions } from "../pages/api/auth/[...NextAuth].js"
 
 export const metadata = {
   title: "Create Next App",

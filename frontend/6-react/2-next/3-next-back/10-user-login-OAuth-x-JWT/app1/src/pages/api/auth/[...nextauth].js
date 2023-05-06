@@ -6,13 +6,13 @@ export const authOptions = {
     // 1. 사용하고 싶은 OAuth 프로바이더를 여기에 추가한다.
     GithubProvider({
       // 2. Github에서 발급받은 ID
-      clientId: "1de7686c8d5ee8fb7259",
+      clientId: "Next Back 용 clientId!",
       // 3. Github에서 발급받은 Secret
-      clientSecret: "2f0f6080ec40d5d59b1bc70c504486e31e1adb9f",
+      clientSecret: "Next Back 용 clientSecret!",
     }),
   ],
   // 4. JWT 생성시 쓰는 암호로, 일단 아무거나 적어둔다.
-  secret: "admin",
+  secret: "Next Back 용 secret!",
 }
 
 export default NextAuth(authOptions)

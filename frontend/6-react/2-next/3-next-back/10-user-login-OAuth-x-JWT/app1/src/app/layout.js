@@ -6,7 +6,7 @@ import LogoutBtn from "./LogoutBtn.js"
 // 7. getServerSession라는 NextAuth 함수를 임포트해 온다.
 import { getServerSession } from "next-auth"
 // 8. providers 배열이 들어있는 authOptions 객체를 getServerSession라는 NextAuth 함수에 넣어서 호출하면 세션 정보를 취득할 수 있다. (비동기이므로 await로 해야함)
-import { authOptions } from "@/pages/api/auth/[...NextAuth].js"
+import { authOptions } from "../pages/api/auth/[...NextAuth].js"
 
 export const metadata = {
   title: "Create Next App",

@@ -1,7 +1,0 @@
-[TypeScript type alias 사용하기]
-
-1. TypeScript type alias 사용하기
-  type alias은 특정 타입에 별칭을 붙이는 것이다. (그냥 type이라고도 한다.)
-  주로 객체에 타입 지정을 묶어서 해줄 때 사용한다.
-  interface는 클래스와 관련된 타입의 경우에 많이 사용하고,
-  type은 객체의 타입의 경우에 더 많이 사용한다.

@@ -9,8 +9,8 @@ export const authOptions = {
   providers: [
     // OAuth
     GithubProvider({
-      clientId: "1de7686c8d5ee8fb7259",
-      clientSecret: "2f0f6080ec40d5d59b1bc70c504486e31e1adb9f",
+      clientId: "Next Back 용 clientId!",
+      clientSecret: "Next Back 용 clientSecret!",
     }),
 
     // PW + JWT Token
@@ -69,7 +69,7 @@ export const authOptions = {
   },
 
   adapter: MongoDBAdapter(connectDB),
-  secret: "67PEV-BYMWT-37NTR",
+  secret: "Next Back 용 secret!",
 }
 
 export default NextAuth(authOptions)
