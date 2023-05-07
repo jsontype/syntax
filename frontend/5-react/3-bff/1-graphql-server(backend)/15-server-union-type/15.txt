@@ -1,0 +1,33 @@
+[Union 타입]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. Union 타입
+  하나의 필드에 여러개를 타입을 사용할 때 쓴다.
+  버티컬 바(|)를 사용해서 여러 타입을 선언할 수 있다.
+
+
+
+1. typedefs-resolvers/givens.js 생성
+1. typedefs-resolvers/_queries.js 수정
+1. index.js 수정
+
+
+
+
+1. 테스트
+  $ cd app1
+  $ npm start
+  http://localhost:4000/ 접속 : GraphQL Playground가 열린다.
+  GraphQL Playground 사용 : 좌측에 다음 쿼리를 넣고 Run을 클릭
+    query {
+      equipmentAdvs {
+        id
+        used_by
+        count
+        use_rate
+        is_new
+        users
+      }
+    }
+  equipmentAdvs 데이터안에 50% 확률로 users 배열이 추가되어 있고, 그 안에 20% 확률로 개발자가 들어간 상태인지 확인한다.

@@ -1,0 +1,51 @@
+[Interface 타입을 People 쿼리에 적용]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. typedefs-resolvers/people.js 생성 : People 쿼리에 적용
+1. typedefs-resolvers/_queries.js 수정
+1. index.js 수정
+
+
+
+1. 테스트
+  $ cd app1
+  $ npm start
+  http://localhost:4000/ 접속 : GraphQL Playground가 열린다.
+  GraphQL Playground 사용 : 좌측에 다음 쿼리를 넣고 Run을 클릭
+    query {
+      people {
+        id
+        first_name
+        last_name
+        givens {
+            __typename
+          ... on Equipment {
+            id
+            used_by
+            count
+            new_or_used
+          }
+          ... on Supply {
+            id
+            team
+          }
+        }
+        tools {
+          __typename
+          ... on Equipment {
+            id
+            used_by
+            count
+            new_or_used
+          }
+          ... on Software {
+            id
+            used_by
+            description
+            developed_by
+          }
+        }
+      }
+    }
+  equipmentAdvs 데이터안에 50% 확률로 users 배열이 추가되어 있고, 그 안에 20% 확률로 개발자가 들어간 상태인지 확인한다.
