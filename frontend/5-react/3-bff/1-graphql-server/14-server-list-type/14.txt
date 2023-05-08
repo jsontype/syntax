@@ -23,8 +23,8 @@
       users: [..., null] ❌
 
 
-      
-1. typedefs-resolvers/equipment.js 수정 : EquipmentAdv 타입에 "users: [String!]"을 추가하고, resolevers 객체에도 쿼리 부분에 equipmentAdvs 부분의 처리를 바꿔준다.
+
+1. typedefs-resolvers/equipment.js 수정 : EquipmentAdv 쿼리에 "users: [String!]"을 추가하고, resolevers 객체에도 쿼리 부분에 equipmentAdvs 부분의 처리를 바꿔준다.
   const { gql } = require("apollo-server")
   const dbWorks = require("../dbWorks")
 

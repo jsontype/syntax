@@ -1,12 +1,19 @@
 const { gql } = require("apollo-server")
 const dbWorks = require("../dbWorks")
 
+// implements Tool 명령어를 통해 Tool 인터페이스를 적용한다.
 const typeDefs = gql`
-  type Equipment {
-    id: String
+  type Equipment implements Tool {
+    id: ID!
     used_by: Role!
     count: Int
     new_or_used: NewOrUsed!
+  }
+  type Software implements Tool {
+    id: ID!
+    used_by: Role!
+    developed_by: String!
+    description: String
   }
   type EquipmentAdv {
     id: ID!

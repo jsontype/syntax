@@ -38,9 +38,9 @@
   
   GraphQL 사용의 예시
     - 팀 전체 조회
-      query {
-        teams {
-          id
+      query { : 쿼리이다. REST API로 치면 "GET"이다.
+        teams { : "teams 쿼리"이다. (teams 쿼리 객체에는 해당 쿼리를 날렸을 때의 반환될 필드들을 지정한다)
+          id : "id등"은 필드이다.
           manager
           office
           extension_number
@@ -51,7 +51,7 @@
       }
     - 팀 하나 조회
       query {
-        team(id: 1) {
+        team(id: 1) { : "id: 1"은 파라미터이다.
           manager
           office
           members {
@@ -61,15 +61,15 @@
         }
       }
     - 팀 추가
-      mutation {
-        postTeam (input: {
+      mutation { : 뮤테이션이다. REST API로 치면 "POST, PUT, PATCH, DELETE" 등이다.
+        postTeam (input: { : 인풋값의 타입이다. 뮤테이션의 파라미터가 된다.
           manager: "John Smith"
           office: "104B"
           extension_number: "#9982"
           mascot: "Dragon"
           cleaning_duty: "Monday"
           project: "Lordaeron"
-        }) {
+        }) { : 리턴값의 타입이다.
           manager
           office
           extension_number
@@ -80,7 +80,7 @@
       }
     - 팀 수정
       mutation {
-        editTeam(id: 2, input: {
+        editTeam(id: 2, input: { : "id: 2"는 뮤테이션의 또다른 파라미터가 된다.
           manager: "Maruchi Han"
           office: "105A"
           extension_number: "2315"

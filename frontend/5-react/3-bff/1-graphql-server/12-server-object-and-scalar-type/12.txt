@@ -116,7 +116,7 @@
 
 
 
-1. typedefs-resolvers/_queries.js 수정 : "equipmentAdvs, softwares, software" 쿼리를 추가한다.
+1. typedefs-resolvers/_queries.js 수정 : "equipmentAdvs, softwares, software" 쿼리 타입을 추가한다.
   const { gql } = require("apollo-server")
 
   const typeDefs = gql`
@@ -180,7 +180,7 @@
       }
     }
   use_rate, is_new 항목이 추가된 equipments 목록이 표시되는지 확인
-  (참고: use_rate에 null이 있더라도 에러가 나지 않는 이유는 equipmentAdv 타입에서 use_rate에 null 허용을 했기 때문이다.)
+  (참고: use_rate에 null이 있더라도 에러가 나지 않는 이유는 equipmentAdv 쿼리에서 use_rate에 null 허용을 했기 때문이다.)
   GraphQL Playground 사용 : 좌측에 다음 쿼리를 넣고 Run을 클릭
     query {
       softwares {
