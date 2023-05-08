@@ -14,6 +14,7 @@ Object.keys(database).forEach((key) => {
     ...database[key],
     ...csvToJson.fieldDelimiter(",").getJsonFromCsv(`./data/${key}.csv`),
   ]
+  // 숫자인 항목은 타입을 Number로 변형
   if (database[key].length > 0) {
     const firstItem = database[key][0]
     Object.keys(firstItem).forEach((itemKey) => {
