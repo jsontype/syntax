@@ -135,4 +135,4 @@
   console.log('Hello Apollo Server')
 
 1. 테스트
-  $ npm run start
+  $ npm start
