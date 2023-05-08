@@ -186,6 +186,7 @@
       team: Int
     }
   `
+
   const resolvers = {
     Query: {
       supplies: (parent, args) => dbWorks.getSupplies(args)
@@ -230,7 +231,7 @@
 
 
 
-1. index.js 수정 : equipments와 supplies를 모듈화한 내용을 추가하기
+1. index.js 수정 : 모듈화된 equipments와 supplies의 각각의 typeDefs, resolevers를 루트모듈에 적용시킨다.
   const { ApolloServer } = require('apollo-server')
   const _ = require('lodash')
 

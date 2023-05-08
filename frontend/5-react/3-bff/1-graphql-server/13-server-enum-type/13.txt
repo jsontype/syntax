@@ -120,6 +120,8 @@
     }
   성공적으로 equipments, equipmentAdvs 목록이 각각 표시되는지 확인
 
+
+  
 1. 테스트 : enums 에러에 의해 실패하는 것을 테스트
   data/equipments.csv의 Role 항목 한개를 dev 로 변경해본다.
   서버를 한번 껐다 켠다.
