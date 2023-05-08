@@ -42,6 +42,8 @@ const typeDefs = gql`
 
     supplies(team: ID): [Supply]
     supply(id: ID!): Supply
+
+    givens: [Given]
   }
 `
 
