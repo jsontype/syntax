@@ -8,9 +8,138 @@
 
 
 
-1. typedefs-resolvers/tools.js 생성
-1. typedefs-resolvers/equipments.js 수정
-1. index.js 수정
+1. typedefs-resolvers/tools.js 생성 : Equipment와 Software가 공통적으로 가진 필드인 "id, used_by"를 이용해, "tools"라는 쿼리의 typeDefs, resolvers를 작성
+  const { gql } = require("apollo-server")
+
+  // 인터페이스 타입을 정의한다.
+  const typeDefs = gql`
+    interface Tool {
+      id: ID!
+      used_by: Role!
+    }
+  `
+
+  const resolvers = {
+    Tool: {
+      __resolveType(tool, context, info) {
+        if (tool.developed_by) {
+          return "Software"
+        }
+        if (tool.new_or_used) {
+          return "Equipment"
+        }
+        return null
+      },
+    },
+  }
+
+  module.exports = {
+    typeDefs: typeDefs,
+    resolvers: resolvers,
+  }
+
+
+
+1. typedefs-resolvers/equipments.js 수정 : typeDefs에 Equipment 쿼리의 타입 alias가 Tools를 상속받도록 수정하고, 같은 방식의 Software 쿼리의 타입 alias도 하나 추가
+  const { gql } = require("apollo-server")
+  const dbWorks = require("../dbWorks")
+
+  // implements Tool 명령어를 통해 Tool 인터페이스를 적용한다.
+  const typeDefs = gql`
+    type Equipment implements Tool {
+      id: ID!
+      used_by: Role!
+      count: Int
+      new_or_used: NewOrUsed!
+    }
+    type Software implements Tool {
+      id: ID!
+      used_by: Role!
+      developed_by: String!
+      description: String
+    }
+    type EquipmentAdv {
+      id: ID!
+      used_by: String!
+      count: Int!
+      use_rate: Float
+      is_new: Boolean!
+      users: [String!]
+    }
+  `
+
+  const resolvers = {
+    Query: {
+      equipments: (parent, args) => dbWorks.getEquipments(args),
+      equipmentAdvs: (parent, args) =>
+        dbWorks.getEquipments(args).map((equipment) => {
+          if (equipment.used_by === "developer") {
+            equipment.use_rate = Math.random().toFixed(2)
+          }
+          equipment.is_new = equipment.new_or_used === "new"
+          // 50% 확률로 equipmentAdvs 항목에 users 배열을 추가하고, 그 안에 20% 확률로 개발자를 넣는다.
+          if (Math.random() > 0.5) {
+            equipment.users = []
+            dbWorks.getPeople(args).forEach((person) => {
+              if (person.role === equipment.used_by && Math.random() < 0.2) {
+                equipment.users.push(person.last_name)
+              }
+            })
+          }
+          return equipment
+        }),
+    },
+
+    Mutation: {
+      deleteEquipment: (parent, args) => dbWorks.deleteItem("equipments", args),
+    },
+  }
+
+  module.exports = {
+    typeDefs: typeDefs,
+    resolvers: resolvers,
+  }
+
+
+
+1. index.js 수정 : 모듈화된 tools의 typeDefs, resolvers 추가
+  const { ApolloServer } = require("apollo-server")
+  const _ = require("lodash")
+
+  const queries = require("./typedefs-resolvers/_queries")
+  const mutations = require("./typedefs-resolvers/_mutations")
+  const enums = require("./typedefs-resolvers/_enums")
+  const equipments = require("./typedefs-resolvers/equipments")
+  const supplies = require("./typedefs-resolvers/supplies")
+  const softwares = require("./typedefs-resolvers/softwares")
+  const givens = require("./typedefs-resolvers/givens")
+  const tools = require("./typedefs-resolvers/tools")
+
+  const typeDefs = [
+    queries,
+    mutations,
+    enums,
+    equipments.typeDefs,
+    supplies.typeDefs,
+    softwares.typeDefs,
+    givens.typeDefs,
+    tools.typeDefs,
+  ]
+
+  const resolvers = [
+    equipments.resolvers,
+    supplies.resolvers,
+    softwares.resolvers,
+    givens.resolvers,
+    tools.resolvers,
+  ]
+
+  const server = new ApolloServer({ typeDefs, resolvers })
+
+  server.listen().then(({ url }) => {
+    console.log(`🚀  Server ready at ${url}`)
+  })
+
 
 
 1. 테스트
@@ -32,4 +161,4 @@
         developed_by
       }
     }
-  equipmentAdvs 데이터안에 50% 확률로 users 배열이 추가되어 있고, 그 안에 20% 확률로 개발자가 들어간 상태인지 확인한다.
+  각각 Tool 인터페이스를 적용하고도, equipments, softwares 데이터가 변함없이 이상없이 조회되는지 확인한다.
