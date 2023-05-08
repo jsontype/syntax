@@ -1,0 +1,63 @@
+[포스트 나머지 모두 추가하기]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. 포스트 나머지 모두 추가하기
+  이번 챕터에서 서버 앱을 모두 완성시키겠다.
+
+
+
+1. typedefs-resolvers/_queries.js 수정 : 나머지 get 메소드 모두 추가
+1. typedefs-resolvers/_mutations.js 수정 : 나머지 post 메소드 모두 추가
+1. typedefs-resolvers/teams.js 생성 : teams 쿼리 완성시키기 
+1. typedefs-resolvers/roles.js 생성 : roles 쿼리 완성시키기 
+1. typedefs-resolvers/supplies.js 수정 : supplies 쿼리 완성시키기 
+1. typedefs-resolvers/equipments.js 수정 : equipments 쿼리 완성시키기 
+1. typedefs-resolvers/softwares.js 수정 : softwares 쿼리 완성시키기 
+1. typedefs-resolvers/givens.js 수정 : givens 쿼리 완성시키기 
+1. typedefs-resolvers/tools.js 수정 : tools 쿼리 완성시키기 
+1. typedefs-resolvers/people.js 수정 : people 쿼리 완성시키기 
+
+
+
+1. 테스트
+  $ cd app1
+  $ npm start
+  http://localhost:4000/ 접속 : GraphQL Playground가 열린다.
+  GraphQL Playground 사용 : 좌측에 다음 쿼리를 넣고 Run을 클릭
+    mutation {
+      postPerson(input: {
+        first_name: "Hanna"
+        last_name: "Kim"
+        sex: female
+        blood_type: O
+        serve_years: 3
+        role: developer
+        team: 1
+        from: "Pusan"
+      }) {
+        id
+        first_name
+        last_name
+        sex
+        blood_type
+        role
+        team
+        from
+      }
+    }
+  GraphQL Playground 사용 : 좌측에 다음 쿼리를 넣고 Run을 클릭
+    query {
+      people {
+        id
+        first_name
+        last_name
+        sex
+        blood_type
+        serve_years
+        role
+        team
+        from
+      }
+    }
+  맨끝에 Hanna라는 사람이 제대로 추가되어 있는지 확인
