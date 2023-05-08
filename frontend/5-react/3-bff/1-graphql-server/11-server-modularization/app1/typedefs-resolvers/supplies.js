@@ -7,6 +7,7 @@ const typeDefs = gql`
     team: Int
   }
 `
+
 const resolvers = {
   Query: {
     supplies: (parent, args) => dbWorks.getSupplies(args)

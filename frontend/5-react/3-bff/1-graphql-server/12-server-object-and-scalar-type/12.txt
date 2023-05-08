@@ -43,7 +43,7 @@
 
 
 
-1. typedefs-resolvers/equipments.js 수정 : use_rate, is_new 두개의 필드를 추가한 EquipmentAdv 쿼리를 만들어두기
+1. typedefs-resolvers/equipments.js 수정 : use_rate, is_new 두개의 필드를 추가한 EquipmentAdv 쿼리를 만들어두기. Scalar 타입을 사용하기
   const { gql } = require("apollo-server")
   const dbWorks = require("../dbWorks")
 
@@ -89,7 +89,34 @@
 
 
 
-1. typedefs-resolvers/_queries.js 수정 : "equipmentAdvs: [EquipmentAdv]" 쿼리를 추가한다.
+1. typedefs-resolvers/softwares.js 생성: Softwares의 typeDefs와 resolvers 설정. Scalar 타입을 사용하기
+  const { gql } = require("apollo-server")
+  const dbWorks = require("../dbWorks.js")
+
+  const typeDefs = gql`
+    type Software {
+      id: ID!
+      used_by: Role!
+      developed_by: String!
+      description: String
+    }
+  `
+
+  const resolvers = {
+    Query: {
+      softwares: (parent, args) => dbWorks.getSoftwares(args),
+      software: (parent, args) => dbWorks.getSoftwares(args)[0],
+    },
+  }
+
+  module.exports = {
+    typeDefs: typeDefs,
+    resolvers: resolvers,
+  }
+
+
+
+1. typedefs-resolvers/_queries.js 수정 : "equipmentAdvs, softwares, software" 쿼리를 추가한다.
   const { gql } = require("apollo-server")
 
   const typeDefs = gql`
@@ -97,10 +124,44 @@
       equipments: [Equipment]
       supplies: [Supply]
       equipmentAdvs: [EquipmentAdv]
+      softwares: [Software]
+      software: Software
     }
   `
 
   module.exports = typeDefs
+
+
+
+1. index.js 수정 : 모듈화된 softwares의 typeDefs, resolevers를 루트모듈에 적용시킨다.
+  const { ApolloServer } = require('apollo-server')
+  const _ = require('lodash')
+
+  const queries = require('./typedefs-resolvers/_queries')
+  const mutations = require('./typedefs-resolvers/_mutations')
+  const equipments = require('./typedefs-resolvers/equipments')
+  const supplies = require('./typedefs-resolvers/supplies')
+  const softwares = require("./typedefs-resolvers/softwares")
+
+  const typeDefs = [
+    queries,
+    mutations,
+    equipments.typeDefs,
+    supplies.typeDefs,
+    softwares.typeDefs,
+  ]
+
+  const resolvers = [
+    equipments.resolvers,
+    supplies.resolvers,
+    softwares.resolvers,
+  ]
+
+  const server =  new ApolloServer({ typeDefs, resolvers })
+
+  server.listen().then(({url}) => {
+    console.log(`🚀  Server ready at ${url}`)
+  })
 
 
 
@@ -120,3 +181,13 @@
     }
   use_rate, is_new 항목이 추가된 equipments 목록이 표시되는지 확인
   (참고: use_rate에 null이 있더라도 에러가 나지 않는 이유는 equipmentAdv 타입에서 use_rate에 null 허용을 했기 때문이다.)
+  GraphQL Playground 사용 : 좌측에 다음 쿼리를 넣고 Run을 클릭
+    query {
+      softwares {
+        id
+        used_by
+        developed_by
+        description
+      }
+    }
+  softwares 목록이 표시되는지 확인
