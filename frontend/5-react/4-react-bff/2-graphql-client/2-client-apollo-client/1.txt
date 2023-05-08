@@ -1,1 +1,0 @@
-[Apollo Client : Apollo Server와 React를 연결하는 라이브러리]
