@@ -1,0 +1,29 @@
+[현장에서 자주 쓰는 약어]
+
+1. Git 관련 약어 리스트
+  - 머지를 요청할 때 씀
+    ★ WIP : Work In Progress. 머지를 요청하지 않는 PR의 제목에 씀. (주로 Pull Draft를 하고 거기에 함께 써둔다.)
+    RFC : Request For Comments.
+    TBR : To Be Reviewed.
+
+  - 머지 기한을 추가할 때 씀
+    EOD : End Of Day.
+    EOW : End Of Week.
+    EOM : End Of Message.
+
+  - 리뷰할 때 자신의 의견을 개진할 때 씀.
+    IMO : In my opinion. 
+    IMHO : In My Humble Opinion.
+    IMCO : In My Considered Opinion.
+    IME : In My Experience.
+    IIRC : If I Recall Correctly.
+    AFAIK : As Far As I Know.
+    FYA : For Your Action.
+    FYR : For Your Reference.
+    FYI : For Your Information.
+    ACK : Acknowledgement. 리뷰할 때 의견에 동의할 때 씀.
+    NACK : Negative Acknowledgement. 리뷰할 때 의견에 반대할 때 씀.
+    ★ LGTM : Looks Good To Me. PR 레뷰를 마치고 머지를 승인할 때 씀.
+  
+  - KPT 중 Try쪽을 보고할 때 씀
+    TIL : Today I Learned.

@@ -1,0 +1,24 @@
+[GCP 용어]
+
+1. GCP란?
+  전세계적인 서비스에 적합한 클라우드 컴퓨팅 아키텍쳐이다.
+  GCP의 구성은 Region과 Zone으로 구성되어있다.
+
+1. 영역(Zone)
+  하나의 독립적인 서버가 존재하는 위치(데이터 센터)
+  Zone : europe-west2-a, europe-west2-b, europe-west2-c
+
+1. 리전(Region)
+  3개의 영역(zone)을 묶어 놓은 것
+  리전 : europe-west2
+
+1. PoP
+  네트워크 상호간 또는 개별 네트워크에 대한 접속점 또는 접근점
+  전 세계에 24개의 리전이 존재한다.
+  서울에도 2020년 초에 3개의 zone이 위치한 region이 들어왔다. [asia-northeast3]가 서울 region.
+  
+1. GCP와 상호작용하는 4가지 방법
+  Cloud Platform Console : 웹 사용자 인터페이스
+  Cloud Shell 및 Cloud SDK : 명령줄 인터페이스
+  Cloud Console Mobile App : iOS및 Android
+  REST 기반 API : 커스텀 애플리케이션
