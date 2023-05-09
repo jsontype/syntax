@@ -86,15 +86,16 @@
 
 
 1. 그외 인스톨할 프로그램
-  nvm으로 node 설치 : 별도 문서 확인
-  chrome 설치 : 별도 문서 확인
+  - nvm으로 node 설치 : 별도 문서 확인
+  - vscode 설치 : 별도 문서 확인
+    vscode 확장 설치
+  - chrome 설치 : 별도 문서 확인
     chrome 확장 설치
     chrome 개인 계정 연동
-  vscode 설치 : 별도 문서 확인
-    vscode 확장 설치
-  docker 설치
-  sourcetree 설치
-  spectacle mac 또는 rectangle mac 설치 : rectangle은 화면끝으로 끌어서 정렬하는 기능도 됨
+  - rectangle mac 설치
+    spectacle mac도 있지만, rectangle은 화면끝으로 끌어서 정렬하는 기능도 되므로 더욱 추천한다.
+  - docker 설치
+  - sourcetree 설치
 
 
 

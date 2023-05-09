@@ -149,7 +149,8 @@ function plus1 (a, b) {
 }
 console.log('plus1(1, 2) ===>', plus1(1, 2))
 
-// ★ 즉시 호출된 함수 표현식(IIFE, Immediately-Invoked Function Expression) : 변수에 함수를 넣을 때는, 다음과 같이 함수명을 생략하고 사용할 수 있다.
+// ★ 즉시 호출된 함수 표현식(IIFE라고도 한다. = Immediately-Invoked Function Expression)
+// 변수에 함수를 넣을 때는, 다음과 같이 함수명을 생략하고 사용할 수 있다. 이를 IIFE라고 한다.
 const plus2 = function (a, b) { return a + b }
 console.log('plus2(1, 2) ===>', plus2(1, 2))
 

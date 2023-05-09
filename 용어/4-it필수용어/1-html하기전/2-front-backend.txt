@@ -1,0 +1,12 @@
+[Front-end, Back-end, Fullstack]
+
+1. Front-end Engineer
+    Client쪽 개발을 하는 사람이다. 화면의 마크업과 기능을 만들고 API를 호출해 받아온 데이터를 렌더링한다.
+
+1. Back-end Engineer
+    Server쪽 개발을 하는 사람이다. API를 작성해서 클라이언트에게 넘겨준다.
+
+* Full-stack Enginner
+    둘 다 하는 사람이지만 요새는 분업화가 잘 되어서, 과거의 낭만이 되어버린 추세.
+    좋은 개발자가 되려면 컴퓨터와 웹에 대해 모든 것을 이해해야하고, 결국 풀스택이 되어야한다.
+    그러므로 개발자라면 이를 목표로 하는 것이 좋다.
