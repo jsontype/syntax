@@ -1,6 +1,6 @@
 [VSCode 확장 리스트]
 
-1. 필수
+1. 필수사항
   "Korean"
     메뉴 한글확장
   "Tabnine"
@@ -41,7 +41,7 @@
   "Vue Language Features (Volar)"
     Vue3 에러표시 등 개발용 툴
 
-1. 그 외 선택사항
+1. 선택사항
   "DotENV"
     ENV 신택스
   "HTML CSS Support"
