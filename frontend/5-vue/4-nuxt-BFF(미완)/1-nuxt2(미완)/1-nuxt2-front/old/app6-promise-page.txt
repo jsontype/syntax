@@ -1,0 +1,297 @@
+[scss promise 페이지]
+
+
+
+### 1. 아래의 파일들에 해당하는 적절한 아이콘 이미지 찾아서 추가 ###
+assets/images/yoga.png // 요가 큰 이미지
+assets/images/kfood.png // 한국 음식 큰 이미지
+assets/images/sprout.png // 새싹, 또는 NEW 뱃지
+assets/images/avatar1.png // 남자 아바타
+assets/images/avatar2.png // 남자 아바타
+
+
+
+
+### 1. pages/promise.vue 생성 ###
+<template>
+    <div>
+        <Header></Header>
+        <ul class="promise">
+            <li>
+                <div class="promise__contents">
+                    <div class="promise__contents__title">
+                        당신이 초대한 이벤트
+                    </div>
+                    <div class="promise__contents__image">
+                        <img src="@/assets/images/yoga.png" width="100%" />
+                    </div>
+                    <div class="promise__contents__subtitle">
+                        <i class="icon icon--sprout" />
+                        <span class="promise__contents__subtitle__text">
+                            체형교정 스트레치
+                        </span>
+                    </div>
+                    <div class="promise__contents__badge">
+                        <span class="badge badge--green">
+                            피트니스
+                        </span>
+                    </div>
+                    <div class="promise__contents__date">
+                        0월 0일 18:30~20:00
+                    </div>
+                    <div class="promise__contents__comment">
+                        <div class="promise__contents__comment__avatars">
+                            <ul class="promise__contents__comment__avatars__list">
+                                <li>
+                                    <div class="promise__contents__avatars">
+                                        <div class="promise__contents__avatars__image">
+                                            <img src="@/assets/images/avatar1.png" width="35" height="34" />
+                                        </div>
+                                        <div class="promise__contents__avatars__text">
+                                            Smith
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="promise__contents__avatars">
+                                        <div class="promise__contents__avatars__image">
+                                            <img src="@/assets/images/avatar2.png" width="35" height="34" />
+                                        </div>
+                                        <div class="promise__contents__avatars__text">
+                                            Yang
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="promise__contents__comment__text">
+                            씨와 약속을 맺고 있습니다.
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="promise__contents">
+                    <div class="promise__contents__title">
+                        당신이 초대한 이벤트
+                    </div>
+                    <div class="promise__contents__image">
+                        <img src="@/assets/images/kfood.png" width="100%" />
+                    </div>
+                    <div class="promise__contents__subtitle">
+                        <i class="icon icon--sprout" />
+                        <span class="promise__contents__subtitle__text">
+                            한식 요리 교실
+                        </span>
+                    </div>
+                    <div class="promise__contents__badge">
+                        <span class="badge badge--yellow">
+                            쿠킹
+                        </span>
+                    </div>
+                    <div class="promise__contents__date">
+                        0월 0일 18:30~20:00
+                    </div>
+                    <div class="promise__contents__comment">
+                        <div class="promise__contents__comment__avatars">
+                            <ul class="promise__contents__comment__avatars__list">
+                                <li>
+                                    <div class="promise__contents__avatars">
+                                        <div class="promise__contents__avatars__image">
+                                            <img src="@/assets/images/avatar1.png" width="35" height="34" />
+                                        </div>
+                                        <div class="promise__contents__avatars__text">
+                                            Smith
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="promise__contents__avatars">
+                                        <div class="promise__contents__avatars__image">
+                                            <img src="@/assets/images/avatar2.png" width="35" height="34" />
+                                        </div>
+                                        <div class="promise__contents__avatars__text">
+                                            Yang
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="promise__contents__comment__text">
+                            씨와 약속을 맺고 있습니다.
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+        </ul>
+        <Footer></Footer>
+    </div>
+</template>
+
+<script>
+import Header from "@/components/Header"
+import Footer from "@/components/Footer"
+
+export default {
+    components: {
+        Header,
+        Footer,
+    }
+}
+</script>
+
+
+
+### 1. assets/scss/pages/promise/_module.scss 생성 ###
+.promise {
+    margin-top: 12px;
+
+    >li {
+        padding: 0 10px;
+
+        &:not(:first-child) {
+            margin-top: 26px;
+        }
+    }
+
+    &__contents {
+        &__title {
+            font-size: $font-size-2extra-large;
+        }
+
+        &__image {
+            margin-top: 16px;
+        }
+
+        &__subtitle {
+            display: flex;
+            align-items: center;
+
+            &__text {
+                font-size: $font-size-large;
+                color: $font-color-gray_strong;
+                letter-spacing: -0.333333px;
+            }
+        }
+
+        &__badge {
+            margin-top: 6px;
+        }
+
+        &__date {
+            margin-top: 10px;
+            color: $font-color-gray_strong;
+            font-size: $font-size-large;
+            padding-left: 20px;
+        }
+
+        &__comment {
+            display: flex;
+            margin-top: 4px;
+
+            &__avatars {
+                &__list {
+                    display: flex;
+
+                    >li {
+                        &:not(:first-child) {
+                            margin-left: 8px;
+                        }
+                    }
+                }
+            }
+
+            &__text {
+                padding-top: 10px;
+                color: $font-color-gray_strong;
+                font-size: $font-size-small;
+                letter-spacing: -0.333333px;
+                line-height: 13px;
+                font-family: Comfortaa;
+            }
+        }
+    }
+}
+
+
+
+### 1. assets/scss/components/_icon.scss 생성 ###
+.icon {
+    display: inline-block;
+    margin-right: 12px;
+
+    &--sprout {
+        width: 10px;
+        height: 14px;
+        background-image: url('@/assets/images/sprout.png');
+        background-size: 10px 14px;
+    }
+
+    &--heartOn {}
+
+    &--heartOff {}
+}
+
+
+
+### 1. assets/scss/common/_variables.scss 수정 ### : 추가
+$yellow: #FFCD1A;
+$green: #01B213;
+$sky: #1AC8FF;
+$purple: #D839F2;
+$blue: #0168D3;
+
+$background-color-yellow: $yellow;
+$background-color-green: $green;
+$background-color-sky: $sky;
+$background-color-purple: $purple;
+$background-color-blue: $blue;
+
+
+
+### 1. assets/scss/components/_badge.scss 생성 ###
+.badge {
+    display: inline-flex;
+    width: 64px;
+    height: 18px;
+    /* align-items: center; flex의 경우에는 작동안함 */
+    /* text-align: center; flex의 경우에는 작동안함 */
+    justify-content: center;
+    color: $font-color-white;
+    letter-spacing: 0.04em;
+    font-weight: 900;
+    line-height: 9px;
+    font-size: $font-size-xsmall;
+    border-radius: 6px;
+
+    &--green {
+        background-color: background-color-green;
+    }
+    &--yellow {
+        background-color: background-color-yellow;
+    }
+    &--sky {
+        background-color: background-color-sky;
+    }
+    &--purple {
+        background-color: background-color-purple;
+    }
+    &--blue {
+        background-color: background-color-blue;
+    }
+}
+
+
+
+### 1. assets/scss/application.scss 수정 ### : 추가
+@import "./components/icon";
+@import "./components/badge";
+
+@import "./pages/promise/module";
+
+
+
+1. npm run dev --fix으로 확인
+    http://localhost:3000/promise
