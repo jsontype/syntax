@@ -1,4 +1,0 @@
-[IoT]
-
-1. IoT : Internet of Things, 사물인터넷
-    인터넷과 사물을 결합하여 조작하는 시스템
