@@ -124,7 +124,7 @@
   Object.keys(database).forEach((key) => {
     database[key] = [
       ...database[key],
-      ...csvToJson.fieldDelimiter(",").getJsonFromCsv(`./data-in-csv/${key}.csv`),
+      ...csvToJson.fieldDelimiter(",").getJsonFromCsv(`./data/${key}.csv`),
     ]
     // 숫자인 항목은 타입을 Number로 변형
     if (database[key].length > 0) {

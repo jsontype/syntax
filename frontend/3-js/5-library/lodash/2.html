@@ -1,0 +1,57 @@
+<h1>콘솔로그 확인</h1>
+
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+
+<script>
+  const myFriend = [
+    { name: 'kys', job: 'developer', age: 27 },
+    { name: 'cys', job: 'webtoons man', age: 27 },
+    { name: 'yhs', job: 'florist', age: 26 },
+    { name: 'chj', job: 'nonghyup man', age: 27 },
+    { name: 'ghh', job: 'coffee man', age: 27 },
+    { name: 'ldh', job: 'kangaroo father', age: 27 },
+    { name: 'hsy', job: 'monk', age: 27 },
+  ];
+
+  // findIndex1 : 콜백함수를 통해 나이가 26인 객체가 처음으로 나오는 index 반환
+  const findIndex1 = _.findIndex(myFriend, (friend) => friend.age === 26);
+  console.log('findIndex1: ', findIndex1); // => 2
+  // findIndex2 : 처음 일치하는 object의 index 값을 반환
+  const findIndex2 = _.findIndex(myFriend, { name: 'cys', job: 'webtoons man', age: 27 });
+  console.log('findIndex2: ', findIndex2); // => 1
+  // findIndex3 : 나이가 26인 객체가 처음으로 나오는 index 반환
+  const findIndex3 = _.findIndex(myFriend, { age: 27 });
+  console.log('findIndex3: ', findIndex3); // => 0
+
+  // find1 : 콜백함수가 처음으로 참이되는 객체를 반환
+  const find1 = _.find(myFriend, (friend) => friend.age < 28);
+  console.log('find1: ', find1); // => { name: 'kys', job: 'developer', 'age': 27}
+
+  // filter1
+  const filter1 = _.filter(myFriend, { age: 27, job: 'nonghyup man' });
+  console.log('filter1: ', filter1); // => [{ name: 'yhs',job:'florist', age: 26}]
+  // filter2
+  const filter2 = _.filter(myFriend, friend => friend.age == 26); // => [{ name: 'yhs',job:'florist', age: 26}]
+  console.log('filter2: ', filter2); // => [{ name: 'yhs',job:'florist', age: 26}]
+
+  // map1
+  const map1 = _.map([1, 2], (n) => n * 3);
+  console.log('map1: ', map1); // => [3,6]
+  // map2
+  const map2 = _.map(myFriend, 'name'); // => ['kys','cys']
+  console.log('map2: ', map2); // => ['kys','cys']
+
+  // forEach1
+  console.log('forEach1: ');
+  const forEach1 = _.forEach([1, 2], (n) => { console.log(n) }); // => 1, 2
+
+  // includes1 : 배열에 값이 있는지 검색
+  const include1 = _.includes([1, 2, 3], 1);
+  console.log('include1: ', include1); // => true
+  // includes2 : 일치하는 값이 있는지 검색
+  const include2 = _.includes({ 'name': 'yhs', 'age': 26 }, 'yhs')
+  console.log('include2: ', include2); // => true
+  // includes3 : 일치하는 값이 문자열 안에 있는지 검색
+  const include3 = _.includes('dontknow', 'ont');
+  console.log('include3: ', include3); // => true
+</script>
