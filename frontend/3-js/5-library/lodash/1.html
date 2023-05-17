@@ -1,0 +1,40 @@
+<h1>콘솔로그 확인</h1>
+
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+
+<script>
+  // chunk : 배열을 두개로 쪼갠다.
+  const chunk = _.chunk(['a', 'b', 'c', 'd'], 3);
+  console.log('chunk: ', chunk) // => [['a', 'b', 'c'], ['d']]
+
+  // concat : 합집합
+  const concatArr = [1];
+  const concat = _.concat(concatArr, 2, [3], [[4]])
+  console.log('concat: ', concat) // => [1, 2, 3, [4]]
+
+  // difference : 차집합
+  const difference = _.difference([2, 1], [2, 3])
+  console.log('difference: ', difference) // => [1]
+
+  // intersection : 교집합
+  const intersection = _.intersection([2, 1], [2, 3]);
+  console.log('intersection: ', intersection) // => [2]
+
+  // cloneDeep : 깊은 복사
+  const obj1 = { a: 1, b: 2, c: 3 };
+  const obj2 = _.cloneDeep(obj1);
+  obj1.a = 999;
+  console.log('cloneDeep: ', obj1.a === obj2.a); // => false
+
+  // isEmpty : 주소참조변수(객체, 배열)의 falsey 체크
+  console.log(_.isEmpty(1)); // => true
+  console.log(_.isEmpty([])); // => true
+  console.log(_.isEmpty({})); // => true
+  console.log(_.isEmpty(null)); // => true
+  console.log(_.isEmpty(true)); // => true
+  console.log(_.isEmpty({ 'a': '' })); // => false
+  console.log(_.isEmpty({ 'a': 1 })); // => false
+  console.log(_.isEmpty([1, 2, 3])); // => false
+  console.log(_.isEmpty([null])); // => false
+  console.log(_.isEmpty([{}])); // => false
+</script>
