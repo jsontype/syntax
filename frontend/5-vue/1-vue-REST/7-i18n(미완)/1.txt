@@ -1,8 +1,16 @@
-[]
+[i18n 설치 : 다국어 대응 라이브러리]
+참조URL: https://kang-ji.tistory.com/entry/vuejs에서-다국어지원처리vuejs에서-다국어지원처리
 
 1. 사전준비 : init 앱을 가지고 온다.
   이번 챕터에서는 vue2 init 앱으로 진행한다.
 
 1. 설치
-  $ npm i i18n react-i18next i18next --save
+  npm install vue-i18n@8 // vue 2.X, 이번에는 이것으로 설치하게 된다.
+  npm install vue-i18n@9 // vue 3.X
+
+1. src/locales/ko.json 생성 : 
+1. src/locales/en.json 생성 : 
+1. src/locales/i18n.js 생성 : 
+1. main.js 생성 :
+1. component.vue 생성 : 이때 태그내에 <em>,<b>,<br> 등의 style요소를 주기위한 태그들이 들어갈 경우 v-html을 사용하여 적용시켜준다.
 
