@@ -43,8 +43,8 @@
 
 ## Github Markdown
 
-* [x] 체크박스 Checked
-* [ ] 체크박스 Unchecked
+- [x] 체크박스 Checked
+- [ ] 체크박스 Unchecked
 
 # H1
 
