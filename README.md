@@ -42,6 +42,8 @@
     API: https://fakestoreapi.com/products  
     DOC: https://fakestoreapi.com/docs  
 
+---
+
 # H1 대주제
 ## H2 중주제
 ### H3 소주제
@@ -56,8 +58,6 @@
 > > 
 > > > 소인용구
 > > >
-    
----
 
 * [x] 체크박스 Checked
 * [ ] 체크박스 Unchecked
