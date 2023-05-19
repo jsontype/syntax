@@ -1,20 +1,19 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import NewsView from "../views/NewsView.vue";
-import AskView from "../views/AskView.vue";
+import Vue from "vue"
+import VueRouter from "vue-router"
+import NewsView from "../views/NewsView.vue"
+import AskView from "../views/AskView.vue"
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
 export default new VueRouter({
-    mode: 'history',
-    routes: [
-        {
-            path: '/news',
-            component: NewsView
-        },
-        {
-            path: '/ask',
-            component: AskView
-        }
-    ]
+  routes: [
+    {
+      path: "/news",
+      component: NewsView,
+    },
+    {
+      path: "/ask",
+      component: AskView,
+    },
+  ],
 })

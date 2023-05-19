@@ -6,12 +6,6 @@
     기본 cmd 명령어를 익혀두자. https://library1008.tistory.com/42
   * vue cli 공식문서 확인 : cli.vuejs.org 접속 - get started - installation의 설치 cmd 명령어를 확인
 
-
-
-1. node.js 설치
-  nodejs.org/ko 접속 - 안정적, 신뢰도 높은 LTS버전 다운로드
-  $ npm -v
-
 1. vue cli 설치
   $ npm install -g @vue/cli
   $ vue.cmd --version
@@ -19,224 +13,191 @@
 1. vue 앱 생성
   $ vue.cmd create app1 : app1은 앱이름이자 폴더명
     default vue2 선택
+    (설치가 아니라, github 등으로 당겨온 앱이라면 $ npm i를 통해서 vue.cmd 웹빌드를 하면 된다.)
+
+1. 설치 : 루터(라우터), 즉 네트워크와 네트워크 간의 경로(Route)를 설정하고 맞는 길로 트래픽을 설정해주는 장치의 설치
+  $ npm i vue-router@3.0.1
+
+1. 중간 테스트
   $ cd app1
-  $ code .
-    * code . 로 열리지 않는 경우, command + shift + p 누른 뒤, code 입력, 첫번째 것을 인스톨하면 된다.
-    * 만일 github 등으로 당겨온 앱이라면 $ npm i를 통해서 vue.cmd 웹빌드를 해야한다.
-
-1. package.json
-    npm run serve : * 해당 파일내의 "serve"를 실행
-    
-1. 구동 확인하기
-    http://localhost:8080/ : 구동확인
-    app.vue : 파일 수정후 저장하면 자동 업데이트 되는지 확인
-    * 터미널 상에서 끌때는 ctrl + c
+  $ npm run serve
+  http://localhost:8080/
+  app.vue : 파일 수정후 저장하고, 자동 업데이트 되는지 확인
+  ctrl + c로 종료
 
 
 
+[뉴스앱 만들기]
 
-
-
-1. 전체적인 순서
-    <앱 제작 순서>
-    1. src/App.vue 비우기
-    2. 라우터 설치
-        $ npm i vue-router@3.0.1
-        npm audit fix
-    3. src/routes/index.js : 라우터
-    4. src/main.js : 어떤 라이브러리를 사용하는지를 담아두는 곳
-    5. src/components/ToolBar.vue : 메뉴 부품 (갈림길)
-        * 부품(components) : 헤더, 푸터, 사이드바, 모달 등을 의미
-    6. src/views/NewsView.vue : 뉴스페이지 (목적지)
-    7. src/App.vue : 화면
-
-
-
-### 1. App.vue ###
-    <div id="app"> 사이에 있는 두줄 삭제
-    import HelloWorld 한줄 삭제
-    name: 'app', 한줄 삭제
-    Helloworld 한줄 삭제
-    style 전체 삭제
-    components/HelloWorld.vue 파일 삭제
-
-
-
-### 1. Router 설치 ###
-  * Router란? : 루터(라우터)는 네트워크와 네트워크 간의 경로(Route)를 설정하고 맞는 길로 트래픽을 설정해주는 장비
+1. 전체적인 앱 제작의 순서 미리보기
+  src/App.vue 비우기
+  라우터 설치
     $ npm i vue-router@3.0.1
-  * 버전을 잘못 깔았을 경우 : node_modules 폴더를 삭제하고 package.json의 버전정보를 수정한 뒤, 
-    $ npm i 로 다시 설치한다.
+    npm audit fix
+  src/routes/index.js : 라우터
+  src/main.js : 어떤 라이브러리를 사용하는지를 담아두는 곳
+  src/components/ToolBar.vue : 메뉴 컴포넌트 (= 갈림길)
+  src/views/NewsView.vue : 뉴스페이지 (= 목적지)
+  src/App.vue : 화면
 
+1. App.vue 수정
+  <div id="app"> 사이에 있는 두줄 삭제
+  import HelloWorld 한줄 삭제
+  name: 'app', 한줄 삭제
+  Helloworld 한줄 삭제
+  style 전체 삭제
+  components/HelloWorld.vue 파일 삭제
 
+1. src/routes[루트]/index.js 생성 ### : * 모든 모듈에 export default를 붙이는 이유는, 나중에 다른 쪽에서 이 모듈을 import를 할 수 있게 하게 하기 위함이다.
+  import Vue from "vue"
+  import VueRouter from "vue-router"
 
-### 1. src/routes[루트]/index.js 생성 ### : * 모든 모듈에 export default를 붙이는 이유는, 나중에 다른 쪽에서 이 모듈을 import를 할 수 있게 하게 하기 위함이다.
+  Vue.use(VueRouter)
 
-import Vue from "vue"
-import VueRouter from "vue-router"
+  export default new VueRouter({
+      mode: 'history', // # 제거
+      routes: [
+          {
+              path: '/news'
+          }
+      ]
+  })
 
-Vue.use(VueRouter)
+1. main.js 수정
+  import Vue from 'vue'
+  import App from './App.vue'
+  import router from "@/routes/index"
+  // import store from "@/store/index"
 
-export default new VueRouter({
-    mode: 'history', // # 제거
-    routes: [
-        {
-            path: '/news'
-        }
-    ]
-})
+  Vue.config.productionTip = false
 
+  new Vue({
+    router,
+    // store,
+    render: (h) => h(App),
+  }).$mount("#app")
 
-
-### 1. main.js 수정 ###
-
-import Vue from 'vue'
-import App from './App.vue'
-import router from "./routes/index.js"
-
-Vue.config.productionTip = false
-
-new Vue({
-  router, // 소문자여야만 함
-  render: h => h(App),
-}).$mount('#app')
-
-
-
-### 1. components에 ToolBar.vue 생성 ###
-
-<template>
-  <div class="header">
-    <img
-      src="../assets/logo.png"
-      class="logo"
-    />
-  </div>
-</template>
-
-<style scoped>
-.header {
-}
-
-.logo {
-  width: 300px;
-  height: 300px;
-}
-</style>
-
-
-
-### 1. src/views/NewsView.vue 생성 ###
-<template>
-    <div>
-        뉴스 페이지
+1. components에 ToolBar.vue 생성
+  <template>
+    <div class="header">
+      <img
+        src="../assets/logo.png"
+        class="logo"
+      />
     </div>
-</template>
+  </template>
 
-
-
-### 1. src/views/AskView.vue 생성 ###
-<template>
-    <div>
-        Ask 페이지
-    </div>
-</template>
-
-
-
-### 1. src/routes/index.js 수정 ###
-
-import Vue from "vue"
-import VueRouter from "vue-router"
-import NewsView from "../views/NewsView.vue"
-import AskView from "../views/AskView.vue"
-
-Vue.use(VueRouter)
-
-export default new VueRouter({
-    routes: [
-        {
-            path: '/news',
-            component: NewsView
-        },
-        {
-            path: '/ask',
-            component: AskView
-        }
-    ]
-})
-
-
-
-### 1. App.vue 수정 ###
-
-<template>
-  <div id="app">
-    <tool-bar></tool-bar>
-    <router-view></router-view>
-  </div>
-</template>
-
-<script>
-import ToolBar from "./components/ToolBar.vue"
-export default {
-  components: {
-      ToolBar,
+  <style scoped>
+  .header {
   }
-}
-</script>
 
-*** 위 코드에 대한 중요한 설명을 추가하자면,
-  components 안의 키, 밸류에 대해서는
-    ToolBar: ToolBar 처럼 이름이 같은 경우에는 
-    ToolBar, 하나로 생략이 가능하다.
-  app.vue 안에 이 ToolBar 컴포넌트를 넣을 때에는 
-    <ToolBar>처럼 원래 이름대로 pascal case로 넣어도 되지만, 
-    <tool-bar>처럼 kebab case로 바꾸어 넣어도 된다.
-  <router-view>에 대해서는
-    src/routes/index.js에 router를 임포트해서 new Vue 안에 넣었기 때문에 사용이 가능하다.
-    사용 가능여부 확인방법은 <router-view>를 클릭한 뒤 연동창이 뜨면 사용할 수 있는 것이다.
-    src/components/...vue 안에서도 <a> 태그 대신 <router-link to="">를 쓸 수 있게 되는 것이다.
-    요약하면,
-      ToolBar에서 components를 <router-link to="">를 통해 호출
-      App.vue 화면에서 components가 <router-view> 태그를 통해 출력됨
+  .logo {
+    width: 300px;
+    height: 300px;
+  }
+  </style>
 
+1. src/views/NewsView.vue 생성
+  <template>
+    <div>
+      뉴스 페이지
+    </div>
+  </template>
 
+1. src/views/AskView.vue 생성
+  <template>
+    <div>
+      Ask 페이지
+    </div>
+  </template>
 
-### 1. ToolBar.vue 수정 ###
+1. src/routes/index.js 수정
+  import Vue from "vue"
+  import VueRouter from "vue-router"
+  import NewsView from "../views/NewsView.vue"
+  import AskView from "../views/AskView.vue"
 
-<template>
-  <div class="header">
-    <img
-      src="../assets/logo.png"
-      class="logo"
-    />
-    <router-link to="/news">News</router-link>
-    <router-link to="/ask">Ask</router-link>
-  </div>
-</template>
+  Vue.use(VueRouter)
 
-<style scoped>
-.header {
-    background-color: #000;
-    display: flex;
-    align-items: center;
-}
-.header a {
-    color: #fff;
-    margin: 0 20px;
-}
+  export default new VueRouter({
+    routes: [
+      {
+        path: "/news",
+        component: NewsView,
+      },
+      {
+        path: "/ask",
+        component: AskView,
+      },
+    ],
+  })
 
-.logo {
-  width: 50px;
-  height: 50px;
-}
-</style>
+1. App.vue 수정
+  <template>
+    <div id="app">
+      <tool-bar></tool-bar>
+      <router-view></router-view>
+    </div>
+  </template>
 
-*** <a href="/news">News</a>를 쓰면 onepage가 안되므로 ★router-link★를 쓴다.
-  app.vue에 <router-view />가 넣어져있으면 쓸 수 있다.
-  스타일 지정시엔 a로 지정해도 된다.
+  <script>
+  import ToolBar from "./components/ToolBar.vue"
+  export default {
+    components: {
+        ToolBar,
+    }
+  }
+  </script>
 
+  *** 위 코드에 대한 중요한 설명을 추가하자면,
+    components 안의 키, 밸류에 대해서는
+      ToolBar: ToolBar 처럼 이름이 같은 경우에는 
+      ToolBar, 하나로 생략이 가능하다.
+    app.vue 안에 이 ToolBar 컴포넌트를 넣을 때에는 
+      <ToolBar>처럼 원래 이름대로 pascal case로 넣어도 되지만, 
+      <tool-bar>처럼 kebab case로 바꾸어 넣어도 된다.
+    <router-view>에 대해서는
+      src/routes/index.js에 router를 임포트해서 new Vue 안에 넣었기 때문에 사용이 가능하다.
+      사용 가능여부 확인방법은 <router-view>를 클릭한 뒤 연동창이 뜨면 사용할 수 있는 것이다.
+      src/components/...vue 안에서도 <a> 태그 대신 <router-link to="">를 쓸 수 있게 되는 것이다.
+      요약하면,
+        ToolBar에서 components를 <router-link to="">를 통해 호출
+        App.vue 화면에서 components가 <router-view> 태그를 통해 출력됨
 
+1. ToolBar.vue 수정
+  <template>
+    <div class="header">
+      <img
+        src="../assets/logo.png"
+        class="logo"
+      />
+      <router-link to="/news">News</router-link>
+      <router-link to="/ask">Ask</router-link>
+    </div>
+  </template>
 
-1. 끝
+  <style scoped>
+  .header {
+      background-color: #000;
+      display: flex;
+      align-items: center;
+  }
+  .header a {
+      color: #fff;
+      margin: 0 20px;
+  }
+
+  .logo {
+    width: 50px;
+    height: 50px;
+  }
+  </style>
+
+  *** <a href="/news">News</a>를 쓰면 onepage가 안되므로 ★router-link★를 쓴다.
+    app.vue에 <router-view />가 넣어져있으면 쓸 수 있다.
+    스타일 지정시엔 a로 지정해도 된다.
+
+1. 테스트
+  $ cd app1
+  $ npm run serve
+  http://localhost:8080/

@@ -43,6 +43,20 @@
   }
   </style>
 
+1. src/main.js 수정 : 향후 사용할 수 있는 router, store 등을 코멘트화해두기
+  import Vue from 'vue'
+  import App from './App.vue'
+  // import router from "@/routes/index";
+  // import store from "@/store/index";
+
+  Vue.config.productionTip = false
+
+  new Vue({
+    // router,
+    // store,
+    render: h => h(App),
+  }).$mount('#app')
+
 1. 테스트
   $ cd app1
   $ npm run serve

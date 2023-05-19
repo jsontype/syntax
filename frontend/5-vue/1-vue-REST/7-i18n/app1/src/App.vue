@@ -1,6 +1,8 @@
 <template>
   <div class="app">
-    Hello Vue2
+    <p>{{ $t("example")}}</p>
+    <p>{{ $t("group.ttl_1")}}</p>
+    <p>{{ $t("group.ttl_2")}}</p>
   </div>
 </template>
 
