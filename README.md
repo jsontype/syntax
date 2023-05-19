@@ -42,17 +42,9 @@
     API: https://fakestoreapi.com/products  
     DOC: https://fakestoreapi.com/docs  
 
-# Github Markdown 문법 정리
-
-* [x] 체크박스 Checked
-* [ ] 체크박스 Unchecked
-
 # H1 대주제
 ## H2 중주제
 ### H3 소주제
-#### H4 소주제
-##### H5 소소주제
-###### H6 소소소주제
 
 - 대항목
   - 중항목 
@@ -67,6 +59,8 @@
     
 ---
 
+* [x] 체크박스 Checked
+* [ ] 체크박스 Unchecked
 _이탤릭체_  
 **볼드체**  
 [링크](https://jsontype.github.io/home/)  
