@@ -1,22 +1,25 @@
 [VSCode 필수 설정]
 
 1. cwd
-    vscode 설정 화면에 들어간다.
-    cwd 검색한다.
-    terminal.integrated 부분에 다음과 같이 입력한다.
-        ${fileDirname}
+  vscode 설정 화면에 들어간다.
+  cwd 검색한다.
+  terminal.integrated 부분에 다음과 같이 입력한다.
+    ${fileDirname}
 
 1. format on save (* Prettier 확장 설치후)
-    vscode 설정 화면에 들어간다.
-    Default Formatter 검색한다.
-    '기본값: 없음' 부분을 '기본값: Prettier'로 수정한다.
-    format on save 검색한다.
-    format on save에 체크한다.
-    format on save mode를 modification으로 수정한다.
+  vscode 설정 화면에 들어간다.
+  Default Formatter 검색한다.
+  '기본값: 없음' 부분을 '기본값: Prettier'로 수정한다.
+  format on save 검색한다.
+  format on save에 체크한다.
+  format on save mode를 modification으로 수정한다.
 
 1. Explorer
-    vscode 설정 화면에 들어간다.
-    Explorer 검색한다.
-    Explorer: Compact Folders 체크에 해제한다.
-    Explorer: Confirm Delete 체크에 해제한다.
-    Explorer: Confirm Drag and Drop 체크에 해제한다.
+  vscode 설정 화면에 들어간다.
+  Explorer 검색한다.
+  Explorer: Compact Folders 체크에 해제한다.
+  Explorer: Confirm Delete 체크에 해제한다.
+  Explorer: Confirm Drag and Drop 체크에 해제한다.
+
+1. code . 로 vscode 여는 기능 설치
+  command + shift + p 누른 뒤, code 검색 후 install을 찾아서 클릭해서 인스톨한다.

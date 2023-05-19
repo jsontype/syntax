@@ -6,6 +6,14 @@
   $ vue.cmd create app1 : default vue2 선택
   $ cd app1
 
+1. 만약 앱 설치가 아닌, 앱 복사를 할 경우 에러가 뜨는 것에 대한 트러블슈팅
+  app1을 복사하면 다음과 같은 에러가 발생할 수도 있다.
+  # Multiple assets emit different content to the same filename index.html
+  문제원인은 이상한 버전을 만든 개발자
+  # @vue/cli 5.0.1, Node v14.17.5, vue 3.2.13 및 npm 7.20.6과 동일한 문제
+  근본 해결방법 : vue/cli 4.5.15로 다운그레이드
+  빠른 해결방법 : app1/public/index.html 파일명을 index2.html로 수정
+
 1. 앱 설치 직후 : 뷰 구조 파악하기
   src/assets/ : 정적파일폴더
   src/components/ : 부품파일폴더(버튼 등)
@@ -41,6 +49,20 @@
     font-size: 20px;
   }
   </style>
+
+1. src/main.js 수정 : 향후 사용할 수 있는 router, store 등을 코멘트화해두기
+  import Vue from 'vue'
+  import App from './App.vue'
+  // import router from "@/routes/index";
+  // import store from "@/store/index";
+
+  Vue.config.productionTip = false
+
+  new Vue({
+    // router,
+    // store,
+    render: h => h(App),
+  }).$mount('#app')
 
 1. 테스트
   $ cd app1
