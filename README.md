@@ -1,6 +1,6 @@
 # Syntax 마스터 브랜치 현황
 
-  >>> 1. 데스크톱 : alienware
+  1. 데스크톱 : alienware
   1. 데스크톱 : rgb
   1. 맥북M1 : arm
   1. 맥북Intel : intel
@@ -19,22 +19,22 @@
 
 # API 리스트
 
-  1. 유저, 글, 앨범, 사진, 할일 등 종합  
+  1. 유저, 글, 앨범, 사진, 할일 등 종합
     API: https://jsonplaceholder.typicode.com/users  
     API: https://jsonplaceholder.typicode.com/users/1  
     API: https://jsonplaceholder.typicode.com/todos  
     API: https://jsonplaceholder.typicode.com/posts  
     DOC: https://jsonplaceholder.typicode.com  
 
-  1. 영화  
+  1. 영화
     API: https://yts.mx/api/v2/list_movies.json?sort_by=rating  
     DOC: https://yts.mx/api  
 
-  1. 뉴스  
+  1. 뉴스
     API: https://api.hnpwa.com/v0/news.json  
     API: https://api.hnpwa.com/v0/ask.json  
 
-  1. SNS  
+  1. SNS
     API: https://dummyapi.io/data/v1/user?limit=10  
     DOC: https://dummyapi.io/explorer  
 
@@ -57,20 +57,23 @@
 
 ###### H6
 
-> 인용구
->
-> > 인용구
-
 - 대항목
   - 중항목 
     - 소항목
+
+> 대하위항목
+>
+> > 중하위항목
+> > 
+> > > 소하위항목
+> > >
     
 ---
 
 _이탤릭체_  
 **볼드체**  
-[링크](https://jsontype.github.io/home/)
-(스페이스 2칸 이상 띄어서 한줄바꿈)  
-(엔터키 2칸 이상 띄어서 두줄바꿈)
+[링크](https://jsontype.github.io/home/)  
+(단순 문자열 끝에 스페이스 2칸 넣기 : 한줄바꿈)  
+(단순 문자열 끝에 엔터키 2칸 넣기 : 두줄바꿈)
 
 끝
