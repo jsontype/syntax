@@ -1,4 +1,5 @@
-https://github.com/jsontype/syntax.git
-https://github.com/jsontype/syntax-sub.git
-https://github.com/jsontype/home.git
-https://github.com/jsontype/generalapp.git
+https://github.com/jsontype/syntax.git              # syntax for main pc
+https://github.com/jsontype/syntax-sub.git          # syntax for sub pc
+https://github.com/jsontype/home.git                # dev's home page
+https://github.com/jsontype/generalapp.git          # general app for students
+https://github.com/jsontype/old.git                 # old projects for students

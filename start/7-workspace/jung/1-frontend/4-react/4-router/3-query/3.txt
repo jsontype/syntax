@@ -52,6 +52,6 @@
 
 
 1. 테스트 : URL 창에 직접 입력하여 들어가서, 쿼리 데이터가 잘 나타나는지 확인
-    cd app1
-    npm start
-    주소창에 http://localhost:3000/about 입력 : 세부정보 보기/닫기 버튼 클릭
+  cd app1
+  npm start
+  주소창에 http://localhost:3000/about 입력 : 세부정보 보기/닫기 버튼 클릭

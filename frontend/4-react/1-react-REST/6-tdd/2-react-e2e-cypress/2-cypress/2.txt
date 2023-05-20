@@ -5,7 +5,7 @@
 
 1. cypress 설치
   $ cd app1
-  $ npm i --save-dev cypress
+  $ npm i -D cypress
 
 1. package.json 수정 : script를 interactive mode의 테스트 실행문을 추가한다. (* CLI로 실행하는 모드도 있지만, 직접 로그인이 필요하다.)
   "scripts": {
@@ -31,7 +31,7 @@
     },
   })
 
-1. cypress/e2e/visit.cy.js 수정
+1. cypress/e2e/visit1.cy.js 생성 : 혹시 cy 에러 떠도 무시하고 실행하면 됨
   // 대주제
   describe("메인메뉴 테스트", () => {
     it("npm start", () => {
@@ -43,12 +43,69 @@
     })
   })
 
+1. cypress/e2e/visit2.cy.js 생성
+  describe('template spec', () => {
+    it('passes', () => {
+      cy.visit('https://example.cypress.io')
+    })
+  })
+
+1. cypress/support/commands.js 생성 : 자동생성 되지 않은 경우 작성 대응
+  // ***********************************************
+  // This example commands.js shows you how to
+  // create various custom commands and overwrite
+  // existing commands.
+  //
+  // For more comprehensive examples of custom
+  // commands please read more here:
+  // https://on.cypress.io/custom-commands
+  // ***********************************************
+  //
+  //
+  // -- This is a parent command --
+  // Cypress.Commands.add('login', (email, password) => { ... })
+  //
+  //
+  // -- This is a child command --
+  // Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
+  //
+  //
+  // -- This is a dual command --
+  // Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
+  //
+  //
+  // -- This will overwrite an existing command --
+  // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+1. cypress/support/e2e.js : 자동생성 되지 않은 경우 작성 대응
+  // ***********************************************************
+  // This example support/e2e.js is processed and
+  // loaded automatically before your test files.
+  //
+  // This is a great place to put global configuration and
+  // behavior that modifies Cypress.
+  //
+  // You can change the location of this file or turn off
+  // automatically serving support files with the
+  // 'supportFile' configuration option.
+  //
+  // You can read more here:
+  // https://on.cypress.io/configuration
+  // ***********************************************************
+
+  // Import commands.js using ES2015 syntax:
+  import './commands'
+
+  // Alternatively you can use CommonJS syntax:
+  // require('./commands')
+
 1. 테스트
   $ cd app1
   $ npm test
-  크롬 선택 -> visit.cy.js를 선택하고 실행 -> 테스트가 통과되는 것을 확인
+  크롬 선택 -> 원하는 *.cy.js를 선택하고 실행 -> 테스트가 통과되는 것을 확인
 
 1. 이하 생략
   더 자세한 내용을 공부하고 싶다면, 
   https://docs.cypress.io/guides/getting-started/installing-cypress
+  https://example.cypress.io
   에서 cypress 명령어들을 하나씩 공부해서 적용해보면 된다.

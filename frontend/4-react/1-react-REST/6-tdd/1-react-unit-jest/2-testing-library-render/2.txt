@@ -31,7 +31,7 @@
     )
   }
 
-1. src/Profile.spec.js : Profile 컴포넌트를 테스트하기 위한 테스트 코드를 작성
+1. src/Profile.spec.js : Profile 컴포넌트를 테스트하기 위한 테스트 코드를 작성 (* 가운데 spec 대신 test로 해도 된다. 그리고 테스트케이스의 경우 it 대신 test로 써도 된다.)
   import React from 'react'
   /*
     render 함수:
