@@ -1,6 +1,0 @@
-[Slot]
-
-    Slot이란? : 부모 컴포넌트에 담아둔 HTML코드를 불러와서 
-                자식 컴포넌트에 넣고 싶을 때 Slot을 사용합니다.
-
-    진행순서 : Content.vue -> About Vue
