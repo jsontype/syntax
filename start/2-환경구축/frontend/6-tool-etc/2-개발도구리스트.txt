@@ -25,7 +25,7 @@
     git bash : TUI 기반 git 관리 툴
     node.js : TUI 기반 JS 런타임
     powershell : 윈도우용 터미널
-    iTerm2 : 맥용 터미널
+    iterm2 : 맥용 터미널
 
 1. 테스트
     postman : 개발된 API의 테스트
