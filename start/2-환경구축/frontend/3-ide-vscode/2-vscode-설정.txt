@@ -1,5 +1,9 @@
 [VSCode 필수 설정]
 
+1. code . 로 vscode 여는 기능 설치
+  command + shift + p 누른 뒤, code라고 검색한다.
+  "쉘 명령: PATH에 'code' 명령 설치"를 찾아서 클릭해서 인스톨한다.
+
 1. cwd
   vscode 설정 화면에 들어간다.
   cwd 검색한다.
@@ -20,6 +24,3 @@
   Explorer: Compact Folders 체크에 해제한다.
   Explorer: Confirm Delete 체크에 해제한다.
   Explorer: Confirm Drag and Drop 체크에 해제한다.
-
-1. code . 로 vscode 여는 기능 설치
-  command + shift + p 누른 뒤, code 검색 후 install을 찾아서 클릭해서 인스톨한다.
