@@ -1,11 +1,13 @@
-# Syntax 마스터 브랜치 현황
+# Syntax PC별 브랜치 현황
 
-  1. 데스크톱 : alienware
-  1. 데스크톱 : rgb
-  1. 맥북M1 : arm
-  1. 맥북Intel : intel
-  1. 랩톱 : fujitsu
-  1. 미니랩톱 : onemix4
+  1. 데스크톱 Alienware : alienware
+  2. 데스크톱 RGB : rgb
+  3. 맥북 M1 MAX : m1max
+  4. 맥북 M2 AIR : m2air
+  5. 후지쯔 노트북 : fujitsu
+  6. 원믹스4 미니 노트북 : onemix
+  7. 구글 픽셀 슬레이트 : pixelslate
+  8. 비상용 미니 PC : mini
 
 # Syntax 반복문구 리스트
 
@@ -17,7 +19,7 @@
     $ cd app1
     $ npm start
 
-# API 리스트
+# Syntax API 리스트
 
   1. 유저, 글, 앨범, 사진, 할일 등 종합
     API: https://jsonplaceholder.typicode.com/users  
