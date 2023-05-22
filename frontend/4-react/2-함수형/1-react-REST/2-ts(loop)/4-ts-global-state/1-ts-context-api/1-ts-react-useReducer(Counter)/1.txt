@@ -1,0 +1,65 @@
+[useReducer로 선언한 State의 데이터타입 관리하기 - Counter 컴포넌트 편]
+
+1. 새 프로젝트 설치 : 타입스크립트앱으로 새로 설치 + 불필요 파일과 임포트 제거된 상태로 시작
+
+
+
+1. Counter 컴포넌트 만들기  
+    한번 Counter를 useReducer를 사용하는 코드로 전환해보고, 이때는 데이터타입 정의를 어떻게 해야하는지 알아보자.
+
+
+
+1. src/Counter.tsx 수정 : useReducer를 사용하는 코드로 전환하기
+    import { useReducer } from 'react'
+
+    // 액션 타입 지정 : 이렇게 액션을 | 으로 연달아서 쭉 나열하면 된다. 지금은 액션들이 액션타입 값만 있어서 간단하다.
+    type Action = { type: 'INCREASE' } | { type: 'DECREASE' }
+
+    // 리듀서 함수의 파라미터, 리턴값의 데이터타입 지정
+    function reducer(state: number, action: Action): number {
+        switch (action.type) {
+            case 'INCREASE':
+                return state + 1
+            case 'DECREASE':
+                return state - 1
+            default:
+                throw new Error('Unhandled action')
+        }
+    }
+
+    // 카운터 컴포넌트 만들기
+    export default function Counter() {
+        // 리듀서 사용하여 state 생성
+        const [count, dispatch] = useReducer(reducer, 0)
+        // 리듀서 액션을 디스패치
+        const onIncrease = () => dispatch({ type: 'INCREASE' })
+        const onDecrease = () => dispatch({ type: 'DECREASE' })
+
+        return (
+            <div>
+                <h1>{count}</h1>
+                <div>
+                    <button onClick={onIncrease}>+1</button>
+                    <button onClick={onDecrease}>-1</button>
+                </div>
+            </div>
+        )
+    }
+
+
+
+1. src/App.tsx 수정 : Counter를 렌더링
+    import React from 'react'
+    import Counter from './Counter'
+
+    const App: React.FC = () => {
+        return <Counter />
+    }
+
+    export default App
+
+
+
+1. 테스트
+    $ cd app1
+    $ npm start

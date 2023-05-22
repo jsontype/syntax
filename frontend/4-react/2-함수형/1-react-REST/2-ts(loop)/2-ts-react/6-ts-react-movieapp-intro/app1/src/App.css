@@ -1,0 +1,28 @@
+.App {
+  margin: 20px;
+}
+
+.movieTitle {
+  display: block;
+  text-decoration: none;
+  color: black;
+  border: 1px solid gray;
+  width: 500px;
+  margin-bottom: 5px;
+}
+
+.movieTitle:hover {
+  background: gray;
+}
+
+.movieRankGood {
+  color: blue;
+}
+
+.movieRankSoso {
+  color: orange;
+}
+
+.movieRankBad {
+  color: red;
+}

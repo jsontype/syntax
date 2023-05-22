@@ -1,0 +1,179 @@
+import React, { useState, useEffect } from 'react'
+import styled, { keyframes, css } from 'styled-components'
+import Button from './Button'
+
+/*
+    1. Dialog 가 나타나거나 사라질 때 트랜지션 효과를 적용하기 : 
+        트랜지션 효과를 적용 할 때에는 CSS Keyframe을 사용하며, 
+        styled-components에서 이를 사용 할 때에는 keyframes라는 유틸을 사용한다.
+        Dialog가 나타나거나 사라질 때,
+        DarkBackground 쪽에 fadeIn / fadeOut 효과를 주고, 
+        DialogBlock 쪽에 slideUp / slideDown 효과를 준다.
+        애니메이션의 이름은 마음대로 지정 할 수 있다.
+*/
+const fadeIn = keyframes`
+    from {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
+`
+
+const fadeOut = keyframes`
+    from {
+        opacity: 1
+    }
+    to {
+        opacity: 0
+    }
+`
+
+const slideUp = keyframes`
+    from {
+        transform: translateY(200px);
+    }
+    to {
+        transform: translateY(0px);
+    }
+`
+
+const slideDown = keyframes`
+    from {
+        transform: translateY(0px);
+    }
+    to {
+        transform: translateY(200px);
+    }
+`
+
+const DarkBackground = styled.div`
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.8);
+
+    animation-duration: 0.25s;
+    animation-timing-function: ease-out;
+    animation-name: ${fadeIn};
+    animation-fill-mode: forwards;
+
+    ${props =>
+        props.disappear &&
+        css`
+            animation-name: ${fadeOut};
+        `
+    }
+`
+
+const DialogBlock = styled.div`
+    width: 320px;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 2px;
+    h3 {
+        margin: 0;
+        font-size: 1.5rem;
+    }
+    p {
+        font-size: 1.125rem;
+    }
+
+    animation-duration: 0.25s;
+    animation-timing-function: ease-out;
+    animation-name: ${slideUp};
+    animation-fill-mode: forwards;
+
+    /*
+        3. 모달창이 안 보이게 될 때, DarkBackground도 Disappear 처리 :
+            이제 DarkBackground 와 DialogBlock 에 disappear 라는 props 를 주어서 사라지는 효과가 나타나도록 설정을 해보겠다.
+            각 컴포넌트의 disappear 값은 !visible 로 해주면 된다.
+    */
+    ${props =>
+        props.disappear &&
+        css`
+            animation-name: ${slideDown};
+        `
+    }
+`
+
+const ButtonGroup = styled.div`
+    margin-top: 3rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+`
+
+const ShortMarginButton = styled(Button)`
+    & {
+        align-items: center;
+    }
+    & + & {
+        margin-left: 0.5rem;
+    }
+`
+
+function Dialog({
+    title,
+    children,
+    confirmText,
+    cancelText,
+    onConfirm,
+    onCancel,
+    visible
+}) {
+    /*
+        2. 모달창이 사라지는 효과를 구현 :
+            사라지는 효과를 구현하려면 Dialog 컴포넌트에서 두개의 로컬 state를 관리해주어야 한다. 
+            하나는 현재 트랜지션 효과를 보여주고 있는 중이라는 상태를 의미하는 animate, 
+            나머지 하나는 실제로 컴포넌트가 사라지는 시점을 지연시키기 위한 localVisible 값이다.
+            그리고 useEffect에서, visible 값이 true 에서 false 로 바뀌는 시점을 감지하여,
+            animate 값을 true로 바꿔주고 setTimeout 함수를 사용하여 250ms 이후 false로 바꾸어 주어야 한다.
+            추가적으로, !visible 조건에서 null 를 반환하는 대신에,
+            !animate && !localVisible 조건에서 null 을 반환하도록 수정해주어야 한다.
+            이제 확인 / 취소를 눌렀을 때 약간의 딜레이 이후에 Dialog 가 사라지게 된다.
+            딜레이가 안 느껴진다면, 기존에 setTimeout 에서 250 으로 설정했던 것을 1000 으로 설정을 해보자.
+    */
+    const [animate, setAnimate] = useState(false)
+    const [localVisible, setLocalVisible] = useState(visible)        
+
+    useEffect(() => {
+        // 2. visible 값이 true -> false 가 되는 시점을 감지한다.
+        if (localVisible && !visible) {
+            setAnimate(true)
+            setTimeout(() => setAnimate(false), 250)
+        }
+        setLocalVisible(visible)
+    }, [localVisible, visible])
+
+    if (!animate && !localVisible) return null
+
+    return (
+        <DarkBackground disappear={!visible}>
+        <DialogBlock disappear={!visible}>
+            <h3>{title}</h3>
+            <p>{children}</p>
+            <ButtonGroup>
+            <ShortMarginButton color="gray" onClick={onCancel}>
+                {cancelText}
+            </ShortMarginButton>
+            <ShortMarginButton color="pink" onClick={onConfirm}>
+                {confirmText}
+            </ShortMarginButton>
+            </ButtonGroup>
+        </DialogBlock>
+        </DarkBackground>
+    )
+}
+
+Dialog.defaultProps = {
+  confirmText: '확인',
+  cancelText: '취소'
+}
+
+export default Dialog

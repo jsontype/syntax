@@ -1,0 +1,313 @@
+[Equipments 모듈화 - 삭제기능]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. 설치
+  $ cd app1
+  $ npm i lodash
+
+1. apollo-server 생성자의 인자인 typeDefs, resolvers를 모듈화 해야하는 이유
+  한 파일에 너무 코드가 집약되어 있다.
+  물론 한 프로젝트에서 사용할 GraphQL 쿼리가 여기서 끝이라면, 모듈화는 굳이 필요없지만,
+  대형 프로젝트의 경우, 사용할 GraphQL 쿼리의 수가 상당히 많아져서,
+  이대로 한 파일에 코드를 집약해두면 나중에 유지보수 및 관리가 힘들기 때문에 모듈화가 필수가 된다.
+  이럴 때는 관리를 위해 apollo-server 생성자의 인자인 typeDefs, resolvers들을 모듈화하는 것이 좋다.
+
+
+
+1. dbWorks.js 생성 : "여러가지 Mock Database 조작 함수"들을 정리해둔 것. 이후 equipments.js, supplies.js안의 각 resolvers 객체에서 호출해서 사용할 것이다.
+  const database = require('./database.js')
+
+  const dataFiltered = (which, args) => {
+    let result = database[which].filter((item) => {
+      // 조건인자가 없거나, 페이징 관련 인자거나
+      // 모든 요소가 아이템과 모두 일치하면 통과
+      return !args || Object.keys(args).reduce((a, b) => {
+        return a && (
+          ['page', 'per_page'].includes(b) ||
+          item[b] == args[b]
+        )
+      }, true)
+    })
+
+    // 페이징
+    if (args.page && args.per_page) {
+      result = result.slice(
+        (args.page - 1) * args.per_page, 
+        args.page * args.per_page
+      )
+    }
+
+    return result
+  }
+
+  const dbWorks = {
+    deleteItem: (which, args) => {
+      const deleted = database[which].filter((item) => {
+        return item.id == args.id
+      })[0]
+      database[which] = database[which].filter((item) => {
+        return item.id != args.id
+      })
+      return deleted
+    },
+
+    getTeams: (args) => dataFiltered('teams', args)
+      .map((team) => {
+        team.members = dbWorks.getPeople({team: team.id})
+        return team
+      }),
+
+    postTeam: (args) => {
+      const newTeam = {
+        id: database.teams.map((team) => {
+          return Number(team.id)
+        }).reduce((a, b) => {
+          return Math.max(a, b)
+        }, 0) + 1,
+        ...args.input
+      }
+      database.teams.push(newTeam)
+      return newTeam
+    },
+
+    editTeam: (args) => {
+      return database.teams.filter((team) => {
+        return team.id == args.id
+      }).map((team) => {
+        Object.assign(team, args.input)
+        return team 
+      })[0]
+    },
+
+    getPeople: (args) => dataFiltered('people', args) 
+      .map((person) => {
+        person.tools = [
+          ...dbWorks.getEquipments({used_by: person.role}),
+          ...dbWorks.getSoftwares({used_by: person.role})
+        ]
+        person.givens = [
+          ...dbWorks.getEquipments({used_by: person.role}),
+          ...dbWorks.getSupplies({team: person.team})
+        ]
+        return person
+      }),
+
+    postPerson: (args) => {
+      const newPerson = {
+        id: database.people.map((person) => {
+          return Number(person.id)
+        }).reduce((a, b) => {
+          return Math.max(a, b)
+        }, 0) + 1,
+        ...args.input
+      }
+      database.people.push(newPerson)
+      return newPerson
+    },
+
+    editPerson: (args) => {
+      return database.people.filter((person) => {
+        return person.id == args.id
+      }).map((person) => {
+        Object.assign(person, args.input)
+        return person 
+      })[0]
+    },
+
+    getRoles: (args) => dataFiltered('roles', args)
+      .map((role) => {
+        role.members = dbWorks.getPeople({role: role.id})
+        role.equipments = dbWorks.getEquipments({used_by: role.id})
+        role.softwares = dbWorks.getSoftwares({used_by: role.id})
+        return role
+      }),
+
+    getEquipments: (args) => dataFiltered('equipments', args),
+
+    postEquipment: (args) => {
+      database.equipments.push(args)
+      return args
+    },
+
+    increaseEquipment: (args) =>{
+      return database.equipments.filter((equipment) => {
+        return equipment.id == args.id
+      }).map((equipment) => {
+        equipment.count += 1 
+        return equipment
+      })[0]
+    },
+
+    getSoftwares: (args) => dataFiltered('softwares', args),
+
+    getSupplies: (args) => dataFiltered('supplies', args),
+  }
+
+  module.exports = dbWorks
+
+
+
+1. typedefs-resolvers/equipments.js 생성 : equipments 모듈화
+  const { gql } = require('apollo-server')
+  const dbWorks = require('../dbWorks')
+
+  const typeDefs = gql`
+    type Equipment {
+      id: String
+      used_by: String
+      count: Int
+      new_or_used: String
+    }
+  `
+  const resolvers = {
+    Query: {
+      equipments: (parent, args) => dbWorks.getEquipments(args),
+    },
+    Mutation: {
+      deleteEquipment: (parent, args) => dbWorks.deleteItem('equipments', args),
+    }
+  }
+
+  module.exports = {
+    typeDefs: typeDefs,
+    resolvers: resolvers
+  }
+
+
+
+1. typedefs-resolvers/supplies.js 생성 : Supply 모듈화
+  const { gql } = require('apollo-server')
+  const dbWorks = require('../dbWorks')
+
+  const typeDefs = gql`
+    type Supply {
+      id: String
+      team: Int
+    }
+  `
+
+  const resolvers = {
+    Query: {
+      supplies: (parent, args) => dbWorks.getSupplies(args)
+    },
+    Mutation: {
+      deleteSupply: (parent, args) => dbWorks.deleteItem('supplies', args),
+    }
+  }
+
+  module.exports = {
+    typeDefs: typeDefs,
+    resolvers: resolvers
+  }
+
+
+
+1. typedefs-resolvers/_queries.js 생성 : equipments의 Query 모듈화
+  const { gql } = require('apollo-server')
+
+  const typeDefs = gql`
+    type Query {
+      equipments: [Equipment]
+      supplies: [Supply]
+    }
+  `
+
+  module.exports = typeDefs
+
+
+
+1. typedefs-resolvers/_mutations.js 생성 : equipments의 Mutation 모듈화
+  const { gql } = require('apollo-server')
+
+  const typeDefs = gql`
+    type Mutation {
+      deleteEquipment(id: String): Equipment
+      deleteSupply(id: String): Supply
+    }
+  `
+
+  module.exports = typeDefs
+
+
+
+1. index.js 수정 : 모듈화된 equipments와 supplies의 각각의 typeDefs, resolevers를 루트모듈에 적용시킨다.
+  const { ApolloServer } = require('apollo-server')
+  const _ = require('lodash')
+
+  const queries = require('./typedefs-resolvers/_queries')
+  const mutations = require('./typedefs-resolvers/_mutations')
+  const equipments = require('./typedefs-resolvers/equipments')
+  const supplies = require('./typedefs-resolvers/supplies')
+
+  const typeDefs = [
+    queries,
+    mutations,
+    equipments.typeDefs,
+    supplies.typeDefs,
+  ]
+
+  const resolvers = [
+    equipments.resolvers,
+    supplies.resolvers
+  ]
+
+  const server =  new ApolloServer({ typeDefs, resolvers })
+
+  server.listen().then(({url}) => {
+    console.log(`🚀  Server ready at ${url}`)
+  })
+
+
+
+1. equipments 삭제 테스트
+  $ cd app1
+  $ npm start
+  http://localhost:4000/ 접속 : GraphQL Playground가 열린다.
+  GraphQL Playground 사용 : 좌측에 다음 쿼리를 넣고 Run을 클릭
+    mutation {
+      deleteEquipment(id: "notebook") {
+        id
+        used_by
+        count
+        new_or_used
+      }
+    }
+  GraphQL Playground 사용 : 좌측에 다음 쿼리를 넣고 Run을 클릭
+    query {
+      equipments {
+        id
+        used_by
+        count
+        new_or_used
+      }
+    }
+  id가 "notebook"인 equipment가 삭제 되었는지 확인 
+
+
+
+1. supplies 삭제 테스트
+  $ cd app1
+  $ npm start
+  http://localhost:4000/ 접속 : GraphQL Playground가 열린다.
+  GraphQL Playground 사용 : 좌측에 다음 쿼리를 넣고 Run을 클릭
+    mutation {
+      deleteSupply(id: "mug") {
+        id
+        team
+      }
+    }
+  GraphQL Playground 사용 : 좌측에 다음 쿼리를 넣고 Run을 클릭
+    query {
+      supplies {
+        id
+        team
+      }
+    }
+  id가 "mug"인 supply가 삭제 되었는지 확인 
+
+
+
+1. 마무리
+  equipments, supplies와 같은 방식으로 people, roles, softwares, teams를 추가하면 똑같은 처리가 가능하다.
+  시간관계상 생략하겠다.

@@ -1,0 +1,62 @@
+[액티브스타일, 액티브클래스]
+
+1. NavLink
+    현재 경로와 Link의 경로가 일치하는 경우, 스타일을 적용할 수 있는 컴포넌트이다.
+
+    
+
+1. src/Profiles.js 수정 : 액티브스타일을 적용하고 싶으면 style={{ css }}, 액티브클래스를 적용하고 싶으면 className={"string"}을 사용하면 된다.
+    import React from 'react'
+    import { NavLink } from 'react-router-dom'
+    // 액티브클래스 적용을 위해 CSS 임포트
+    import './Profiles.css'
+
+    const Profiles = () => {
+        return (
+            <div>
+                <h3>유저 목록:</h3>
+                <ul>
+                    <li>
+                        <NavLink
+                            to="/profile/jsontype"
+                            style={{ background: 'black', color: 'white' }}
+                        >
+                            velopert
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink
+                            to="/profile/kimkim12"
+                            className={"red"}
+                        >
+                            kimkim12
+                        </NavLink>
+                    </li>
+                </ul>
+                <div>유저를 선택해주세요.</div>
+            </div>
+        )
+    }
+
+    export default Profiles
+
+
+
+1. src/Profiles.css 생성 : 액티브클래스 적용을 위해 CSS 만들어두기
+    .red {
+        color: red;
+    }
+
+
+
+1. 테스트 : 액티브스타일, 액티브클래스가 각각 적용되는지 확인한다.
+    $ cd app1
+    $ npm start
+
+
+
+1. 보충 : 그 외에도, 리액트라우터 부가기능들에는 다음과 같은 것들이 있으니 필요시 사용하면 된다.
+    Redirect : 페이지를 리더렉트하는 컴포넌트
+    Prompt : 이전에 사용했던 history.block 의 컴포넌트 버전
+    Route Config : JSX 형태로 라우트를 선언하는 것이 아닌 Angular, Vue처럼 배열, 객체를 사용하여 라우트를 정의할 수 있다.
+    Memory Router : 실제로 주소는 존재하지는 않는 라우터. 리액트 네이티브나, 임베디드 웹앱에서 사용하면 유용하다.
