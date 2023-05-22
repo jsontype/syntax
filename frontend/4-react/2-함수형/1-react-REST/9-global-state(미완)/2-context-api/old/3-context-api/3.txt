@@ -1,0 +1,250 @@
+[Context API 사용한 전역 값 관리]
+
+1. Context API를 쓰는 이유 : * 일단, 이 수업 이후, 더 편리한 redux로 넘어가게 된다.
+    useState를 이용해서 state를 컴포넌트별로 관리하는 기존의 방식은,
+    state 변수들, on~ 등의 함수들을 컴포넌트 하나에 다 관리를 한다.
+    그러나, 현장에서는 3~4개 이상의 자식 컴포넌트에 props를 건네줘서 전달을 계속 해야 하는 일이 발생하게 된다.
+    이는 매우 번거로울 것이다.
+
+    context를 쓰면, 각 하위 컴포넌트들이 state와 action을 자신의 컴포넌트에서 직접 선언하지 않고, 
+    각 컴포넌트가 import를 통해서 context에서 가져올 수 있어서, state를 관리하는 것을 편하게 할 수 있다.
+    이것을 global state 관리라고 한다.    
+    이렇게 하면, 기존에 props로 넘겨주던 복잡한 구조를 해결 할 수 있다.
+    단, Context API를 쓰려면 state를 쓸 때 useState가 아닌 useReducer 방식을 사용해야한다.
+
+    우선, Context API 를 사용해여 새로운 Context 를 만드는 방법을 알아보겠다.
+
+
+
+1. src/App.js 수정 : 
+    import React, { useRef, useReducer, useMemo, useCallback } from 'react'
+    import UserList from './UserList'
+    import CreateUser from './CreateUser'
+    import useInputs from './hooks/useInputs'
+
+    const initialState = {
+        users: [
+            {
+                id: 1,
+                username: 'admin',
+                email: 'admin@test.com',
+                active: true
+            },
+            {
+                id: 2,
+                username: 'tester',
+                email: 'test@test.com',
+                active: false
+            },
+            {
+                id: 3,
+                username: 'yang',
+                email: 'yang@test.com',
+                active: false
+            }
+        ]
+    }
+
+    function reducer(state, action) {
+        switch (action.type) {
+            case 'CREATE_USER':
+                return {
+                    users: state.users.concat(action.user)
+                }
+            case 'TOGGLE_USER':
+                return {
+                    ...state,
+                    users: state.users.map(user =>
+                    user.id === action.id ? { ...user, active: !user.active } : user
+                    )
+                }
+            case 'REMOVE_USER':
+                return {
+                    ...state,
+                    users: state.users.filter(user => user.id !== action.id)
+                }
+            default:
+                return state
+        }
+    }
+
+    // 1. Context 만들기 : React.createContext() 라는 함수를 사용해서, UserDispatch 라는 이름으로 내보내준다. 
+    // () 안에는 Context의 값을 따로 지정하지 않을 경우 사용되는 기본값을 넣어준다.
+    // 이렇게 내보내는 작업을 해주면, 나중에 사용하고 싶을 때 다음과 같이 불러와서 사용 할 수 있다. import { UserDispatch } from './App'
+    export const UserDispatch = React.createContext(null)
+
+    export default function App() {
+        const [{ username, email }, onChange, onReset] = useInputs({
+            username: '',
+            email: ''
+        })
+
+        const [state, dispatch] = useReducer(reducer, initialState)
+
+        const nextId = useRef(4)
+
+        const { users } = state
+
+        const onCreate = useCallback(() => {
+            dispatch({
+                type: 'CREATE_USER',
+                user: {
+                    id: nextId.current,
+                    username,
+                    email
+                }
+            })
+            onReset()
+            nextId.current += 1
+        }, [username, email, onReset])
+
+        const count = useMemo(() => countActiveUsers(users), [users])
+
+        return (
+            // 2. Context 값 지정하기 : Context를 만들면 Provider라는 컴포넌트가 들어있는데 이 컴포넌트 안의 value안에 값을 넣어서 
+            // Context의 값을 정할 수 있다.
+            // 이렇게 설정해주고 나면 Provider 에 의하여 감싸진 컴포넌트 중 어디서든지 Context의 값을 다른 곳에서 바로 조회해서 사용 할 수 있다. 
+            // 지금은 우선 App 컴포넌트 에서 Context 를 만들고, 사용하고, 내보내는 작업을 해준다.
+            // 여기까지 한다면 UserDispatch라는 Context를 만들어서, 어디서든지 dispatch를 꺼내 쓸 수 있도록 준비를 해준 것이다.
+            // App 에서 onToggle 과 onRemove 를 지우고, UserList 에게 props를 전달하는것도 지운다.
+            <UserDispatch.Provider value={dispatch}>
+                <CreateUser
+                    username={username}
+                    email={email}
+                    onChange={onChange}
+                    onCreate={onCreate}
+                />
+                <UserList users={users} />
+                <div>활성사용자 수 : {count}</div>
+            </UserDispatch.Provider>
+        )
+    }
+
+    function countActiveUsers(users) {
+        console.log('활성 사용자 수를 세는중...')
+        return users.filter(user => user.active).length
+    }
+
+
+
+1. src/UserList.js 수정 : 
+    import React, { useContext } from 'react'
+    import { UserDispatch } from './App'
+
+    const User = React.memo(function User({ user }) {
+        // 3. useContext Hook 사용 : 이제, User 컴포넌트에서 바로 dispatch 를 사용 할건데, 그렇게 하기 위해서는 useContext 라는 Hook 을 사용해서 우리가 만든 UserDispatch Context 를 조회해야한다.
+        const dispatch = useContext(UserDispatch)
+
+        return (
+            <div>
+                <b
+                    style={{
+                        cursor: 'pointer',
+                        color: user.active ? 'green' : 'black'
+                    }}
+                    onClick={() => {
+                        dispatch({ type: 'TOGGLE_USER', id: user.id });
+                    }}
+                >
+                    {user.username}
+                </b>
+                
+                &nbsp;<span>({user.email})</span>
+
+                <button
+                    onClick={() => {
+                        dispatch({ type: 'REMOVE_USER', id: user.id });
+                    }}
+                >
+                    삭제
+                </button>
+            </div>
+        )
+    })
+
+    function UserList({ users }) {
+        return (
+            <div>
+            {users.map(user => (
+                <User user={user} key={user.id} />
+            ))}
+            </div>
+        )
+    }
+
+    export default React.memo(UserList)
+
+
+
+1. 결론 : 
+    작업이 끝났다. 이렇게 Context API 를 사용해주면, dispatch 를 어디서든지 조회해서 사용해줄 수 있게 해주어서 코드의 구조가 훨씬 깔끔해질 수 있다.
+    이로써 useState 를 사용하는 것과 useReducer 를 사용하는 것의 큰 차이를 발견했다.
+    useReducer 를 사용하면 이렇게 dispatch 를 Context API 를 사용해서 전역적으로 사용 할 수 있게 해주면 컴포넌트에게 함수를 전달해줘야 하는 상황에서 코드의 구조가 훨씬 깔끔해질 수 있다.
+    만약에 깊은 곳에 위치하는 컴포넌트에게 여러 컴포넌트를 거쳐서 함수를 전달해야 하는 일이 있다면 이렇게 Context API 를 사용하면 된다.
+
+
+
+1. 테스트 : 똑같이 작동하는 지 확인
+    $ cd app1
+    $ npm start
+
+
+
+1. 문제 : 
+    User 컴포넌트에게 따로 onToggle / onRemove 를 props로 전달하지 않고 바로 dispatch 를 사용했던 것 처럼, 
+    CreateUser 컴포넌트에서도 dispatch 를 직접 하도록 구현을 해보세요.
+    (조건: CreateUser 에게는 아무 props 도 전달하지 않는다. CreateUser 컴포넌트 내부에서 useInputs 를 사용한다. useRef 를 사용한 nextId 값을 CreateUser 에서 관리한다.)
+        답은 다음과 같다.
+
+            import React, { useRef, useContext } from 'react'
+            import useInputs from './hooks/useInputs'
+            import { UserDispatch } from './App'
+
+            const CreateUser = () => {
+            const [{ username, email }, onChange, reset] = useInputs({
+                username: '',
+                email: ''
+            })
+
+            const nextId = useRef(4)
+            const dispatch = useContext(UserDispatch)
+
+            const onCreate = () => {
+                dispatch({
+                    type: 'CREATE_USER',
+                    user: {
+                        id: nextId.current,
+                        username,
+                        email
+                    }
+                })
+                reset()
+                nextId.current += 1
+            }
+
+            return (
+                <div>
+                    <input
+                        name="username"
+                        placeholder="계정명"
+                        onChange={onChange}
+                        value={username}
+                    />
+                    <input
+                        name="email"
+                        placeholder="이메일"
+                        onChange={onChange}
+                        value={email}
+                    />
+                    <button onClick={onCreate}>등록</button>
+                    </div>
+                )
+            }
+
+            export default React.memo(CreateUser)
+
+
+
+1. 테스트 : 똑같이 작동하는 지 확인
+    $ cd app1
+    $ npm start
