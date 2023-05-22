@@ -1,4 +1,4 @@
-# Syntax PC별 브랜치 현황
+# PC 리스트
 
   1. 데스크톱 Alienware : alienware
   2. 데스크톱 RGB : rgb
@@ -9,7 +9,7 @@
   7. 구글 픽셀 슬레이트 : pixelslate
   8. 비상용 미니 PC : mini
 
-# Syntax 반복문구 리스트
+# 반복문구 리스트
 
   1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
   1. 사전준비 : server 앱을 켜둔다.
@@ -19,7 +19,7 @@
     $ cd app1
     $ npm start
 
-# Syntax API 리스트
+# API 리스트
 
   1. 유저, 글, 앨범, 사진, 할일 등 종합
     API: https://jsonplaceholder.typicode.com/users  

@@ -40,6 +40,8 @@
   - zoom 설치
   - slack 설치
 
+
+
 1. iterm2 설치
   iterm2 검색 후 설치
   iterm2을 열고, 위쪽 메뉴에서 iterm2 탭에서 settings 클릭
@@ -49,6 +51,8 @@
     최하단 Auto-Rainbow 옆 풀다운 클릭 - Light Colors 선택 - OK 버튼 선택
   profiles 탭 - color - 우측 하단 color presets 풀다운 - Dark background 선택
 
+
+  
 1. oh my zsh 설치
   command + space 누르고 terminal
   크롬에 "brew install"이라고 검색 후 명령어 복붙해서 설치 후, 터미널에 지시 따라 입력완료하기
