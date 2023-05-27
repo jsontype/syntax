@@ -1,4 +1,4 @@
-[TS기반 리액트 앱에 sass 도입하기]
+[TS 기반 리액트 앱에 sass 도입하기]
 
 1. sass 설치
   $ cd app1
