@@ -24,6 +24,7 @@
         ja,
       },
       lng: "en", // 언어 디텍터를 사용한다면 lng 키를 지정할 필요없다.
+      // lng: navigator.language, // 언어 디텍터를 사용한 경우
       interpolation: {
         escapeValue: false,
       },
@@ -91,17 +92,17 @@
 
 1. src/i18n/locales/en/hello.json 생성
   {
-    "hello": "Hello, I am Yang. Nice to meet you!"
+    "hello": "Nice to meet you!"
   }
 
 1. src/i18n/locales/ja/hello.json 생성
   {
-    "hello": "お世話になります。私はITエンジニアのJSONTYPEです。宜しくお願い致します。"
+    "hello": "宜しくお願い致します。"
   }
 
 1. src/i18n/locales/ko/hello.json 생성
   {
-    "hello": "안녕하세요, 저는 개발자 JSONTYPE입니다. 만나서 반가워요!"
+    "hello": "안녕하세요"
   }
 
 

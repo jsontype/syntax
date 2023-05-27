@@ -6,7 +6,7 @@ export default function App() {
     const [arr, setArr] = useState([1, 2, 3, 4, 5])
     const [obj, setObj] = useState({ id: 'yang123', pw: '3qeklfew12' })
 
-    const addArr = () => { setArr([ ...arr, 6]) } // 배열 추가
+    const addArr = () => { setArr([ ...arr, 6]) } // 배열 추가인데, = setArr(arr.concat(6)) 이렇게 해도 된다. 이거는 concat이 push 대신이다. 그렇다고 arr.push(6) 이런식으로 하면 안된다. 왜? push는 불변성을 깨니까.
     const modArr = () => { setArr(arr.map((item, index) => { return index === arr.length - 1 ? 999 : item })) } // 배열 수정
     const delArr = () => { setArr(arr.filter((item, index) => { return index !== arr.length - 1 }))} // 배열 삭제
 
