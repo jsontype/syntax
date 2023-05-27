@@ -14,6 +14,7 @@ i18n
       ja,
     },
     lng: "en", // 언어 디텍터를 사용한다면 lng 키를 지정할 필요없다.
+    // lng: navigator.language, // 언어 디텍터를 사용한 경우
     interpolation: {
       escapeValue: false,
     },

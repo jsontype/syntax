@@ -37,13 +37,13 @@
         payload: id
     })
 
-    /* 액션 타입 선언 */
+    /* 액션 타입 선언 : 타입스크립트용 타입 */
     type TodosAction =
         | ReturnType<typeof addTodo>
         | ReturnType<typeof toggleTodo>
         | ReturnType<typeof removeTodo>
 
-    /* State 타입 선언 */
+    /* State 타입 선언 : 타입스크립트용 타입 */
     export type Todo = {
         id: number
         text: string
