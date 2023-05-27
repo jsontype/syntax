@@ -1,4 +1,4 @@
-[TS기반 리액트 앱에 module 도입하기]
+[TS 기반 리액트 앱에 module 도입하기]
 참조URL: https://whales.tistory.com/101
 
 1. sass를 함께 사용한다면 설치 : css module은 별도 설치가 필요없다.
@@ -14,7 +14,7 @@
     export default content;
   }
 
-1. 변경작업
+1. 각 CSS 파일 수정 : SCSS로의 변경작업
   css 확장자를 *.module.scss로 변경
   import 부분을 import styles from '*.module.scss' 형태로 변경
   className="App"을 className={styles.App} 형태로 변경
