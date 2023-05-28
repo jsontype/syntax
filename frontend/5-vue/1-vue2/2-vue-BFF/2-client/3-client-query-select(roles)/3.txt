@@ -1,0 +1,225 @@
+[Roles 조회하기 : Apollo Client 설정하고 시작]
+
+1. 사전준비 : server 앱을 켜둔다.
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. Apollo Client란?
+  Apollo Server와 React를 연결하는 라이브러리이다.
+  이것을 통해서 BFF Server와 연결을 시킬 수 있고, GraphQL을 통해 DB에 접근할 수 있게 해준다.
+
+1. 설치
+  $ cd app1
+  $ npm install @apollo/client graphql
+
+
+
+1. src/App.js 수정 : ApolloServer와 연결하기 위해, ApolloClient 객체를 만든 뒤, ApolloProvider 태그로 DOM을 감싸주기
+  import "./App.css"
+  import React, { useState } from "react"
+  // ApolloClient 모듈 임포트
+  import { ApolloProvider } from "@apollo/client"
+  import { ApolloClient, InMemoryCache } from "@apollo/client"
+
+  import Roles from "./components/roles"
+  import Teams from "./components/teams"
+  import People from "./components/people"
+
+  // client : GraphQL 서버로와 정보를 주고받을 ApolloClient 객체
+  const client = new ApolloClient({
+    // uri : GraphQL 서버의 주소
+    uri: "http://localhost:4000",
+    // cache : InMemoryCache를 통한 캐시 관리
+    cache: new InMemoryCache(),
+  })
+
+  export default function App() {
+    const [menu, setMenu] = useState("Roles")
+
+    // mainComp : App-header 아래 메인 화면에 나타날 컴포넌트 매핑
+    const mainComp = {
+      Roles: <Roles />,
+      Teams: <Teams />,
+      People: <People />,
+    }
+
+    // NavMenus : menu값에 따라 상단 App-header의 버튼을 표시하는 함수
+    function NavMenus() {
+      return ["Roles", "Teams", "People"].map((_menu, key) => {
+        return (
+          <li
+            key={key}
+            className={menu === _menu ? "on" : ""}
+            onClick={() => {
+              setMenu(_menu)
+            }}
+          >
+            {_menu}
+          </li>
+        )
+      })
+    }
+
+    return (
+      <div className="App">
+        {/* 최상위 div안의 내부 요소들을 모두 ApolloProvider로 감싸준다. */}
+        <ApolloProvider client={client}>
+          <header className="App-header">
+            <h1>Company Management</h1>
+            <nav>
+              <ul>{NavMenus()}</ul>
+            </nav>
+          </header>
+          <main>{mainComp[menu]}</main>
+        </ApolloProvider>
+      </div>
+    )
+  }
+
+
+
+1. src/components/roles.js 수정 : GraphQL 서버로부터 목록 받아와 표시하기 위한 준비하기
+  import "./components.css"
+  import { useState } from "react"
+  import { useQuery, gql } from "@apollo/client"
+
+  // GraphQL 서버로부터 모든 컨텐츠를 표시하기 위한 쿼리
+  const GET_ROLES = gql`
+    query GetRoles {
+      roles {
+        id
+      }
+    }
+  `
+
+  // GraphQL 서버로부터 id에 해당하는 컨텐츠 하나만 받아와서 표시하기 위한 쿼리
+  const GET_ROLE = gql`
+    query GetRole($id: ID!) {
+      role(id: $id) {
+        id
+        requirement
+        members {
+          id
+          last_name
+          serve_years
+        }
+        equipments {
+          id
+        }
+        softwares {
+          id
+        }
+      }
+    }
+  `
+
+  export default function Roles() {
+    const [contentId, setContentId] = useState("")
+
+    // 왼쪽 사이드바 : GraphQL로부터 모든 데이터를 받아와 목록을 렌더링하도록 작성
+    function AsideItems() {
+      const roleIcons = {
+        developer: "💻",
+        designer: "🎨",
+        planner: "📝",
+      }
+      const { loading, error, data } = useQuery(GET_ROLES)
+
+      if (loading) return <p className="loading">Loading...</p>
+      if (error) return <p className="error">Error :(</p>
+      // GET_ROLES 쿼리 응답을 콘솔로그에 찍는다.
+      if (data) {
+        console.log("GET_ROLES 쿼리 응답: ", data)
+      }
+
+      return (
+        <ul>
+          {data.roles.map(({ id }) => {
+            return (
+              <li
+                key={id}
+                className={"roleItem " + (contentId === "id" ? "on" : "")}
+                onClick={() => {
+                  setContentId(id)
+                }}
+              >
+                <span>{contentId === id ? "🔲" : "⬛"}</span>
+                {roleIcons[id]} {id}
+              </li>
+            )
+          })}
+        </ul>
+      )
+    }
+
+    // 가운데 메인컨텐츠 : GraphQL 서버로부터 id로 한개의 컨텐츠 받아와 표시하기
+    function MainContents() {
+      const { loading, error, data } = useQuery(GET_ROLE, {
+        variables: { id: contentId },
+      })
+
+      if (loading) return <p className="loading">Loading...</p>
+      if (error) return <p className="error">Error :(</p>
+      if (contentId === "") return <div className="roleWrapper">Select Role</div>
+      // GET_ROLE 쿼리 응답을 콘솔로그에 찍는다.
+      if (data) {
+        console.log("GET_ROLE 쿼리 응답: ", data)
+      }
+
+      return (
+        <div className="roleWrapper">
+          <h2>{data.role.id}</h2>
+          <div className="requirement">
+            <span>{data.role.requirement}</span> required
+          </div>
+          <h3>Members</h3>
+          <ul>
+            {data.role.members.map((member) => {
+              return <li key={member.id}>{member.last_name}</li>
+            })}
+          </ul>
+          <h3>Equipments</h3>
+          <ul>
+            {data.role.equipments.map((equipment) => {
+              return <li key={equipment.id}>{equipment.id}</li>
+            })}
+          </ul>
+          <h3>Softwares</h3>
+          {data.role.softwares.map((software) => {
+            return <li key={software.id}>{software.id}</li>
+          })}
+          <ul></ul>
+        </div>
+      )
+    }
+
+    return (
+      <div id="roles" className="component">
+        <aside>{AsideItems()}</aside>
+        <section className="contents">{MainContents()}</section>
+      </div>
+    )
+  }
+
+
+
+1. 테스트 : Roles 화면에서 사이드바와 컨텐츠 부분이 잘 표시되는지 확인
+  $ cd app1
+  $ npm start
+  http://localhost:3000
+  상단의 Roles 메뉴 클릭
+  사이드바와 컨텐츠 부분이 잘 표시되는지 확인
+
+
+
+1. 트러블슈팅 : Failed to parse source map from ... @wry\context\src\index.ts 에러가 발생할 경우
+  원인 : Webpack 5.x의 CRA 명령어가 원인이다.
+
+  해결방법1 : 
+    루트폴더(app1)에 .env 파일을 만든다.
+    .env 파일에 다음 코드를 넣는다.
+      GENERATE_SOURCEMAP=false
+    재기동하면 에러가 나지 않는다.
+
+  해결방법2 :
+    sourcemap을 로컬에서만 비활성화하려면 package.json의 스크립트 부분을 아래와 같이 수정해도 된다.
+      "scripts": { "start": "GENERATE_SOURCEMAP=false && react-scripts start" }
