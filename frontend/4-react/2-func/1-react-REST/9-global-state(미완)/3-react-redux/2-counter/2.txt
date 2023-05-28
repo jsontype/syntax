@@ -120,13 +120,13 @@
   const INCREASE = "counter/INCREASE"
   const DECREASE = "counter/DECREASE"
 
-  /** action 생성함수 정의 : + - 버튼은 파라미터 불필요 */
+  /** action 생성함수 정의 */
   export const increase = () => ({ type: INCREASE })
   export const decrease = () => ({ type: DECREASE })
 
   /** state 초기값 정의 */
   const initialState = {
-    number: 0,
+    count: 0,
   }
 
   /** reducer 정의 */
@@ -135,12 +135,12 @@
       case INCREASE:
         return {
           ...state,
-          number: state.number + 1,
+          count: state.count + 1,
         }
       case DECREASE:
         return {
           ...state,
-          number: state.number - 1,
+          count: state.count - 1,
         }
       default:
         return state
@@ -151,10 +151,9 @@
 
 1. src/modules/index.js 생성 : 루트리듀서 만들기    
   /** root reducer 정의 */
-  import counter from "./counter" // 리듀서 임포트
-  import { combineReducers } from "redux" // combineReducers 임포트 (리덕스에서)
+  import counter from "./counter"
+  import { combineReducers } from "redux"
 
-  // 리듀서들을 합친 것을 rootReducer에 담아서 export
   const rootReducer = combineReducers({
     counter,
   })
@@ -188,7 +187,7 @@
 
 [Store에 있는 State를 사용해서 Counter 컴포넌트 만들기]
 
-1. src/components/Counter/Counter.js : Counter의 프리젠테이셔널 컴포넌트 (ui)
+1. src/components/Counter/index.js : Counter의 프리젠테이셔널 컴포넌트(= UI 컴포넌트) 만들기
   import React from "react"
   import "./style.css"
 
@@ -197,10 +196,11 @@
   // 주로 UI를 선언하는 것에 집중하는 형태로 구현된다.
 
   // Redux에서 받아올 state(값)과 action(함수)들을 props로 받을 수 있게 준비해둔다.
-  export default function Counter({ number, onIncrease, onDecrease }) {
+  export default function Counter({ count, onIncrease, onDecrease }) {
     return (
       <div>
-        <h1 className="number">{number}</h1>
+        <h1>Counter App</h1>
+        <h2 className="number">Counter 안에서의 Count: {count}</h2>
         <div>
           <button onClick={onIncrease}>+</button>
           <button onClick={onDecrease}>-</button>
@@ -211,7 +211,6 @@
 
 
 
-
 1. src/components/Counter/style.css : Counter의 프리젠테이셔널 컴포넌트 스타일 (ui)
   .number {
     color: red;
@@ -219,10 +218,9 @@
 
 
 
-1. src/components/Counter/CounterContainer.js : Counter의 컨테이너 컴포넌트 (modules와 components를 연결해줌)
-  /** 카운터 컨테이너 컴포넌트 */
+1. src/components/Counter/Container.js : Counter의 컨테이너 컴포넌트 (modules와 components를 연결해줌)
   import React from "react"
-  import Counter from "./Counter"
+  import Counter from "."
 
   /** counter 모듈에서 정의한 액션 생성함수 임포트 */
   import { increase, decrease } from "../../modules/counter"
@@ -230,16 +228,15 @@
   import { useSelector, useDispatch } from "react-redux"
 
   export default function CounterContainer() {
-    // state 연결
-    const number = useSelector((state) => state.counter.number)
-
-    // action 연결
+    // state를 연결
+    const { count } = useSelector((state) => ({ count: state.counter.count }))
+    // action을 연결 : ★ dispatch 쓸 때 함수형 업데이트 필수!
     const dispatch = useDispatch()
     const onIncrease = () => dispatch(increase())
     const onDecrease = () => dispatch(decrease())
 
     return (
-      <Counter number={number} onIncrease={onIncrease} onDecrease={onDecrease} />
+      <Counter count={count} onIncrease={onIncrease} onDecrease={onDecrease} />
     )
   }
 
@@ -248,7 +245,7 @@
 1. src/App.js 수정 : Counter 대신, CounterContainer를 렌더링
   import "./App.css"
   // 카운터 대신, 카운터 컨테이너 컴포넌트를 렌더링
-  import CounterContainer from "./containers/CounterContainer"
+  import CounterContainer from "./components/Counter/Container"
 
   export default function App() {
     return (
@@ -262,6 +259,47 @@
         <CounterContainer />
         <CounterContainer />
         <CounterContainer />
+      </div>
+    )
+  }
+
+
+
+
+[다른 컴포넌트에서 글로벌 스테이트 사용해보기]
+
+1. src/components/Todos/Todos.js 수정 : 다른 컴포넌트에서 Count 사용해보기
+  import React from "react"
+  import { useSelector } from "react-redux"
+
+  export default function Todos() {
+    const count = useSelector(
+      // Global State를 조회할 때에는 state의 타입을 RootState로 지정해야 한다.
+      (state) => state.counter.count
+    )
+
+    return (
+      <>
+        <h1>Todos</h1>
+        <h2>Todos 안에서의 Count: {count}</h2>
+      </>
+    )
+  }
+
+
+
+1. src/App.js 수정 : Todos 컴포넌트 불러오기
+  import "./App.css"
+  // 카운터 대신, 카운터 컨테이너 컴포넌트를 렌더링
+  import CounterContainer from "./components/Counter/Container"
+  import Todos from "./components/Todos"
+
+  export default function App() {
+    return (
+      <div className="App">
+        {/* 글로벌 State/Action을 가진 컴포넌트 완성 */}
+        <CounterContainer />
+        <Todos />
       </div>
     )
   }

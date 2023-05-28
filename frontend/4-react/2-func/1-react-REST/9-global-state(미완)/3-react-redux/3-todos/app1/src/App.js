@@ -1,6 +1,6 @@
-import "./App.css";
-import CounterContainer from "./components/Counter/container";
-import TodosContainer from "./components/Todos/container";
+import "./App.css"
+import CounterContainer from "./components/Counter/Container"
+import TodosContainer from "./components/Todos/Container"
 
 function App() {
   return (
@@ -8,7 +8,7 @@ function App() {
       <CounterContainer />
       <TodosContainer />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
