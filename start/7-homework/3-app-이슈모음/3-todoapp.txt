@@ -1,0 +1,4 @@
+#### 핵심 이슈
+
+[투두] 기능: TodoList API를 불러와서 투두리스트 메뉴 및 컴포넌트 구현
+  API: https://jsonplaceholder.typicode.com/todos
