@@ -9,8 +9,8 @@
           <li><router-link to="/people" active-class="active" class="nav-link">People</router-link></li>
         </ul>
       </nav>
-      <router-view/>
     </header>
+    <router-view/>
   </div>
 </template>
 
@@ -169,7 +169,6 @@ export default {
     flex-direction: row;
     width: 100%;
     height: 100%;
-    ;
   }
 
   .component aside {
@@ -368,7 +367,7 @@ export default {
     height: 64px;
     line-height: 64px;
     background-color: white;
-  }
+  }  
 
   h1 {
     display: inline-block;

@@ -4,7 +4,7 @@
 1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
 
 1. Apollo Client란?
-  Apollo Server와 React를 연결하는 라이브러리이다.
+  Apollo Server와 클라이언트를 연결하는 라이브러리이다.
   이것을 통해서 BFF Server와 연결을 시킬 수 있고, GraphQL을 통해 DB에 접근할 수 있게 해준다.
 
 1. 설치
@@ -77,7 +77,7 @@
 
 
 
-1. src/components/roles.js 수정 : GraphQL 서버로부터 목록 받아와 표시하기 위한 준비하기
+1. src/components/roles.js 수정 : GraphQL 서버로부터 목록 받아와 표시하기
   import "./components.css"
   import { useState } from "react"
   import { useQuery, gql } from "@apollo/client"
