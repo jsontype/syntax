@@ -27,3 +27,10 @@
   let answer = input[0] / input[1] + '\n';
   answer += input[0] % input[1]
   console.log(answer)
+
+1. 1330 두 수 비교하기
+  const fs = require('fs');
+  const input = String(fs.readFileSync('/dev/stdin')).split(' ');
+  const a = Number(input[0]);
+  const b = Number(input[1]);
+  a > b ? console.log('>') : a < b ? console.log('<') : console.log('==');
