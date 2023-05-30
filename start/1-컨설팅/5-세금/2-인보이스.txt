@@ -1,0 +1,18 @@
+[인보이스제도 신청 방법]
+
+1. 인보이스제도 전에 다음을 먼저 하자.
+  국민연금 / 사회보험 가입
+  개인사업자등록
+  부양자가족 등록 및 관련서류 준비
+  마이넘버카드 준비
+  
+1. 사전준비
+  둘중 하나의 앱에 들어간다. (웹판은 크롬 브라우져에서 잘 안 된다.. ?)
+    e-Tax 소프트(SP판) : https://clientweb.e-tax.nta.go.jp/UF_WEB/WP000/FCSE00001/SESP0010SCRSP.do?shift=Invoice
+    e-Tax 소프트(웹판) : https://clientweb.e-tax.nta.go.jp/UF_WEB/WP000/FCSE00001/SE00S010SCR.do?shift=Invoice
+  마이넘버카드로 로그인한다.
+  이용자식별번호를 취득한다.
+
+1. 인보이스 등록 신청 절차
+
+

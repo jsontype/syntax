@@ -5,7 +5,7 @@
 
 
 
-1. src/components/teams.js 수정 : GraphQL 서버로부터 목록 받아와 표시하기 위한 준비하기
+1. src/components/teams.js 수정 : GraphQL 서버로부터 목록 받아와 표시하기
   import "./components.css"
   import { useState } from "react"
   import { useQuery, useMutation, gql } from "@apollo/client"
@@ -250,6 +250,7 @@
 
 
 1. 테스트 : Teams 화면에서 사이드바와 컨텐츠 부분이 잘 표시되는지 확인
+  BFF server 앱 켜져있는지 확인하고, 꺼져있다면 npm start로 실행시켜두고 시작한다.
   $ cd app1
   $ npm start
   http://localhost:3000
