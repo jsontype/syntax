@@ -1,0 +1,49 @@
+[백준풀이 : 브론즈 5 수준]
+참조: https://solved.ac/problems/level/
+
+1. 1000 A+B
+const fs = require('fs');
+const input = String(fs.readFileSync('/dev/stdin')).split(' ');
+const a = Number(input[0]);
+const b = Number(input[1]);
+console.log(a+b);
+
+1. 1001 A-B
+const fs = require('fs');
+const input = String(fs.readFileSync('/dev/stdin')).split(' ');
+const a = Number(input[0]);
+const b = Number(input[1]);
+console.log(a-b);
+
+1. 1008 A/B
+const fs = require('fs');
+const input = String(fs.readFileSync('/dev/stdin')).split(' ');
+const a = Number(input[0]);
+const b = Number(input[1]);
+console.log(a/b);
+
+1. 1271 엄청난 부자2
+const fs = require('fs');
+const input = fs.readFileSync("/dev/stdin").toString().trim().split(" ").map(BigInt);
+let answer = input[0] / input[1] + '\n';
+answer += input[0] % input[1]
+console.log(answer)
+
+1. 1330 두 수 비교하기
+const fs = require('fs');
+const input = String(fs.readFileSync('/dev/stdin')).split(' ');
+const a = Number(input[0]);
+const b = Number(input[1]);
+a > b ? console.log('>') : a < b ? console.log('<') : console.log('==');
+
+1. 1809 Moo
+console.log(`
+(___)
+(o o)____/
+ @@      \
+  \ ____,/
+  //   //
+ ^^   ^^
+`)
+
+1. 2338 긴자리 계산

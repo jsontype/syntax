@@ -284,6 +284,7 @@
 
 
 1. 테스트 : Teams 화면에서 삭제 버튼을 누른 뒤 반영까지 잘 되나 확인
+  BFF server 앱 켜져있는지 확인하고, 꺼져있다면 npm start로 실행시켜두고 시작한다.
   $ cd app1
   $ npm start
   http://localhost:3000
