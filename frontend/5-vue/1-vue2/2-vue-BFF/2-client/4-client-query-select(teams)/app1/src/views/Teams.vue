@@ -7,8 +7,8 @@
           <p v-if="error" class="error">Error :(</p>
           <aside v-else>
             <ul>
-              <li v-for="team in data.teams" :key="team.id" @click="selectTeam(team.id)">
-                <span class="teamItemTitle">Team {{team.id}} : {{team.manager}}'s</span>
+              <li v-for="team in data.teams" :key="team.id">
+                <span class="teamItemTitle" @click="selectTeam(team.id)">Team {{team.id}} : {{team.manager}}'s</span>
                 <ul class="teamMembers">
                   <li v-for="member in team.members" :key="member.id">
                     {{roleIcons[member.role]}} {{member.first_name}} {{member.last_name}}
