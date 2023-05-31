@@ -54,7 +54,7 @@
 1. 테스트
   $ cd app1
   $ npm start (또는 yarn start)
-  http://localhost:3000/
+  http://localhost:3000
 
 1. 보충 : 확장자에 대하여
   앞으로는 화면, 로직 구분 없이 "*.js"로 구현할 예정이지만,

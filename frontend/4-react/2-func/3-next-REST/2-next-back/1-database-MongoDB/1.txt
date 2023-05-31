@@ -105,7 +105,7 @@
 1. 테스트 : 콘솔로그 확인
   $ cd app1
   $ npm run dev
-  http://localhost:3000/
+  http://localhost:3000
 
 1. 개발서버와 실제서버 사용법
   개발서버 사용은 다음과 같다. (테스트 용도)

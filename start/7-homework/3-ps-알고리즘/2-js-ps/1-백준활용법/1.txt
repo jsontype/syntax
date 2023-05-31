@@ -26,7 +26,7 @@
     단, A와 B에 0 초과 10 미만의 어떠한 자연수 두 개가 입력으로 들어오더라도 A + B의 올바른 값을 출력해야 한다.
   - BOJ는 기계이다. 2와 3이 입력되면 ‘5’ 정확히 한 글자만 출력해야 하며, 
     코드 실행 도중 어떠한 잡담도 출력하면 안 된다.
-  Node.js의 경우, 입력값을 받는 방법은 readline이나 fs를 쓸 수 있다.
+  - 인풋의 경우, 특별한 라이브러리가 필요하다. Node.js의 경우, 입력값을 받는 방법으로 Prompt가 아니라, readline이나 fs를 쓸 수 있다.
     단, 시간 초과가 나는 것을 막기 위해서는 속도가 빠른 fs 모듈을 쓰는 것이 낫다.
     ★★ fs를 쓸 때에 "String(fs.readFileSync('/dev/stdin'))"를 쓰면 입력받은 값을 문자열로 받을 수 있다.
     "/dev/stdin"은 Unix / Linux 시스템에서 표준 입력을 나타내는 파일 디스크립터(Descriptor)이다. 
@@ -36,12 +36,14 @@
         1: 표준 출력 (stdout) = standard output의 약자로 "에스티디 아웃" 라고 읽는다.
         2: 표준 에러 (stderr) = standard error의 약자로 "에스티디 에러" 라고 읽는다.
     즉, "String(fs.readFileSync('/dev/stdin'))"는 사용자가 표준 입력한 데이터인 "stdin"를 동기적으로 읽어서 가져오는 것이다.
-  다음은 fs를 썼을 때의 정답 코드이다.
-    const fs = require('fs');
-    const input = String(fs.readFileSync('/dev/stdin')).split(' ');
-    const a = Number(input[0]);
-    const b = Number(input[1]);
-    console.log(a+b);
+    다음은 fs를 썼을 때의 정답 코드이다.
+      const fs = require('fs');
+      const input = String(fs.readFileSync('/dev/stdin')).split(' ');
+      const a = Number(input[0]);
+      const b = Number(input[1]);
+      console.log(a+b);
+  - 테스트를 하기 전에는, 적어도 직접 테스트코드를 적어서 실행해보고 제대로 들어오는지 확인한 다음 제출한다.
+    이때 인풋의 경우, 테스트코드의 sample.js와 같은 형식으로, 인풋쪽을 라이브러리 없이 간단히 테스트해볼 수도 있다.
 
 1. 백준 코딩 테스트 대비 : 백준 양질의 문제만 빠르게 푸는 방법
   더보기 > 강의 탭에서 알고리즘 기초 1/2, 2/2 의 문제들을 풀어본다. (강의는 안 들어도 좋다.)

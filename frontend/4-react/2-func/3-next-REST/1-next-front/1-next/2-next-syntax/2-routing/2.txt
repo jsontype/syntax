@@ -120,5 +120,5 @@
 1. 테스트
   $ cd app1
   $ npm run dev
-  http://localhost:3000/
+  http://localhost:3000
   메뉴를 각각 눌러서 라우팅이 잘 되는지 확인

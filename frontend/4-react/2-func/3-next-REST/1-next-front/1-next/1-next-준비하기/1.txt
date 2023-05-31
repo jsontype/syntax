@@ -49,7 +49,7 @@
 1. 중간 테스트
   $ cd app1
   $ npm run dev
-  http://localhost:3000/
+  http://localhost:3000
 
 1. Next.js 구조
   public/ : 정적파일폴더(이미지, 영상, 음악 파일 모음)(추후 추가)
@@ -85,4 +85,4 @@
 1. 테스트
   $ cd app1
   $ npm run dev
-  http://localhost:3000/
+  http://localhost:3000

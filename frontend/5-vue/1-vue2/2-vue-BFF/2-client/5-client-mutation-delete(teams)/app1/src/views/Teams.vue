@@ -179,9 +179,9 @@ export default {
         await this.$apollo.mutate({ 
           mutation: this.DELETE_TEAM, 
           variables: { id },
-          refetchQueries: [{ query: this.GET_TEAMS }] // 삭제 후 팀 목록을 업데이트합니다.
+          refetchQueries: [{ query: this.GET_TEAMS }] // 삭제 후 팀 목록을 업데이트
         })
-        this.resetContentId() // 삭제 후 입력 필드를 초기화합니다.
+        this.resetContentId() // 삭제 후 입력 필드를 초기화
       }
     },
   }
