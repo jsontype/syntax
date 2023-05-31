@@ -5,7 +5,7 @@ info:
   description: "두 인자값을 더해주는 간단한 API"
 servers:
   - description: Plus API
-    url: http://localhost:3000/  
+    url: http://localhost:3000
 host: localhost:3000
 basePath: /
 schemes:
@@ -29,7 +29,7 @@ paths:
           in: query
           description: Second Value
           required: true
-          type: integer          
+          type: integer
       responses:
         "200":
           description: Success

@@ -36,8 +36,8 @@
   Register a New Application 버튼 클릭
   폼 입력
     Application Name: Next.js
-    Homepage URL: http://localhost:3000/
-    Authorization callback URL: http://localhost:3000/
+    Homepage URL: http://localhost:3000
+    Authorization callback URL: http://localhost:3000
     Register application 버튼 클릭
   Generate a new client secret 버튼 클릭
   Client ID와 Client Secret을 어딘가에 메모해두기

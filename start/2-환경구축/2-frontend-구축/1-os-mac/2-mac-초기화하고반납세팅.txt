@@ -54,7 +54,7 @@
     Google Authenticator의 경우 : 앱 열기 - 해당 계정 클릭 - 설정버튼 - 삭제
     MicroSoft Authenticator의 경우 : 앱 열기 - 해당 계정 클릭 - 편집 - 삭제
   슬랙 계정 사인아웃 및 삭제
-  깃허브 연동 삭제(우측 상단 ㅡ 세팅 ㅡ 오르가니제이션 ㅡ 해당 기관 leave 버튼)
+  깃허브 연동 삭제 : 우측 상단 유저아이콘 - 세팅 - Organizations - 해당 기관의 leave 버튼 클릭
 
 1. 개인PC 연동 삭제
   구글 크롬 이메일 계정 삭제

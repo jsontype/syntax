@@ -188,9 +188,9 @@
           await this.$apollo.mutate({ 
             mutation: this.DELETE_TEAM, 
             variables: { id },
-            refetchQueries: [{ query: this.GET_TEAMS }] // 삭제 후 팀 목록을 업데이트합니다.
+            refetchQueries: [{ query: this.GET_TEAMS }] // 삭제 후 팀 목록을 업데이트
           })
-          this.resetContentId() // 삭제 후 입력 필드를 초기화합니다.
+          this.resetContentId() // 삭제 후 입력 필드를 초기화
         }
       },
     }
@@ -202,7 +202,7 @@
 1. 테스트 : Teams 화면에서 삭제 버튼을 누른 뒤 반영까지 잘 되나 확인
   BFF server 앱 켜져있는지 확인하고, 꺼져있다면 npm start로 실행시켜두고 시작한다.
   $ cd app1
-  $ npm start
+  $ npm run serve
   http://localhost:3000
   상단의 Teams 메뉴 클릭
   Team 1 : Mandy Warren's 클릭해서, 컨텐츠 인풋에 팀 정보로 채워지나 확인

@@ -40,4 +40,4 @@
 1. 테스트
   $ cd app1
   $ npm run dev
-  http://localhost:3000/
+  http://localhost:3000

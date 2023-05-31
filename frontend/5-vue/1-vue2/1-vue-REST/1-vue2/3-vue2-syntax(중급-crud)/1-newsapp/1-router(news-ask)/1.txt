@@ -21,7 +21,7 @@
 1. 중간 테스트
   $ cd app1
   $ npm run serve
-  http://localhost:8080/
+  http://localhost:8080
   app.vue : 파일 수정후 저장하고, 자동 업데이트 되는지 확인
   ctrl + c로 종료
 
@@ -200,4 +200,4 @@
 1. 테스트
   $ cd app1
   $ npm run serve
-  http://localhost:8080/
+  http://localhost:8080

@@ -5,7 +5,7 @@
 
 
 
-1. src/components/people.js 수정 : 항목 조회, 삭제, 수정, 추가 기능을 people 컴포넌트에 한번에 적용하기
+1. src/views/People.vue 수정 : 항목 조회, 삭제, 수정, 추가 기능을 people 컴포넌트에 한번에 적용하기
   import "./components.css"
   import { useState } from "react"
   import { useQuery, useMutation, gql } from "@apollo/client"
