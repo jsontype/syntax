@@ -6,9 +6,125 @@
 
 
 1. src/views/People.vue 수정 : 항목 조회, 삭제, 수정, 추가 기능을 people 컴포넌트에 한번에 적용하기
-  import "./components.css"
-  import { useState } from "react"
-  import { useQuery, useMutation, gql } from "@apollo/client"
+  <template>
+    <div id="people" class="component">
+      <aside>
+        <ApolloQuery :query="GET_PEOPLE">
+          <template slot-scope="{ result: { loading, error, data } }">
+            <p v-if="loading" class="loading">Loading...</p>
+            <p v-if="error" class="error">Error :(</p>
+            <aside v-else>
+              <ul v-if="data && data.people">
+                <li v-for="person in data.people" :key="person.id" @click="selectPerson(person.id)">
+                  <span class="face">{{ peopleFaces(person.sex, person.id) }}</span>
+                  <span class="bloodType">{{ person.blood_type }}</span>
+                  <span class="peopleName">{{ person.first_name }} {{ person.last_name }}</span>
+                </li>
+              </ul>
+            </aside>
+          </template>
+        </ApolloQuery>
+      </aside>
+      <section class="contents">
+        <div v-if="selectedPerson" class="inputContainer">
+          <table>
+            <tr v-if="contentId !== 0">
+              <td>Id</td>
+              <td>{{contentId}}</td>
+            </tr>
+            <input type="hidden" name="id" v-model="inputs.id">
+            <tr>
+              <td>First Name</td>
+              <td>
+                <input type="text" name="first_name" v-model="inputs.first_name">
+              </td>
+            </tr>
+            <tr>
+              <td>Last Name</td>
+              <td>
+                <input type="text" name="last_name" v-model="inputs.last_name">
+              </td>
+            </tr>
+            <tr>
+              <td>Sex</td>
+              <td>
+                <select
+                  name="sex"
+                  v-model="inputs.sex"
+                >
+                  <option v-for="(value, key) in sexes" :value="value" :key="key">{{ value }}</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Blood Type</td>
+              <td>
+                <select
+                  name="blood_type"
+                  v-model="inputs.blood_type"
+                >
+                  <option v-for="(value, key) in bloodTypes" :value="value" :key="key">{{ value }}</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Serve Years</td>
+              <td>
+                <input type="number" name="serve_years" v-model="inputs.serve_years">
+              </td>
+            </tr>
+            <tr>
+              <td>Role</td>
+              <td>
+                <select
+                  name="role"
+                  v-model="inputs.role"
+                >
+                  <option v-for="(value, key) in roles" :value="value" :key="key">{{ value }}</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Team</td>
+              <td>
+                <input type="number" name="team" v-model="inputs.team">
+              </td>
+            </tr>
+            <tr>
+              <td>From</td>
+              <td>
+                <input type="text" name="from" v-model="inputs.from">
+              </td>
+            </tr>
+          </table>
+
+          <ul v-if="contentId !== 0">
+            <li v-for="(value, key) in selectedPerson.tools" :value="value" :key="key">
+              <span>{{ value.__typename === "Equipment" ? value.id : value.id }}</span>
+            </li>
+          </ul>
+
+          <div class="buttons" v-if="contentId === 0">
+            <button v-on:click="postPerson()">Submit</button>
+          </div>
+          <div class="buttons" v-else>
+            <button v-on:click="editPerson(contentId)">Modify</button>
+            <button v-on:click="deletePerson(contentId)">Delete</button>
+            <button v-on:click="resetContentId">New</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </template>
+
+  <script>
+  import { ApolloProvider } from 'vue-apollo'
+  import ApolloClient from 'apollo-boost'
+  import gql from 'graphql-tag'
+
+  const client = new ApolloClient({
+    uri: 'http://localhost:4000/', // GraphQL Server URL
+  })
 
   const GET_PEOPLE = gql`
     query GetPeople {
@@ -33,7 +149,7 @@
         serve_years
         role
         team
-        from
+        from   
         tools {
           __typename
           ... on Software {
@@ -41,7 +157,6 @@
           }
           ... on Equipment {
             id
-            count
           }
         }
       }
@@ -55,6 +170,7 @@
       }
     }
   `
+
   const POST_PERSON = gql`
     mutation PostPerson($input: PostPersonInput!) {
       postPerson(input: $input) {
@@ -87,373 +203,137 @@
     }
   `
 
-  const INCREASE_EQUIPMENT = gql`
-    mutation IncreaseEquipment($id: ID!) {
-      increaseEquipment(id: $id) {
-        count
-      }
-    }
-  `
-
-  let refetchPeople
-  let refetchPerson
-
-  function People() {
-    const [contentId, setContentId] = useState(0)
-
-    const sexes = ["male", "female"]
-    const bloodTypes = ["A", "B", "AB", "O"]
-    const roles = ["developer", "designer", "planner"]
-
-    const [inputs, setInputs] = useState({
-      first_name: "",
-      last_name: "",
-      sex: sexes[0],
-      blood_type: bloodTypes[0],
-      serve_years: 0,
-      role: roles[0],
-      team: 0,
-      from: "",
-    })
-
-    function execPostPerson() {
-      postPerson({
-        variables: { input: inputs },
-      })
-    }
-    const [postPerson] = useMutation(POST_PERSON, {
-      onCompleted: postPersonCompleted,
-    })
-    function postPersonCompleted(data) {
-      console.log(data.postPerson)
-      alert(`${data.postPerson.id} 항목이 생성되었습니다.`)
-      refetchPeople()
-      setContentId(0)
-    }
-
-    function execEditPerson() {
-      editPerson({
-        variables: {
-          id: contentId,
-          input: inputs,
+  export default {
+    provide: () => ({
+      apolloProvider: new ApolloProvider({ defaultClient: client }),
+    }),
+    data () {
+      return {
+        contentId: 0,
+        sexes: ["male", "female"],
+        bloodTypes: ["A", "B", "AB", "O"],
+        roles: ["developer", "designer", "planner"],
+        inputs: {
+          manager: "",
+          office: "",
+          extension_number: "",
+          mascot: "",
+          cleaning_duty: "",
+          project: "",
         },
-      })
-    }
-    const [editPerson] = useMutation(EDIT_PERSON, {
-      onCompleted: editPersonCompleted,
-    })
-    function editPersonCompleted(data) {
-      console.log(data.editPerson)
-      alert(`${data.editPerson.id} 항목이 수정되었습니다.`)
-      refetchPeople()
-    }
-
-    function execDeletePerson() {
-      if (window.confirm("이 항목을 삭제하시겠습니까?")) {
-        deletePerson({ variables: { id: contentId } })
-      }
-    }
-    const [deletePerson] = useMutation(DELETE_PERSON, {
-      onCompleted: deletePersonCompleted,
-    })
-    function deletePersonCompleted(data) {
-      console.log(data.deletePerson)
-      alert(`${data.deletePerson.id} 항목이 삭제되었습니다.`)
-      refetchPeople()
-      setContentId(0)
-    }
-
-    const [increaseEquipment] = useMutation(INCREASE_EQUIPMENT, {
-      onCompleted: refetchPerson,
-    })
-
-    function AsideItems() {
-      const { loading, error, data, refetch } = useQuery(GET_PEOPLE)
-
-      refetchPeople = refetch
-
-      function peopleFaces(sex, id) {
-        const bySex = {
+        bySex: {
           male: ["🧑🏿", "👨🏻", "👦🏼", "‍🧓🏽", "🧔🏾"],
           female: ["👩🏻", "👧🏼", "👩🏽‍🦰", "👩🏾‍🦱", "👱🏿‍♀️"],
-        }
-        return bySex[sex][id % bySex[sex].length]
-      }
-
-      if (loading) return <p className="loading">Loading...</p>
-      if (error) return <p className="error">Error :(</p>
-
-      return (
-        <ul>
-          {data.people.map(({ id, sex, first_name, last_name, blood_type }) => {
-            return (
-              <li
-                key={id}
-                onClick={() => {
-                  setContentId(id)
-                }}
-              >
-                <span className="face">{peopleFaces(sex, id)}</span>
-                <span className="bloodType">{blood_type}</span>
-                <span className="peopleName">
-                  {first_name} {last_name}
-                </span>
-              </li>
-            )
-          })}
-        </ul>
-      )
-    }
-
-    function MainContents() {
-      const { loading, error, data, refetch } = useQuery(GET_PERSON, {
-        variables: { id: contentId },
-        onCompleted: (data) => {
-          if (contentId === 0) {
-            setInputs({
-              first_name: "",
-              last_name: "",
-              sex: sexes[0],
-              blood_type: bloodTypes[0],
-              serve_years: 0,
-              role: roles[0],
-              team: 0,
-              from: "",
-            })
-          } else {
-            setInputs({
-              first_name: data.person.first_name,
-              last_name: data.person.last_name,
-              sex: data.person.sex,
-              blood_type: data.person.blood_type,
-              serve_years: data.person.serve_years,
-              role: data.person.role,
-              team: data.person.team,
-              from: data.person.from,
-            })
-          }
         },
-      })
-
-      refetchPerson = refetch
-
-      if (loading) return <p className="loading">Loading...</p>
-      if (error) return <p className="error">Error :(</p>
-
-      function handleChange(e) {
-        const { name, value } = e.target
-        setInputs({
-          ...inputs,
-          [name]: ["serve_years", "team"].includes(name) ? Number(value) : value,
-        })
+        selectedPerson: null,
+        GET_PEOPLE,
+        GET_PERSON,
+        DELETE_PERSON,
+        POST_PERSON,
+        EDIT_PERSON,
       }
-
-      return (
-        <div className="inputContainer">
-          <table>
-            <tbody>
-              {contentId !== 0 && (
-                <tr>
-                  <td>Id</td>
-                  <td>{contentId}</td>
-                </tr>
-              )}
-              <tr>
-                <td>First Name</td>
-                <td>
-                  <input
-                    type="text"
-                    name="first_name"
-                    value={inputs.first_name}
-                    onChange={handleChange}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Last Name</td>
-                <td>
-                  <input
-                    type="text"
-                    name="last_name"
-                    value={inputs.last_name}
-                    onChange={handleChange}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Sex</td>
-                <td>
-                  <select
-                    name="sex"
-                    value={inputs.sex}
-                    onChange={(e) => {
-                      handleChange(e)
-                    }}
-                  >
-                    {sexes.map((sex) => {
-                      return (
-                        <option key={sex} value={sex}>
-                          {sex}
-                        </option>
-                      )
-                    })}
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td>Blood Type</td>
-                <td>
-                  <select
-                    name="blood_type"
-                    value={inputs.blood_type}
-                    onChange={(e) => {
-                      handleChange(e)
-                    }}
-                  >
-                    {bloodTypes.map((bloodType) => {
-                      return (
-                        <option key={bloodType} value={bloodType}>
-                          {bloodType}
-                        </option>
-                      )
-                    })}
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td>Serve Years</td>
-                <td>
-                  <input
-                    type="number"
-                    name="serve_years"
-                    value={inputs.serve_years}
-                    onChange={handleChange}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Role</td>
-                <td>
-                  <select
-                    name="role"
-                    value={inputs.role}
-                    onChange={(e) => {
-                      handleChange(e)
-                    }}
-                  >
-                    {roles.map((role) => {
-                      return (
-                        <option key={role} value={role}>
-                          {role}
-                        </option>
-                      )
-                    })}
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td>Team</td>
-                <td>
-                  <input
-                    type="number"
-                    name="team"
-                    value={inputs.team}
-                    onChange={handleChange}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>From</td>
-                <td>
-                  <input
-                    type="text"
-                    name="from"
-                    value={inputs.from}
-                    onChange={handleChange}
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          {contentId > 0 && (
-            <ul>
-              {data.person.tools.map((tool) => {
-                return (
-                  <li key={tool.id}>
-                    {tool.id}
-                    {tool.__typename === "Equipment" && (
-                      <span>
-                        <span className="count">{tool.count}</span>
-                        <span
-                          className="increase"
-                          onClick={() =>
-                            increaseEquipment({ variables: { id: tool.id } })
-                          }
-                        >
-                          🔺
-                        </span>
-                      </span>
-                    )}
-                  </li>
-                )
-              })}
-            </ul>
-          )}
-          {contentId === 0 ? (
-            <div className="buttons">
-              <button
-                onClick={() => {
-                  execPostPerson()
-                }}
-              >
-                Submit
-              </button>
-            </div>
-          ) : (
-            <div className="buttons">
-              <button
-                onClick={() => {
-                  execEditPerson()
-                }}
-              >
-                Modify
-              </button>
-              <button
-                onClick={() => {
-                  execDeletePerson()
-                }}
-              >
-                Delete
-              </button>
-              <button
-                onClick={() => {
-                  setContentId(0)
-                }}
-              >
-                New
-              </button>
-            </div>
-          )}
-        </div>
-      )
-    }
-
-    return (
-      <div id="people" className="component">
-        <aside>{AsideItems()}</aside>
-        <section className="contents">{MainContents()}</section>
-      </div>
-    )
+    },
+    methods: {
+      peopleFaces(sex, id) {
+        return this.bySex[sex][id % this.bySex[sex].length]
+      },
+      async selectPerson (id) {
+        this.contentId = id
+        const { data } = await this.$apollo.query({ query: this.GET_PERSON, variables: { id } })        
+        this.selectedPerson = data.person
+        this.inputs = {
+          first_name: data.person.first_name,
+          last_name: data.person.last_name,
+          sex: data.person.sex,
+          blood_type: data.person.blood_type,
+          serve_years: data.person.serve_years,
+          role: data.person.role,
+          team: data.person.team,
+          from: data.person.from,
+        }
+      },
+      resetContentId() {
+        this.contentId = 0
+        this.inputs = {
+          first_name: "",
+          last_name: "",
+          sex: "",
+          blood_type: "",
+          serve_years: 0,
+          role: "",
+          team: 0,
+          from: "",
+        }
+      },
+      async deletePerson (id) {
+        if (window.confirm('이 항목을 삭제하시겠습니까?')) {
+          await this.$apollo.mutate({ 
+            mutation: this.DELETE_PERSON, 
+            variables: { id },
+            refetchQueries: [{ query: this.GET_PEOPLE }] // 삭제 후 팀 목록을 업데이트
+          })
+          alert(`${id} 항목이 삭제되었습니다.`)
+          this.resetContentId() // 삭제 후 입력 필드를 초기화
+        }
+      },
+      async editPerson (id) {
+        this.inputs.serve_years = Number(this.inputs.serve_years)
+        this.inputs.team = Number(this.inputs.team)      
+        await this.$apollo.mutate({ 
+          mutation: this.EDIT_PERSON,
+          variables: {
+            id,
+            input: this.inputs
+          },
+          refetchQueries: [{ query: this.GET_PEOPLE }] // 수정 후 팀 목록을 업데이트
+        })
+        alert(`${id} 항목이 수정되었습니다.`)
+      },
+      async postPerson () {
+        this.inputs.serve_years = Number(this.inputs.serve_years)
+        this.inputs.team = Number(this.inputs.team)
+        const response = await this.$apollo.mutate({ // response 객체의 data 프로퍼티에 mutation의 결과를 담기
+          mutation: this.POST_PERSON,
+          variables: {
+            input: this.inputs
+          },
+          refetchQueries: [{ query: this.GET_PEOPLE }] // 추가 후 팀 목록을 업데이트
+        })
+        alert(`${response.data.postPerson.id} 항목이 생성되었습니다.`)
+        this.resetContentId() // 추가 후 입력 필드를 초기화
+      }
+    },
+    created() {
+      this.resetContentId(); // 초기화면 구동시, 입력 필드를 초기화
+      this.selectedPerson = {}; // 초기화면 구동시, selectedPerson을 빈 객체로 초기화
+    },
   }
+  </script>
 
-  export default People
+
+
+1. 리액트랑 다른점1 : 자재 표시 부분에서 리액트 BFF 앱과의 차분이 생긴 이유는 apollo-boost의 한계 때문이다.
+  뷰는 apollo-boost를 쓰기 때문인지, apollo-client를 사용한 리액트앱에서 가능했던
+    ... on Equipment {
+      id
+      count // 이 부분을 취득하는 것이 작동하지 않는다.
+    }
+  따라서 자재를 표시하는 부분에서 count의 표시와, 
+  INCREASE_EQUIPMENT 쿼리를 불러오는 버튼에 대해서는 생략하도록 하겠다.
+  물론, 뷰도 더 상세한 BFF 기능을 쓰려면 apollo-client을 쓰기도 하지만, 
+  apollo-client가 리액트에 비해 설정이 좀 복잡해서,
+  개인프로젝트에서는 apollo-boost가 일반적인 것 같다.
+
+1. 리액트랑 다른점2 : postPerson을 할 경우 input 창이 Null 값일 때 예외처리가 필요하다.
+  리액트는 POST를 날릴 때 Null 처리를 자동으로 해주지만 뷰는 그렇지 않았다.
+  가능한한 동일한 소스 코드로 두기 위해 일단 이번 뷰2 코드에서는 예외처리를 하지 않은 채로 두었다.
 
 
 
 1. 테스트 : People 화면에서 조회, 삭제, 수정, 추가가 잘 되는지 확인
   BFF server 앱 켜져있는지 확인하고, 꺼져있다면 npm start로 실행시켜두고 시작한다.
   $ cd app1
-  $ npm start
-  http://localhost:3000
+  $ npm run serve
+  http://localhost:8080
   상단의 People 메뉴 클릭
   People 화면에서 조회, 삭제, 수정, 추가가 잘 되는지 확인
