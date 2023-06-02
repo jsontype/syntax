@@ -8,8 +8,7 @@
           :class="['roleItem', contentId === role.id ? 'on' : '']"
           @click="selectRole(role.id)"
         >
-          <span>{{ contentId === role.id ? "🔲" : "⬛" }}</span>
-          {{ roleIcons[role.id] }} {{ role.id }}
+          <span>{{ contentId === role.id ? "🔲" : "⬛" }}</span>{{ roleIcons[role.id] }} {{ role.id }}
         </li>
       </ul>
     </aside>

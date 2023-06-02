@@ -49,12 +49,16 @@
 [맥 반납 및 현장 종료 후의 마무리 처리]
 
 1. 모바일 연동 삭제
-  Apple Iphone 캘린더 삭제 : 설정 - 캘린더(iCloud 캘린더 아님) - 계정 - 현장의 이메일 클릭 - 계정 삭제 - 나의 iPhone에서 삭제
-  Authenticator 연동 삭제 :
+  모바일 iPhone Calendar 연동 삭제 : 설정 - 캘린더(iCloud 캘린더 아님) - 계정 - 현장의 이메일 클릭 - 계정 삭제 - 나의 iPhone에서 삭제
+  모바일 Google Calendar 연동 삭제 : 앱 열기 - 우측 상단 유저 아이콘 - 기기 계정관리 - 해당 아이디 옆의 이 기기에서 삭제 버튼 클릭
+  모바일 Chrome 브라우져 연동 삭제 : 앱 열기 - 우측상단 아이콘 - 최상단 본인아이디 클릭 - 계정 클릭 - 기기에서 삭제
+  모바일 Authenticator 연동 삭제 :
     Google Authenticator의 경우 : 앱 열기 - 해당 계정 클릭 - 설정버튼 - 삭제
     MicroSoft Authenticator의 경우 : 앱 열기 - 해당 계정 클릭 - 편집 - 삭제
-  슬랙 계정 사인아웃 및 삭제
-  깃허브 연동 삭제 : 우측 상단 유저아이콘 - 세팅 - Organizations - 해당 기관의 leave 버튼 클릭
 
 1. 개인PC 연동 삭제
   구글 크롬 이메일 계정 삭제
+  깃허브 연동 삭제 : 우측 상단 유저아이콘 - 세팅 - Organizations - 해당 기관의 leave 버튼 클릭
+
+1. 모바일 / 개인PC 공통 연동 삭제
+  슬랙 계정 사인아웃 및 삭제
