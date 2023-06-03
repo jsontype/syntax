@@ -135,7 +135,6 @@
 
 1. index.js 수정 : 모듈화된 softwares의 typeDefs, resolevers를 루트모듈에 적용시킨다.
   const { ApolloServer } = require('apollo-server')
-  const _ = require('lodash')
 
   const queries = require('./typedefs-resolvers/_queries')
   const mutations = require('./typedefs-resolvers/_mutations')

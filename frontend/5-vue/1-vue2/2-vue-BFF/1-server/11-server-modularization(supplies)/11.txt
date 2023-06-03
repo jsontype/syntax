@@ -4,7 +4,6 @@
 
 1. 설치
   $ cd app1
-  $ npm i lodash
 
 1. apollo-server 생성자의 인자인 typeDefs, resolvers를 모듈화 해야하는 이유
   한 파일에 너무 코드가 집약되어 있다.
@@ -233,7 +232,6 @@
 
 1. index.js 수정 : 모듈화된 equipments와 supplies의 각각의 typeDefs, resolevers를 루트모듈에 적용시킨다.
   const { ApolloServer } = require('apollo-server')
-  const _ = require('lodash')
 
   const queries = require('./typedefs-resolvers/_queries')
   const mutations = require('./typedefs-resolvers/_mutations')

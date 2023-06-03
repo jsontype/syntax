@@ -104,7 +104,6 @@
 
 1. index.js 수정 : 모듈화된 tools의 typeDefs, resolvers 추가
   const { ApolloServer } = require("apollo-server")
-  const _ = require("lodash")
 
   const queries = require("./typedefs-resolvers/_queries")
   const mutations = require("./typedefs-resolvers/_mutations")

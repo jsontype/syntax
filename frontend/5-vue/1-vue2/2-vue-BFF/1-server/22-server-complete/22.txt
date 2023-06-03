@@ -449,7 +449,6 @@
 
 1. index.js 수정 : 나머지 필요한 쿼리 모두 추가
   const { ApolloServer } = require("apollo-server")
-  const _ = require("lodash")
 
   const queries = require("./typedefs-resolvers/_queries")
   const mutations = require("./typedefs-resolvers/_mutations")

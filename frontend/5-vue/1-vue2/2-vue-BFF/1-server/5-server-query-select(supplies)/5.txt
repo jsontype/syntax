@@ -11,6 +11,7 @@
     type Query {
       teams: [Team]
       equipments: [Equipment]
+      supplies: [Supply]
     }
     type Team {
       id: Int
@@ -23,9 +24,13 @@
     }
     type Equipment {
       id: String
-      useb_by: String
+      used_by: String
       count: Int
       new_or_used: String
+    }
+    type Supply {
+      id: String
+      team: Int
     }
   `
 
@@ -35,6 +40,7 @@
     Query: {
       teams: () => database.teams,
       equipments: () => database.equipments,
+      supplies: () => database.supplies,
     },
   }
 

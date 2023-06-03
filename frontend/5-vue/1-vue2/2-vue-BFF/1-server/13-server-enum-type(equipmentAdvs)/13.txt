@@ -26,7 +26,6 @@
 
 1. index.js 수정 : enums를 임포트해서 연결해둔다.
   const { ApolloServer } = require("apollo-server")
-  const _ = require("lodash")
 
   const queries = require("./typedefs-resolvers/_queries")
   const mutations = require("./typedefs-resolvers/_mutations")
