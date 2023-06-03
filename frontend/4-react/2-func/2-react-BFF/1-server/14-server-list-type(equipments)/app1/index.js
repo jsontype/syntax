@@ -1,5 +1,4 @@
 const { ApolloServer } = require("apollo-server")
-const _ = require("lodash")
 
 const queries = require("./typedefs-resolvers/_queries")
 const mutations = require("./typedefs-resolvers/_mutations")
