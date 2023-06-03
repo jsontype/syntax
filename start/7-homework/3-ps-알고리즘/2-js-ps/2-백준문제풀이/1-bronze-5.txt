@@ -103,12 +103,114 @@ const b = Number(input[1])
 console.log(a + b)
 
 1. 2738 행렬 덧셈
+const fs = require('fs');
+const input = fs.readFileSync('/dev/stdin').toString().split('\n');
+const number = input.shift().split(' ').map(Number);
+const matrix = input.map(el => el.split(' ').map(Number));
+const arr1 = matrix.splice(0, number[0]);
+const result = arr1.map((el1, idx1) => el1.map((el2, idx2) => el2 + matrix[idx1][idx2]));
+const value = result.map(el => el.join(' ')).join('\n');
+console.log(value);
+
 1. 2739 구구단
+const fs = require("fs");
+const input = fs.readFileSync("/dev/stdin").toString().split(" ");
+const a = parseInt(input[0]);
+let result = '';
+for(let i = 1; i <= 9; i++) {
+  console.log(a, '*', i, '=', a * i);
+}
+
 1. 2741 N 찍기
+const fs = require("fs");
+const input = fs.readFileSync("/dev/stdin").toString().split(" ");
+const a = parseInt(input[0]);
+let result = '';
+for(let i = 1; i <= a; i++) {
+  result = result + `${i} \n`;
+}
+console.log(result);
+
 1. 2743 단어 길이 재기
+const fs = require('fs');
+const data = fs.readFileSync("/dev/stdin").toString();
+const cleanData = data.replace(/[^A-Za-z]/g, '');
+console.log(cleanData.length);
+
 1. 2744 대소문자 바꾸기
+const fs = require("fs");
+const input = fs.readFileSync("/dev/stdin").toString().trim();
+let result = "";
+for (let i = 0; i < input.length; i++) {
+	if (input[i] === input[i].toUpperCase()) {
+    result += input[i].toLowerCase();
+  }
+	else {
+    result += input[i].toUpperCase();
+  }
+}
+console.log(result);
+
 1. 2753 윤년
+const fs = require('fs');
+const input = fs.readFileSync("/dev/stdin").toString().trim();
+if(input % 4 === 0) {
+  if(input % 100 !== 0 || input % 400 === 0) {
+    console.log(1);
+  } else {
+    console.log(0);
+  }
+} else {
+  console.log(0);
+}
+
 1. 2754 학점계산
+const fs = require('fs');
+const input = fs.readFileSync("/dev/stdin").toString().trim();
+switch(input) {
+  case 'A+':
+    console.log("4.3")
+    break
+  case 'A0':
+    console.log("4.0")
+    break
+  case 'A-':
+    console.log("3.7")
+    break
+  case 'B+':
+    console.log("3.3")
+    break
+  case 'B0':
+    console.log("3.0")
+    break
+  case 'B-':
+    console.log("2.7")
+    break
+  case 'C+':
+    console.log("2.3")
+    break
+  case 'C0':
+    console.log("2.0")
+    break
+  case 'C-':
+    console.log("1.7")
+    break
+  case 'D+':
+    console.log("1.3")
+    break
+  case 'D0':
+    console.log("1.0")
+    break
+  case 'D-':
+    console.log("0.7")
+    break
+  case 'F':
+    console.log("0.0")
+    break
+  default:
+    break
+}
+
 1. 3003 킹, 퀸, 룩, 비숍, 나이트, 폰
 1. 3733 Shares
 1. 4101 크냐?
@@ -137,16 +239,3 @@ console.log(a + b)
 1. 10189 Hook
 1. 10430 나머지
 1. 10699 오늘 날짜
-1. 10718 We love kriii
-1. 10757 큰 수 A+B
-1. 10807 개수 세기
-1. 10869 사칙연산
-1. 10871 X보다 작은 수
-1. 10872 팩토리얼
-1. 10926 ??!
-1. 10950 A+B - 3
-1. 10951 A+B - 4
-1. 10952 A+B - 5
-1. 10998 A×B
-1. 11021 A+B - 7
-1. 11022 A+B - 8
