@@ -1,0 +1,66 @@
+[Ruby On Rails]
+참조URL: https://www.youtube.com/watch?v=CfdRXSrwLDo
+
+1. Ruby On Rails란?
+  레일즈는 루비 언어로 작성된 웹 앱 프레임워크이다.
+  레일즈로 만든 대표적인 앱들에는 "당근마켓, shopify, GitHub, SoundCloud"이 있다.
+  레일즈의 원칙은 "Don't Repeat Yourself(DRY = 반복금지), Convention Over Configuration(설정보다 관습), RESTful" 원칙 세 가지가 있다.
+  레일즈는 "MVC 아키텍쳐"를 가진다.
+    View(클라이언트 화면): URL별 View를 작성한다. HTML + CSS + JS + Data의 조합으로 되어있다.
+    Controller(Model과 View의 중간다리): "routes.rb"에서 URL과 그 URL을 담당하는 Controller를 작성한다.
+    Model(Data 입출력 하는 곳): View에서의 입력값을 Controller를 통해 입력받고, 출력값(그 URL에 필요한 Data 정보)을 다시 Controller에 돌려준다.
+
+1. 루비 설치
+  구글에 Ruby 검색하면 ruby-lang 이라는 사이트가 나오는데 그것을 클릭하여 https://www.ruby-lang.org/ko/ 이동
+  다운로드 탭
+  - 맥의 경우
+    "macOS에서는 서드파티 도구(rbenv나 RVM)를 사용할 수 있습니다." 문구에서 rbenv을 사용하는 경우로 진행하면 아래와 같음    
+    $ brew install rbenv ruby-build # rbenv로 Ruby 설치
+    $ rbenv init
+    $ rbenv install 3.2.0
+    $ rbenv global 3.2.0
+    $ rbenv rehash
+    $ ruby -v
+    $ gem install rails # gem으로 Ruby On Rails 설치
+    $ rails -v
+  - 윈도우의 경우
+    "Windows에서는 RubyInstaller를 사용할 수 있습니다." 문구에서 RubyInstaller를 클릭하여 https://rubyinstaller.org/ 이동
+    다운로드 클릭
+    Ruby+Devkit 3.2.2-1 (x64) 선택
+    설치한 인스톨러 실행 후 설치
+      전부 그대로 Next 선택
+      마지막에 MSYS2 체크박스 선택한 채로 Finish 선택
+      CMD가 열린다.
+      CMD에서 열리는 옵션창에서 그대로 Enter를 눌러 1번째와 3번째만 인스톨한다.
+      succeeded 문구를 확인한다.
+      CMD를 끈다.
+    VSCode를 껐다가 다시 켜고 터미널을 연다.
+    $ ruby -v
+    버전 3.2.2이 나온다.
+    
+1. SQLite 설치
+  - 맥의 경우
+    $ brew install sqlite3
+  - 윈도우의 경우
+    구글에 SQLite 검색하여 공식 홈페이지 https://www.sqlite.org/index.html 이동
+    Download 탭을 클릭
+    Precompiled Binaries for Windows 찾기
+    sqlite-tools-win32-x86-3420000.zip 클릭 (x86으로 되어있지만 Tool이 이거밖에 없으므로 어쩔수 없이 이걸 선택)
+    sqlite-tools-win32-x86-3420000.zip 압축 해제
+    C:\Ruby32-x64\bin 폴더 안에 압축 해제된 파일들을 넣기
+    VSCode를 껐다가 다시 켜고 터미널을 연다.
+    $ sqlite3 --version
+    버전 3.42.0이 나온다.
+
+1. gem 번들러 설치
+  $ gem -v
+  버전 3.4.10이 나온다.
+  $ gem install bundler
+  A new release of RubyGems is available: 3.4.10 → 3.4.13! 표시 확인
+
+1. rails 설치
+  $ gem install rails
+  $ rails -v
+  버전 7.0.5이 나온다.
+
+... 10분부터 이어서 ...
