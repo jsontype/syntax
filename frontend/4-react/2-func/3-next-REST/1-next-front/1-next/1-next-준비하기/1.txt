@@ -45,6 +45,7 @@
     package.json에 가서 "next": "13.2.4", 로 변경
     $ cd app1
     $ npm i
+    $ npm run build
 
 1. 중간 테스트
   $ cd app1

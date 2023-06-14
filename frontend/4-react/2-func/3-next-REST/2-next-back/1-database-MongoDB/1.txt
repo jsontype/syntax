@@ -110,7 +110,7 @@
 1. 개발서버와 실제서버 사용법
   개발서버 사용은 다음과 같다. (테스트 용도)
     $ cd app1
-    $ npm run ddv
+    $ npm run dev
   실제서버 사용은 다음과 같다. (배포 용도)
     $ cd app1
     $ npm run build

@@ -9,7 +9,7 @@
   이런 형식의 아키텍쳐를 3 Tier Architecture라고 한다.
 
 1. API란?
-  - 서버 개발자가 짜는 코드
+  - 서버 개발자가 짠 코드를 호출하는 주소
     "/abc GET : abc URL에서 GET 메소드을 요청하면 이런 일을 해주세요."
     "/abc POST : abc URL에서 POST 메소드을 요청하면 이런 일을 해주세요."
     "/def GET : def URL에서 GET 메소드을 요청하면 이런 일을 해주세요."
