@@ -10,7 +10,7 @@
 1. next-translate 설치
   $ npm i --save next-translate
 
-1. next.config.js 수정??? : next-translate을 사용하기 위해서 next-translate를 설정
+1. next.config.js 수정 : next-translate을 사용하기 위해서 next-translate를 설정
   /** @type {import('next').NextConfig} */
   const nextTranslate = require('next-translate')
   module.exports = nextTranslate()

@@ -25,6 +25,15 @@
     Tailwind CSS : No
     src/ directory : Yes
     experimental app/ directory : Yes
+      이 부분을 물어보지 않으면, next.config.js를 다음과 같이 수정해야한다.
+      /** @type {import('next').NextConfig} */
+      const nextConfig = {
+        experimental: {
+          appDir: true,
+        },
+      }
+      
+      module.exports = nextConfig
     다른 건 그냥 엔터
   - 설치 완료후 버전 맞추기
     package.json에 가서 "next": "13.2.4", 로 변경

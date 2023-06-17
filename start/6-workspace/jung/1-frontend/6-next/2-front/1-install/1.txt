@@ -1,0 +1,98 @@
+[Next.js 설치와 개발환경 세팅]
+참조URL: https://codingapple.com/course/next-js
+
+1. Next.js를 공부해야하는 이유
+  프론트엔드 개발자 역할 변하고 있고, 서버사이드 렌더링 다시 유행하고 있다.
+  서버사이드 렌더링 쓰면 로딩속도 개선되고, 검색 노출도 좋아져서 돈벌기 좋다.
+  그래서 프론트엔드 전문성 필요 없어질 수 있어서 백엔드도 공부해볼만하다.
+  이를 Next.js로 쉽게 시작할 수 있다.
+  Next.js 신버전으로 게시판 하나 만들기가 엄청 쉽고, 재밌고 유용한 기능들이 많아서 좋다.
+  다른 렌더링 프레임워크도 있지만, Next.js가 취업에 도움되고 리액트 개발자들이 쉽게 시작할 수 있다.
+  단점도 있긴 한데, 귀찮은 부분들이나 불안정한 업데이트로 고민할 때도 있다.
+
+1. 리액트는 라이브러리, 넥스트는 프레임워크인 이유
+  Next.js는 React 라이브러리의 프레임워크이다. 
+  아니 안그래도 잘 되어있는 react를 쓰면서 왜 또 프레임워크가 필요하지? 라는 생각이 제일 먼저 든다.
+  Next.js를 통해 얻는 가장 큰 장점은? Plain React 앱의 한계?
+  많은 블로그 포스트들을 읽어보면 Next.js를 사용하는 가장 큰 이유로 
+  "SEO(Search Engine Optimization)를 위한 Server-Side Rendering(SSR)을 가능하게 하기 때문에"
+  라고 말하고 있다.
+  왜냐하면, 기본적으로 React는 Client Side Rendering(CSR)을 한다. 
+  이는 위 그림처럼 웹사이트를 요청했을 때 빈 html을 가져와 script를 로딩하기 때문에, 
+  첫 로딩 시간도 오래걸리고 Search Engine Optimization(SEO)에 취약하다는 단점이 있다.
+  반면, next.js는 pre-reloading을 통해 미리 데이터가 렌더링된 페이지를 가져올수 있게 해주므로 
+  사용자에게 더 좋은 경험을 주고, 검색 엔진에 잘 노출 될 수 있도록 해주는 SEO에서도 장점을 얻을 수 있다. 
+  pre-reloading은 SSR 뿐만 아니라 정적 사이트 생성(Static-Site Generate (SSG))도 가능하게 해준다. 
+  또, SSR과 CSR도 혼합하여 사용 가능하다.  
+
+1. Next.js 설치와 개발환경 세팅
+  - 설치 준비 : Node 18버전 이상인지 확인
+    $ node -v
+    $ nvm ls available
+    $ nvm install 18.16.0
+    $ nvm use 18.16.0
+
+  - 설치
+    $ npx create-next-app@latest (=yarn create next-app)
+    앱이름 : app1
+    TypeScript : No
+    ESLint : No
+    Tailwind CSS : No
+    src/ directory : Yes
+    experimental app/ directory : Yes
+      이 부분을 물어보지 않으면, next.config.js를 다음과 같이 수정해야한다.
+        /** @type {import('next').NextConfig} */
+        const nextConfig = {
+          experimental: {
+            appDir: true,
+          },
+        }
+        
+        module.exports = nextConfig      
+    다른 건 그냥 엔터
+  - 설치 완료후 버전 맞추기
+    package.json에 가서 "next": "13.2.4", 로 변경
+    $ cd app1
+    $ npm i
+    $ npm run build
+
+1. 중간 테스트
+  $ cd app1
+  $ npm run dev
+  http://localhost:3000
+
+1. Next.js 구조
+  public/ : 정적파일폴더(이미지, 영상, 음악 파일 모음)(추후 추가)
+  src/app/assets/ : 정적파일폴더(이미지, 영상, 음악 파일 모음)(추후 추가)
+  src/app/components/ : 컴포넌트폴더(버튼같은 부품 모음)(추후 추가)
+  src/app/pages/ : 페이지폴더(UI페이지 모음)(추후 추가)
+  src/app/api/ : API폴더(서버기능 만드는 곳)
+  src/app/pages.js : 메인페이지
+  src/app/layout.js : 메인페이지 윗 단계로, head, header, footer 등이 들어간다.
+
+1. src/app/page.js 수정 : 메인페이지 수정
+  import styles from "./page.module.css"
+
+  export default function Home() {
+    return (
+      <>
+        <div className={styles.red}>Hello World</div>
+      </>
+    )
+  }
+
+1. src/app/page.module.css 수정
+  .red {
+    color: red;
+  }
+
+1. src/app/global.css 수정
+  /* Global */
+  body {
+    margin: 20px;
+  }
+  
+1. 테스트
+  $ cd app1
+  $ npm run dev
+  http://localhost:3000

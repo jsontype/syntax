@@ -11,15 +11,18 @@
   Storybook을 활용하면 개발결과를 컴포넌트에 집중해서 확인할 수 있으며,
   컴포넌트에게 전달하는 프롭들이 각각 어떻게 작용하는지도 개발 도중에 쉽게 이해할 수가 있다.
   이렇게 Storybook을 활용하여 개발하는 것을 두고,
-  컴포넌트 주도 개발(Component Driven Development)이라고도 한다.
-  - Storybook은 CDD를 위한 것이다.
+  컴포넌트 주도 개발(CDD, Component Driven Development)이라고도 한다.
+  Storybook은 이 CDD를 위한 것이다.
+  CDD는 "Atomic Design 같은 패턴을 갖고 있는 앱의 경우" 특히 유용하다.
+  왜냐하면 컴포넌트가 잘 돌아가는지 확인하기 위해서
+  "매번 앱을 켜고, 어디에서 사용되는 컴포넌트인지를 일일이 찾을" 필요가 없기 때문이다.
 
 1. Storybook 설치
   $ cd app1
   $ npm i --save-dev sb // Storybook 설치
   $ npx sb init --builder webpack5 // Storybook 초기화
-  eslintPlugin > (Y/n) // y 선택
-  npm7 migration? > (Y/n) // n 선택
+    eslintPlugin > (Y/n) // y 선택
+    npm7 migration? > (Y/n) // n 선택
 
 1. Storybook 설치 확인
   .storybook 폴더 확인 : Storybook에 대한 설정 파일이 들어있음을 확인

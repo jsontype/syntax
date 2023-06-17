@@ -13,7 +13,7 @@ export default function List() {
     return (
       <div key={item.id}>
         {item.name} ${item.price}
-        <Cart price={price} />
+        <Cart price={item.price} />
       </div>
     )
   })

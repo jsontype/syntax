@@ -1,6 +1,34 @@
 [prettier 설치]
 
-1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+1. Next.js 설치와 개발환경 세팅
+  - 설치 준비 : Node 18버전 이상인지 확인
+    $ node -v
+    $ nvm ls available
+    $ nvm install 18.16.0
+    $ nvm use 18.16.0
+
+  - 설치
+    $ npx create-next-app@latest (=yarn create next-app)
+    앱이름 : app1
+    TypeScript : Yes
+    ESLint : No
+    Tailwind CSS : No
+    src/ directory : Yes
+    experimental app/ directory : Yes
+      이 부분을 물어보지 않으면, next.config.js를 다음과 같이 수정해야한다.
+      /** @type {import('next').NextConfig} */
+      const nextConfig = {
+        experimental: {
+          appDir: true,
+        },
+      }
+      
+      module.exports = nextConfig
+    다른 건 그냥 엔터
+  - 설치 완료후 버전 맞추기
+    package.json에 가서 "next": "13.2.4", 로 변경
+    $ cd app1
+    $ npm i
 
 1. prettier 설치
   $ npm i --save-dev prettier
