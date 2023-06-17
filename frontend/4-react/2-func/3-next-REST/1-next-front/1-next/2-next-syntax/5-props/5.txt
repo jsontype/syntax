@@ -1,8 +1,18 @@
-[component]
+[Component & Props]
 
 1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
 
-1. src/components/Cart/index.js 생성 : 새 컴포넌트 만들기
+1. jsconfig.json 수정 : baseUrl 설정
+  {
+    "compilerOptions": {
+      "baseUrl": "src/app",
+      "paths": {
+        "@/*": ["./src/*"]
+      }
+    }
+  }
+
+1. src/app/components/Cart/index.js 생성 : 새 컴포넌트 만들기
   import React from "react"
 
   export default function Card({ price }) {
@@ -25,7 +35,7 @@
       return (
         <div key={item.id}>
           {item.name} ${item.price}
-          <Cart price={price} />
+          <Cart price={item.price} />
         </div>
       )
     })

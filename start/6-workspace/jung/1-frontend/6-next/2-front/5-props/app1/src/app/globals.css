@@ -1,0 +1,27 @@
+/* Global */
+body {
+  margin: 20px;
+}
+
+header {
+  position: relative;
+}
+
+.navItem {
+  color: gray;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+.navItem:hover {
+  color: pink;
+}
+
+content {
+  margin: 20px;
+}
+
+footer {
+  position: relative;
+  top: 100px;
+}
