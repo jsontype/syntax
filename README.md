@@ -6,16 +6,18 @@ https://github.com/jsontype/home.git
 https://github.com/jsontype/generalapp.git  
 https://github.com/jsontype/old.git
 
-# Branch names by PC type
+# PC Branches
 
-1. 데스크톱 Alienware : alienware
+1. 데스크톱 Alienware : alien
 2. 데스크톱 RGB : rgb
-3. 맥북 M1 MAX : m1max
-4. 맥북 M2 AIR : m2air
-5. 후지쯔 노트북 : fujitsu
-6. 원믹스4 미니 노트북 : onemix
-7. 구글 픽셀 슬레이트 : pixelslate
-8. 비상용 미니 PC : mini
+3. 맥북 M1 MAX : m1
+4. 맥북 M2 AIR : m2
+5. 후지쯔 노트북 : fjt
+6. 원믹스4 미니 노트북 : one
+7. 구글 픽셀 슬레이트 : pix
+8. 로그앨리 : ally
+9. 스팀덱 : steam
+10. 비상용 미니 PC : mini
 
 # Frequently reused phrases in syntax
 
