@@ -1,4 +1,4 @@
-﻿[git]
+[git]
 
 1. Git Workflow 작업환경 일람
   local : 내 PC안의 git 작업폴더
@@ -113,9 +113,7 @@
         :wq를 입력하고 엔터를 눌러 저장하고 종료한다.
     git rebase --abort : git rebase 시도하던 것을 취소한다.
 
-  $ ★★ git revert "feat: ~~~" : 이전 커밋을 취소하고 add 하기 전 상태로 돌려놓는다.
-
-  $ ★★ git reset HEAD^ : 이전 푸시를 취소하고 add 하기 전 상태로 돌려놓는다.
+  $ ★★ git reset HEAD^ : 이전 커밋을 취소하고 add 하기 전 상태로 돌려놓는다.
     git log : 리셋 하기 전 커밋 몇번까지 돌려놔야하는지 확인한다.
     git reset HEAD^ : 최근에 한 한개의 커밋을 되돌려놓는다.
     git reset HEAD^^ : 최근에 한 두개의 커밋을  되돌려놓는다.
