@@ -1,3 +1,0 @@
-function buttonClick () {
-  alert('Clicked')
-}
