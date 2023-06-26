@@ -1,0 +1,28 @@
+[TypeScript와 Redux 함께 쓰기]
+
+1. TypeScript와 Redux 함께 쓰기
+    현재 리액트 앱에서 가장 실무적인 형태는 TypeScript를 Redux와 같이 사용하는 것이다.
+    즉, 이러한 리액트 앱의 형태가 가장 "프로"다운 형태가 될 것이다.
+
+    그럼 이제 설치를 해보자.
+    원래 redux의 경우엔 자체적으로 타입스크립트 지원이 되지만, react-redux는 그렇지 않다.
+    라이브러리에 자체적으로 타입스크립트 지원이 되지 않는 경우엔 "@types/"를 앞에 붙여서 설치하면 된다.
+
+    라이브러리에서 공식 타입스크립트 지원이 되는지 되지 않는지 확인 할 때에는,
+    "$ npm i 라이브러리명"으로 직접 설치해서 "node_module/라이브러리명/index.d.ts" 파일이 존재하는지 확인해도 되고,
+    해당 라이브러리를 검색한 뒤 GitHub 레포를 열어서 "index.d.ts"라는 파일이 있는지 확인해봐도 된다. (redux의 경우는 index.d.ts가 있다.)
+
+    @types는 라이브러리에 타입스크립트 지원을 할 수 있도록 추가된 써드파티 라이브러리이다.
+    라이브러리에 써드 파티 타입스크립트 지원이 되는지 확인해보려면 TypeSearch라는 사이트에서 라이브러리명을 검색해보면 된다.
+        TypeSearch URL : https://www.typescriptlang.org/dt/search    
+
+1. 설치
+    $ npx create-react-app app1 template --typescript
+    $ cd app1
+    $ npm i redux react-redux @types/react-redux
+
+1. 불필요 부분을, 연동까지 삭제
+
+1. 테스트
+    $ cd app1
+    $ npm start (또는 yarn start)

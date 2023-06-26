@@ -1,0 +1,12 @@
+// 글로벌 변수 그룹 임포트
+@import '../../../styles/resources.scss';
+
+.Button {
+    background: $blue;
+    &:hover {
+        background: lighten($blue, 10%);
+    }
+    &:active {
+        background: darken($blue, 10%);
+    }
+}

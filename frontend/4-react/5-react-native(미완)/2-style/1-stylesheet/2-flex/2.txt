@@ -1,0 +1,71 @@
+[리액트 네이티브 flex box]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. src/Box.js 생성
+  import React from "react"
+  import { View } from "react-native"
+
+  export default function Box() {
+    return (
+      <View style={[{ borderWidth: 2, width: "100%" }, style]}>
+        <div>Box</div>
+      </View>
+    )
+  }
+
+1. src/App.js 수정 : Flex를 이용해 반응형 모바일 앱을 구현하기
+  import { StatusBar } from "expo-status-bar"
+  import { styles } from "./style"
+  import { View } from "react-native"
+  import Box from "./Box"
+
+  export default function App() {
+    return (
+      <View style={styles.container}>
+        <StatusBar style="auto" />
+
+        <Box style={{ backgroundColor: "red", height: 100 }} />
+        {/* 아래에 height가 아닌 flex 1을 주면 어떤 화면에서도 위아래 100을 제외한 영역이 아래 영역이 된다. */}
+        <Box
+          style={{ backgroundColor: "green", flex: 1 }}
+          content="Hello, Flex!"
+        />
+        <Box style={{ backgroundColor: "blue", height: 100 }} />
+      </View>
+    )
+  }
+
+1. 테스트
+  $ cd app1
+  $ npm start
+  i를 누르면 아이폰용, a를 누르면 안드로이드폰용 앱을 실행 (* shift키와 함께 i, a를 누르면 각각 실행가능한 기기 목록까지 선택해서 실행)
+  XCode 설치 여부 : n 을 선택
+  서버가 구동되면, 아이폰 Expo 앱에서 App1 servers를 선택 (* 또는 터미널에 윗부분에 뜨는 QR 코드를 아이폰으로 촬영하여 이동)
+  수정사항이 반영되지 않을 경우, 휴대폰을 한번 흔들어서, Reload를 선택하여 새로고침한다.
+
+
+
+[리액트 네이티브 flexDirection : flex box의 정렬]
+  1. flexDirection : flex의 정렬방향을 정하며, 이에 따라 ja의 적용방식도 바뀐다.
+    세로정렬
+      flexDirection: column => 위에서 아래방향으로 세로정렬 (기본값)
+      flexDirection: column-reverse => 아래에서 위 방향으로 세로정렬
+    가로정렬
+      flexDirection: row => 왼쪽에서 오른쪽방향으로 가로정렬 (기본값)
+      flexDirection: row-reverse => 오른쪽에서 왼쪽방향으로 가로정렬
+
+  1. ja(justifyContent, alignItems) : flexBox 내부의 각 항목들의 정렬방식을 정한다.
+    세로정렬 (flexDirection : column 또는 column-reverse)의 경우의 각 항목들의 가로 정렬
+      justifyContent: flex-start => ABC......
+      justifyContent: flex-end => ......ABC
+      justifyContent: center => ...ABC...
+      justifyContent: space-between => A...B...C
+      justifyContent: space-around => .A. .B. .C.
+      justifyContent: space-evenly => ..A..B..C..
+    가로정렬 (flexDirection : row 또는 row-reverse)의 경우의 각 항목들의 세로 정렬
+      alienItems: flex-start => 가로로 정렬된 각 항목들의 세로를 위->아래로 정렬
+      alienItems: flex-end => 가로로 정렬된 각 항목들의 세로를 아래->위로 정렬
+      alienItems: center => 가로로 정렬된 각 항목들의 세로를 가운데 정렬
+      alienItems: stretch => 가로로 정렬된 각 항목들의 세로를 가장 세로줄이 긴 텍스트와 동일한 사이즈로 정렬
+      alienItems: baseline => 가로로 정렬된 각 항목들의 세로를 텍스트 첫줄 베이스라인 기준으로 정렬

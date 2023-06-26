@@ -1,0 +1,89 @@
+[미들웨어 구조를 먼저 이해하기]
+
+1. 미들웨어 구조를 먼저 이해하기
+    리덕스 미들웨어를 만들 땐 다음과 같은 템플릿을 사용한다.
+        const middleware = store => next => action => {
+            // 하고 싶은 작업
+        }
+    즉, 미들웨어는 결국 하나의 함수이다.
+    함수를 연달아서 두번 리턴하는 함수이다.
+    여기서, 화살표가 여러번 나타나는 것은, 다음과 같이 이해하면 된다.
+        function middleware (store) {
+            return function (next) {
+                return function (action) {
+                    // 하고 싶은 작업
+                }
+            }
+        }
+    여기서, 각 파라미터에 대한 설명은 다음과 같다.
+        첫번째 파라미터 store는 스토어 인스턴스이다. 이 안에 dispatch, getState, subscribe 내장함수들이 들어있다.
+        두번째 파라미터 next는 액션을 다음 미들웨어에게 전달하는 함수이다. next(action)의 형태로 사용한다. 
+            만약 다음 미들웨어가 없다면 리듀서에게 액션을 전달해준다.
+            만약 next를 호출하지 않게 된다면 액션이 무시처리되어 리듀서에게로 전달되지 않는다.
+        세번째 파라미터 action은 현재 처리하고 있는 액션 객체이다.
+    구조상의 흐름을 간단히 정리하면 다음과 같다.
+        ★ 액션 -> (미들웨어1 -> store.dispatch(action)) -> 미들웨어1 -> next(action) -> (미들웨어2 -> store.dispatch(action)) -> 미들웨어2 -> next(action) -> 리듀서 -> store.dispatch(action)
+        리덕스 스토어에는 여러 개의 미들웨어를 등록할 수 있다. 
+        새로운 액션이 디스패치 되면 미들웨어1이 호출된다. 
+        만약 미들웨어에서 store.dispatch(action) 를 사용하면 다른 액션을 추가적으로 발생시킬 수 있다.
+        만약 미들웨어에서 next(action)을 호출하게 되면 다음 미들웨어로 액션이 넘어간다.
+
+
+
+[미들웨어 직접 만들어보고 이해하기]
+
+1. 미들웨어 직접 만들어보고 이해하기
+    사실 실무에서는 리덕스 미들웨어를 직접 만들게 되는 일은 거의 없다.
+    하지만, 한번 직접 만들어보게 된다면 미들웨어가 어떤 역할인지 훨씬 쉽게 이해할 수 있기 때문에, 간단한 수준에서 만들어보도록 하자.
+    먼저, 객체와 상태를 로깅하는 미들웨어를 만들어보겠다.
+
+1. src/middlewares/myLogger.js 생성 : 객체와 상태를 로깅하는 미들웨어 만들기
+    // 전달받은 액션을 출력하고 다음으로 넘기는 작업을 구현하는 함수
+    const myLogger = store => next => action => {
+        // 콘솔에 액션을 출력한다.
+        console.log(action)
+        // 다음 미들웨어(또는 리듀서)에게 액션을 전달한다.
+        const result = next(action)
+        // 업데이트 이후의 상태를 조회한다.
+        console.log('\t', store.getState()) // '\t'는 Tab 문자를 의미한다.
+        // dispatch(action)의 결과물을 리턴한다. (기본값 : undefined)
+        return result
+    }
+
+    export default myLogger
+
+
+
+1. src/index.js 수정 : 만든 미들웨어를 스토어에 적용하기
+    import React from 'react'
+    import ReactDOM from 'react-dom'
+    import './index.css'
+    import App from './App'
+    // 미들웨어를 적용하는 함수 applyMiddleware를 임포트한다.
+    import { createStore, applyMiddleware } from 'redux'
+    import { Provider } from 'react-redux'
+    import rootReducer from './modules'
+    import myLogger from './middlewares/myLogger'
+
+    // 스토어에 applyMiddleware를 넣어서 미들웨어를 적용한다.
+    const store = createStore(rootReducer, applyMiddleware(myLogger))
+
+    ReactDOM.render(
+        <Provider store={store}>
+            <App />
+        </Provider>,
+        document.getElementById('root')
+    )
+
+
+
+1. 테스트 : 콘솔로그에서 업데이트 전의 State, 업데이트 후의 State가 잘 나타나고 있는지 확인
+    $ cd app1
+    $ npm start
+
+
+
+1. 정리
+    미들웨어를 이해하기 위해서, 미들웨어를 직접 만들어보면서 객체와 상태를 로깅하는 작업을 해보았다.
+    그러나 실제로는 직접 만들지 않고, redux-logger, redux-thunk, redux-saga등의 미들웨어를 사용한다.
+    다음 시간에 배워보도록 하겠다.

@@ -1,0 +1,76 @@
+[무비앱 만들기]
+
+1. src/app.js 수정 : API 연동해서 무비앱 화면 렌더링
+  import React, { useState, useEffect } from 'react'
+  import './App.css'
+
+  function App() {
+    const [movies, setMovies] = useState([])
+
+    useEffect(() => {
+      fetch('https://yts.mx/api/v2/list_movies.json?sort_by=rating')
+        .then((res) => { return res.json() })
+        .then((json) => { setMovies(json.data.movies) })
+    }, [])
+
+    console.log('movies: ', movies)
+
+    // 주의 : render 안에 onClick 프롭 넣을 때는 함수형업데이트 해야함 (예, onClick={() => setIsOpen()})
+    const render = movies.map((item) => {
+      return (
+        <div className="movie" key={item.id}>
+          <a className="movieTitle" href={item.url}>
+            {item.title}
+          </a>
+          <img
+            className="movieImage"
+            src={item.background_image}
+            alt={item.title}
+          ></img>
+        </div>
+      )
+    })
+
+    return (
+      <div className="App">
+        <h1>무비 리스트</h1>
+        {render}
+      </div>
+    )
+  }
+
+  export default App
+
+
+
+1. src/app.css 수정 : 무비앱 스타일 수정
+  .App {
+    padding: 20px;
+  }
+
+  .movie {
+    display: flex;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 5px;
+  }
+
+  .movie .movieImage {
+    width: 200px;
+  }
+
+  .movie .movieTitle {
+    flex-grow: 1;
+    text-decoration: none;
+    color: black;  
+  }
+
+  .movie .movieTitle:hover {
+    background-color: pink;
+  }
+
+
+
+1. 테스트
+  $ cd app1
+  $ npm start
