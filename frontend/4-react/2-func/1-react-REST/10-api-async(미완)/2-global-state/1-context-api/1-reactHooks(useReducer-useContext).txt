@@ -1,4 +1,0 @@
-[Context API Hooks]
-
-1. 사용하는 hooks : React hooks
-  useReducer, useContext라는 React hooks를 사용한다.

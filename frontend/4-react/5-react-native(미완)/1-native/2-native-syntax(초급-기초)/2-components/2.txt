@@ -1,0 +1,94 @@
+[리액트 네이티브 내장 컴포넌트]
+참조URL: https://reactnative.dev
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. 내장 컴포넌트(core-components) 사용하기
+  리액트에서는 <View>, <Text>, <TextInput> 등 여러 내장 컴포넌트들이 있다.
+  사용법을 알기 위해, 공식 홈페이지 https://reactnative.dev 접속 -> Development -> Components에 접속한다.
+  이번에는 버튼을 사용해보도록 하겠다.
+
+1. src/App.js 수정 : https://reactnative.dev/docs/button 에서, onPress와 color Props를 참조하며 작업
+  import { StatusBar } from "expo-status-bar"
+  import { StyleSheet, Text, View, Button } from "react-native"
+
+  export default function App() {
+    return (
+      <View style={styles.container}>
+        <Text>Hello, React Native</Text>
+        <StatusBar style="auto" />
+        <Button title="Button" onPress={() => alert("Click!")} />
+      </View>
+    )
+  }
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: "#fff",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+  })
+
+1. 테스트
+  $ cd app1
+  $ npm start
+
+
+
+[컴포넌트의 props를 이용해 커스토마이징해서 사용하기]
+
+1. 컴포넌트 커스토마이징해서 사용하기
+  이번에는 https://reactnative.dev/docs/touchableopacity 를 참조하여 사용해보도록 하겠다.
+
+1. src/MyButton.js 생성 : Touchableopacity와 Props를 사용해 커스토마이징
+  import React from "react"
+  import { TouchableOpacity, View, Text } from "react-native"
+
+  export default function MyButton() {
+    return (
+      <TouchableOpacity
+        onPress={() => alert("MyButton")} // https://reactnative.dev/docs/touchableopacity 설명에 의하면, TouchableWithoutFeedback로부터 상속받고 있고, TouchableWithoutFeedback에는 onPress가 있다.
+        style={{
+          backgroundColor: "red",
+          padding: 10,
+          borderRadius: 10,
+          margin: 10,
+        }}
+      >
+        <View>
+          <Text style={{ fontSize: 20, color: "white" }}>MyButton</Text>
+        </View>
+      </TouchableOpacity>
+    )
+  }
+
+1. src/App.js 수정 : MyButton을 적용하기
+  import { StatusBar } from "expo-status-bar"
+  import { StyleSheet, Text, View, Button } from "react-native"
+  import MyButton from "./MyButton"
+
+  export default function App() {
+    return (
+      <View style={styles.container}>
+        <StatusBar style="auto" />
+        <Text>Hello, React Native</Text>
+        <Button title="Button" onPress={() => alert("Click!")} />
+        <MyButton />
+      </View>
+    )
+  }
+
+  export const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: "#fff",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+  })
+
+1. 테스트
+  $ cd app1
+  $ npm start

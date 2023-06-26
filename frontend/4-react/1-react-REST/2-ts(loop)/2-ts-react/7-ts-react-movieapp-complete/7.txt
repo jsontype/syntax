@@ -1,0 +1,14 @@
+[React Movieapp에 ts 도입한 상태로 나머지 이슈 마저 다 해결하기]
+
+1. 이슈 : 디테일 페이지를 나누어 컴포넌트별로 실행되게 변경
+    
+1. 이슈 해결 순서
+    1. 무비디테일 페이지를 컴포넌트화
+    2. 무비리스트 부모 컴포넌트에서, 열린 디테일 페이지의 id state 추가 : const [id, setId] = useState(0)
+        render의 return에 추가 : {isDetail && <MovieDetail item={item} />}
+    3. 무비리스트 부모 컴포넌트에서, onClick 함수 변경 : setId(item.id); setIsDetail(!isDetail)
+        Id State 변수의 세팅
+    4. 무비리스트 부모 컴포넌트에서, render의 return에 추가 : {isDetail && id === item.id && <RenderDetail item={item} />}
+        Id State 변수에 해당하는 페이지만 열리도록 세팅
+    5. 무비리스트 부모 컴포넌트에서, onClick 함수 변경 : isDetail && id !== item.id ? setIsDetail(true) : setIsDetail(!isDetail); setId(item.id)
+        한 타이틀이 열린 상태에서 열었을 때의 다 닫히는 현상을 해결

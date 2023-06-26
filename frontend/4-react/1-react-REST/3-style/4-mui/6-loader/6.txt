@@ -1,0 +1,67 @@
+[Material UI 로더]
+참조URL: https://mui.com/material-ui/react-backdrop/
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. src/components/Loader.js 생성 : @mui/material/Backdrop, CircularProgress 작동 테스트
+  import React, { useState } from "react"
+  import Backdrop from "@mui/material/Backdrop"
+  import CircularProgress from "@mui/material/CircularProgress"
+  import Switch from "@mui/material/Switch"
+
+  export default function Loaders() {
+    const [checked, setChecked] = useState(false)
+
+    const handleChange = (e) => {
+      setChecked(e.target.checked)
+    }
+
+    const handleClose = () => {
+      setChecked(false)
+    }
+
+    return (
+      // Backdrop이 전체 화면을 감싸려면, 최상위의 태그가 div여야 한다.
+      <div>
+        <h1>로딩</h1>
+
+        <h5>로딩 스위치 : {checked ? "On" : "Off"}</h5>
+        <Switch checked={checked} onChange={handleChange} />
+
+        <Backdrop
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={checked}
+          onClick={handleClose}
+        >
+          <CircularProgress color="inherit" />
+          로딩중... (클릭해서 닫으세요.)
+        </Backdrop>
+      </div>
+    )
+  }
+
+1. src/App.js 수정 : 로더 화면 렌더링
+  import React from "react"
+  import PullDowns from "./components/PullDowns"
+  import Buttons from "./components/Buttons"
+  import Ratings from "./components/Ratings"
+  import Alerts from "./components/Alerts"
+  import Loaders from "./components/Loaders"
+
+  import "./App.css"
+
+  export default function App() {
+    return (
+      <div className="App">
+        <PullDowns />
+        <Buttons />
+        <Ratings />
+        <Alerts />
+        <Loaders />
+      </div>
+    )
+  }
+
+1. 테스트 : 다른 옵션들은 material ui의 공식 api 문서를 참조해보자.
+  $ cd app1
+  $ npm start

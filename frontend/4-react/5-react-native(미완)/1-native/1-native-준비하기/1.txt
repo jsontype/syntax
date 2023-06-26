@@ -1,0 +1,38 @@
+[React-native]
+
+1. 앱 설치
+  $ npm i -g expo-cli
+  $ expo login
+  $ expo init app1
+
+1. src/App.js 생성 : 초기화면 페이지 만들기
+  import { StatusBar } from "expo-status-bar"
+  import { StyleSheet, Text, View } from "react-native"
+  import { styles } from "./style"
+
+  export default function App() {
+    return (
+      <View style={styles.container}>
+        <StatusBar style="auto" />
+        <Text>Hello, React Native</Text>
+      </View>
+    )
+  }
+
+  export const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: "#FFF",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+  })
+
+1. App.js 수정 : 초기화면 페이지 위치를 변경하기
+  import App from './src/App'
+
+  export default App
+
+1. 테스트
+  $ cd app1
+  $ npm start
