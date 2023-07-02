@@ -30,3 +30,38 @@ console.log(obj2) // "abcd12345"
 const obj3 = JSON.parse(JSON.stringify(obj1)) // 깊은 복사
 obj1.pw = "abcd1234567899999"
 console.log(obj3)
+
+// JSONTYPE : Javascript Object Notation 자바스크립트 객체 표기법
+const user = {
+  no: 1,
+  connection: "success",
+  data: [
+    {
+      no: 1,
+      id: "userABC",
+      pw: "1234",
+      username: "Yang",
+      email: "test@test.com",
+    },
+    {
+      no: 2,
+      id: "absadflk",
+      pw: "dsfg",
+      username: "Kim",
+      email: "test@test.com",
+    },
+    {
+      no: 3,
+      id: "ccccc",
+      pw: "dddd",
+      username: "Choo",
+      email: "test@test.com",
+    },
+  ],
+}
+
+console.log(user.data)
+
+for (let i = 0; i < user.data.length; i++) {
+  console.log(user.data[i].username)
+}

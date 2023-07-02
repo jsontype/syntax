@@ -29,7 +29,7 @@
     "대화예 서버개발자님, 이거 신규 피쳐인데 api하나 따주세요." : 새로운 기능 창구 하나 만들어주세요.
     "api개발은 끝났고, 클라이언트는 아직이에요." : 서버 창구는 다 만들었는데, 요청하는 쪽이 아직 작업중이에요.
 
-1. API 명세서 : API를 어떻게 호출해서 사용하는지를 적어둔 것. 
+1. API Documents (API Docs, API 명세서) : API를 어떻게 호출해서 사용하는지를 적어둔 것. 
     명세서예 https://yts.mx/api
 
 1. API(Application Programming Interface), API Doc

@@ -1,0 +1,1 @@
+https://api.hnpwa.com/v0/news.json

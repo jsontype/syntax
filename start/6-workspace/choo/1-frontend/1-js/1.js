@@ -51,3 +51,18 @@ console.log(obj.no)
 console.log(obj["no"])
 console.log(obj.name)
 console.log(obj["name"])
+
+// 문자열 중 템플릿리터럴 Template Literal : 백틱 backtick (``)을 사용해서 문자열을 표현하는 방법
+const aaaa = 'aaa' // char
+const bbbb = "aaa" // string
+const cccc = `aaa
+aaa
+aaa` // backtick
+console.log(aaaa)
+console.log(bbbb)
+console.log(cccc)
+
+// template literal
+const username = "Yang"
+const dddd = `Hello ${username}`
+console.log(dddd)

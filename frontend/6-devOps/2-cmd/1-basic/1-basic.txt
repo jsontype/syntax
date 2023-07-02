@@ -1,0 +1,43 @@
+[Shell 명령어 모음]
+
+1. 터미널 툴 종류
+    cmd : windows 기본
+    powershell 도구 : windows 기본, powershell 언어 전용 
+    cmder : windows 추천 (기능이 더 많고, 깃이 기본으로 포함되서 설치됨)
+    iTerm : mac 기본
+    iTerm2 : mac 추천 (기능이 더 많고, 깃 브랜치 등의 시각화 및 테마 적용으로 보기에 더 편함)
+
+1. 터미널 언어 종류
+    bash : Linux 기본 (Mac에서도 사용하기도 하고, Windows는 Git 다룰 때 Bash에서 사용하기도 함)
+    shell : Mac 기본
+        zsh (zshell) : Mac 기본 (oh-my-zsh로 업그레이드하는 것을 추천)
+        powershell : Windows 10 이후 기본 (Windows에서는 cmd가 기능이 후져서, 새로 shell 만든 것)
+    cmd : Windows 기본
+    
+1. 공통 shell 명령어
+    cd : 현재 디렉토리를 바꾼다. (change directory)
+    ls : 디렉토리에 있는 파일과 하위 목록을 가로 리스트로 보여준다.
+    echo : 출력한다.
+    ctrl + c : 명령을 중단한다. (모든 터미널 공통)
+    mkdir [폴더명] : 폴더를 만든다.
+    echo 텍스트 > output.txt : 앞단의 실행결과(echo 텍스트)를 output.txt 파일에 저장한다.
+    touch output.txt : 아무것도 들어있지 않은 output.txt 파일을 만든다.
+
+1. 특정 shell 명령어 : 예시
+    - cmd에서만 가능
+        color a : 콘솔색을 변경한다.
+    - zsh에서만 가능
+        ls -al : 디렉토리에 있는 파일과 하위 목록을 세로 리스트로 보여준다.
+        vi [파일명] : 해당 파일의 수정 모드로 vi 에디터 실행
+    - powershell에서만 가능
+        date : 날짜를 보여준다.
+        calc : 계산기 실행
+        control : 제어판 실행
+        explorer . : 탐색기 실행
+        code . : vscode 실행
+        java -version : 자바 버전 확인
+        mspaint : 그림판 실행
+        ipconfig -all : IP 구성
+        ping : 네트워크 상태 확인
+        tracert : 네트워크 경로 추적
+        mstsc : 원격 데스크톱 실행
