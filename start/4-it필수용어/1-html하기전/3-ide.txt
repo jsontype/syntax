@@ -9,9 +9,9 @@
     - 주로 사용하는 언어
         front : javascript
         back : php, python
-
     - 장점 : 터미널과 연동
-            
-1. eclipse
+    - 텍스트 에디터(메모장, atom, sublime text)보다는 무겁지만, 터미널과 연동이 잘되어있어서 편리하다.
+
+1. eclipse, intellj
 
 1. android studio

@@ -5,12 +5,21 @@
     이를 케이스라고 한다.
     이를 지키지 않으면 타 개발자에게 보여질 때 욕을 무조건 먹을 것이다.
 
+
 1. 케이스의 종류
     - lowCamelCase (=camelCase) : 변수명, 메소드명에 주로 사용
+        예시: const userName = '김철수'        
+        예시: function getUserName() {
+            return '김철수';
+        }
     - UpCamelCase (=PascalCase) : 파일명에 주로 사용
+        예시: GetUserName.js
     - kebab-case : 컨트롤러에서 주소창에 입력할 URL Path에 주로 사용
+        예시: http://google.com/get-user-name
     - snake_case : DB명, DB컬럼명에 주로 사용
+        예시: db명 : db_user_1
     - UPPER_CASE : 상수(consts)명에 주로 사용
+        예시: const USER_NAME = '김철수';
 
 1. 코드 컨벤션
     팀으로 일하면 더 커다랗고 규모있는 프로젝트를 만들 수 있고, 다른 사람들의 지혜를 빌릴 수 있다. 
