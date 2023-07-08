@@ -1,0 +1,43 @@
+[Github Actions를 이용한 CI 테스트 자동화]
+참조URL: https://creampuffy.tistory.com/190 
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. 깃이 연결된 프로젝트 폴더의 master 브랜치에서 작업
+  $ cd app1
+  $ git checkout master
+
+1. github/ISSUE_TEMPLATE/bug_report.md 작성 : * 왼쪽에 딱 붙여야함
+  ---
+  name: Bug report
+  about: Tell us about a bug you may have identified in CoreUI Free React Admin Template.
+  title: ''
+  labels: ''
+  assignees: ''
+  ---
+
+1. github/ISSUE_TEMPLATE/feature_request.md 작성 : * 왼쪽에 딱 붙여야함
+  ---
+  name: Feature request
+  about: Suggest an idea for a new feature in CoreUI Free React Admin Template.
+  title: ''
+  labels: feature
+  assignees: ''
+  ---
+
+1. github 폴더를 클론을 딴 프로젝트에 마이그레이션
+  github 폴더명에 .을 붙여서 .github 폴더로 만들고, init 폴더에 이동시킨다.
+  - 현 폴더에 .을 붙이지 않은 이유는, .을 붙이면 변경점으로 인식하지 않기 때문이다.
+
+1. master 브랜치에 푸시
+  $ git add .
+  $ git commit -m "feat: ci-cd"
+  $ git push origin master
+
+
+
+1. 테스트
+  github에 접속하여 해당 레포지토리에서 이슈 작성해보기 : https://github.com/jsontype/init
+  아래의 이슈 템플릿 선택화면이 나오는지 확인
+    - Feature Request
+    - Bug Report
