@@ -113,7 +113,8 @@
         :wq를 입력하고 엔터를 눌러 저장하고 종료한다.
     git rebase --abort : git rebase 시도하던 것을 취소한다.
 
-  $ ★★ git revert "feat: ~~~" : 이전 커밋을 취소하고 add 하기 전 상태로 돌려놓는다.
+  $ ★★ git revert 9d5b3015a7fe855db56be69e66256450889e2a68 : 이전 커밋을 취소하고 add 하기 전 상태로 돌려놓는다.
+    * 9d5b3015a7fe855db56be69e66256450889e2a68는 커밋 ID의 예시이다.
 
   $ ★★ git reset HEAD^ : 이전 푸시를 취소하고 add 하기 전 상태로 돌려놓는다.
     git log : 리셋 하기 전 커밋 몇번까지 돌려놔야하는지 확인한다.

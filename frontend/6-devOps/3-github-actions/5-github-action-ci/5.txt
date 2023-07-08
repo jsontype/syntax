@@ -75,26 +75,9 @@
       - name: Build project
         run: npm run build
 
-1. github/ISSUE_TEMPLATE/bug_report.md 작성 : * 왼쪽에 딱 붙여야함
-  ---
-  name: Bug report
-  about: Tell us about a bug you may have identified in CoreUI Free React Admin Template.
-  title: ''
-  labels: ''
-  assignees: ''
-  ---
-
-1. github/ISSUE_TEMPLATE/feature_request.md 작성 : * 왼쪽에 딱 붙여야함
-  ---
-  name: Feature request
-  about: Suggest an idea for a new feature in CoreUI Free React Admin Template.
-  title: ''
-  labels: feature
-  assignees: ''
-  ---
-
 1. github 폴더를 클론을 딴 프로젝트에 마이그레이션
   github 폴더명에 .을 붙여서 .github 폴더로 만들고, init 폴더에 이동시킨다.
+  - 현 폴더에 .을 붙이지 않은 이유는, .을 붙이면 변경점으로 인식하지 않기 때문이다.
 
 1. master 브랜치에 푸시
   $ git add .
