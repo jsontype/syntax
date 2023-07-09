@@ -1,0 +1,84 @@
+[useState를 통해 state 변수의 바뀌는 값을 여러 컴포넌트에서 관리하기]
+
+1. Hooks : 리액트의 함수형 컴포넌트가 클래스형 컴포넌트의 기능을 사용할 수 있도록 해주는 기능이다. 2019년도 리액트 16.8버전 이후 도입되었다.    
+  과거 : 클래스형 컴포넌트는 문법이 어렵고, 축소가 어렵고, 로직 재사용이 어렵고, 최신기술 적용이 어려웠음에도, 아래 state관리와 life cycle method의 구현을 위해 어쩔 수 없이 써왔다.
+    state : 일반변수와 다르게, 값이 변하면 연관있는 컴포넌트들이 재렌더링 되어 화면이 바뀌는 변수이다. (* vue의 state.store와 같다.)
+    life cycle method : 함수를 특정 시점에서만 실행하는 구현 방식이다. (* vue의 created-updated-mounted-destoryed와 같다.)
+  현재 : Hooks가 도입되면서, 함수형 컴포넌트에서도 state나 life cycle method 작업이 가능해졌다.
+    state : 함수형 컴포넌트에서도 state 관리를 할 수 있는 useState를 제공한다.
+    life cycle method : 함수형 컴포넌트에서도 실행 시점을 설정할 수 있는 useEffect 등의 기능을 제공한다.
+  코드 예시 : 
+    Hooks 이전 src/App.js : class App extends React.Component { ... } (* class-component.js 참조)
+    Hooks 이후 src/App.js : function App() { ... }
+
+
+
+1. useState Hook
+  useState : state를 선언과 동시에 초기값을 정할 수 있고, return값으로 state, setState를 돌려주는 hook이다.
+    state : 일반변수와 다르게, 값이 변하면 연관있는 컴포넌트들이 재렌더링 되어 화면이 바뀌는 변수이다. (* vue의 state.store와 비슷하다.)
+    setState : setState는 state의 값을 변경할 때 사용하는 함수이다.  
+
+
+
+1. src/Counter.js 생성
+  아래 주석 왼쪽은 함수형 업데이트를 한 것이다. 함수형 업데이트는 나중에 컴포넌트를 최적화를 하게 될 때 사용한다. 
+    (이게 왜 최적화랑 관련이 있는지는 나중에 알아볼 것이다.)
+  prevNumber는 선언한 적이 없는데 어디서 나타난 걸까?
+    prevNumber는 임의로 정한 것이다. 다른 이름으로 해도 동작한다.
+    useState 함수를 개발자가 정한 것으로, 함수형 업데이트를 하면 저렇게 파라미터를 넘겨줄 때 이전 값을 넣어주는 걸로 개발이 된 것이다.
+    이는 콜백함수 개념을 차용한 것으로, setNumber 내부를 이해하기 쉽게 설명하면 다음과 같다.
+      let prevNumber = 0 // 이 녀석은 여기 존재하고 있다.
+      function setNumber(callback) {
+        prevNumber = callback(prevNumber) 
+        // === 기존에 존재하던 prevNumber라는 녀석을 파라미터로 하는 callback함수를 실행한 뒤, 그 리턴값을 prevNumber에 넣어라.
+      }
+    위를 이용해서 다음과 같은 결과가 만들어진다.
+      setNumber(prevNumber => prevNumber + 1) 
+        // === function (prevNumber) { return prevNumber + 1 }를 실행한 뒤, 그 리턴값을 파라미터로 해서 setNumber를 실행하라. 
+        // === function (prevNumber) { return prevNumber + 1 }의 그 리턴값을 prevNumber에 넣어라.
+    콜백함수가 뭔데?
+      쉽게 설명 : 다른 함수가 실행을 끝낸 뒤 실행되는 callback되는 함수 를 말한다. 그리고, 함수를 만들때, parameter를 함수로 받아서 쓸 수 있는데 그 함수는 callback이다. 
+      자세히 설명 : js에서 함수는 object라고 한다. 그래서, 함수는 다른 함수의 인자로 쓰일 수도 어떤 함수에 의해 리턴될 수도 있다. 
+        이런 함수를 고차 함수라고 한다. 결국, 인자로 넘겨지는 함수를 콜백 함수라고 한다. 
+        또한, 단지 함수를 등록하기만 하고 어떤 이벤트가 발생했거나 특정 시점에 도달했을 때 시스템에서 호출하는 함수이다.
+        
+  import React, { useState } from 'react'
+
+  export default function Counter() {
+    const [number, setNumber] = useState(0)
+  
+    const onIncrease = () => {
+      setNumber(number + 1) // 함수형 업데이트 후 : prevNumber => prevNumber + 1
+    }
+  
+    const onDecrease = () => {
+      setNumber(number - 1) // 함수형 업데이트 후 : prevNumber => prevNumber - 1
+    }
+  
+    return (
+      <div>
+        <h1>{number}</h1>
+        <button onClick={onIncrease}>+1</button>
+        <button onClick={onDecrease}>-1</button>
+      </div>
+    )
+  }
+        
+
+
+
+1. src/App.js 수정
+    import React from 'react'
+    import Counter from './Counter'
+
+    export default function App () {
+      return (
+        <Counter />
+      )
+    }
+
+
+
+1. 중간테스트
+    $ cd app1
+    $ npm start

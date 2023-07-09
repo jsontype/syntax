@@ -17,6 +17,7 @@
   XML이란, Extensible Markup Language의 약자로서,
     HTML(HyperText Markup Language)과 달리 태그가 미리 정해지지 않고, 
     data를 표현하는게 아닌 전달하는 데에 포커스를 맞춘 언어이다.
+    (XML은 HTML과 달리 사용자가 직접 태그를 정의할 수 있다.)
 
 1. ★★ JSX 문법 특징
   XML 부분에 JS 변수나 함수 쓸 때는 {}으로 묶어서
