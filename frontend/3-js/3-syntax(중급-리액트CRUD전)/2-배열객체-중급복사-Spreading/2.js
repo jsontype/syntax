@@ -15,13 +15,38 @@ const obj = { oldKey: 123 }
 
 // 1. 리액트용 불변성 지키는 배열 추가 변경 삭제 : ★★ 불변성을 지키기 위해 각각 concat, map, filter를 사용한다.
 const addArr = [...arr, 6] // 배열 추가 ( = const addArr = arr.concat(6) 와 같다. concat은 원래 배열과 배열을 합쳐주는 내장함수인데, 여기서는 concat을 push라고 이해하면 쉽다. )
-const modArr = arr.map((item, index) => { return index === arr.length - 1 ? 999 : item }) // 배열 변경
-const delArr = arr.filter((item, index) => { return index !== 1 }) // 배열 삭제
+const modArr = arr.map((item, index) => {
+  return index === arr.length - 1 ? 999 : item
+}) // 배열 변경
+const delArr = arr.filter((item, index) => {
+  return index !== 1
+}) // 배열 삭제
+
+// 1. 리액트에서 사용하면 이런 느낌 (배열)
+// const [b, setB] = useState([1, 2, 3])
+// setB([...b, 4]) // 추가 : b.push(4) X
+// setB(
+//   b.map((item, index) => {
+//     return index === b.length - 1 ? 9999 : item
+//   })
+// ) // 수정 : 마지막 인덱스의 값을 9999로 변경
+// setB(
+//   b.filter((item, index) => {
+//     return index !== b.length - 1
+//   })
+// ) // 삭제 : 마지막 인덱스 삭제
 
 // 1. 리액트용 불변성 지키는 객체 추가 변경 삭제
 const addObj = { ...obj, newKey: 456 } // 객체 추가
 const modObj = { ...obj, oldKey: 456 } // 객체 변경
 const { oldKey, ...delObj } = obj // 객체 삭제
+
+// 1. 리액트에서 사용하면 이런 느낌 (객체)
+// const [a, setA] = useState({ id: "asdf", pw: 1234 })
+// setA({ ...a, email: "test@test.com" }) // 추가
+// setA({ ...a, pw: 9999 }) // 수정
+// const { pw, ...result } = a // 삭제1 : const { 삭제할 키, ...result } = 기존 객체 이름
+// setA(result) // 삭제2 : result를 setA에 넣어준다.
 
 /*
   [보충설명] - 리액트 배울 때 알아둘 것

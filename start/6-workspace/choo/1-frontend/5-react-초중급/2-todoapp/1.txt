@@ -1,0 +1,5 @@
+CRUD
+  Create : 작성
+  Read : 조회
+  Update : 수정
+  Delete : 삭제
