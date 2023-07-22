@@ -29,7 +29,7 @@
   기본적으로 서버 컴포넌트를 제공하므로써, 백엔드를 개발할 수 있다.
 
 1. MongoDB 웹호스팅 등록 : MongoDB를 로컬에 설치해도 되지만 서버의 유지를 위해 웹호스팅을 사용하겠다.
-  mongodb.com 구글아이디로 가입 - 무료용량 선택
+  mongodb.com 구글아이디로 가입 - 무료용량 선택 (로그인할 때는 mongodb.com에서 등록 버튼)
   데이터베이스 액세스 선택 : DB 접속용 ID와 Password를 추가한다.
   네트워크 액세스 선택 : DB 접속이 가능한 IP를 등록한다. (0.0.0.0/0 일 경우, 모든 IP 허용)
   
@@ -60,7 +60,7 @@
 1. mongodb.com에서 Database 접속
   좌측 사이드바에서 Database 선택
   Connect 버튼 클릭
-  VSCode 클릭
+  MongoDB for VS Code 클릭
   url이 하나 나오는데, 그것을 복사
   <password> 부분을 실제 비밀번호로 변경 : <> 괄호부분은 삭제
   해당 부분을 복사해서 아래 코드 작성할 때 url 변수 부분에 넣는다.

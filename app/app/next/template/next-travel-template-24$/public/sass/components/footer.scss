@@ -1,0 +1,12 @@
+.footer.-type-1 {
+}
+
+.footer.-dashboard {
+  border-top: 1px solid var(--color-border);
+  
+  .footer {
+    &__row {
+      padding: 15px 0;
+    }
+  }
+}

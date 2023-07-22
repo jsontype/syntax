@@ -1,0 +1,198 @@
+.tabs {
+  &__controls {
+  }
+
+  &__button {
+  }
+
+  &__content {
+    position: relative;
+  }
+
+  &__pane {
+    position: absolute;
+    top: 0;
+    visibility: hidden;
+    transition: none;
+    opacity: 0;
+
+    &.is-tab-el-active {
+      transition: opacity 0.3s $easeOutQuart 0.1s;
+      position: relative;
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+.tabs.-pills .tabs {
+  &__controls .tabs__button {
+    transition: all 0.2s $easeOutQuart;
+
+    &:hover {
+      color: var(--color-blue-1) !important;
+    }
+
+    &.is-tab-el-active {
+      color: var(--color-blue-1) !important;
+      background-color: color-opac(blue-1, 0.05);
+    }
+  }
+}
+
+.tabs.-pills-2 .tabs {
+  &__controls .tabs__button {
+    transition: all 0.2s $easeOutQuart;
+
+    &:hover {
+      color: var(--color-blue-1) !important;
+    }
+
+    &.is-tab-el-active {
+      color: var(--color-white) !important;
+      background-color: var(--color-blue-1) !important;
+    }
+  }
+}
+
+.tabs.-pills-3 .tabs {
+  &__controls .tabs__button {
+    transition: all 0.2s $easeOutQuart;
+
+    &:hover {
+      color: var(--color-dark-3) !important;
+    }
+
+    &.is-tab-el-active {
+      color: var(--color-white) !important;
+      background-color: var(--color-dark-3) !important;
+    }
+  }
+}
+
+.tabs__controls {
+  position: relative;
+  overflow: auto;
+  scroll-snap-type: x mandatory;
+  white-space: nowrap;
+
+  > div {
+    scroll-snap-align: center;
+  }
+}
+
+.tabs.-bookmark .tabs {
+  &__controls {
+    position: relative;
+    overflow: auto;
+    scroll-snap-type: x mandatory;
+
+    > div {
+      scroll-snap-align: center;
+    }
+  }
+
+  &__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1.3;
+    transition: all 0.2s $easeOutQuart;
+
+    &:hover {
+      color: var(--color-blue-1) !important;
+    }
+
+    &.is-tab-el-active {
+      color: var(--color-dark-1) !important;
+      background-color: white;
+    }
+  }
+}
+
+.tabs.-bookmark-2 .tabs {
+  &__controls {
+    position: relative;
+    overflow: auto;
+    scroll-snap-type: x mandatory;
+
+    > div {
+      scroll-snap-align: center;
+    }
+  }
+
+  &__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1.3;
+    transition: all 0.2s $easeOutQuart;
+
+    &:hover {
+      color: var(--color-blue-1) !important;
+    }
+
+    &.is-tab-el-active {
+      color: white !important;
+      background-color: rgba(white, 0.1);
+    }
+  }
+}
+
+.tabs.-underline .tabs {
+  &__controls .tabs__button {
+    position: relative;
+    transition: all 0.2s $easeOutQuart;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 1px;
+      background-color: white;
+      transition: all 0.2s $easeOutQuart;
+      opacity: 0;
+    }
+
+    &:hover {
+      color: var(--color-blue-1) !important;
+    }
+
+    &.is-tab-el-active {
+      &::after {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.tabs.-underline-2 .tabs {
+  &__controls .react-tabs__tab--selected .tabs__button {
+    position: relative;
+    transition: all 0.2s $easeOutQuart;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--color-blue-1);
+      transition: all 0.2s $easeOutQuart;
+      opacity: 0;
+    }
+
+    &:hover {
+      color: var(--color-blue-1) !important;
+    }
+
+    color: var(--color-blue-1) !important;
+
+    &::after {
+      opacity: 1;
+    }
+  }
+}

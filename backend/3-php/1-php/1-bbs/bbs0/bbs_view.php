@@ -68,7 +68,6 @@ foreach($result as $v){
     echo "<br>";}
     else { echo "<br><br>"; }
   } else { echo "<br><br>"; }
-
 }
 ?>
 
