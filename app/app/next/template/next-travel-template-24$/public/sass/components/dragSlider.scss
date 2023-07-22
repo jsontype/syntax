@@ -1,0 +1,179 @@
+[data-slider] {
+  > div > [data-sign] {
+    background-color: unset;
+    width: unset;
+    height: unset;
+    border-radius: unset;
+    display: inline-block;
+    text-align: unset;
+    margin-top: 22px;
+    color: black;
+  
+    &:last-child {
+      float: right;
+    }
+
+    span {
+      &::before {
+        content: 'Min Price: $';
+        display: inline-block;
+      }
+    }
+
+    &:last-child span {
+      &::before {
+        content: 'Max Price: $';
+        display: inline-block;
+      }
+    }
+  }
+   
+  > div > [data-sign] > span {
+    font-size: 14px;
+    line-height: 16px;
+  }
+}
+
+[data-slider] {
+  position: relative;
+  border-radius: 10px;
+  text-align: left;
+}
+ 
+[data-slider] > div {
+  width: 100%;
+}
+
+[data-slider] > div > [data-inverse-left] {
+  position: absolute;
+  left: 0;
+  height: 5px;
+  border-radius: 10px;
+  background-color: var(--color-blue-2);
+}
+ 
+[data-slider] > div > [data-inverse-right] {
+  position: absolute;
+  right: 0;
+  height: 5px;
+  border-radius: 10px;
+  background-color: var(--color-blue-2);
+}
+ 
+[data-slider] > div > [data-range] {
+  position: absolute;
+  left: 0;
+  height: 5px;
+  border-radius: 14px;
+  background-color: var(--color-blue-1);
+}
+ 
+[data-slider] > div > [data-thumb] {
+  position: absolute;
+  top: -7px;
+  z-index: 2;
+  height: 17px;
+  width: 17px;
+  text-align: left;
+  margin-left: -11px;
+  cursor: pointer;
+  background-color: #FFF;
+  border-radius: 50%;
+  outline: none;
+  border: 2px solid var(--color-blue-1);
+}
+
+div[data-slider] > input[type=range]::-ms-thumb {
+  pointer-events: all;
+  width: 17px;
+  height: 17px;
+  border-radius: 0px;
+  border: 0 none;
+  background: red;
+}
+ 
+div[data-slider] > input[type=range]::-moz-range-thumb {
+  pointer-events: all;
+  width: 17px;
+  height: 17px;
+  border-radius: 0px;
+  border: 0 none;
+  background: red;
+}
+ 
+div[data-slider] > input[type=range]::-webkit-slider-thumb {
+  pointer-events: all;
+  width: 17px;
+  height: 17px;
+  border-radius: 0px;
+  border: 0 none;
+  background: red;
+  -webkit-appearance: none;
+}
+ 
+div[data-slider] > input[type=range]::-ms-fill-lower {
+  background: transparent;
+  border: 0 none;
+}
+ 
+div[data-slider] > input[type=range]::-ms-fill-upper {
+  background: transparent;
+  border: 0 none;
+}
+
+[data-slider] > input[type=range] {
+  position: absolute;
+  pointer-events: none;
+  -webkit-appearance: none;
+  z-index: 3;
+  height: 5px;
+  top: -2px;
+  width: 100%;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+  -moz-opacity: 0;
+  -khtml-opacity: 0;
+  opacity: 0;
+}
+ 
+div[data-slider] > input[type=range]::-ms-track {
+  -webkit-appearance: none;
+  background: transparent;
+  color: transparent;
+}
+ 
+div[data-slider] > input[type=range]::-moz-range-track {
+  -moz-appearance: none;
+  background: transparent;
+  color: transparent;
+}
+ 
+div[data-slider] > input[type=range]:focus::-webkit-slider-runnable-track {
+  background: transparent;
+  border: transparent;
+}
+ 
+div[data-slider] > input[type=range]:focus {
+  outline: none;
+}
+
+div[data-slider] > input[type=range]::-ms-tooltip {
+  display: none;
+}
+ 
+[data-slider] > div > [data-sign] {
+  display: inline-block;
+  text-align: center;
+  padding: 4px 16px;
+  border-radius: 8px;
+  margin-top: 22px;
+}
+ 
+[data-slider] > div > [data-sign] > span {
+  font-size: 12px;
+  line-height: 28px;
+}
+ 
+[data-slider]:hover > div > [data-sign] {
+  opacity: 1;
+}

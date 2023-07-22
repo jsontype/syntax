@@ -1,0 +1,87 @@
+.blogCard.-type-1 {
+  .blogCard {
+    &__image {
+      overflow: hidden;
+
+      img {
+        transition: all 0.3s $easeOutQuart;
+      }
+    }
+  }
+
+  &:hover {
+    .blogCard {
+      &__image {
+        img {
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+}
+
+.blogCard.-type-2 {
+  .blogCard {
+    &__image {
+      overflow: hidden;
+
+      img {
+        transition: all 0.6s $easeOutQuart;
+      }
+    }
+  }
+
+  &:hover {
+    .blogCard {
+      &__image {
+        img {
+          transform: scale(1.15);
+        }
+      }
+    }
+  }
+}
+
+.blogCard.-type-3 {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  
+  .blogCard {
+    &__image {
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+      height: 100%;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: all 0.6s $easeOutQuart;
+      }
+    }
+    
+    &__content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, rgba(5, 16, 54, 0) 0%, rgba(5, 16, 54, 0.7) 100%);
+      padding-left: 50px;
+      padding-bottom: 30px;
+      padding: 20px 20px;
+    }
+  }
+
+  &:hover {
+    .blogCard__image img {
+      transform: scale(1.1);
+    }
+  }
+}

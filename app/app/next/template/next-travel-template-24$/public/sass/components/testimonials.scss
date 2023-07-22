@@ -1,0 +1,33 @@
+.testimonials-slider-2 {
+  .swiper-slide {
+    opacity: 0.8;
+
+    &.swiper-slide-active {
+      opacity: 1;
+    }
+  }
+}
+
+.testimonials.-type-2 {
+  .testimonials {
+    &__image {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 0;
+
+      > img:nth-child(1) {
+        
+      }
+
+      > img:nth-child(2) {
+        position: absolute;
+        z-index: 1;
+        width: 96px;
+        height: 96px;
+        object-fit: cover;
+      }
+    }
+  }
+}

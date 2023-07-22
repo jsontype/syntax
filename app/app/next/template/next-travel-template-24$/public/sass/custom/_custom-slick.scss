@@ -1,0 +1,188 @@
+// swiper css custom
+.js-testimonials-slider-2 .swiper-pagination-bullet {
+    background: hsla(0, 0%, 100%, 0.5) !important;
+    opacity: 1 !important;
+}
+.section-slider-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+}
+.section-slider-nav.-prev {
+    left: -20px;
+    @media (max-width: 540px) {
+        left: 0;
+    }
+}
+.section-slider-nav.-next {
+    right: -20px;
+    @media (max-width: 540px) {
+        right: 0;
+    }
+}
+.custom_inside-slider {
+    .swiper-pagination-bullet {
+        background-color: hsla(0, 0%, 100%, 0.7);
+        transform: scale(0.75);
+        opacity: 0.5;
+        &.swiper-pagination-bullet-active {
+            transform: scale(1);
+            background-color: var(--color-white);
+            opacity: 1;
+        }
+    }
+    .swiper-button-next,
+    .swiper-button-prev {
+        text-align: center;
+        font-weight: 500;
+        font-size: 15px;
+        width: 30px;
+        box-shadow: 0 10px 35px 0 rgb(5 16 54 / 10%);
+        height: 30px;
+        line-height: 1.2;
+        border-radius: 100%;
+        border: 1px solid transparent;
+        background-color: var(--color-white) !important;
+        transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        opacity: 0;
+
+        &::after {
+            font-family: icomoon !important;
+            font-style: normal;
+            font-weight: 400;
+            font-variant: normal;
+            text-transform: none;
+            line-height: 1;
+            -webkit-font-smoothing: antialiased;
+            font-size: var(--text-10) !important;
+        }
+        &:hover {
+            background-color: var(--color-blue-1) !important;
+            border-color: var(--color-blue-1);
+            color: #fff !important;
+        }
+    }
+
+    .swiper-button-prev {
+        &::after {
+            content: "\e923";
+        }
+    }
+    .swiper-button-next {
+        &::after {
+            content: "\e924";
+        }
+    }
+}
+.cardImage {
+    &:hover {
+        .custom_inside-slider {
+            .swiper-pagination-bullet,
+            .swiper-button-next,
+            .swiper-button-prev {
+                opacity: 1;
+            }
+            .swiper-button-disabled {
+                opacity: 0.35;
+            }
+        }
+    }
+}
+
+// end css for swiper custom css slider
+
+// start slick slider css
+.slick-dots li {
+    margin: 0 5px;
+    width: 8px;
+    height: 8px;
+    background: #ddd;
+    border-radius: 10px;
+    transition: all 300ms ease;
+    button {
+        padding: 0;
+
+        &::before {
+            display: none;
+        }
+    }
+    &.slick-active {
+        width: 20px;
+        background: var(--color-blue-1);
+    }
+}
+
+.slick-dots {
+    position: static;
+    margin-top: 40px;
+    @media (max-width: 575px) {
+        margin-top: 20px;
+    }
+}
+
+.item_gap-x30 {
+    .slick-slide {
+        padding: 0 15px;
+    }
+    .slick-list {
+        margin: 0 -15px;
+    }
+}
+.item_gap-x10 {
+    .slick-slide {
+        padding: 0 5px;
+    }
+    .slick-list {
+        margin: 0 -5px;
+    }
+}
+
+// slick navigation
+.slick_arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+}
+
+.slick_arrow-between {
+    &.-prev {
+        left: -10px;
+    }
+
+    &.-next {
+        right: -10px;
+    }
+
+    &.arrow-md {
+        opacity: 0;
+        visibility: hidden;
+        &.-prev {
+            left: 20px;
+        }
+
+        &.-next {
+            right: 20px;
+        }
+    }
+}
+.hover-inside-slider {
+    &:hover {
+        .arrow-md {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}
+
+// arrow top right
+.arrow-top-right {
+    position: absolute;
+    top: -67px;
+    right: 0;
+    z-index: 5;
+    &.arro-prev {
+        right: 35px;
+    }
+}
