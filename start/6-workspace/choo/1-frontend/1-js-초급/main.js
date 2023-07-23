@@ -50,6 +50,11 @@ function render(movies) {
     document.body.appendChild(movieTitle)
     document.body.appendChild(movieRating)
     document.body.appendChild(movieImage)
+
+    // 쿼리셀렉터
+    // console.log("a tag: ", document.querySelector("a"))
+    // console.log("movieTitle class: ", document.querySelector(".movieTitle"))
+    // console.log("movieTitle id: ", document.querySelector("#movieTitle"))
   }
 }
 
