@@ -1,90 +1,88 @@
 [Styled-Components의 작동원리 : Tagged Template Literal]
 
 1. Styled-Components 정의
-    현존하는 CSS in JS 기술(JS 안에 CSS를 작성하는 기술법)을 사용하는 라이브러리 중 가장 인기있는 라이브러리이다. (대안으로는 emotion과 styled-jsx가 있다.)
-    확장자가 .js만으로 이뤄진 상태로도 스타일을 설정할 수 있게 된다.
+	현존하는 CSS in JS 기술(JS 안에 CSS를 작성하는 기술법)을 사용하는 라이브러리 중 가장 인기있는 라이브러리이다. (대안으로는 emotion과 styled-jsx가 있다.)
+	확장자가 .js만으로 이뤄진 상태로도 스타일을 설정할 수 있게 된다.
 
 1. Styled-Components의 작동원리 : Tagged Template Literal
-    Template Literal (예 : `${name}`)을 사용할 때, ${} 안에 문자열/숫자가 아닌 객체나 함수를 넣을 수도 있다.
-    Template Literal 을 사용하면서도, 그 내부에 넣은 자바스크립트 값을 조회하고 싶을 땐 Tagged Template Literal 문법을 사용 할 수 있다.
-    이렇게 말이다.
-        function favoriteColors(texts, ...values) {
-            console.log(texts);
-            console.log(values);
-        }
-        
-        const red = '빨간색';
-        const blue = '파란색';
-        
-        favoriteColors`제가 좋아하는 색은 ${red}과 ${blue}입니다.`
-    해당 코드의 결과값은 현 폴더에 있는 "2.js"를 실행해서 확인해보자. 
-        node 2.js
-    styled-components 에서는 이런 문법을 사용해서 컴포넌트의 props를 읽어오기도 한다.
-        const StyledDiv = styled`
-            background: ${props => props.color};
-        `;
-    이런 방식을 Tagged Template Literal이라 한다.
-    그런데, 만약 ${}을 통해서 함수나 변수를 넣어줬다면, 해당 함수나 변수를 사용해줄 수도 있다.
-        function sample(texts, ...fns) {
-            const mockProps = {
-                title: '안녕하세요',
-                body: '내용은 내용내용 입니다.'
-            };
-            const result = texts.reduce((result, text, i) => `${result}${text}${fns[i] ? fns[i](mockProps) : ''}`, '');
-            console.log(result)
-        }
-        sample`
-            제목: ${props => props.title}
-            내용: ${props => props.body}
-        `
-    해당 코드의 결과값은 현 폴더에 있는 "3.js"를 실행해서 확인해보자. 
-        node 3.js
-    코드가 좀 어렵다고 생각하면 그냥 이렇게 표현할 수도 있구나 하고 넘어가도 된다.
+	Template Literal (예 : `${name}`)을 사용할 때, ${} 안에 문자열/숫자가 아닌 객체나 함수를 넣을 수도 있다.
+	Template Literal 을 사용하면서도, 그 내부에 넣은 자바스크립트 값을 조회하고 싶을 땐 Tagged Template Literal 문법을 사용 할 수 있다.
+	이렇게 말이다.
+		function favoriteColors(texts, ...values) {
+				console.log(texts);
+				console.log(values);
+		}
+		
+		const red = '빨간색';
+		const blue = '파란색';
+		
+		favoriteColors`제가 좋아하는 색은 ${red}과 ${blue}입니다.`
+	해당 코드의 결과값은 현 폴더에 있는 "2.js"를 실행해서 확인해보자. 
+		node 2.js
+	styled-components 에서는 이런 문법을 사용해서 컴포넌트의 props를 읽어오기도 한다.
+		const StyledDiv = styled`
+			background: ${props => props.color};
+		`;
+	이런 방식을 Tagged Template Literal이라 한다.
+	그런데, 만약 ${}을 통해서 함수나 변수를 넣어줬다면, 해당 함수나 변수를 사용해줄 수도 있다.
+		function sample(texts, ...fns) {
+			const mockProps = {
+				title: '안녕하세요',
+				body: '내용은 내용내용 입니다.'
+			};
+			const result = texts.reduce((result, text, i) => `${result}${text}${fns[i] ? fns[i](mockProps) : ''}`, '');
+			console.log(result)
+		}
+		sample`
+			제목: ${props => props.title}
+			내용: ${props => props.body}
+		`
+	코드가 좀 어렵다고 생각하면 그냥 이렇게 표현할 수도 있구나 하고 넘어가도 된다.
 
 
 
 [Styled-components 설치]
 
 1. React App 설치
-    $ npx create-react-app app1
+	$ npx create-react-app app1
 
 1. styled-components 설치
-    $ cd app1
-    $ npm i styled-components (yarn add styled-components)
-    안되면 $ npm i --save-dev @types/styled-components
+	$ cd app1
+	$ npm i styled-components (yarn add styled-components)
+	안되면 $ npm i --save-dev @types/styled-components
 
 
 
 1. src/App.js 수정 : div를 스타일링 하고 싶으면 styled.div``을 사용한다.
-    import React from 'react'
-    // styled : CSS in JS 기술법의 Styled Components를 임포트해 쓰면, 아래 color와 같이, props나 변수도 사용 가능
-    // { css } : 아래 huge와 같이, CSS 코드를 조건부로 보여주고 싶다면 { css }를 사용해서 스타일 내부에 중첩
-    import styled, { css } from 'styled-components'
+	import React from 'react'
+	// styled : CSS in JS 기술법의 Styled Components를 임포트해 쓰면, 아래 color와 같이, props나 변수도 사용 가능
+	// { css } : 아래 huge와 같이, CSS 코드를 조건부로 보여주고 싶다면 { css }를 사용해서 스타일 내부에 중첩
+	import styled, { css } from 'styled-components'
 
-    const Circle = styled.div`
-        width: 5rem;
-        height: 5rem;
-        background: ${props => props.color || 'black'};
-        border-radius: 50%;
-        ${props =>
-            props.huge && css`
-            width: 10rem;
-            height: 10rem;
-        `}
-    `
+	const Circle = styled.div`
+		width: 5rem;
+		height: 5rem;
+		background: ${props => props.color || 'black'};
+		border-radius: 50%;
+		${props =>
+			props.huge && css`
+			width: 10rem;
+			height: 10rem;
+		`}
+	`
 
-    // 하나씩 스위칭해서 확인
-    function App() {
-        // return <Circle /> // 검은색 원
-        // return <Circle huge /> // 검은색 큰 원
-        // return <Circle color="red" /> // 빨간색 원
-        return <Circle color="red" huge /> // 빨간색 큰 원
-    }
+	// 하나씩 스위칭해서 확인
+	function App() {
+		// return <Circle /> // 검은색 원
+		// return <Circle huge /> // 검은색 큰 원
+		// return <Circle color="red" /> // 빨간색 원
+		return <Circle color="red" huge /> // 빨간색 큰 원
+	}
 
-    export default App
+	export default App
 
 
 
 1. 테스트 : function App()의 리턴 부분을 하나씩 스위칭해서 확인
-    cd app1
-    $ npm start
+	$ cd app1
+	$ npm start

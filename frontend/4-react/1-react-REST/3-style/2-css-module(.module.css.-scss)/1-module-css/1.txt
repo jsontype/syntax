@@ -69,6 +69,16 @@
 
 
 
+1. 주의할 점
+  module을 쓸 때는 className에 하이픈(-)을 쓸 수 없다.
+  예를 들어, 기존의 방식이
+    <button className="primary-button">버튼</button>
+  와 같다면, 모듈에서는
+    <button className={styles.primaryButton}>버튼</button>
+  이런 형태로 바꾸고, 해당 .module.scss 파일의 클래스 이름도 primaryButton (카멜 케이스)형태로 바꿔줘야 한다.
+
+
+  
 1. 테스트 : 브라우져의 F12에서, Button의 클래스 이름이 고유한 클래스명으로 자동변경된 것을 확인
   $ cd app1
   $ npm start

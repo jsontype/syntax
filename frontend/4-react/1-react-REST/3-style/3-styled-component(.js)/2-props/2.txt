@@ -38,7 +38,6 @@
     );
   }
 
-
 1. src/App.js 수정
   import React from "react";
   import ButtonList from "./components/ButtonList";
@@ -55,7 +54,10 @@
 
   export default App;
 
-
 1. TextButtonList도 같은 흐름으로 만들면 된다.
 
+
+
 1. 테스트
+  $ cd app1
+  $ npm start
