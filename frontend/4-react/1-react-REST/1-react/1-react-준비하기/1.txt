@@ -1,5 +1,7 @@
 [React]
 
+1. Node 버전 : 16.18.1
+
 1. 앱 설치
   - react 18.2.0 이후
     $ npx create-react-app app1 --template cra-template-quickstart

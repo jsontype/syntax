@@ -24,6 +24,7 @@
   KISS : Keep It Simple, Stupid
   YAGNI : You Aren't Gonna Need It
   OOP : 객체 지향 프로그래밍
+  EOL : End Of Life, 제품에 대한 수명이 끝난 것으로, 공지한 날짜 이후로 해당 제품에 대한 유지보수를 일절 중단한 것을 의미
 
 2. 개발 용어
   API : Application Programming Interface
