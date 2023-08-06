@@ -1,0 +1,91 @@
+[ESLint]
+
+1. ESLint
+  .eslintrc 파일에 기록해둔 설정을 통해,
+  "사용 언어, 프레임워크, 특정 컨벤션 규칙 등"에 따라
+  해당 규칙들을 위반한 에러를 찾고 수정해주는 라이브러리이다.
+  예를 들면, "리액트 기반 컴포넌트에서 리액트 임포트를 필수로 할 것인가" 등의 항목 등이다.
+  * 구체적인 항목에 대해서는 https://eslint.org/docs/latest/rules/ 참조
+  * eslint는 npx create-react-app으로 리액트 앱을 설치할 때 기본적으로 설치된다.
+  * prettier와 겹치는 경우 eslint-plugin-prettier 같은 것들을 설정해 혼선을 방지할 수 있다.
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. 설치
+  $ cd app1
+  $ npm i -D eslint
+
+1. .eslintrc 생성
+  {
+    "env": {
+      "browser": true,
+      "es2021": true,
+      "node": true
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended"
+    ],
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "ecmaVersion": 12,
+      "sourceType": "module"
+    },
+    "plugins": [
+      "react"
+    ],
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
+    }, 
+    "rules": {
+      "react/react-in-jsx-scope": "off", // import react from 'react' 필요 여부 옵션
+      "react/jsx-uses-vars": "warning" // 사용하지 않는 변수, 함수가 있으면 경고 처리
+    }
+  }
+
+1. package.json 수정
+  "scripts": {
+    ... ,
+    "lint": "eslint ./src",
+    "lint:fix": "eslint --fix ./src"
+  },
+
+1. VSCode 확장 ESLint 설치
+  ESLint 확장을 설치하고 src/App.js를 보면, 에디터상에서 빨간줄로 에러 확인 및 빠른 수정이 가능하다.
+
+1. src/App.js 수정 : ESLint 자동 수정 기능을 위해서 수정해보자.
+  // 이 부분은 수동으로 수정해야한다. 수정후 아래 XML 태그쪽에 빨간 줄이 없어질 것이다.
+  // 아직 ESLint가 모든 것을 수정해주지는 않는다.
+  import React from 'react'
+  import './App.css'
+
+  export default function App() {
+    const onClick = text => {
+      console.log(text)
+    }
+
+    return (
+      // 이 부분은 npm run lint:fix로 자동 수정이 가능할 것이다. 
+      // ESLint가 자동수정 가능한 항목은 https://eslint.org/docs/latest/rules/에서 확인할 수 있다.
+      <div class="App">
+        <div
+          onClick={() => {
+            onClick("Hello React!")
+          }}
+          style={{ color: 'gray' }}
+        >
+          Hello React!
+        </div>
+      </div>
+    )
+  }
+
+1. 테스트
+  $ cd app1
+  $ npm run lint // 에러 찾기
+  $ npm run lint:fix // 에러 수정
+  src/App.js 코드가 실제로 수정되었는지 확인 : class가 className으로 바뀌는지 확인
