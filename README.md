@@ -55,6 +55,10 @@ https://github.com/jsontype/old.git
    API: https://fakestoreapi.com/products  
    DOC: https://fakestoreapi.com/docs
 
+# CI 체크 * Temporary
+1. readme.md 파일 체크 다수 존재시 루트폴더 한 개외 삭제
+1. .github 폴더 체크 후 존재시 github로 폴더명 변경
+
 # Markdown Grammar
 
 ---
