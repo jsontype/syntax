@@ -82,13 +82,7 @@
     );
   }
 
-1. 테스트 : useState로 돌아가는 Todos 앱의 동작 확인 
-  $ cd app1
-  $ npm start
 
-
-
-[Todos에 리덕스 적용]
 
 1. src/modules/todos.js 생성 : 모듈(리듀서) 만들기 : 액액초리 = 액션타입 / 액션생성함수 / 초기값 / 리듀서
   /** 액션 타입 정의 */
@@ -158,6 +152,24 @@
 
 
 
+1. src/app.js 수정 : ui 렌더링에서 container 렌더링으로 변경
+  import "./App.css";
+  import CounterContainer from "./components/Counter/Container";
+  import TodosContainer from "./components/Todos/Container";
+
+  function App() {
+    return (
+      <div className="App">
+        <CounterContainer />
+        <TodosContainer />
+      </div>
+    );
+  }
+
+  export default App;
+
+
+
 1. src/index.js 수정 : index.js에서 provider로 감싸기(Counter 만들때 했으므로 Skip)
   import React from "react";
   import ReactDOM from "react-dom/client";
@@ -179,6 +191,7 @@
       <App />
     </Provider>
   );
+
 
 
 
@@ -211,81 +224,7 @@
 
 
 
-1. src/app.js 수정 : ui 렌더링에서 container 렌더링으로 변경
-  import "./App.css";
-  import CounterContainer from "./components/Counter/Container";
-  import TodosContainer from "./components/Todos/Container";
-
-  function App() {
-    return (
-      <div className="App">
-        <CounterContainer />
-        <TodosContainer />
-      </div>
-    );
-  }
-
-  export default App;
-
-
-
-1. src/components/Todos/index.js 수정 : 로컬스테이트에서 글로벌스테이트를 이용하도록 변경
-  import React, { useState } from "react"
-  import "./style.css"
-
-  export default function Todos({ todos, onCreate, onCompleted, onDelete }) {
-    const [input, setInput] = useState("")
-
-    const onChange = (e) => {
-      e.preventDefault()
-      setInput(e.target.value)
-    }
-
-    const onSubmit = (e) => {
-      e.preventDefault()
-      onCreate(input)
-      setInput("")
-    }
-
-    const render = todos.map((item) => {
-      const isDone = item.completed ? "done" : ""
-      return (
-        <div
-          key={item.id}
-          className={isDone}
-          onClick={() => onCompleted(item.id)}
-        >
-          <span># {item.id} / </span>
-          <span>
-            {item.title}
-            &nbsp;
-          </span>
-          <button onClick={() => onDelete(item.id)}>삭제</button>
-        </div>
-      )
-    })
-
-    return (
-      <div>
-        <h1>투두앱</h1>
-        <form onSubmit={onSubmit}>
-          <input
-            name="todo"
-            type="text"
-            value={input}
-            onChange={onChange}
-          ></input>
-          <button type="submit">전송</button>
-        </form>
-
-        <div>{render}</div>
-      </div>
-    )
-  }
-
-
-
-1. 테스트 : redux로 돌아가는 Todos 앱의 동작 확인
+1. 테스트
   $ cd app1
   $ npm start
 
