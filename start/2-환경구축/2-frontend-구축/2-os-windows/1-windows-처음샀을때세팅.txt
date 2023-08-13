@@ -16,3 +16,17 @@
     단축키 설정 : 화면분할 -> 설정 -> Fancy Zones -> 단축키와 프레임 지정
     그리드 설정 : 새 레이아웃 -> 화면 클릭하면 분할 / 구분선 클릭한 상태로 Delete 키 누르면 삭제
     사용하기 : 쉬프트 누르고 윈도우창 이동하면 틀에 맞춰짐
+1. powershell 터미널에 깃 브랜치 표시되도록 세팅하기
+  * 참조 URL: https://ohmyposh.dev/docs/installation/windows
+  "관리자모드"로 powershell 실행
+  $ winget install JanDeDobbeleer.OhMyPosh -s winget
+  $ oh-my-posh font install
+  Meslo 선택
+  vscode에서 ctrl + , 눌러서 설정 열기
+  terminal font 검색 후 폰트 설정 인풋창에 "MesloLGM Nerd Font" 입력하여 폰트 설정
+  $ oh-my-posh get shell
+  $ notepad $PROFILE
+  노트패드가 열리면 다음 줄을 추가
+  oh-my-posh init pwsh | Invoke-Expression
+  저장후 노트패드를 닫음
+  $ . $PROFILE
