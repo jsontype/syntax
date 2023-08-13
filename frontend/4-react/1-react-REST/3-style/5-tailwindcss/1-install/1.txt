@@ -79,6 +79,10 @@
   @tailwind components;
   @tailwind utilities; 
 
+1. tailwind.css 연결
+  $ cd app1
+  $ npx tailwindcss -i ./src/tailwind.css -o ./dist/output.css --watch
+
 1. src/index.js 수정 : tailwind 임포트해주기
   import React from 'react'
   import ReactDOM from 'react-dom/client'
