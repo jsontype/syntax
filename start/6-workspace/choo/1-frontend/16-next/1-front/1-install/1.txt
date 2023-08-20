@@ -1,8 +1,19 @@
 [Next.js 설치와 개발환경 세팅]
 참조URL: https://codingapple.com/course/next-js
 
+1. SPA / MPA?
+  React: SPA (Single Page Application)
+    B2B Saas
+    CSR : Client Side Rendering
+  Next: MPA (다른 페이지로 이동할 때마다 서버에 요청을 보내서 새로운 페이지를 받아온다.)
+    B2C
+    SSR : Server Side Rendering
+    SEO : Search Engine Optimization
+    React보다 좋은 점 : 로딩속도 개선되고, 검색 노출도 향상됨
+    React보다 나쁜 점 : 서버 비용 상승
+
 1. Next.js를 공부해야하는 이유
-  프론트엔드 개발자 역할 변하고 있고, 서버사이드 렌더링 다시 유행하고 있다.
+  프론트엔드 개발자 역할 변하고 있고, 서버사이드 렌더링(SSR) 다시 유행하고 있다.
   서버사이드 렌더링 쓰면 로딩속도 개선되고, 검색 노출도 좋아져서 돈벌기 좋다.
   그래서 프론트엔드 전문성 필요 없어질 수 있어서 백엔드도 공부해볼만하다.
   이를 Next.js로 쉽게 시작할 수 있다.
@@ -60,8 +71,8 @@
 1. Next.js 구조
   public/ : 정적파일폴더(이미지, 영상, 음악 파일 모음)(추후 추가)
   src/app/assets/ : 정적파일폴더(이미지, 영상, 음악 파일 모음)(추후 추가)
-  src/components/ : 컴포넌트폴더(버튼같은 부품 모음)(추후 추가)
-  src/pages/ : 페이지폴더(UI페이지 모음, path parameter로 자동루팅도 해줌)(추후 추가)
+  src/app/components/ : 컴포넌트폴더(버튼같은 부품 모음)(추후 추가)
+  src/app/pages/ : 페이지폴더(UI페이지 모음, path parameter로 자동루팅도 해줌)(추후 추가)
   src/app/api/ : API폴더(서버기능 만드는 곳)
   src/app/page.js : 메인페이지
   src/app/layout.js : 메인페이지 윗 단계로, head, header, footer 등이 들어간다.
