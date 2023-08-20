@@ -10,31 +10,31 @@
         * 여기서 순차가 아니라 가장 빠른 작업 하나만 실행하고 싶다면, Promise.race를 사용해야 한다.
 */
 
-function sleep (ms) {
-    return new Promise(resolve => setTimeout(resolve, ms))
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
 const getDog = async () => {
-    await sleep(1000)
-    return '멍멍이'
+  await sleep(1000)
+  return "멍멍이"
 }
 
 const getRabbit = async () => {
-    await sleep(500)
-    return '토끼'
+  await sleep(500)
+  return "토끼"
 }
 const getTurtle = async () => {
-    await sleep(3000)
-    return '거북이'
+  await sleep(3000)
+  return "거북이"
 }
 
-async function process () {
-    const dog = await getDog()
-    console.log(dog)
-    const rabbit = await getRabbit()
-    console.log(rabbit)
-    const turtle = await getTurtle()
-    console.log(turtle)
+async function process() {
+  const dog = await getDog()
+  console.log(dog)
+  const rabbit = await getRabbit()
+  console.log(rabbit)
+  const turtle = await getTurtle()
+  console.log(turtle)
 }
 
 process()
