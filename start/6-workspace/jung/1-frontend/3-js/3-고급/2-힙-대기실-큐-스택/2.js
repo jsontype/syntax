@@ -6,7 +6,7 @@
             Heap : i = { age: 20 }, j = { name: 'kim' } 과 같이 변수를 담아두는 공간이다.
             대기실 : 대기시간이 끝나면, que라는 대기실로 넘겨준다.
                 대기실 보내는 코드들 : async function (ajax api 호출요청코드, io, setTimeout 등 비동기 함수들과, 이벤트리스너 함수들)
-            Que(ue) : 대기실에서 "처리가 완료된" 코드 스텝들을 줄을 세워서 Que에 세운 뒤, stack으로 하나씩 올려보내준다.
+            Que(ue) : 대기실에서 "처리가 완료된" 코드 스택들을 줄을 세워서 Que에 세운 뒤, stack으로 하나씩 올려보내준다.
                 Que(ue) 보내는 코드들 : async function (ajax api 호출요청코드, io, setTimeout 등 비동기 함수들과, 이벤트리스너 함수들)
                 단, stack이 비어있을 때만 올려보낸다.
             Stack : 코드를 실행해주는 곳. 단, 코드 한줄씩만 들어간다. (그래서 js는 보통 single threaded language라고 한다.)

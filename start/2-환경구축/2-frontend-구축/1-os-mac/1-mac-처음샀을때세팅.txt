@@ -28,7 +28,7 @@
   해당 명령어 붙여넣고 실행하여 설치
   설치 후, 터미널에 지시 따라 입력완료하기
     ```
-    // 터미널 지시 예시 : 아래의 두 스텝을 터미널에 입력
+    // 터미널 지시 예시 : 아래의 두 스택을 터미널에 입력
       Run these two commands in your terminal to add Homebrew to your PATH:
         (echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> /Users/d.yang/.zprofile
         eval "$(/opt/homebrew/bin/brew shellenv)"

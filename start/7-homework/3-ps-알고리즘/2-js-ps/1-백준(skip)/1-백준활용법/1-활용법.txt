@@ -69,11 +69,6 @@
   플래티넘 5문제를 풀면 다이아몬드 5문제를 푼다.
   다이아몬드 5문제를 풀면 루비 5문제를 푼다.
   루비 5문제를 풀면 마스터 5문제를 푼다.
-  마스터 5문제를 풀면 그랜드 마스터 5문제를 푼다.
-  그랜드 마스터 5문제를 풀면 챌린저 5문제를 푼다.
-  챌린저 5문제를 풀면 레전드 5문제를 푼다.
-  레전드 5문제를 풀면 레전드 5문제를 푼다.
-  반복...
 
 1. 백준 티어 확인 방법
   https://solved.ac/problems/level
@@ -109,6 +104,6 @@
 
   - 해킹 기술 / 웹 보안 / 리버싱
     웹해킹 : https://www.hackthissite.org/
-    루트미 : https://www.root-me.org/?lang=en
+    루트미 : https://www.root-me.org/?lang=en/
     크랙미 : https://crackmes.one/
-    해커랭크 : https://www.hackerrank.com/dashboard
+    해커랭크 : https://www.hackerrank.com/dashboard/
