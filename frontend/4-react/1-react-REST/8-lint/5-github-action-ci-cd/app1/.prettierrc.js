@@ -1,5 +1,5 @@
 module.exports = {
-  semi: false, // 스텝 끝에 세미콜론(;)을 사용하지 않는다.
+  semi: false, // 스택 끝에 세미콜론(;)을 사용하지 않는다.
   singleQuote: true, // 문자열에 따옴표(')를 사용한다.
   tabWidth: 2, // 탭 문자의 스페이스바 개수를 지정한다.
   printWidth: 100, // 한 줄의 최대 길이를 지정한다.

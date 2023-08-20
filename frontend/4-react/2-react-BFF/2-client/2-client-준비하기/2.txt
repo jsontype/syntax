@@ -154,7 +154,7 @@
 
 
 
-1. src/index.js 수정 : 글로벌 스타일(index.css) 적용하기 (* 주의할 점은 index.css를 임포트할 때 App 컴포넌트의 임포트 스텝보다 위에 있어야한다는 점이다!)
+1. src/index.js 수정 : 글로벌 스타일(index.css) 적용하기 (* 주의할 점은 index.css를 임포트할 때 App 컴포넌트의 임포트 스택보다 위에 있어야한다는 점이다!)
   import React from "react"
   import ReactDOM from "react-dom/client"
   import "./index.css"
