@@ -19,7 +19,7 @@
 
 
 
-[powershell 터미널에 깃 브랜치 표시되도록 세팅하기] 
+[powershell 터미널에 깃 브랜치 표시되도록 세팅하기]
 * 참조 URL: https://ohmyposh.dev/docs/installation/windows
 
 1. oh-my-posh 및 MesloLGM Nerd Font 설치
@@ -43,7 +43,29 @@
   $ . $PROFILE
 
 1. 트러블슈팅
-  - 증상 : powershell에서 다음과 같은 에러가 나올 경우
+  - 증상 : notepad $PROFILE 커맨드를 실행했을 때, 메모장에서 존재하지 않는 경로라는 메시지가 나올 경우
+  - 원인
+    * 참조URL : https://learn.microsoft.com/ko-kr/powershell/scripting/learn/shell/creating-profiles?view=powershell-7.3
+    원인은 초기설정으로 "Shell 환경 사용자 지정 (= 개인 프로필 작성)"을 하지 않았기 때문이다.
+    시스템에 PowerShell을 처음 설치할 때는 프로필 스크립트 파일과 해당 파일이 속한 디렉터리도 존재하지 않는다.
+    이것들이 존재하지 않는 경우, “현재 사용자, 현재 현재 호스트” 프로필 스크립트 파일을 만들어야 한다.
+  - 해결책
+    Powershell을 관리자모드로 열고, 아래의 커맨드를 입력
+    $ $PROFILE
+    "C:\Users\user1\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"와 같은 메시지가 뜨는지 확인
+    $ $PROFILE.AllUsersAllHosts
+    "C:\Program Files\PowerShell\7\profile.ps1"와 같은 메시지가 뜨는지 확인
+    여기까지 진행됐다면, 아래 커맨드를 입력
+    $ if (!(Test-Path -Path $PROFILE)) { New-Item -ItemType File -Path $PROFILE -Force }
+    $ code $PROFILE
+    이러면 이제 VSCode가 프로필파일을 열어줄 것이다. 그러면 거기에다가 다음 줄을 추가하고 저장한 뒤 VSCode를 닫는다.
+    oh-my-posh init pwsh | Invoke-Expression
+    VSCode를 재기동하여 터미널을 확인
+    Powershell 터미널에서 아래를 입력
+    $ . $PROFILE
+    설정 끝
+
+  - 증상 : 다 진행하고, powershell을 열었을 때, 다음과 같은 에러가 나올 경우
   . : File C:\Users\jsont\OneDrive\ドキュメント\WindowsPowerShell\Microsoft.PowerShell_profile.ps1 cannot be loaded
     because running scripts is disabled on this system. For more information, 
     see about_Execution_Policies at https:/go.microsoft.com/fwlink/?LinkID=135170.
@@ -60,6 +82,7 @@
     $ Get-ExecutionPolicy
     정책이 "restricted"로 되어있다면, 아래 명령을 실행한다.
     $ Set-ExecutionPolicy Unrestricted
+    해결 끝
 
 1. 테스트
   vscode와 powershell을 각각 재기동
