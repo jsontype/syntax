@@ -1,0 +1,50 @@
+/* Global */
+.list-bg {
+  background: rgb(249, 250, 255);
+  padding: 10px;
+}
+.list-item {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 5px;
+  box-shadow: rgb(224, 224, 224) 0px 2px 4px 0px;
+}
+.list-item h4 {
+  font-size: 20px;
+  font-weight: 800;
+  margin: 0;
+}
+.list-item p {
+  color: grey;
+  margin : 5px 0px;
+}
+.p-20 {
+  padding: 20px;
+}
+input {
+  box-sizing: border-box;
+  padding: 10px;
+  display: block;
+  margin-bottom: 10px;
+}
+button {
+  padding: 10px 15px;
+  background: lightgray;
+  border: none;
+  border-radius: 5px;
+}
+.navbar {
+  margin: 10px;
+  padding: 20px;
+  border: 1px solid #000;
+}
+.navbarItem {
+  color: white;
+  text-decoration: none;
+  background: gray;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 15px;
+  margin: 10px;
+}
