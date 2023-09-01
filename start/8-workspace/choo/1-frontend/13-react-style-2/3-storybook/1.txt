@@ -1,0 +1,40 @@
+[Storybook]
+
+1. 사전준비 : init 앱을 가지고 온다.
+
+1. Storybook이란? CDD (Component Driven Development)를 하기 위한 것
+  React.js나 Next.js 프로젝트에서 컴포넌트를 개발할 때,
+  개발 후의 적용 결과 화면 확인을 위해서, 화면 전체를 볼 필요없이,
+  컴포넌트만 집중적으로 확인하며 개발할 수 있게 하기 위한 라이브러리이다.
+
+1. Storybook 도입시의 장점은?
+  Storybook을 활용하면 개발결과를 컴포넌트에 집중해서 확인할 수 있으며,
+  컴포넌트에게 전달하는 프롭들이 각각 어떻게 작용하는지도 개발 도중에 쉽게 이해할 수가 있다.
+  이렇게 Storybook을 활용하여 개발하는 것을 두고,
+  컴포넌트 주도 개발(Component Driven Development)이라고도 한다.
+  - Storybook은 CDD를 위한 것이다.
+
+1. Storybook 설치
+  $ cd app1
+  $ npm i --save-dev sb // Storybook 설치
+  $ npx sb init --builder webpack5 // Storybook 초기화
+  eslintPlugin > (Y/n) // y 선택
+  npm7 migration? > (Y/n) // n 선택
+
+1. Storybook 설치 확인
+  .storybook 폴더 확인 : Storybook에 대한 설정 파일이 들어있음을 확인
+  .stories 폴더 확인: Storybook의 샘플 코드
+  package.json에 아래 내용이 들어갔는지 확인 : 없으면 추가할 것
+  {
+    "scripts": {
+      "storybook": "start-storybook -p 6006",
+      "build-storybook": "build-storybook"
+    },
+  }
+
+1. 테스트 : Storybook 실행해보기
+  $ cd app1
+  $ npm run storybook
+  http://localhost:6006/
+  Exmaple / Introduction 화면 : ./stories/Introduction.stories.mdx 내용이 출력된다.
+  Exmaple / Button / Primary 화면 : ./stories/Button.stories.mdx 내용이 출력된다.

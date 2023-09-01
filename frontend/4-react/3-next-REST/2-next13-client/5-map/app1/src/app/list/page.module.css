@@ -1,0 +1,12 @@
+.title {
+  color: gray;
+}
+
+.item {
+  color: gray;
+  font-size: 14px;
+}
+
+.item:hover {
+  color: pink;
+}

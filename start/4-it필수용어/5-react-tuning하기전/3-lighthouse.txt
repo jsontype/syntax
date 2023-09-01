@@ -1,6 +1,8 @@
 [Chrome Lighthouse]
 
-1. 용도 : Chrome 개발자도구에서 제공하는 Lighthouse를 통해 로컬환경에서 SEO 점수나, device별 통합 퍼포먼스 점수 등을 측정할 수 있다.
+1. 용도
+    Chrome 개발자도구에서 제공하는 Lighthouse를 통해 로컬환경에서
+    SEO 점수나, device별 통합 퍼포먼스 점수 등을 측정할 수 있다.
 
 1. 성능 체크시의 옵션에 대한 설명
     Performance	: 웹 페이지의 로딩 속도 등 실제 성능을 측정
