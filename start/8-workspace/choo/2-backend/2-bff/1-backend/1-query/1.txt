@@ -1,0 +1,138 @@
+[GraphQL]
+
+1. REST API란?
+  REpresentational State Transfer의 약어로, "구체적으로 상태를 정의한 정보의 교환"을 의미한다.
+  다음의 RESTful 4원칙에 따라 설계된다.
+    - 통일된 인터페이스 : 다음의 4가지 요청 형식으로 통일하는 것을 말한다.
+      GET	: 정보 받아오기
+      POST : 정보 입력하기
+      PUT / PATCH : 정보 수정하기
+      DELETE : 정보 삭제하기
+    - Address 가능성
+      모든 정보가 고유한 URI로 표현되어야 한다.
+    - Access성
+      하나의 링크에서 다른 정보에 링크 할 수 있어 RESTful 시스템끼리 원활하게 정보 연계를 할 수 있어야 한다.
+    - Stateless성
+      State 없이, 교환이 1회 마다 완결되어야 한다.
+  REST API의 요청형식별 URI 예시는 다음과 같다.
+    GET	: localhost:3000/api/team
+    GET	: localhost:3000/api/team/{id 번호}
+    GET	: localhost:3000/api/people
+    GET	: localhost:3000/api/people?{변수}={값}&{변수}={값} ...
+    POST : localhost:3000/api/team/write
+    POST : localhost:3000/api/team/modify
+    POST : localhost:3000/api/team/delete
+    PUT	: localhost:3000/api/team/{id 번호}
+    DELETE : localhost:3000/api/team/{id 번호}
+  REST API의 한계는 다음과 같다.
+    - 딱 필요한 정보들만 받아올 수가 없다. 즉, Overfetching이 발생한다.
+    - 하나의 정보를 얻기 위해 여러 번의 요청을 보내야 한다. (team 내의 people을 가져오기) 즉, Underfetching이 발생한다.
+  ★★ 사실 지금까지의 React, Next 앱은 백엔드를 모두 REST API로 다룬 것이다!
+
+1. GraphQL이란?
+  REST API의 단점을 보완하기 위해 페이스북에서 만든 쿼리 언어이다.
+  REST API는 URL을 통해 데이터를 요청하는 반면, GraphQL은 쿼리를 통해 데이터를 요청한다.
+  REST API는 Overfetching이 발생할 수 있다. (필요한 정보보다 많은 정보를 서버에서 받는 것) 반면, GraphQL은 필요한 정보만 받을 수 있다.
+  REST API는 Underfetching이 발생할 수 있다. (하나의 정보를 얻기 위해 여러 번의 요청을 보내야 하는 것) 반면, GraphQL은 하나의 요청으로 여러 정보를 얻을 수 있다.
+  
+  GraphQL 사용의 예시
+    - 팀 전체 조회
+      query { : 쿼리이다. REST API로 치면 "GET"이다.
+        teams { : "teams 쿼리"이다. (teams 쿼리 객체에는 해당 쿼리를 날렸을 때의 반환될 필드들을 지정한다)
+          id : "id등"은 필드이다.
+          manager
+          office
+          extension_number
+          mascot
+          cleaning_duty
+          project
+        }
+      }
+    - 팀 하나 조회
+      query {
+        team(id: 1) { : "id: 1"은 파라미터이다.
+          manager
+          office
+          members {
+            first_name
+            last_name
+          }
+        }
+      }
+    - 팀 추가
+      mutation { : 뮤테이션이다. REST API로 치면 "POST, PUT, PATCH, DELETE" 등이다.
+        postTeam (input: { : 인풋값의 타입이다. 뮤테이션의 파라미터가 된다.
+          manager: "John Smith"
+          office: "104B"
+          extension_number: "#9982"
+          mascot: "Dragon"
+          cleaning_duty: "Monday"
+          project: "Lordaeron"
+        }) { : 리턴값의 타입이다.
+          manager
+          office
+          extension_number
+          mascot
+          cleaning_duty
+          project
+        }
+      }
+    - 팀 수정
+      mutation {
+        editTeam(id: 2, input: { : "id: 2"는 뮤테이션의 또다른 파라미터가 된다.
+          manager: "Maruchi Han"
+          office: "105A"
+          extension_number: "2315"
+          mascot: "Direwolf"
+          cleaning_duty: "Wednesday"
+          project: "Haemosu"
+        }) {
+          id,
+          manager,
+          office,
+          extension_number,
+          mascot,
+          cleaning_duty,
+          project
+        }
+      }
+    - 팀 삭제
+      mutation {
+        deleteTeam(id: 3) {
+          id,
+          manager,
+          office,
+          extension_number,
+          mascot,
+          cleaning_duty,
+          project
+        }
+      }
+  이렇게, 원하는 정보의 명세를 작성해두는 것만으로 DB에 접근하여 정보를 얻을 수 있다.
+  
+1. Apollo란?
+  GraphQL은 명세, 형식일 뿐이며,
+  실제로 GraphQL을 사용하기 위해서는 GraphQL을 지원하는 서버와 클라이언트가 필요하다.
+  Apollo는 GraphQL을 사용하기 위한 서버와 클라이언트를 모두 제공한다.
+  설정이 간편하고 쉬우며, 많은 기능을 제공한다.
+
+
+
+[준비: nodemon 설치]
+
+1. nodemon 설치
+  $ cd app1
+  $ npm init
+  PJ명 : app1
+  엔터를 연타
+  $ npm i -D nodemon
+
+1. package.json 수정 : "scripts" 항목에 다음을 추가
+  ... ,
+  "start": "nodemon index.js"  
+
+1. index.js 생성
+  console.log('Hello Apollo Server')
+
+1. 테스트
+  $ npm start
