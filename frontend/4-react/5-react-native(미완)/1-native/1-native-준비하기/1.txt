@@ -1,16 +1,63 @@
-[React-native]
+[리액트 네이티브 설치]
 
-1. 앱 설치
+1. 사전 설정 
+  - VSCode 확장설치
+    prettier 설치 후 설정하기 : 포맷을 컨벤션대로 자동 수정 처리
+      ctrl + , 눌러서, prettier 검색
+        Allow Parens : avoid
+        Bracket Same Line : 체크안함
+        Bracket Spacing : 체크
+        Print Width : 80
+        Format on Save : 체크
+        Semi : 체크 안함
+        Single Quite : 체크 안함
+        Tab Width : 2
+      ctrl + , 눌러서, format on save 검색
+        format on save : 체크
+        format on save mode : file
+    vscode-styled-components : 스타일드 컴포넌트에서 사용되는 백틱(``) 안의 CSS의 색을 원래 CSS 파일처럼 처리해줌
+    
+  - Node.js 설치
+    버전 : 14.15.5 
+    버전 변경시 nvm install, nvm use 명령어 사용
+
+  - 환경구축 가장 쉬운 방법 : 윈도우 노트북, 아이폰, 안드로이드폰을 준비하고, 폰 기기에는 각각 Expo Go 앱 설치
+    아이폰 기기가 없다면 원래 맥북이 필요하고 맥북에 watchman, xcode, cocoapods 깔고 xcode > simulator 켜고 해야하는데 그런 것들이 없어도 구현이 가능해짐
+    안드로이드폰 기기가 없다면 원래 윈도우가 필요하고 JDK, Android Studio 깔고 해야하는데 그런 것들이 없어도 구현이 가능해짐
+    에뮬레이터를 이용하는 것보다는 실물 기기를 이용해서 테스트하는 것을 더 권장한다.  
+
+1. 리액트 네이티브란?
+  장점 : JS로 개발하는 쉬운 접근성, 비용 절감(크로스플랫폼), Fast Refresh 기능(코드 수정 결과를 빌드없이 바로 확인가능)
+  단점 : 플러터보다는 좋지만 기존 네이티브앱 언어(swift, java)보다는 성능이 떨어짐, 디버깅(웹개발용 리액트나, 네이티브앱 언어에 비해 버그 원인을 명확히 찾기 어려움)
+  동작방식1 : JS -> Bridge(JS 스레드에서 Native 스레드로 전달하는 통신장치) -> iOS, Android 앱
+  동작방식2 : virtual DOM을 기반으로 실제 real DOM을 변경
+
+1. Expo로 리액트 네이티브 프로젝트 생성하기
   $ npm i -g expo-cli
-  $ expo login
-  $ expo init app1
+  Expo 홈페이지(https://expo.dev)에서 회원가입
+  $ expo login // 터미널에서 엑스포 로그인
+  expo 회원가입 당시 이메일 입력
+  expo 회원가입 당시 비밀번호 입력
+  $ expo whoami // 로그인 확인
+  $ expo init app1 // 앱 설치
+  blank 선택
+
+1. 중간 테스트 : Expo 프로젝트 실행 확인
+  미리 아이폰 / 안드로이드폰을 휴대폰을 "PC와 동일한 wifi에 연결"한 뒤, Expo 앱을 열고, 로그인해두기
+  $ cd app1
+  $ npm start
+  i를 누르면 아이폰용, a를 누르면 안드로이드폰용 앱을 실행
+  XCode 설치 여부 : n 을 선택
+  서버가 구동되면, 다음의 방법중 하나로 휴대폰에서 실행하기
+    - 아이폰 Expo 앱에서 App1 servers를 선택하기
+    - 터미널에 윗부분에 뜨는 QR 코드를 아이폰으로 촬영하여 이동하기
+    - 이미 켜져 있는 경우 Reload로도 가능
 
 1. src/App.js 생성 : 초기화면 페이지 만들기
-  import { StatusBar } from "expo-status-bar"
-  import { StyleSheet, Text, View } from "react-native"
-  import { styles } from "./style"
+  import { StatusBar } from 'expo-status-bar'
+  import { StyleSheet, Text, View } from 'react-native'
 
-  export default function App() {
+  export default function App () {
     return (
       <View style={styles.container}>
         <StatusBar style="auto" />
@@ -19,12 +66,13 @@
     )
   }
 
+  // 타 화면에서도 가져올 수 있게 export를 걸어두기
   export const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: "#FFF",
-      alignItems: "center",
-      justifyContent: "center",
+      backgroundColor: '#fff',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
   })
 
@@ -36,3 +84,9 @@
 1. 테스트
   $ cd app1
   $ npm start
+  i를 누르면 아이폰용, a를 누르면 안드로이드폰용 앱을 실행
+  XCode 설치 여부 : n 을 선택
+  서버가 구동되면, 다음의 방법중 하나로 휴대폰에서 실행하기
+    - 아이폰 Expo 앱에서 App1 servers를 선택하기
+    - 터미널에 윗부분에 뜨는 QR 코드를 아이폰으로 촬영하여 이동하기
+    - 이미 켜져 있는 경우 Reload로도 가능
