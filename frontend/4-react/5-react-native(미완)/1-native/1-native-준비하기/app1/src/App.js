@@ -5,7 +5,11 @@ export default function App() {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <Text>Hello, React Native</Text>
+      <Text>Hello, Dongwha!</Text>
+      <Text>Hello, Dongwha!</Text>
+      <Text>Hello, Dongwha!</Text>
+      <Text>Hello, Dongwha!</Text>
+      <Text>Hello, Dongwha!</Text>
     </View>
   )
 }
@@ -13,7 +17,7 @@ export default function App() {
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFF",
+    backgroundColor: "pink",
     alignItems: "center",
     justifyContent: "center",
   },

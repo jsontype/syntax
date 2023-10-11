@@ -12,7 +12,7 @@ export default function MyButton({ title, onPress }) {
         onLongPress={() => console.log("onLongPress 발생")} // 버튼을 손가락으로 500ms 이상(기본값) 누르는 순간
         delayLongPress={3000} // onLongPress가 일어나는 기준 시간을 3000ms으로 변경
         onPress={() => {
-          onPress
+          onPress()
           console.log("<onPress 발생 !!!>")
         }} // onPressIn과 onPressOut이 함께 일어났을 때
         // 스타일 Props
