@@ -14,13 +14,13 @@
   $ npm i gh-pages --save-dev
 
 1. package.json 수정 : homepage에서 username 부분(jsontype)만 수정후 추가하고, scripts 안에 predeploy, deploy를 추가한다.
-    "homepage": "https://jsontype.github.io/init/",
-    ... ,
-    "scripts": {
-        ...
-        "predeploy": "npm run build", 
-        "deploy": "gh-pages -d build"
-    }
+  "homepage": "https://jsontype.github.io/init/",
+  ... ,
+  "scripts": {
+    ...
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  }
 
 1. 깃허브에 레포지토리 준비하고 연동하기 
   깃허브에 init이라는 레포지토리를 생성한다. (기존 연습한 내용 있으면 레포지토리 삭제하기)
