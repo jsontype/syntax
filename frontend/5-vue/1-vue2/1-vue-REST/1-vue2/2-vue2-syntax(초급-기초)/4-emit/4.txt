@@ -45,38 +45,28 @@
 1. src/components/InputField.vue 생성 : 부모로부터 전달받은 함수를 사용해 부모에게 name 데이터 보내기
   <template>
     <div>
-      <h1>홈페이지</h1>
-      <InputField name="아무거나" @update-name="updateName" />
-      {{ name }}
+      <input type="text" :value="name" @input="updateName" />
     </div>
   </template>
 
   <script>
-  import InputField from "@/components/InputField.vue"
-
   export default {
-    name: "App",
-    components: {
-      InputField,
-    },
-    data() {
-      return {
-        name: '',
+    name: "InputField",
+    props: {
+      name: {
+        type: String,
+        required: true,
+        default: "이름없음"
       }
     },
     methods: {
-      updateName(name) {
-        this.name = name
+      updateName(e) {
+        console.log(e.target.value)
+        this.$emit('update-name', e.target.value)
       }
     }
   }
   </script>
-
-  <style scoped>
-  h1 {
-    color: red;
-  }
-  </style>
 
 
 

@@ -9,10 +9,10 @@ import "./style.css"
 //   )
 // }
 
-export default function Title({ text, mark }) {
+export default function Title({ text, mark, sayHi }) {
   return (
     <>
-      <div className="title">
+      <div className="title" onClick={sayHi}>
         {text} {mark || "."}
       </div>
     </>
