@@ -2,21 +2,24 @@
 import './App.css';
 import Movies from './components/Movies';
 import News from './components/News';
+import Todos from './components/Todos';
 import Top from './components/Top';
 import { useState } from 'react';
 
 // JSX 문법
 export default function App() {
   // JS
-  const [isMovie, setIsMovie] = useState(false);
+  const [isMovies, setIsMovies] = useState(false);
   const [isNews, setIsNews] = useState(false);
+  const [isTodos, setIsTodos] = useState(false);
 
   // XML
   return (
     <>
-      <Top isMovie={isMovie} setIsMovie={setIsMovie} isNews={isNews} setIsNews={setIsNews} />
-      { isMovie && <Movies /> }
+      <Top isMovies={isMovies} setIsMovies={setIsMovies} isNews={isNews} setIsNews={setIsNews} isTodos={isTodos} setIsTodos={setIsTodos} />
+      { isMovies && <Movies /> }
       { isNews && <News /> }
+      { isTodos && <Todos /> }
     </>
   );
 }

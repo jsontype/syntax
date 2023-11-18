@@ -1,0 +1,12 @@
+.todoContent {
+  
+}
+
+.trueDone {
+  text-decoration: line-through;
+  color: red;
+}
+
+.falseDone {
+
+}

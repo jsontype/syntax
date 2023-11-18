@@ -1,0 +1,15 @@
+.navbar {
+  display: flex;
+}
+
+.navbarItem {
+  flex: 1;
+}
+
+.menu:hover {
+  color: pink;
+}
+
+.menu:active {
+  color: white;
+}

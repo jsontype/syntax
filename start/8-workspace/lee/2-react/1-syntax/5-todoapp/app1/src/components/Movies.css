@@ -1,0 +1,49 @@
+.movieImage {
+  flex: 1;
+  width: 100px;
+  height: auto;
+  border: 1px solid gray;
+  margin-left: 8px;
+  border-radius: 10px;
+}
+
+.movieTitle {
+  display: block;
+  text-decoration: none;
+  border: 1px solid gray;
+  border-radius: 5px;
+  color: gray;
+  font-size: 30px;
+  flex: 11;
+  margin: 20px 0 10px;
+}
+
+.movieTitle:hover {
+  color: white;
+  background: gray;
+}
+
+.good {
+  color: blue;
+}
+
+.notBad {
+  color: orange;
+}
+
+.bad {
+  color: red;
+}
+
+.movieContainer {
+  margin-bottom: 50px;
+}
+
+.movieDetail {
+  display: flex;
+}
+
+.movieDescription {
+  flex: 7;
+  margin-left: 30px;
+}
