@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react'
+import Loading from './Loading'
 import './Movies.css'
 
 export default function Movies() {
   const [movies, setMovies] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
   
   useEffect(() => {
+    setIsLoading(true)
     // fetch('https://yts.mx/api/v2/list_movies.json?sort_by=rating')
     fetch('https://yts.mx/api/v2/list_movies.json')
       .then(res => res.json())
-      .then(json => setMovies(json.data.movies))
-  }, []) 
+      .then(json => { setMovies(json.data.movies); setIsLoading(false) })
+  }, [setMovies, setIsLoading])
 
   const render = () => {
     console.log('movies: ', movies)
@@ -40,7 +43,7 @@ export default function Movies() {
   return (
     <>
       <h1>Movie App</h1>
-      <div>{render()}</div>
+      <div>{ isLoading ? <Loading /> : render()}</div>
     </>
   )
 }
