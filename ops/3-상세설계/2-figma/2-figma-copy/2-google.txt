@@ -1,0 +1,21 @@
+[이미 서비스하고 있는 화면을 Copy해서 Figma 만들기 : Google]
+
+1. 사전준비 : h2d 파일 받기
+  google 웹스토어 - html.to.design 설치
+  피그마를 따기 원하는 사이트의 상용환경(로컬은 안됨. 예를 들어, http://Google.com 같이 들어가서)에 들어간다.
+  크롬 브라우저의 html.to.plugin을 실행후, 캡쳐를 실행하여 h2d 파일을 다운로드 받는다.
+
+1. 사전준비 : figma
+  figma.com에서 회원가입 - Create new team 클릭 - Collaborators 지정 - + 누르고 작업을 시작한다.
+
+1. Figma 작업
+  figma 제일 좌상단 메뉴 - plugins 탭 - manage plugins 클릭 - html.to.design 플러그인 설치
+  figma 제일 좌상단 메뉴 - plugins 탭 - html.to.design 플러그인 실행
+  파일 드래그하는 곳에 h2d 파일을 드래그하여 업로드 한다.
+  html.to.design 옵션을 설정 후 Import 버튼을 누른다. 옵션은 다음과 같다.
+    Auto Layout : 자동으로 레이아웃을 설정한다. 선택한다.
+    Use styles : 피그마의 기존 스타일을 사용한다. 선택한다.
+  c키와 v키를 번갈아가며 작업을 진행한다. 
+    c : 코멘트모드이다.
+    v : 선택모드이다.
+  끝.
