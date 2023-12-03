@@ -1,0 +1,11 @@
+@import "styles/resources.scss";
+
+.Button1 {
+  @include button-color($red);
+}
+.Button2 {
+  @include button-color($blue);
+}
+.Button3 {
+  @include button-color($purple);
+}
