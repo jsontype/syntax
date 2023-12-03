@@ -1,0 +1,171 @@
+[Sass 변수]
+
+1. 리액트 컴포넌트를 스타일링하는 방법
+    리액트에서 컴포넌트를 스타일링 하는 가장 기본적인 방법은 css 파일을 만들어서,
+        컴포넌트에서 import 해서 사용하는 것이다.
+        이 방법은 어떤 사람들에게는 충분히 편리할 수도 있겠지만,
+    컴포넌트를 스타일링 할 때 아래같은 도구들을 사용하면 훨씬 더 편하게 작업을 할 수 있다.
+        Sass
+        CSS Module
+        styled-components
+    각각의 방식에서, 단순히 사용법만 알아보는걸 떠나서 실무에서 쓰이는 다음 기능들을 배워보겠다.
+        1. 충분히 도움이 될 수 있는 재사용성이 높은 버튼을 만드는 방법,
+        2. 커스텀 체크 박스를 만드는 방법
+        3. 그리고 모달을 만드는 방법
+
+1. 리액트 컴포넌트를 스타일링 할 때 사용 할 수 있는 도구는 다양하다.
+    그 중에서 정해진 답은 없다.
+    다양한 도구들을 조금씩 사용해보다가, 취향에 맞는 도구를 위주로 사용하면 된다.
+
+1. Sass (싸스)
+    Sass (Syntactically Awesome Style Sheets: 문법적으로 짱 멋진 스타일시트)는 CSS pre-processor(전처리기)로서,
+    큰 장점은 코드의 재활용성, 코드의 가독성을 높여줘 유지보수를 쉽게 해준다.
+    Sass 에서는 두가지의 확장자 (.scss/.sass) 를 지원한다.
+    Scss는 css와 같은 문법을 쓰고 싶은 사람을 위해 나중에 추가된 문법이다.
+
+    CSS 문법
+        body {
+            font: 100% Helvetica, sans-serif
+            color: #333
+        }
+
+    Sass 문법
+        $font-stack: Helvetica, sans-serif
+        $primary-color: #333        
+        body
+            font: 100% $font-stack
+            color: $primary-color
+
+    Scss 문법 (에스씨에스에스)
+        $font-stack: Helvetica, sans-serif;
+        $primary-color: #333;
+        body {
+            font: 100% $font-stack;
+            color: $primary-color;
+        }
+        
+    여기서는 보통 더 많이 사용되는 .scss 확장자로 스타일을 작성해보겠다.
+
+
+
+1. React에 Scss 프레임워크 도입하기
+    $ npx create-react-app app1
+    $ cd app1
+    $ npm i node-sass (= yarn add node-sass)
+
+
+
+1. 불필요 부분을, 연동까지 삭제
+
+
+
+1. src/styles/color.scss 생성 : 컬러 글로벌 변수
+    $blue: blue;
+    $red: red;
+    $light-gray: lightgray;
+    $gray: gray;
+
+
+
+1. src/styles/font.scss 생성 : 폰트사이즈 글로벌 변수
+    $font-2xl: 50px;
+    $font-xl: 40px;
+    $font-lg: 30px;
+    $font-md: 20px;
+    $font-sm: 15px;
+    $font-xs: 10px;
+    $font-2xs: 5px;
+
+
+
+1. src/styles/resources.scss 생성 : 모든 글로벌 변수의 임포트 그룹, 나중에 이것만 임포트하면 다 임포트된다.
+    @import './color.scss';
+    @import './font.scss';
+        
+
+
+1. src/components/common/Button/Button.js 생성 : button의 common 컴포넌트를 만든다.
+    import React from 'react'
+    import './Button.scss'
+
+    function Button () {
+        return (
+            <button className="Button">버튼</button>
+        )
+    }
+
+    export default Button
+
+
+
+1. src/components/common/Button/Button.scss 생성 : 기존 css 에서는 사용하지 못하던 문법들이 사용되었다. (주석 참조)
+    // 글로벌 변수 그룹 임포트
+    @import '../../../styles/resources.scss';
+
+    .Button {
+        background: $blue;
+        &:hover {
+            background: lighten($blue, 10%);
+        }
+        &:active {
+            background: darken($blue, 10%);
+        }
+    }
+
+
+
+1. src/components/common/TextBox/TextBox.js 생성 : TextBox의 common 컴포넌트를 만든다.
+    import React from 'react'
+    import './TextBox.scss'
+
+    export default function TextBox ({ text }) {
+        return (
+            <div className='TextBox'>
+                {text}
+            </div>
+        )
+    }
+
+
+
+1. src/components/common/TextBox/TextBox.scss 생성 : 기존 css 에서는 사용하지 못하던 문법들이 사용되었다. (주석 참조)
+    // 글로벌 변수 그룹 임포트
+    @import '../../../styles/resources.scss';
+
+    .TextBox {
+        width: 200px;
+        padding: 20px;
+        background: $light-gray;
+    }
+
+
+
+1. src/App.css 이름 변경 : 이제 scss를 써야한다.
+    src/App.scss로 이름 변경
+  
+
+
+1. src/App.js 수정 : Button와 TextBox를 임포트하는 김에, App.css 임포트 파일명도 같이 바꿔준다.
+    import React from 'react'
+    import './App.scss'
+    import Button from './components/common/Button/Button'
+    import TextBox from './components/common/TextBox/TextBox'
+
+    export default function App () {
+        // JS
+
+        // XML
+        return (
+            <div>
+                Hello React!
+                <Button />
+                <TextBox text='아무거나' />
+            </div>
+        )
+    }
+
+
+
+1. 테스트 : 버튼이 잘 나타나는지 확인
+    $ cd app1
+    $ npm start
