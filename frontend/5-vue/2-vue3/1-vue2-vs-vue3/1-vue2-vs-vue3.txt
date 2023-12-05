@@ -1,0 +1,345 @@
+[Vue2 vs Vue3 무엇이 바뀌었는가?]
+
+1. 차이 요약
+  Vue2는 Options API를 사용하고, Vue3는 Composition API를 사용한다.
+  변수 선언 방식, 함수 선언 방식, 라이프사이클훅이 변했고, 컴포넌트 내에서 변수 호출 방식, 함수 호출 방식이 변했다.
+
+1. 차이 상세설명 : Vue3의 Composition API
+  Vue2는 Options API라는 것을 사용하고 있었다.
+  Options API는 data, computed, methods 등을 사용할 수 있는 API이다.
+  Options API는 굉장히 직관적이고 많은 사람들이 좋아하는 부분이었지만, 
+  컴포넌트의 볼륨이 커졌을 때 유지보수가 굉장히 어려워진다는 문제를 야기했다.
+  예를 들어, 큰 볼륨의 컴포넌트에서,
+    state 변수(data에 선언된 변수들 등)의 선언, 
+    state 변수들의 computed 메소드 바인딩,
+    methods 함수 선언,
+    lifecycle hook 선언
+  등이 혼재해 있기 때문에, 하나의 feature에 대한 코드가 여기저기로 흩어져서, 
+  볼륨이 커질 수록 유지보수가 어려워지고 논리가 어긋나기 쉬워지는 구조였다.
+
+  Vue3에서는, 이러한 배경으로 인해, 기존의 Options API 구조를 
+  가독성이 좋고 코드 안에 논리를 보존하는 방향으로 Composition API로 변경・도입하게 된다.
+  (이 부분에 대해 https://github.com/vuejs/rfcs/pull/42 PR의 스레드에서 굉장히 많은 논의가 오갔었다.)    
+  Composition API는 이러한 유지보수 측면에서의 문제를 해결하기 위한 해법으로 생각할 수 있다.
+
+1. ★ 차이점1 : 여러개의 루트 엘리먼트 허용
+  Vue2에서는 루트 엘리먼트를 하나로 유지하기 위해 유지하여야 했다.
+  ```
+  // Vue 2.x
+  <template>
+    <div>
+      <h1>{{ count }}</h1>
+      <button @click="increase">+</button>
+      <button @click="decrease">-</button>
+    </div>
+  <template>
+  ```
+  Vue3에서는 여러개의 루트 엘리먼트를 허용한다.
+  ```
+  // Vue 3.x
+  <template>
+    <h1>{{ count }}</h1>
+    <button @click="increase">+</button>
+    <button @click="decrease">-</button>
+  <template>
+  ```
+  Vue3에서는 <Fragment>나 <>로 감싸 사용하는 방식으로 Fragment로서 묶어주는 것도 가능하고,
+  위 코드와 같이 루트 엘리먼트가 여러 개인 컴포넌트인 경우까지도 지원한다.
+
+1. ★ 차이점2 : data, method 선언 방식의 변화
+  Vue2에서 data, method를 선언하는 방식은 다음과 같이, props, data, methods가 같은 계층에 존재했다.
+  ```
+  // Vue 2.x
+  <script>
+    export default {
+      data() {
+        return {
+          count: 0
+        }
+      },
+
+      methods: {
+        increase() {
+          this.count++
+        },
+        decrease() {
+          this.count--
+        }
+      }
+    }
+  </script>
+    
+  <template>
+    <div>
+      <h1>{{ count }}</h1>
+      <button @click="increase">+</button>
+      <button @click="decrease">-</button>
+    </div>
+  </template>
+  ```
+  Vue3에서는 setup 안에서 data(변수)는 ref state로, method(함수)들은 각각의 기명함수로 작성되도록 변경되었다.
+  ```
+  // Vue 3.x
+  <script setup>
+    import { ref, onMounted, onUpdated, onUnmounted } from 'vue'
+
+    const count = ref(0)
+
+    function increase() {
+      count.value++
+    }
+
+    function decrease() {
+      count.value--
+    }
+  </script>
+    
+  <template>
+    <h1>{{ count }}</h1>
+    <button @click="increase">+</button>
+    <button @click="decrease">-</button>
+  </template>
+  ```
+
+1. ★ 차이점3 : 객체 data 사용방식의 변화
+  Vue2에서는 data나 method, computed 등을 선언하게 되면 알아서 각각에 대해 위와 같이 동작하는 reactive 객체를 생성했지만, 
+  그 과정이 묵시적이었고, 유저들은 위 과정을 알 필요가 없었다. 
+  ```
+  // Vue 2.x
+  <script>
+    export default {
+      data() {
+        return {
+          user: {
+            username: '',
+            password: '',
+          }
+        }
+      },
+      methods: {
+        changeUser(name) {
+          this.user.username = name
+        }
+      }
+    }
+  ```
+  반면, Vue3에서의 타입스크립트의 지원이나 state로의 명칭 변경, 명시적 reactive 사용 등을 보았을 때, 
+  전반적으로 React처럼 명료한 선언을 지향하는 방향으로 변화한 것으로 보인다.
+  즉 Vue3에서는 Vue가 반응형 시스템을 유지하기 위해서, 객체의 경우에도 그냥 선언하는 것이 아니라 "reactive state"를 사용하게 되었다.
+  ```
+  // Vue 3.x
+  <script setup>
+    import { reactive } from 'vue'  
+
+    const user = reactive({
+      username: '',
+      password: '',
+    })
+
+    function changeUser = (name) => {
+      user.username = name
+    }
+  </script>
+  ```
+
+1. ★ 차이점4 : Lifecycle hook 호출의 변화
+  * 이 차이점 코드는, vue2-count-app과 vue3-count-app의 CountApp 컴포넌트의 코드를 그대로 가져온 것이다. 참조해서 볼 수 있도록 하자.
+  Vue2의 lifecycle hook의 경우에 data, method와 같은 hierachy에서 선언하도록 되어 있었고. 기본적으로 임포트가 되도록 구성되어 있어서, 별도의 임포트가 필요없었다.
+  ```
+  // Vue 2.x
+  <script>
+    export default {
+      data() {
+        return {
+          count: 0
+        }
+      },
+
+      methods: {
+        increase() {
+          this.count++
+        },
+        decrease() {
+          this.count--
+        }
+      },
+
+      // lifecycle hook
+      created() {
+        console.log(`生まれた！`)  
+      },
+      mounted() {
+        console.log(`更新された！`)
+      },
+      updated() {
+        console.log(`成長した！: ${this.count}`)
+      },
+      destroyed() {
+        console.log(`死んだ！`)
+      },
+    }
+  </script>
+    
+  <template>
+    <div>
+      <h1>{{ count }}</h1>
+      <button @click="increase">+</button>
+      <button @click="decrease">-</button>
+    </div>
+  </template>
+  ```
+  Vue3에서는 다른 변화들과 같이 lifecycle hook 또한 setup 내부에서 선언하도록 하였다. 기존에 존재하던 lifecycle hook의 종류는 함수명만 달라질 뿐 거의 그대로 유지된다.
+  또한, 필요한 함수만 임포트해서 사용하도록 변경되었다. 이로 인해 불필요한 함수를 임포트하지 않아도 되어, 속도 측면에서도 이점을 챙겼다.
+  ```
+  // Vue 3.x
+  <script setup>
+    import { ref, onMounted, onUpdated, onUnmounted } from 'vue'
+
+    const count = ref(0)
+
+    function increase() {
+      count.value++
+    }
+
+    function decrease() {
+      count.value--
+    }
+    
+    // lifecycle hook
+    onMounted(() => {
+      console.log(`生まれた！`)
+    })
+    onUpdated(() => {
+      console.log(`成長した！: ${count.value}`)
+    })
+    onUnmounted(() => {
+      console.log(`死んだ！`)
+    })
+  </script>
+    
+  <template>
+    <h1>{{ count }}</h1>
+    <button @click="increase">+</button>
+    <button @click="decrease">-</button>
+  </template>
+  ```
+
+1. 차이점5 : Before lifecycle hook의 변경
+  Vue2에서는 Before lifecycle hook은 beforeCreate, beforeMount, beforeUpdate, beforeDestroy로 존재했다.
+  이것 역시 자동으로 임포트되어, 별도 임포트는 필요없었다.
+  ```
+  <script>
+    // Vue 2.x
+    export default {
+      beforeCreate() {
+        console.log(`生まれる前！`)
+      },
+      beforeMount() {
+        console.log(`マウントされる前！`)
+      },
+      beforeUpdate() {
+        console.log(`更新される前！`)
+      },
+      beforeDestroy() {
+        console.log(`死ぬ前！`)
+      },
+    }
+  </script>
+  ```
+  Vue3에서 Before를 다루는 lifecycle hook은 beforeMount로부터 onBeforeMount와 같은 이름으로 변경되었다.
+  이것 역시 필요한 것만 임포트해서 쓰는 방식으로 바뀌게 되었다.
+  ```
+  <script setup>
+    // Vue 3.x
+    import { onBeforeMount, onBeforeUpdate, onBeforeUnmount } from 'vue'
+
+    onBeforeMount(() => {
+      console.log(`マウントされる前！`)
+    })
+    onBeforeUpdate(() => {
+      console.log(`更新される前！`)
+    })
+    onBeforeUnmount(() => {
+      console.log(`死ぬ前！`)
+    })
+  </script>
+  ```
+
+1. 차이점6 : Computed 속성 사용의 변화
+  computed 속성은 이제 별도 옵션이 아닌,
+  state 선언문 내에 computed 속성에 대한 선언 구문을 추가하는 방식으로 변경된다.
+  기존의 computed 속성은 아래와 같이 작성하였다.
+  ```
+  <script>
+    // Vue 2.x
+    export default {
+      computed: {
+        lowerCaseUsername () {
+          return this.username.toLowerCase()
+        }
+      }
+    }
+  </script>
+  ```
+  Vue 3부터는 아래와 같이 작성한다. 임포트가 필요하게 되었다.
+  위 차이점들로 보아, 기본적으로 Vue3의 이러한 변화에는 "사용하는 것만 import하여 사용하도록 하자"는 철학이 담겨있다.
+  기존의 컴포넌트 중 computed가 필요한 컴포넌트는 상당히 소수임에도 불구하고
+  모든 컴포넌트는 옵션으로써 computed를 작성하는 순간 별도의 import 없이 동작하였다.
+  Vue3에서는 이러한 변화를 수정하고자 하여 computed나 lifecycle hook 등 다양한 옵션들을 함수 형태로 동작하도록 변경하였다.
+  ```
+  <script setup>
+    // Vue 3.x
+    import { computed } from 'vue'  
+
+    const lowerCaseUsername = computed(() => state.username.toLowerCase())
+  </script>
+  ```
+
+1. 차이점7 : props와 this 바인딩의 분리
+  props에 접근하는 방법도 조금 변경되었다. 
+  기존에 props 뿐 아니라 method, data 등을 전부 this에 바인딩함으로써 
+  코드의 가독성이 떨어지는 것을 개선하게 되었다.
+  기존에는 아래와 같이 this의 하위 요소로써 prop을 직접 호출하였다.
+  ```
+  // Vue 2.x
+  mounted () {
+    console.log(title: ' + this.title)
+  }
+  ```
+  그러나 위의 코드만으론 this.title 이 props의 값인지, data인지, method인지 구별할 수 없었다.
+  Vue3에서 변경된 문법은 아래와 같다.
+  mounted 라이프사이클 훅은 setup 안에 포함되며, setup은 props를 사용하기 위해서 props를 attribute로 받아야 한다.
+  사용하는 것만 불러오도록 하는 관점과도 밀접하게 연관이 있다고 할 수 있다.
+  ```
+  // Vue 3.x
+  onMounted(() => {
+    console.log('title: ' + props.title)
+  })
+  ```
+
+1. 차이점8 : emit과 this 바인딩의 분리
+  emit도 props와 마찬가지로 this에 더이상 바인드되지 않는다.
+  props와 같이, setup 함수의 attribute로써 호출할 수 있다. 
+  기존 코드는 아래와 같았다.
+  ```
+  // Vue 2.x
+  login () {
+    this.$emit('login', {
+      username: this.username,
+      password: this.password
+    })
+  }
+  ```
+  새로 변경된 문법에서는 아래와 같이 호출한다.
+  이렇게 변경된 문법은, Vue3에서는 this에 바인딩되지 않는다는 것을 명시적으로 보여주는 것이다.
+  ```
+  // Vue 3.x
+  setup (props, { emit }) {
+    const login = () => {
+      emit('login', {
+        username: state.username,
+        password: state.password
+      })
+    }
+  }
+  ```
