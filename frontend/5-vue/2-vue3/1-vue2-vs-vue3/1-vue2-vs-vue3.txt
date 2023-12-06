@@ -343,3 +343,157 @@
     }
   }
   ```
+
+
+
+[Vue2 vs Vue3 실제로 다뤄보기]
+
+1. 해당 앱을 각각 설치한다.
+  $ vue create 1-vue2-create-app
+  $ vue create 2-vue3-create-app
+  
+1. 1-vue2-create-app/src/components/CountApp.vue
+  ```
+  <script>
+  export default {
+    // data() で返すプロパティはリアクティブな状態になり、
+    // `this` 経由でアクセスすることができます。
+    data() {
+      return {
+        count: 0
+      }
+    },
+
+    // メソッドの中身は、状態を変化させ、更新をトリガーさせる関数です。
+    // 各メソッドは、テンプレート内のイベントハンドラーにバインドすることができます。
+    methods: {
+      increase() {
+        this.count++
+      },
+      decrease() {
+        this.count--
+      }
+    },
+
+    // Life Cycle Hookは、コンポーネントのライフサイクルの
+    // 特定のステージで呼び出されます。
+    // 以下の関数は、コンポーネントが「マウント」されたときに呼び出されます。
+    created() {
+      console.log(`生まれた！`)  
+    },
+    mounted() {
+      console.log(`更新された！`)
+    },
+    updated() {
+      console.log(`成長した！: ${this.count}`)
+    },
+    destroyed() {
+      console.log(`死んだ！`)
+    },
+  }
+  </script>
+
+  <template>
+    <div>
+      <h1>{{ count }}</h1>
+      <button @click="increase">+</button>
+      <button @click="decrease">-</button>
+    </div>
+  </template>
+  ```
+
+1. 1-vue2-create-app/src/App.vue
+  ```
+  <template>
+    <div>
+      <button @click="onClick">Toggle</button>
+      <div v-if="isOpen">
+        <CountApp />
+      </div>
+    </div>
+  </template>
+
+  <script>
+  import CountApp from './components/CountApp.vue'
+
+  export default {
+    name: 'App',
+    components: {
+      CountApp
+    },
+    data() {
+      return {
+        isOpen: false
+      }
+    },
+    methods: {
+      onClick() {
+        this.isOpen = !this.isOpen
+      }
+    }
+  }
+  </script>
+  ```
+
+1. 2-vue3-create-app/src/components/CountApp.vue
+  ```
+  <script setup>
+  import { ref, onMounted, onUpdated, onUnmounted } from 'vue'
+
+  const count = ref(0)
+
+  function increase() {
+    count.value++
+  }
+
+  function decrease() {
+    count.value--
+  }
+
+  onMounted(() => {
+    console.log(`生まれた！`)
+  })
+  onUpdated(() => {
+    console.log(`成長した！: ${count.value}`)
+  })
+  onUnmounted(() => {
+    console.log(`死んだ！`)
+  })
+  </script>
+
+  <template>
+    <h1>{{ count }}</h1>
+    <button @click="increase">+</button>
+    <button @click="decrease">-</button>
+  </template>
+  ```
+
+1. 2-vue3-create-app/src/App.vue
+  ```
+  <template>
+    <div>
+      <button @click="onClick">Toggle</button>
+      <div v-if="isOpen">
+        <CountApp />
+      </div>
+    </div>
+  </template>
+
+  <script setup>
+  import CountApp from './components/CountApp.vue'
+
+  const isOpen = ref(false)
+
+  function onClick() {
+    isOpen.value = !isOpen.value
+  }
+  </script>
+  ```
+
+1. 두 앱을 각각 실행해본다.
+  $ cd 1-vue2-create-app
+  $ npm run serve
+  $ cd 2-vue3-create-app
+  $ npm run serve
+
+1. 두 버전의 Vue의 코드를 비교해본다.
