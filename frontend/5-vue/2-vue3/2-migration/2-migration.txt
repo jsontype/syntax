@@ -1,0 +1,18 @@
+[Vue2에서 Vue3로 마이그레이션하기]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 Vue2 코드를 그대로 카피해서 가지고 온다.
+
+2. Vue3 Cli 설치 (설치가 안되어 있을 경우에만)
+  ```
+  npm install -g @vue/cli
+  ```
+
+3. Vue3 마이그레이션 툴 실행
+  ```bash
+  vue upgrade
+  ```
+
+4. Vue3 마이그레이션 툴 실행 후, 아래와 같은 메시지가 나오면, `y`를 입력한다.
+  ```bash
+  ? Continue? (This will install Vue 3 globally) (Y/n)
+  ```
