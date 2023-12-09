@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <HelloWorld lang="en" msg="Hello" :name="name" :mark="mark" />
+    <HelloWorld lang="en" msg="Hello" :name="name" :mark="mark" @update-name="updateName" />
   </div>
 </template>
 
@@ -16,6 +16,11 @@ export default {
     return {
       name: 'Vue2',
       mark: '!'
+    }
+  },
+  methods: {
+    updateName(name) {
+      this.name = name
     }
   }
 }

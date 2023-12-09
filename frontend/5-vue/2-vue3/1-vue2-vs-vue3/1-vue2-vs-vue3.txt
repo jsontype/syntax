@@ -43,8 +43,6 @@
     <button @click="decrease">-</button>
   <template>
   ```
-  Vue3에서는 <Fragment>나 <>로 감싸 사용하는 방식으로 Fragment로서 묶어주는 것도 가능하고,
-  위 코드와 같이 루트 엘리먼트가 여러 개인 컴포넌트인 경우까지도 지원한다.
 
 1. ★ 차이점2 : data, method 선언 방식의 변화
   Vue2에서 data, method를 선언하는 방식은 다음과 같이, props, data, methods가 같은 계층에 존재했다.
