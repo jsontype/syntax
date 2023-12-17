@@ -1,0 +1,47 @@
+# Vue 3 + TypeScript + Vite　+ TailWindCSS
+이 프로젝트는 Vue3, TypeScript, Vite, TailWindCSS를 채택하고 있습니다.
+
+## 설치 및 빌드
+```bash
+npm i -g vue-tsc vite
+npm i
+npm run build
+```
+
+## 프로젝트 실행 방법: API는 DEV를 채택한다
+1. api의 기동
+app1-api의 main 브런치로 전환하여 다음을 실행
+```bash
+docker-compose up --build
+docker-compose up (라이브러리 변경이 없는 경우)
+```
+2. src/config/config.ts 수정 : Dev의 API 이외에는 코멘트 아웃한다.
+```bash
+// Dev API
+viteApiBaseUrl: getEnv("VITE_API_BASE_URL", "http://localhost:8000"),
+// Stg API
+// viteApiBaseUrl: getEnv("VITE_API_BASE_URL", "https://app1-api-stg-[number].domain.com"),
+```
+3. 앱 기동
+```bash
+npm run dev
+```
+
+## Heroku를 사용해 Deploy: API는 STG를 채용한다
+1. 사전에 heroku 권한을 받을 필요가 있다.
+2. src/config/config.ts 수정 : Stg의 API로 돌린다.
+```bash
+// Dev API
+// viteApiBaseUrl: getEnv("VITE_API_BASE_URL", "http://localhost:8000"),
+// Stg API
+viteApiBaseUrl: getEnv("VITE_API_BASE_URL", "https://app1-api-stg-[number].domain.com"),
+```
+3. 이하를 실행하다
+```bash
+heroku login
+heroku git:clone -a app1-web-stg
+cd app1-web-stg
+git add .
+git commit -am "make it better"
+git push heroku main
+```
