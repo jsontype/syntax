@@ -1,0 +1,25 @@
+[라이브러리 선정 및 설치]
+
+1. 라이브러리 선정
+주요 라이브러리 : vue3(SPA), tailwind, ts, vite
+설치 : ...
+
+1. src/package.json 수정
+
+1. 설치
+  $ npm i
+
+1. 취약점 주의: 발생한다면 초기단계에서 아래 명령어를 쓰거나, 직접 조사후 package.json 안의 버전을 수정해서 해결한다.
+  $ npm audit fix
+  $ npm audif fix --force // 원칙적으로 금한다.
+
+
+
+[라이브러리 config 설정]
+
+1. tailwind.config.js 작성
+1. global.d.ts 작성
+1. tsconfig.json 작성
+1. webpack.config.js 작성
+1. api.ts 작성
+...
