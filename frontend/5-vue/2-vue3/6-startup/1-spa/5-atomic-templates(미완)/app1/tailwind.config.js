@@ -60,7 +60,7 @@ export default {
           100: '#FFFFFF',
         }
       }
-    }
+    },
   },
   plugins: [],
 }
