@@ -1,0 +1,13 @@
+[Figma: 프론트엔드 상세설계]
+
+1. 피그마 제작
+  주소: https://www.figma.com/file/ZVJeo0qVnMfe5ZCIoix3Ew/Movie-App?type=design&node-id=0-1&mode=design&t=a6DaVqGrx0GRCI4N-0
+
+1. 피그마 제작시 단축키
+- 컴포넌트 만들기: ctrl + alt + k
+- 컴포넌트 복사: ctrl + d
+  c: 코멘트
+  a: 프레임
+  v: 선택모드
+  t: 텍스트박스 생성
+  cmd + drag: 드래그해서 복수 아이템 선택
