@@ -3,7 +3,12 @@
 1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
 
 1. eslint 설치 : 
-  $ npm install --save-dev eslint eslint-plugin-react (= npm install -D eslint eslint-plugin-react)
+  $ npm install --save-dev eslint eslint-plugin-vue eslint-config-standard (= npm install -D eslint eslint-plugin-vue eslint-config-standard)
+
+1. package.json 수정 : 설정파일의 타입이 module로 되어있으면 commonjs로 바꿔준다.
+  ...
+  "type": "commonjs",
+  ...
 
 1. .eslintrc.js 생성
   module.exports = {
@@ -11,9 +16,9 @@
       browser: true,
       es2021: true
     },
-      extends: [
+    extends: [
       'plugin:vue/vue3-recommended',
-      'standard'
+      'eslint-config-standard'
     ],
     parserOptions: {
       ecmaVersion: 12,

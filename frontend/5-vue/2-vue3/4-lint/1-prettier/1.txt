@@ -21,6 +21,11 @@
 1. prettier 설치 : code formatter
   $ npm install --save-dev prettier (= npm install -D prettier)
 
+1. package.json 수정 : 설정파일의 타입이 module로 되어있으면 commonjs로 바꿔준다.
+  ...
+  "type": "commonjs",
+  ...
+
 1. .prettierrc.js 생성
   module.exports = {
     // 행 최대 글자수가 100자 이내
@@ -41,18 +46,18 @@
     trailingComma: 'all',
     // 객체 리터럴의 괄호 사이에 공백 삽입 { foo: bar }
     bracketSpacing: true,
+    // 끝에 새 줄 추가
+    endOfLine: 'lf',
+
     // 화살표 함수의 인수 괄호 사용 여부 x => x
     // arrowParens: 'avoid',
+
     // 한 줄에 1개의 스타일 속성만 사용
     // vueIndentScriptAndStyle: true,
     // endOfLine: 'auto',
+
     // HTML 파일의 코드 스타일 지정
     // htmlWhitespaceSensitivity: 'ignore',
-    // 끝에 새 줄 추가
-    endOfLine: 'lf',
-    // 파일 끝에 새 줄 추가 여부
-    insertFinalNewline: true,
-    // 코드 한 줄의 최대 길이
   }
 
 1. package.json의 scripts안에 prettier 추가
