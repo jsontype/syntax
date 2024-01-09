@@ -174,4 +174,14 @@
     git삭제, 모든 워크스페이스 내의 파일 백업후 삭제
     $ npm i , $ npm start 후 테스트
     feature/name으로 새 로컬 브랜치 작성
-  
+
+
+
+[Git 트러블슈팅 모음]
+1. 트러블슈팅: 대량의 데이터가 변경되었을 때의 push 시의 에러
+  문제: git push 시에 "error: RPC failed; HTTP 500 curl 22 The requested URL returned error: 500" 에러
+    - 세부 메시지가 "send-pack: unexpected disconnect while reading sideband packet" 인 경우
+  원인: 대량의 데이터를 전송하려고 하는 것이 문제
+  해결책: $ git config --global http.postBuffer 524288000 입력
+    - 큰 파일들을 처리할 수 있도록 설정을 변경하는 명령어이다.
+    - 이 명령은 POST 데이터 버퍼 크기를 500MB로 설정한다.

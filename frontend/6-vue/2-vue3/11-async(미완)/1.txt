@@ -1,2 +1,0 @@
-쿼리 날리는 법
-스토어처리에 비동기 처리하는 법 vuex pinia localStorage 등
