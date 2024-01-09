@@ -1,0 +1,140 @@
+[v-else-if]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. src/assets/water.png 생성 : 물병 이미지를 하나 찾아서 src/assets에 넣어둔다.
+
+1. src/assets/wet-tissue.png 생성 : 물티슈 이미지를 하나 찾아서 src/assets에 넣어둔다.
+
+1. src/App.vue 수정 : VElseIf1, VElseIf2 컴포넌트를 추가한다. (VElseIf2는 과제로 낼 예정)
+  ```
+    <template>
+      <HelloWorld msg="Hello" />
+      <GlobalHelloWorld msg="Vue3" />
+      <hr />
+      <VBind />
+      <VBindProps 
+        :string1="str1" 
+        :string2="str2" 
+        :number1="num1" 
+        :boolean1="bool1"
+        :on-click="showAlert"
+      />
+      <hr />
+      <VIf />
+      <VElse />
+      <VElseIf1 />
+      <VElseIf2 />
+    </template>
+
+    <script setup lang="ts">
+    import HelloWorld from '@/components/HelloWorld.vue'
+    import VBind from '@/components/VBind.vue'
+    import VBindProps from '@/components/VBindProps.vue'
+    import VIf from '@/components/VIf.vue'
+    import VElse from '@/components/VElse.vue'
+    import VElseIf1 from '@/components/VElseIf1.vue'
+    import VElseIf2 from '@/components/VElseIf2.vue'
+
+    const str1 = 'String 1'
+    const str2 = 'String 2'
+    const num1 = 9999
+    const bool1 = num1 > 9998
+    const showAlert = () => {
+      alert('clicked')
+    }
+    </script>
+
+    <style scoped>
+    </style>
+  ```
+
+1. components/VElseIf1.vue 수정 : v-else-if를 사용해서 쇼핑카트를 만들어보자.
+  ```
+    <template>
+      <!-- 상황 : 물티슈 한 팩에 100엔이다.　3팩마다 배송료는 300엔이다. 12팩까지 구입이 가능하다. -->
+      <div>
+        <div>
+          <img :src="img" width="150px" alt="Wet Tissue" />
+        </div>
+
+        <button v-if="count <= 12" @click="increase">+</button>    
+        <button v-else>+</button>
+        <button v-if="count !== 0" @click="decrease">-</button>
+        <button v-else>-</button>
+
+        <h2 v-if="count <= 12">Count: {{ count }}</h2>
+        <h2 v-if="count <= 12">Price: {{ count * price }}</h2>
+
+        <h2 v-if="count > 12">죄송합니다. 1명당 12팩까지만 구입이 가능합니다.</h2>
+        <h2 v-else-if="count > 9">배송료: ￥1200</h2>
+        <h2 v-else-if="count > 6">배송료: ￥900</h2>
+        <h2 v-else-if="count > 3">배송료: ￥600</h2>
+        <h2 v-else>배송료: ￥300</h2>
+      </div>
+    </template>
+
+    <script setup>
+    import { ref } from 'vue'
+    import img from '@/assets/wet-tissue.png'
+
+    const count = ref(0)
+    const price = ref(100)
+    const increase = () => count.value = count.value + 1
+    const decrease = () => count.value = count.value - 1
+    </script>
+
+    <style scoped>
+    .btn {
+      width: 150px;
+      height: 100px;
+    }
+    </style>
+  ```
+  
+1. (과제) components/VElseIf2.vue 생성 : v-else-if를 사용해서 쇼핑카트를 만들어보자.
+  다음의 조건을 충족해야한다 : 물 1병에 50원이다. 5팩마다 배송료는 200엔이다. 15팩까지 구입이 가능하다.
+  ```
+    <template>
+      <!-- 상황 : 물 1병에 50원이다. 5팩마다 배송료는 200엔이다. 15팩까지 구입이 가능하다. -->
+      <div>
+        <div>
+          <img :src="img" width="150px" alt="Wet Tissue" />
+        </div>
+
+        <button v-if="count <= 15" @click="increase">+</button>    
+        <button v-else>+</button>
+        <button v-if="count !== 0" @click="decrease">-</button>
+        <button v-else>-</button>
+
+        <h2 v-if="count <= 15">Count: {{ count }}</h2>
+        <h2 v-if="count <= 15">Price: {{ count * price }}</h2>
+
+        <h2 v-if="count > 15">죄송합니다. 1명당 15팩까지만 구입이 가능합니다.</h2>
+        <h2 v-else-if="count > 10">배송료: ￥600</h2>
+        <h2 v-else-if="count > 5">배송료: ￥400</h2>
+        <h2 v-else>배송료: ￥200</h2>
+      </div>
+    </template>
+
+    <script setup>
+    import { ref } from 'vue'
+    import img from '@/assets/water.png'
+
+    const count = ref(0)
+    const price = ref(100)
+    const increase = () => count.value = count.value + 1
+    const decrease = () => count.value = count.value - 1
+    </script>
+
+    <style scoped>
+    .btn {
+      width: 150px;
+      height: 100px;
+    }
+    </style>
+  ```
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
