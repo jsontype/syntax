@@ -1,0 +1,59 @@
+[Props]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. Props란?
+  부모 컴포넌트가 자식 컴포넌트에게 넘겨주는 값 (= 변수, 함수)
+
+1. components/HelloWorld.vue 수정 : Props를 사용할 수 있게 설정해둔다.
+  ```
+    <template>
+      <h1>
+        {{ msg }}
+      </h1>
+    </template>
+
+    <script setup lang="ts">
+    defineProps<{ msg: string }>()
+    </script>
+
+    <style scoped>
+    </style>
+  ```
+
+1. component/GlobalHelloWorld.vue 수정 : Props를 사용할 수 있게 설정해둔다.
+  ```
+    <template>
+      <h1>
+        {{ msg }}
+      </h1>
+    </template>
+
+    <script setup lang="ts">
+    defineProps<{ msg: string }>()
+    </script>
+
+    <style scoped>
+    </style>
+  ```
+
+1. App.vue 수정 : 변수, 함수 Props를 건네준다. 
+  건네줄 때, 문자열 그대로 넘겨줄 때는 :를 붙이지 않는다. 변수를 넘겨줄 때는 :를 붙여준다.
+  ```
+    <template>
+      <HelloWorld msg="Hello" />
+      <GlobalHelloWorld msg="Vue3" />
+    </template>
+
+    <script setup lang="ts">
+    import HelloWorld from './components/HelloWorld.vue'
+    </script>
+
+    <style scoped>
+    </style>
+  ```
+
+1. 테스트  
+  $ cd app1
+  $ npm install
+  $ npm run dev

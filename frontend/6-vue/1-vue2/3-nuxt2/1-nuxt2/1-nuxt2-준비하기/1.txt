@@ -1,0 +1,43 @@
+[Nuxt.js 설치]
+
+1. Nuxt.js 란?
+  SEO에 유리한 고지를 차지하기 위해 사용하는 MPA, SSR 셋을 지원하는 프레임워크이다.
+  이를 위해 React에는 Next.js 프레임워크가 있다면, Vue을 위한 프레임워크는 Nuxt.js이다.
+  (* SPA vs MPA, CSR vs SSR 정리 : https://hanamon.kr/spa-mpa-ssr-csr-%ec%9e%a5%eb%8b%a8%ec%a0%90-%eb%9c%bb%ec%a0%95%eb%a6%ac/)
+  Nuxt.js는 Vue를 기반으로 하여 SSR 기반의 Web Application을 컴포넌트 단위로 개발 할 수 있게 해주는 프레임워크이다.
+  React, Vue, Angular의 SPA 삼대장들이 출시되고 나서 SPA의 단점을 극복하고자 많은 노력들이 있었지만,
+  정통 SSR(MPA) 방식의 장점을 완벽하게 커버하기란 불가능 하였다.
+  그래서 SSR(MPA) 방식에서 SPA의 장점 중 일부라도 누려보기 위해서 나온 프레임워크가 Next.js, Nuxt.js 등이다.
+
+1. 설치
+  $ npx create-nuxt-app app1
+    app1
+    JavaScript
+    Npm
+    Element
+    HTML
+    Axios 선택후 Enter
+    Linting Tools는 선택하지 말고 Enter
+    None
+    Universal (SSR / SSG)
+    Server (Node.js hosting)
+    그 뒤로 전부 enter
+  $ cd app1
+
+1. 불필요 부분을, 연동까지 삭제
+  탐색기로 app1을 열어서, .git 파일 삭제 (신택스에 담기 위해)
+  components 폴더 삭제
+  store 폴더 삭제
+  README.md 파일 삭제
+
+1. pages/index.vue 수정 : 초기화면 작성
+  <template>
+    <div>
+      Hello Nuxt!
+    </div>
+  </template>
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
+  http://localhost:3000

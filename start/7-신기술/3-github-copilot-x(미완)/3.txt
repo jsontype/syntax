@@ -1,2 +1,0 @@
-[Github Copilot-x 이용해서 GPT와 함께 코드 자동완성 기능 사용하기]
-참조URL: https://github.com/features/preview/copilot-x

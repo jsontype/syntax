@@ -1,0 +1,118 @@
+[eslint Vue3]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. eslint 설치 : 
+  $ npm install --save-dev eslint eslint-plugin-vue eslint-config-standard (= npm install -D eslint eslint-plugin-vue eslint-config-standard)
+
+1. package.json 수정 : 설정파일의 타입이 module로 되어있으면 commonjs로 바꿔준다.
+  ...
+  "type": "commonjs",
+  ...
+
+1. .eslintrc.js 생성
+  module.exports = {
+    env: {
+      browser: true,
+      es2021: true
+    },
+    extends: [
+      'plugin:vue/vue3-recommended',
+      'eslint-config-standard'
+    ],
+    parserOptions: {
+      ecmaVersion: 12,
+      sourceType: 'module'
+    },
+    plugins: [
+      'vue'
+    ],
+    rules: {
+      indent: [
+        'error',
+        2
+      ],
+      'no-trailing-spaces': 0,
+      'keyword-spacing': 0,
+      'no-unused-vars': 1,
+      'no-multiple-empty-lines': 0,
+      'space-before-function-paren': 0,
+      'eol-last': 0,
+      'vue/no-v-html': 0,
+      'vue/max-attributes-per-line': 0,
+      'vue/html-self-closing': 0
+    }
+  }
+
+1. package.json에 script안에 eslint 추가
+  "eslint": "eslint \"src/**/*.{js,vue}\"",
+  "eslint:fix": "eslint --fix \"src/**/*.{js,vue}\""
+
+1. eslint 실행
+  $ npm run eslint
+  $ npm run eslint:fix
+
+1. package.json 수정: eslint와 prettier의 scripts를 하나로 합쳐준다.
+  "lint": "npm run eslint && npm run prettier",
+  "lint:fix": "npm run eslint:fix && npm run prettier:fix"
+
+
+
+[eslint Nuxt3]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. eslint 설치 : 
+  $ npm i -D eslint @nuxtjs/eslint-module eslint-plugin-vue @nuxtjs/eslint-config-typescript
+
+1. .eslintrc.cjs 생성
+  module.exports = {
+    root: true,
+    env: {
+      browser: true,
+      es2021: true,
+    },
+    extends: [
+      "plugin:vue/vue3-recommended",
+      "eslint:recommended",
+      "@nuxtjs/eslint-config-typescript",
+    ],
+    parser: "vue-eslint-parser",
+    parserOptions: {
+      parser: "@typescript-eslint/parser",
+      sourceType: "module",
+    },
+    plugins: ["vue", "@typescript-eslint"],
+    rules: {
+      indent: [
+        'error',
+        2
+      ],
+      'no-trailing-spaces': 0,
+      'keyword-spacing': 0,
+      'no-unused-vars': 1,
+      'no-multiple-empty-lines': 0,
+      'space-before-function-paren': 0,
+      'eol-last': 0,
+      'vue/no-v-html': 0,
+      'vue/multi-word-component-names': 0,
+      'vue/no-multiple-template-root': 0,
+      'vue/no-multiple-template-root': 0
+    }
+  };
+
+1. package.json에 script안에 eslint 추가
+  "eslint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+  "eslint:fix": "eslint --fix --ext .js,.vue --ignore-path .gitignore ."
+
+1. eslint 실행
+  $ npm run eslint
+  $ npm run eslint:fix
+
+1. .eslintrc.cjs 수정 : 실행해본 뒤, 제거해야할 룰을 0을 넣어서 삭제하거나, 필요한 룰을 추가한다.
+  'vue/no-multiple-template-root': 0,
+  ...
+
+1. package.json 수정: eslint와 prettier의 scripts를 하나로 합쳐준다.
+  "lint": "npm run eslint && npm run prettier",
+  "lint:fix": "npm run eslint:fix && npm run prettier:fix"

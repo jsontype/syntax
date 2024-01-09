@@ -1,0 +1,107 @@
+[Vue2 앱 설치 : 가장 기본적인 components와 router 설정한 상태]
+
+1. 앱 설치
+  $ npm i -g @vue/cli
+  $ vue.cmd --version (Mac의 경우에는 .cmd가 필요없다.)
+  $ vue.cmd create app1 : app1은 앱이름이자 폴더명
+  manually select features 선택
+  Router, Vuex(Store) 선택
+  2.x 선택
+  엔터 반복
+
+1. 만약 앱 설치가 아닌, 앱 복사를 할 경우 에러가 뜨는 것에 대한 트러블슈팅
+  app1을 복사하면 다음과 같은 에러가 발생할 수도 있다.
+  # Multiple assets emit different content to the same filename index.html
+  문제원인은 이상한 버전을 만든 개발자
+  # @vue/cli 5.0.1, Node v14.17.5, vue 3.2.13 및 npm 7.20.6과 동일한 문제
+  근본 해결방법 : vue/cli 4.5.15로 다운그레이드  
+
+1. 불필요 부분을, 연동까지 삭제
+  assets 폴더
+  components 폴더
+  세미콜론 ; 지우기
+  README.MD 지우기
+
+  1. src/components/Content.vue 생성 : 하위 컴포넌트 생성
+  <template>
+    <div>
+      <p>Hello {{ name }}</p><br>
+      <button @click="updateName">Button</button>
+    </div>
+  </template>
+
+  <script>
+  export default {
+    data() {
+      return {
+        name: 'Vue3',
+      }
+    },
+    methods: {
+      updateName() {
+        this.name = 'Button Clicked'
+      }
+    }
+  }
+  </script>
+
+1. src/views/Home.vue 수정 : 메인 페이지 작성
+  <template>
+    <div>
+      <Content>
+    </div>
+  </template>
+
+  <script>
+  import Content from '@/components/Content.vue'
+  export default {
+    components: {
+      Content
+    },
+  }
+  </script>
+
+  <style scoped>
+  h1 {
+    color: red;
+  }
+  </style>
+
+1. src/router/index.js 수정 : 라우터 설정
+  import Vue from 'vue'
+  import VueRouter from 'vue-router'
+  import Home from '../views/Home.vue'
+
+  Vue.use(VueRouter)
+
+  const routes = [
+    {
+      path: "/",
+      name: "Home",
+      component: Home,
+    },
+    {
+      path: "/about",
+      name: "About",
+      component: () => import("../views/About.vue"),
+    },
+  ]
+
+  const router = new VueRouter({
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes
+  })
+
+  export default router
+
+1. src/views/About.vue 생성 : 어바웃 페이지 생성
+  <template>
+    <div class="about">
+      <h1>This is an about page</h1>
+    </div>
+  </template>
+
+1. 테스트
+  $ cd app1
+  $ npm run serve

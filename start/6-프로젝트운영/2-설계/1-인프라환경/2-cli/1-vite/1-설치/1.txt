@@ -1,0 +1,13 @@
+[Vite 설치]
+
+1. 설치
+  $ npm create vite@latest (=yarn create vite)
+  y
+  프로젝트 이름 설정
+  프레임워크 설정 (vanilla, vue, react, preact, lit svelte)
+  typescript를 선택할 것인지 여부
+
+1. 테스트
+  $ cd app1
+  $ npm i
+  $ npm run dev

@@ -1,0 +1,13 @@
+[gitignore]
+
+1. gitignore 추가하는 법
+    - 파일을 찾아서 추가할 경우 : 예를 들어, .log 확장자를 추가하고 싶지 않다면 루트 폴더에서 다음과 같이 입력한다.
+        $ echo *.log > .gitignore
+
+    - gitignore를 직접 수정하여 추가할 경우 :  
+        *.log : log 확장자 파일을 트래킹하고 싶지 않다.
+        Build/ : 해당 디렉토리 안의 파일 모두를 트래킹하고 싶지 않다.
+        Build/*.log : 해당 디렉토리 안의 log 확장자 파일을 트래킹하고 싶지 않다.
+
+    - create react app 을 사용하면 .gitignore가 자동생성된다.
+        gitignore는 부모 모듈이 있을 경우 서브 모듈 폴더마다 따로 적용 가능하다.

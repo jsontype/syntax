@@ -1,3 +1,0 @@
-72. 폼의 감시를 하자
-
-1. 워치 : watch(() => route.path, updateMenuTitle, { immediate: true })

@@ -1,0 +1,8 @@
+1. 신택스에 localStorage, vuex, pinia 각각 폴더에 store 사용법 정리해두기
+예) 로컬 스토리지 사용
+localStorage.getItem('access_token') !== null
+localStorage.setItem('is_authenticated', 'true')
+1. 신택스 : api 연결부 vue yuriko 보고하고, vue yuriko 템플릿 받아서 하는거 탑다운 뷰 신택스 따로 만들어서 진행하는 과정 만들어두기
+1. 커스텀 훅스.. -> API 읽는거.. 라던지
+
+

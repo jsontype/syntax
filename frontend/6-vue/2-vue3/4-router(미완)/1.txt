@@ -1,0 +1,5 @@
+도메인의 설명
+패스 파라미터 / 쿼리 파라미터의 설명
+useRoute
+useRouter
+템플릿 설정 : header, footer, sidebar
