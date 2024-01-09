@@ -1,3 +1,0 @@
-index.html을 nodejs와 express를 통해서... 배포
-
-https://zzangwoo.tistory.com/entry/Docker-Synology-Nas%EC%9D%98-Docker%EC%97%90-NodeJS%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-API-Server-%EB%B0%B0%ED%8F%AC

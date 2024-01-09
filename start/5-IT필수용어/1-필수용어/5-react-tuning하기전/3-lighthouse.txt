@@ -1,0 +1,12 @@
+[Chrome Lighthouse]
+
+1. 용도
+    Chrome 개발자도구에서 제공하는 Lighthouse를 통해 로컬환경에서
+    SEO 점수나, device별 통합 퍼포먼스 점수 등을 측정할 수 있다.
+
+1. 성능 체크시의 옵션에 대한 설명
+    Performance	: 웹 페이지의 로딩 속도 등 실제 성능을 측정
+    Progressive Web App	: PWA로 부르며, 웹과 네이티브 앱의 기능 모두의 이점을 가지도록 만들어진 서비스인지 체크
+    Best practices : Best practices를 따라 개발되었는지 체크
+    Accessibility : 접근성. 보통 폰트 사이즈, 메뉴간 간격 등을 측정
+    SEO	: Search Engine Optimization의 약자로 검색 엔진 수집 최적화에 관련된 부분을 측정

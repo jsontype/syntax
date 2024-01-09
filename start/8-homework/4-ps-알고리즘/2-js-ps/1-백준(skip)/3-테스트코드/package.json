@@ -1,8 +1,0 @@
-{
-  "scripts": {
-    "start": "node index.js"
-  },
-  "dependencies": {
-    "fs": "^0.0.1-security"
-  }
-}

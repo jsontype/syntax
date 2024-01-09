@@ -1,8 +1,0 @@
-#### 핵심 이슈
-
-[유저] 기능: UserList API를 불러와서 유저리스트 메뉴 및 컴포넌트 구현
-  API: https://jsonplaceholder.typicode.com/users
-
-#### 로직 이슈
-
-[유저] 로직: 로그인기능 구현

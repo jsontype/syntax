@@ -1,8 +1,0 @@
-[SSH]
-
-1. SSH Git을 clone 받을 경우
-    github 암호키로 들어가려고 하면 ssh git 받는게 안됨.
-        ssh-keygen -t rsa를 해서 키를 생성
-        cd로 ~/.ssh/id_rsa 에 들어감
-        vi id_rsa.pub를 눌러서 내용 복사
-    대응법 : https://qiita.com/shizuma/items/2b2f873a0034839e47ce

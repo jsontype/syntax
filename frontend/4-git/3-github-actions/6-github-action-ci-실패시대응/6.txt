@@ -1,0 +1,6 @@
+[Github상의 CI 테스트 실패시 대응]
+
+1. CI 테스트 실패시 대응
+  npm run build(=yarn build) 후 나오는 에러 전부 수정하기
+  필요시 베이스 브랜치을 최신화해서 현재 브랜치에 머지하기
+  https://creampuffy.tistory.com/190
