@@ -49,7 +49,7 @@
     </style>
   ```
 
-1. components/VElseIf1.vue 수정 : v-else-if를 사용해서 쇼핑카트를 만들어보자.
+1. src/components/VElseIf1.vue 수정 : v-else-if를 사용해서 쇼핑카트를 만들어보자.
   ```
     <template>
       <!-- 상황 : 물티슈 한 팩에 100엔이다.　3팩마다 배송료는 300엔이다. 12팩까지 구입이 가능하다. -->
@@ -92,7 +92,7 @@
     </style>
   ```
   
-1. (과제) components/VElseIf2.vue 생성 : v-else-if를 사용해서 쇼핑카트를 만들어보자.
+1. (과제) src/components/VElseIf2.vue 생성 : v-else-if를 사용해서 쇼핑카트를 만들어보자.
   다음의 조건을 충족해야한다 : 물 1병에 50원이다. 5팩마다 배송료는 200엔이다. 15팩까지 구입이 가능하다.
   ```
     <template>

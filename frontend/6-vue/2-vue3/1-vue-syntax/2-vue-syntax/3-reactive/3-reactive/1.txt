@@ -1,0 +1,35 @@
+[reactive]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. reactive란?
+  reactive도 ref와 마찬가지로, 반응형 변수를 만들어주는 함수이다.
+  reactive는 ref와 다르게, 객체를 반응형으로 만들어준다.
+  즉, 객체의 속성값이 변경되면, 자동으로 반응하여 화면을 갱신한다.
+
+  "Vue에서 (포괄적 의미의) 객체(Object 객체, Array 객체)으로 된 변수를 정의할 때,
+  reactive 함수를 사용한다."
+
+1. src/App.vue 수정
+  ```
+    <template>
+      <HelloWorld msg="Hello" />
+      <GlobalHelloWorld msg="Vue3" />
+      <NoRef />
+      <Ref />
+    </template>
+
+    <script setup lang="ts">
+    import HelloWorld from '@/components/HelloWorld.vue'
+    import NoRef from '@/components/reactive/NoRef.vue'
+    import Ref from '@/components/reactive/Ref.vue'
+    </script>
+
+    <style scoped>
+    </style>
+  ```
+
+1. 
+```
+
+```
