@@ -2,7 +2,7 @@
 
 1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
 
-1. components/VElse.vue 수정 : v-else를 사용해본다.
+1. src/components/VElse.vue 수정 : v-else를 사용해본다.
   <template>
     <div>
       <h2 v-if="isOpen">Hi!</h2>

@@ -2,7 +2,7 @@
 
 1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
 
-1. components/VBindProps.vue 생성 : v-bind로 연결될 컴포넌트에 props를 정의하고, 받아와서 사용할 수 있게 해둔다.
+1. src/components/VBindProps.vue 생성 : v-bind로 연결될 컴포넌트에 props를 정의하고, 받아와서 사용할 수 있게 해둔다.
   <template>
     <div>
       <h3>string1: {{ string1 }}</h3>
@@ -26,7 +26,7 @@
   <style scoped>
   </style>
 
-1. App.vue 수정 : VBindProps 컴포넌트를 추가하고, props를 전달한다.
+1. src/App.vue 수정 : VBindProps 컴포넌트를 추가하고, props를 전달한다.
   <template>
     <HelloWorld msg="Hello" />
     <GlobalHelloWorld msg="Vue3" />

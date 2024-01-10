@@ -9,7 +9,7 @@
   데이터 바인딩은 HTML 태그 안에 JS 데이터를 속박하는 것을 의미한다.
   그래서 JS의 데이터(변수, 함수)를 HTML 화면에 표시할 수 있게 된다.
   
-1. components/VBind.vue 생성 : VBind를 사용해, JS와 HTML을 연결한다.
+1. src/components/VBind.vue 생성 : VBind를 사용해, JS와 HTML을 연결한다.
   <template>
     <div>
       <!-- 데이터 바인딩 -->
@@ -23,7 +23,7 @@
   const imageURL = 'https://vuejs.org/images/logo.png'
   </script>
 
-1. App.vue 수정 : VBind 컴포넌트를 추가한다.
+1. src/App.vue 수정 : VBind 컴포넌트를 추가한다.
   <template>
     <HelloWorld msg="Hello" />
     <GlobalHelloWorld msg="Vue3" />
