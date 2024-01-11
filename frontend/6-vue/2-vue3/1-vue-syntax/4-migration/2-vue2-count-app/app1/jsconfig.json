@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "esnext",
+    "baseUrl": "../../../3-vue-syntax(중급)/4-migration/2-vue2-count-app/app1",
+    "moduleResolution": "node",
+    "paths": {
+      "@/*": [
+        "../../../3-vue-syntax(중급)/4-migration/2-vue2-count-app/app1/src/*"
+      ]
+    },
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+  }
+}
