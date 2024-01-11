@@ -1,0 +1,29 @@
+.
+1. src/components/buttons/RoundButton.js
+<template>
+  <Button variant="contained" color="primary" size="large" :disabled="disabled" :onClick="onClick">
+    {{ label }}
+  </Button>
+</template>
+
+<script setup>
+import Button from '@element-ui/core/Button';
+
+defaultProps: {
+  label: {
+    type: String,
+    default: 'Button',
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  onClick: {
+    type: Function,
+    default: () => {},
+  },
+}
+</script>
+
+1. chakra-ui, material-ui....
+.

@@ -1,0 +1,54 @@
+[Vue Transition]
+
+1. 사전준비 : init 앱을 가지고 온다.
+
+1. src/App.vue 수정  
+  ```
+    <template>
+      <TransitionFade />
+      <hr />
+      <TransitionHook />
+    </template>
+
+    <script setup lang="ts">
+    import TransitionFade from './components/TransitionFade.vue'
+    import TransitionHook from './components/TransitionHook.vue'
+    </script>
+
+    <style scoped>
+    </style>
+  ```
+
+1. src/components/TransitionFade.vue 생성 : 기본 Transition 사용법 (Fade)
+  ```
+    <template>
+      <h1>Fade</h1>
+      <button @click="toggle">Toggle</button>
+      <transition name="fade">
+        <div v-if="isOpen">
+          <HelloWorld />
+        </div>
+      </transition>
+    </template>
+
+    <script setup lang="ts">
+    import HelloWorld from './HelloWorld.vue'
+    import { ref } from 'vue'
+
+    const isOpen = ref(false)
+    const toggle = () => {
+      isOpen.value = !isOpen.value
+    }
+    </script>
+
+    <style scoped>
+    .fade-enter-active, .fade-leave-active {
+      transition: opacity 5s;
+    }
+    .fade-enter-from, .fade-leave-to {
+      opacity: 0;
+    }
+    </style>
+  ```
+
+1. 

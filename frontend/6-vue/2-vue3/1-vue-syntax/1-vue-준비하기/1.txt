@@ -1,3 +1,20 @@
+[Vue 설치방법]
+
+1. vue cli를 사용한 예전 방법
+  $ npm install -g @vue/cli
+  $ vue create app1
+
+1. (추천) vite를 사용한 요즘 방법 (vite는 npm 7버전 이상에서만 가능, 요새는 자동으로 들어가 있음)
+  $ npm init vite@latest
+  앱이름부터 입력
+
+1. 테스트  
+  $ cd app1
+  $ npm install
+  $ npm run dev
+
+
+
 [Local Components]
 
 1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
