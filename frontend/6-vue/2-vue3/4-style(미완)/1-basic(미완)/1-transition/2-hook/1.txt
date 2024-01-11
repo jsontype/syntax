@@ -2,6 +2,10 @@
 
 1. 사전준비 : init 앱을 가지고 온다.
 
+1. Transition Hook
+  Transition Animation이 발생 전, 중, 후의 특정 기간에 특정 함수를 실행시킬 수 있는 훅을 말한다.
+  * Life Cycle Hook과 비슷한 Hook(특정 시점을 끌어오는 도구) 개념으로 이해하자.
+
 1. src/App.vue 수정  
   ```
     <template>

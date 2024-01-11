@@ -1,6 +1,14 @@
 [Vue Transition]
+참조URL: https://ko.vuejs.org/guide/built-ins/transition
 
 1. 사전준비 : init 앱을 가지고 온다.
+
+1. Transition이란?
+  Vue에서는 화면이 전환되는 것을 Transition(트랜지션)이라 한다.
+  그리고 Transition 컴포넌트는, 엘리먼트 또는 컴포넌트가 DOM에 들어오고 나갈 때 애니메이션을 적용하기 위해 사용되는 도구이다.
+  
+1. Transition Component 사용방법
+  <transition></transition>으로 묶은 뒤, name 프롭으로 전환 애니메이션 타입(예: name="fade")을 전달해서 사용한다.
 
 1. src/App.vue 수정  
   ```
@@ -51,4 +59,6 @@
     </style>
   ```
 
-1. 
+1. 테스트
+  $ cd app1
+  $ npm run dev
