@@ -1,5 +1,5 @@
 <template>
-  <h1>Local Components</h1>
+  <h1>Local Component</h1>
 </template>
 
 <script setup lang="ts">
