@@ -1,4 +1,0 @@
-1. 신택스 혼자 :
-v-if의 4번째 v-show하기 -> 
-transition, tailwindcss, bootstrapVue -> 
-Migration 파트
