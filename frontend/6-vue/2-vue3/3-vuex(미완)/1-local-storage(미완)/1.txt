@@ -6,3 +6,6 @@ localStorage.setItem('is_authenticated', 'true')
 1. 커스텀 훅스.. -> API 읽는거.. 라던지
 
 
+
+localStorage.getItem('access_token') !== null
+localStorage.setItem('is_authenticated', 'true')
