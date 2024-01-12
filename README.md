@@ -19,6 +19,11 @@ https://github.com/jsontype/old.git
 9. 스팀덱 : steam
 10. 비상용 미니 PC : mini
 
+# Frequently reused symbols
+
+1. ★★ 암기사항
+1. ★ 이해사항
+
 # Frequently reused phrases in syntax
 
 1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
