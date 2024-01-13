@@ -1,0 +1,137 @@
+[라이프사이클 훅]
+
+1. 라이플사이클 훅이란?
+  생명주기(컴포넌트가 브라우저에 나타나고 사라지는 특정 시점)에 따라 메소드를 호출할 수 있는 훅 함수
+
+1. 훅 함수들
+  onBeforeMount: 컴포넌트가 브라우저에 나타나기 전에 호출
+  onMounted: 컴포넌트가 브라우저에 나타날 때 호출
+  onBeforeUpdate: 컴포넌트가 재 렌더링되기 전에 호출
+  onUpdated: 컴포넌트가 재 렌더링될 때 호출
+  onBeforeUnmount: 컴포넌트가 브라우저에서 사라지기 전에 호출
+  onUnmounted: 컴포넌트가 브라우저에서 사라질 때 호출
+
+1. src/components/reactive/LifeCycle.vue 생성
+  ```
+    <template>
+      <div>
+        <h1>LifeCycle</h1>
+        <button @click="toggle">라이프사이클 컴포넌트 열기</button>
+        <LifeCycleSubComponent v-if="isOpen" />
+      </div>
+    </template>
+
+    <script setup>
+    import { ref } from 'vue'
+    import LifeCycleSubComponent from '@/components/reactive/LifeCycleSubComponent.vue'
+
+    const isOpen = ref(false)
+    const toggle = () => {
+      isOpen.value = !isOpen.value
+    }
+    </script>
+
+    <style lang="scss" scoped>
+    </style>
+  ```
+
+1. src/components/reactive/LifeCycleSubComponent.vue 생성
+  ```
+    <template>
+      <div>
+        <h2>LifeCycle 하위컴포넌트</h2>
+        <button @click="onClick">{{ count }}</button>
+      </div>
+    </template>
+
+    <script lang="ts" setup>
+    defineProps<{ count: number, onClick: () => void }>()
+
+    import { 
+      onBeforeMount, 
+      onMounted,
+      onBeforeUpdate,
+      onUpdated,
+      onBeforeUnmount,
+      onUnmounted
+    } from 'vue'
+    import { ref } from 'vue'
+
+    const count = ref(0)
+    const onClick = () => {
+      count.value = count.value + 1
+    }
+
+    onBeforeMount(() => {
+      console.log('onBeforeMount')
+      alert('onBeforeMount')
+    })
+    onMounted(() => {
+      console.log('onMounted')
+      alert('onMounted')
+    })
+    onBeforeUpdate(() => {
+      console.log('onBeforeUpdate')
+      alert(`onBeforeUpdate`)
+    })
+    onUpdated(() => {
+      console.log('onUpdated')
+      alert(`onUpdated`)
+    })
+    onBeforeUnmount(() => {
+      console.log('onBeforeUnmount')
+      alert('onBeforeUnmount')
+    })
+    onUnmounted(() => {
+      console.log('onUnmounted')
+      alert('onUnmounted')
+    })
+    </script>
+
+    <style lang="scss" scoped>
+    </style>
+  ```
+
+1. src/App.vue 수정
+  ```
+    <template>
+      <div class="app">
+        <HelloWorld msg="Hello" />
+        <GlobalHelloWorld msg="Vue3" />
+        <NoRef />
+        <Ref />
+        <NoReactive />
+        <Reactive />
+        <Computed />
+        <NoComputed1 />
+        <NoComputed2 />
+        <Watch />
+        <WatchExample />
+        <LifeCycle />
+      </div>
+    </template>
+
+    <script setup lang="ts">
+    import HelloWorld from '@/components/HelloWorld.vue'
+    import NoRef from '@/components/reactive/NoRef.vue'
+    import Ref from '@/components/reactive/Ref.vue'
+    import NoReactive from '@/components/reactive/NoReactive.vue'
+    import Reactive from '@/components/reactive/Reactive.vue'
+    import NoComputed1 from '@/components/reactive/NoComputed1.vue'
+    import NoComputed2 from '@/components/reactive/NoComputed2.vue'
+    import Computed from '@/components/reactive/Computed.vue'
+    import Watch from '@/components/reactive/Watch.vue'
+    import WatchExample from '@/components/reactive/WatchExample.vue'
+    import LifeCycle from '@/components/reactive/LifeCycle.vue'
+    </script>
+
+    <style scoped>
+    .app {
+      margin-bottom: 50px;
+    }
+    </style>
+  ```
+
+1. 테스트: Alert창을 처음에는 켜고 한번 테스트하고, 그 뒤로는 주석처리를 하고 한번 더 실행
+  $ cd app1
+  $ npm run dev
