@@ -1,0 +1,24 @@
+[vue-router]
+
+1. 사전준비 : init 앱을 가지고 온다.
+
+1. 설치
+  $ npm i vue-router
+
+1. src/router.ts 생성
+1. src/main.ts 수정: router를 사용하겠다고 선언
+
+1. views/Login.vue 생성
+1. views/Movies.vue 생성
+
+1. SPA / MPA
+  SPA 앱을 만들때는 Vue만 사용한다. 루팅은 views 안에 페이지를 넣는다.
+  MPA 앱을 만들때는 Nuxt를 사용한다. 루팅은 pages 안에 페이지를 넣는다.
+
+1. 도메인의 설명 : 
+  http://도메인.com/패스파라미터?쿼리파라미터1=쿼리아규먼트1&쿼리파라미터2=쿼리아규먼트2
+
+1. 루팅
+  useRoute
+  useRouter
+  템플릿 설정 : header, footer, sidebar
