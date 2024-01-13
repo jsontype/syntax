@@ -1,7 +1,8 @@
-import { createApp } from 'vue';
-import App from './App.vue';
-import GlobalHelloWorld from './components/GlobalHelloWorld.vue';
+import { createApp } from 'vue'
+import App from './App.vue'
+import router from './router'
 
-createApp(App)
-  .component('GlobalHelloWorld', GlobalHelloWorld)
-  .mount('#app');
+const app = createApp(App)
+
+app.use(router)
+app.mount('#app')

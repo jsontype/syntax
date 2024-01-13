@@ -1,4 +1,4 @@
-[VueJS 한 단어 정리]
+[Vue2 한 단어 정리]
 
 1. CDACMSC
     C : Created Mounted Updated Destroyed 중 하나의 Lifecycle 시점에서 부르거나, methods 객체를 불러오는 이벤트를 수행했을 때  

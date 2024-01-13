@@ -1,0 +1,138 @@
+[vue-router]
+
+1. 사전준비 : init 앱을 가지고 온다.
+
+1. 사전준비 : 루터 라이브러리 설치
+  $ npm i vue-router
+
+1. src/components/HelloWorld.vue 삭제
+
+1. src/router.ts 생성
+  ```
+    import { createRouter, createWebHistory } from 'vue-router'
+
+    import Home from '@/views/Home.vue'
+    import Login from '@/views/Login.vue'
+    import Movies from '@/views/Movies.vue'
+
+    const routes = [
+      { path: '/', name: 'Home', component: Home },
+      { path: '/login', name: 'Login', component: Login },
+      { path: '/movies', name: 'Movies', component: Movies },
+    ]
+
+    const router = createRouter({
+      history: createWebHistory(),
+      routes: routes,
+    })
+
+    export default router
+  ```
+
+1. src/main.ts 수정: router를 사용하겠다고 선언
+  ```
+    import { createApp } from 'vue'
+    import App from './App.vue'
+    import router from './router'
+
+    const app = createApp(App)
+
+    app.use(router)
+    app.mount('#app')
+  ```
+
+1. 뷰 루트 페이지 작성 위치
+  - SPA 앱을 만들때는 Vue를 사용한다.
+    페이지를 src/views 폴더 안에 넣는다.
+  - MPA 앱을 만들때는 Nuxt를 사용한다. 
+    src 폴더는 없다.
+    페이지는 pages 폴더 안에 넣는다. 
+    컴포넌트는 components 폴더 안에 넣는다.
+    (MPA는 추후 학습 예정)
+
+1. src/views/Home.vue 생성 : 홈 페이지 작성
+  ```
+    <template>
+      <div>
+        <h1>홈</h1>
+      </div>
+    </template>
+
+    <script setup>
+    </script>
+
+    <style lang="scss" scoped>
+    </style>
+  ```
+
+1. src/components/InputField.vue 생성 : 로그인 페이지에 들어갈 폼 컴포넌트 작성
+  ```
+    <template>
+      <div>
+        <form>
+          <input type="text" placeholder="username" />
+          <input type="password" placeholder="password" />
+          <button type="submit">Login</button>
+        </form>
+      </div>
+    </template>
+
+    <script setup>
+    </script>
+
+    <style lang="scss" scoped>
+    </style>
+  ```
+
+1. views/Login.vue 생성 : 로그인 페이지 작성
+  ```
+    <template>
+      <div>
+        <h1>Login</h1>
+        <InputField />
+      </div>
+    </template>
+
+    <script setup>
+    import InputField from '@/components/InputField.vue'
+    </script>
+
+    <style lang="scss" scoped>
+    </style>
+  ```
+
+1. src/components/MovieList.vue 생성 : 무비앱 페이지에 들어갈 컴포넌트 작성
+  ```
+    <template>
+      <h2>Movie List</h2>
+      <div>로그인 하셔야 이용할 수 있습니다.</div>
+      <button>로그인 하러가기</button>
+    </template>
+
+    <script setup lang="ts">
+    </script>
+
+    <style scoped>
+    </style>
+  ```
+  
+1. views/Movies.vue 생성 : 무비앱 페이지 작성
+  ```
+    <template>
+      <div>
+        <h1>Movie App</h1>
+        <MovieList />
+      </div>
+    </template>
+
+    <script setup>
+    import MovieList from '@/components/MovieList.vue'
+    </script>
+
+    <style lang="scss" scoped>
+    </style>
+  ```
+
+1. 테스트: 각 페이지로 이동하는지 확인
+  $ cd app1
+  $ npm run dev
