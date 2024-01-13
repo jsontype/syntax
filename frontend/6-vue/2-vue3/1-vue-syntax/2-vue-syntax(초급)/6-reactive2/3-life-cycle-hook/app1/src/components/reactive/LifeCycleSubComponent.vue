@@ -23,21 +23,26 @@ const onClick = () => {
   count.value = count.value + 1
 }
 
+// onMounted, onUpdated, onUnmounted 등 "과거형" 훅 함수에 동기 함수를 넣어서 처리할 때는 "setTimeout"을 사용
 onBeforeMount(() => {
   console.log('onBeforeMount')
   alert('onBeforeMount')
 })
 onMounted(() => {
   console.log('onMounted')
-  alert('onMounted')
+  setTimeout(() => {
+    alert('onMounted')
+  }, 0)
 })
 onBeforeUpdate(() => {
   console.log('onBeforeUpdate')
-  alert(`onBeforeUpdate`)
+  alert('onBeforeUpdate')
 })
 onUpdated(() => {
   console.log('onUpdated')
-  alert(`onUpdated`)
+  setTimeout(() => {
+    alert('onUpdated')
+  }, 0)
 })
 onBeforeUnmount(() => {
   console.log('onBeforeUnmount')
@@ -45,7 +50,9 @@ onBeforeUnmount(() => {
 })
 onUnmounted(() => {
   console.log('onUnmounted')
-  alert('onUnmounted')
+  setTimeout(() => {
+    alert('onUnmounted')
+  }, 0)
 })
 </script>
 

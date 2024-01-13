@@ -29,7 +29,7 @@ export default {
 }
 </script>
 
-<style scope>
+<style scoped>
 .red {
   color: red;
   font-size: 200px;

@@ -5,7 +5,7 @@
 
 <script setup lang="ts">
 // Local Component
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from '@/components/HelloWorld.vue'
 </script>
 
 <style scoped>
