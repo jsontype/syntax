@@ -24,6 +24,7 @@
   <VOnce />
   <VPre />
   <VHtml />
+  <VText />
 </template>
 
 <script setup lang="ts">
@@ -41,6 +42,7 @@ import VModelModifier from '@/components/VModelModifier.vue'
 import VOnce from '@/components/VOnce.vue'
 import VPre from '@/components/VPre.vue'
 import VHtml from '@/components/VHtml.vue'
+import VText from '@/components/VText.vue'
 
 const str1 = 'String 1'
 const str2 = 'String 2'
