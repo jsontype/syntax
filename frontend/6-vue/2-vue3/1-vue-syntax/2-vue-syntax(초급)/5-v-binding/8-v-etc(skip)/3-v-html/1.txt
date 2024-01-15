@@ -1,0 +1,20 @@
+[v-html]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. ㅇㅇ
+  Raw HTML: v-html 디렉티브를 사용하면 HTML 코드를 직접 렌더링할 수 있다.
+  예를 들어, <div v-html="htmlContent"></div>와 같이 사용해서,
+  htmlContent 데이터에 저장된 HTML 코드를 페이지에 직접 렌더링한다.
+  이때, htmlContent 데이터에 저장된 HTML 코드는 브라우저에 의해 HTML 태그로 해석되어 렌더링된다.
+  * 그러나 이렇게 HTML 코드를 직접 렌더링하는 것은 보안상 위험하므로(개발자도구에 그대로 보여짐) 내용을 확인하고 사용해야 한다.
+
+
+
+1. src/components/VHtml.vue 생성 : v-html는 ㅇㅇ 디렉티브이다.
+
+1. src/App.vue 수정 : VHtml 컴포넌트를 호출한다.
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
