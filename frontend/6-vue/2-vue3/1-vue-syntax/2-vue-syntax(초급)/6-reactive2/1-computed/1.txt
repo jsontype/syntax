@@ -44,7 +44,7 @@
   그래서 computed 속성은 "ref 또는 reactive 처리된 변수"를 사용해야 한다.
   (vue의 많은 기능들이 반응형 데이터를 필요로 하기 때문에, 값이 변할 변수를 선언할 때는 늘 ref, reactive를 사용하자.)
 
-1. src/components/HelloWorld.vue 삭제
+1. 사전준비 : src/components/HelloWorld.vue 삭제
 
 1. src/components/Computed.vue 생성
   ```
