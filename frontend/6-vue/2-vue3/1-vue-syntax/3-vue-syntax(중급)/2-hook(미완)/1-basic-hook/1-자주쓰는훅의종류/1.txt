@@ -1,7 +1,0 @@
-import { useStore } from 'vuex'
-
-useRoute
-useRouter
-...
-
-GPT 검색해서 자주 쓰는 훅 basic-hook 안에서 나열하며 공부해두기

@@ -1,0 +1,119 @@
+[deep]
+
+1. 사전준비 : init 앱을 가지고 온다.
+
+1. 사전준비 : src/components/HelloWorld.vue 삭제
+
+1. Deep이란?
+  Vue에서 deep 옵션은 watch 함수 사용 시 중요한 역할을 한다.
+  기본적으로 watch 함수는 반응형 객체나 속성의 첫 번째 레벨(상위 레벨)의 변경만 감지한다.
+  하지만 객체에 중첩된 속성이 있을 때, 이런 중첩된 속성들의 변화를 감시하려면 deep 옵션을 켜야 한다.
+
+  'deep: true' 옵션을 설정하면, Vue는 지정된 반응형 객체의 모든 중첩된 속성에 대한 변경 사항을 감시한다.
+  이는 특히 객체나 배열 같은 복잡한 데이터 구조를 다룰 때 유용하다.
+
+  예를 들어, 다음과 같은 객체가 있을 때,
+    ```
+      const user = ref({
+        name: 'John',
+        details: {
+          age: 30,
+          address: {
+            city: 'New York'
+          }
+        }
+      })
+    ```
+  watch(user, callback, { deep: true })에서 처럼 "{ deep: true }"를 사용하면
+  user.name, user.details.age, user.details.address.city 등
+  모든 중첩된 속성의 변경을 감시할 수 있다.
+  deep 옵션이 없다면, watch는 오직 user 객체의 최상위 속성들의 변경만 감지한다.
+  따라서 deep 옵션은 중첩된 데이터 구조의 변경을 추적하고 싶을 때 매우 중요한 기능이다.
+
+  단, Vue 3에서 "ref를 사용한 반응형 객체의 경우, deep 옵션을 붙이지 않아도 된다." 
+  ref 객체는 기본적으로 깊은 감시(deep watch)를 수행하기 때문이다.
+  "그러나, Vue의 reactive 함수의 경우에는 deep 옵션을 붙여햐 한다."
+  reactive 객체는 기본적으로 깊은 감시(deep watch)를 수행하기 않기 때문이다.
+  따라서, reactive는 중첩된 속성의 변경을 감시하지 않는다.
+
+1. src/components/NoDeep.vue 생성 : 중첩된 객체의 변경을 감지하지 하지 못함
+  ```
+    <template>
+      <div>
+        <h2>User Profile</h2>
+        <input v-model="user.userName" placeholder="Name" />
+        <input v-model="user.details.age" placeholder="Age" />
+        <div>Updated at: {{ lastUpdated }}</div>
+      </div>
+    </template>
+
+    <script setup>
+    import { reactive, ref, watch } from 'vue';
+
+    // 사용자 정보를 reactive 객체로 정의
+    const user = reactive({
+      userName: '',
+      details: {
+        age: ''
+      }
+    });
+
+    const lastUpdated = ref('');
+
+    // watch의 세번째 인자값에 { deep: true } 옵션이 없으면 user 객체의 변경은 감지하지 못함
+    watch(() => user, (newValue, oldValue) => {
+      lastUpdated.value = new Date().toLocaleTimeString();
+    });
+    </script>
+  ```
+
+1. src/components/Deep.vue 생성 : 중첩된 객체의 변경을 감지하지 하지 못함
+    ```
+    <template>
+      <div>
+        <h2>User Profile</h2>
+        <input v-model="user.userName" placeholder="Name" />
+        <input v-model="user.details.age" placeholder="Age" />
+        <div>Updated at: {{ lastUpdated }}</div>
+      </div>
+    </template>
+
+    <script setup>
+    import { reactive, ref, watch } from 'vue';
+
+    // 사용자 정보를 reactive 객체로 정의
+    const user = reactive({
+      userName: '',
+      details: {
+        age: ''
+      }
+    });
+
+    const lastUpdated = ref('');
+
+    // user의 하위 status들의 변경을 감시하려면 deep 옵션이 필요함
+    watch(() => user, (newValue, oldValue) => {
+      lastUpdated.value = new Date().toLocaleTimeString();
+    }, { deep: true });
+    </script>
+  ```
+
+1. src/App.vue 변경
+  ```
+    <template>
+      <NoDeep />
+      <Deep />
+    </template>
+
+    <script setup lang="ts">
+    import NoDeep from '@/components/NoDeep.vue'
+    import Deep from '@/components/Deep.vue'
+    </script>
+
+    <style scoped>
+    </style>
+  ```
+
+1. 테스트 : 위 폼은 변화를 감시하지 못하고, 아래 폼은 감시하는 것을 확인
+  $ cd app1
+  $ npm run dev
