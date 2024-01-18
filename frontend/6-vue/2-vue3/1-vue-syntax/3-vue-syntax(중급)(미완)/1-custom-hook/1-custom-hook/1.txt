@@ -1,0 +1,8 @@
+[커스텀 훅]
+
+1. 사전준비 : init 앱을 가지고 온다.
+
+1. 사전준비 : src/components/HelloWorld.vue 삭제
+
+1. 커스텀 훅이란?
+...
