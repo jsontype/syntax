@@ -1,3 +1,0 @@
-1. 실제 만들어보기
-  useAPI 부르는거 만들기..? vue_yuriko 레포 참고
-  useSidebar 만들기..? E사 코드 참조.
