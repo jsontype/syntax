@@ -1,0 +1,59 @@
+[Store 사용하기: local-storage]
+
+1. 사전준비 : init 앱을 가지고 온다.
+
+1. 사전준비 : src/components/HelloWorld.vue 삭제
+
+
+
+
+
+
+
+
+
+....?
+
+1. 신택스에 localStorage, vuex, pinia 각각 폴더에 store 사용법 정리해두기
+예) 로컬 스토리지 사용
+localStorage.getItem('access_token') !== null
+localStorage.setItem('is_authenticated', 'true')
+1. 신택스 : api 연결부 vue yuriko 보고하고, vue yuriko 템플릿 받아서 하는거 탑다운 뷰 신택스 따로 만들어서 진행하는 과정 만들어두기
+1. 커스텀 훅스.. -> API 읽는거.. 라던지
+
+
+
+1. Vuex  
+  Vue.js에서는 Vuex 또는 Vue 3의 Composition API를 사용한 상태 관리를 통해 Store를 구현할 수 있다.
+
+  중앙 집중식 관리: Store는 애플리케이션의 모든 상태를 중앙에서 관리합니다. 이로 인해 다양한 컴포넌트 간의 데이터 공유와 관리가 용이해진다.
+  예측 가능한 상태 변경: Store는 상태를 변경하는 방법을 엄격하게 규정하여 상태 변경이 예측 가능하고 추적하기 쉽도록 합니다. Vuex에서는 이를 위해 "mutations"과 "actions"를 사용한다.
+  리액티브 데이터: Vue.js의 반응형 시스템을 활용하여, Store의 상태가 변경되면 이에 의존하는 컴포넌트들도 자동으로 업데이트된다.
+
+
+1. Vuex의 이점
+  글로벌 스테이트는 애플리케이션 전체에 걸쳐 사용되는 데이터이므로, 다음과 같은 기능들이 있으면 유지보수를 하기에 더 편하고 좋다. Vuex를 사용하면 가능해진다.
+    일관성 유지: Global State를 사용하면, 같은 데이터를 여러 컴포넌트에서 사용할 때 각각의 컴포넌트에서 별도로 관리하는 것보다 효율적이다.
+    상태 관리의 중요성: 전역 상태는 애플리케이션의 복잡성에 따라 관리가 복잡해질 수 있다. (어느 코드에 무슨 처리를 해서 스토어에 뭘 넣었는지 모르는 상황 발생 가능)
+      그러므로 상태 관리 패턴(예: Vuex)을 통해 체계적으로 관리해야 한다.
+    Vue.js에서는 Vuex 라이브러리를 통해 이러한 Global State를 효율적으로 관리할 수 있다.
+    Vuex는 Vue.js 애플리케이션의 데이터 흐름을 관리하기 위한 상태 관리 패턴 및 라이브러리로, Store를 통해 Global State를 관리한다.
+
+....?
+
+
+
+
+
+
+
+
+
+
+1. src/App.vue 수정 : 컴포넌트 호출하기
+  ```
+  ```
+
+1. 테스트
+  $ cd app1
+  $ npm run dev

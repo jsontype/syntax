@@ -1,9 +1,9 @@
 # Pinned git
 
-https://github.com/jsontype/syntax.git  
-https://github.com/jsontype/syntax-sub.git  
-https://github.com/jsontype/home.git  
-https://github.com/jsontype/generalapp.git  
+https://github.com/jsontype/syntax.git
+https://github.com/jsontype/syntax-sub.git
+https://github.com/jsontype/home.git
+https://github.com/jsontype/generalapp.git
 https://github.com/jsontype/old.git
 
 # PC Branches
