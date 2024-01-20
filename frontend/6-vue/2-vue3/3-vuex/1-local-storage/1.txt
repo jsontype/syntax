@@ -1,4 +1,4 @@
-[Store 사용하기: local-storage]
+[Store 사용하기: localStorage]
 
 1. 사전준비 : init 앱을 가지고 온다.
 

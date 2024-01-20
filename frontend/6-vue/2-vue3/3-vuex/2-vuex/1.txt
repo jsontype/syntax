@@ -1,66 +1,152 @@
-[Store 사용하기: local-storage]
+[Store 사용하기: vuex]
 
 1. 사전준비 : init 앱을 가지고 온다.
 
 1. 사전준비 : src/components/HelloWorld.vue 삭제
 
+1. 사전준비 : 설치
+  $ npm i vuex
 
+1. vuex란?
+  vuex는 Vue.js 애플리케이션의 데이터 흐름을 관리하기 위한 상태 관리 패턴 및 라이브러리로, Store를 통해 Global State를 관리한다.
 
-1. 라이브러리 설치 : npm i vuex
+1. vuex가 localStorage보다 좋은 점
+  - 중앙 집중식 관리: 
+    Store는 애플리케이션의 모든 상태를 중앙에서 관리하며, 이로 인해 관리가 용이해진다.
+  - 하나의 상태 관리 패턴: 
+    localStorage는 애플리케이션의 복잡성에 따라 관리가 어려워지나, Vuex는 일관된 상태 관리 패턴을 통해 체계적으로 관리가 가능하다.
+  - 예측 가능한 상태 변경: 
+    Store는 상태를 변경하는 방법을 엄격하게 규정하여 상태 변경이 예측 가능하고 추적하기 쉽도록 한다.
+  - 리액티브 데이터: 
+    Vue.js의 반응형 시스템을 활용하여, Store의 상태가 변경되면 이에 의존하는 컴포넌트들도 자동으로 업데이트된다.
 
 1. src/store/index.js 생성 : 스토어 생성
+  ```
+    import { createStore } from 'vuex'
+
+    // 스토어의 선언
+    export default createStore({
+      // 1. 변수의 선언
+      state() {
+        return {
+          count: 0,
+          // 여기에 계속 변수를 추가할 수 있음
+          // user: {
+          //   name: '김철수',
+          //   age: 30
+          // },
+          // team: '회계',
+          // ...
+        }
+      },
+      // 2. 변수를 변경하는 로직
+      mutations: {
+        increment(state) {
+          state.count++
+        }
+      },
+      // 3. 변수를 변경하는 로직을 불러오는 함수
+      actions: {
+        increment({ commit }) {
+          commit('increment')
+        }
+      },
+      // 4. 변수의 값을 가져오는 함수
+      getters: {
+        count: state => state.count
+      }
+    })
+  ```
 
 1. src/main.ts 수정 : 스토어 등록
+  ```
+    import { createApp } from 'vue'
+    import App from './App.vue'
+    // 선언한 스토어를 앱에 연결
+    // 1. 선언한 스토어를 임포트한다.
+    import store from './store'
+
+    const app = createApp(App)
+
+    // 2. app.use 함수를 통해 스토어를 앱에 연결한다.
+    app.use(store)
+    app.mount('#app')
+  ```
 
 1. src/components/Component1.vue 생성 : 스토어를 컴포넌트에서 사용해보기
+  ```
+    <template>
+      <h1>Components1</h1>
+      <p>{{ count }}</p>
+      <button @click="increment">증가</button>
+    </template>
+
+    <script setup>
+    // 스토어의 사용
+    // 1. useStore, computed를 가져온다.
+    import { useStore } from 'vuex'
+    import { computed } from 'vue'
+    // 2. useStore를 통해 store를 가져온다.
+    const store = useStore()
+    // 3. computed를 통해 store가 변경되면, 자동으로 count가 변경되도록 한다. (1, 2가 선언된 전제하에서, store.state.count를 호출하면, getter를 통해서 스토어값을 가져온다.)
+    const count = computed(() => store.state.count)
+    function increment() {
+      // 4. store.commit('increment')을 통해 "increment라는 mutation(로직)을 갖고 있는 action"을 실행해서, 스토어를 변경한다.
+      store.commit('increment')
+    }
+    </script>
+
+    <style scoped>
+    </style>
+  ```
 
 1. src/components/Component2.vue 생성 : 스토어를 컴포넌트에서 사용해보기
+  ```
+    <template>
+      <h1>Components2</h1>
+      <p>{{ count }}</p>
+      <button @click="increment">증가</button>
+    </template>
 
-1. src/App.vue 수정 : 컴포넌트 호출하기
+    <script setup>
+    // 스토어의 사용
+    // 1. useStore, computed를 가져온다.
+    import { useStore } from 'vuex'
+    import { computed } from 'vue
+    // 2. useStore를 통해 store를 가져온다.
+    const store = useStore()
+    // 3. computed를 통해 store가 변경되면, 자동으로 count가 변경되도록 한다. (1, 2가 선언된 전제하에서, store.state.count를 호출하면, getter를 통해서 스토어값을 가져온다.)
+    const count = computed(() => store.state.count)
+    function increment() {
+      // 4. store.commit('increment')을 통해 "increment라는 mutation(로직)을 갖고 있는 action"을 실행해서, 스토어를 변경한다.
+      store.commit('increment')
+    }
+    </script>
 
-
-
-
-1. 신택스에 localStorage, vuex, pinia 각각 폴더에 store 사용법 정리해두기
-예) 로컬 스토리지 사용
-localStorage.getItem('access_token') !== null
-localStorage.setItem('is_authenticated', 'true')
-1. 신택스 : api 연결부 vue yuriko 보고하고, vue yuriko 템플릿 받아서 하는거 탑다운 뷰 신택스 따로 만들어서 진행하는 과정 만들어두기
-1. 커스텀 훅스.. -> API 읽는거.. 라던지
-
-
-
-1. Vuex  
-  Vue.js에서는 Vuex 또는 Vue 3의 Composition API를 사용한 상태 관리를 통해 Store를 구현할 수 있다.
-
-  중앙 집중식 관리: Store는 애플리케이션의 모든 상태를 중앙에서 관리합니다. 이로 인해 다양한 컴포넌트 간의 데이터 공유와 관리가 용이해진다.
-  예측 가능한 상태 변경: Store는 상태를 변경하는 방법을 엄격하게 규정하여 상태 변경이 예측 가능하고 추적하기 쉽도록 합니다. Vuex에서는 이를 위해 "mutations"과 "actions"를 사용한다.
-  리액티브 데이터: Vue.js의 반응형 시스템을 활용하여, Store의 상태가 변경되면 이에 의존하는 컴포넌트들도 자동으로 업데이트된다.
-
-
-1. Vuex의 이점
-  글로벌 스테이트는 애플리케이션 전체에 걸쳐 사용되는 데이터이므로, 다음과 같은 기능들이 있으면 유지보수를 하기에 더 편하고 좋다. Vuex를 사용하면 가능해진다.
-    일관성 유지: Global State를 사용하면, 같은 데이터를 여러 컴포넌트에서 사용할 때 각각의 컴포넌트에서 별도로 관리하는 것보다 효율적이다.
-    상태 관리의 중요성: 전역 상태는 애플리케이션의 복잡성에 따라 관리가 복잡해질 수 있다. (어느 코드에 무슨 처리를 해서 스토어에 뭘 넣었는지 모르는 상황 발생 가능)
-      그러므로 상태 관리 패턴(예: Vuex)을 통해 체계적으로 관리해야 한다.
-    Vue.js에서는 Vuex 라이브러리를 통해 이러한 Global State를 효율적으로 관리할 수 있다.
-    Vuex는 Vue.js 애플리케이션의 데이터 흐름을 관리하기 위한 상태 관리 패턴 및 라이브러리로, Store를 통해 Global State를 관리한다.
-
-....?
-
-
-
-
-
-
-
-
-
+    <style scoped>
+    </style>
+  ```
 
 1. src/App.vue 수정 : 컴포넌트 호출하기
   ```
+    <template>
+      <Component1 v-if="toggle"/>
+      <Component2 v-else />
+      <button @click="toggle = !toggle">컴포넌트 변경</button>
+    </template>
+
+    <script setup lang="ts">
+    import { ref } from 'vue'
+    import Component1 from '@/components/Component1.vue'
+    import Component2 from '@/components/Component2.vue'
+
+    const toggle = ref(true)
+    </script>
+
+    <style scoped>
+    </style>
   ```
 
-1. 테스트
+1. 테스트 : 수정한 카운트 값이 타 컴포넌트에도 유지되는지 확인
   $ cd app1
   $ npm run dev
