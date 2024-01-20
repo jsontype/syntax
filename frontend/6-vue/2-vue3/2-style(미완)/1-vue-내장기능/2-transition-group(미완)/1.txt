@@ -1,0 +1,18 @@
+엘리먼트 또는 컴포넌트가 v-for 리스트에 삽입, 제거 또는 이동할 때 애니메이션을 적용하기 위한 <TransitionGroup>. 이것은 다음 장에서 다룹니다.
+
+```
+  <transition name="fade">
+    <div v-if="isOpen">열림</div>
+  </transition>
+```
+
+```
+  <transition-group name="fade">
+    <div v-if="isOpen1">열림1</div>
+    <div v-if="isOpen2">열림2</div>
+    <div v-if="isOpen3">열림3</div>
+    <div v-if="isOpen4">열림4</div>
+    <div v-if="isOpen5">열림5</div>
+    <div v-if="isOpen6">열림6</div>
+  </transition-group>
+```

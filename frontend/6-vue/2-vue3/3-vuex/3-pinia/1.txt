@@ -1,0 +1,27 @@
+[Store 사용하기: Pinia]
+
+1. 사전준비 : init 앱을 가지고 온다.
+
+1. 사전준비 : src/components/HelloWorld.vue 삭제
+
+1. 라이브러리 설치
+  $ npm i pinia (= yarn add pinia)
+
+1. pinia가 vuex보다 좋은 점
+  - vuex는 모든 상태를 store/index.js 한곳에 다 모아두고, 
+    pinia는 stores/counterStore.js, stores/XXXStore.js 등등 모듈별로 상태를 관리한다. 
+    대규모 어플리케이션이 되면, 스토어를 모듈별로 나눠서 관리하는 것이 가능해지므로 더 좋다.
+  - vuex는 모든 상태를 한번에 가져오고,
+    pinia는 필요한 상태만 가져온다. 그래서 속도면에서 빠르다.
+  - vuex는 모든 상태를 한번에 업데이트하고,
+    pinia는 필요한 상태만 업데이트한다.
+
+1. src/store/counterStore.js 생성 : 카운터 모듈 전용 스토어를 생성한다.
+
+1. src/main.ts 수정 : pinia를 연결한다.
+
+1. src/components/Component1.vue 생성 : pinia를 컴포넌트에서 사용해보기
+
+1. src/components/Component2.vue 생성 : pinia를 컴포넌트에서 사용해보기
+
+1. src/App.vue 수정 : 컴포넌트 호출하기

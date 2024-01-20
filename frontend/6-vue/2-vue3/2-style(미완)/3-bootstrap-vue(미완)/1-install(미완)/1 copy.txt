@@ -1,0 +1,14 @@
+
+
+
+
+
+
+
+
+
+
+
+
+1. 뷰 스타일 : TailWindCSS, Vuetify,  Element UI, BootstrapVue
+신택스에 스타일 - 테일윈드 정리 좀 해두기 - 퍼센티지는 w-[90vw]

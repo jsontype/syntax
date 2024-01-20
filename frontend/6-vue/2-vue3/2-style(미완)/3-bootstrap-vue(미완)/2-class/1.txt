@@ -1,0 +1,32 @@
+[BootstrapVue 클래스 모음]
+참조: https://tailwindcss.com/docs/installation 공식문서
+
+1. 레이아웃 (Layout)
+  컨테이너: container, container-fluid
+  그리드 시스템: row, col, col-sm, col-md, col-lg, col-xl
+  플렉스 박스: d-flex, flex-row, flex-column
+
+1. 컨텐츠 타이포그래피 (Content Typography)
+  텍스트 정렬: text-left, text-center, text-right
+  텍스트 크기: h1, h2, h3, h4, h5, h6
+  폰트 가중치 및 스타일: font-weight-normal, font-weight-bold, font-italic
+
+1. 컴포넌트 (Components)
+  버튼: btn, btn-primary, btn-secondary, btn-success
+  카드: card, card-body, card-title, card-text
+  폼 컨트롤: form-control, form-check, form-group
+
+1. 유틸리티 (Utilities)
+  마진 및 패딩: m-1, m-2, m-3, m-4, m-5, p-1, p-2, p-3, p-4, p-5
+  배경색: bg-primary, bg-secondary, bg-success, bg-danger, bg-warning, bg-info, bg-light, bg-dark, bg-white
+  텍스트 색상: text-primary, text-secondary, text-success, text-danger, text-warning, text-info, text-light, text-dark, text-muted
+  가시성: visible, invisible
+
+1. 반응형 유틸리티 (Responsive Utilities)
+  정렬: align-baseline, align-top, align-middle, align-bottom, align-text-bottom, align-text-top
+  디스플레이: d-none, d-inline, d-inline-block, d-block, d-table, d-flex
+
+1. 기타 (Others)
+  테두리: border, border-top, border-right, border-bottom, border-left
+  그림자: shadow-sm, shadow, shadow-lg
+  포지셔닝: position-static, position-relative, position-absolute, position-fixed, position-sticky

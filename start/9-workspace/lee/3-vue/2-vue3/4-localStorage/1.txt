@@ -1,0 +1,4 @@
+Local State : 컴포넌트에 한해서 저장되는 값
+
+Store : 이세계 공간
+Global State : 이세계 공간에 저장되는 값
