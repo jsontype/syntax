@@ -1,0 +1,81 @@
+[TailWindCSS 클래스 모음]
+참조: https://tailwindcss.com/docs/installation 공식문서
+
+1. 레이아웃 (Layout)
+  컨테이너: container
+  박스 사이징: box-border, box-content
+  디스플레이: block, inline-block, inline, flex, inline-flex, table, grid, hidden
+  플로트: float-right, float-left, float-none
+  클리어: clear-left, clear-right, clear-both, clear-none
+  오브젝트 피팅: object-contain, object-cover, object-fill
+  포지션: static, fixed, absolute, relative, sticky
+  가시성: visible, invisible
+
+1. 타이포그래피 (Typography)
+  폰트 패밀리: font-sans, font-serif, font-mono
+  폰트 크기: text-xs, text-sm, text-base, text-lg, text-xl
+  폰트 스무딩: antialiased, subpixel-antialiased
+  폰트 스타일: italic, not-italic
+  폰트 무게: font-light, font-normal, font-bold
+  라인 높이: leading-none, leading-tight, leading-snug
+  문자 간격: tracking-tighter, tracking-tight, tracking-normal
+  텍스트 정렬: text-left, text-center, text-right, text-justify
+  텍스트 색상: text-gray-500, text-blue-500, text-red-500
+  텍스트 장식: underline, line-through, no-underline
+  텍스트 변환: uppercase, lowercase, capitalize, normal-case
+  수직 정렬: align-baseline, align-top, align-middle, align-bottom
+  공백: whitespace-normal, whitespace-no-wrap, whitespace-pre
+  단어 분리: break-normal, break-words, break-all
+
+1. 배경 (Backgrounds)
+  배경 색상: bg-gray-200, bg-red-300, bg-blue-400
+  배경 불투명도: bg-opacity-50, bg-opacity-75
+  배경 위치: bg-bottom, bg-center, bg-left
+  배경 크기: bg-auto, bg-cover, bg-contain
+  배경 반복: bg-repeat, bg-no-repeat, bg-repeat-x, bg-repeat-y
+
+1. 테두리 (Borders)
+  테두리 두께: border, border-2, border-4
+  테두리 색상: border-gray-300, border-red-500, border-blue-600
+  테두리 반경: rounded, rounded-lg, rounded-full
+  테두리 스타일: border-solid, border-dashed, border-dotted
+  분할 두께: divide-y, divide-x
+  분할 색상: divide-gray-400, divide-red-300
+
+1. 크기 (Sizing)
+  너비 / 높이: w-1/2, w-full, h-1/4, h-full
+  최대 너비 / 최대 높이: max-w-xs, max-w-sm, max-w-md
+  최소 너비 / 최소 높이: min-w-full, min-h-full
+
+1. 간격 (Spacing)
+  패딩: p-1, p-2, p-4, p-6, p-8
+  마진: m-1, m-2, m-4, m-6, m-8
+  공간: space-x-2, space-y-2
+
+1. 플렉스 및 그리드 (Flex & Grid)
+  플렉스: flex, flex-row, flex-col
+  플렉스 랩: flex-wrap, flex-wrap-reverse, flex-nowrap
+  플렉스 정렬: items-start, items-center, items-end
+  그리드: grid, grid-cols-2, grid-rows-3
+  그리드 갭: gap-2, gap-4
+
+1. 기타 (Others)
+  불투명도: opacity-50, opacity-75, opacity-100
+  그림자: shadow, shadow-md, shadow-lg
+  Z-인덱스: z-0, z-10, z-20
+
+1. 전환
+  전환 속성: transition, transition-all, transition-colors
+  전환 지연: delay-75, delay-100, delay-150
+  전환 타이밍: ease-in, ease-out, ease-in-out
+  전환 지속시간: duration-75, duration-100, duration-150
+  전환 형태 - 애니메이션: animate-spin, animate-ping, animate-bounce
+  전환 형태 - 변형: transform, transform-gpu, transform-none
+  전환 형태 - 스케일: scale-50, scale-75, scale-100
+  전환 형태 - 회전: rotate-0, rotate-45, rotate-90
+  전환 형태 - 이동: translate-x-0, translate-x-1, translate-x-2
+  전환 형태 - 기울임: skew-x-0, skew-x-1, skew-x-2
+  전환 형태 - 트랜스폼 원점: origin-center, origin-top, origin-bottom
+  전환 형태 - 트랜스폼 타입: transform-gpu, transform-none
+  전환 형태 - 트랜스폼 스타일: transform-flat, transform-preserve-3d
+  ...
