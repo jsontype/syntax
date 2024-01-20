@@ -2,6 +2,7 @@
 
 1. 사전준비 : init 앱을 가지고 온다.
 
+1. 사전준비 : src/components/HelloWorld.vue 삭제
 
 1. 라이브러리 설치
   $ npm i tailwindcss postcss autoprefixer
@@ -30,22 +31,117 @@
   $ npx tailwindcss init
 
 1. tailwind.config.js 수정
+  ```
+    /** @type {import('tailwindcss').Config} */
+    export default {
+      // tailwind를 사용할 html 파일과 vue 파일을 지정
+      content: [
+        './index.html',
+        './src/**/*.{vue,js,ts,jsx,tsx}'
+      ],
+      theme: {
+        extend: {
+          // tailwind를 사용할 css 클래스 중 컬러 클래스들을 커스터마이징: 아래처럼 정의하면, 나중에, bg-primary-50 이런 식으로 사용 가능
+          colors: {
+            primary: {
+              50: '#335FFF',
+              60: '#637CFF',
+              70: '#939DFF',
+            },
+            secondary: {
+              50: '#FC325E',
+              60: '#FE627B',
+              70: '#FF929D',
+            }
+          }
+        },
+      },
+      plugins: [],
+    }
+  ```
 
 1. postcss.config.js 생성 : TailwindCSS를 호환되도록 하기 위해서 필요한 postcss 처리를 위한 설정 파일
+  ```
+    export const plugins = {
+      tailwindcss: {},
+      autoprefixer: {},
+    };
+  ```
 
 1. vite.config.ts 수정 : TailwindCSS를 모든 앱에 연결한다.
+  ```
+    import { defineConfig } from 'vite'
+    import vue from '@vitejs/plugin-vue'
+    import path from 'path'
 
+    // postcss 관련 플러그인 임포트
+    import postcssImport from 'postcss-import';
+    import tailwindcss from 'tailwindcss';
+    import autoprefixer from 'autoprefixer';
 
+    export default defineConfig({
+      plugins: [vue()],
+      resolve: {
+        alias: {
+          '@': path.resolve(__dirname, 'src'),
+        },
+      },
+      css: {
+        postcss: {
+          plugins: [postcssImport, tailwindcss, autoprefixer],
+        },
+      },  
+    })
+  ```
 
 1. src/assets/styles/tailwind.css 생성 : TailwindCSS를 임포트한 파일
+  ```
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+  ```
 
 1. src/main.ts 수정 : TailwindCSS를 모든 앱에 연결한다.
+  ```
+    import { createApp } from 'vue'
+    import App from './App.vue'
+    import './assets/styles/tailwind.css'
 
-1. src/HelloWorld.vue 수정 : TailwindCSS를 적용한다.
+    const app = createApp(App)
+
+    app.mount('#app')
+  ```
+
+1. src/HelloTailWindCSS.vue 생성 : TailwindCSS를 적용한다.
+  ```
+    <template>
+      <h1 class="text-[50px]">Hello TailWindCSS !</h1>
+      <h1 class="bg-primary-50 text-white">Hello TailWindCSS !</h1>
+      <h1 class="text-primary-50">Hello TailWindCSS !</h1>
+      <h1 class="text-secondary-50">Hello TailWindCSS !</h1>
+    </template>
+
+    <script setup>
+    </script>
+
+    <style scoped>
+    </style>
+  ```
+
+1. src/App.vue 수정 : TailwindCSS를 적용한다.
+  ```
+    <template>
+      <HelloTailWindCSS />
+    </template>
+
+    <script setup lang="ts">
+    import HelloTailWindCSS from '@/components/HelloTailWindCSS.vue'
+    </script>
+
+    <style scoped>
+    </style>
+  ```
 
 1. 테스트
-
-
-
-1. 뷰 스타일 : TailWindCSS, Vuetify,  Element UI, BootstrapVue
-신택스에 스타일 - 테일윈드 정리 좀 해두기 - 퍼센티지는 w-[90vw]
+  $ cd app1
+  $ npm run dev

@@ -1,9 +1,9 @@
 <template>
-  <HelloWorld />
+  <HelloTailWindCSS />
 </template>
 
 <script setup lang="ts">
-import HelloWorld from '@/components/HelloWorld.vue'
+import HelloTailWindCSS from '@/components/HelloTailWindCSS.vue'
 </script>
 
 <style scoped>
