@@ -1,0 +1,32 @@
+[인터넷 강의 듣기 : 내 자료 줄 경우]
+
+1. 강의 듣기 방법
+  https://www.udemy.com 에 접속한다.
+  선생님이 알려준 이메일/비밀번호로 로그인한다.
+  https://www.udemy.com/home/my-courses/lists/ 에 접속한다.
+  리스트 순서대로 공부한다. (단, 첫번째 리스트는 섹션 "3.4"까지만 진행한다. "3.5"부터는 해도 되고, 안해도 되고, 자유.)
+  (임의) 선생님와 함께 스프린트를 정해서, 어디까지 했는지 보고하고, 질문하는 시간을 갖는다.
+
+
+
+[인터넷 강의 : 구매 시킬 경우]
+
+1. 【HTML,CSS,JS,PHP,Git,Docker】プログラミング初心者OK！ ゼロからわかるWebシステム開発
+  https://www.udemy.com/course/web-app-development/learn/lecture/27708442?start=0#overview 
+  "セクション5"までだけ進行しても大丈夫
+
+1. 【JS】ガチで学びたい人のためのJavaScriptメカニズム
+  https://www.udemy.com/course/javascript-essence/learn/lecture/20452965?start=0#overview 
+
+1. はじめてのVue.js 3 入門！jQuery を使わないウェブ開発
+  https://www.udemy.com/course/learn-vuejs/learn/lecture/28893036?start=0#overview 
+
+
+
+[인터넷 강의 : 위 다 들었을 경우 무료 보충 강의 추가하기]
+
+1. HTML 보충
+  https://www.youtube.com/watch?v=5PMOsfEkpcc&list=PLCyDm9NTxdhKs_HfTtgUVHSrZTrbYJSeX
+
+1. CSS 보충
+  https://www.youtube.com/watch?v=Pt-PyX6IyHk&list=PLCyDm9NTxdhJodZ5MH_EeLQ_ET472cco5
