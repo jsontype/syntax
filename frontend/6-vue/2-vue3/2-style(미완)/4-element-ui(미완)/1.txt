@@ -1,4 +1,9 @@
-.
+[ElementUI]
+
+1. 사전준비 : init 앱을 가지고 온다.
+
+1. 사전준비 : src/components/HelloWorld.vue 삭제
+
 1. src/components/buttons/RoundButton.js
 <template>
   <Button variant="contained" color="primary" size="large" :disabled="disabled" :onClick="onClick">
@@ -24,6 +29,3 @@ defaultProps: {
   },
 }
 </script>
-
-1. chakra-ui, material-ui....
-.

@@ -3,7 +3,7 @@
 
 1. 레이아웃 (Layout)
   컨테이너: container, container-fluid
-  그리드 시스템: row, col, col-sm, col-md, col-lg, col-xl
+  그리드 시스템: row, col-12, col-sm-2, col-md-4, col-lg-6, col-xl-12
   플렉스 박스: d-flex, flex-row, flex-column
 
 1. 컨텐츠 타이포그래피 (Content Typography)
@@ -17,7 +17,8 @@
   폼 컨트롤: form-control, form-check, form-group
 
 1. 유틸리티 (Utilities)
-  마진 및 패딩: m-1, m-2, m-3, m-4, m-5, p-1, p-2, p-3, p-4, p-5
+  마진: m-1, m-2, m-3, m-4, m-5, mx-1, my-1, mt-1, ml-1
+  패딩: p-1, p-2, p-3, p-4, p-5, px-1, py-1, pt-1, pl-1
   배경색: bg-primary, bg-secondary, bg-success, bg-danger, bg-warning, bg-info, bg-light, bg-dark, bg-white
   텍스트 색상: text-primary, text-secondary, text-success, text-danger, text-warning, text-info, text-light, text-dark, text-muted
   가시성: visible, invisible
