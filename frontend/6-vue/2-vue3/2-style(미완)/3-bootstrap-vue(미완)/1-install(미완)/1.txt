@@ -1,4 +1,0 @@
-.
-<div class="px-5 py-1 py-2 pt-1 pb-1 mb-1">
-TailWindCSSと似てるが、一部のクラス名が違うだけ
-.
