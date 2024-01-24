@@ -1,0 +1,128 @@
+[Sass 변수]
+
+1. 사전준비 : init 앱을 가지고 온다.
+
+1. 사전준비 : src/components/HelloWorld.vue 삭제
+
+1. 사전준비 : 라이브러리 설치
+  $ cd app1
+  $ npm i -D sass
+
+1. Sass (싸스)
+  Sass (Syntactically Awesome Style Sheets: 문법적으로 짱 멋진 스타일시트)는 CSS pre-processor(전처리기)로서,
+  큰 장점은 코드의 재활용성, 코드의 가독성을 높여줘 유지보수를 쉽게 해준다.
+  Sass 에서는 두가지의 확장자 (.scss/.sass) 를 지원한다.
+  Scss는 css와 같은 문법을 쓰고 싶은 사람을 위해 나중에 추가된 문법이다.
+
+  CSS 문법
+    body {
+      font: 100% Helvetica, sans-serif
+      color: #333
+    }
+
+  Sass 문법
+    $font-stack: Helvetica, sans-serif
+    $primary-color: #333
+    body
+      font: 100% $font-stack
+      color: $primary-color
+
+  Scss 문법 (에스씨에스에스)
+    $font-stack: Helvetica, sans-serif;
+    $primary-color: #333;
+    body {
+      font: 100% $font-stack;
+      color: $primary-color;
+    }
+      
+  여기서는 보통 더 많이 사용되는 .scss 확장자로 스타일을 작성해보겠다.
+
+1. src/styles/color.scss 생성 : 컬러 글로벌 변수
+  $blue: blue;
+  $red: red;
+  $lightGray: lightgray;
+  $gray: gray;
+
+1. src/styles/font.scss 생성 : 폰트사이즈 글로벌 변수
+  $font-2xl: 50px;
+  $font-xl: 40px;
+  $font-lg: 30px;
+  $font-md: 20px;
+  $font-sm: 15px;
+  $font-xs: 10px;
+  $font-2xs: 5px;
+
+1. src/styles/resources.scss 생성 : 모든 글로벌 변수의 임포트 그룹, 나중에 이것만 임포트하면 다 임포트된다.
+  @import './color.scss';
+  @import './font.scss';
+
+1. src/components/ScssButton.js 생성 :
+  style에 lang="scss"를 넣으면, 기존 css 에서는 사용하지 못하던 scss 문법들(@import, &, lighten 함수 등)을 사용할 수 있다.
+  ```
+    <template>
+      <div>
+        <button class="Button">버튼</button>
+      </div>
+    </template>
+
+    <script setup>
+    </script>
+
+    <style lang="scss" scoped>
+    @import '@/styles/resources.scss';
+
+    .Button {
+      background: $blue;
+      &:hover {
+        background: lighten($blue, 10%);
+      }
+      &:active {
+        background: darken($blue, 10%);
+      }
+    }
+    </style>
+  ```
+
+1. src/components/TextBox.js 생성 : style에 lang="scss"를 넣으면, 기존 css 에서는 사용하지 못하던 scss 문법들(@import, &, lighten 함수 등)을 사용할 수 있다.
+  ```
+    <template>
+      <div>
+        <div class='TextBox'>
+          단순히 TextBox입니다.
+        </div>
+      </div>
+    </template>
+
+    <script setup>
+    </script>
+
+    <style lang="scss" scoped>
+    @import '@/styles/resources.scss';
+
+    .TextBox {
+      width: 150px;
+      padding: 20px;
+      background: $lightGray;
+    }
+    </style>
+  ```
+
+1. src/App.vue 수정 : Button와 TextBox를 임포트한다.
+  ```
+    <template>
+      <ScssButton />
+      <ScssTextBox />
+    </template>
+
+    <script setup lang="ts">
+    import ScssButton from '@/components/ScssButton.vue'
+    import ScssTextBox from '@/components/ScssTextBox.vue'
+    </script>
+
+    <style lang="scss" scoped>
+    </style>
+  ```
+
+1. 테스트 : 버튼이 잘 나타나는지 확인
+  $ cd app1
+  $ npm start
