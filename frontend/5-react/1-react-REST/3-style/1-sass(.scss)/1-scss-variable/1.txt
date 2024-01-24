@@ -1,5 +1,11 @@
 [Sass 변수]
 
+1. 사전준비 : init 앱을 가지고 온다.
+
+1. 사전준비 : 라이브러리 설치
+  $ cd app1
+  $ npm i node-sass (= yarn add node-sass)
+
 1. 리액트 컴포넌트를 스타일링하는 방법
   리액트에서 컴포넌트를 스타일링 하는 가장 기본적인 방법은 css 파일을 만들어서,
     컴포넌트에서 import 해서 사용하는 것이다.
@@ -46,11 +52,6 @@
       
   여기서는 보통 더 많이 사용되는 .scss 확장자로 스타일을 작성해보겠다.
 
-1. React에 Scss 프레임워크 도입하기
-  $ npx create-react-app app1
-  $ cd app1
-  $ npm i node-sass (= yarn add node-sass)
-
 1. 불필요 부분을, 연동까지 삭제
 
 1. src/styles/color.scss 생성 : 컬러 글로벌 변수
@@ -84,7 +85,7 @@
 
   export default Button
 
-1. src/components/common/Button/Button.scss 생성 : 기존 css 에서는 사용하지 못하던 문법들이 사용되었다. (주석 참조)
+1. src/components/common/Button/Button.scss 생성 : 기존 css 에서는 사용하지 못하던 문법들(&, @import, lighten 함수 등)이 사용되었다. 
   // 글로벌 변수 그룹 임포트
   @import '../../../styles/resources.scss';
 
