@@ -50,15 +50,15 @@ https://github.com/jsontype/old.git
    DOC: https://yts.mx/api
 
 1. 뉴스
-   API: https://api.hnpwa.com/v0/news.json  
+   API: https://api.hnpwa.com/v0/news.json
    API: https://api.hnpwa.com/v0/ask.json
 
 1. SNS
-   API: https://dummyapi.io/data/v1/user?limit=10  
+   API: https://dummyapi.io/data/v1/user?limit=10
    DOC: https://dummyapi.io/explorer
 
 1. 쇼핑몰
-   API: https://fakestoreapi.com/products  
+   API: https://fakestoreapi.com/products
    DOC: https://fakestoreapi.com/docs
 
 # CI 체크 * Temporary
