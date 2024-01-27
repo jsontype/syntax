@@ -116,7 +116,7 @@
     </style>
   ```
   
-1. views/Movies.vue 생성 : 무비앱 페이지 작성
+1. src/views/Movies.vue 생성 : 무비앱 페이지 작성
   ```
     <template>
       <div>
@@ -130,6 +130,22 @@
     </script>
 
     <style lang="scss" scoped>
+    </style>
+  ```
+
+1. src/App.vue 수정 : 라우터 링크 연결
+  ```
+    <template>
+      <router-link to="/">Home</router-link> | 
+      <router-link to="/movies">Movies</router-link> | 
+      <router-link to="/login">Login</router-link>
+      <router-view></router-view>
+    </template>
+
+    <script setup lang="ts">
+    </script>
+
+    <style scoped>
     </style>
   ```
 
