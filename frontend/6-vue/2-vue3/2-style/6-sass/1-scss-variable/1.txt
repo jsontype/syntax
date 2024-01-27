@@ -56,8 +56,7 @@
   @import './color.scss';
   @import './font.scss';
 
-1. src/components/ScssButton.js 생성 :
-  style에 lang="scss"를 넣으면, 기존 css 에서는 사용하지 못하던 scss 문법들(@import, &, lighten 함수 등)을 사용할 수 있다.
+1. src/components/ScssButton.js 생성 : style에 lang="scss"를 넣으면, 기존 css 에서는 사용하지 못하던 scss 문법들(@import, &, lighten 함수 등)을 사용할 수 있다.
   ```
     <template>
       <div>
