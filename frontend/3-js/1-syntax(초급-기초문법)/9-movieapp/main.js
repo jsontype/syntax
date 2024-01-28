@@ -13,6 +13,7 @@ function getMovie() {
     // JSON화된 정보로 addItem 함수를 실행하라
     .then((json) => {
       const movies = json.data.movies
+      console.log('movies: ', movies)
       addItem(movies)
     })
 }

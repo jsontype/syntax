@@ -30,3 +30,6 @@
 
 1. CSS 보충
   https://www.youtube.com/watch?v=Pt-PyX6IyHk&list=PLCyDm9NTxdhJodZ5MH_EeLQ_ET472cco5
+
+1. JS 보충
+  https://www.youtube.com/watch?v=pnsieVYy72M&list=PLwM1-TnN_NN7-zdRV8YsGUB82VVhfYiWW&index=1
