@@ -1,0 +1,219 @@
+[Vue2에서 Vue3로 마이그레이션하기]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 1-vue2-count-app 코드를 그대로 카피해서 가지고 온다.
+
+1. package.json 수정
+  vue create app1로 vue3 프로젝트를 새로 만들고, 해당 package.json을 그대로 가져온다.
+  ```
+    {
+      "name": "app1",
+      "version": "0.1.0",
+      "private": true,
+      "scripts": {
+        "serve": "vue-cli-service serve",
+        "build": "vue-cli-service build",
+        "lint": "vue-cli-service lint"
+      },
+      "dependencies": {
+        "core-js": "^3.8.3",
+        "vue": "^3.2.13"
+      },
+      "devDependencies": {
+        "@babel/core": "^7.12.16",
+        "@babel/eslint-parser": "^7.12.16",
+        "@vue/cli-plugin-babel": "~5.0.0",
+        "@vue/cli-plugin-eslint": "~5.0.0",
+        "@vue/cli-service": "~5.0.0",
+        "eslint": "^7.32.0",
+        "eslint-plugin-vue": "^8.0.3"
+      },
+      "eslintConfig": {
+        "root": true,
+        "env": {
+          "node": true
+        },
+        "extends": [
+          "plugin:vue/vue3-essential",
+          "eslint:recommended"
+        ],
+        "parserOptions": {
+          "parser": "@babel/eslint-parser"
+        },
+        "rules": {}
+      },
+      "browserslist": [
+        "> 1%",
+        "last 2 versions",
+        "not dead",
+        "not ie 11"
+      ]
+    }
+  ```
+
+1. package-lock.json 재설치
+  기존의 node_modules 폴더 삭제
+  기존의 package-lock.json 파일 삭제
+  $ npm install
+
+1. src/main.js 수정
+  아래의 vue2 코드를 아래의 vue3 코드와 같은 형식으로 수정한다.
+  * 실무의 경우에는 GPT에게 "아래 vue2 코드를 vue3 코드로 바꿔줘"라고 부탁하여 바꾸면 된다.
+  ```
+    // Vue 2.x
+    import Vue from 'vue'
+    import App from './App.vue'
+
+    Vue.config.productionTip = false
+
+    new Vue({
+      render: h => h(App),
+    }).$mount('#app')
+  ```
+  이런 형태가 되는지 확인한다.
+  ```
+    // Vue 3.x
+    import { createApp } from 'vue'
+    import App from './App.vue'
+
+    createApp(App).mount('#app')
+  ```
+
+1. src/App.vue 수정
+  아래의 vue2 코드를 아래의 vue3 코드와 같은 형식으로 수정한다.
+  * 실무의 경우에는 GPT에게 "아래 vue2 코드를 vue3 코드로 바꿔줘. <script setup> 넣어서 간결하게 해라." 라고 부탁하여 바꾸면 된다.
+  ```
+    // Vue 2.x
+    <template>
+      <div>
+        <button @click="onClick">Toggle</button>
+        <div v-if="isOpen">
+          <CountApp />
+        </div>
+      </div>
+    </template>
+
+    <script>
+    import CountApp from './components/CountApp.vue'
+
+    export default {
+      name: 'App',
+      components: {
+        CountApp
+      },
+      data() {
+        return {
+          isOpen: false
+        }
+      },
+      methods: {
+        onClick() {
+          this.isOpen = !this.isOpen
+        }
+      }
+    }
+    </script>
+  ```
+  이런 형태가 되는지 확인한다.
+  ```
+    // Vue 3.x
+    <template>
+      <div>
+        <button @click="toggle">Toggle</button>
+        <div v-if="isOpen">
+          <CountApp />
+        </div>
+      </div>
+    </template>
+
+    <script setup>
+    import { ref } from 'vue';
+    import CountApp from './components/CountApp.vue';
+
+    const isOpen = ref(false);
+
+    function toggle() {
+      isOpen.value = !isOpen.value;
+    }
+    </script>
+  ```
+
+1. src/components/CountApp.vue 수정
+  아래의 vue2 코드를 아래의 vue3 코드와 같은 형식으로 수정한다.
+  * 실무의 경우에는 GPT에게 "아래 vue2 코드를 vue3 코드로 바꿔줘. <script setup> 넣어서 간결하게 해라." 라고 부탁하여 바꾸면 된다.
+  ```
+    // Vue 2.x
+    <template>
+      <div>
+        <h1>{{ count }}</h1>
+        <button @click="increase">+</button>
+        <button @click="decrease">-</button>
+      </div>
+    </template>
+
+    <script setup>
+    import { ref, onMounted, onUpdated, onBeforeUnmount } from 'vue';
+
+    const count = ref(0);
+
+    function increase() {
+      count.value++;
+    }
+
+    function decrease() {
+      count.value--;
+    }
+
+    onMounted(() => {
+      console.log(`マウントされた！`);
+    });
+
+    onUpdated(() => {
+      console.log(`更新された！: ${count.value}`);
+    });
+
+    onBeforeUnmount(() => {
+      console.log(`破棄される前に！`);
+    });
+    </script>
+  ```
+  이런 형태가 되는지 확인한다.
+  ```
+    // Vue 3.x
+    <template>
+      <div>
+        <h1>{{ count }}</h1>
+        <button @click="increase">+</button>
+        <button @click="decrease">-</button>
+      </div>
+    </template>
+
+    <script setup>
+    import { ref, onMounted, onUpdated, onBeforeUnmount } from 'vue';
+
+    const count = ref(0);
+
+    function increase() {
+      count.value++;
+    }
+
+    function decrease() {
+      count.value--;
+    }
+
+    onMounted(() => {
+      console.log(`マウントされた！`);
+    });
+
+    onUpdated(() => {
+      console.log(`更新された！: ${count.value}`);
+    });
+
+    onBeforeUnmount(() => {
+      console.log(`破棄される前に！`);
+    });
+    </script>
+  ```
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
