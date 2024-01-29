@@ -1,9 +1,9 @@
-[Vue2에서 Vue3로 마이그레이션하기]
+[Counter App : Vue2에서 Vue3로 마이그레이션하기]
 
 1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 1-vue2-count-app 코드를 그대로 카피해서 가지고 온다.
 
 1. package.json 수정
-  vue create app1로 vue3 프로젝트를 새로 만들고, 해당 package.json을 그대로 가져온다.
+  아래의 vue2 코드를 수정해야 한다.
   ```
     {
       "name": "app1",
@@ -11,6 +11,55 @@
       "private": true,
       "scripts": {
         "serve": "vue-cli-service serve",
+        "build": "vue-cli-service build",
+        "lint": "vue-cli-service lint"
+      },
+      "dependencies": {
+        "core-js": "^3.8.3",
+        "vue": "^2.6.14"
+      },
+      "devDependencies": {
+        "@babel/core": "^7.12.16",
+        "@babel/eslint-parser": "^7.12.16",
+        "@vue/cli-plugin-babel": "~5.0.0",
+        "@vue/cli-plugin-eslint": "~5.0.0",
+        "@vue/cli-service": "~5.0.0",
+        "eslint": "^7.32.0",
+        "eslint-plugin-vue": "^8.0.3",
+        "vue-template-compiler": "^2.6.14"
+      },
+      "eslintConfig": {
+        "root": true,
+        "env": {
+          "node": true
+        },
+        "extends": [
+          "plugin:vue/essential",
+          "eslint:recommended"
+        ],
+        "parserOptions": {
+          "parser": "@babel/eslint-parser"
+        },
+        "rules": {}
+      },
+      "browserslist": [
+        "> 1%",
+        "last 2 versions",
+        "not dead"
+      ]
+    }
+  ```
+  $ vue create app1
+  위 cli를 사용하여 vue3 프로젝트를 새로 만들고, 해당 package.json을 그대로 가져와서,
+  vue3 코드와 같은 형식으로 수정한다.
+  ```
+    // Vue 3.x
+    {
+      "name": "app1",
+      "version": "0.1.0",
+      "private": true,
+      "scripts": {
+        "dev": "vue-cli-service serve",
         "build": "vue-cli-service build",
         "lint": "vue-cli-service lint"
       },
@@ -49,6 +98,16 @@
       ]
     }
   ```
+
+1. package.json 바뀐 점에 대한 상세 설명
+  Vue.js 버전:
+    Vue.js 버전이 "^2.6.14"로 지정되어 있다가, 아래 코드에서는 Vue.js 버전이 "^3.2.13"로 업데이트되었다.
+  eslintConfig 확장 설정: 
+    기존에는 eslintConfig의 extends 항목에 "plugin:vue/essential"을 사용하여 Vue.js와 관련된 ESLint 규칙을 확장하고 있었다.
+    새 코드에서는 extends 항목이 "plugin:vue/vue3-essential"으로 변경된다. 이것은 Vue 3에 맞춘 새로운 Vue.js 규칙을 사용하도록 설정한 것이다.
+  Browserslist 설정:
+    기존에는 Browserslist 설정에 "> 1%", "last 2 versions", "not dead"만 있었다.
+    새 코드에서는 추가로 "not ie 11"이 포함되었습니다. 이것은 Internet Explorer 11을 지원하지 않겠다는 것을 나타낸다.
 
 1. package-lock.json 재설치
   기존의 node_modules 폴더 삭제

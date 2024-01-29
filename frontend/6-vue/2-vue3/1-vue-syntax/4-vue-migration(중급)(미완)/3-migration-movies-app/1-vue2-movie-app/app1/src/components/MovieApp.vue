@@ -15,14 +15,13 @@ export default {
     }
   },
 
-  // count가 필요 없다면 이 메소드들을 제거
   methods: {},
 
   created() {
     fetch('https://yts.mx/api/v2/list_movies.json?sort_by=rating')
       .then(res => res.json())
       .then(json => {
-        this.movies = json.data.movies; // 수정됨
+        this.movies = json.data.movies;
         console.log(this.movies)
       })
   },
@@ -30,7 +29,7 @@ export default {
     console.log(`更新された！`)
   },
   updated() {
-    console.log(`成長した！: ${this.count}`) // count를 참조하려면 data에 추가해야 함
+    console.log(`成長した！`) 
   },
   destroyed() {
     console.log(`死んだ！`)
