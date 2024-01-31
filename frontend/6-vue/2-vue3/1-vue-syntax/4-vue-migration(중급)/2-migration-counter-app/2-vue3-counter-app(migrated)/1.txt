@@ -1,6 +1,6 @@
-[Movie App : Vue2에서 Vue3로 마이그레이션하기]
+[Counter App : Vue2에서 Vue3로 마이그레이션하기]
 
-1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 1-vue2-movie-app 코드를 그대로 카피해서 가지고 온다.
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 1-vue2-count-app 코드를 그대로 카피해서 가지고 온다.
 
 1. package.json 수정
   아래의 vue2 코드를 수정해야 한다.
@@ -109,7 +109,7 @@
     기존에는 Browserslist 설정에 "> 1%", "last 2 versions", "not dead"만 있었다.
     새 코드에서는 추가로 "not ie 11"이 포함되었습니다. 이것은 Internet Explorer 11을 지원하지 않겠다는 것을 나타낸다.
 
-1. package-lock.json 재설치
+1. package.json 재설치
   기존의 node_modules 폴더 삭제
   기존의 package-lock.json 파일 삭제
   $ npm install
@@ -146,18 +146,18 @@
       <div>
         <button @click="onClick">Toggle</button>
         <div v-if="isOpen">
-          <MovieApp />
+          <CountApp />
         </div>
       </div>
     </template>
 
     <script>
-    import MovieApp from './components/MovieApp.vue'
+    import CountApp from './components/CountApp.vue'
 
     export default {
       name: 'App',
       components: {
-        MovieApp
+        CountApp
       },
       data() {
         return {
@@ -179,65 +179,60 @@
       <div>
         <button @click="toggle">Toggle</button>
         <div v-if="isOpen">
-          <MovieApp />
+          <CountApp />
         </div>
       </div>
     </template>
-    
+
     <script setup>
     import { ref } from 'vue';
-    import MovieApp from './components/MovieApp.vue';
-    
+    import CountApp from './components/CountApp.vue';
+
     const isOpen = ref(false);
-    
+
     function toggle() {
       isOpen.value = !isOpen.value;
     }
     </script>
   ```
 
-1. src/components/MovieApp.vue 수정
+1. src/components/CountApp.vue 수정
   아래의 vue2 코드를 아래의 vue3 코드와 같은 형식으로 수정한다.
   * 실무의 경우에는 GPT에게 "아래 vue2 코드를 vue3 코드로 바꿔줘. <script setup> 넣어서 간결하게 해라." 라고 부탁하여 바꾸면 된다.
   ```
     // Vue 2.x
     <template>
       <div>
-        <div v-for="movie in movies" :key="movie.id">
-          <h2>{{ movie.title }}</h2>
-          <img :src="movie.large_cover_image" width="300px" />
-        </div>
+        <h1>{{ count }}</h1>
+        <button @click="increase">+</button>
+        <button @click="decrease">-</button>
       </div>
     </template>
-    
-    <script>
-    export default {
-      data() {
-        return {
-          movies: [],
-        }
-      },
-    
-      methods: {},
-    
-      created() {
-        fetch('https://yts.mx/api/v2/list_movies.json?sort_by=rating')
-          .then(res => res.json())
-          .then(json => {
-            this.movies = json.data.movies;
-            console.log(this.movies)
-          })
-      },
-      mounted() {
-        console.log(`更新された！`)
-      },
-      updated() {
-        console.log(`成長した！`) 
-      },
-      destroyed() {
-        console.log(`死んだ！`)
-      },
+
+    <script setup>
+    import { ref, onMounted, onUpdated, onBeforeUnmount } from 'vue';
+
+    const count = ref(0);
+
+    function increase() {
+      count.value++;
     }
+
+    function decrease() {
+      count.value--;
+    }
+
+    onMounted(() => {
+      console.log(`マウントされた！`);
+    });
+
+    onUpdated(() => {
+      console.log(`更新された！: ${count.value}`);
+    });
+
+    onBeforeUnmount(() => {
+      console.log(`破棄される前に！`);
+    });
     </script>
   ```
   이런 형태가 되는지 확인한다.
@@ -245,33 +240,35 @@
     // Vue 3.x
     <template>
       <div>
-        <div v-for="movie in movies" :key="movie.id">
-          <h2>{{ movie.title }}</h2>
-          <img :src="movie.large_cover_image" width="300px" />
-        </div>
+        <h1>{{ count }}</h1>
+        <button @click="increase">+</button>
+        <button @click="decrease">-</button>
       </div>
     </template>
-    
+
     <script setup>
     import { ref, onMounted, onUpdated, onBeforeUnmount } from 'vue';
-    
-    const movies = ref([]);
-    
+
+    const count = ref(0);
+
+    function increase() {
+      count.value++;
+    }
+
+    function decrease() {
+      count.value--;
+    }
+
     onMounted(() => {
-      fetch('https://yts.mx/api/v2/list_movies.json?sort_by=rating')
-        .then(res => res.json())
-        .then(json => {
-          movies.value = json.data.movies;
-          console.log(movies.value)
-        })
+      console.log(`マウントされた！`);
     });
-    
+
     onUpdated(() => {
-      console.log(`更新された！`);
+      console.log(`更新された！: ${count.value}`);
     });
-    
+
     onBeforeUnmount(() => {
-      console.log(`死んだ！`);
+      console.log(`破棄される前に！`);
     });
     </script>
   ```
