@@ -2,18 +2,18 @@
   <div>
     <button @click="onClick">Toggle</button>
     <div v-if="isOpen">
-      <MovieApp />
+      <TodoApp />
     </div>
   </div>
 </template>
 
 <script>
-import MovieApp from './components/MovieApp.vue'
+import TodoApp from './components/TodoApp.vue'
 
 export default {
   name: 'App',
   components: {
-    MovieApp
+    TodoApp
   },
   data() {
     return {
