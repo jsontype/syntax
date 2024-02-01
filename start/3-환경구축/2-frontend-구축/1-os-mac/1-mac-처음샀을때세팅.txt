@@ -22,49 +22,6 @@
 
 
 
-1. homebrew 설치
-  크롬에 "brew install"이라고 검색 후 명령어 복붙
-  command + space 누르고 terminal 열기
-  해당 명령어 붙여넣고 실행하여 설치
-  설치 후, 터미널에 지시 따라 입력완료하기
-    ```
-    // 터미널 지시 예시 : 아래의 두 스택을 터미널에 입력
-      Run these two commands in your terminal to add Homebrew to your PATH:
-        (echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> /Users/d.yang/.zprofile
-        eval "$(/opt/homebrew/bin/brew shellenv)"
-    ```
-
-
-
-1. 필수앱 설치
-  - vscode 설치
-    $ brew install --cask visual-studio-code 또는 구글링으로 설치
-    별도 문서 확인 : vscode에 깃허브 로그인하여 동기화하거나, 별도 문서를 참조해서 확장 설치, 설정
-  - chrome 설치
-    $ brew install --cask google-chrome 또는 구글링으로 설치
-    별도 문서 확인 : chrome 확장 설치, 개인 계정 연동
-  - rectangle mac 설치 : spectacle mac도 있지만, rectangle은 화면끝으로 끌어서 정렬하는 기능도 되므로 더욱 추천한다.
-    $ brew install --cask rectangle 또는 구글링으로 설치
-    설치 후 손쉬운 사용 메뉴에서 사용 허가를 해야한다.
-    설치 후 초기 선택화면에서 spectacle 모드를 선택하면, 한번에 spectacle과 동일한 단축키 설정이 가능하다.
-  - nvm으로 node 설치
-    별도 문서 확인 : nvm ls-remote로 검색한 뒤 최신 LTS 버전 설치
-  - sourcetree 설치
-    $ brew install --cask sourcetree 또는 구글링으로 설치
-  - insomnia mac 설치
-    $ brew install --cask insomnia 또는 구글링으로 설치
-  - anydesk 설치
-    $ brew install --cask anydesk 또는 구글링으로 설치
-  - zoom 설치
-    $ brew install --cask zoom 또는 구글링으로 설치
-  - slack 설치
-    $ brew install --cask slack 또는 구글링으로 설치
-  - docker 설치
-    $ brew install docker
-    docker ui는 구글링으로 설치
-
-
-
 1. iterm2 설치
   iterm2 검색 후 설치
   iterm2을 열고, 위쪽 메뉴에서 iterm2 탭에서 settings 클릭
@@ -114,6 +71,83 @@
     Fluent 2번
     문제없으면 y - Verbose 1 - y
     터미널을 종료한다.
+
+
+
+1. homebrew 설치
+  크롬에 "brew install"이라고 검색 후 명령어 복붙
+  command + space 누르고 terminal 열기
+  해당 명령어 붙여넣고 실행하여 설치
+  설치 후, 터미널에 지시 따라 입력완료하기
+    ```
+    // 터미널 지시 예시 : 아래의 두 스택을 터미널에 입력
+      Run these two commands in your terminal to add Homebrew to your PATH:
+        (echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> /Users/d.yang/.zprofile
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    ```
+
+
+
+1. nvm 설치 : 여러 버전의 node가 설치된 경우, 특정 노드 버전을 사용할 수 있게 해주는 CLI 툴
+  - nvm 설치 (Mac)
+    iTerm을 열고 ~ 위치에서 다음을 입력
+      $ sudo curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | bash
+      $ code ~/.zshrc
+    vscode에서 연 ~/.zshrc 파일의 최하단에 다음을 추가
+      $ source ~/.nvm/nvm.sh
+    새 터미널을 열거나, iTerm 터미널 안에 다음을 입력
+      $ exec $SHELL -l
+  - nvm 설치 (Windows)
+    다음 주소에서 nvm-setup.exe 파일을 다운로드 : https://github.com/coreybutler/nvm-windows/releases
+    다운로드한 파일을 실행시키면 nvm이 설치가 된다.
+    vscode를 재기동
+    $ nvm -v
+
+
+
+1. node 설치 : nvm을 사용해서 설치한다.
+  - nvm 사용하는 법
+    $ nvm ls-remote : 설치할 수 있는 Node.js 목록을 표시한다.
+    $ nvm install 16.18.1 : 특정 버전의 Node.js를 설치한다.
+    $ nvm use 16.18.1 : 특정 버전의 Node.js를 사용한다.
+    $ nvm uninstall 16.18.1 : 특정 버전의 Node.js를 삭제한다.
+    $ nvm ls (= nvm list) : 현 nvm로 로컬에 설치된 node의 리스트를 확인한다.
+    $ nvm list available : 설치 가능한 node 버전들을 확인한다. 그중에서도 LTS를 찾아서 하면 된다.
+    $ nvm alias default v18.16.0 : nvm안에 default가 될 node 버전을 설정한다. 디폴트 설정은 nvm ls로 확인이 가능하다. 
+  - .nvmrc를 통해 프로젝트에 고정 node 버전 도입하기 (선택)
+    .nvmrc 파일은 Node.js 버전을 명시해두는 파일이다.
+    이동한 디렉토리(프로젝트)에 .nvmrc 파일이 있으면, Node.js를 해당 버전으로 변경해야한다.
+    .nvmrc가 있는 폴더에서, 다음을 입력하면 자동으로 변경된다.
+      $ nvm use
+    자신의 프로젝트에 노드 버전을 명시하며 .nvmrc 파일을 만들려면 다음과 같이 명령어를 입력한다.
+      $ echo "8.9.0" > .nvmrc
+
+
+
+1. 필수앱 설치
+  - vscode 설치
+    $ brew install --cask visual-studio-code 또는 구글링으로 설치
+    별도 문서 확인 : vscode에 깃허브 로그인하여 동기화하거나, 별도 문서를 참조해서 확장 설치, 설정
+  - chrome 설치
+    $ brew install --cask google-chrome 또는 구글링으로 설치
+    별도 문서 확인 : chrome 확장 설치, 개인 계정 연동
+  - rectangle mac 설치 : spectacle mac도 있지만, rectangle은 화면끝으로 끌어서 정렬하는 기능도 되므로 더욱 추천한다.
+    $ brew install --cask rectangle 또는 구글링으로 설치
+    설치 후 손쉬운 사용 메뉴에서 사용 허가를 해야한다.
+    설치 후 초기 선택화면에서 spectacle 모드를 선택하면, 한번에 spectacle과 동일한 단축키 설정이 가능하다.
+  - sourcetree 설치
+    $ brew install --cask sourcetree 또는 구글링으로 설치
+  - insomnia mac 설치
+    $ brew install --cask insomnia 또는 구글링으로 설치
+  - anydesk 설치
+    $ brew install --cask anydesk 또는 구글링으로 설치
+  - zoom 설치
+    $ brew install --cask zoom 또는 구글링으로 설치
+  - slack 설치
+    $ brew install --cask slack 또는 구글링으로 설치
+  - docker 설치
+    $ brew install docker
+    docker ui는 구글링으로 설치
 
 
 
