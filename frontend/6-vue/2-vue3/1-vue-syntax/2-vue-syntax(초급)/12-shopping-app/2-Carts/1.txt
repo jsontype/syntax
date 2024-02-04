@@ -12,3 +12,4 @@
   리팩토링도 해보기 : defaultLayout에 sidebar, header, footer 등 연결하는 레이아웃 처리하고, header 부분에 로그인 부분 등의 중복제거 처리
   EC Site 템플릿으로 다시 한번 처리하기
   원래 EC Site는 MPA로 만드니까, 속도 향상을 위해 Nuxt3 MPA로 다시 만들기 (페이지별로 나누는 SSG SSR 등의 처리도 해보고, SEO 대응도 해보기)
+  General App 안에 통합시키기
