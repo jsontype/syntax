@@ -119,3 +119,63 @@ if (null) {
   // 이 부분은 실행되지 않는다. null은 falsy이다.
   console.log("falsy");
 }
+
+/*
+  if else 문만 사용할 경우의 문제점 : 
+    이런 코드가 있다고 생각해보자. if가 세번 이상 중첩되면 가독성이 떨어질 것이다.
+    콘솔로그가 한줄이 아니라 10~1000줄중 랜덤이라고 생각해보자. 실무처럼.
+    그럼 저 if랑 else 찾기가 쉬울까?
+    심지어 else if도 있다면 더더욱 찾기가 힘들어진다.
+    즉 코드가 길고 복잡해질수록, 가독성이 문제점이 된다.
+*/
+function checkValues1(sth1, sth2, sth3) {
+  if (sth1 >= 1) {
+    console.log("sth1은 1 이상이다");
+    if (sth2 >= 2) {
+      // 이 줄이 길다고 가정해보자.
+      console.log("sth2는 2 이상이다");
+      if (sth3 >= 3) {
+        // 이 줄이 길다고 가정해보자.
+        console.log("sth3는 3 이상이다");
+      } else {
+        // 이 줄이 길다고 가정해보자.
+        console.log("sth3는 3 미만이다");        
+      }
+      // ... 이런 코딩이 반복될수록 코드의 가독성은 최악이 될 것이다.
+    } else {
+      console.log("sth2는 2 미만이다");
+    }
+  } else {
+    console.log("sth1은 1 미만이다");
+  }
+}
+// 함수 사용 예: sth1, sth2, sth3에 해당하는 값을 대입
+checkValues1(3, 4, 5);
+
+/*
+  if return 문을 사용할 때의 장점 : 
+    이런 경우, 함수 내에서 조건에 따라 바로 return을 사용하면,
+    코드의 명확성과 가독성을 높일 수 있으며,
+    중첩을 줄이고 오류 가능성을 감소시키는 데 도움이 된다.
+*/
+function checkValues2(sth1, sth2, sth3) {
+  if (sth1 < 1) {
+    return "sth1은 1 미만이다";
+  }
+  // 이 줄이 길다고 가정해보자.
+  console.log("sth1은 1 이상이다");
+  if (sth2 < 2) {
+    return "sth2는 2 미만이다";
+  }
+  // 이 줄이 길다고 가정해보자.
+  console.log("sth2는 2 이상이다");
+  if (sth3 < 3) {
+    return "sth3는 3 미만이다";
+  }
+  // 이 줄이 길다고 가정해보자.
+  console.log("sth3는 3 이상이다");
+  // ... 이런 코딩은 반복되어도 코드의 가독성이 낮아지지 않는다.
+  return "모든 조건을 만족";
+}
+// 함수 사용 예: sth1, sth2, sth3을 적절한 값으로 대체
+console.log(checkValues2(3, 4, 5)); 
