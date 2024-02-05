@@ -1,0 +1,65 @@
+[xlsx: 엑셀 파일 내용을 읽어들어오는 라이브러리]
+참조URL: https://github.com/exceljs/exceljs?tab=readme-ov-file#interface
+
+1. 사전준비 : init 앱을 가지고 온다.
+
+1. 사전준비 : src/components/HelloWorld.vue 삭제
+
+1. 사전준비 : 2 x 2 행렬 내용이 들어가 있는 엑셀파일을 하나 준비 (예: data.xlsx)
+
+1. 라이브러리 설치
+  $ npm install exceljs
+
+1. src/components/FileUpload.vue 생성 : 파일 업로드 컴포넌트를 생성한다.
+  ```
+    <template>
+      <input type="file" @change="readExcelFile" />
+    </template>
+
+    <script setup>
+    import { ref } from 'vue';
+    import ExcelJS from 'exceljs';
+
+    const readExcelFile = async (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      try {
+        // 새로운 워크북 인스턴스 생성
+        const workbook = new ExcelJS.Workbook();
+        // 업로드된 파일 읽기
+        const arrayBuffer = await file.arrayBuffer();
+        await workbook.xlsx.load(arrayBuffer);
+
+        // 각 시트를 순회
+        workbook.eachSheet((worksheet, sheetId) => {
+          console.log(`시트: ${worksheet.name}`);
+          // 워크시트 내에서 값을 가진 모든 행을 순회
+          worksheet.eachRow((row, rowNumber) => {
+            console.log('행 ' + rowNumber + ' = ' + JSON.stringify(row.values));
+          });
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    </script>
+  ```
+
+1. src/App.vue 수정 : 컴포넌트를 호출한다.
+  ```
+    <template>
+      <FileUpload />
+    </template>
+
+    <script setup lang="ts">
+    import FileUpload from '@/components/FileUpload.vue'
+    </script>
+
+    <style scoped>
+    </style>
+  ```
+
+1. 테스트 : data.xlsx을 업로드한 뒤, 화면상에 내용이 제대로 표시되는지 확인한다.
+  $ cd app1
+  $ npm run dev
