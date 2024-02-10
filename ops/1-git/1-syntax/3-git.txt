@@ -137,9 +137,20 @@
       현장에서 쓰게 될 강제 푸시 방법으로 "상대적으로 과거의, 타인의 수정과 충돌할 경우 푸시가 실패하고, 충돌이 없을 경우에만 강제로 푸시"한다.
       타인과 함께 쓰는 브랜치인 경우, 코드가 덮어씌우기 되어버리기 때문이다.
       보다 더 좋은 방법으로, PUSH때 로컬 ref와 리모트 ref를 비교해 로컬이 최신인지 판정해, 최신이 아니면 PUSH를 실패시킨다.
-      --force-with-lease가 꽤 길기 때문에, 일반적으로는 아래와 같이 별칭으로 등록해 사용한다.
-      git config --global alias.push-f "push --force-with-lease"
-      git push-f origin master (* push-f는 붙여서 사용한다.)
+
+  $ git config --global alias.push-f "push --force-with-lease" : 깃에 Alias 별칭을 주어 쓰기 편하게 해준다.
+    git config --global alias.push-f "push --force-with-lease"
+      다음부터 git push-f origin master(* push-f는 붙여서 사용한다.)로, 'git push origin master --force-with-lease'를 간단히 실행한다.
+      --force-with-lease가 꽤 길기 때문에, 일반적으로는 이렇게 별칭으로 등록해 사용한다.
+      물론 기본적으로 push -f를 떼어서 타이핑하면, --force 옵션만 들어가게 된다.
+    git config --global alias.fetch 'fetch origin'
+      다음부터 git fetch로 'git fetch origin'을 간단히 실행한다.
+    git config --global alias.pull 'pull origin current'
+      다음부터 git pull로 'git pull origin [현재 브랜치]'을 간단히 실행한다.
+    
+  $ git config --global push.default current : 깃 push시의 기본 브랜치를 현 브랜치로 설정한다.
+    git config --global push.default current
+      다음부터 git push로 'git push origin [현재 브랜치명]'을 간단히 실행한다.
 
 
 

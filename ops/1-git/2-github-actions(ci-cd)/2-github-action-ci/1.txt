@@ -105,3 +105,12 @@
   깃허브 사이트에서 ci가 돌아가는지 확인
   * 혹시 PR을 날렸는데 ci 테스트가 돌지 않는다면 
     ci.yml 파일 내의 push branches가 main인지, master인지 잘 확인해 볼 것 !
+
+
+
+[Github상의 CI 테스트 실패시 대응]
+
+1. CI 테스트 실패시 대응
+  npm run build(=yarn build) 후 나오는 에러 전부 수정하기
+  필요시 베이스 브랜치을 최신화해서 현재 브랜치에 머지하기
+  https://creampuffy.tistory.com/190
