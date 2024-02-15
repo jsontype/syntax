@@ -1,5 +1,0 @@
-[백엔드 연결 설정]
-
-1. .env 파일 작성
-  VITE_API_URL=http://localhost:3000 이런 식으로...
-1. api.ts 작성

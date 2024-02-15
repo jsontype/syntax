@@ -1,0 +1,539 @@
+[포스트 나머지 모두 추가하기]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. 포스트 나머지 모두 추가하기
+  이번 챕터에서 서버 앱을 모두 완성시키겠다.
+
+
+
+1. dbWorks.js 수정 : 나머지 DB 관련 함수 모두 추가
+  const database = require('./database.js')
+
+  const dataFiltered = (which, args) => {
+    let result = database[which].filter((item) => {
+      // 조건인자가 없거나, 페이징 관련 인자거나
+      // 모든 요소가 아이템과 모두 일치하면 통과
+      return (
+        !args ||
+        Object.keys(args).reduce((a, b) => {
+          return a && (["page", "per_page"].includes(b) || item[b] == args[b])
+        }, true)
+      )
+    })
+
+    // 페이징
+    if (args.page && args.per_page) {
+      result = result.slice(
+        (args.page - 1) * args.per_page,
+        args.page * args.per_page
+      )
+    }
+
+    return result
+  }
+
+  const dbWorks = {
+    deleteItem: (which, args) => {
+      const deleted = database[which].filter((item) => {
+        return item.id == args.id
+      })[0]
+      database[which] = database[which].filter((item) => {
+        return item.id != args.id
+      })
+      return deleted
+    },
+
+    getTeams: (args) =>
+      dataFiltered("teams", args).map((team) => {
+        team.members = dbWorks.getPeople({ team: team.id })
+        return team
+      }),
+    postTeam: (args) => {
+      const newTeam = {
+        id:
+          database.teams
+            .map((team) => {
+              return Number(team.id)
+            })
+            .reduce((a, b) => {
+              return Math.max(a, b)
+            }, 0) + 1,
+        ...args.input,
+      }
+      database.teams.push(newTeam)
+      return newTeam
+    },
+    editTeam: (args) => {
+      return database.teams
+        .filter((team) => {
+          return team.id == args.id
+        })
+        .map((team) => {
+          Object.assign(team, args.input)
+          return team
+        })[0]
+    },
+
+    getPeople: (args) =>
+      dataFiltered("people", args).map((person) => {
+        person.tools = [
+          ...dbWorks.getEquipments({ used_by: person.role }),
+          ...dbWorks.getSoftwares({ used_by: person.role }),
+        ]
+        person.givens = [
+          ...dbWorks.getEquipments({ used_by: person.role }),
+          ...dbWorks.getSupplies({ team: person.team }),
+        ]
+        return person
+      }),
+    postPerson: (args) => {
+      const newPerson = {
+        id:
+          database.people
+            .map((person) => {
+              return Number(person.id)
+            })
+            .reduce((a, b) => {
+              return Math.max(a, b)
+            }, 0) + 1,
+        ...args.input,
+      }
+      database.people.push(newPerson)
+      return newPerson
+    },
+    editPerson: (args) => {
+      return database.people
+        .filter((person) => {
+          return person.id == args.id
+        })
+        .map((person) => {
+          Object.assign(person, args.input)
+          return person
+        })[0]
+    },
+
+    getRoles: (args) =>
+      dataFiltered("roles", args).map((role) => {
+        role.members = dbWorks.getPeople({ role: role.id })
+        role.equipments = dbWorks.getEquipments({ used_by: role.id })
+        role.softwares = dbWorks.getSoftwares({ used_by: role.id })
+        return role
+      }),
+
+    getEquipments: (args) => dataFiltered("equipments", args),
+    postEquipment: (args) => {
+      database.equipments.push(args)
+      return args
+    },
+    increaseEquipment: (args) => {
+      return database.equipments
+        .filter((equipment) => {
+          return equipment.id == args.id
+        })
+        .map((equipment) => {
+          equipment.count += 1
+          return equipment
+        })[0]
+    },
+
+    getSoftwares: (args) => dataFiltered("softwares", args),
+
+    getSupplies: (args) => dataFiltered("supplies", args),
+  }
+
+  module.exports = dbWorks
+
+
+
+1. typedefs-resolvers/_queries.js 수정 : 나머지 get 메소드 모두 추가
+  const { gql } = require("apollo-server")
+
+  const typeDefs = gql`
+    type Query {
+      teams(manager: String, cleaning_duty: String): [Team]
+      team(id: ID!): Team
+
+      people(
+        page: Int
+        per_page: Int
+        team: Int
+        sex: Sex
+        blood_type: BloodType
+        from: String
+      ): [People]
+      person(id: ID!): People
+      peopleFiltered(
+        team: Int
+        sex: Sex
+        blood_type: BloodType
+        from: String
+      ): [People]
+      peoplePaginated(page: Int!, per_page: Int!): [People]
+      peopleFilteredPaginated(
+        team: Int
+        sex: Sex
+        blood_type: BloodType
+        from: String
+        page: Int!
+        per_page: Int!
+      ): [People]
+
+      roles: [RoleInfo]
+      role(id: ID!): RoleInfo
+
+      equipments(used_by: Role, new_or_used: NewOrUsed): [Equipment]
+      equipment(id: ID!): Equipment
+      equipmentAdvs: [EquipmentAdv]
+
+      softwares(used_by: Role, developed_by: String): [Software]
+      software(id: ID!): Software
+
+      supplies(team: ID): [Supply]
+      supply(id: ID!): Supply
+
+      givens: [Given]
+    }
+  `
+
+  module.exports = typeDefs
+
+
+
+1. typedefs-resolvers/_mutations.js 수정 : 나머지 post 메소드 모두 추가
+  const { gql } = require("apollo-server")
+
+  const typeDefs = gql`
+    type Mutation {
+      postTeam(input: PostTeamInput!): Team!
+      editTeam(id: ID!, input: PostTeamInput!): Team!
+      deleteTeam(id: ID!): Team!
+
+      deleteEquipment(id: String): Equipment
+      postEquipment(
+        id: ID!
+        used_by: Role!
+        count: Int
+        new_or_used: NewOrUsed!
+      ): Equipment!
+      increaseEquipment(id: ID!): Equipment!
+
+      deleteSupply(id: String): Supply
+
+      postPerson(input: PostPersonInput): People!
+      editPerson(id: ID!, input: PostPersonInput!): People!
+      deletePerson(id: ID!): People!
+    }
+  `
+
+  module.exports = typeDefs
+
+
+
+1. typedefs-resolvers/teams.js 생성 : teams 쿼리 완성시키기
+  const { gql } = require("apollo-server")
+  const dbWorks = require("../dbWorks.js")
+
+  const typeDefs = gql`
+    type Team {
+      id: ID!
+      manager: String!
+      office: String
+      extension_number: String
+      mascot: String
+      cleaning_duty: String!
+      project: String
+      members: [People]
+    }
+
+    input PostTeamInput {
+      manager: String!
+      office: String
+      extension_number: String
+      mascot: String
+      cleaning_duty: String!
+      project: String
+    }
+  `
+
+  const resolvers = {
+    Query: {
+      teams: (parent, args) => dbWorks.getTeams(args),
+      team: (parent, args) => dbWorks.getTeams(args)[0],
+    },
+    Mutation: {
+      postTeam: (parent, args) => dbWorks.postTeam(args),
+      editTeam: (parent, args) => dbWorks.editTeam(args),
+      deleteTeam: (parent, args) => dbWorks.deleteItem("teams", args),
+    },
+  }
+
+  module.exports = {
+    typeDefs: typeDefs,
+    resolvers: resolvers,
+  }
+
+
+
+1. typedefs-resolvers/roles.js 생성 : roles 쿼리 완성시키기
+  const { gql } = require("apollo-server")
+  const dbWorks = require("../dbWorks.js")
+
+  const typeDefs = gql`
+    type RoleInfo {
+      id: ID!
+      job: String!
+      requirement: String
+      members: [People]
+      equipments: [Equipment]
+      softwares: [Software]
+    }
+  `
+
+  const resolvers = {
+    Query: {
+      roles: (parent, args) => dbWorks.getRoles(args),
+      role: (parent, args) => dbWorks.getRoles(args)[0],
+    },
+  }
+
+  module.exports = {
+    typeDefs: typeDefs,
+    resolvers: resolvers,
+  }
+
+
+
+1. typedefs-resolvers/supplies.js 수정 : supplies 쿼리 완성시키기
+  const { gql } = require("apollo-server")
+  const dbWorks = require("../dbWorks.js")
+
+  const typeDefs = gql`
+    type Supply {
+      id: ID!
+      team: ID!
+    }
+  `
+  const resolvers = {
+    Query: {
+      supplies: (parent, args) => dbWorks.getSupplies(args),
+      supply: (parent, args) => dbWorks.getSupplies(args)[0],
+    },
+    Mutation: {
+      deleteSupply: (parent, args) => dbWorks.deleteItem("supplies", args),
+    },
+  }
+
+  module.exports = {
+    typeDefs: typeDefs,
+    resolvers: resolvers,
+  }
+
+
+
+1. typedefs-resolvers/equipments.js 수정 : equipments 쿼리 완성시키기 
+  const { gql } = require("apollo-server")
+  const dbWorks = require("../dbWorks")
+
+  // implements Tool 명령어를 통해 Tool 인터페이스를 적용한다.
+  const typeDefs = gql`
+    type Equipment implements Tool {
+      id: ID!
+      used_by: Role!
+      count: Int
+      new_or_used: NewOrUsed!
+    }
+    type Software implements Tool {
+      id: ID!
+      used_by: Role!
+      developed_by: String!
+      description: String
+    }
+    type EquipmentAdv {
+      id: ID!
+      used_by: String!
+      count: Int!
+      use_rate: Float
+      is_new: Boolean!
+      users: [String!]
+    }
+  `
+
+  const resolvers = {
+    Query: {
+      equipments: (parent, args) => dbWorks.getEquipments(args),
+      equipment: (parent, args) => dbWorks.getEquipments(args)[0],
+      equipmentAdvs: (parent, args) =>
+        dbWorks.getEquipments(args).map((equipment) => {
+          if (equipment.used_by === "developer") {
+            equipment.use_rate = Math.random().toFixed(2)
+          }
+          equipment.is_new = equipment.new_or_used === "new"
+          // 50% 확률로 equipmentAdvs 항목에 users 배열을 추가하고, 그 안에 20% 확률로 개발자를 넣는다.
+          if (Math.random() > 0.5) {
+            equipment.users = []
+            dbWorks.getPeople(args).forEach((person) => {
+              if (person.role === equipment.used_by && Math.random() < 0.2) {
+                equipment.users.push(person.last_name)
+              }
+            })
+          }
+          return equipment
+        }),
+    },
+
+    Mutation: {
+      increaseEquipment: (parent, args) => dbWorks.increaseEquipment(args),
+      deleteEquipment: (parent, args) => dbWorks.deleteItem("equipments", args),
+    },
+  }
+
+  module.exports = {
+    typeDefs: typeDefs,
+    resolvers: resolvers,
+  }
+
+
+
+1. typedefs-resolvers/people.js 수정 : people 쿼리 완성시키기 
+  const { gql } = require("apollo-server")
+  const dbWorks = require("../dbWorks.js")
+
+  const typeDefs = gql`
+    type People {
+      id: ID!
+      first_name: String!
+      last_name: String!
+      sex: Sex!
+      blood_type: BloodType!
+      serve_years: Int!
+      role: Role!
+      team: ID!
+      from: String!
+      tools: [Tool]
+      givens: [Given]
+    }
+    input PostPersonInput {
+      first_name: String!
+      last_name: String!
+      sex: Sex!
+      blood_type: BloodType!
+      serve_years: Int!
+      role: Role!
+      team: ID!
+      from: String!
+    }
+  `
+
+  const resolvers = {
+    Query: {
+      people: (parent, args) => dbWorks.getPeople(args),
+      person: (parent, args) => dbWorks.getPeople(args)[0],
+      peopleFiltered: (parent, args) => dbWorks.getPeople(args),
+      peoplePaginated: (parent, args) => dbWorks.getPeople(args),
+      peopleFilteredPaginated: (parent, args) => dbWorks.getPeople(args),
+    },
+    Mutation: {
+      postPerson: (parent, args) => dbWorks.postPerson(args),
+      editPerson: (parent, args) => dbWorks.editPerson(args),
+      deletePerson: (parent, args) => dbWorks.deleteItem("people", args),
+    },
+  }
+
+  module.exports = {
+    typeDefs: typeDefs,
+    resolvers: resolvers,
+  }
+
+
+
+1. index.js 수정 : 나머지 필요한 쿼리 모두 추가
+  const { ApolloServer } = require("apollo-server")
+
+  const queries = require("./typedefs-resolvers/_queries")
+  const mutations = require("./typedefs-resolvers/_mutations")
+  const enums = require("./typedefs-resolvers/_enums")
+  const teams = require("./typedefs-resolvers/teams")
+  const roles = require("./typedefs-resolvers/roles")
+  const equipments = require("./typedefs-resolvers/equipments")
+  const supplies = require("./typedefs-resolvers/supplies")
+  const softwares = require("./typedefs-resolvers/softwares")
+  const givens = require("./typedefs-resolvers/givens")
+  const tools = require("./typedefs-resolvers/tools")
+  const people = require("./typedefs-resolvers/people")
+
+  const typeDefs = [
+    queries,
+    mutations,
+    enums,
+    teams.typeDefs,
+    roles.typeDefs,
+    equipments.typeDefs,
+    supplies.typeDefs,
+    softwares.typeDefs,
+    givens.typeDefs,
+    tools.typeDefs,
+    people.typeDefs,
+  ]
+
+  const resolvers = [
+    teams.resolvers,
+    roles.resolvers,
+    equipments.resolvers,
+    supplies.resolvers,
+    softwares.resolvers,
+    givens.resolvers,
+    tools.resolvers,
+    people.resolvers,
+  ]
+
+  const server = new ApolloServer({ typeDefs, resolvers })
+
+  server.listen().then(({ url }) => {
+    console.log(`🚀  Server ready at ${url}`)
+  })
+
+
+
+1. 테스트
+  $ cd app1
+  $ npm start
+  http://localhost:4000/ 접속 : GraphQL Playground가 열린다.
+  GraphQL Playground 사용 : 좌측에 다음 쿼리를 넣고 Run을 클릭
+    mutation {
+      postPerson(input: {
+        first_name: "Hanna"
+        last_name: "Kim"
+        sex: female
+        blood_type: O
+        serve_years: 3
+        role: developer
+        team: 1
+        from: "Pusan"
+      }) {
+        id
+        first_name
+        last_name
+        sex
+        blood_type
+        role
+        team
+        from
+      }
+    }
+  GraphQL Playground 사용 : 좌측에 다음 쿼리를 넣고 Run을 클릭
+    query {
+      people {
+        id
+        first_name
+        last_name
+        sex
+        blood_type
+        serve_years
+        role
+        team
+        from
+      }
+    }
+  맨끝에 Hanna라는 사람이 제대로 추가되어 있는지 확인
+  (* 일단 이렇게 Post 하나만 테스트 했지만, 이전 메모들을 보면서 다른 테스트들도 이것저것 진행하면서 이상없는지 테스트해보자.)

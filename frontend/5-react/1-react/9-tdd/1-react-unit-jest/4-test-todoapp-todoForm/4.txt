@@ -1,0 +1,60 @@
+[TDD 개발 흐름으로 TodoForm 만들기]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. 앱 제작 계획
+  TodoForm : input과 button으로 이루어진 form이 있고, submit 이벤트가 발생하면 새로운 항목을 추가 할 수 있어야 한다.
+  TodoItem : 각 todo 항목을 보여주는 컴포넌트이다. todo 객체를 props로 받아와서 렌더링 해준다. 텍스트를 클릭하면 텍스트에 삭제선이 그어져야 하고, 우측에 삭제버튼을 누르면 해당 항목이 사라져야 한다.
+  TodoList : todos 배열을 받아와서 여러개의 TodoItem 컴포넌트로 렌더링을 한다.
+  TodoApp : 할 일 목록 추가, 토글, 삭제 기능이 구현되는 컴포넌트이다.
+
+1. src/TodoForm.spec.js : TodoForm 테스트 코드 먼저 개발하기
+  import React from 'react'
+  import { render, fireEvent } from "@testing-library/react"
+  import TodoForm from './TodoForm'
+
+  describe('<TodoForm /> 컴포넌트 테스트', () => {
+    it('이 컴포넌트에 필요한 input, button이 있는가?', () => {
+      const { getByText, getByPlaceholderText } = render(<TodoForm />)
+      getByPlaceholderText('할 일을 입력하세요') // input 이 있는지 확인
+      getByText('등록') // button이 있는지 확인
+    })
+
+    it('input 상태에서 change 이벤트를 발생시키면 value 값이 바뀌는가?', () => {
+      const { getByPlaceholderText } = render(<TodoForm />)
+      const input = getByPlaceholderText('할 일을 입력하세요')
+      fireEvent.change(input, {
+        target: {
+          value: 'TDD 배우기'
+        }
+      })
+      expect(input.getAttribute('value')).toBe('TDD 배우기')
+    })
+  })
+
+1. src/TodoForm.js : 테스트 코드에 부응하도록 TodoForm 개발하기
+  import React, { useState, useCallback } from 'react'
+
+  export default function TodoForm () {
+    const [value, setValue] = useState('')
+    const onChange = useCallback(e => {
+      setValue(e.target.value)
+    }, [])
+
+    return (
+      <form>
+        <input
+          placeholder="할 일을 입력하세요"
+          value={value}
+          onChange={onChange}
+        />
+        <button type="submit">등록</button>
+      </form>
+    )
+  }
+
+1. 테스트
+  $ cd app1
+  $ npm test
+  a키 누르기
+  테스트가 모두 passed 되었는지 확인

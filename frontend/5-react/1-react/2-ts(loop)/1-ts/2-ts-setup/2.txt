@@ -1,0 +1,60 @@
+[TypeScript 설치 및 설정하기]
+
+1. package.json 생성 : 노드패키지 설정파일
+	$ npm init -y (= yarn init -y)
+  
+1. tsconfig.json 생성 : 타입스크립트 설정파일
+	$ npm i typescript
+	# 글로벌로 할 때 : $ npm i -g typescript (= yarn global add typescript)
+	$ tsc --init
+
+	위 명령어를 통해 자동생성이 되지만, 다음과 같이 직접 쳐서 작성해도 된다.
+	{
+		"compilerOptions": {
+			"target": "es5",
+			"module": "commonjs",
+			"strict": true,
+			"esModuleInterop": true
+		}
+	}
+
+	tsconfig.json은 타입스크립트가 컴파일 될 때 필요한 옵션들을 지정한다.
+	tsc --init 명령어를 통해서 기본적으로 설정되는 옵션들은 다음과 같다.
+		- target: 컴파일된 코드가 어떤 환경에서 실행될 지 정의한다. 
+			예를 들어서,
+			화살표 함수를 사용하고 target을 es5로 한다면 일반 function 키워드를 사용하는 함수로 변환한다.
+			하지만 이를 es6로 설정한다면 화살표 함수를 그대로 유지한다.
+		- module: 컴파일된 코드가 어떤 모듈 시스템을 사용할지 정의한다.
+			예를 들어서,
+			이 값을 common으로 하면, 
+			export default Sample을 하게 됐을 때 컴파일 된 코드에서는
+			exports.default = helloWorld 로 변환해주지만,
+			이 값을 es2015로 하면,
+			export default Sample을 그대로 유지하게 된다.
+		- strict: 모든 타입 체킹 옵션을 활성화한다는 것을 의미한다.
+		- esModuleInterop: commonjs 모듈 형태로 이루어진 파일을 es2015 모듈 형태로 불러올 수 있게 해준다.
+
+1. tsconfig.json 수정 : "outDir": "./dist" 이라는 속성을 추가해서, 컴파일된 파일들이 저장되는 경로를 "./dist"로 지정하기
+	{
+		"compilerOptions": {
+			"target": "es5",
+			"module": "commonjs",
+			"strict": true,
+			"esModuleInterop": true,
+			"outDir": "./dist" // 컴파일된 파일들이 저장되는 경로 지정
+		}
+	}
+
+1. src/practice.ts 생성 : 첫 타입스크립트 파일 만들기
+	// ↓ ": string"로 해당 상수 값이 문자열 이라는 것을 명시, 숫자로 값 설정시 에디터 상에서 오류 표시됨
+	const message: string = 'hello world'
+	console.log(message)
+
+1. 타입스크립트 컴파일
+	$ cd app1
+	$ tsc
+	dist/practice.js 경로에 파일 생성 내용 확인
+		"use strict";
+		var message = 'hello world';
+		console.log(message);
+	ts 파일에서 명시한 값의 타입은 컴파일이 되는 과정에서 모두 사라지게 된다.

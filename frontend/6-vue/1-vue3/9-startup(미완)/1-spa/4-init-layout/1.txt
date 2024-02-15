@@ -1,0 +1,300 @@
+[TailWindCSS의 글로벌 스타일 설정]
+
+1. src/styles/taildwind.css 작성
+/* src/styles/index.css */
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+1. src/assets/vue.svg 삭제
+
+1. src/assets/main.css : TailWindCSS 폰트, 웹킷 등의 설정
+  @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap');
+
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+
+  ::-webkit-scrollbar {
+    width: 7px;
+  }
+
+  ::-webkit-scrollbar-track{
+    background: #2D3748;
+  }
+
+  ::-webkit-scrollbar-thumb{
+    background: #CBD5E0;
+  }
+
+  ::-webkit-scrollbar-thumb:hover{
+    background: #718096;
+  }
+
+
+
+[페이지 레이아웃 구성]
+
+1. src/components/DefaultLayout.vue 작성 : Views안의 페이지들이 모두 가지는 기본 레이아웃(사이드바, 헤더, 푸터) 설정
+  <template>
+    <div class="flex h-screen font-roboto">
+      <Sidebar />
+
+      <div class="flex-1 flex flex-col overflow-hidden">
+        <Header />
+
+        <main class="flex-1 overflow-x-hidden overflow-y-auto">
+          <div class="container mx-auto px-6 py-8">
+            <slot />
+          </div>
+        </main>
+        
+        <Footer />
+      </div>
+    </div>
+  </template>
+
+  <script lang="ts" setup>
+  import Sidebar from "/src/components/organisms/Sidebar.vue";
+  import Header from "/src/components/organisms/Header.vue";
+  import Footer from "/src/components/organisms/Footer.vue";
+  </script>
+
+1. src/components/EmptyLayout.vue 작성 : Views안의 페이지들이 모두 가지는 404 레이아웃 설정
+  <template>
+    <div>
+      404 Page Not Found
+    </div>
+  </template>
+
+1. src/hooks/useSidebar.ts : 사이드바를 열고 닫는 기능을 커스텀 훅으로 만들어서 사용
+  import { ref } from "vue";
+
+  const isOpen = ref(false)
+
+  export function useSidebar() {
+    return {
+      isOpen
+    };
+  }
+
+1. src/components/organisms/Sidebar.vue 작성 : DefaultLayout.vue가 임포트하고 있기 때문에, 작성해준다.
+  <template>
+    <div class="flex">
+      <!-- Backdrop -->
+      <div
+        :class="isOpen ? 'block' : 'hidden'"
+        @click="isOpen = false"
+        class="fixed inset-0 z-20 transition-opacity bg-black opacity-50 lg:hidden"
+      ></div>
+      <!-- End Backdrop -->
+      <div
+        :class="isOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'"
+        class="fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto transition duration-300 transform bg-white text-[#000000] lg:translate-x-0 lg:static lg:inset-0"
+      >
+        <nav class="mt-10">
+          <router-link
+            class="flex items-center px-6 py-2 mt-4 duration-200"
+            :class="[$route.name === 'Movie' ? activeClass : inactiveClass]"
+            to="/movie"
+          >
+            <span class="mx-4 font-bold text-[21px]">Movie App</span>
+          </router-link>
+          <router-link
+            class="flex items-center px-6 py-2 mt-4 duration-200"
+            :class="[$route.name === 'Account' ? activeClass : inactiveClass]"
+            to="/account"
+          >
+            <span class="mx-4 font-bold text-[21px]">Account</span>
+          </router-link>
+        </nav>
+      </div>
+    </div>
+  </template>
+
+  <script lang="ts" setup>
+  import { ref } from "vue";
+  import { useSidebar } from "/src/hooks/useSidebar";
+
+  const { isOpen } = useSidebar();
+  const activeClass = ref("bg-[#E2E9FF] border-gray-100");
+  const inactiveClass = ref("border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100");
+  </script>
+
+1. src/components/organisms/Header.vue 작성 : DefaultLayout.vue가 임포트하고 있기 때문에, 작성해준다.
+  <template>
+    <header
+      class="flex items-center justify-between px-6 py-4 bg-white"
+    >
+      <div class="flex items-center">
+        <button
+          @click="isOpen = true"
+          class="text-gray-500 focus:outline-none lg:hidden"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 16.9999C21 17.5522 20.5523 17.9999 20 17.9999L4 17.9999C3.44772 17.9999 3 17.5522 3 16.9999C3 16.4477 3.44772 15.9999 4 15.9999L20 15.9999C20.5523 15.9999 21 16.4477 21 16.9999Z" fill="#335FFF"/>
+            <path d="M21 11.9999C21 12.5522 20.5523 12.9999 20 12.9999L4 12.9999C3.44772 12.9999 3 12.5522 3 11.9999C3 11.4477 3.44772 10.9999 4 10.9999L20 10.9999C20.5523 10.9999 21 11.4477 21 11.9999Z" fill="#335FFF"/>
+            <path d="M21 6.99994C21 7.55222 20.5523 7.99994 20 7.99994L4 7.99994C3.44771 7.99994 3 7.55222 3 6.99994C3 6.44766 3.44771 5.99994 4 5.99994L20 5.99994C20.5523 5.99994 21 6.44765 21 6.99994Z" fill="#335FFF"/>
+          </svg>
+        </button>
+
+        <div class="relative mx-4 lg:mx-0">
+          <h2 class="ml-2 font-bold text-[20px]">Menu Title</h2>
+        </div>
+      </div>
+
+      <div class="flex items-center">
+        <div class="relative">
+          <button
+            @click="onClick"
+            class="relative z-10 block w-[145px] h-[44px] font-bold text-[16px] text-white bg-red-500 overflow-hidden rounded-full shadow focus:outline-none"
+          >
+            Home
+          </button>
+        </div>
+      </div>
+    </header>
+  </template>
+
+  <script lang="ts" setup>
+  import { ref } from "vue";
+  import { useRouter } from "vue-router";
+  import { useSidebar } from "/src/hooks/useSidebar";
+
+  const { isOpen } = useSidebar();
+  const dropdownOpen = ref(false);
+  const router = useRouter();
+
+  const onClick = () => {
+    router.push("/");
+  }
+  </script>
+
+1. src/components/organisms/Footer.vue 작성 : DefaultLayout.vue가 임포트하고 있기 때문에, 작성해준다.
+  <template>
+    <footer
+      class="flex items-center justify-between px-6 py-4 bg-white"
+    >
+      Footer
+    </footer>
+  </template>
+
+
+
+[루터 구성]
+
+1. src/router.ts 작성 : 루터 작성. path에 따라서 루팅할(= 렌더링할) 컴포넌트를 설정한다.
+  import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+
+  // import Start from "./views/Start.vue";
+  import Movies from "/src/views/Movies.vue";
+  import Account from "/src/views/Account.vue";
+
+  const routes: RouteRecordRaw[] = [
+    // {
+    //   path: "/",
+    //   name: "Home",
+    //   component: Start,
+    //   meta: { layout: "empty" },
+    // },
+    {
+      path: "/movie",
+      name: "Movie App",
+      component: Movies,
+    },
+    {
+      path: "/account",
+      name: "Account",
+      component: Account,
+    },
+  ];
+
+  const router = createRouter({
+    history: createWebHistory(),
+    routes: routes,
+  });
+
+  export default router;
+
+1. src/main.ts 수정 : 앱에다가 루터, 테일윈드CSS, 글로벌CSS, 기본레이아웃 연결
+  import { createApp } from 'vue';
+  import App from '/src/App.vue';
+  import router from '/src/router';
+  import '/src/styles/tailwind.css';
+  import '/src/assets/main.css';
+
+  import DefaultLayout from '/src/components/DefaultLayout.vue';
+  import EmptyLayout from '/src/components/EmptyLayout.vue';
+
+  const app = createApp(App);
+
+  app.component('default-layout', DefaultLayout);
+  app.component('empty-layout', EmptyLayout);
+
+  app.use(router);
+  app.mount('#app');
+
+1. ★ src/App.vue 수정 : router-view를 사용해서, "현재의 루트가 어떤 views의 페이지이냐"에 따라서 렌더링할 레이아웃을 결정. 현재는 전부 default-layout으로 설정되어있음.
+  <template>
+    <component :is="layout">
+      <router-view />
+    </component>
+  </template>
+
+  <script lang="ts">
+  import { defineComponent, computed } from "vue";
+  import { useRouter } from "vue-router";
+
+  const defaultLayout = "default";
+
+  export default defineComponent({
+    setup() {
+      const { currentRoute } = useRouter();
+
+      // 현재 라우트의 메타 데이터에 layout이 있으면 그걸 사용하고, 없으면 defaultLayout을 사용한다.
+      // 다른 레이아웃을 추가로 넣고 싶다면, 이곳에 분기를 추가하면 된다.
+      const layout = computed(
+        () => `${currentRoute.value.meta.layout || defaultLayout}-layout`
+      );
+
+      return {
+        layout,
+      };
+    },
+  });
+  </script>
+
+
+
+[페이지 구성]
+
+1. src/views/Movies.vue 작성 : 일단 더미 페이지로 작성해두기
+  <template>
+    <div>
+      Movie App
+    </div>
+  </template>
+
+  <script lang="ts" setup>
+  </script>
+
+  <style lang="scss" scoped>
+  </style>
+
+1. src/views/Account.vue 작성 : 일단 더미 페이지로 작성해두기
+  <template>
+    <div>
+      Account
+    </div>
+  </template>
+
+  <script lang="ts" setup>
+  </script>
+
+  <style lang="scss" scoped>
+  </style>
+
+1. 테스트 : 초기페이지 "/"가 없어서 콘솔에 워닝이 뜨는데, 무시하고 테스트해보기
+  $ cd app1
+  $ npm run dev

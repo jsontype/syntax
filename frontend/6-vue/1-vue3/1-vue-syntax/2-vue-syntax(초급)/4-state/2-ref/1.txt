@@ -1,0 +1,99 @@
+[ref]
+
+1. 사전준비 : JS의 "메모리 참조 변수, 값 참조 변수"의 차이를 먼저 알아둘 것.
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. 사전준비 : src/components/HelloWorld.vue 삭제
+
+1. ref란?
+  Vue 프레임워크는 웹 애플리케이션의 데이터가 변경될 때
+  자동으로 화면을 업데이트하는 기능을 갖고 있다.
+
+  그런데 vue의 변수는 기본적으로 메모리 참조이기 때문에, ref를 쓰지 않고 정의를 하면,  
+  "값이 바뀌어도 주소가 바뀌지 않으므로, 업데이트 되었음을 인식할 수 없다.
+  따라서 추후 사용할 라이프사이클 함수나, watch를 통해 감지할 수가 없게 된다."
+
+  ref를 사용해서 정의를 하면,
+  "값이 바뀔 때는 주소 변경을 통해야, 업데이트 되었음을 인식할 수 있다.
+  따라서 추후 사용할 라이프사이클 함수나, watch를 통해 감지할 수 있다."
+  즉, ref 함수는 웹 애플리케이션에서 데이터의 변화를 감지하고,
+  이를 통해 화면을 자동으로 업데이트하는 데 필요한 함수이다.
+  이를 "ref의 반환값은 reactive state이다"라고 표현할 수 있다.
+
+1. reactive state란?
+  ★★ ref, reactive 이 둘을 "reactive state (반응형 상태)"라 한다.
+  ref는 primitive type(string, number, boolean, symbol, null, undefined 등)로 된 변수를 정의한다.
+  reactive는 reference type(= object type이라고도 함. Array 객체, Object 객체, Function 객체 등)로 된 변수를 정의할 때 사용한다.
+
+1. ref 함수의 사용방법
+  변수를 "선언할 때는 ref 함수를 사용해서 선언을 하고, 초기값을 ref 함수의 인자로 넣어준다."
+  또한 ref로 정의한 변수의 "값을 변경할 때는 .value로 접근"해야 한다.
+  (반면 reactive는 ref와 달리 .value로 접근하지 않고, 그냥 접근한다.)
+
+1. src/App.vue 수정
+  ```
+    <template>
+      <NoRef />
+      <Ref />
+    </template>
+
+    <script setup lang="ts">
+    import NoRef from '@/components/reactive/NoRef.vue'
+    import Ref from '@/components/reactive/Ref.vue'
+    </script>
+
+    <style scoped>
+    </style>
+  ```
+
+1. src/components/reactive/NoRef.vue 생성
+  ```
+    <template>
+      <div>
+        {{ text }}
+        <button @click="onClick">Click me</button>
+      </div>
+    </template>
+
+    <script setup>
+    import { ref } from 'vue'
+
+    // 뷰에서는 아래처럼 변수를 정의하고 변경하면, 변화를 인식할 수 없다.
+    let text = 'Hello World'
+    const onClick = () => {
+      text = 'Hello Vue 3'
+    }
+    </script>
+
+    <style scoped>
+    </style>
+  ```
+
+1. src/components/reactive/Ref.vue 생성
+  ```
+    <template>
+      <div>
+        {{ text }}
+        <button @click="onClick">Click me</button>
+      </div>
+    </template>
+
+    <script setup>
+    import { ref } from 'vue'
+
+    // 뷰에서는 아래처럼 ref 함수로 감싸서 변수를 정의하고, .value로 변경을 해야 
+    // "변화를 인식하고 이에 반응해서" DOM을 변경할 수 있다.
+    const text = ref('Hello World')
+    const onClick = () => {
+      text.value = 'Hello Vue 3'
+    }
+    </script>
+
+    <style scoped>
+    </style>
+  ```
+
+1. 테스트
+  $ cd app1
+  $ npm run dev

@@ -1,0 +1,75 @@
+[API]
+
+1. src/App.js 수정 : https://jsonplaceholder.typicode.com/users 을 이용해 기존 더미데이터를 API 데이터로 바꿔본다.
+    // CSS
+    import { useState, useRef, useEffect } from 'react'
+    import UserList from './UserList'
+    import './App.css'
+    import CreateUser from './CreateUser'
+
+    export default function App() {
+        // 1. 초기값에 이용하던 기존 더미데이터를 삭제
+        const [users, setUsers] = useState([])
+
+        // 2. 기존 users state를 API 호출 값으로 변경 
+        useEffect(() => {
+            fetch('https://jsonplaceholder.typicode.com/users')
+            .then((response) => response.json())
+            .then((json) => {
+                // 3. 기존의 키 이름에 맞춰서 API 호출 정보를 변경 : { no: 1, id: 'adlsfkj', email: 'adlsfkj@gmail.com', active: true, pw: 12345, out: true },
+                // console.log(json) // 변경 전
+                json.forEach((item) => { item.no = item.id })
+                json.forEach((item) => { item.id = item.username })
+                // console.log(json) // 변경 후
+                setUsers(json)
+            })
+        }, [])
+
+        const [inputs, setInputs] = useState({
+            id: '',
+            email: '',
+        })
+        const { id, email } = inputs
+        
+        const onChange = (event) => {
+            const { name, value } = event.target
+                setInputs({
+                ...inputs,
+                [name]: value
+            }) 
+        }
+
+        const onCreate = () => {
+            const user = {
+                no: nextNo.current,
+                id,
+                email,
+            }
+            setUsers([user, ...users])
+            nextNo.current += 1
+        }
+
+        const onRemove = (no) => {
+            setUsers(users.filter((item) => { return item.no !== no }))
+        }
+
+        // 4. KEY 수정
+        const nextNo = useRef(0)
+        nextNo.current = users.length + 1 
+        // * useRef에 있는 current를 쓰는 이유: 
+        // current를 쓰지 않으면, 컴포넌트 렌더링 할때마다 nextNo가 0으로 초기화되기 때문에, current를 써서 유지시킨다. 
+        // 이런 이유로 원래 useRef에는 current가 포함되어 있음
+
+        return (
+            <>
+                <CreateUser id={id} email={email} onChange={onChange} onCreate={onCreate} />
+                <UserList users={users} onRemove={onRemove} />
+            </>
+        )
+    }
+
+
+
+1. 테스트 : 더미데이터 대신, API 호출한 데이터가 제대로 들어가는 지 확인
+    $ cd app1
+    $ npm start

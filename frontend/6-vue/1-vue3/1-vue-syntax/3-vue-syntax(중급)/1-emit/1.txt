@@ -1,0 +1,55 @@
+[Emit]
+
+1. 사전준비 : init 앱을 가지고 온다.
+
+1. 사전준비 : src/components/HelloWorld.vue 삭제
+
+1. Emit이란?
+  "Emit"은 영어 단어로, "내보내다", "발생시키다"와 같은 의미를 가지고 있다.
+  즉, "Emit"은 "다른 함수를 호출하는 호출 함수"이다.
+  일반적으로는 "자식 컴포넌트가 '부모 컴포넌트에서 선언된 함수'를 실행"하려고 할 때 사용한다.
+
+1. src/App.vue 생성 : 부모 컴포넌트에 "실제 실행할 로직이 있는 함수"를 실행한다.
+  ```
+    <template>
+      <h1>부모 컴포넌트</h1>
+      <!-- 2. do2를 이용해 자식 컴포넌트에 do1을 연결  -->
+      <ChildComponent @do2="do1" />
+    </template>
+
+    <script setup>
+    import { ref } from 'vue'
+
+    import ChildComponent from '@/components/ChildComponent.vue'
+
+    // 1. 실제 실행하고자 하는 함수 do1을 선언
+    const do1 = (item) => {
+      console.log('파라미터: ', item)
+    }
+    </script>
+  ```
+
+1. src/components/ChildComponent.vue 생성 : 자식 컴포넌트에서 "실제 실행할 로직이 있는 함수"를 실행할 Emit 함수를 선언한다.
+  ```
+    <template>
+      <h3>자식 컴포넌트</h3>
+      <!-- 5. do1 함수를 호출하는 do2 (emit) 함수를 호출하는 do3 함수를 호출한다. -->
+      <button @click="do3">호출</button>
+    </template>
+
+    <script setup>
+    import { defineEmits } from 'vue'
+
+    // 3. do2 라는 emit 함수를 호출하기 위해, customEvent 함수를 호출하는 emit를 정의해둔다.
+    const emit = defineEmits(['do2'])
+
+    // 4. emit 함수를 사용해서, customEvent 함수를 호출한다.
+    const do3 = () => {
+      emit('do2', 'Hello Emit!')
+    }
+    </script>
+  ```
+
+1. 테스트 : "Hello Emit!"가 콘솔로그에 제대로 표시되는지 확인
+  $ cd app1
+  $ npm run dev
