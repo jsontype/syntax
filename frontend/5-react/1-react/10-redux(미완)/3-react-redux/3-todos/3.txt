@@ -1,0 +1,296 @@
+[글로벌 스테이트로 todo 관리]
+
+1. src/components/Todos/index.js 생성 : 화면 ui 만들기
+  import React, { useState, useRef } from "react";
+  import "./style.css";
+
+  export default function Todos() {
+    const [todos, setTodos] = useState([]);
+    const [input, setInput] = useState("");
+
+    let key = useRef(1);
+
+    const onChange = (e) => {
+      e.preventDefault();
+      setInput(e.target.value);
+    };
+
+    const onCreate = (e) => {
+      e.preventDefault();
+      const newTodo = {
+        id: key.current,
+        title: input,
+        completed: false,
+        userId: 1,
+      };
+      key.current++;
+      setTodos([...todos, newTodo]);
+    };
+
+    const onSubmit = (e) => {
+      e.preventDefault();
+      onCreate(e);
+      setInput("");
+    };
+
+    const onDelete = (id) => {
+      setTodos(
+        todos.filter((item) => {
+          return item.id !== id;
+        })
+      );
+    };
+
+    const onCompleted = (id) => {
+      setTodos(
+        todos.map((item) => {
+          return item.id === id ? { ...item, completed: !item.completed } : item;
+        })
+      );
+    };
+
+    const render = todos.map((item) => {
+      const isDone = item.completed ? "done" : "";
+
+      return (
+        <div key={item.id}>
+          <span># {item.id} / </span>
+          <span onClick={() => onCompleted(item.id)} className={isDone}>
+            {item.title}
+            &nbsp;
+          </span>
+          <button onClick={() => onDelete(item.id)}>삭제</button>
+        </div>
+      );
+    });
+
+    return (
+      <div>
+        <h1>투두앱</h1>
+        <form onSubmit={onSubmit}>
+          <input
+            name="todo"
+            type="text"
+            value={input}
+            onChange={onChange}
+          ></input>
+          <button type="submit">전송</button>
+        </form>
+
+        <div>{render}</div>
+      </div>
+    );
+  }
+
+1. 테스트 : useState로 돌아가는 Todos 앱의 동작 확인 
+  $ cd app1
+  $ npm start
+
+
+
+[Todos에 리덕스 적용]
+
+1. src/modules/todos.js 생성 : 모듈(리듀서) 만들기 : 액액초리 = 액션타입 / 액션생성함수 / 초기값 / 리듀서
+  /** 액션 타입 정의 */
+  // todos/ 접두사를 붙이는 이유 : 이렇게 하면 다른 모듈과 액션 이름이 중복되는 것을 방지 할 수 있다. 
+  const ADD_TODO = "todos/ADD_TODO";
+  const COMPLETE_TODO = "todos/COMPLETE_TODO";
+  const DELETE_TODO = "todos/DELETE_TODO";
+
+  /** 액션 생성함수 정의 : 타입과 함께, 필요한 파라미터를 같이 넘겨준다. */
+  let key = 2;
+  export const addTodo = (title) => ({
+    type: ADD_TODO,
+    todo: {
+      id: key++,
+      title,
+      completed: false,
+      userId: 1,
+    },
+  });
+  export const completeTodo = (id) => ({ type: COMPLETE_TODO, id });
+  export const deleteTodo = (id) => ({ type: DELETE_TODO, id });
+
+  /** 초기값 정의 */
+  const init = [
+    {
+      id: 1,
+      title: "할일",
+      completed: false,
+      userId: 1,
+    },
+  ];
+
+  /** 리듀서함수 정의 */
+  export default function todos(state = init, action) {
+    switch (action.type) {
+      case ADD_TODO:
+        return [...state, action.todo];
+      case COMPLETE_TODO:
+        return state.map((item) => {
+          return item.id === action.id
+            ? { ...item, completed: !item.completed }
+            : item;
+        });
+      case DELETE_TODO:
+        return state.filter((item) => {
+          return item.id !== action.id;
+        });
+      default:
+        return state;
+    }
+  }
+
+
+
+1. src/modules/index.js 생성 : 루트리듀서 생성
+  import { combineReducers } from "redux";
+  import counter from "./counter";
+  import todos from "./todos";
+
+  /** 루트리듀서함수 정의 */
+  const rootReducer = combineReducers({
+    counter,
+    todos,
+  });
+
+  export default rootReducer;
+
+
+
+1. src/index.js 수정 : index.js에서 provider로 감싸기(Counter 만들때 했으므로 Skip)
+  import React from "react";
+  import ReactDOM from "react-dom/client";
+  import App from "./App";
+
+  /** ★★ CPR 임포트 : createStore, Provider, rootReducer */
+  import { createStore } from "redux";
+  import { Provider } from "react-redux";
+  import rootReducer from "./modules";
+
+  /** 스토어생성 : 파라미터에 루트리듀서 넣어서 연결 */
+  const store = createStore(rootReducer);
+  // console.log(store.getState()) // store 조회하는 방법
+
+  const root = ReactDOM.createRoot(document.getElementById("root"));
+  root.render(
+    /** 프로바이더로 감싸기 : App이 스토어를 사용할 수 있게 연결 */
+    <Provider store={store}>
+      <App />
+    </Provider>
+  );
+
+
+
+1. src/components/Todos/Container.js 생성 : 컨테이너 ui 만들기(스테이트, 액션 붙여준다)
+  import React from "react";
+  import Todos from ".";
+
+  import { addTodo, completeTodo, deleteTodo } from "../../modules/todos";
+  import { useSelector, useDispatch } from "react-redux";
+
+  export default function TodosContainer() {
+    // useSelector : state를 조회하는 react-redux hook
+    const todos = useSelector((state) => state.todos);
+
+    // useDispatch : action을 dispatch(실행)하는 react-redux hook
+    const dispatch = useDispatch();
+    const onCreate = (title) => dispatch(addTodo(title));
+    const onCompleted = (id) => dispatch(completeTodo(id));
+    const onDelete = (id) => dispatch(deleteTodo(id));
+
+    return (
+      <Todos
+        todos={todos}
+        onCreate={onCreate}
+        onCompleted={onCompleted}
+        onDelete={onDelete}
+      />
+    );
+  }
+
+
+
+1. src/app.js 수정 : ui 렌더링에서 container 렌더링으로 변경
+  import "./App.css";
+  import CounterContainer from "./components/Counter/Container";
+  import TodosContainer from "./components/Todos/Container";
+
+  function App() {
+    return (
+      <div className="App">
+        <CounterContainer />
+        <TodosContainer />
+      </div>
+    );
+  }
+
+  export default App;
+
+
+
+1. src/components/Todos/index.js 수정 : 로컬스테이트에서 글로벌스테이트를 이용하도록 변경
+  import React, { useState } from "react"
+  import "./style.css"
+
+  export default function Todos({ todos, onCreate, onCompleted, onDelete }) {
+    const [input, setInput] = useState("")
+
+    const onChange = (e) => {
+      e.preventDefault()
+      setInput(e.target.value)
+    }
+
+    const onSubmit = (e) => {
+      e.preventDefault()
+      onCreate(input)
+      setInput("")
+    }
+
+    const render = todos.map((item) => {
+      const isDone = item.completed ? "done" : ""
+      return (
+        <div
+          key={item.id}
+          className={isDone}
+          onClick={() => onCompleted(item.id)}
+        >
+          <span># {item.id} / </span>
+          <span>
+            {item.title}
+            &nbsp;
+          </span>
+          <button onClick={() => onDelete(item.id)}>삭제</button>
+        </div>
+      )
+    })
+
+    return (
+      <div>
+        <h1>투두앱</h1>
+        <form onSubmit={onSubmit}>
+          <input
+            name="todo"
+            type="text"
+            value={input}
+            onChange={onChange}
+          ></input>
+          <button type="submit">전송</button>
+        </form>
+
+        <div>{render}</div>
+      </div>
+    )
+  }
+
+
+
+1. 테스트 : redux로 돌아가는 Todos 앱의 동작 확인
+  $ cd app1
+  $ npm start
+
+
+
+1. 폴더 구조에 대한 생각
+  이번에는 components/Todos 하나의 폴더안에 Container와 index를 함께 넣는 방법으로 진행하였지만,
+  components와 분리해서 containers라는 폴더에서 Container들을 따로 관리하는 방법도 있다. (대규모 프로젝트에서는 이렇게 하는 것이 좋다.)

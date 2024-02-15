@@ -1,0 +1,128 @@
+[scss setup 페이지]
+
+
+
+### 1. pages/setup.vue 수정 ###
+setup page 대신,
+        <div class="setup">
+            <div class="setup__body">
+                <dl class="setup__list">
+                    <dt>각종 설정</dt>
+                    <dd>
+                        <button class="btn btn--medium btn--flat_orange">프로필 편집</button>
+                    </dd>
+                    <dd>
+                        <button class="btn btn--medium btn--flat_orange">메일주소 편집</button>
+                    </dd>
+                    <dd>
+                        <button class="btn btn--medium btn--flat_orange">패스워드 편집</button>
+                    </dd>
+                    <dd>
+                        <button class="btn btn--medium btn--flat_orange">문의</button>
+                    </dd>
+                    <dd>
+                        <button class="btn btn--medium btn--flat_orange">이용계약</button>
+                    </dd>
+                    <dd>
+                        <button class="btn btn--medium btn--flat_orange">프라이버시 정책</button>
+                    </dd>
+                    <dd>
+                        <button class="btn btn--medium btn--flat_gray">로그아웃</button>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+
+
+
+### 1. assets/components/_button.scss 수정 ###
+
+    &--medium {
+        width: 100%;
+        height: 42px;
+        font-size: $font-size-large;
+        line-height: 16px;
+        font-weight: 900px;
+    }
+
+    &--flat_orange {
+        color: $font-color-orange;
+        border: 1px solid $border-color-orange;
+        border-radious: 6px;
+        background-color: $background-color-white;
+
+        &:link {
+            color: $font-color-orange;
+        }
+
+        &:visited {
+            color: $font-color-orange;
+        }
+
+        &:active {
+            color: $font-color-orange;
+        }
+    }
+
+    &--flat_gray {
+        color: $font-color-gray_strong;
+        border: 1px solid $border-color-gray_strong;
+        border-radious: 6px;
+        background-color: $background-color-white;
+
+        &:link {
+            color: $font-color-orange;
+        }
+
+        &:visited {
+            color: $font-color-orange;
+        }
+
+        &:active {
+            color: $font-color-orange;
+        }
+    }    
+
+
+
+### 1. #### 1. assets/scss/common/_variable.scss 수정 ###
+$border-color-orange: $orange; 추가
+
+### 1. assets/scss/pages/application.scss 수정 ###
+@import "./pages/setup/module"; 추가 (// pages 주석부분에)
+
+#### 1. assets/scss/pages/setup/_module.scss 생성 ###
+.setup {
+    /* 패딩, 마진값 3개의 경우 : 위, 좌우, 아래 순 */
+    padding: 36px 24px 86px;
+    &__list {
+        margin-bottom: 0px;
+        > dt {
+            /* 
+                style을 설정하는 순서의 룰 
+                margin - font - color - align - letter
+            */
+
+            /* 패딩, 마진값 3개의 경우 : 위, 좌우, 아래 순 */
+            margin: 36px 0 30px;
+
+            font-size: $font-size-2extra-large;
+            color: $font-color-gray_strong;
+
+            /* flex가 아닌 경우는 justify-content 가 아닌 text-align */
+            text-align: center;
+
+            line-height: 21px;
+            letter-spacing: -0.333333px;
+        }
+        /* 첫 dd 외에는 마진을 부여 */
+        > dd:not(:first-of-type) {
+            margin-top: 36px;
+        }
+    }
+}
+
+
+
+1. npm run dev --fix으로 확인
+    http://localhost:3000/setup

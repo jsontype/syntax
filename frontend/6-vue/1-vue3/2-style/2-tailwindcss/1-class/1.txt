@@ -1,0 +1,240 @@
+[TailWindCSS]
+
+1. 사전준비 : init 앱을 가지고 온다.
+
+1. 사전준비 : src/components/HelloWorld.vue 삭제
+
+1. 라이브러리 설치
+  $ npm i tailwindcss postcss autoprefixer
+  - postcss autoprefixer란?
+    Autoprefixer는 css를 postcss로 변환해주는 라이브러리이다. 예를 들면, 
+    우리가 css를 사용할 때는 아래처럼 간단하게 하지만,
+    ```
+      .example {
+        display: flex;
+        transition: all 0.3s;
+      }
+    ```
+    사실 아래가 진짜 브라우저에서 동작하는 코드(PostCSS, 후처리된 CSS)이다. 
+    그래서 이런 작업을 해주는 것이다.
+    ```
+      .example {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-transition: all 0.3s;
+        transition: all 0.3s;
+      }
+    ```
+
+1. tailwind.config.js 생성
+  $ npx tailwindcss init
+
+1. tailwind.config.js 수정
+  ```
+    /** @type {import('tailwindcss').Config} */
+    export default {
+      // tailwind를 사용할 html 파일과 vue 파일을 지정
+      content: [
+        './index.html',
+        './src/**/*.{vue,js,ts,jsx,tsx}'
+      ],
+      theme: {
+        extend: {
+          // tailwind를 사용할 css 클래스 중 컬러 클래스들을 커스터마이징: 아래처럼 정의하면, 나중에, bg-primary-50 이런 식으로 사용 가능
+          colors: {
+            primary: {
+              50: '#335FFF',
+              60: '#637CFF',
+              70: '#939DFF',
+            },
+            secondary: {
+              50: '#FC325E',
+              60: '#FE627B',
+              70: '#FF929D',
+            }
+          }
+        },
+      },
+      plugins: [],
+    }
+  ```
+
+1. postcss.config.js 생성 : TailwindCSS를 호환되도록 하기 위해서 필요한 postcss 처리를 위한 설정 파일
+  ```
+    export const plugins = {
+      tailwindcss: {},
+      autoprefixer: {},
+    };
+  ```
+
+1. vite.config.ts 수정 : TailwindCSS를 모든 앱에 연결한다.
+  ```
+    import { defineConfig } from 'vite'
+    import vue from '@vitejs/plugin-vue'
+    import path from 'path'
+
+    // postcss 관련 플러그인 임포트
+    import postcssImport from 'postcss-import';
+    import tailwindcss from 'tailwindcss';
+    import autoprefixer from 'autoprefixer';
+
+    export default defineConfig({
+      plugins: [vue()],
+      resolve: {
+        alias: {
+          '@': path.resolve(__dirname, 'src'),
+        },
+      },
+      css: {
+        postcss: {
+          plugins: [postcssImport, tailwindcss, autoprefixer],
+        },
+      },  
+    })
+  ```
+
+1. src/assets/styles/tailwind.css 생성 : TailwindCSS를 임포트한 파일
+  ```
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+  ```
+
+1. src/main.ts 수정 : TailwindCSS를 모든 앱에 연결한다.
+  ```
+    import { createApp } from 'vue'
+    import App from './App.vue'
+    import './assets/styles/tailwind.css'
+
+    const app = createApp(App)
+
+    app.mount('#app')
+  ```
+
+1. src/HelloTailWindCSS.vue 생성 : TailwindCSS를 적용한다.
+  ```
+    <template>
+      <h1 class="text-[50px]">Hello TailWindCSS !</h1>
+      <h1 class="bg-primary-50 text-white">Hello TailWindCSS !</h1>
+      <h1 class="text-primary-50">Hello TailWindCSS !</h1>
+      <h1 class="text-secondary-50">Hello TailWindCSS !</h1>
+    </template>
+
+    <script setup>
+    </script>
+
+    <style scoped>
+    </style>
+  ```
+
+1. src/App.vue 수정 : TailwindCSS를 적용한다.
+  ```
+    <template>
+      <HelloTailWindCSS />
+    </template>
+
+    <script setup lang="ts">
+    import HelloTailWindCSS from '@/components/HelloTailWindCSS.vue'
+    </script>
+
+    <style scoped>
+    </style>
+  ```
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
+
+
+
+[TailWindCSS 클래스 모음]
+참조: https://tailwindcss.com/docs/installation 공식문서
+
+1. 레이아웃 (Layout)
+  컨테이너: container
+  박스 사이징: box-border, box-content
+  디스플레이: block, inline-block, inline, flex, inline-flex, table, grid, hidden
+  플로트: float-right, float-left, float-none
+  클리어: clear-left, clear-right, clear-both, clear-none
+  오브젝트 피팅: object-contain, object-cover, object-fill
+  포지션: static, fixed, absolute, relative, sticky
+  가시성: visible, invisible
+
+1. 타이포그래피 (Typography)
+  폰트 패밀리: font-sans, font-serif, font-mono
+  폰트 크기: text-xs, text-sm, text-base, text-lg, text-xl
+  폰트 스무딩: antialiased, subpixel-antialiased
+  폰트 스타일: italic, not-italic
+  폰트 무게: font-light, font-normal, font-bold
+  라인 높이: leading-none, leading-tight, leading-snug
+  문자 간격: tracking-tighter, tracking-tight, tracking-normal
+  텍스트 정렬: text-left, text-center, text-right, text-justify
+  텍스트 색상: text-gray-500, text-blue-500, text-red-500
+  텍스트 장식: underline, line-through, no-underline
+  텍스트 변환: uppercase, lowercase, capitalize, normal-case
+  수직 정렬: align-baseline, align-top, align-middle, align-bottom
+  공백: whitespace-normal, whitespace-no-wrap, whitespace-pre
+  단어 분리: break-normal, break-words, break-all
+
+1. 배경 (Backgrounds)
+  배경 색상: bg-gray-200, bg-red-300, bg-blue-400
+  배경 불투명도: bg-opacity-50, bg-opacity-75
+  배경 위치: bg-bottom, bg-center, bg-left
+  배경 크기: bg-auto, bg-cover, bg-contain
+  배경 반복: bg-repeat, bg-no-repeat, bg-repeat-x, bg-repeat-y
+
+1. 테두리 (Borders)
+  테두리 두께: border, border-2, border-4
+  테두리 색상: border-gray-300, border-red-500, border-blue-600
+  테두리 반경: rounded, rounded-lg, rounded-full
+  테두리 스타일: border-solid, border-dashed, border-dotted
+  분할 두께: divide-y, divide-x
+  분할 색상: divide-gray-400, divide-red-300
+
+1. 크기 (Sizing)
+  너비 / 높이: w-1/2, w-full, h-1/4, h-full
+  최대 너비 / 최대 높이: max-w-xs, max-w-sm, max-w-md
+  최소 너비 / 최소 높이: min-w-full, min-h-full
+
+1. 간격 (Spacing)
+  패딩: p-1, p-2, p-4, p-6, p-8, px-1, py-1, pt-1, pb-1, pl-1, pr-1
+  마진: m-1, m-2, m-4, m-6, m-8, mx-1, my-1, mt-1, mb-1, ml-1, mr-1
+  공간: space-x-2, space-y-2
+
+1. 플렉스 및 그리드 (Flex & Grid)
+  플렉스: flex, flex-row, flex-col
+  플렉스 랩: flex-wrap, flex-wrap-reverse, flex-nowrap
+  플렉스 정렬: items-start, items-center, items-end
+  그리드: grid, grid-cols-2, grid-rows-3
+  그리드 갭: gap-2, gap-4
+
+1. 기타 (Others)
+  불투명도: opacity-50, opacity-75, opacity-100
+  그림자: shadow, shadow-md, shadow-lg
+  Z-인덱스: z-0, z-10, z-20
+
+1. 전환
+  전환 속성: transition, transition-all, transition-colors
+  전환 지연: delay-75, delay-100, delay-150
+  전환 타이밍: ease-in, ease-out, ease-in-out
+  전환 지속시간: duration-75, duration-100, duration-150
+  전환 형태 - 애니메이션: animate-spin, animate-ping, animate-bounce
+  전환 형태 - 변형: transform, transform-gpu, transform-none
+  전환 형태 - 스케일: scale-50, scale-75, scale-100
+  전환 형태 - 회전: rotate-0, rotate-45, rotate-90
+  전환 형태 - 이동: translate-x-0, translate-x-1, translate-x-2
+  전환 형태 - 기울임: skew-x-0, skew-x-1, skew-x-2
+  전환 형태 - 트랜스폼 원점: origin-center, origin-top, origin-bottom
+  전환 형태 - 트랜스폼 타입: transform-gpu, transform-none
+  전환 형태 - 트랜스폼 스타일: transform-flat, transform-preserve-3d
+  ...
+
+1. 실무중 참고했던 사항들 모음
+  퍼센티지는 w-[90vw]로 하면 90%가 된다.
+  브라우저 높이는 h-screen
+  브라우저 너비는 w-screen
+  브라우저 너비의 1/2는 w-1/2
+  브라우저 너비의 1/3는 w-1/3
+  브라우저 너비의 1/4는 w-1/4
+  ...

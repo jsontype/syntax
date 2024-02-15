@@ -1,0 +1,1 @@
+app1 이닛 앱으로 해서 hooks useState 강의 그대로 쓰기

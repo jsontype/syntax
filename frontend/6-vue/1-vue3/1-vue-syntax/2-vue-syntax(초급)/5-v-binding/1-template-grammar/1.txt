@@ -1,0 +1,20 @@
+[Template Grammar]
+
+1. Template Grammar란?
+  Vue의 템플릿 컴포넌트(<template></template>)는 HTML을 기반으로 하는데,
+  이 HTML 템플릿 안에 "JS를 쉽게 결합할 수 있도록, 바인딩하는 문법"을 말한다.
+  그래서 데이터에 실시간으로 반응하는 UI(동적 웹페이지)를 구현할 수 있다.
+
+1. 보간법 (Interpolation)
+  문자열: {{ }}를 사용해서 데이터를 HTML에 바인딩할 수 있다.
+  Raw HTML: v-html 디렉티브를 사용하면 HTML 코드를 직접 렌더링할 수 있다.
+    예를 들어, <div v-html="htmlContent"></div>와 같이 사용해서,
+    htmlContent 데이터에 저장된 HTML 코드를 페이지에 직접 렌더링한다.
+
+1. 디렉티브 (Directives)
+  Vue 디렉티브는 v-로 시작하는 특별한 속성이다. 이것들은 HTML 태그에 JavaScript 표현식을 추가할 수 있게 해준다.
+  v-bind: HTML 태그의 속성을 Vue 데이터에 바인딩할 때 사용한다.
+  v-model: input안의 폼 입력값과 앱 데이터를 양방향으로 바인딩하는 데 사용된다.
+  v-if, v-else-if, v-else: 조건에 따라 요소를 표시하거나 숨길 때 사용한다.
+  v-for: 배열이나 객체의 각 항목에 대해 반복적인 요소를 렌더링할 때 사용한다.
+  그 외에도 다양한 v-binding 문법이 있다.

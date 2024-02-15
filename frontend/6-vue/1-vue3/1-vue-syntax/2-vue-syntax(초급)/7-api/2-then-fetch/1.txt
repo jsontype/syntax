@@ -1,0 +1,94 @@
+[fetch]
+
+1. 사전준비 : init 앱을 가지고 온다.
+
+1. 사전준비 : src/components/HelloWorld.vue 삭제
+
+1. src/components/MoviaApp.vue 생성 : fetch 내장함수를 사용하여 영화 목록을 불러오기
+  ```
+    <template>
+      <div>
+        <h1>Movie App</h1>
+        <div id="movies">
+          <div v-for="movie in movies" :key="movie.id" class="movie">
+            <a class="movieTitle" :href="movie.url">{{ movie.title }}</a>
+            <img class="movieImage" :src="movie.background_image" :alt="movie.title" />
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <script setup>
+    import { ref, onMounted } from 'vue'
+
+    const movies = ref([])
+
+    function getMovies() {
+      fetch('https://yts.mx/api/v2/list_movies.json?sort_by=rating')
+        .then(res => res.json())
+        .then(json => {
+          movies.value = json.data.movies
+          console.log('movies.value: ', movies.value)
+        })
+    }
+
+    onMounted(() => {
+      getMovies()
+    })
+    </script>
+
+    <style lang="css" scoped>
+    .movieTitle {
+      display: block;
+    }
+    </style>
+  ```
+
+1. src/App.vue 수정
+  ```
+    <template>
+      <MovieApp />
+    </template>
+
+    <script setup lang="ts">
+    // Local Component
+    import MovieApp from '@/components/MovieApp.vue'
+    </script>
+
+    <style scoped>
+    </style>
+  ```
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
+
+1. 보충: 이 코드에는 없지만, Fetch로 POST 요청할 때의 예제
+  ```
+    const postData = {
+      title: 'New Post',
+      body: 'This is the body of the new post',
+      userId: 1,
+    };
+
+    fetch('https://jsonplaceholder.typicode.com/posts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(postData),
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  ```
+  Fetch API는 기본적으로 mode, cache, credentials, redirect, referrerPolicy 등 다양한 옵션을 제공하여 요청을 세밀하게 제어할 수 있다.

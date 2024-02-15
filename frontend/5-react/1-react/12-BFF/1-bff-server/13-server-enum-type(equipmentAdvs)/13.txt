@@ -1,0 +1,145 @@
+[Enum 타입 : 열거 타입]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. Enum 타입 : 필드들이 지정한 값만 가질 수 있게 하는 타입
+
+
+
+1. typedefs-resolvers/_enums.js 생성 : Role에는 developer, designer, planner 값만 가질 수 있게 하고, NewOrUsed에는 new, used 값만 가질 수 있게 한다.
+  const { gql } = require('apollo-server')
+
+  const typeDefs = gql`
+      enum Role {
+          developer
+          designer
+          planner
+      }
+      enum NewOrUsed {
+          new
+          used
+      }
+  `
+  module.exports = typeDefs
+
+
+
+1. index.js 수정 : enums를 임포트해서 연결해둔다.
+  const { ApolloServer } = require("apollo-server")
+
+  const queries = require("./typedefs-resolvers/_queries")
+  const mutations = require("./typedefs-resolvers/_mutations")
+  const enums = require("./typedefs-resolvers/_enums")
+  const equipments = require("./typedefs-resolvers/equipments")
+  const supplies = require("./typedefs-resolvers/supplies")
+
+  const typeDefs = [
+    queries,
+    mutations,
+    enums,
+    equipments.typeDefs,
+    supplies.typeDefs,
+  ]
+
+  const resolvers = [equipments.resolvers, supplies.resolvers]
+
+  const server = new ApolloServer({ typeDefs, resolvers })
+
+  server.listen().then(({ url }) => {
+    console.log(`🚀  Server ready at ${url}`)
+  })
+
+
+
+1. typedefs-resolvers/equipments.js 수정 : type Equipment에 정의해둔 Role과 NewOrUsed라는 enums를 연결해준다.
+  const { gql } = require("apollo-server")
+  const dbWorks = require("../dbWorks")
+
+  const typeDefs = gql`
+    type Equipment {
+      id: String
+      used_by: Role!
+      count: Int
+      new_or_used: NewOrUsed!
+    }
+    type EquipmentAdv {
+      id: ID!
+      used_by: String!
+      count: Int!
+      use_rate: Float
+      is_new: Boolean!
+    }
+  `
+
+  const resolvers = {
+    Query: {
+      equipments: (parent, args) => dbWorks.getEquipments(args),
+      equipmentAdvs: (parent, args) =>
+        dbWorks.getEquipments(args).map((equipment) => {
+          if (equipment.used_by === "developer") {
+            // 개발자가 사용하는 장비일 경우, 사용량을 랜덤으로 만들어서 넣어줄 것이다.
+            equipment.use_rate = Math.random().toFixed(2)
+          }
+          // 새것인지 중고인지를 Boolean 값으로 구분하는 필드를 추가한다.
+          equipment.is_new = equipment.new_or_used === "new"
+          return equipment
+        }),
+    },
+    Mutation: {
+      deleteEquipment: (parent, args) => dbWorks.deleteItem("equipments", args),
+    },
+  }
+
+  module.exports = {
+    typeDefs: typeDefs,
+    resolvers: resolvers,
+  }
+
+
+
+1. 테스트 : 이전과 차이가 없는지 테스트
+  $ cd app1
+  $ npm start
+  http://localhost:4000/ 접속 : GraphQL Playground가 열린다.
+  GraphQL Playground 사용 : 좌측에 다음 쿼리를 넣고 Run을 클릭
+    query {
+      equipments {
+        id
+        used_by
+        count
+        new_or_used
+      }
+      equipmentAdvs {
+        id
+        used_by
+        count
+        use_rate
+        is_new
+      }
+    }
+  성공적으로 equipments, equipmentAdvs 목록이 각각 표시되는지 확인
+
+
+  
+1. 테스트 : enums 에러에 의해 실패하는 것을 테스트
+  data/equipments.csv의 Role 항목 한개를 dev 로 변경해본다.
+  서버를 한번 껐다 켠다.
+  http://localhost:4000/ 접속 : GraphQL Playground가 열린다.
+  GraphQL Playground 사용 : 좌측에 다음 쿼리를 넣고 Run을 클릭
+    query {
+      equipments {
+        id
+        used_by
+        count
+        new_or_used
+      }
+      equipmentAdvs {
+        id
+        used_by
+        count
+        use_rate
+        is_new
+      }
+    }
+  equipments, equipmentAdvs 목록 표시에 실패하고, enums에 걸려서 error가 나는 것을 확인
+  변경했던 data/equipments.csv의 Role 항목을 돌려놓는다.

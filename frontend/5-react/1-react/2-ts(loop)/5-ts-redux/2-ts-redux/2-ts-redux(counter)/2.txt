@@ -1,0 +1,224 @@
+[Redux로 선언한 State의 데이터타입 관리하기 - Counter 컴포넌트 편]
+
+1. 카운터를 구현해보자.
+
+1. src/modules/counter.ts 생성 : Counter의 Redux 모듈 작성하기
+  /* Counter의 Redux 모듈 작성하기 */
+  // Redux 관련 코드를 작성할 때 Ducks 패턴을 사용 할 것이다.
+  // 즉, 액션타입, 액션생성함수, 리듀서를 모두 한 파일에 작성하겠다는 의미이다.
+
+  /* 액션 타입 선언 */
+  // 뒤에 as const를 붙여줌으로써 나중에 액션 객체를 만들기 위해 action.type의 값을 추론하는 과정에서
+  // action.type이 "단순 string"으로 추론되지 않고 'counter/INCREASE' 와 같이 "변수안에 들어가는 실제 문자열 값"으로 추론 되도록 한다.
+  // 무슨 말이냐면,
+  // as const를 쓰지 않고 string으로 했을 때의 타입은 { type: string; }이 되고, 
+  // as const를 쓰고 const로 했을 때의 타입은 { type: "counter/INCREASE_BY"; }이 되므로, 후자가 맞다는 얘기다.
+  const INCREASE = 'counter/INCREASE' as const
+  const DECREASE = 'counter/DECREASE' as const
+  const INCREASE_BY = 'counter/INCREASE_BY' as const
+
+  /* 액션 생성함수 선언 */
+  export const increase = () => ({
+    type: INCREASE
+  })
+  export const decrease = () => ({
+    type: DECREASE
+  })
+  export const increaseBy = (diff: number) => ({
+    type: INCREASE_BY,
+    // 액션에 부가적으로 필요한 값을 payload라는 이름으로 통일한다.
+    payload: diff
+  })
+  // payload로 하는 이유는 FSA (https://github.com/redux-utilities/flux-standard-action) 라는 규칙을 따르는 것이다.
+  // FSA 규칙을 적용하면 액션들이 모두 비슷한 구조로 이루어져있게 되어 추후 다룰 때도 편하고
+  // 읽기 쉽고, 액션 구조를 일반화함으로써 액션에 관련돤 라이브러리를 사용 할 수 있다는 것이다.
+  // 다만, 무조건 꼭 따를 필요는 없다.
+
+  /* action 타입 선언 : 타입스크립트용 타입 */
+  type CounterAction =
+    // ReturnType<typeof _____> 는 특정 함수의 반환값을 추론해준다.
+    | ReturnType<typeof increase>
+    | ReturnType<typeof decrease>
+    | ReturnType<typeof increaseBy>
+
+  /* State 타입 선언 : 타입스크립트용 타입  */
+  type CounterState = {
+    count: number
+  }  
+
+  /* State 초기값 선언 */
+  const initialState: CounterState = {
+    count: 0
+  }
+
+  /* 리듀서 선언 */
+  // 리듀서에서는 State와 함수의 리턴값이 일치하도록 작성한다.
+  // 액션에서는 방금 만든 CounterAction을 타입으로 설정한다.
+  export default function counter(
+    state: CounterState = initialState,
+    action: CounterAction
+  ): CounterState {
+    switch (action.type) {        
+      case INCREASE:
+        return { count: state.count + 1 }
+      case DECREASE:
+        return { count: state.count - 1 }
+      case INCREASE_BY:
+        // action.payload 객체 안의 값이 모두 유추된다. * 상단부에서 액션 타입을 선언 할 떄 as const 를 하지 않으면 이 부분이 제대로 작동하지 않는다.
+        return { count: state.count + action.payload }
+      default:
+        return state
+    }
+  }
+
+
+
+1. src/modules/index.ts 생성 : 루트리듀서 만들고, 루트 리듀서에 counter 리듀서를 등록하고, 리덕스를 프로젝트에 적용시키기
+  import { combineReducers } from 'redux'
+  import counter from './counter'
+
+  // 루트리듀서 만들기
+  const rootReducer = combineReducers({
+    counter
+  })
+
+  // 루트리듀서 익스포트 해두기
+  export default rootReducer
+
+  // 루트리듀서의 리턴값 타입 정의 : 추후 이 타입을 컨테이너 컴포넌트에서 불러와서 사용할 수 있게 익스포트 해두기
+  export type RootState = ReturnType<typeof rootReducer>
+
+
+
+1. src/index.tsx 수정 : 스토어를 만들고, Provider 컴포넌트를 사용하여 스토어를 프로젝트에 적용시키기
+  import ReactDOM from 'react-dom'
+  import App from './App'
+  import { Provider } from 'react-redux'
+  import { createStore } from 'redux'
+  import rootReducer from './modules'
+
+  // 스토어를 만들고,
+  const store = createStore(rootReducer)
+
+  ReactDOM.render(
+    // Provider 컴포넌트를 사용하여 스토어를 프로젝트에 적용
+    <Provider store={store}>
+      <App />
+    </Provider>,
+    document.getElementById('root')
+  )
+
+  // 이것으로 프로젝트에 Redux를 적용할 준비가 완료되었다.
+
+
+
+1. src/components/Counter.tsx 생성 : Counter의 프리젠테이셔널 컴포넌트 만들기
+  /* Counter의 프리젠테이셔널 컴포넌트 만들기 */
+
+  // props 타입 정의
+  type CounterProps = {
+    count: number
+    onIncrease: () => void
+    onDecrease: () => void
+    onIncreaseBy: (diff: number) => void
+  }
+
+  // 컴포넌트에서 필요한 값과 함수들을 모두 props로 받아온다.
+  export default function Counter({
+    count,
+    onIncrease,
+    onDecrease,
+    onIncreaseBy
+  }: CounterProps) {
+    // 렌더링한다.
+    return (
+      <div>
+        <h1>{count}</h1>
+        <button onClick={onIncrease}>+1</button>
+        <button onClick={onDecrease}>-1</button>
+        <button onClick={() => onIncreaseBy(5)}>+5</button>
+      </div>
+    )
+  }
+
+
+
+1. src/containers/CounterContainer.tsx 생성 : Counter의 컨테이너 컴포넌트 만들기
+  import { useSelector, useDispatch } from 'react-redux'
+  import { RootState } from '../modules'
+  import { increase, decrease, increaseBy } from '../modules/counter'
+  import Counter from '../components/Counter'
+
+  /* Counter의 컨테이너 컴포넌트 만들기 */
+  // 컨테이너 컴포넌트 : Global State 값을 조회하고, Action을 디스패치하는 컴포넌트
+  // 컨테이너 컴포넌트에서 신경 쓸 부분은 useSelector((state: RootState) => state.counter.count) 이 부분이 전부이다.
+  export default function CounterContainer() {
+    // count의 타입은 useSelector가 알아서 유추해주니 굳이 :number라고 타입을 설정 할 필요 없다.
+    const count = useSelector(
+      // Global State를 조회할 때에는 state의 타입을 RootState로 지정해야 한다.
+      (state: RootState) => state.counter.count
+    )
+    
+    // 디스패치 함수를 가져온다.
+    const dispatch = useDispatch()
+
+    // 각 Action들을 디스패치하는 함수들을 만들어준다.
+    const onIncrease = () => {
+      dispatch(increase())
+    }
+
+    const onDecrease = () => {
+      dispatch(decrease())
+    }
+
+    const onIncreaseBy = (diff: number) => {
+      dispatch(increaseBy(diff))
+    }
+
+    // UI가 있는 카운터를 렌더링하면서 "조회한 Global State 값"과, "Dispatch한 Action"들을 Props로 넘겨준다!
+    return (
+      <Counter
+        count={count}
+        onIncrease={onIncrease}
+        onDecrease={onDecrease}
+        onIncreaseBy={onIncreaseBy}
+      />
+    )
+  }
+
+
+
+1. src/App.tsx 수정 : CounterContainer를 렌더링
+  import React from 'react'
+  import CounterContainer from './containers/CounterContainer'
+
+  const App: React.FC = () => {
+    return <CounterContainer />
+  }
+
+  export default App
+
+
+
+1. 중간 테스트 : 글로벌 스테이트가 작동하는지 확인
+  $ cd app1
+  $ npm start
+
+
+
+1. src/components/Counter.tsx 수정 : 아래 내용을 적절히 추가하여, Todos 앱에다가 Counter 앱의 글로벌 스테이트를 출력해보기
+  import { useSelector } from "react-redux"
+
+  // 함수 JS 부분 ...
+    const count = useSelector(
+      (state: any) => state.counter.count
+    )
+
+  // 함수 XML 부분 ...
+    <h1>{count}</h1>
+
+
+  
+1. 테스트 : Counter와 Todos를 오가며 바뀐 글로벌 스테이트가 다른 컴포넌트에서도 동일하게 표시되는지 확인
+  $ cd app1
+  $ npm start

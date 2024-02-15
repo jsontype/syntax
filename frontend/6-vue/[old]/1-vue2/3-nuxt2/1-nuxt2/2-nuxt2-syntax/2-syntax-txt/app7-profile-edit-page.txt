@@ -1,0 +1,226 @@
+[scss profile 페이지]
+
+
+
+### 1. pages/profile_edit.vue 생성 ###
+<template>
+    <div>
+        <Header></Header>
+        <div class="profileEdit">
+            <div class="profileEdit__title"></div>
+            <div class="profileEdit__avatar">
+                <img src="@/assets/images/avatar1.png" width="120" height="120" />
+            </div>
+            <div class="profileEdit__avatarUpdate">
+                <a href="">프로필 사진을 변경</a>
+            </div>
+            <div class="profileEdit__osusume">
+                * 0 픽셀 x 0 픽셀 (정방향)의 이미지를 추천합니다.
+            </div>
+            <ul class="profileEdit__form">
+                <li>
+                    <div class="profileEdit__form__row">
+                        <div class="profileEdit__form__row__title">성함</div>
+                        <ul class="profileEdit__form__row__input">
+                            <li><input type="text" /></li>
+                            <li><input type="text" /></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="profileEdit__form__row">
+                        <div class="profileEdit__form__row__title">프로필 텍스트</div>
+                        <div class="profileEdit__form__row__input">
+                            <textarea></textarea>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="profileEdit__submit">
+                <button class="btn btn--large btn-submit" @click="onSetupModalOpen">설정</button>
+            </div>
+            <div class="modalBg" v-if="isModal"></div>
+            <div class="modal" v-if="isModal">
+                <div class="modal__contents">
+                    <div class="modal__contents__title">
+                        프로필을 변경했습니다.
+                    </div>
+                    <div class="modalContents__action">
+                        <button class="btn btn--medium btn--flat_orange" @click="onSetupModalClose">각종 설정화면으로 돌아간다</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <Footer></Footer>
+    </div>
+</template>
+
+<script>
+import Header from "@/components/Header"
+import Footer from "@/components/Footer"
+
+export default {
+    components: {
+        Header,
+        Footer,
+    },
+    data() {
+        return {
+            isModal: false
+        }
+    },
+    methods: {
+        onSetupModalOpen() {
+            this.isModal = true
+        },
+        onSetupModalClose() {
+            this.isModal = false
+        }
+    }
+}
+</script>
+
+
+
+### 1. assets/scss/common/_variable.scss 수정 ###
+추가
+$red: #FF0000;
+$font-color-red: $red;
+
+
+
+### 1. assets/scss/pages/profileEdit/_module.scss 생성 ###
+.profileEdit {
+    position: relative;
+    padding: 36px 16px 26px;
+    
+    &__title {
+        padding-top: 36px;
+        text-align: center;
+        color: $font-color-gray_strong;
+        font-size: $font-size-2extra-large;
+        line-height: 21px;
+        letter-spacing: -0.333333px;
+        font-family: Comfortaa;
+    }
+    &__avatar {
+        margin-top: 36px;
+        text-align: center;
+    }
+    &__avatarUpdate {
+        margin-top: 6px;
+        text-align: center;
+        > a {
+            color: $font-color-orange;
+        }
+    }
+    &__osusume {
+        margin-top: 6px;
+        text-align: center;
+        color: $font-color-red;
+        font-size: $font-size-xsmall;
+    }
+    &__form {
+        margin-top: 32px;
+        > li {
+            &:not(:first-child) {
+                margin-top: 16px;
+            }
+        }
+        &__row {
+            &__title {
+                font-size: $font-size-small;
+                color: $font-color-gray_strong;
+            }
+            &__input {
+                display: flex;
+                >li {
+                    flex: 1;
+                    &:not(:first-child) {
+                        margin-left: 24px;
+                    }
+                }
+            }
+        }
+    }
+    &__submit {
+        margin-top: 36px;
+    }
+}
+
+
+
+### 1. assets/scss/components/_modal.scss 생성 ###
+.modalBg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99999;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(196, 196, 196, 0.6);
+}
+
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    z-index: 999999;
+    width: 100%;
+    margin-top: -110px;
+    &__contents {
+        margin: 0 16px;
+        padding: 60px 22px 52px;
+        background-color: $background-color-white;
+        border-radius: 12px;
+        &__title {
+            margin-bottom: 30px;
+            color: $font-color-gray_strong;
+            font-size: $font-size-2extra-large;
+            font-family: Comfortaa;
+            line-height: 21px;
+            text-align: center;
+        }
+        &__action {
+            margin-top: 46px;
+        }
+    }
+}
+
+
+
+### 1. assets/scss/application.scss 수정 ###
+추가
+@import "./pages/profileEdit/module";
+@import "./components/modal";
+
+
+
+### 1. assets/scss/components/_input.scss 수정 ###
+맨 밑에 추가
+
+textarea {
+    width: 100%;
+    height: 124px;
+    resize: none;
+    padding: 12px;
+    line-height: 16px;
+    background-color: $background-color-white;
+    border: 2px solid #50555C;
+
+    &:focus {
+        outline: none;
+        background-color: $background-color-white;
+    }
+}
+
+
+
+1. npm run dev --fix으로 확인
+    http://localhost:3000/profile_edit
+
+
+
+1. 끝. 이번 시간은 Nuxt.js가 무엇인가에 대한 설명으로 충분하므로, 이후 내용은 생략하도록 하겠다.

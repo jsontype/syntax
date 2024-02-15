@@ -1,0 +1,39 @@
+[리액트 네이티브 State]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. src/App.js 수정 : MyButton들을 State를 더하거나 곱해서 바꾸는 로직으로 수정
+  import { useState } from "react"
+  import { StatusBar } from "expo-status-bar"
+  import { StyleSheet, Text, View, Button } from "react-native"
+  import MyButton from "./MyButton"
+
+  export default function App() {
+    const [a, setA] = useState(0)
+    const [b, setB] = useState(1)
+
+    return (
+      <View style={styles.container}>
+        <StatusBar style="auto" />
+
+        <Text>{a}</Text>
+        <Text>{b}</Text>
+
+        <MyButton title="2 더하기" onPress={() => setA(a + 2)} />
+        <MyButton title="2 곱하기" onPress={() => setB(b * 2)} />
+      </View>
+    )
+  }
+
+  export const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: "#fff",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+  })
+
+1. 테스트 : 두 버튼을 클릭해서 더하기와 곱하기가 작동하는지 확인한다.
+  $ cd app1
+  $ npm start
