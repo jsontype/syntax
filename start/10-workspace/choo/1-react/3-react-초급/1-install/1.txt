@@ -1,1 +1,0 @@
-$ npx create-react-app app1 // app1은 프로젝트 이름
