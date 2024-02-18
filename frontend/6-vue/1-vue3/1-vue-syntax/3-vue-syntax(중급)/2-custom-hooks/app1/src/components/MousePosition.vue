@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import { useMousePosition } from '@/hooks/useMousePosition';
+import { useMousePosition } from '@/composables/useMousePosition';
 
 const { x, y } = useMousePosition();
 </script>
