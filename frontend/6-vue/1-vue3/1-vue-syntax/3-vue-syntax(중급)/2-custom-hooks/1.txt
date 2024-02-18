@@ -9,7 +9,7 @@
   여러 컴포넌트에서 동일한 기능을 사용할 때 유용하다.
   커스텀 훅스를 모아두는 특정한 표준 폴더는 없지만, 일반적으로 "hooks" 또는 "composables" 라는 폴더명을 사용하므로 참고하자.
 
-1. src/hooks/useMousePosition.js 생성 : 마우스 위치를 추적하는 커스텀 훅스
+1. src/composables/useMousePosition.js 생성 : 마우스 위치를 추적하는 커스텀 훅스
   ```
     import { ref, onMounted, onUnmounted } from 'vue';
 
@@ -38,7 +38,7 @@
     </template>
 
     <script setup>
-    import { useMousePosition } from '@/hooks/useMousePosition';
+    import { useMousePosition } from '@/composables/useMousePosition';
 
     const { x, y } = useMousePosition();
     </script>
