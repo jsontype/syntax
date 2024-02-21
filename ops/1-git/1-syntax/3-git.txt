@@ -126,38 +126,38 @@
     git reset HEAD^^ : 최근에 한 두개의 커밋을  되돌려놓는다.
     git reset HEAD^^^ : 최근에 한 세개의 커밋을  되돌려놓는다. (= git reset HEAD~3)
 
-  $ ★★ git push origin master 뒤에 -f 또는 --force-with-lease : 충돌이 없을 경우 강제로 푸시한다.
-    git push origin [branch name] -f
-      기본 제공되는 강제 푸시 방법으로, "상대적으로 과거의, 타인의 수정과 충돌할 경우 해당 수정내역을 삭제하며 강제로 푸시"한다.
-      git reset HEAD 되었거나, git rebase -i HEAD 된 것을,
-      되돌려진 상태에서 새로 commit을 한 것을, 강제로 다시 푸시한다. 
-      -f를 걸지 않으면 fast forward error에 걸릴 것이다.
-      그러나, 현장에서는 -f를 왠만하면 쓰지 않고, 아래와 같은 명령어를 쓴다.
-    ★★ git push origin master --force-with-lease
-      현장에서 쓰게 될 강제 푸시 방법으로 "상대적으로 과거의, 타인의 수정과 충돌할 경우 푸시가 실패하고, 충돌이 없을 경우에만 강제로 푸시"한다.
-      타인과 함께 쓰는 브랜치인 경우, 코드가 덮어씌우기 되어버리기 때문이다.
-      보다 더 좋은 방법으로, PUSH때 로컬 ref와 리모트 ref를 비교해 로컬이 최신인지 판정해, 최신이 아니면 PUSH를 실패시킨다.
+  $ ★★ git push -f origin master : 강제로 푸시한다.
+    기본 제공되는 강제 푸시 방법으로, "상대적으로 과거의, 타인의 수정과 충돌할 경우 해당 수정내역을 삭제하며 강제로 푸시"한다.
+    git reset HEAD 되었거나, git rebase -i HEAD 된 것을,
+    되돌려진 상태에서 새로 commit을 한 것을, 강제로 다시 푸시한다. 
+    -f를 걸지 않으면 fast forward error에 걸릴 것이다.
+    그러나, 현장에서는 -f를 왠만하면 쓰지 않고, 아래와 같은 명령어를 쓴다.
+
+  $ ★★ git push -f origin --force-with-lease : 충돌이 없을 경우에만 강제로 푸시한다.
+    일반적으로 현장에서 권장되는 강제 푸시 방법으로, "상대적으로 과거의, 타인의 수정과 충돌할 경우 푸시가 실패하고,
+    충돌이 없을 경우(= 타인의 수정사항을 덮어씌우지 않을 경우)에만 강제로 푸시"한다.
+    타인과 함께 쓰는 브랜치인 경우, 코드가 덮어씌우기 되어버리기 때문이다.
+    보다 더 좋은 방법으로, PUSH때 로컬 ref와 리모트 ref를 비교해 로컬이 최신인지 판정해, 최신이 아니면 PUSH를 실패시킨다.
 
 
 
-1. Git 편리하게 쓰기 : alias 목록 추가
+1. Git 편리하게 쓰기 : alias 목록 추가하기
   $ git config --global alias.fetch 'fetch origin'
-    다음부터 git fetch로 'git fetch origin'을 간단히 실행한다.
+    다음부터 'git fetch'로 'git fetch origin'을 간단히 실행한다.
   $ git config --global alias.pull 'pull origin current'
-    다음부터 git pull로 'git pull origin [현재 브랜치]'을 간단히 실행한다.
+    다음부터 'git pull'로 'git pull origin [현재 브랜치]'을 간단히 실행한다.
   $ git config --global alias.push 'push origin current'
-    다음부터 git pull로 'git pull origin [현재 브랜치]'을 간단히 실행한다.
-  $ git config --global alias.push-f 'push origin current --force-with-lease'
-    다음부터 git pull로 'git pull origin [현재 브랜치]'을 간단히 실행한다.
+    다음부터 'git push'로 'git push origin [현재 브랜치]'을 간단히 실행한다.
+  $ git config --global alias.push-f 'push --force-with-lease origin current'
+    다음부터 'git push-f'로 'git push origin [현재 브랜치] --force-with-lease'을 간단히 실행한다.
 
 
 
-1. Git 편리하게 쓰기 : alias 목록 확인 / 삭제
+1. Git 편리하게 쓰기 : alias 목록 확인 및 삭제하기
   $ git config --global --get-regexp alias
     전역 alias 목록들을 확인한다.
-  $ git config --global --unset alias.fetch
-    fetch라는 전역 alias 목록을 삭제한다.
-
+  $ git config --global --unset alias.push-f
+    push-f라는 전역 alias 목록을 삭제한다.
 
 
 
