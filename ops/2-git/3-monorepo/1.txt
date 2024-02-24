@@ -1,0 +1,137 @@
+[Monorepo 구조 만들기]
+
+1. 모노레포 구조란?
+  git으로 하나의 vue3 앱에 packages 폴더 안에 여러개의 워크스페이스를 설정하는 법이다.
+  여러 워크스페이스를 설정하기 위해 Git과 함께 Monorepo 구조를 사용하는 것은 효율적인 방법이다.
+  Monorepo는 여러 프로젝트를 하나의 저장소에서 관리할 수 있게 해주며,
+  이를 통해 코드 공유와 관리가 용이해진다.
+  여기서는 Yarn Workspaces를 사용하여 Vue3 앱에서 이를 설정하는 방법을 안내해보겠다.
+
+1. 사전준비 : 깃허브에서 새로운 monorepo1 저장소를 생성 후, 클론을 뜬다.
+
+1. 사전준비 : 클론딴 폴더에서 npm 초기화
+  $ npm init -y (= yarn init -y)
+
+1. 사전준비 : packages 폴더 생성 
+
+1. 사전준비 : packages 폴더 안에 Vue3 init 앱을 가지고 온다.
+
+1. packages/app1/package.json 파일 수정 : 해당 워크스페이스의 이름을 설정한다.
+  {
+    "name": "@monorepo1/app1",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+      "dev": "vite",
+      "build": "vue-tsc && vite build",
+      "preview": "vite preview"
+    },
+    "dependencies": {
+      "vue": "^3.3.11"
+    },
+    "devDependencies": {
+      "@vitejs/plugin-vue": "^4.5.2",
+      "typescript": "^5.2.2",
+      "vite": "^5.0.8",
+      "vue-tsc": "^1.8.25"
+    }
+  }
+
+1. packages/app1을 카피해서, packages/app2로 폴더명을 변경한다.
+
+1. packages/app2/package.json 수정 : 해당 워크스페이스의 이름을 설정한다.
+  {
+    "name": "@monorepo1/app2",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+      "dev": "vite",
+      "build": "vue-tsc && vite build",
+      "preview": "vite preview"
+    },
+    "dependencies": {
+      "vue": "^3.3.11"
+    },
+    "devDependencies": {
+      "@vitejs/plugin-vue": "^4.5.2",
+      "typescript": "^5.2.2",
+      "vite": "^5.0.8",
+      "vue-tsc": "^1.8.25"
+    }
+  }
+
+1. packages/app2/src/components/HelloWorld.vue 수정 : 켰을 때 app1이 아니라 app2임을 알 수 있는 장치를 추가해둔다.
+  <template>
+    <h1>Local Components 2</h1>
+  </template>
+
+  <script setup lang="ts">
+  </script>
+
+  <style scoped>
+  </style>
+
+1. 루트 폴더로 돌아와서 의존성을 설치한다.
+  $ cd monorepo1
+  $ npm i
+
+1. packages.json 수정 : 루트 폴더에서 app1, app2의 스크립트를 실행하기 위해 각각의 script를 추가한다.
+  {
+    "name": "monorepo",
+    "workspaces": [
+      "packages/*"
+    ],
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "dev:app1": "npm --workspace=packages/app1 run dev",
+      "dev:app2": "npm --workspace=packages/app2 run dev"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+  }
+
+1. 테스트 : 루트 폴더에서 app1이 제대로 실행되는지 확인한다.
+  $ cd monorepo1
+  $ npm run dev:app1
+  $ npm run dev:app2
+
+* 참조
+  만일 두 개의 Vue 앱 (my-vue-app과 my-vue-app2)을 동시에 실행하려면, 
+  루트 package.json에 병렬로 실행할 수 있는 스크립트를 추가해야 한다.
+  이를 위해 npm-run-all이라는 도구를 사용할 수 있다.
+
+
+
+[모노레포 깃 관리 하기]
+
+1. 루트 깃 관리 : 루트 폴더에서 커밋과 푸시를 진행한다.
+  $ git add .
+  $ git commit -m "app1 init"
+
+1. 서브 깃 관리 : 이제 packages에 있는 앱들은 각각 개별적으로 커밋과 푸시를 할 수 있게 된다.
+
+1. app2/src/app.vue 수정 : <hello-world /> 태그를 하나 지워본다.
+  <template>
+    <HelloWorld />
+  </template>
+
+  <script setup lang="ts">
+  import HelloWorld from '@/components/HelloWorld.vue'
+  </script>
+
+  <style scoped>
+  </style>
+
+1. 테스트
+  아래와 같이 app2 폴더에서 따로 커밋과 푸시를 진행해본다.
+  $ cd app2
+  $ git add .
+  $ git commit -m "reduce 1 comp"
+  $ git push origin master
+  깃 허브에서 monorepo에 들어가 app2 폴더의 커밋이 반영되었는지 확인 : 커밋명이 reduce 1 comp로 되어 있으면 반영된 것이다.
