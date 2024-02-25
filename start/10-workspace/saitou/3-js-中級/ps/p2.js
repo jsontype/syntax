@@ -63,8 +63,28 @@ console.log(result2) // [1, 8, 27, 64, 125]
 // 2 x 1 = 2
 // 2 x 2 = 4
 // ...
+const kuku1 = [2, 3, 4, 5, 6, 7, 8, 9]; // [['2 x 1 = 2', '2 x 2 = 4', ...] ['3 x 1 = 3', '3 x 2 = 6', ...] ...]
+const kuku2 = [1, 2, 3, 4, 5, 6, 7, 8, 9]; // ['2 x 1 = 2', '2 x 2 = 4', ...]
 
+// for文
+// for (let i = 0; i < kuku1.length; i++) {
+//   for (let j = 0; j < kuku2.length; j++) {
+//     console.log(kuku1[i] + ' x ' + kuku2[j] + ' = ' + kuku1[i] * kuku2[j])
+//   }
+// }
 
+// forEach文 : '2 x 1 = 2', '2 x 2 = 4', ..., '3 x 1 = 3', '3 x 2 = 6', ..., '9 x 1 = 9', '9 x 2 = 18', ...
+kuku1.forEach((item) =>
+  kuku2.forEach((item2) =>
+    console.log(item + " x " + item2 + " = " + item * item2)
+  )
+);
+
+// map文 : [['2 x 1 = 2', '2 x 2 = 4', ...] ['3 x 1 = 3', '3 x 2 = 6', ...] ...]
+const result = kuku1.map((item) =>
+  kuku2.map((item2) => item + " x " + item2 + " = " + item * item2)
+);
+console.log(result);
 
 // LAST 問題(難易度3/3)(2重for文):2つのサイコロを投げたとき、目の合計が6になるすべての場合の数を出力してください。
 // [ 1, 5 ]
@@ -72,3 +92,33 @@ console.log(result2) // [1, 8, 27, 64, 125]
 // [ 3, 3 ]
 // [ 4, 2 ]
 // [ 5, 1 ]
+const dice1 = [1, 2, 3, 4, 5, 6];
+const dice2 = [1, 2, 3, 4, 5, 6];
+
+// for文
+// for (let i = 0; i < dice1.length; i++) {
+//   for (let j = 0; j < dice2.length; j++) {
+//     if (dice1[i] + dice2[j] === 6) {
+//       console.log([dice1[i], dice2[j]])
+//     }
+//   }
+// }
+
+// forEach文
+dice1.forEach((item) =>
+  dice2.forEach((item2) => {
+    if (item + item2 === 6) {
+      console.log([item, item2]);
+    }
+  })
+);
+
+// map文
+const result3 = dice1.map((item) =>
+  dice2.map((item2) => {
+    if (item + item2 === 6) {
+      return [item, item2];
+    }
+  })
+);
+console.log(result3);
