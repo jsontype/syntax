@@ -1,0 +1,35 @@
+- frameworkとは？
+- 何かの枠組み、骨組み、構造、体系、フレームワーク
+- 何かの基本となる構造
+
+- JS FW
+- react (spa) - library
+  $ npx create-react-app app1 // 必須的なWEBライブラリをCRAで一括でインストールしてくれる
+- next (mpa) - framework
+  $ npx create-next-app app1
+- vue (spa) - framework
+  $ vue create app1
+- nuxt (mpa) - framework
+  $ npx create-nuxt-app app1
+
+
+
+...
+
+node_modules : ライブラリ
+  - websocket
+    前
+    Client -> Host
+    フロント -> サーバー
+    今
+    Client <- Host
+    フロント <- サーバー
+  - webpack : bundling (import, exportをできるようにする)
+  - babel-loader : js versionを変換する
+public : static source （定的なソース、img, icon）
+src : dynamic source （動的なソース、js, css, html）
+
+package.json : ライブラリの管理、スクリプト管理
+package-lock.json : ライブラリのバージョン管理
+
+...

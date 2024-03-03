@@ -1,1 +1,77 @@
-.
+[Jest: Unit 테스트 라이브러리]
+
+1. 사전준비 : init 앱을 가지고 온다.
+
+1. 사전준비 : src/components/HelloWorld.vue 삭제
+
+... 여기서부터! ...
+
+1. 라이브러리 설치
+  $ npm i vue-i18n
+
+
+
+  
+Vue 3에서 Jest를 사용하여 Test-Driven Development (TDD) 방식으로 개발을 진행하는 과정은 다음과 같은 주요 단계를 포함합니다. Jest는 JavaScript 테스트 프레임워크로서, Vue.js 컴포넌트의 유닛 테스트를 작성하는 데 유용합니다.
+
+1. 필요한 패키지 설치하기
+Vue 3 프로젝트에 Jest를 설정하기 전에, 필요한 패키지를 설치해야 합니다. 기본적으로, jest, @vue/test-utils (Vue 3용), vue-jest, babel-jest 등이 필요합니다.
+
+bash
+Copy code
+npm install --save-dev jest @vue/test-utils vue-jest babel-jest
+babel.config.js 파일도 프로젝트 루트에 생성하고 기본 Babel 설정을 추가해야 할 수 있습니다.
+
+2. Jest 설정
+jest.config.js 파일을 프로젝트의 루트 디렉토리에 생성하고 Jest를 위한 기본 설정을 정의합니다.
+
+js
+Copy code
+module.exports = {
+  moduleFileExtensions: ['js', 'vue'],
+  transform: {
+    '^.+\\.vue$': 'vue-jest',
+    '^.+\\.js$': 'babel-jest',
+  },
+  testMatch: [
+    '**/tests/unit/**/*.spec.js'
+  ],
+};
+이 설정은 Jest에게 .vue 파일과 .js 파일을 어떻게 처리해야 하는지 알려주고, 어떤 파일들을 테스트 대상으로 할 것인지 정의합니다.
+
+3. 첫 번째 테스트 작성
+TDD 방식에 따라, 실제 코드를 작성하기 전에 테스트 케이스를 먼저 작성합니다. 예를 들어, 간단한 컴포넌트에 대한 테스트를 tests/unit/MyComponent.spec.js에 작성할 수 있습니다.
+
+js
+Copy code
+import { mount } from '@vue/test-utils'
+import MyComponent from '@/components/MyComponent.vue'
+
+describe('MyComponent', () => {
+  test('is a Vue instance', () => {
+    const wrapper = mount(MyComponent)
+    expect(wrapper.vm).toBeTruthy()
+  })
+})
+4. 테스트 실행
+설정이 완료되면, package.json에 테스트 스크립트를 추가하고 Jest를 실행할 수 있습니다.
+
+json
+Copy code
+"scripts": {
+  "test": "jest"
+}
+콘솔에서 다음 명령어를 실행하여 테스트를 진행합니다.
+
+bash
+Copy code
+npm run test
+5. 기능 개발 및 리팩토링
+테스트가 실패하면, 테스트를 통과하기 위한 최소한의 코드를 작성합니다. 코드가 테스트를 통과하면, 필요한 경우 코드를 리팩토링하고 다시 테스트를 실행하여 모든 것이 여전히 정상적으로 작동하는지 확인합니다.
+
+이 과정을 반복하면서 기능을 개발해 나갑니다. TDD는 먼저 테스트를 작성하고, 그 테스트를 통과하는 코드를 작성하는 방식으로, 설계와 품질 관리에 있어 많은 이점을 제공합니다.
+
+주의사항
+Vue 3와 Jest를 함께 사용할 때는 Vue 3용 @vue/test-utils의 최신 버전을 사용해야 합니다.
+프로젝트 설정이나 복잡도에 따라 추가적인 구성이 필요할 수 있습니다 (예: TypeScript 사용 시).
+이러한 기본 단계를 통해 Vue 3 프로젝트에서 Jest를 사용하여 TDD 방식으로 개발을 시작할 수 있습니다.
