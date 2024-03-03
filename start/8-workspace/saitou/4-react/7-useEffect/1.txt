@@ -1,0 +1,6 @@
+Life Cycle
+
+// Count
+mounted : 生まれた時！
+updated : 更新された時！
+unmounted : 死んだ時！
