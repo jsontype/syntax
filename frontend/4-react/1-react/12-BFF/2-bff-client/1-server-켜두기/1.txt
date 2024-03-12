@@ -6,3 +6,6 @@
   $ npm start
   http://localhost:4000
   앞으로 배울 모든 클라이언트 과정은, 시작하기 전에 이렇게 서버를 켜고 시작할 것이다.
+
+1. 트러블슈팅 : nodemon 실행권한 없음 (nodemon가 없을 시 해당 에러 발생)
+  $ npm i -g nodemon
