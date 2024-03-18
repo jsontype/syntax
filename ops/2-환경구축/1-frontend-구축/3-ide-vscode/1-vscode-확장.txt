@@ -25,10 +25,6 @@
     ES(Ecma Script) Lint(문법 오류, 코드 컨벤션 등을 잡아주는 검사기능)는, 자바스크립트 문법에서의 에러를 표시해줌
   "Gitlens"
     협업시 누가 구현한 코드인지를 짙은 회색 글씨로 알려줌
-  "Jest Runner"
-    Jest 테스트 코드를 편리하게 실행해주는 확장
-  "vscode-styled-components"
-    스타일 컴포넌트에서 styled.div``처럼 쓸 때 백틱 안의 내용에 CSS 문법대로 텍스트 색깔을 적용해줘서 작업하기 편함
 
 1. React 일 때 추가사항
   "ES7+ React/Redux/React-Native snippets"
@@ -58,5 +54,8 @@
     html 안의 class="" 를 클릭하면 적용된 CSS로 바로 이동해줌
   "JavaScript(ES6) Code Snippets"
     JS 스니펫 지원
-    
+  "Jest Runner"
+    Jest 테스트 코드를 편리하게 실행해주는 확장
+  "vscode-styled-components"
+    스타일 컴포넌트에서 styled.div``처럼 쓸 때 백틱 안의 내용에 CSS 문법대로 텍스트 색깔을 적용해줘서 작업하기 편함  
   

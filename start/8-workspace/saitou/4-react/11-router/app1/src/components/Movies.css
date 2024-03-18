@@ -1,0 +1,33 @@
+.movieTitle {
+  display: block;
+  color: gray;
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 5px;
+  margin: 10px;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+.movieTitle:hover {
+  background-color: pink;
+  color: white;
+}
+
+.movieImg {
+  display: block;
+  width: 300px;
+}
+
+.good {
+  color: blue;
+}
+
+.soso {
+  color: orange;
+}
+
+.bad {
+  color: red;
+}

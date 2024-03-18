@@ -1,0 +1,45 @@
+1. 必須用語
+  - http (hypertext transfer protocol) と https (hypertext transfer protocol secure) の違い
+    https://www.amazon.co.jp/product/1234?ref_gender=1
+    [protocol]://[domain]/[path]/[parameter]?[query]=[query_value]
+
+  - case 
+    camelCase : 変数名, 関数名 
+    PascalCase : コンポーネントファイル名など (Movies.js, Movies.vue)
+    snake_case : db名 (db_user_1)
+    kebab-case : url名(/movies-000/), gitブランチ名 (feature/fix-bug), gitリポジトリ名 (my-project), htmlタグ名 (my-component), cssクラス名 (my-class)
+    UPPER_CASE : const USER_NAME = '山本'
+
+  - OS : operating system
+    Windows
+    MacOS
+
+  - ide : integrated development environment (editor + terminal + debugger + expansion ...)  
+    VSCode : Tabnine, Japanese, Prettier, ESLint, Material Icon Theme, Txt Syntax, 
+      Gitlens, ES7+ React/Redux/React-Native snippets
+    # IntelliJ IDEA
+
+  - SEMVER : semantic version
+    1.0.0
+    major.minor.patch
+    major : 大きな変更
+    minor : 機能追加
+    patch : バグ修正
+
+  - api : application programming interface
+    REST API : Representational State Transfer # movieapp.com/api/movies_list?sort_by=rating
+    GraphQL : BFF (Backend for Frontend)
+
+  - Backend用語
+    - データベース
+    - テーブル
+    - レコード
+    - カラム
+    - SQL
+    - クエリ
+    - データ型
+    - 主キー
+    - 外部キー
+    - インデックス
+    - トランザクション
+    - ビュー
