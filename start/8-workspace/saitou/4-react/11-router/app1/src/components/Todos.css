@@ -1,0 +1,11 @@
+.todoTitle {
+  font-weight: bold;
+}
+
+.todoCompleted {
+  margin-left: 10px;
+}
+
+.todoBtn {
+  margin-left: 10px;
+}
