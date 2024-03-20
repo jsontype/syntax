@@ -1,0 +1,548 @@
+[Roles 조회하기]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. src/components/Roles.vue 생성 : 사이드 섹션과 메인 섹션을 가지는 컴포넌트 작성하기 + MockDB를 통한 예시 작성
+  ```
+    <template>
+      <div id="roles" class="component">
+        <aside>
+          <ul>
+            <li v-for="role in data.roles" :key="role.id" :class="{'roleItem': true, 'on': contentId === role.id}" @click="setContentId(role.id)">
+              <span>{{ contentId === role.id ? '🔲' : '⬛' }}</span>
+              {{ roleIcons[role.id] }} {{ role.id }}
+            </li>
+          </ul>
+        </aside>
+        <section class="contents" v-if="role">
+          <div class="roleWrapper">
+            <h2>{{ role.id }}</h2>
+            <div class="requirement">
+              <span>{{ role.requirement }}</span> required
+            </div>
+            <h3>Members</h3>
+            <ul>
+              <li v-for="member in role.members" :key="member.id">{{ member.last_name }}</li>
+            </ul>
+          </div>
+        </section>
+      </div>
+    </template>
+
+    <script setup>
+    import { ref, computed } from 'vue';
+
+    const contentId = ref('developer');
+
+    const data = {
+      roles: [
+        {
+          id: 'developer',
+          requirement: 'Computer Science Degree',
+          members: [
+            { id: 1, last_name: 'Davidson' },
+            { id: 2, last_name: 'Harris' },
+            { id: 3, last_name: 'Adams' },
+          ],
+        },
+        {
+          id: 'designer',
+          requirement: 'Graphic Design Certificate',
+          members: [
+            { id: 4, last_name: 'West' },
+            { id: 5, last_name: 'Ford' },
+          ],
+        },
+        {
+          id: 'planner',
+          requirement: 'Portfolio',
+          members: [{ id: 6, last_name: 'Jenkins' }],
+        },
+      ],
+    };
+
+    const roleIcons = {
+      developer: '💻',
+      designer: '🎨',
+      planner: '📝',
+    };
+
+    function setContentId(id) {
+      contentId.value = id;
+    }
+
+    const role = computed(() => data.roles.find((item) => item.id === contentId.value));
+    </script>
+  ```
+
+
+
+1. src/components/People.vue 작성 : 사이드 섹션과 메인 섹션을 가지는 컴포넌트 작성하기
+  ```
+    <template>
+      <div id="people" class="component">
+        <aside>
+          <div></div>
+        </aside>
+        <section class="contents">
+          <div></div>
+        </section>
+      </div>
+    </template>
+  ```
+
+
+
+1. src/components/Teams.vue 생성 : 사이드 섹션과 메인 섹션을 가지는 컴포넌트 작성하기
+  ```
+    <template>
+      <div id="teams" class="component">
+        <aside>
+          <div></div>
+        </aside>
+        <section class="contents">
+          <div></div>
+        </section>
+      </div>
+    </template>
+  ```
+
+
+
+1. src/App.js 수정 : 컴포넌트들 도입하고, 글로벌 CSS 적용하기
+  ```
+    <template>
+      <div class="App">
+        <header class="App-header">
+          <h1>Company Management</h1>
+          <nav>
+            <ul>
+              <li
+                v-for="item in menuItems"
+                :key="item"
+                :class="{ on: menu === item }"
+                @click="setMenu(item)"
+              >
+                {{ item }}
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <main>
+          <component :is="mainComp[menu]" />
+        </main>
+      </div>
+    </template>
+
+    <script setup>
+    import { ref } from 'vue'
+    import Roles from './components/Roles.vue'
+    import Teams from './components/Teams.vue'
+    import People from './components/People.vue'
+
+    const menu = ref('Roles')
+    const menuItems = ['Roles', 'Teams', 'People']
+
+    const mainComp = {
+      Roles: Roles,
+      Teams: Teams,
+      People: People,
+    }
+
+    function setMenu(item) {
+      menu.value = item
+    }
+    </script>
+
+    <style>
+    /* 글로벌 스타일 : CSS 리셋 */
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* http://meyerweb.com/eric/tools/css/reset/ 
+      v2.0 | 20110126
+      License: none (public domain)
+    */
+
+    html,
+    body,
+    div,
+    span,
+    applet,
+    object,
+    iframe,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    blockquote,
+    pre,
+    a,
+    abbr,
+    acronym,
+    address,
+    big,
+    cite,
+    code,
+    del,
+    dfn,
+    em,
+    img,
+    ins,
+    kbd,
+    q,
+    s,
+    samp,
+    small,
+    strike,
+    strong,
+    sub,
+    sup,
+    tt,
+    var,
+    b,
+    u,
+    i,
+    center,
+    dl,
+    dt,
+    dd,
+    ol,
+    ul,
+    li,
+    fieldset,
+    form,
+    label,
+    legend,
+    table,
+    caption,
+    tbody,
+    tfoot,
+    thead,
+    tr,
+    th,
+    td,
+    article,
+    aside,
+    canvas,
+    details,
+    embed,
+    figure,
+    figcaption,
+    footer,
+    header,
+    hgroup,
+    menu,
+    nav,
+    output,
+    ruby,
+    section,
+    summary,
+    time,
+    mark,
+    audio,
+    video {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font-size: 100%;
+      vertical-align: baseline;
+    }
+
+    /* HTML5 display-role reset for older browsers */
+    article,
+    aside,
+    details,
+    figcaption,
+    figure,
+    footer,
+    header,
+    hgroup,
+    menu,
+    nav,
+    section {
+      display: block;
+    }
+
+    body {
+      line-height: 1;
+    }
+
+    ol,
+    ul {
+      list-style: none;
+    }
+
+    blockquote,
+    q {
+      quotes: none;
+    }
+
+    blockquote:before,
+    blockquote:after,
+    q:before,
+    q:after {
+      content: '';
+      content: none;
+    }
+
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+
+    /* 글로벌 스타일 : App 레이아웃 */
+    body {
+      background-color: #eee;
+    }
+
+    header {
+      height: 64px;
+      line-height: 64px;
+      background-color: white;
+    }
+
+    h1 {
+      display: inline-block;
+      font-size: 1.6em;
+      margin: 0 24px;
+    }
+
+    nav {
+      display: inline-block;
+    }
+
+    nav ul {
+      display: flex;
+      flex-direction: row;
+    }
+
+    nav ul li {
+      margin-left: 16px;
+      cursor: pointer;
+    }
+
+    nav ul li.on,
+    nav ul li:hover {
+      color: dodgerblue;
+      text-decoration: underline;
+    }
+
+    main {
+      height: calc(100vh - 64px);
+      overflow: hidden;
+    }
+
+    /* 글로벌 스타일 : 컴포넌트 공용 클래스 */
+    .component {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      height: 100%;
+      ;
+    }
+
+    .component aside {
+      flex-shrink: 0;
+      width: 320px;
+      height: 100%;
+      background-color: #333;
+      overflow-y: scroll;
+    }
+
+    .component .contents {
+      flex-grow: 1;
+      height: 100%;
+      overflow-y: scroll;
+      padding: 20px;
+    }
+
+    .component .contents .inputContainer {
+      display: inline-block;
+      padding: 32px;
+      margin: 4px;
+      background-color: white;
+      border: 1px solid #dddddd;
+      border-radius: 8px;
+    }
+
+    .component .contents .inputContainer td {
+      padding: 4px 8px;
+    }
+
+    .component .contents .inputContainer td input {
+      border: 1px solid #ccc;
+      height: 20px;
+      line-height: 20px;
+    }
+
+    .component .contents .inputContainer td input[type=number] {
+      width: 44px;
+    }
+
+    .component .contents .inputContainer td select {
+      border: 1px solid #ccc;
+      height: 24px;
+      line-height: 24px;
+    }
+
+    .component .contents .inputContainer ul {
+      width: 300px;
+      margin-top: 12px;
+    }
+
+    .component .contents .inputContainer ul li {
+      display: inline-block;
+      margin: 0 6px 6px 0;
+      padding: 6px 8px;
+      background-color: #eee;
+      border: 1px solid #eee;
+      border-radius: 4px;
+      text-transform: capitalize;
+    }
+
+    .component .contents .inputContainer ul li .count {
+      display: inline-block;
+      color: white;
+      background-color: dodgerblue;
+      font-weight: bold;
+      padding: 2px 4px;
+      border-radius: 4px;
+      margin: 0 6px;
+    }
+
+    .component .contents .inputContainer ul li .increase {
+      cursor: pointer;
+    }
+
+    .component .contents .inputContainer .buttons {
+      margin-top: 24px;
+      text-align: center;
+    }
+
+    .component .contents .inputContainer .buttons button {
+      margin-right: 8px;
+      padding: 8px 24px;
+      cursor: pointer;
+    }
+
+    .component aside {
+      color: white;
+    }
+
+    .component aside>ul>li {
+      padding: 16px 20px;
+      border-bottom: 2px solid #555;
+    }
+
+    .component aside .teamItemTitle {
+      font-weight: bold;
+      font-size: 1.1em;
+      cursor: pointer;
+    }
+
+    .component aside .teamMembers {
+      margin-top: 8px;
+      padding-left: 6px;
+      color: #BBB;
+    }
+
+    .component aside .teamMembers li {
+      padding: 10px 4px;
+      border-bottom: 1px solid #444;
+      cursor: pointer;
+    }
+
+    .component aside .teamMembers li:last-child {
+      border-bottom: 0;
+    }
+
+    .component aside .face {
+      display: inline-block;
+      width: 32px;
+    }
+
+    .component aside .bloodType {
+      display: inline-block;
+      width: 28px;
+      margin-right: 20px;
+      padding: 4px 0;
+      text-align: center;
+      font-size: 0.9em;
+      font-weight: bold;
+      color: #777;
+      background-color: #222;
+      border-radius: 4px;
+    }
+
+    .component aside .peopleName {
+      cursor: pointer;
+    }
+
+    .component aside .roleItem {
+      text-transform: capitalize;
+      cursor: pointer;
+    }
+
+    .component aside .roleItem span {
+      display: inline-block;
+      width: 32px;
+    }
+
+    .component .contents .roleWrapper {
+      display: inline-block;
+      margin: 8px;
+      padding: 16px 24px;
+      border-radius: 8px;
+      background-color: white;
+      border: 2px solid #ddd
+    }
+
+    .component .contents .roleWrapper h2 {
+      font-size: 1.8em;
+      margin-bottom: 6px;
+      text-transform: capitalize;
+    }
+
+    .component .contents .roleWrapper .requirement {
+      margin-bottom: 24px;
+      color: gray;
+    }
+
+    .component .contents .roleWrapper .requirement span {
+      color: dodgerblue;
+      text-transform: capitalize;
+    }
+
+    .component .contents .roleWrapper h3 {
+      color: #555;
+      font-size: 1.2em;
+      margin: 16px 0 8px 0;
+    }
+
+    .component .contents .roleWrapper li {
+      display: inline-block;
+      margin: 0 6px 6px 0;
+      padding: 6px;
+      background-color: #eee;
+      border: 1px solid #eee;
+      border-radius: 4px;
+    }
+    </style>
+  ```
+
+
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
+  http://localhost:3000
