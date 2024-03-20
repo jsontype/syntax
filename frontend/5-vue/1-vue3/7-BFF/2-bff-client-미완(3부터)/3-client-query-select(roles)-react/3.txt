@@ -9,7 +9,7 @@
 
 1. 설치
   $ cd app1
-  $ npm install @apollo/client graphql
+  $ npm i @apollo/client graphql
 
 
 
