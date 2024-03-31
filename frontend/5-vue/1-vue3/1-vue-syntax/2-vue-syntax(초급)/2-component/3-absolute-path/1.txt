@@ -33,20 +33,38 @@
     })
   ```
 
-1. src/App.vue 수정 : 절대경로로 변경
-  Import 부분에 "@를 써서", src로부터의 절대경로로 변경
+1. src/App.vue 수정 : 자식컴포넌트 호출부를 절대경로로 변경
+  import 부분에 "@를 써서", src로부터의 절대경로로 변경
   ```
     <template>
-      <HelloWorld msg="Hello" />
+      <HelloWorld :id=1 msg="Hello" username="vue" mark="!" :secondary="false" hover @click="click()" />
+      <HelloWorld :id=2 msg="Hi" secondary />
       <GlobalHelloWorld msg="Vue3" />
     </template>
 
     <script setup lang="ts">
     import HelloWorld from '@/components/HelloWorld.vue'
+
+    const click = () => {
+      alert('clicked')
+    }
     </script>
 
     <style scoped>
     </style>
+  ```
+
+1. src/main.ts 수정 : App.vue과 글로벌컴포넌트 호출부를 절대경로로 변경
+  import 부분에 "@를 써서", src로부터의 절대경로로 변경
+  ```
+    import { createApp } from 'vue';
+    import App from "@/App.vue";
+    import GlobalHelloWorld from "@/components/GlobalHelloWorld.vue";
+
+    const app = createApp(App)
+
+    app.component('GlobalHelloWorld', GlobalHelloWorld)
+    app.mount('#app');
   ```
 
 1. 테스트
