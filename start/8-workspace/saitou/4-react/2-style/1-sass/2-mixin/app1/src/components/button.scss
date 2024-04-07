@@ -1,0 +1,14 @@
+@import '../styles/resources.scss';
+
+.button1 {
+  @include button-color($blue);
+}
+
+.button2 {
+  @include button-color($red);
+}
+
+
+.button3 {
+  @include button-color($green);
+}

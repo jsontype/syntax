@@ -1,0 +1,7 @@
+[SMACSS]
+
+1. SMACSS
+  .l-header { margin-bottom: 20px; }
+  .l-footer { border-top: 1px solid gray; }
+  .l-main { float: left; }
+  .l-sub { float: right; }
