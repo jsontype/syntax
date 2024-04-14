@@ -43,3 +43,7 @@
     - インデックス
     - トランザクション
     - ビュー
+
+2. 現場用語
+  - LGTM : Looks Good To Me
+  - EOL : End of Life
