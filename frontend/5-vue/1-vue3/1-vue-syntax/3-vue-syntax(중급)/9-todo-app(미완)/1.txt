@@ -1,4 +1,119 @@
-[Custom Hooks]
+[Custom Hooks: useMousePosition]
+
+... GPT ...
+
+
+
+
+
+
+이 Todo 앱의 기능들을 커스텀 훅(composables)을 사용하여 모듈화하고, 코드의 가독성과 재사용성을 향상시켜보겠습니다. 커스텀 훅을 사용하면 로직을 분리하여 컴포넌트를 더 간결하게 유지할 수 있습니다.
+
+1. useTodos: Todo 목록 관리
+Todo 목록과 관련된 로직을 관리하는 커스텀 훅을 만듭니다. 이 훅은 Todo 목록의 CRUD 작업을 수행합니다.
+
+src/composables/useTodos.js
+javascript
+Copy code
+import { reactive, ref, onMounted } from 'vue';
+
+export function useTodos(loginUserId) {
+  const todos = reactive([]);
+  const newTodo = ref('');
+
+  function getTodos() {
+    fetch('https://jsonplaceholder.typicode.com/todos')
+      .then(res => res.json())
+      .then(json => {
+        for (let i = 0; i < json.length; i++) {
+          if (json[i].userId === loginUserId.value) {
+            todos.push(json[i]);
+          }
+        }
+      });
+  }
+
+  function toggleTodo(item) {
+    item.completed = !item.completed;
+  }
+
+  function addTodo() {
+    if (newTodo.value.trim() === '') {
+      alert('할 일을 입력해주세요.');
+      return;
+    }
+    const todo = {
+      id: Date.now(), // Unique ID 생성
+      title: newTodo.value,
+      completed: false,
+      userId: loginUserId.value
+    };
+    todos.push(todo);
+    newTodo.value = ''; // 입력 필드 초기화
+  }
+
+  function delTodo(id) {
+    const index = todos.findIndex(todo => todo.id === id);
+    if (index !== -1) {
+      todos.splice(index, 1);
+    }
+  }
+
+  onMounted(getTodos);
+
+  return { todos, newTodo, addTodo, toggleTodo, delTodo };
+}
+2. TodoApp.vue: 컴포넌트 수정
+useTodos 커스텀 훅을 사용하여 기존의 로직을 간결하게 개선합니다.
+
+vue
+Copy code
+<template>
+  <div>
+    <h1>Todo App</h1>
+    <div id="addTodo">
+      <input type="text" v-model="newTodo" />
+      <button @click="addTodo">추가</button>
+    </div>
+    <div id="todos">
+      <div v-for="todo in todos" :key="todo.id" class="todo">
+        <span @click="toggleTodo(todo)">
+          <span>#{{ todo.id }} / </span>
+          <span>{{ todo.title }} / </span>
+          <input type="checkbox" :checked="todo.completed" />
+        </span>
+        <span>
+          <button @click="delTodo(todo.id)">삭제</button>
+        </span>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+import { useTodos } from '@/composables/useTodos';
+
+const loginUserId = ref(1); // 예제를 위해 하드코딩된 사용자 ID
+const { todos, newTodo, addTodo, toggleTodo, delTodo } = useTodos(loginUserId);
+</script>
+
+<style scoped>
+.todo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+</style>
+3. 마무리
+위의 예시에서 useTodos 커스텀 훅을 사용함으로써, Todo 앱의 로직을 하나의 파일로 분리하여 관리할 수 있게 되었습니다. 이렇게 커스텀 훅을 사용하면 각 기능의 관심사를 분리하고 코드를 재사용하기 쉽게 만듦으로써 유지보수와 확장성이 크게 향상됩니다.
+
+
+... GPT ...
+
+
+
 
 1. 사전준비 : init 앱을 가지고 온다.
 
