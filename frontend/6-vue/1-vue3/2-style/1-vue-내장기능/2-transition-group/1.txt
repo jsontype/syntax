@@ -1,0 +1,63 @@
+[TransitionGroup]
+참조URL: https://ko.vuejs.org/guide/built-ins/transition-group.html
+
+1. 사전준비 : init 앱을 가지고 온다.
+
+1. TransitionGroup란?
+  여러 엘리먼트 또는 컴포넌트들이 한꺼번에 DOM에 들어오거나 나갈 때 (v-for 리스트에 삽입, 제거 또는 이동할 때 등)
+  그룹화하여 애니메이션(진입 및 퇴장 애니메이션 등)을 적용하는 것을 TransitionGroup이라 한다.
+
+1. TransitionGroup 사용방법
+  <transition-group></transition-group>을 사용하여 그룹화할 엘리먼트들을 묶고,
+  name 프롭으로 전환 애니메이션 타입(예: name="list")을 지정한다.
+  
+1. src/App.vue 수정
+  ```
+    <template>
+      <TransitionGroup />
+    </template>
+    
+    <script setup lang="ts">
+    import TransitionGroup from './components/TransitionGroup.vue'
+    </script>
+    
+    <style scoped>
+    </style>
+  ```
+
+1. src/components/TransitionGroup.vue 생성 : 기본 TransitionGroup 사용법
+  ```
+    <template>
+      <h1>Transition Group: List의 Transition 처리</h1>
+      <button @click="addItem">Add Item</button>
+      <transition-group name="list">
+        <div v-for="item in items" :key="item">
+          {{ item }}
+        </div>
+      </transition-group>
+    </template>
+
+    <script setup lang="ts">
+    import { ref } from 'vue'
+
+    const items = ref(['Item 1', 'Item 2', 'Item 3'])
+    const addItem = () => {
+      const nextItem = `Item ${items.value.length + 1}`
+      items.value.push(nextItem)
+    }
+    </script>
+
+    <style scoped>
+    .list-enter-active, .list-leave-active {
+      transition: all 0.5s ease;
+    }
+    .list-enter-from, .list-leave-to {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    </style>
+  ```
+
+1. 테스트
+  $ cd app1
+  $ npm run dev

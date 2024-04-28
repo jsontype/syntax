@@ -1,0 +1,64 @@
+[lodash-es: find]
+
+1. find 함수란?
+  배열에서 주어진 조건에 맞는 첫 번째 요소를 찾아 반환하는 함수이다.
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. src/components/Find.vue 생성
+```
+  <template>
+    <h1>Find</h1>
+    <input 
+      v-model="searchText"
+      placeholder="Search By Id (= 1, 2, 3)"
+      @input="onSearch"
+    />
+    <p>검색 결과: {{ searchResult }}</p>
+  </template>
+
+  <script setup>
+  import { ref } from 'vue'
+  import { find } from 'lodash-es'
+
+  const users = [
+    { id: '1', name: 'Alice' },
+    { id: '2', name: 'Bob' },
+    { id: '3', name: 'Charlie' }
+  ]
+
+  const searchResult = ref('없음')
+  const searchText = ref('')
+
+  const onSearch = () => {
+    // find로 검색결과 취득
+    const result = find(users, { id: searchText.value })
+    // 예외처리
+    if (!result) { 
+      searchResult.value = '없음'
+      return
+    }
+    searchResult.value = result.name
+  }
+  </script>
+```
+
+1. src/App.vue 수정 : 컴포넌트를 호출한다.
+```
+  <template>
+    <CloneDeep />
+    <Find />
+  </template>
+
+  <script setup lang="ts">
+  import CloneDeep from '@/components/CloneDeep.vue'
+  import Find from '@/components/Find.vue'
+  </script>
+
+  <style scoped>
+  </style>
+```
+
+1. 테스트
+  $ cd app1
+  $ npm run dev

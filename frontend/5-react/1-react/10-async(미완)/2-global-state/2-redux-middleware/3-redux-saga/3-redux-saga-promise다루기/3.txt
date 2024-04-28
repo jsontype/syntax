@@ -1,0 +1,248 @@
+[redux-saga로 프로미스 다루기]
+
+1. redux-thunk와 redux-saga 차이
+    redux-thunk에서는 thunk 함수를 만들어서,
+    - thunk 함수가 디스패치 될 때 비동기 작업을 처리하고, 
+    - 필요한 시점에 특정 액션 객체를 디스패치하거나 
+    - 스토어의 현재 상태를 조회 할 수도 있었다.
+    아래는 그 예시이다.
+        export const getPosts = () => async dispatch => {
+            dispatch({ type: GET_POSTS }) // 요청 시작
+            try {
+                const posts = postsAPI.getPosts() // API 호출
+                dispatch({ type: GET_POSTS_SUCCESS, posts }) // 성공
+            } catch (e) {
+                dispatch({ type: GET_POSTS_ERROR, error: e }) // 실패
+            }
+        }
+    redux-saga는 비동기 작업을 처리 할 때 다른 방식으로 처리한다.
+    - saga 함수가 특정 액션을 모니터링하고 있다가, 
+    - 특정 액션이 주어지면 이에 따라 제너레이터 함수를 실행하여, 비동기 작업을 처리하고, 액션을 디스패치한다.
+
+
+
+1. src/modules/posts.js 수정 : 기존에 redux-thunk로 구현했던 posts 모듈을 redux-saga로 바꾼다.
+    // thunk -> saga로 변경하기 : saga를 사용하면 순수 액션 객체만을 디스패치해서 비동기 작업을 처리하게 된다.
+    // api/posts.js 안의 모든 함수들을 임포트
+    import * as postsAPI from '../api/posts'
+    // lib/asyncUtils 안의 리팩토링용 함수들을 임포트
+    import {
+        reducerUtils,
+        handleAsyncActions,
+        handleAsyncActionsById,
+        createPromiseSaga,
+        createPromiseSagaById
+    } from '../lib/asyncUtils'
+    import { takeEvery } from 'redux-saga/effects'
+
+    // 액션타입
+    const GET_POSTS = 'GET_POSTS' // 포스트 여러개 조회 => 요청 시작
+    const GET_POSTS_SUCCESS = 'GET_POSTS_SUCCESS' // 요청 성공
+    const GET_POSTS_ERROR = 'GET_POSTS_ERROR' // 요청 실패
+    const GET_POST = 'GET_POST' // 포스트 한개 조회 => 요청 시작
+    const GET_POST_SUCCESS = 'GET_POST_SUCCESS' // 요청 성공
+    const GET_POST_ERROR = 'GET_POST_ERROR' // 요청 실패
+
+    // 액션타입함수를 Thunk 함수에서 Saga 함수로 대체한다.
+    export const getPosts = () => ({ type: GET_POSTS })
+    export const getPost = id => ({ type: GET_POST, payload: id, meta: id }) // payload는 파라미터 용도, meta는 리듀서에서 id를 알기위한 용도
+    // ↑ meta를 통해 id를 알아야하는 이유는, 이전에 만들었던 handleAsyncActionsById를 호환시키기 위한 용도이다. (사용하지 않는다면 meta를 생략해도 된다.)
+
+    // getPostsSaga와 getPostSaga 함수를 asyncUitls.js에서 정의된 함수로 생성
+    // redux-thunk로 구현할 때에는 getPosts와 getPost는 thunk 함수이지만,
+    // redux-saga로 구현할 때에는 순수 액션 객체를 반환하는 "액션 생성" 함수이다.
+    const getPostsSaga = createPromiseSaga(GET_POSTS, postsAPI.getPosts)
+    const getPostSaga = createPromiseSagaById(GET_POST, postsAPI.getPostById)
+    // ↑ getPostSaga의 경우엔 액션을 파라미터로 받아와서 해당 액션의 id값을 참조할 수 있다.
+    // ↑ 예를 들어, dispatch({ type: GET_POST, payload: 1, meta: 1 })이란 코드가 실행 되면 액션에서 action.payload값을 추출하여 API를 호출 할 때 인자로 넣어서 호출한다.
+
+    // saga 함수들을 합치기 : 이후 modules/index.js의 rootSaga에 postsSaga를 등록할 것이다.
+    export function* postsSaga () {
+        yield takeEvery(GET_POSTS, getPostsSaga)
+        yield takeEvery(GET_POST, getPostSaga)
+    }
+
+    // 초기값 : 여기도 반복되는 코드를 initial() 함수를 사용해서 리팩토링한다.
+    const initialState = {
+        posts: reducerUtils.initial(),
+        post: reducerUtils.initial()
+    }
+
+    // ★ 리듀서
+    export default function posts (state = initialState, action) {
+        switch (action.type) {
+            case GET_POSTS:
+            case GET_POSTS_SUCCESS:
+            case GET_POSTS_ERROR:
+                return handleAsyncActions(GET_POSTS, 'posts', true)(state, action)
+            case GET_POST:
+            case GET_POST_SUCCESS:
+            case GET_POST_ERROR:
+                return handleAsyncActionsById(GET_POST, 'post', true)(state, action)
+            default:
+                return state
+        }
+    }
+
+    // 홈으로 돌아가는 thunk 함수 : navigate 함수는 컨테이너에서 디스패치하면서 프롭으로 넘겨받을 예정이다.
+    export const goToHome = (navigate) => (dispatch, getState) => {
+        navigate("/")
+    }
+
+
+
+1. src/lib/asyncUtils.js 수정 : API 호출 등, 간단한 로직일 경우 saga를 직접 만들기보단 유틸 함수로 saga를 손쉽게 만들어서 쓰면 굉장히 편하다.
+    import { call, put } from 'redux-saga/effects'
+
+    // Promise에 기반한 Saga 만들어주는 함수
+    export const createPromiseSaga = (type, promiseCreator) => {
+        const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`]
+        // saga 제네레이터 함수를 생성 : 액션을 모니터링한다. 액션이 지니고 있는 값을 모니터링하고 싶다면, action을 파라미터로 받아와서 사용하면 된다.
+        return function* saga (action) {
+            try {
+                // 재사용성을 위하여 promiseCreator 의 파라미터엔 action.payload 값을 넣도록 설정한다.
+                const payload = yield call(promiseCreator, action.payload)
+                yield put({ type: SUCCESS, payload })
+            } catch (e) {
+                yield put({ type: ERROR, error: true, payload: e })
+            }
+        }
+    }
+
+    // 특정 id의 데이터를 조회하는 용도로 사용하는 사가
+    // API를 호출 할 때 파라미터는 action.payload를 넣고, id 값을 action.meta로 설정한다.
+    export const createPromiseSagaById = (type, promiseCreator) => {
+        const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`]
+        // saga 제네레이터 함수를 생성 : 액션을 모니터링한다. 액션이 지니고 있는 값을 모니터링하고 싶다면, action을 파라미터로 받아와서 사용하면 된다.
+        return function* saga (action) {
+            // saga를 통해 비동기 작업을 처리 할 때, API 함수의 인자는 액션에서부터 참조한다.
+            // 예를 들어, 특정 id를 위한 비동기작업을 처리하는 createPromiseSagaById와 handleAsyncActionsById에서는 id값을 action.meta에서 참조하고 있다.
+            const id = action.meta
+            try {
+                const payload = yield call(promiseCreator, action.payload)
+                yield put({ type: SUCCESS, payload, meta: id })
+            } catch (e) {
+                yield put({ type: ERROR, error: e, meta: id })
+            }
+        }
+    }
+
+    // 리듀서에서 사용할 유틸 함수 모음
+    export const reducerUtils = {
+        // 초기 state : 초기 data 값은 기본적으로 null이지만 바꿀 수도 있다.
+        initial: (initialData = null) => ({
+            loading: false,
+            data: initialData,
+            error: null
+        }),
+        // 로딩중 state :  prevState의 경우엔 기본값은 null이지만 값을 지정하면 prevState 값을 유지시켜 쓸 수 있다.
+        loading: (prevState = null) => ({
+            loading: true,
+            data: prevState,
+            error: null
+        }),
+        // 성공시 state
+        success: payload => ({
+            loading: false,
+            data: payload,
+            error: null
+        }),
+        // 실패시 state
+        error: error => ({
+            loading: false,
+            data: null,
+            error: error
+        })
+    }
+
+    // 비동기 관련 액션들을 처리하는 리듀서 함수
+    export const handleAsyncActions = (type, key) => { // type은 액션타입, key는 state의 key(예: posts, post)
+        const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`]
+        return (state, action) => {
+            switch (action.type) {
+                case type:
+                    return {
+                        ...state,
+                        [key]: reducerUtils.loading()
+                    }
+                case SUCCESS:
+                    return {
+                        ...state,
+                        [key]: reducerUtils.success(action.payload)
+                    }
+                case ERROR:
+                    return {
+                        ...state,
+                        [key]: reducerUtils.error(action.payload)
+                    }
+                default:
+                    return state
+            }
+        }
+    }
+
+    // id별로 처리하는 유틸함수
+    export const handleAsyncActionsById = (type, key, keepData = false) => {
+        const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`]
+        return (state, action) => {
+            // 비동기 작업에 관련된 액션이 어떤 id를 가르키는지 알아내기 위해, action.meta 값에 넣어줬던 id를 꺼내 사용한다.
+            const id = action.meta
+            switch (action.type) {
+                case type:
+                    return {
+                        ...state,
+                        [key]: {
+                            ...state[key],
+                            [id]: reducerUtils.loading(
+                                // state[key][id]가 만들어져있지 않을 수도 있으니까 유효성을 먼저 검사 후 data 조회
+                                keepData ? state[key][id] && state[key][id].data : null
+                            )
+                        }
+                    }
+                case SUCCESS:
+                    return {
+                        ...state,
+                        [key]: {
+                            ...state[key],
+                            [id]: reducerUtils.success(action.payload)
+                        }
+                    }
+                case ERROR:
+                    return {
+                        ...state,
+                        [key]: {
+                            ...state[key],
+                            [id]: reducerUtils.error(action.payload)
+                        }
+                    }
+                default:
+                    return state
+            }
+        }
+    }
+
+
+
+1. src/modules/index.js : 루트사가에 postsSaga 적용
+    import { combineReducers } from "redux";
+    import counter, { counterSaga } from "./counter";
+    import posts, { postsSaga } from "./posts";
+    // 4. 루트 사가 만드는 all 함수 임포트
+    import { all } from "redux-saga/effects";
+
+    // 루트리듀서 생성 : 지금은 서브리듀서가 counter, posts 두개가 되었다.
+    const rootReducer = combineReducers({ counter, posts });
+
+    // 5. 루트사가 생성
+    export function* rootSaga() {
+        yield all([counterSaga(), postsSaga()]); // all은 배열 안의 여러 사가를 동시에 실행시켜준다.
+    }
+
+    export default rootReducer;
+
+
+
+1. 테스트 : 동일하게 처리되는지 확인
+    $ cd app1
+    $ npx json-server ./data.json --port 4000
+    $ npm start

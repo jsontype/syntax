@@ -1,0 +1,94 @@
+[Transition Hook]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. Transition Hook
+  Transition Animation이 발생 전, 중, 후의 특정 기간에 특정 함수를 실행시킬 수 있는 훅을 말한다.
+  * Life Cycle Hook과 비슷한 Hook(특정 시점을 끌어오는 도구) 개념으로 이해하자.
+
+1. src/App.vue 수정  
+  ```
+    <template>
+      <TransitionFade />
+      <hr />
+      <TransitionHook />
+    </template>
+
+    <script setup lang="ts">
+    import TransitionFade from './components/TransitionFade.vue'
+    import TransitionHook from './components/TransitionHook.vue'
+    </script>
+
+    <style scoped>
+    </style>
+  ```
+
+1. src/components/TransitionHook.vue 생성 : Transition Hook 함수 사용법
+  ```
+    <template>
+      <h1>Fade</h1>
+      <button @click="toggle">Toggle</button>
+      <transition 
+        name="fade"
+        @before-enter="handleBeforeEnter"
+        @enter="handleEnter"
+        @after-enter="handleAfterEnter"
+        @before-leave="handleBeforeLeave"
+        @leave="handleLeave"
+        @after-leave="handleAfterLeave"
+      >
+        <HelloWorld v-if="isOpen" />
+      </transition>
+    </template>
+
+    <script setup>
+    import HelloWorld from './HelloWorld.vue'
+    import { ref } from 'vue'
+
+    const isOpen = ref(false)
+    const toggle = () => {
+      isOpen.value = !isOpen.value
+    }
+
+    /**
+    * Transition Hook 함수의 파라미터
+    * el : element (= 대상이 되는 DOM을 의미)
+    * done : transition이 끝나면 true를 반환
+    *  */ 
+    const handleBeforeEnter = (el, done) => {
+      alert('before enter')
+    }
+    const handleEnter = (el, done) => {
+      alert('enter')
+      // 완료시점을 알기 위해서, 전환의 기간이 끝나면 done 콜백을 호출해서 AfterEnter로 넘어갈 수 있도록 한다.
+      el.addEventListener('transitionend', done)
+    }
+    const handleAfterEnter = (el, done) => {
+      alert('after enter')
+    }
+    const handleBeforeLeave = (el, done) => {
+      alert('before leave')
+    }
+    const handleLeave = (el, done) => {
+      alert('leave')
+      // 완료시점을 알기 위해서, 전환의 기간이 끝나면 done 콜백을 호출해서 AfterLeave로 넘어갈 수 있도록 한다.
+      el.addEventListener('transitionend', done)
+    }
+    const handleAfterLeave = (el, done) => {
+      alert('after leave')
+    }
+    </script>
+
+    <style scoped>
+    .fade-enter-active, .fade-leave-active {
+      transition: opacity 5s;
+    }
+    .fade-enter-from, .fade-leave-to {
+      opacity: 0;
+    }
+    </style>
+  ```
+
+1. 테스트
+  $ cd app1
+  $ npm run dev

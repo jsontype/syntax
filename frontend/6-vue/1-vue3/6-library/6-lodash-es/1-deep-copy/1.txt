@@ -1,0 +1,67 @@
+[lodash-es: 개발에 유용한 다양한 함수들을 트리쉐이킹과 함께 제공하는 라이브러리]
+
+1. lodash란?
+  lodash는 자바스크립트 유틸리티 라이브러리로, 다양한 유용한 함수들을 제공하여 개발자들이 코드를 더 효율적으로 작성할 수 있게 도와준다.
+  "배열이나 객체를 다루는 함수 (cloneDeep, find, filter, map 등), 인풋 이벤트 제어 함수 (debounce)"등이 있다.
+
+1. lodash-es란?
+  lodash-es는 lodash의 ECMAScript 모듈 버전으로,
+  lodash-es는 lodash의 기능을 동일하게 제공하지만, 
+  ECMAScript 모듈 형식으로 제공된다. 
+  이는 일부 환경에서 import/export 구문을 사용하여 모듈을 로드하는 데 더 편리할 수 있다.
+  또한 lodash-es는 트리 셰이킹(Tree Shaking, = 불필요한 코드를 제거하여 번들 크기를 최적화하는 프로세스를 말함)을
+  지원하여, 필요한 기능만 포함되도록 더 작은 번들을 생성할 수 있다.
+
+
+
+[lodash-es: cloneDeep]
+
+1. cloneDeep 함수란?
+  딮카피를 보다 편리하게 하기 위한 함수이다.
+
+1. 사전준비 : init 앱을 가지고 온다.
+
+1. 사전준비 : src/components/HelloWorld.vue 삭제
+
+1. 라이브러리 설치
+  $ npm i lodash-es (= yarn add lodash-es)
+
+1. src/components/DeepCopy.vue 생성
+```
+  <template>
+    <h1>CloneDeep</h1>
+    <p>original.a : {{ original.a }}</p>
+    <p>cloned.a : {{ cloned.a }}</p>
+    <button @click="onClick">cloned.a + 1</button>
+  </template>
+
+  <script setup>
+  import { reactive } from 'vue'
+  import { cloneDeep } from 'lodash-es'
+
+  const original = { a: 1, b: { c: 2 } }
+  const cloned = reactive(cloneDeep(original))
+
+  const onClick = () => {
+    cloned.a = cloned.a + 1
+  }
+  </script>
+```
+
+1. src/App.vue 수정 : 컴포넌트를 호출한다.
+```
+  <template>
+    <CloneDeep />
+  </template>
+
+  <script setup lang="ts">
+  import CloneDeep from '@/components/CloneDeep.vue'
+  </script>
+
+  <style scoped>
+  </style>
+```  
+
+1. 테스트
+  $ cd app1
+  $ npm run dev

@@ -1,0 +1,155 @@
+[Caching]
+
+1. 앞으로의 과제
+  기능구현 다 했다면 언제나 그 다음에 할 일은 성능향상이다.
+  캐시(Cache)와 캐싱(Caching)기능에 대해 알아보겠다.  
+
+1. 비효율적인 Dynamic rendering의 속도를 향상시키는 법 : 캐싱하기
+  근데 Dynamic rendering 이건 비효율적인거 같은데,
+  첫 프로젝트는 DB 데이터 가져오고 그런게 없어서 Static rendering 페이지들이 대부분이지만,
+  둘째 프로젝트는 DB 입출력 기능을 많이 만들어놔서 Dynamic rendering 페이지들이 많다.
+  Dynamic rendering 식으로 동작하는 페이지가 많으면 
+  유저가 그 페이지 방문마다 계속 다시 페이지를 그려야 되니까 서버 부담이 심해질 수 있다.
+  그 경우 Dynamic rendering시 서버자원을 절약할 수 있는 방법이 있다.
+  캐싱기능을 이용하면 된다.
+  캐싱이 뭐냐면 데이터를 잠깐 몰래 저장해두고 그걸 재사용한다는 소리이다. 
+  Next.js에선 "GET 요청 결과 캐싱, 페이지 캐싱"이 쉽게 가능하다. 
+  1초마다 변하는 실시간 데이터를 보내주는게 중요한 페이지의 경우 캐싱을 쓰면 안되겠지만
+  대부분의 페이지들은 1초 단위의 실시간 데이터가 크게 중요하지 않다.
+  우리가 만드는 게시판도, 새로운 데이터가 몇 초 늦어도 별 상관없으니,
+  사이트 만들 때는 비용절약 + 속도향상에 도움되는 캐싱을 도입해보도록 하자.
+
+1. GET요청결과 캐싱 방법
+  GET요청결과 캐싱은
+    export default async function 페이지(){
+      let result = await fetch('/api/어쩌구', { cache: 'force-cache' })
+  컴포넌트 안에서 데이터 가져올 때 fetch() 를 이렇게 사용하면 캐싱기능을 자동으로 이용할 수 있는데   
+  이러면 fetch() 명령 줄 때마다 서버에서 데이터를 새로 가져오는게 아니라   
+  한 번 가져온 결과를 어딘가에 몰래 저장해두고 그걸 몰래 꺼내온다.   
+  그럼 서버API 또는 DB 응답을 기다릴 필요가 없기 때문에 훨씬 빠르게 데이터를 가져올 수 있다. 
+
+  fetch('/URL', { cache: 'force-cache' }) 
+    fetch() 사용시 cache: 'force-cache' 설정을 넣어두면 캐싱해주고 
+    앞으로 /URL로 요청할 때 마다 계속 캐싱된 결과를 가져와준다. 
+    사이트 다시 npm run build 하기 전 까지 캐싱된걸 평생 보여줌.
+    (참고) 실은 저거 안적어도 디폴트값은 cache: 'force-cache' 로 설정되어있다.
+
+  fetch('/URL', { next: { revalidate: 60 } }) 
+    fetch() 안에서 revalidate 옵션도 적용할 수 있는데   
+    이러면 캐싱 결과를 60초 동안만 보관하고 사용한다.
+    60초가 지나면 다시 /URL로 새로 요청해서 결과를 가져오고 캐싱해준다. 
+
+  fetch('/URL', { cache: 'no-store' }) 
+    그거 말고 { cache : 'no-store' } 넣어두면 캐싱기능 안쓰겠다는 뜻이다. 
+    그래서 매번 저 코드 읽을 때 마다 서버로 요청해서 데이터를 새로 가져온다.  
+    실시간 데이터가 중요하면 이거 쓰면 되겠다.
+    - Next.js에선 쌩자바스크립트의 fetch() 기본함수를 업그레이드해놔서 사용가능한 문법이다. 
+    - Server component 안에서만 캐싱기능 사용가능
+
+1. 페이지 캐싱 방법
+  페이지 단위 캐싱은 revalidate 변수를 쓰자.
+  Q. 그럼 connectDB 이런거 써서 DB입출력 코드 써놓은건 캐싱할 수 없나?
+  방법1. GET요청시 DB 데이터 보내주는 서버 API 만들어두고 fetch()로 바꾸면 캐싱기능 사용가능
+  방법2. revalidate 옵션을 켜놓아도 페이지 단위로 캐싱이 가능하다.
+  revalidate 옵션을 알아보자. 
+
+  export const revalidate = 60;
+
+  export default function Page() {
+    DB입출력하는코드~~    
+    return (
+      <div>어쩌구</div>
+    )
+  } 
+
+  위 코드 위쪽에 revalidate 변수 하나 만들고 원하는 초 단위 집어넣으면
+  특정 페이지를 원하는 시간 만큼 캐싱해둘 수 있다. 
+  그래서 위처럼 적으면 60초 동안은 이 페이지 접속시 아무리 새로고침해도 미리 캐싱된 페이지를 보여준다. 
+  60초가 지나면 페이지를 재생성해서 캐싱해준다. 
+
+  그럼 방문자가 없어도 60초마다 페이지를 재생성하는건 비효율적이지 않을까 걱정이 된다.
+  걱정할 필요없다. 무조건 60초마다 자동 재생성은 아니고 방문자가 있어야 페이지를 재생성해준다.
+  어떻게 보면 60초마다 Static rendering 페이지 하나 생성해주는 식이다.
+  예전 Next.js에선 이렇게 revalidate 옵션 넣어서 페이지 만들던걸 ISR 이라고 불렀다.
+
+  (참고1) 60초 지나기 전에 페이지 강제로 새로 만들라고 명령을 줄 수도 있다. 이때는 on-demand revalidation을 찾아보면 된다.
+  (참고2) 서버 API 기능 만들 때도 revalidate 옵션의 기입이 가능하다.
+    여러 컴포넌트에서 같은 /url로 fetch하는 경우 중복은 알아서 제거된다.  
+    그래서 여러 컴포넌트에서 같은 /url로 요청하는 fetch() 잔뜩 사용해도 비효율 문제가 딱히 없다. 
+    그래서 컴포넌트가 많은 경우 변수나 state 공유 문제도 자동으로 해결이다.
+
+1. src/app/page.js 수정 : 캐싱 기능 학습하기
+  import styles from "./page.module.css"
+  import { connectDB } from "@/app/api/connectDB"
+
+  // 1. API URL을 만들지 않고 직접 connectDB 함수로 API를 호출하는 경우의 캐싱
+  // 1-1. 아래와 같이 설정해두면 자동으로 유저가 페이지 방문시 60초동안 페이지가 캐싱된다.
+  //      그리고 60초가 지나면 다시 서버로 요청해서 새로운 데이터를 가져온다.
+  //      예전 Next.js에선 이를 ISR이라고 불렀었다.
+  export const revalidate = 60
+
+  export default async function Home() {
+    // 1-2. 그 다음 이대로 connectDB 함수를 호출해서 사용하면 끝이다.
+    const db = (await connectDB).db("db1")
+    const result = await db.collection("bbs1").find().toArray()
+    console.log(result)
+
+    // 2. API URL을 만들어놓고 fetch하는 식으로 API를 호출하는 경우의 캐싱 (* 참고로, 캐싱된 데이터는 하드 용량을 차지한다.)
+    // await fetch("/URL", { cache: "no-cache" }) // 2-1. 캐싱 없이 매번 서버로 요청해서 새거 가져옴 (실시간 데이터가 중요할 때)
+    // await fetch("/URL", { next: { revalidate: 60 } }) // 2-2. 60초마다 캐싱 (데이터가 중요할 때)
+    // await fetch("/URL", { cache: "force-cache" }) // 2-3. 강제 캐싱 (속도가 중요할 때)
+
+    return (
+      <>
+        <div className={styles.red}>Hello Next</div>
+      </>
+    )
+  }
+
+1. src/app/bbs/page.js : 캐싱 기능 사용해보기
+  import { connectDB } from "@/app/api/connectDB"
+  import Move from "./Move"
+  import MoveDelete from "./MoveDelete"
+
+  export const dynamic = "force-dynamic"
+
+  // 캐싱
+  export const revalidate = 60
+
+  export default async function BBS() {
+    const db = (await connectDB).db("db1")
+    const result = await db.collection("bbs1").find().toArray()
+
+    const render = result.map((item) => {
+      return (
+        <div className="list-item" key={item._id}>
+          <h4>
+            제목: {item.title}{" "}
+            <Move url={`/bbs/detail/${item._id}`} title="자세히 보기" />
+          </h4>
+          <p>
+            내용: {item.content}{" "}
+            <Move url={`/bbs/edit/${item._id}`} title="수정" />{" "}
+            {/* String(item._id): _id가 string이 아니고 ObjectId의 형태로 DB에 들어가있기 때문에 백틱이 아닌 쌩으로 넣을때는 string 캐스팅이 필수 */}
+            <MoveDelete id={String(item._id)} title="삭제" />
+          </p>
+        </div>
+      )
+    })
+
+    return (
+      <>
+        <div>
+          <Move url={`/bbs/write`} title="등록" />
+        </div>
+        <div className="list-bg">{render}</div>
+      </>
+    )
+  }
+
+1. 테스트 : * 주의점은 api쪽 수정은 서버를 껐다가 다시 켜야 적용된다는 것이다.
+  $ cd app1
+  $ npm run build
+  $ npm run start
+  http://localhost:3000/bbs/write 에서 글을 쓴다.
+  http://localhost:3000/bbs 에서 60초 후에 적용되는지 확인한다.

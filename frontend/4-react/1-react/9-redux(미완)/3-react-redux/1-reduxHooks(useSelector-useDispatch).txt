@@ -1,4 +1,0 @@
-[React-redux Hooks]
-
-1. 사용하는 hooks : Redux hooks
-  useSelector, useDispatch라는 Redux hooks를 사용한다.

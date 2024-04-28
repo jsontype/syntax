@@ -1,0 +1,96 @@
+[v-html]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. src/components/VHtml.vue 생성 : v-html는 HTML이 담긴 변수를 특정 요소의 안쪽에 렌더링하는 디렉티브이다.
+  ```
+    <template>
+      <div>
+        <h1>V-Html</h1>
+        <div v-html="text1"></div>
+        <div>{{ text2 }}</div>
+      </div>
+    </template>
+
+    <script setup>
+    import { ref } from 'vue';
+
+    const text1 = ref('<p>This is <strong>dynamic HTML</strong> content.</p>'); // v-html이므로 <strong>이 강조됨.
+    const text2 = ref('<p>This is <strong>normal</strong> content.</p>'); // v-html이 아니므로 <strong>이 그대로 출력됨.
+    </script>
+
+    <style scoped>
+    </style>
+  ```
+
+1. src/App.vue 수정 : VHtml 컴포넌트를 호출한다.
+  ```
+    <template>
+      <VBind />
+      <VBindProps 
+        :string1="str1" 
+        :string2="str2" 
+        :number1="num1" 
+        :boolean1="bool1"
+        :on-click="showAlert"
+      />
+      <hr />
+      <VOn />
+      <hr />
+      <VIf />
+      <VElse />
+      <VElseIf1 />
+      <VElseIf2 />
+      <VShow />
+      <hr />
+      <VFor />
+      <hr />
+      <VModel />
+      <VModelModifier />
+      <hr />
+      <VOnce />
+      <VPre />
+      <VHtml />
+    </template>
+
+    <script setup lang="ts">
+    import VBind from '@/components/VBind.vue'
+    import VBindProps from '@/components/VBindProps.vue'
+    import VOn from '@/components/VOn.vue'
+    import VIf from '@/components/VIf.vue'
+    import VElse from '@/components/VElse.vue'
+    import VElseIf1 from '@/components/VElseIf1.vue'
+    import VElseIf2 from '@/components/VElseIf2.vue'
+    import VShow from '@/components/VShow.vue'
+    import VFor from '@/components/VFor.vue'
+    import VModel from '@/components/VModel.vue'
+    import VModelModifier from '@/components/VModelModifier.vue'
+    import VOnce from '@/components/VOnce.vue'
+    import VPre from '@/components/VPre.vue'
+    import VHtml from '@/components/VHtml.vue'
+
+    const str1 = 'String 1'
+    const str2 = 'String 2'
+    const num1 = 9999
+    const bool1 = num1 > 9998
+    const showAlert = () => {
+      alert('clicked')
+    }
+    </script>
+
+    <style scoped>
+    </style>
+  ```
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
+
+1. 참조 : v-html의 용도와 주의점
+  v-html 디렉티브는 서버에서 받아온 HTML 코드나, 사용자가 정의한 복잡한 HTML 코드를 동적으로 연결하고자 할 때 사용한다.
+  v-html 사용시의 주의점은 다음과 같다.
+  - 보안 취약점 : 개발자도구
+    HTML 코드를 직접 렌더링하는 것은 보안상 위험하므로(개발자도구에 그대로 보여짐) 내용을 확인하고 사용해야 한다.
+  - 보안 취약점 : XSS
+    XSS(Cross-Site Scripting) 공격에 취약해질 수 있으므로, 사용자로부터 입력받은 데이터를 v-html에 사용할 때는 반드시 이스케이프 처리하거나 정화(sanitize)를 해야 한다. 
+    안전하지 않은 소스로부터 받은 HTML을 그대로 렌더링하면, 스크립트 삽입 공격이나 다른 형태의 웹 보안 취약점을 야기할 수 있다.

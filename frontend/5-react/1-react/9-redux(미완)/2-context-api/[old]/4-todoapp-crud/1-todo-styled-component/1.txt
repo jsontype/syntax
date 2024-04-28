@@ -1,0 +1,351 @@
+[Todo 앱 만들기]
+
+1. Todo 앱을 만드는 과정에서, 지금까지 배운 다양한 개념들을 활용하게 될 것이다.
+    styled-components를 통한 컴포넌트 스타일링
+    Context API로 Global State 관리
+
+1. 앱 설치
+    $ npx create-react-app app1
+
+1. 불필요 부분을, 연동까지 삭제
+
+1. 라이브러리 설치 : react-icons, styled-components
+    $ cd app1
+    $ npm i react-icons styled-components
+    $ npm start
+
+
+
+[각 UI 컴포넌트 만들고, styled-components 방식으로 스타일 도입]
+
+1. src/components/TodoTemplate.js : 투두리스트의 레이아웃
+    import React from 'react'
+    import styled from 'styled-components'
+
+    // 페이지의 중앙에 그림자가 적용된 흰색 박스를 보여준다.
+    const TodoTemplateBlock = styled.div`
+        /* 페이지 중앙에 나타나도록 마진 설정 */
+        margin: 0 auto; 
+        margin-top: 96px;
+        margin-bottom: 32px;
+        display: flex;
+        flex-direction: column;
+
+        /* 그림자 적용 */
+        box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.04);
+
+        /* 흰색 박스 */
+        background: white;
+
+        /* 사이즈 설정 */
+        width: 512px;
+        height: 768px;
+
+        /* 박스 하단에 추가 버튼을 위치시키기 위한 설정 */
+        position: relative;
+
+        /* 곡선 테두리 */    
+        border-radius: 16px;
+    `
+
+    function TodoTemplate({ children }) {
+        return <TodoTemplateBlock>{children}</TodoTemplateBlock>
+    }
+
+    export default TodoTemplate
+
+
+
+1. src/components/TodoHead.js : 날짜와 요일, 남은 todo 개수
+    import React from 'react'
+    import styled from 'styled-components'
+
+    const TodoHeadBlock = styled.div`
+        padding-top: 48px;
+        padding-left: 32px;
+        padding-right: 32px;
+        padding-bottom: 24px;
+        border-bottom: 1px solid #e9ecef;
+        h1 {
+            margin: 0;
+            font-size: 36px;
+            color: #343a40;
+        }
+        .day {
+            margin-top: 4px;
+            color: #868e96;
+            font-size: 21px;
+        }
+        .tasks-left {
+            color: #20c997;
+            font-size: 18px;
+            margin-top: 40px;
+            font-weight: bold;
+        }
+    `
+
+    function TodoHead() {
+        return (
+            <TodoHeadBlock>
+                <h1>2019년 7월 10일</h1>
+                <div className="day">수요일</div>
+                <div className="tasks-left">할 일 2개 남음</div>
+            </TodoHeadBlock>
+        )
+    }
+
+    export default TodoHead
+
+
+
+1. src/components/TodoList.js : todos 배열을 map으로 돌려 여러 TodoItem 컴포넌트를 렌더링
+    import React from 'react'
+    import styled from 'styled-components'
+    import TodoItem from './TodoItem'
+
+    const TodoListBlock = styled.div`
+        flex: 1;
+        padding: 20px 32px;
+        padding-bottom: 48px;
+        overflow-y: auto;
+    `
+
+    function TodoList() {
+        return (
+            <TodoListBlock>
+                <TodoItem text="프로젝트 생성하기" done={true} />
+                <TodoItem text="컴포넌트 스타일링 하기" done={true} />
+                <TodoItem text="Context 만들기" done={false} />
+                <TodoItem text="기능 구현하기" done={false} />
+            </TodoListBlock>
+        )
+    }
+
+    export default TodoList
+
+
+
+1. src/components/TodoItem.js : 각 todo 아이템과, 아이템마다의 check, delete 버튼을 렌더링
+    import React from 'react'
+    import styled, { css } from 'styled-components'
+    // 아이콘은 react-icons 라이브러리의 MdDone, MdDelete 아이콘을 사용한다.
+    import { MdDone, MdDelete } from 'react-icons/md'
+
+    /* 휴지통 아이콘을 담는 컴포넌트 */
+    const Remove = styled.div`
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #dee2e6;
+        font-size: 24px;
+        cursor: pointer;
+        &:hover {
+            color: #ff6b6b;
+        }
+        display: none;
+    `
+
+    /* 휴지통 아이콘이 호버링시에 표시된다. ${Remove}를 Component Selector라 한다. */
+    const TodoItemBlock = styled.div`
+        display: flex;
+        align-items: center;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        &:hover {
+            ${Remove} {
+                display: initial;
+            }
+        }
+    `
+
+    /* 체크박스 아이콘을 담는 컴포넌트 */
+    const CheckCircle = styled.div`
+        width: 32px;
+        height: 32px;
+        border-radius: 16px;
+        border: 1px solid #ced4da;
+        font-size: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 20px;
+        cursor: pointer;
+        ${props => 
+            props.done && css`
+                border: 1px solid #38d9a9;
+                color: #38d9a9;
+            `
+        }
+    `
+
+    /* 체크박스에 체크했을 때, 좌측에 체크가 나타나고 텍스트의 색상이 연해진다. */
+    const Text = styled.div`
+        flex: 1;
+        font-size: 21px;
+        color: #495057;
+        ${props => 
+            props.done && css`
+                color: #ced4da;
+            `
+        }
+    `
+
+    function TodoItem({ id, done, text }) {
+        return (
+            <TodoItemBlock>
+                {/* 체크박스에 체크했을 때, 좌측에 체크가 나타나고 텍스트의 색상이 연해진다. */}
+                <CheckCircle done={done}>{done && <MdDone />}</CheckCircle>
+                <Text done={done}>{text}</Text>
+                {/* 마우스를 올리면 휴지통 아이콘이 나타나고, 이를 누르면 항목이 삭제된다.  */}
+                <Remove>
+                    <MdDelete />
+                </Remove>
+            </TodoItemBlock>
+        )
+    }
+
+    export default TodoItem
+
+
+
+1. src/components/TodoCreate.js : 새로운 todo를 등록
+    import React, { useState } from 'react'
+    import styled, { css } from 'styled-components'
+    import { MdAdd } from 'react-icons/md'
+
+    // TodoTemplate의 하단부에 "추가" 버튼
+    const CircleButton = styled.button`
+        background: #38d9a9;
+        &:hover {
+            background: #63e6be;
+        }
+        &:active {
+            background: #20c997;
+        }
+
+        z-index: 5;
+        cursor: pointer;
+        width: 80px;
+        height: 80px;
+        font-size: 60px;
+        position: absolute;
+        left: 50%;
+        bottom: 0px;
+        transform: translate(-50%, 50%);
+        color: white;
+        border-radius: 50%;
+        border: none;
+        outline: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        transition: 0.125s all ease-in;
+        ${props =>
+            props.open && css`
+                background: #ff6b6b;
+                &:hover {
+                    background: #ff8787;
+                }
+                &:active {
+                    background: #fa5252;
+                }
+                transform: translate(-50%, 50%) rotate(45deg);
+            `
+        }
+    `
+
+    const InsertFormPositioner = styled.div`
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        position: absolute;
+    `
+
+    const InsertForm = styled.form`
+        background: #f8f9fa;
+        padding-left: 32px;
+        padding-top: 32px;
+        padding-right: 32px;
+        padding-bottom: 72px;
+        border-bottom-left-radius: 16px;
+        border-bottom-right-radius: 16px;
+        border-top: 1px solid #e9ecef;
+    `
+
+    const Input = styled.input`
+        padding: 12px;
+        border-radius: 4px;
+        border: 1px solid #dee2e6;
+        width: 100%;
+        outline: none;
+        font-size: 18px;
+        box-sizing: border-box;
+    `
+
+    function TodoCreate() {
+        /*
+            추가버튼과 "open" state를 onToggle로 연결해서, 
+            버튼을 클릭하면 todo 입력 폼이 나타나고, 다시 누르면 폼이 사라진다.
+        */
+        const [open, setOpen] = useState(false)
+        const onToggle = () => setOpen(!open)
+        return (
+            <>
+                {open && (
+                    <InsertFormPositioner>
+                        <InsertForm>
+                            <Input autoFocus placeholder="할 일을 입력 후, Enter 를 누르세요" />
+                        </InsertForm>
+                    </InsertFormPositioner>
+                )}
+                <CircleButton onClick={onToggle} open={open}>
+                    <MdAdd />
+                </CircleButton>
+            </>
+        )
+    }
+
+    export default TodoCreate
+
+
+
+1. src/App.js : 모든 컴포넌트들 렌더링 하기
+    import React from 'react'
+    import { createGlobalStyle } from 'styled-components'
+    import TodoTemplate from './components/TodoTemplate'
+    import TodoHead from './components/TodoHead'
+    import TodoList from './components/TodoList'
+    import TodoCreate from './components/TodoCreate'
+
+    /* 
+        createGlobalStyle 함수
+            정의 : styled-components에서 글로벌 스타일링을 추가하고 싶을 때 사용하는 함수이다.
+            사용방법 : createGlobalStyle 함수를 사용하면 컴포넌트가 만들어지는데, 이 컴포넌트를 렌더링하면 된다.
+    */
+    const GlobalStyle = createGlobalStyle`
+        body {
+            background: #e9ecef;
+        }
+    `
+
+    function App() {
+        return (
+            <>
+                <GlobalStyle />
+                <TodoTemplate>
+                    <TodoHead />
+                    <TodoList />
+                    <TodoCreate />
+                </TodoTemplate>
+            </>
+        )
+    }
+
+    export default App
+
+
+
+1. 테스트 : UI만 테스트
+    $ cd app1
+    $ npm run dev
