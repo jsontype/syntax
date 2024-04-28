@@ -1,0 +1,115 @@
+[Storybook Page]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. src/page/AlertList/index.js 생성 : 얼럿리스트 페이지 만들기
+```
+  import React, { useState } from "react"
+  import Button from "../../components/Button"
+  import Alert from "../../components/Alert"
+
+  const AlertList = () => {
+    const [alertType, setAlertType] = useState(null)
+
+    const showAlert = (type) => {
+      setAlertType(type)
+      setTimeout(() => {
+        setAlertType(null)
+      }, 3000)
+    }
+
+    return (
+      <div>
+        <Button
+          text="success"
+          style={{
+            backgroundColor: "#dff0d8",
+            color: "#3c763d",
+            fontSize: "16px",
+            padding: "10px",
+          }}
+          disabled={false}
+          onClick={() => showAlert("success")}
+        />
+        <Button
+          text="info"
+          style={{
+            backgroundColor: "#d9edf7",
+            color: "#31708f",
+            fontSize: "16px",
+            padding: "10px",
+          }}
+          disabled={false}
+          onClick={() => showAlert("info")}
+        />
+        <Button
+          text="warning"
+          style={{
+            backgroundColor: "#fcf8e3",
+            color: "#8a6d3b",
+            fontSize: "16px",
+            padding: "10px",
+          }}
+          disabled={false}
+          onClick={() => showAlert("warning")}
+        />
+        <Button
+          text="danger"
+          style={{
+            backgroundColor: "#f2dede",
+            color: "#a94442",
+            fontSize: "16px",
+            padding: "10px",
+          }}
+          disabled={false}
+          onClick={() => showAlert("danger")}
+        />
+        {alertType && (
+          <Alert
+            message={`This is a ${alertType} alert.`}
+            type={alertType}
+            onClose={() => setAlertType(null)}
+          />
+        )}
+      </div>
+    )
+  }
+
+  export default AlertList
+```
+
+1. src/App.js 생성 : 얼럿리스트 페이지 렌더링하기
+  import React from "react"
+  import AlertList from "./pages/AlertList"
+
+  const App = () => {
+    return (
+      <>
+        <AlertList />
+      </>
+    )
+  }
+
+  export default App
+
+1. 테스트 : 얼럿리스트 페이지가 작동하는지 확인
+  $ cd app1
+  $ npm start
+
+1. src/pages/AlertList/index.stories.js 생성 : 스토리북 도입
+  import React from "react"
+  import AlertList from "./"
+
+  export default {
+    title: "Pages/AlertList",
+    component: AlertList,
+  }
+
+  const Template = () => <AlertList />
+
+  export const Default = Template.bind({})
+
+1. 테스트 : Storybook 실행해보기
+  $ cd app1
+  $ npm run storybook
+  http://localhost:6006/

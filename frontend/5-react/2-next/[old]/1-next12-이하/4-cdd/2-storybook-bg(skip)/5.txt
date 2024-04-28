@@ -1,0 +1,41 @@
+[Storybook 배경색 변경]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. .storybook/preview.js 수정 : Storybook의 배경색을 설정하거나 기본 배경색을 변경하기 위한 준비
+  export const parameters = {
+    actions: { argTypesRegex: '^on[A-Z].*' },
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/,
+      },
+    },
+    backgrounds: {
+      default: 'gray',
+      values: [
+        {
+          name: 'gray',
+          value: '#F3F5FB',
+        },
+        {
+          name: 'white',
+          value: '#FFFFFF',
+        },
+        {
+          name: 'black',
+          value: '#000000',
+        },
+        {
+          name: 'blue',
+          value: '#2E48A0',
+        },
+      ],
+    },
+  }
+
+1. 테스트
+  $ cd app1
+  $ npm run storybook
+  http://localhost:6006
+  Canvas 우측 아이콘 중, 배경색 변경 아이콘 클릭해서 배경 색상 변경해보기

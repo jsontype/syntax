@@ -1,0 +1,390 @@
+[Vuex - Read]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. 사용할 API 주소
+  https://api.hnpwa.com/v0/news/1.json
+
+1. Vuex 설치
+  $ npm i vuex@3.6.2
+  $ npm i axios    
+
+
+
+1. 개념 학습 : vue devtools
+  구글에 "크롬 웹스토어" 검색 후 들어감
+  스토어 검색에서 vue devtools 검색
+  최상단의 최신 vue.js devtools의 beta 버전 다운로드
+  크롬을 껐다 킴
+  $ npm run serve
+  개발자툴을 연다.
+  Vue 탭에 들어간다.
+  Vue 탭을 Element탭 옆으로 이동시켜둔다.
+  Vue 탭 내의 상단 아이콘 중 최우측에 마우스를 갖다대면 풀다운이 나온다. 그 중에서 vuex를 클릭
+  Root를 클릭하면 state가 나온다.
+  이제부터 store/index.js 안에 api를 통해 받은 정보를 넣으면 state 안에 표시될 예정이다.
+  https://api.hnpwa.com/v0/news/1.json
+  json 파일이 출력됨을 확인한다. 그러나 아직은 보기에 불편하다.
+  스토어 검색에서 JSON Viewer 검색
+  최상단의 JSON Viewer 다운로드
+  https://api.hnpwa.com/v0/news/1.json 가 열린 페이지를 새로고침 해본다.
+  json 형태가 보기 편하게 나오는 것을 확인한다.
+  https://api.hnpwa.com/v0/ask/1.json
+  위 주소에서 ask api도 호출해보고, json 형태가 보기 편하게 나오는 것을 확인한다.
+
+1. 개념 학습 : src/store/index.js에 json 데이터를 넣으려면...?
+  우선 Vuex에서 API를 불러와서 Store에 넣는 작업 순서를 외워두자.
+  ★★ C DACMS B : CMUD/버튼 → Dispatch → Action → Commit → Mutation → State → Browser
+    Dispatch, Action은 한 쌍으로 움직이며 fetch와 같은 비동기로직에 주로 사용한다.
+    Commit, Mutation은 한 쌍으로 움직이며 set과 같은 동기로직에 주로 사용한다.
+      * 비동기, 동기란?
+        비동기공장: 시간이 많이 걸리는 작업 (파일 시스템을 다룰 경우, 영상을 켤 경우 등.)
+          A-----------:
+          B-------
+          C---------
+        동기공장: 굉장히 빨리 끝날 수 있는 작업
+          A-----------:
+          B-----------:
+          C-----
+  ★★ CMUD/버튼 : Created, Mounted, Updated, Destroyed + 버튼(methods)
+    *.vue 파일 안에서 API를 작동시키는 시점이자, vue의 4가지 라이프사이클 단계
+  ★★ DACMS : (dispatch → action) → (commit → mutation) → store → browser
+    참조할 타겟 : 데이터베이스(API)  → 스토어(Vuex)                 → 화면
+    로직의 종류 : 비동기로직         → 동기로직                     → 화면
+  API를 통해 파일, 데이터베이스 값 호출하는 것은 모두 비동기로직이며, 보통 CRUD중 하나로 만들어진다.
+    Create : https://api.hnpwa.com/v0/news/create/1.json (예시. 실제 아님)
+    Read : https://api.hnpwa.com/v0/news/1.json (실제)
+    Update : https://api.hnpwa.com/v0/news/update/1.json (예시. 실제 아님)
+    Delete : https://api.hnpwa.com/v0/news/delete/1.json (예시. 실제 아님)
+  원래의 순서라면 DB를 먼저 수정한 다음, 화면에 표시될 데이터인 스토어를 수정한다.
+  그러나 read api만 있기 때문에, create, delete, update는 commit - mutation만 넣어서 실행하겠다.
+
+1. 개념 학습 : CMUD 라이프사이클
+  Vue 파일에서 타 파일의 메소드를 불러오려면, 그 전에 우선
+  Vue 파일 내에서 "작동되는 시점"을 가리키는 "CMUD 라이프사이클"에 대해 이해해야 한다. 
+    ★★ created - mounted - updated - destroyed
+  다음 url을 참조해서 읽어보고 이해해보자.
+    ★ https://kr.vuejs.org/v2/guide/instance.html
+    ★ https://v3.ko.vuejs.org/api/options-lifecycle-hooks.html#beforecreate
+
+
+
+1. src/store/index.js 작성
+  import Vue from 'vue'
+  import Vuex from 'vuex'
+
+  Vue.use(Vuex)
+
+  export default new Vuex.Store({
+    state: {
+      news: [],
+      ask: []
+    }
+  })
+
+1. main.js 수정
+  import Vue from 'vue'
+  import App from './App.vue'
+  import router from "@/routes/index"
+  import store from "@/store/index"
+
+  Vue.config.productionTip = false
+
+  new Vue({
+    router,
+    store,
+    render: h => h(App),
+  }).$mount('#app')
+
+1. [Action] src/store/actions.js 생성
+  우선 fetch를 하기 위해서는 axios 라이브러리가 필요하다.
+    * 다른 fetch 방식도 있지만 비동기처리가 되는 axios를 주로 사용한다.
+  FETCH_NEWS, FETCH_ASK 두개의 액션을 준비해보자.
+
+```
+  import axios from "axios"
+
+  export default {
+    FETCH_NEWS () {
+      axios.get('https://api.hnpwa.com/v0/news/1.json')
+        .then((response) => {
+          console.log(response)
+        })
+    },
+    FETCH_ASK () {
+      axios.get('https://api.hnpwa.com/v0/ask/1.json')
+        .then((response) => {
+          console.log(response)
+        })
+    }
+  }
+```
+
+1. [Action] src/store/index.js 수정 : actions.js를 임포트해야한다.
+```
+  import Vue from 'vue'
+  import Vuex from 'vuex'
+  import actions from './actions.js'
+
+  Vue.use(Vuex)
+
+  export default new Vuex.Store({
+      state: {
+          news: [],
+          ask: []
+      },
+      actions
+  })
+```
+
+1. [Dispatch] src/views/NewsView.vue 수정 
+  앞으로 만들 FETCH_NEWS()라는 action을 불러오려면 이 안에 dispatch가 필요하다.
+  dispatch를 불러올 라이프사이클은 created로 정했다.
+
+```
+  <template>
+    <div>
+      뉴스 페이지
+    </div>
+  </template>
+
+  <script>
+    export default {
+      created () {
+        this.$store.dispatch('FETCH_NEWS')
+      }
+    }
+  </script>
+```
+
+1. [Dispatch] src/views/AskView.vue 수정
+  앞으로 만들 FETCH_ASK()라는 action을 불러오려면 이 안에 dispatch가 필요하다.
+  dispatch를 불러올 라이프사이클은 created로 정했다.
+
+```
+  <template>
+    <div>
+      Ask 페이지
+    </div>
+  </template>
+
+  <script>
+    export default {
+      created () {
+        this.$store.dispatch('FETCH_ASK')
+      }
+    }
+  </script>
+```
+
+1. 중간 테스트 : Action 확인
+  $ npm run serve
+  개발자툴을 열어 /news와 /ask페이지에서 console.log를 확인
+  해당 JSON 데이터안에서도, data가 필요하다.
+
+
+
+1. [Action 수정] src/store/actions.js 수정
+    console.log(response) → console.log(response.data)로 수정
+
+1. [Commit] response.data의 array정보를 vue의 state안에다 넣는다.
+
+1. src/store/actions.js 수정
+  두 액션 메소드의 각 console.log(response.data) 밑에 다음 한줄씩 각각 추가
+    FETCH_NEWS() 안에..
+      FETCH_NEWS() → FETCH_NEWS({ commit })으로 수정한다.
+      .then안에 commit('SET_NEWS', response.data)를 추가한다.
+    FETCH_ASK() 안에..
+      FETCH_ASK() → FETCH_ASK({ commit })으로 수정한다.
+      .then안에 commit('SET_ASK', response.data)를 추가한다.
+
+1. [Mutation] src/store/mutations.js 생성
+  Commit이 불러올 SET_NEWS ()와 SET_ASK () 메소드 생성
+  아래에서 state 파라미터는 자기 자신(의 메소드명)을 가리킨다.
+  아래에서 news, ask 파라미터는 actions.js내의 response.data가 아규먼트가 들어간다.
+
+```
+  export default {
+    SET_NEWS (state, news) {
+      state.news = news
+    },
+    SET_ASK (state, ask) {
+      state.ask = ask
+    }
+  }
+```
+
+1. [Mutation] src/store/index.js 수정 : mutations.js를 임포트
+```
+  import Vue from 'vue'
+  import Vuex from 'vuex'
+  import actions from './actions.js'
+  import mutations from './mutations.js'
+
+
+  Vue.use(Vuex)
+
+  export default new Vuex.Store({
+    state: {
+      news: [],
+      ask: []
+    },
+    actions,
+    mutations
+  })
+```
+
+1. 테스트 : Mutation의 확인
+  $ npm run serve
+  개발자툴을 열어 Vue 탭을 확인한다.
+  news와 ask의 State안에 Value들이 들어가있음을 확인한다.
+
+
+
+1. [State] src/views/NewsView.vue 수정 ### : computed 메소드를 작성한다. computed 메소드는 부를 때 괄호가 필요없다. → {{ news }}
+
+  <template>
+    <div>
+      뉴스 페이지
+      {{ news }}
+    </div>
+  </template>
+
+  <script>
+  export default {
+    computed: {
+      news () {
+        return this.$store.state.news
+      }
+    },
+    created () {
+      this.$store.dispatch('FETCH_NEWS')
+    }
+  }
+  </script>
+
+1. [화면] src/views/NewsView.vue 수정 ### : v-for문을 통해 가공된 정보가 표시되도록 변경해본다.
+  <template>
+    <div>
+      뉴스 페이지
+      <ul>
+        <li
+          v-for="item in news"
+          :key="item.id"
+        >
+          {{ item.title }}
+        </li>
+      </ul>
+    </div>
+  </template>
+
+  <script>
+  export default {
+    computed: {
+      news () {
+        return this.$store.state.news
+      }
+    },
+    created () {
+      this.$store.dispatch('FETCH_NEWS')
+    }
+  }
+  </script>
+
+1. [화면] src/views/NewsView.vue 수정 ### : 로딩 화면 추가
+```
+  <template>
+    <div>
+      뉴스 페이지
+      <ul v-if="news.length > 0">
+        <li
+          v-for="item in news"
+          :key="item.id"
+        >
+          {{ item.title }}
+        </li>
+      </ul>
+      <div
+        v-else
+        class="red"
+      >Loading...</div>
+    </div>
+  </template>
+
+  <script>
+  export default {
+    computed: {
+      news () {
+        return this.$store.state.news
+      }
+    },
+    created () {
+      this.$store.dispatch('FETCH_NEWS')
+    }
+  }
+  </script>
+
+  <style scoped>
+  .red {
+    color: red;
+    font-size: 200px;
+  }
+  </style>
+```
+
+
+
+1. [화면] src/views/AskView.vue 수정 : 
+  ask도 가공된 정보를 표시하지만, NewsView와는 다르게, 
+  create 시점에서 dispatch로 api내 JSON 정보를 불러오는 것이 아니라, 
+  method를 통해서 호출할 때 dispatch로 api내 JSON 정보를 불러오도록 한다.
+
+```
+  <template>
+    <div>
+      Ask 페이지
+      <button @click="fetchAsk">ASK Load</button>
+
+      <ul v-if="ask.length > 0">
+        <li
+          v-for="item in ask"
+          :key="item.id"
+        >
+          {{ item.id }} {{ item.title }}
+        </li>
+      </ul>
+      <div
+        v-else
+        class="red"
+      >Press the button</div>
+    </div>
+  </template>
+
+  <script>
+  export default {
+    computed: {
+      ask () {
+        return this.$store.state.ask
+      }
+    },
+    methods: {
+      fetchAsk () {
+        this.$store.dispatch('FETCH_ASK')
+      }
+    }
+  }
+  </script>
+
+  <style scoped>
+  .red {
+    color: red;
+    font-size: 50px;
+  }
+  </style>
+```
+
+1. 테스트
+  $ cd app1
+  $ npm run serve
+  브라우저에서 /news와 /ask 페이지를 확인
+  개발자툴에서 Vue 탭 클릭 후 array 데이터가 잘 들어가 있는지 확인

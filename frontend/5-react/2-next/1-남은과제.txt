@@ -1,0 +1,3 @@
+SSR 대응: next fetch 사용법
+SSG 대응: next getStaticProps 사용법? 검색엔진 최적화하기
+SEO 대응: next head 사용법?

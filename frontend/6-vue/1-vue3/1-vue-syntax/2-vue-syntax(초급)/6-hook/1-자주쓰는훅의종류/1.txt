@@ -1,0 +1,59 @@
+[Vue에서 자주 쓰는 Hook 함수들]
+
+1. Composition API Hooks
+  // 반응형 status를 만들기 위해 사용
+  import { ref, reactive } from 'vue'
+  // 미리 계산되는 값을 만들기 위해 사용
+  import { computed } from 'vue'
+  // 반응형 상태의 변화를 감시하기 위해 사용
+  import { watch, watchEffect } from 'vue'
+
+1. Lifecycle Hooks
+  // 컴포넌트 라이프사이클 훅
+  import { onMounted, onUpdated, onUnmounted } from 'vue'
+  import { onBeforeMount, onBeforeUpdate, onBeforeUnmount } from 'vue'
+
+1. 외부 라이브러리에서 쓰는 Hooks
+  import { useStore } from 'vuex' : vuex에서 store를 가져올 때
+  import { useRoute, useRouter } from 'vue-router' : vue-router에서 route, router를 가져올 때
+
+
+
+[Vue에서 자주 쓰이지는 않지만 알아두면 좋은 Hook 함수들]
+
+1. 참고: 이 훅 함수들은 수업에선 다루지 않으니 현장에서 필요시마다 검색해서 사용하면 된다.
+
+1. Lifecycle Hooks
+  // "keep-alive"된 컴포넌트의 활성화/비활성화 훅.
+  import { onActivated, onDeactivated } from 'vue'
+
+1. Render Hooks
+  // 렌더링 추적 및 트리거 훅
+  import { onRenderTracked, onRenderTriggered } from 'vue'
+
+1. Error Hooks
+  // 오류 캡처 훅
+  import { onErrorCaptured } from 'vue'
+
+1. Component Hooks
+  // 부모 컴포넌트에서 자식 컴포넌트로 데이터를 제공하는 훅
+  import { provide, inject } from 'vue'
+
+1. Misc Hooks
+  // 객체의 속성들을 개별적인 ref로 변환하기 위해 사용
+  import { toRefs, toRef } from 'vue'
+  // 다음 DOM 업데이트 사이클 이후에 코드를 실행하기 위해 사용.
+  import { nextTick } from 'vue'
+
+1. 외부 라이브러리에서 쓰는 Hooks
+  import { onBeforeRouteEnter, onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router' : routing의 시점별 라이프사이클 훅
+  import { useFetch } from '@vueuse/core' : vueuse에서 fetch를 가져올 때
+  import { useAxios } from '@/composables/useAxios' : axios를 가져올 때
+  import { useI18n } from 'vue-i18n' : vue-i18n에서 i18n을 가져올 때
+  import { useLocalStorage } from '@vueuse/core' : vueuse에서 localStorage를 가져올 때
+  import { useSessionStorage } from '@vueuse/core' : vueuse에서 sessionStorage를 가져올 때
+  import { useCookies } from '@vueuse/core' : vueuse에서 cookies를 가져올 때
+  import { useMeta } from 'vue-meta' : vue-meta에서 meta를 가져올 때
+  import { useHead } from '@vueuse/head' : vueuse에서 head를 가져올 때
+  import { useTitle } from '@vueuse/core' : vueuse에서 title을 가져올 때
+  import { useFavicon } from '@vueuse/core' : vueuse에서 favicon을 가져올 때

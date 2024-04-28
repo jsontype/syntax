@@ -1,0 +1,52 @@
+[Global Components]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. vbase-3 사용하기 위해 필요한 확장 설치 : vue vscode snippet
+
+1. src/components/GlobalHelloWorld.vue 생성
+  ```
+    <template>
+      <h1>Global Components</h1>
+    </template>
+
+    <script setup lang="ts">
+    </script>
+
+    <style scoped>
+    </style>
+  ```
+
+1. src/main.ts 수정 : 글로벌 컴포넌트 등록. component('태그에 <GlobalHelloWorld />처럼 사용할 이름', Import하는 컴포넌트) 함수를 사용한다.
+  ```
+    import { createApp } from 'vue';
+    import App from './App.vue';
+    import GlobalHelloWorld from './components/GlobalHelloWorld.vue';
+    
+    const app = createApp(App)
+    
+    app.component('GlobalHelloWorld', GlobalHelloWorld)
+    app.mount('#app');
+  ```
+
+1. src/App.vue 수정 : <GlobalHelloWorld />를 추가. Import는 필요없다.
+  ```
+    <template>
+      <HelloWorld />
+      <hello-world />
+      <GlobalHelloWorld />
+    </template>
+
+    <script setup lang="ts">
+    // Local Component
+    import HelloWorld from './components/HelloWorld.vue'
+    </script>
+
+    <style scoped>
+    </style>
+  ```
+
+1. 테스트
+  $ cd app1
+  $ npm install
+  $ npm run dev

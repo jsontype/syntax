@@ -1,0 +1,71 @@
+[리액트 네이티브 styled-components 설치]
+
+1. 사전준비 : init 앱을 가지고 온다.
+
+1. 설치
+  $ cd app1
+  $ npm i -f styled-components
+
+1. 설치 트러블슈팅 : npm ERR! ERESOLVE unable to resolve dependency tree
+  npm은 peer 종속성의 문제가 있으면 에러를 낸다.
+  - npm을 사용한 해결방법
+    $ npm i -f styled-components
+
+  yarn은 peer 종속성의 문제를 무시하는 것이 기본값이므로 yarn으로 설치하면 이 문제를 해결할 수 있다.
+  - yarn을 사용한 해결방법
+    node_modules 삭제
+    package-lock.json 삭제
+    $ npm i -g yarn // yarn 설치
+    $ yarn install
+    $ yarn add styled-components
+
+1. VSCode 확장 설치 (권장사항)
+  "vscode-styled-components"
+
+1. src/App.js 수정 : StyledText과 StyledButton을 구현
+  import { StatusBar } from "expo-status-bar"
+  import { styles } from "./style"
+  import styled, { css } from "styled-components/native"
+
+  const Container = styled.View`
+    flex: 1;
+    background-color: "pink";
+    align-items: center;
+    justify-content: center;
+  `
+
+  const cssText = css`
+    font-size: 20px;
+    font-weight: 600;
+  `
+
+  const StyledText = styled.Text`
+    ${cssText}
+    color: blue;
+  `
+
+  // 스타일드컴포넌트를 상속받아서 새 스타일드컴포넌트 만들기
+  const ErrorText = styled(StyledText)`
+    ${cssText}
+    color: red;
+  `
+
+  const StyledButton = styled.Button``
+
+  export default function App() {
+    return (
+      <Container>
+        <StatusBar style="auto" />
+        <StyledText>Styled Components</StyledText>
+        <ErrorText>Error</ErrorText>
+        <StyledButton
+          title="Button"
+          onPress={() => alert("스타일컴포넌트 버튼!")}
+        ></StyledButton>
+      </Container>
+    )
+  }
+
+1. 테스트
+  $ cd app1
+  $ npm start / yarn start

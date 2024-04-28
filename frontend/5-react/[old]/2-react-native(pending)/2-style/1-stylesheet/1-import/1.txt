@@ -1,0 +1,53 @@
+[리액트 네이티브 Style]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. src/MyButton.js, src/MyTextInput.js 삭제
+
+1. src/style.js 생성 : src/App.js로부터 타 파일을 임포트를 해오는 식으로 구조를 변경하기
+  import { StyleSheet } from "react-native"
+
+  export const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: "#FFF",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    text: {
+      backgroundColor: "gray",
+      color: "white",
+      fontSize: 20,
+      padding: 10,
+      margin: 10,
+    },
+    errorText: {
+      color: "red",
+    },
+  })
+
+1. src/App.js 수정
+  import { StatusBar } from "expo-status-bar"
+  import { Text, View } from "react-native"
+  import { styles } from "./style"
+
+  export default function App() {
+    return (
+      <View style={styles.container}>
+        <StatusBar style="auto" />
+
+        {/* 스타일을 적용할 때는 style.js 안에 내용을 추가한다. */}
+        <Text style={styles.text}>일반메시지</Text>
+        {/* 여러개의 스타일을 적용할 때는 배열을 이용한다. */}
+        <Text style={[styles.text, styles.errorText]}>에러메시지</Text>
+      </View>
+    )
+  }
+
+1. 테스트
+  $ cd app1
+  $ npm start
+  i를 누르면 아이폰용, a를 누르면 안드로이드폰용 앱을 실행 (* shift키와 함께 i, a를 누르면 각각 실행가능한 기기 목록까지 선택해서 실행)
+  XCode 설치 여부 : n 을 선택
+  서버가 구동되면, 아이폰 Expo 앱에서 App1 servers를 선택 (* 또는 터미널에 윗부분에 뜨는 QR 코드를 아이폰으로 촬영하여 이동)
+  수정사항이 반영되지 않을 경우, 휴대폰을 한번 흔들어서, Reload를 선택하여 새로고침한다.

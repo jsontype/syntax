@@ -1,4 +1,0 @@
-[React Movieapp에 ts 도입해보기]
-
-1. 기존 Create React App 프로젝트에 TypeScript를 추가하기
- ts(loop) 참조

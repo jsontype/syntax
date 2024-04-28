@@ -1,0 +1,92 @@
+[Material UI 레이팅]
+참조URL: https://mui.com/material-ui/react-rating/
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. src/components/Ratings.js 생성 : @mui/material/Rating 작동 테스트
+  import React, { useState } from "react"
+  import Box from "@mui/material/Box"
+  import Rating from "@mui/material/Rating"
+  import Typography from "@mui/material/Typography"
+
+  export default function Ratings() {
+    const [value, setValue] = useState(2)
+
+    return (
+      <>
+        <h1>등급</h1>
+        <Box
+          sx={{
+            "& > legend": { mt: 2 },
+          }}
+        >
+          <h5>등급</h5>
+
+          <Typography component="legend">Controlled</Typography>
+          <Rating
+            name="simple-controlled"
+            value={value}
+            onChange={(e, newValue) => {
+              e.preventDefault()
+              setValue(newValue)
+            }}
+          />
+          <Typography component="legend">Read only</Typography>
+          <Rating name="read-only" value={value} readOnly />
+          <Typography component="legend">Disabled</Typography>
+          <Rating name="disabled" value={value} disabled />
+          <Typography component="legend">No rating given</Typography>
+          <Rating name="no-value" value={null} />
+
+          <h5>등급 정밀도</h5>
+          <Typography component="legend">Controlled</Typography>
+          <Rating
+            name="half-rating"
+            value={value}
+            onChange={(e, newValue) => {
+              e.preventDefault()
+              setValue(newValue)
+            }}
+            defaultValue={2.5}
+            precision={0.5}
+          />
+          <Typography component="legend">Read only</Typography>
+          <Rating
+            name="half-rating-read"
+            value={value}
+            precision={0.5}
+            readOnly
+          />
+          <Typography component="legend">Disabled</Typography>
+          <Rating
+            name="half-rating-read"
+            value={value}
+            precision={0.5}
+            disabled
+          />
+        </Box>
+      </>
+    )
+  }
+
+1. src/App.js 수정 : 레이팅 화면 렌더링
+  import React from "react"
+  import PullDowns from "./components/PullDowns"
+  import Buttons from "./components/Buttons"
+  import Ratings from "./components/Ratings"
+
+  import "./App.css"
+
+  export default function App() {
+    return (
+      <div className="App">
+        <PullDowns />
+        <Buttons />
+        <Ratings />
+      </div>
+    )
+  }
+
+1. 테스트 : 다른 옵션들은 material ui의 공식 api 문서를 참조해보자.
+  $ cd app1
+  $ npm start

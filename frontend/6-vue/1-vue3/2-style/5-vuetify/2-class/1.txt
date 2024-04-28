@@ -1,0 +1,37 @@
+[Vuetify 클래스]
+참조URL: https://vuetifyjs.com/
+
+1. 레이아웃 (Layout)
+  컨테이너: .container와 .container--fluid
+  그리드 시스템: .row와 .col, .col-{수치}, .offset-{수치}
+  플렉스 레이아웃: .d-flex, .flex-{방향}, .justify-{정렬}, .align-{정렬}
+
+1. 컨텐츠 타이포그래피 (Content Typography)
+  텍스트 정렬: .text-{방향}
+  텍스트 크기: .display-{1~4}, .headline, .title, .subtitle-{1,2}, .body-{1,2}, .caption
+  폰트 가중치 및 스타일: .font-weight-{가중치}, .font-italic
+
+1. 컴포넌트 (Components)
+  버튼: .v-btn, .v-btn--{유형}, 예: .v-btn--outlined, .v-btn--text
+  카드: .v-card, .v-card__title, .v-card__text, .v-card__actions
+  폼 컨트롤: .v-text-field, .v-form, .v-checkbox, .v-radio
+
+1. 유틸리티 (Utilities)
+  마진과 패딩: .ma-{수치}, .pa-{수치}, .mx-{수치}, .my-{수치} 등
+  배경색과 텍스트 색상: .bg-{색상}, .text--{색상}
+  가시성과 디스플레이: .visible, .invisible, .d-{디스플레이 타입}
+
+1. 반응형 유틸리티 (Responsive Utilities)
+  숨김 및 표시: .hidden-{breakpoint}, .show-{breakpoint}
+  그리드 시스템 반응형: .col-{breakpoint}-{수치}, .offset-{breakpoint}-{수치}
+
+1. 기타 (Others)
+  테두리: .rounded-{크기}, .border
+  그림자: .elevation-{수치} 예: .elevation-1, .elevation-2
+  포지셔닝: .position-{유형}
+
+1. Vue에서 Vuetify가 가장 많이 사용되는 이유
+  단순히 말해서 "기능이 가장 많기 때문"이다. 원하는 건 다 된다고 보면 된다.
+    - Vuetify는 매우 광범위한 프레임워크이며, 여기서 제공된 클래스들은 그 일부에 불과하다.
+    - 또한 Vuetify는 자체적인 레이아웃 시스템, 컴포넌트 디자인 및 상호작용 패턴을 제공하기 때문에, BootstrapVue와는 다른 접근 방식을 사용한다.
+  Vuetify는 Material Design의 지침에 따라 스타일링을 적용하므로, 각 컴포넌트와 유틸리티의 상세한 사용 방법은 "참조 URL에 있는 공식 문서"에서 확인하는 것이 좋다.

@@ -1,0 +1,125 @@
+[무비앱 만들기]
+
+1. store를 사용하는 vuex 라이브러리에 대해서
+  store는 글로벌 스테이트를 관리하는 창고이며 vuex는 store를 사용하기 위해 쓰는 라이브러리이다.
+  글로벌 스테이트 관리 라이브러리에는 vuex 외에도 pinia 등의 선택지가 있다.
+  vue2에서는 vuex를 통해 "options api"를 호출한다.
+
+1. vuex로 options api를 호출하는 흐름
+  created/mounted/updated/destroyed 시점 또는 사용자의 이벤트 호출
+  -> dispatch -> actions -> commit -> mutations -> client에 store 변경 상황 반영
+
+
+
+1. 사전 준비
+  초기 앱 카피페부터 시작
+  $ npm i vuex@3.6.2 // vuex 설치
+
+
+
+1. src/store/index.js 생성 : store 생성
+  import Vue from "vue"
+  import Vuex from "vuex"
+  import actions from "./actions.js"
+  import mutations from "./mutations.js"
+
+  Vue.use(Vuex)
+
+  export default new Vuex.Store({
+    state: {
+      movies: [],
+    },
+    actions,
+    mutations,
+  })
+
+
+
+1. src/main.js 수정 : store 연결
+  import Vue from "vue"
+  import App from "./App.vue"
+  // import router from "@/routes/index";
+  import store from "@/store/index"
+
+  Vue.config.productionTip = false
+
+  new Vue({
+    // router,
+    store,
+    render: (h) => h(App),
+  }).$mount("#app")
+
+
+
+1. src/store/actions.js 생성 : options api 호출하기 위한 비동기 함수 모음
+  import axios from "axios"
+
+  export default {
+    FETCH_MOVIE({ commit }) {
+      axios
+        .get("https://yts.mx/api/v2/list_movies.json?sort_by=rating")
+        .then((res) => {
+          commit("SET_MOVIES", res.data.data.movies)
+        })
+    },
+  }
+
+
+
+1. src/store/mutations.js 생성 : setState 하기 위한 동기 함수 모음
+  export default {
+    SET_MOVIES(state, movies) {
+      state.movies = movies
+    },
+  }
+
+
+
+1. src/App.vue 수정 : 무비리스트 화면 렌더링
+```
+  <template>
+    <div>
+      <div v-if="movies.length > 0">
+        <div v-for="item in movies" :key="item.id">
+          {{ item.title }}
+        </div>
+      </div>
+      
+      <div v-else class="red">
+        로딩중...
+      </div>
+    </div>
+  </template>
+
+  <script>
+  export default {
+    // 메소드 : computed(값을 캐싱하는 함수) - watch(특정변수가 변할 때 실행) - methods(함수)
+    computed: {
+      movies() {
+        return this.$store.state.movies
+      }
+    },
+    watch: {},
+    methods: {},
+    // 라이프사이클 : created - updated - mounted - destroyed
+    created() {
+      this.$store.dispatch('FETCH_MOVIE') // vuex
+    },
+    updated() { },
+    mounted() { },
+    destroyed() { },
+  }
+  </script>
+
+  <style scoped>
+  .red {
+    color: red;
+  }
+  </style>
+```
+
+
+
+1. 테스트
+  $ cd app1
+  $ npm run serve

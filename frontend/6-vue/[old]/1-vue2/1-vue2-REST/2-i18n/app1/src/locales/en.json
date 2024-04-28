@@ -1,0 +1,8 @@
+{
+	"example":"i18n example",
+    "group": {
+      "ttl_1": "Title1",
+      "ttl_2": "Title2",
+      "ttl_3": "Title3"
+    }
+}

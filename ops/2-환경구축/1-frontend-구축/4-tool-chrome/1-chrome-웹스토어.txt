@@ -2,14 +2,17 @@
 
 1. 설치 후 적용하기 위해 크롬 재실행이 필요할 수도 있다.
 
-1. Living
-    youtube adblock
-    Zoom to Fill - Ultrawide Video : 32대9 화면일 때 좋다.
+1. 개인용
+  youtube adblock
+  Zoom to Fill - Ultrawide Video : 32대9 화면일 때 좋다.
     
 1. JavaScript 관련
-    json viewer
+  json viewer
 
 1. React 관련
-    react developer tools(option)
-    react context devtool
-    redux devtools
+  react developer tools(option)
+  react context devtool
+  redux devtools
+
+1. 기타 업무 관련
+  fireshot : 전체 스크롤링 스크린샷 (IT 테스트시 증거 등에 사용)

@@ -1,0 +1,272 @@
+[아토믹디자인으로 Watcha 형태의 무비 앱 만들어보기]
+
+1. 사전준비 : init 앱을 가지고 온다.
+
+1. 설치
+  $ npm install axios styled-components react-router-dom
+
+1. 폴더생성
+  src/components/atoms
+  src/components/moleculues
+  src/components/organisms
+  src/components/templates
+  src/pages
+
+1. src/components/atoms/Button/index.js 생성 : * 작성 후 src/App.js에 여기까지 렌더링해서 테스트하기
+  import styled, { css } from "styled-components"
+
+  const Button = styled.button`
+    background-color: ${(props) => props.color || "#3f51b5"};
+    color: white;
+    margin: 5px;
+    border: none;
+    border-radius: 4px;
+    align-items: center;
+    cursor: pointer;
+
+    ${(props) =>
+      props.small &&
+      css`
+        width: 60px;
+        height: 30px;
+      `}
+
+    &:hover {
+      background-color: #1a237e;
+    }
+  `
+
+  export default Button
+
+1. src/components/moleculues/SearchBar/index.js 생성 : * 작성 후 src/App.js에 여기까지 렌더링해서 테스트하기
+  import styled from "styled-components"
+  import Button from "../../atoms/Button"
+
+  const Input = styled.input`
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+  `
+
+  const SearchButton = styled(Button)`
+    margin: 8px;
+  `
+
+  const SearchBar = ({ value, onChange, onClick, placeholder }) => {
+    return (
+      <div>
+        <Input
+          type="text"
+          value={value}
+          onChange={onChange}
+          placeholder={placeholder || "입력해주세요."}
+        />
+        <SearchButton onClick={onClick}>검색</SearchButton>
+      </div>
+    )
+  }
+
+  export default SearchBar
+
+1. src/components/organisms/MovieList/index.js 생성 : * 작성 후 src/App.js에 여기까지 렌더링해서 테스트하기
+  import React, { useState, useEffect } from "react"
+  import SearchBar from "../../moluculues/SearchBar"
+  import styled from "styled-components"
+  import axios from "axios"
+
+  const Container = styled.div`
+    max-width: 1200px;
+    margin: 30px auto;
+  `
+
+  const MovieListContainer = styled.ul`
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 16px;
+  `
+
+  const MovieCardContainer = styled.li`
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+  `
+
+  const MovieImage = styled.img`
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+  `
+
+  const MovieTitle = styled.h2`
+    font-size: 1.2rem;
+    margin: 8px;
+  `
+
+  const MovieYear = styled.p`
+    font-size: 0.8rem;
+    margin: 8px;
+  `
+
+  const MovieGenres = styled.ul`
+    display: flex;
+    flex-wrap: wrap;
+    margin: 8px;
+  `
+
+  const MovieGenre = styled.li`
+    background-color: #e0e0e0;
+    color: #333;
+    padding: 4px 8px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+  `
+
+  export default function MovieList({ sortByLabel, sortByValue }) {
+    const [movies, setMovies] = useState([])
+    const [inputText, setInputText] = useState("")
+    const [filterText, setFilterText] = useState("")
+
+    const onChange = (e) => {
+      e.preventDefault()
+      setInputText(e.target.value)
+    }
+
+    const onClick = () => {
+      setFilterText(inputText)
+    }
+
+    useEffect(() => {
+      const fetchMovie = async () => {
+        const response = await axios.get(
+          `https://yts.mx/api/v2/list_movies.json?sort_by=${sortByValue}`
+        )
+        console.log(response)
+        setMovies(response.data.data.movies)
+      }
+      fetchMovie()
+    }, [sortByValue])
+
+    console.log(movies)
+
+    const searchedMovie =
+      filterText !== ""
+        ? movies.filter((item) => item.title.includes(filterText))
+        : movies
+
+    const render = searchedMovie.map((item) => (
+      <MovieCardContainer key={item.id}>
+        <MovieImage src={item.medium_cover_image} alt={item.title} />
+        <MovieTitle>{item.title}</MovieTitle>
+        <MovieYear>{item.year}</MovieYear>
+        <MovieGenres>
+          {item.genres.map((genre) => (
+            <MovieGenre key={genre}>{genre}</MovieGenre>
+          ))}
+        </MovieGenres>
+      </MovieCardContainer>
+    ))
+
+    if (!movies) {
+      return <div>Loading...</div>
+    }
+
+    return (
+      <Container>
+        <SearchBar
+          value={inputText}
+          onChange={onChange}
+          onClick={onClick}
+          placeholder={"검색어를 입력해주세요."}
+        />
+        <MovieListContainer>{render}</MovieListContainer>
+      </Container>
+    )
+  }
+
+1. src/components/templates/MovieLists/index.js 생성 : * 작성 후 src/App.js에 여기까지 렌더링해서 테스트하기
+  import React, { useState } from "react"
+  import Button from "../../atoms/Button"
+  import MovieList from "../../organisms/MovieList"
+  import styled from "styled-components"
+
+  const Title = styled.h1`
+    font-size: 2rem;
+    margin-bottom: 16px;
+  `
+
+  export default function MovieLists() {
+    const [sortBy, setSortBy] = useState("")
+
+    return (
+      <>
+        <Title>무비 리스트 : {sortBy || "추천"}별</Title>
+        <Button color="gray" small onClick={() => setSortBy("")}>
+          추천
+        </Button>
+        <Button color="gray" small onClick={() => setSortBy("rating")}>
+          평점
+        </Button>
+        <Button color="gray" small onClick={() => setSortBy("year")}>
+          연도
+        </Button>
+        <MovieList sortByLabel={sortBy || "추천"} sortByValue={sortBy || ""} />
+      </>
+    )
+  }
+
+1. src/pages/Movies/index.js 생성 : * 작성 후 src/App.js에 여기까지 렌더링해서 테스트하기
+  import React from "react"
+  import MovieLists from "../../components/templates/MovieLists"
+  import styled from "styled-components"
+
+  const MovieContainer = styled.div`
+    margin: 20px;
+  `
+
+  export default function Movies() {
+    return (
+      <MovieContainer>
+        <MovieLists />
+      </MovieContainer>
+    )
+  }
+
+1. src/App.js 확인 : 최종 형태는 다음과 같을 것이다.
+  import "./App.css"
+  import Button from "./components/atoms/Button"
+  import SearchBar from "./components/moluculues/SearchBar"
+  import MovieList from "./components/organisms/MovieList"
+  import MovieLists from "./components/templates/MovieLists"
+  import Movies from "./pages/Movies"
+  
+  export default function App() {
+    return (
+      <div className="App">
+        <h1>아톰즈</h1>
+        <Button>버튼</Button>
+        <h1>몰큘러스</h1>
+        <SearchBar />
+        <h1>오가니즘스</h1>
+        <MovieList />
+        <h1>템플릿츠</h1>
+        <MovieLists />
+        <h1>페이지스</h1>
+        <Movies />
+      </div>
+    )
+  }
+  
+1. 테스트 : 각 항목별로 잘 반영이 되는지 확인한다.
+  $ cd app1
+  $ npm start
