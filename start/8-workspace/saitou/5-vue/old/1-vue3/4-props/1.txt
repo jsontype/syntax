@@ -1,5 +1,5 @@
 VueのPJを作る方法
-$ npm i -g vite // global
+$ npm i -g vite
 $ npm init vite@latest
 Project名? app1
 $ cd app1

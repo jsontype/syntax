@@ -6,7 +6,7 @@
     <HelloWorld :id="2" msg="Hello Vue" mark="!" language="en" secondary />
     <HelloWorld :id="3" msg="Hello Vue" mark="!" language="en" hover />
     <HelloWorld :id="4" msg="こんにちは Vue" mark="!" language="ja" hover @click="click()" />
-    <HelloWorld :id="5" msg="こんにちは Vue" mark="!" language="ja" hover isOpen />
+    <HelloWorld :id="4" msg="こんにちは Vue" mark="!" language="ja" hover isOpen />
   </div>
 </template>
 
