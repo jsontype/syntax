@@ -6,6 +6,7 @@
 </template>
 
 <script setup lang="ts">
+// Types
 interface Props {
   id: number
   msg: string
