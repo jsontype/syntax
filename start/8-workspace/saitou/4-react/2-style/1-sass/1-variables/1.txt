@@ -5,6 +5,17 @@
   CSS Module
   styled-components
 
+1. Sass
+  .App
+    font-size: 20px
+    color: red
+
+1. Scss
+  .App {
+    font-size: 20px;
+    color: red;  
+  }
+
 1. 設置
   $ cd app1
   $ npm i node-sass (= yarn add node-sass)
