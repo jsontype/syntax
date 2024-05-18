@@ -1,0 +1,5 @@
+# style library
+
+1. component自体をimportする
+  material-ui, chakra-ui, ...
+  好きなものを選ぶ

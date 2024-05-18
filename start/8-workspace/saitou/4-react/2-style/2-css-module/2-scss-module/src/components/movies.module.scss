@@ -1,0 +1,9 @@
+$red: red;
+@mixin redText {
+  color: $red;
+}
+
+.App {
+  color: $red;
+  @include redText;
+}
