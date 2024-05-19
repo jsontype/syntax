@@ -1,0 +1,87 @@
+[Composables: useTodos]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. src/composables/useTodos.ts: 로직 관리
+  import { ref } from "vue"
+
+  export function useTodos(userId) {
+    const todos = ref([])
+    const newTodo = ref("")
+
+    function toggleTodo(item) {
+      item.completed = !item.completed
+    }
+
+    function addTodo() {
+      if (newTodo.value.trim() === "") {
+        alert("할 일을 입력해주세요.")
+        return
+      }
+      const todo = {
+        id: Date.now(),
+        title: newTodo.value,
+        completed: false,
+        userId: userId.value,
+      }
+      todos.value.push(todo)
+      newTodo.value = "" // 입력 필드 초기화
+    }
+
+    function delTodo(id) {
+      const index = todos.value.findIndex((todo) => todo.id === id)
+      if (index !== -1) {
+        todos.value.splice(index, 1)
+      }
+    }
+
+    return { todos, newTodo, addTodo, toggleTodo, delTodo }
+  }
+
+1. src/components/TodoList.vue: 컴포넌트 수정
+  <template>
+    <div>
+      <div id="addTodo">
+        <input type="text" v-model="newTodo" />
+        <button @click="addTodo">추가</button>
+      </div>
+      <div id="todos">
+        <div v-for="todo in todos" :key="todo.id" class="todo">
+          <span @click="toggleTodo(todo)">
+            <span :class="todo.completed && 'lineThrough'">{{ todo.title }}</span>
+            <input type="checkbox" :checked="todo.completed" />
+          </span>
+          <span>
+            <button @click="delTodo(todo.id)">삭제</button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <script setup>
+  import { ref } from 'vue';
+  import { useTodos } from '@/composables/useTodos';
+
+  const userId = ref(1);
+  const { todos, newTodo, addTodo, toggleTodo, delTodo } = useTodos(userId);
+  </script>
+
+  <style scoped>
+  input {
+    margin-right: 5px;
+  }
+  .todo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .lineThrough {
+    text-decoration: line-through;
+  }
+  </style>
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
