@@ -36,7 +36,8 @@ export function useMovies() {
 
   return { movies, loading, error, fetchMovies };
 }
-2. MovieApp.vue: 영화 목록을 표시하는 컴포넌트
+
+1. MovieApp.vue: 영화 목록을 표시하는 컴포넌트
   <template>
     <div>
       <h1>Movie App</h1>
