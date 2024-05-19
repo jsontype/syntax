@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>Todo App</h1>
     <div id="addTodo">
       <input type="text" v-model="newTodo" />
       <button @click="addTodo">추가</button>
@@ -26,24 +25,7 @@ import { ref, reactive, onMounted } from 'vue'
 
 const todos = reactive([])
 const newTodo = ref('')
-// * TODO (예시): 아래의 초기값을, "로그인했을 때의 회원아이디"로 변경할 것
-const loginUserId = ref(1)
-
-function getTodos() {
-  fetch('https://jsonplaceholder.typicode.com/todos')
-    .then(res => res.json())
-    .then(json => {
-      console.log(json)
-      for (let i = 0; i < json.length; i++) {
-        if (json[i].userId === loginUserId.value) {
-          todos.push(json[i]) // reactive로 선언을 할 때는 value를 사용하지 않는다.
-        }
-      }
-      console.log(todos[0])
-      console.log(todos[1])
-      console.log(todos[2])
-    })
-}
+const userId = ref(1)
 
 function toggleTodo(item) {
   item.completed = !item.completed
@@ -58,7 +40,7 @@ function addTodo() {
     id: todos.length + 1,
     title: newTodo.value,
     completed: false,
-    userId: loginUserId.value
+    userId: userId.value
   }
   todos.push(todo)
 }
@@ -70,13 +52,12 @@ function delTodo(id) {
   todos.splice(index, 1);
   console.log(todos)
 }
-
-onMounted(() => {
-  getTodos()
-})
 </script>
 
 <style lang="css" scoped>
+input {
+  margin-right: 5px;
+}
 .movieTitle {
   display: block;
 }
