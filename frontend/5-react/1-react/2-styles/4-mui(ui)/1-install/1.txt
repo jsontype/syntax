@@ -1,0 +1,21 @@
+[Material UI 설치]
+참조URL: https://mui.com/material-ui/getting-started/installation/
+
+1. 설치
+  $ npm i @mui/material @emotion/react @emotion/styled @mui/icons-materials
+
+1. src/App.js 수정 : @mui/material/Button의 작동 테스트
+  import * as React from "react"
+  import Button from "@mui/material/Button"
+
+  export default function App() {
+    return (
+      <div>
+        <Button variant="contained">Hello World</Button>
+      </div>
+    )
+  }
+
+1. 테스트
+  $ cd app1
+  $ npm start

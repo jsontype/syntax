@@ -1,0 +1,221 @@
+[TailwindCSS Class 적용해보기]
+참조 URL: https://tailwindcss.com/
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. src/components/AlignTextColor.js 작성: Align, TextColor 사용해보기
+  import React from "react"
+
+  export default function AlignTextColor() {
+    return (
+      <div>
+        <div className="text-lg font-bold">Div Align</div>
+        <div className="text-center bg-red-300">text-center</div>
+        <div className="text-left bg-blue-300">text-left</div>
+        <div className="text-right bg-yellow-300">text-right</div>
+
+        <div className="text-lg font-bold mt-5">Flex Align</div>
+        <div className="flex items-center">
+          <div className="text-center h-[50px] p-2 bg-red-300">items-center</div>
+          <div className="text-center h-[70px] p-2 bg-blue-300">items-center</div>
+          <div className="text-center h-[90px] p-2 bg-yellow-300">
+            items-center
+          </div>
+        </div>
+
+        <div className="flex items-start">
+          <div className="text-center h-[50px] p-2 bg-red-300">items-start</div>
+          <div className="text-center h-[70px] p-2 bg-blue-300">items-start</div>
+          <div className="text-center h-[90px] p-2 bg-yellow-300">
+            items-start
+          </div>
+        </div>
+
+        <div className="flex items-end">
+          <div className="text-center h-[50px] p-2 bg-red-300">items-end</div>
+          <div className="text-center h-[70px] p-2 bg-blue-300">items-end</div>
+          <div className="text-center h-[90px] p-2 bg-yellow-300">items-end</div>
+        </div>
+
+        <div className="flex justify-between mt-5">
+          <div className="w-[50px] p-2 bg-red-300">justify-between</div>
+          <div className="w-[100px] p-2 bg-blue-300">justify-between</div>
+          <div className="w-[200px] p-2 bg-yellow-300">justify-between</div>
+        </div>
+
+        <div className="flex justify-center mt-5">
+          <div className="w-[50px] p-2 bg-red-300">justify-center</div>
+          <div className="w-[100px] p-2 bg-blue-300">justify-center</div>
+          <div className="w-[200px] p-2 bg-yellow-300">justify-center</div>
+        </div>
+
+        <div className="flex justify-start mt-5">
+          <div className="w-[50px] p-2 bg-red-300">justify-start</div>
+          <div className="w-[100px] p-2 bg-blue-300">justify-start</div>
+          <div className="w-[200px] p-2 bg-yellow-300">justify-start</div>
+        </div>
+
+        <div className="flex justify-end mt-5">
+          <div className="w-[50px] p-2 bg-red-300">justify-end</div>
+          <div className="w-[100px] p-2 bg-blue-300">justify-end</div>
+          <div className="w-[200px] p-2 bg-yellow-300">justify-end</div>
+        </div>
+      </div>
+    )
+  }
+
+1. src/components/DisplayPosition.js 작성: Display, Position 사용해보기
+  import React from "react"
+
+  export default function TailwindcssClass() {
+    return (
+      <div>
+        <h1 className="text-lg font-bold">Display</h1>
+        <div className="inline">Div</div>
+        <div className="inline">Div</div>
+        <span className="block">Span</span>
+        <span className="block">Span</span>
+        <div className="flex mb-2">
+          <div className="flex-1 bg-blue-500">Flex1</div>
+          <div className="flex-1 bg-yellow-300">Flex2</div>
+          <div className="flex-1 bg-red-400">Flex3</div>
+        </div>
+        <div className="flex flex-col">
+          <div className="flex-1 bg-blue-500">Flex-col1</div>
+          <div className="flex-1 bg-yellow-300">Flex-col2</div>
+          <div className="flex-1 bg-red-400">Flex-col3</div>
+        </div>
+
+        <h1 className="text-lg font-bold mt-5">Position</h1>
+        <div>Static</div>
+        <div>Static</div>
+        <div>Static</div>
+        <div>Static</div>
+        <div>Static</div>
+        <div>Static</div>
+        <div>Static</div>
+
+        {/* offset : top, bottom, left, right */}
+        <div className="relative left-[50px]">Relative</div>
+        <div className="relative left-[50px]">Relative</div>
+        <div className="relative left-[50px]">Relative</div>
+        <div className="relative left-[50px]">Relative</div>
+        <div className="relative left-[50px]">Relative</div>
+        <div className="relative left-[50px]">Relative</div>
+        <div className="relative left-[50px]">Relative</div>
+        <div className="relative left-[50px]">Relative</div>
+        <div className="relative left-[50px]">Relative</div>
+        <div className="relative left-[50px]">Relative</div>
+        <div className="relative left-[50px]">Relative</div>
+        <div className="relative left-[50px]">Relative</div>
+        <div className="relative left-[50px]">Relative</div>
+        <div className="relative left-[50px]">Relative</div>
+        <div className="relative left-[50px]">Relative</div>
+        <div className="relative left-[50px]">Relative</div>
+        <div className="relative left-[50px]">Relative</div>
+        <div className="relative left-[50px]">Relative</div>
+        <div className="relative left-[50px]">Relative</div>
+        <div className="relative left-[50px]">Relative</div>
+        <div className="relative left-[50px]">Relative</div>
+        <div className="relative left-[50px]">Relative</div>
+        <div className="relative left-[50px]">Relative</div>
+        <div className="relative left-[50px]">Relative</div>
+        <div className="relative left-[50px]">Relative</div>
+        <div className="relative left-[50px]">Relative</div>
+        <div className="relative left-[50px]">Relative</div>
+        <div className="relative left-[50px]">Relative</div>
+        <div className="relative left-[50px]">Relative</div>
+        <div className="relative left-[50px]">Relative</div>
+        <div className="relative left-[50px]">Relative</div>
+        <div className="relative left-[50px]">Relative</div>
+
+        <div className="absolute bottom-[50px]">Absolute</div>
+        <div className="absolute bottom-[50px]">Absolute</div>
+        <div className="absolute bottom-[50px]">Absolute</div>
+        <div className="absolute bottom-[50px]">Absolute</div>
+        <div className="absolute bottom-[50px]">Absolute</div>
+        <div className="absolute bottom-[50px]">Absolute</div>
+        <div className="absolute bottom-[50px]">Absolute</div>
+        <div className="absolute bottom-[50px]">Absolute</div>
+
+        <div className="fixed bottom-[50px]">Fixed</div>
+        <div className="fixed bottom-[50px]">Fixed</div>
+        <div className="fixed bottom-[50px]">Fixed</div>
+        <div className="fixed bottom-[50px]">Fixed</div>
+        <div className="fixed bottom-[50px]">Fixed</div>
+        <div className="fixed bottom-[50px]">Fixed</div>
+        <div className="fixed bottom-[50px]">Fixed</div>
+        <div className="fixed bottom-[50px]">Fixed</div>
+      </div>
+    )
+  }
+
+1. src/components/WidthHeightPaddingMargin.js 작성: Width, Height, Padding, Margin 사용해보기
+  import React from "react"
+
+  export default function WidthHeightPaddingMargin() {
+    return (
+      <div>
+        <div className="text-lg font-bold">width / height</div>
+        <div className="w-[100px] bg-red-300">w-[100px]</div>
+        <div className="w-[200px] bg-blue-300">w-[200px]</div>
+        <div className="w-[300px] bg-yellow-300">w-[300px]</div>
+        <div className="h-[100px] bg-red-300">h-[100px]</div>
+        <div className="h-[200px] bg-blue-300">h-[200px]</div>
+        <div className="h-[300px] bg-yellow-300">h-[300px]</div>
+
+        <div className="text-lg font-bold mt-5">Padding / Margin</div>
+        <div className="p-1 bg-red-300">p-1</div>
+        <div className="p-2 bg-blue-300">p-2</div>
+        <div className="p-3 bg-yellow-300">p-3</div>
+        <div className="p-4 bg-red-300">p-4</div>
+        <div className="p-5 bg-blue-300">p-5</div>
+        <div className="p-6 bg-yellow-300">p-6</div>
+        <div className="m-7 bg-gray-300">m-7</div>
+        <div className="m-8 bg-gray-300">m-8</div>
+        <div className="m-9 bg-gray-300">m-9</div>
+        <div className="m-10 bg-gray-300">m-10</div>
+        <div className="m-11 bg-gray-300">m-11</div>
+        <div className="m-12 bg-gray-300">m-12</div>
+        <div className="p-[100px] bg-gray-700">p-[100px]</div>
+        <div className="m-[100px] bg-red-700">m-[100px]</div>
+
+        <div className="text-red-500">
+          * p, mは、pt, pb, pl, pr, px, pyで調節可能
+        </div>
+
+        <div className="text-lg font-bold mt-5">Border</div>
+        <div className="border-red-500 border-[2px] bg-gray-300 w-[200px]">
+          border-red-500 border-[2px]
+        </div>
+        <div className="border-blue-500 border-[2px] rounded-lg bg-gray-300 w-[200px]">
+          border-blue-500 border-[2px] rounded-lg
+        </div>
+        <div className="border-blue-500 border-[2px] rounded-md bg-gray-300 w-[200px]">
+          border-blue-500 border-[2px] rounded-md
+        </div>
+        <div className="border-blue-500 border-[2px] rounded-sm bg-gray-300 w-[200px]">
+          border-blue-500 border-[2px] rounded-sm
+        </div>
+      </div>
+    )
+  }
+
+1. src/App.js 수정: 컴포넌트 호출
+  import DisplayPosition from "./components/DisplayPosition"
+  // import WidthHeightPaddingMargin from "./components/WidthHeightPaddingMargin"
+  // import AlignTextColor from "./components/AlignTextColor"
+
+  export default function App() {
+    return (
+      <div className="m-5">
+        <DisplayPosition />
+        {/* <WidthHeightPaddingMargin /> */}
+        {/* <AlignTextColor /> */}
+      </div>
+    )
+  }
+
+1. 테스트 : App.js 코드 안에서, 주석 하나씩 번갈아 풀어보면서, tailwind가 잘 적용됐는지 확인
+  $ cd app1
+  $ npm start

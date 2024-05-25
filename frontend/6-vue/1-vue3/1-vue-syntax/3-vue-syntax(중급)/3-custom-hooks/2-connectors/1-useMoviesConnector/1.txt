@@ -1,72 +1,86 @@
-# ***! 여행 3
-
 [Connectors: useMoviesConnector]
 
 1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
 
-1. useMoviesConnector.ts: 영화 데이터 불러오는 로직 만들기
-영화 목록을 불러오고 상태를 관리하는 커스텀 훅입니다. 로딩 상태와 오류 처리 기능을 포함합니다.
+1. src/connectors/useMoviesConnector.js 생성: 영화 데이터 불러오고 상태를 관리하는 커스텀훅 만들기 (로딩, 에러처리 기능 포함)
+  ```
+    import { ref, onMounted } from "vue"
 
-src/composables/useMovies.js
-javascript
-Copy code
-import { ref, onMounted } from 'vue';
+    export function useMoviesConnector() {
+      const movies = ref([])
+      const loading = ref(false)
+      const error = ref(null)
 
-export function useMovies() {
-  const movies = ref([]);
-  const loading = ref(false);
-  const error = ref(null);
+      const fetchMovies = async () => {
+        loading.value = true
+        error.value = null
+        try {
+          const response = await fetch(
+            "https://yts.mx/api/v2/list_movies.json?sort_by=rating"
+          )
+          if (!response.ok) throw new Error("Failed to fetch movies")
+          const json = await response.json()
+          movies.value = json.data.movies
+        } catch (err) {
+          error.value = err.message
+        } finally {
+          loading.value = false
+        }
+      }
 
-  const fetchMovies = async () => {
-    loading.value = true;
-    error.value = null;
-    try {
-      const response = await fetch('https://yts.mx/api/v2/list_movies.json?sort_by=rating');
-      if (!response.ok) throw new Error('Failed to fetch movies');
-      const json = await response.json();
-      movies.value = json.data.movies;
-    } catch (err) {
-      error.value = err.message;
-    } finally {
-      loading.value = false;
+      onMounted(fetchMovies)
+
+      return { movies, loading, error, fetchMovies }
     }
-  };
+  ```
 
-  onMounted(fetchMovies);
-
-  return { movies, loading, error, fetchMovies };
-}
-
-1. MovieApp.vue: 영화 목록을 표시하는 컴포넌트
-  <template>
-    <div>
-      <h1>Movie App</h1>
-      <div v-if="loading">Loading...</div>
-      <div v-if="error">{{ error }}</div>
-      <div id="movies" v-else>
-        <div v-for="movie in movies" :key="movie.id" class="movie">
-          <a class="movieTitle" :href="movie.url">{{ movie.title }}</a>
-          <img class="movieImage" :src="movie.background_image" :alt="movie.title" />
+1. src/views/MovieApp.vue: 영화 목록을 표시하는 컴포넌트에 커스텀훅을 적용
+  ```
+    <template>
+      <div>
+        <h1>Movie App</h1>
+        <div v-if="loading">Loading...</div>
+        <div v-if="error">{{ error }}</div>
+        <div id="movies" v-else>
+          <div v-for="movie in movies" :key="movie.id" class="movie">
+            <a class="movieTitle" :href="movie.url">{{ movie.title }}</a>
+            <img class="movieImage" :src="movie.background_image" :alt="movie.title" />
+          </div>
         </div>
       </div>
-    </div>
-  </template>
+    </template>
 
-  <script setup>
-  import { useMovies } from '@/composables/useMovies';
+    <script setup>
+    import { onMounted, computed } from 'vue'
+    import { useMoviesConnector } from '@/connectors/useMoviesConnector'
 
-  const { movies, loading, error } = useMovies();
-  </script>
+    // Hooks
+    // 1. 아래와 같이 desturcturing 문법으로 한번에 변수, 함수들을 export를 해도 된다.
+    // const { movies, loading, error } = useMoviesConnectors();
+    // 1. 그러나, 보통은 아래와 같이 담아서 사용한다.
+    const moviesConnector = useMoviesConnector()
 
-  <style lang="css" scoped>
-  .movieTitle {
-    display: block;
-  }
-  .movieImage {
-    width: 100%;
-    height: auto;
-  }
-  </style>
+    // Computed
+    const movies = computed(() => moviesConnector.movies)
+    const loading = computed(() => moviesConnector.loading)
+    const error = computed(() => moviesConnector.error)
+
+    // Lifecycle Hooks
+    onMounted(() => {
+      moviesConnector.fetchMovies()
+    })
+    </script>
+
+    <style lang="css" scoped>
+    .movieTitle {
+      display: block;
+    }
+    .movieImage {
+      width: 100%;
+      height: auto;
+    }
+    </style>
+  ```
 
 1. 테스트
   $ cd app1
