@@ -1,13 +1,12 @@
 <template>
   <div>
     <h1>Login</h1>
-    <InputField />
+    <LoginInput />
   </div>
 </template>
 
 <script setup>
-import InputField from '@/components/InputField.vue'
+import LoginInput from "@/components/LoginInput.vue"
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
