@@ -1,4 +1,4 @@
-# ***! 7. 리액트 바렛프루프 - 아래 참조해서 완성해놓기
+# ***! 14. 리액트 바렛프루프 - 아래 참조해서 완성해놓기
 
 1. ops - 불릿프루프로 PJ 작성하기 : https://dev.classmethod.jp/articles/bulletproof-react-library-selection/
 2. ops - 불릿프루프-리액트 PJ 예시 깃 : https://github.com/alan2207/bulletproof-react/tree/master/src 
