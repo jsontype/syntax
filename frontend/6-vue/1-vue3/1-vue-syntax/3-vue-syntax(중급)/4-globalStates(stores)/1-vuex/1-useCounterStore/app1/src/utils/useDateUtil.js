@@ -16,10 +16,10 @@ export function useDateUtil() {
       return `${YYYY}-${MM}-${DD}`
     }
     if (format === "YYYY/MM/DD") {
-      return `${YYYY}-${MM}-${DD}`
+      return `${YYYY}/${MM}/${DD}`
     }
     // ... 다른 포맷도 필요시 여기에 추가 가능
-    return `${year}-${month}-${day}`
+    return `${YYYY}-${MM}-${DD}`
   }
 
   return {

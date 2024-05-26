@@ -26,7 +26,7 @@
 
 1. 사전준비 : 초급의 counter-app을 가져온다.
 
-1. src/composables/useCounter.js: 로직 관리
+1. src/composables/useCounter.js 작성 : 로직 분리를 위한 커스텀훅 만들기
   import { ref } from "vue"
 
   export function useCounter() {
@@ -45,7 +45,7 @@
     return { count, increase, decrease }
   }
 
-1. src/views/Counter.vue: 컴포넌트 수정
+1. src/views/Counter.vue 수정 : 화면에서 로직을 분리
   <template>
     <h1>Counter App</h1>
     <div>

@@ -2,7 +2,7 @@
 
 1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
 
-1. src/utils/useInputUtil.js 작성 : Input창의 value와 onChange를 관리하고, validation 에러를 검출하여 표시하는 훅
+1. src/utils/useInputUtil.js 작성 : Input창의 value와 onChange를 관리하고, validation 에러를 검출하여 표시하는 커스텀훅 만들기
   ```
     import { ref } from "vue"
 
@@ -53,7 +53,7 @@
     }
   ```
 
-1. src/components/LoginInput.vue 수정 : useInputUtil을 사용하여 Login 화면의 Input창을 관리
+1. src/components/LoginInput.vue 수정 : useInputUtil을 import하고 사용해보기
   ```
     <template>
       <div>

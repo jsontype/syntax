@@ -1,0 +1,86 @@
+[Custom Hooks: Composables]
+
+1. Custom Hooks란?
+  재사용 가능한 로직을 별도의 훅 함수(use~)로 만든 것을 말하며, 여러 컴포넌트에서 동일한 기능을 사용할 때 유용하다.
+  일반적으로 "hooks" 또는 "composables" 라는 폴더 안에 모아둔다.
+  목적은 UI와 로직을 분리해서, 로직을 보다 더 관리하기 쉽게 하는 것이다.
+  (여기서 로직은 data, methods, computed, 외부 API 호출 등을 포함한다.)
+  
+  이 로직을 두 분류로 나누자면,
+  - 로직이 컴포넌트에 종속적이지 않고, 다른 컴포넌트에서도 재사용 가능한 경우
+  - 로직이 컴포넌트에 종속적이고, 컴포넌트 내부에서만 사용되는 경우
+  로 나눌 수 있는데, 일반적으로 전자에 해당하는 경우, 커스텀훅스로 처리를 한다.
+
+1. Custom hooks의 폴더 나누기 관행
+  하나의 훅에 모두 로직을 몰아넣는 것이 아니라,
+  로직의 종류, 상황에 따라서 아래와 같이 폴더를 나눠서 담는 것이 좋은 관행이다.
+  "composables" 또는 "hooks" 폴더 : data, methods, computed 등 모듈화된 로직들을 "composables/use~.ts"의 파일명으로 담는다. ~를 컴포넌트가 주로 들어갈 페이지 이름으로 한다.
+  "connectors" 또는 "services" 폴더 : 외부 API 호출 등의 로직들을 "connectors/use~Connector.ts"의 파일명으로 담는다. ~를 컴포넌트가 주로 들어갈 페이지 이름으로 한다.
+  "stores" 폴더 : Vuex 스토어와 관련된 로직들을 "stores/use~Store.ts"의 파일명으로 담는다. ~를 컴포넌트가 주로 들어갈 페이지 이름으로 한다.
+  "utils" 폴더 : 어느 컴포넌트에서든지 쓸 공통의 유틸리티 함수들을 "utils/use~Util.ts"의 파일명으로 담는다. 여기서만큼은 ~가 페이지 이름이 아니다.
+  "types" 폴더() : 타입 정의들을 담을 수 있다. "types/~/types.ts"의 폴더와 파일명으로 담는다. ~를 타입이 주로 사용될 페이지 이름으로 한다.
+
+
+
+[Composables: useCounter]
+
+1. 사전준비 : generalapp-초급 앱을 가져온다.
+
+1. src/composables/useCounter.js 작성 : 로직 분리를 위한 커스텀훅 만들기
+  import { useState } from "react"
+
+  export default function useCounter() {
+    const [count, setCount] = useState(3)
+
+    const increase = () => setCount(count + 1)
+    const decrease = () => setCount(count - 1)
+
+    return { count, increase, decrease }
+  }
+
+1. src/pages/Count/index.js 수정 : 화면에서 로직을 분리
+  import React from "react"
+  import Button from "@mui/material/Button"
+  import Label from "../../components/Atoms/Label"
+  import useCounter from "../../composables/useCounter"
+
+  export default function Count() {
+    const counter = useCounter()
+
+    return (
+      <>
+        <Label text="Counter" />
+
+        <h2>count: {counter.count}</h2>
+
+        <Button
+          size="small"
+          variant="outlined"
+          color="success"
+          onClick={counter.increase}
+        >
+          +
+        </Button>
+        <Button
+          size="small"
+          variant="outlined"
+          color="error"
+          onClick={counter.decrease}
+        >
+          -
+        </Button>
+      </>
+    )
+  }
+
+1. 테스트
+  $ cd app1
+  $ npm start
+
+1. 마무리 : 커스텀훅을 사용하는 이유
+  위의 예시에서 useCounter 커스텀 훅을 통해 카운터 관련 로직을 모듈화하여 
+  다른 컴포넌트에서도 쉽게 재사용할 수 있다. 
+  커스텀 훅을 사용함으로써 카운터 앱의 구성 요소를 더욱 단순화하고, 
+  코드의 유지 관리와 확장성을 향상시킬 수 있다.
+  이 접근 방식은 Vue.js에서 커스텀 훅을 활용하여 컴포넌트 간에 공통 로직을 공유하고, 
+  각 컴포넌트의 코드를 더욱 깔끔하게 유지하는 데 큰 도움이 된다.

@@ -14,50 +14,67 @@
         <span>
           <button @click="delTodo(todo.id)">삭제</button>
         </span>
-
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted } from "vue"
 
 const todos = reactive([])
-const newTodo = ref('')
-const userId = ref(1)
+const newTodo = ref("")
+// * TODO (예시): 아래의 초기값을, "로그인했을 때의 회원아이디"로 변경할 것
+const loginUserId = ref(1)
+
+function getTodos() {
+  fetch("https://jsonplaceholder.typicode.com/todos")
+    .then((res) => res.json())
+    .then((json) => {
+      console.log(json)
+      for (let i = 0; i < json.length; i++) {
+        if (json[i].userId === loginUserId.value) {
+          todos.push(json[i]) // reactive로 선언을 할 때는 value를 사용하지 않는다.
+        }
+      }
+      console.log(todos[0])
+      console.log(todos[1])
+      console.log(todos[2])
+    })
+}
 
 function toggleTodo(item) {
   item.completed = !item.completed
 }
 
 function addTodo() {
-  if (newTodo.value === '') {
-    alert('할 일을 입력해주세요.')
+  if (newTodo.value === "") {
+    alert("할 일을 입력해주세요.")
     return
   }
   const todo = {
     id: todos.length + 1,
     title: newTodo.value,
     completed: false,
-    userId: userId.value
+    userId: loginUserId.value,
   }
   todos.push(todo)
 }
 
 function delTodo(id) {
   // 해당 id를 가진 todo 찾기
-  const index = todos.findIndex(todo => todo.id === id);
+  const index = todos.findIndex((todo) => todo.id === id)
   // 찾은 todo가 있으면 삭제
-  todos.splice(index, 1);
+  todos.splice(index, 1)
   console.log(todos)
 }
+
+onMounted(() => {
+  getTodos()
+})
 </script>
 
 <style lang="css" scoped>
-input {
-  margin-right: 5px;
-}
 .movieTitle {
   display: block;
 }
