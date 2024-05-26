@@ -1,0 +1,70 @@
+[Utils: useDateUtil]
+
+1. Utils 폴더를 따로 나누는 이유
+  composables에 모두 몰아서 넣으면 로직이 헷갈리므로, 공통에서 쓰는 커스텀훅은 utils에 넣고 쓰기도 한다.
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. src/utils/useDateUtil.js 작성 : 날짜 포맷을 다루는 유틸리티 커스텀훅 만들기
+  ```
+    import { useState } from "react"
+
+    export default function useDateUtil() {
+      const [currentDate] = useState(new Date())
+    
+      const formatDate = (date, format = "YYYY-MM-DD") => {
+        // data オブゼクトから年を取得して YYYY 変数に保存
+        const YYYY = date.getFullYear() // 예: 2024
+        // date オブジェクトから月を取得して MM 変数に保存 (1月は0なので +1 している), padStart(2, "0") は2桁に合わせるために1桁の数字の前に0を追加
+        const MM = String(date.getMonth() + 1).padStart(2, "0") // 예: 05
+        // date オブジェクトから日を取得して DD 変数に保存, padStart(2, "0") は2桁に合わせるために1桁の数字の前に0を追加
+        const DD = String(date.getDate()).padStart(2, "0") // 예: 26
+        const HH = String(date.getHours()).padStart(2, "0") // 예: 12
+        const mm = String(date.getMinutes()).padStart(2, "0") // 예: 34
+        // ... 他のフォーマットも必要ならここに追加可能
+    
+        if (format === "YYYY-MM-DD HH:mm") {
+          return `${YYYY}-${MM}-${DD} ${HH}:${mm}`
+        }
+        if (format === "YYYY-MM-DD") {
+          return `${YYYY}-${MM}-${DD}`
+        }
+        if (format === "YYYY/MM/DD") {
+          return `${YYYY}/${MM}/${DD}`
+        }
+        // ... 他のフォーマットも必要ならここに追加可能
+        return `${YYYY}-${MM}-${DD}`
+      }
+    
+      return {
+        currentDate,
+        formatDate,
+      }
+    }
+  ```
+
+1. src/pages/Home/index.js 수정 : useDateUtil를 import하고 사용해보기
+  ```
+    import React from "react"
+    import Label from "../../components/Atoms/Label"
+    import useDateUtil from "../../utils/useDateUtil"
+    
+    export default function Home() {
+      const dateUtil = useDateUtil()
+      const formattedDate = dateUtil.formatDate(
+        dateUtil.currentDate,
+        "YYYY-MM-DD HH:mm"
+      )
+    
+      return (
+        <div>
+          <Label text="Home" />
+          <h2>現在の時刻：{formattedDate}</h2>
+        </div>
+      )
+    }  
+  ```
+
+1. 테스트
+  $ cd app1
+  $ npm run dev

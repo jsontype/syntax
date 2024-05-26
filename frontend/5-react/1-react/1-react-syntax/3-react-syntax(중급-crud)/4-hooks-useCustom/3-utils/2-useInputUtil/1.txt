@@ -1,0 +1,152 @@
+[Utils: useInputUtil]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. src/utils/useInputUtil.js 작성 : Input창의 value와 onChange를 관리하고, validation 에러를 검출하여 표시하는 커스텀훅 만들기
+  ```
+    import { useState } from "react"
+
+    export default function useInputUtil(options) {
+      const [value, setValue] = useState("")
+      const [error, setError] = useState(null)
+    
+      const validate = (newValue, options) => {
+        const {
+          maxLength = 100,
+          minLength = 0,
+          required = false,
+          noSpecialChars = false,
+        } = options
+    
+        if (required && !newValue) {
+          setError("이 항목은 필수입니다.")
+          return false
+        }
+        if (newValue.length > maxLength) {
+          setError(`${maxLength}자 이상으로 입력할 수 없습니다.`)
+          return false
+        }
+        if (newValue.length < minLength) {
+          setError(`${minLength}자 미만으로 입력할 수 없습니다.`)
+          return false
+        }
+        if (noSpecialChars && /[^a-zA-Z0-9]/.test(newValue)) {
+          setError("특수문자를 입력할 수 없습니다.")
+          return false
+        }
+        setError(null)
+        return true
+      }
+    
+      const onChange = (event) => {
+        const newValue = event.target.value
+        setValue(newValue)
+        validate(newValue, options)
+      }
+    
+      return {
+        value,
+        error,
+        onChange,
+      }
+    }
+  ```
+
+1. src/pages/Home/index.js 수정 : useInputUtil을 import하고 사용해보기
+  ```
+    import React, { useState, useEffect } from "react"
+    import Label from "../../components/Atoms/Label"
+    import useDateUtil from "../../utils/useDateUtil"
+    import useInputUtil from "../../utils/useInputUtil"
+    import NormalButton from "../../components/Atoms/NormalButton"
+    
+    export default function Home() {
+      const [username, setUsername] = useState("")
+      const [password, setPassword] = useState("")
+    
+      const dateUtil = useDateUtil()
+      const formattedDate = dateUtil.formatDate(
+        dateUtil.currentDate,
+        "YYYY-MM-DD HH:mm"
+      )
+    
+      // Hooks
+      const usernameInputUtil = useInputUtil({
+        minLength: 5,
+        maxLength: 15,
+        required: true,
+        noSpecialChars: true,
+      })
+      const passwordInputUtil = useInputUtil({
+        minLength: 8,
+        maxLength: 20,
+        required: true,
+      })
+    
+      useEffect(() => {
+        setUsername(usernameInputUtil.value)
+        setPassword(passwordInputUtil.value)
+      }, [passwordInputUtil.value, usernameInputUtil.value])
+    
+      const handleSubmit = (e) => {
+        e.preventDefault()
+        if (usernameInputUtil.error) {
+          alert("エラーが発生しました！")
+          console.log({
+            username: usernameInputUtil.error,
+            password: passwordInputUtil.error,
+          })
+          return
+        }
+        alert("submitの処理を行う")
+        console.log("submit: ", { username, password })
+      }
+    
+      return (
+        <div>
+          <Label text="Home" />
+          <h2>現在の時刻：{formattedDate}</h2>
+    
+          <div>
+            <form>
+              <input
+                type="text"
+                value={username}
+                placeholder="username"
+                required
+                onChange={usernameInputUtil.onChange}
+              />
+              <input
+                type="text"
+                value={password}
+                placeholder="password"
+                required
+                onChange={passwordInputUtil.onChange}
+              />
+              <NormalButton
+                className="text-blue-500"
+                buttonText="Login"
+                onClick={handleSubmit}
+              ></NormalButton>
+            </form>
+    
+            {/* Error表示 */}
+            {usernameInputUtil.error && (
+              <p className="text-red-500">
+                username エラー: {usernameInputUtil.error}
+              </p>
+            )}
+            {passwordInputUtil.error && (
+              <p className="text-red-500">
+                password エラー: {passwordInputUtil.error}
+              </p>
+            )}
+          </div>
+        </div>
+      )
+    }
+  ```
+
+1. 테스트
+  $ cd app1
+  $ npm run dev

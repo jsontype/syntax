@@ -2,7 +2,7 @@
 
 1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
 
-1. src/connectors/useMoviesConnector.js 생성: 영화 데이터 불러오고 상태를 관리하는 커스텀훅 만들기 (로딩, 에러처리 기능 포함)
+1. src/connectors/useMoviesConnector.js 작성 : API를 호출하여 데이터를 불러오는 커스텀훅 만들기 (로딩, 에러처리 기능 포함)
   ```
     import { ref, onMounted } from "vue"
 
@@ -34,7 +34,7 @@
     }
   ```
 
-1. src/views/MovieApp.vue: 영화 목록을 표시하는 컴포넌트에 커스텀훅을 적용
+1. src/views/MovieApp.vue 수정 : 화면에서 로직을 분리
   ```
     <template>
       <div>
