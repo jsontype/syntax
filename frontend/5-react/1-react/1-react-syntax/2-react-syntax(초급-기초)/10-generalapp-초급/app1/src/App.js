@@ -23,7 +23,6 @@ export default function App() {
       <span>
         <Link to="/todos">Todos</Link>
       </span>
-
       <hr />
 
       <Routes>
