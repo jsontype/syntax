@@ -1,103 +1,49 @@
 [Jotai: Count]
+참조: https://jotai.org
 
 1. 사전준비 : 초급 generalapp 코드를 그대로 카피해서 가지고 온다.
 
 1. 설치
   $ npm i jotai
+  
+1. src/index.js 수정 : Provider로 최상단 컴포넌트인 App을 감싸는 것으로 어디에서나 jotai의 글로벌스테이트를 사용할 수 있게 한다.
+  import React from "react"
+  import ReactDOM from "react-dom/client"
+  import App from "./App"
+  import { BrowserRouter } from "react-router-dom"
+  import "./tailwind.css"
+  // Provider: jotai의 globalState을 사용할 수 있게 하는 컴포넌트
+  import { Provider } from "jotai"
 
-1. src/stores/index.js 작성 : 스토어 만들기
+  const root = ReactDOM.createRoot(document.getElementById("root"))
+  root.render(
+    <BrowserRouter>
+      <Provider>
+        <App />
+      </Provider>
+    </BrowserRouter>
+  )
+
+1. src/stores/index.js 작성 : 스토어를 만든다.
+  // atom: jotai의 상태를 정의하는 함수
   import { atom } from "jotai"
 
   export const store = {
     countAtom: atom(0),
     moviesAtom: atom([]),
-  }
-
-1. src/App.js 수정 : store를 import하고, 이를 사용할 각 컴포넌트에 전달한다.
-  import { Routes, Route, Link } from "react-router-dom"
-  import Home from "./pages/Home"
-  import Movies from "./pages/Movies"
-  import Count from "./pages/Count"
-  import News from "./pages/News"
-  import Todos from "./pages/Todos"
-  // Jotai: Provider, store 임포트
-  import { Provider } from "jotai"
-  import { store } from "./stores"
-
-  export default function App() {
-    return (
-      <div className="m-[20px]">
-        <span>
-          <Link to="/">Home</Link>/
-        </span>
-        <span>
-          <Link to="/movie">Movies</Link>/
-        </span>
-        <span>
-          <Link to="/count">Count</Link>/
-        </span>
-        <span>
-          <Link to="/news">News</Link>/
-        </span>
-        <span>
-          <Link to="/todos">Todos</Link>
-        </span>
-        <hr />
-
-        {/* Jotai: Provider로 감싼 뒤, 프롭으로 store를 건넨다. */}
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Provider>
-                <Home store={store} />
-              </Provider>
-            }
-          />
-          <Route
-            path="/movie"
-            element={
-              <Provider>
-                <Movies store={store} />
-              </Provider>
-            }
-          />
-          <Route
-            path="/count"
-            element={
-              <Provider>
-                <Count store={store} />
-              </Provider>
-            }
-          />
-          <Route
-            path="/news"
-            element={
-              <Provider>
-                <News store={store} />
-              </Provider>
-            }
-          />
-          <Route
-            path="/todos"
-            element={
-              <Provider>
-                <Todos store={store} />
-              </Provider>
-            }
-          />
-        </Routes>
-      </div>
-    )
+    todosAtom: atom([]),
+    newsAtom: atom([]),
   }
 
 1. src/pages/Count.js 수정 : jotai의 useAtom을 사용하여 스테이트를 정의하고 사용한다.
   import React from "react"
   import { Button } from "@mui/material"
+  // store: globalState 창고
+  import { store } from "../../stores"
   // useAtom: useState 대신 (jotai의 atom이라는) globalState을 사용하는 스테이트 정의 훅
   import { useAtom } from "jotai"
 
-  export default function Counter({ store }) {
+  export default function Counter() {
     const [count, setCount] = useAtom(store.countAtom)
 
     return (
@@ -116,9 +62,10 @@
 1. src/pages/Home.js 수정 : jotai의 useAtom을 사용하여 스테이트를 정의하고 사용한다.
   import React from "react"
   import Label from "../../components/Atoms/Label"
+  import { store } from "../../stores"
   import { useAtom } from "jotai"
 
-  export default function Home({ store }) {
+  export default function Home() {
     const [count] = useAtom(store.countAtom)
 
     return (
