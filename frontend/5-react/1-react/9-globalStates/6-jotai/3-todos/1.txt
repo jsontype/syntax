@@ -1,0 +1,135 @@
+[Jotai: Todos]
+참조: https://jotai.org
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+# ***! 1~3. 아래에서부터 히또토오리 다 수정할 것
+
+1. src/connectors/index.js 작성 : Movies의 경우는 src/connectors/index.js를 통해서, 최초 서버로부터 get을 한다. 그걸 store 데이터에 저장한다.
+  export const fetchMovies = async () => {
+    const response = await fetch("https://yts.mx/api/v2/list_movies.json")
+    const data = await response.json()
+    return data.data.movies
+  }
+
+1. src/pages/Movies.js 수정 : jotai의 useAtom을 사용하여 스테이트를 정의하고 사용한다.
+  import React, { useEffect } from "react"
+  import Box from "@mui/material/Box"
+  import Rating from "@mui/material/Rating"
+  import CircularProgress from "@mui/material/CircularProgress"
+  import Tooltip from "@mui/material/Tooltip"
+  import Accordion from "@mui/material/Accordion"
+  import AccordionSummary from "@mui/material/AccordionSummary"
+  import AccordionDetails from "@mui/material/AccordionDetails"
+  import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
+  import Label from "../../components/Atoms/Label"
+  // Jotai: store, useAtom, 데이터 fetch 함수를 import
+  import { store } from "../../stores"
+  import { useAtom } from "jotai"
+  import { fetchMovies } from "../../connectors"
+
+  export default function Movies() {
+    const [movies, setMovies] = useAtom(store.moviesAtom)
+    const [isLoading, setIsLoading] = React.useState(false)
+
+    useEffect(() => {
+      setIsLoading(true)
+      fetchMovies().then((movies) => {
+        setMovies(movies)
+        setIsLoading(false)
+      })
+    }, [setMovies])
+
+    console.log("movies: ", movies)
+
+    const loading = (
+      <Box sx={{ display: "flex" }}>
+        <CircularProgress />
+      </Box>
+    )
+
+    const render = movies.map((movie) => {
+      return (
+        <div key={movie.id}>
+          <a
+            className="block text-gray-500 text-[24px] font-bold no-underline p-[5px] m-[10px] border-[1px] border-white rounded-[5px] hover:bg-red-300 hover:text-white"
+            href={movie.url}
+          >
+            {movie.title} ({movie.year})
+          </a>
+
+          <img
+            className="block w-[300px]"
+            src={movie.large_cover_image}
+            alt={movie.title}
+          ></img>
+
+          <div className="my-[10px]">
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1-content"
+                id="panel1-header"
+              >
+                詳細を見る
+              </AccordionSummary>
+              <AccordionDetails>
+                <div>
+                  評価：
+                  <Tooltip title={movie.rating + "/10点"} placement="right">
+                    <Box
+                      display="inline"
+                      sx={{
+                        "& > legend": { mt: 2 },
+                      }}
+                    >
+                      <Rating
+                        size="small"
+                        name="simple-controlled"
+                        readOnly
+                        value={movie.rating / 2}
+                      />
+                    </Box>
+                  </Tooltip>
+                </div>
+                <div>ジャンル：{movie.genres.join(", ")}</div>
+                <div>ランタイム：{movie.runtime}分</div>
+                <div>ストーリー：{movie.synopsis || "情報無し"}</div>
+              </AccordionDetails>
+            </Accordion>
+          </div>
+        </div>
+      )
+    })
+
+    return (
+      <div>
+        <Label text="Movies" />
+
+        <div>{isLoading ? loading : render}</div>
+      </div>
+    )
+  }
+
+1. src/pages/Home.js 수정 : jotai의 useAtom을 사용하여 스테이트를 정의하고 사용한다.
+  import React from "react"
+  import Label from "../../components/Atoms/Label"
+  import { store } from "../../stores"
+  import { useAtom } from "jotai"
+
+  export default function Home() {
+    const [count] = useAtom(store.countAtom)
+    const [movies] = useAtom(store.moviesAtom)
+
+    return (
+      <div>
+        <Label text="Home" />
+        <div>Count: {count}</div>
+        <div>Movies: {movies.length}</div>
+      </div>
+    )
+  }
+
+1. 테스트 : Count 페이지에서 +, - 버튼을 눌러보고, Home 페이지로 이동하여 Count와 state가 동기화되어 있는지 확인한다.
+  $ cd app1
+  $ npm start
