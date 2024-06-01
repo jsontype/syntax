@@ -11,12 +11,15 @@ import Label from "../../components/Atoms/Label"
 // Jotai: store, useAtom, 데이터 fetch 함수를 import
 import { store } from "../../stores"
 import { useAtom } from "jotai"
+// Connector 함수를 import
 import { fetchMovies } from "../../connectors"
 
 export default function Movies() {
+  // Jotai: useState를 useAtom으로 수정
   const [movies, setMovies] = useAtom(store.moviesAtom)
   const [isLoading, setIsLoading] = React.useState(false)
 
+  // Mounted: fetch를 받아오도록 수정
   useEffect(() => {
     setIsLoading(true)
     fetchMovies().then((movies) => {

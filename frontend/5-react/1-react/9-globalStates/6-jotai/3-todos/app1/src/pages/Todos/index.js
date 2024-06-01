@@ -5,22 +5,25 @@ import DeleteIcon from "@mui/icons-material/Delete"
 import TextField from "@mui/material/TextField"
 import Label from "../../components/Atoms/Label"
 import NormalButton from "../../components/Atoms/NormalButton"
+// Jotai: store, useAtom, 데이터 fetch 함수를 import
+import { store } from "../../stores"
+import { useAtom } from "jotai"
+// Connector 함수를 import
+import { fetchTodos } from "../../connectors"
 
 export default function Todos() {
-  const [todos, setTodos] = useState([])
+  // Jotai: useState를 useAtom으로 수정
+  const [todos, setTodos] = useAtom(store.todosAtom.todos)
+  const [todoKey, setTodoKey] = useAtom(store.todosAtom.todosKey)
   const [inputText, setInputText] = useState("")
-  const [todoKey, setTodoKey] = useState(0)
 
-  // Mounted
+  // Mounted: fetch를 받아오도록 수정
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/todos")
-      .then((res) => res.json())
-      .then((json) => {
-        const result = json.filter((item) => item.userId === 1)
-        setTodos(result)
-        setTodoKey(result.length + 1)
-      })
-  }, [])
+    fetchTodos().then((todos) => {
+      setTodos(todos)
+      setTodoKey(todos.length + 1)
+    })
+  }, [setTodoKey, setTodos])
 
   const render = todos.map((todo) => {
     return (
@@ -48,7 +51,10 @@ export default function Todos() {
 
   // Insert
   const addTodo = (inputText) => {
-    const addItem = [...todos, { id: todoKey, title: inputText }]
+    const addItem = [
+      ...todos,
+      { id: todoKey, title: inputText, completed: false },
+    ]
     setTodoKey(todoKey + 1)
     setTodos(addItem)
     setInputText("")
@@ -74,7 +80,7 @@ export default function Todos() {
     <div>
       <Label text="Todos" />
 
-      <div class="mb-[20px]">
+      <div className="mb-[20px]">
         <span className="mr-[5px]">
           <TextField
             value={inputText}

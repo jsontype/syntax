@@ -4,6 +4,9 @@ import { atom } from "jotai"
 export const store = {
   countAtom: atom(0),
   moviesAtom: atom([]),
-  todosAtom: atom([]),
+  todosAtom: {
+    todos: atom([]),
+    todosKey: atom(0),
+  },
   newsAtom: atom([]),
 }

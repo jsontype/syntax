@@ -48,7 +48,10 @@ export default function Todos() {
 
   // Insert
   const addTodo = (inputText) => {
-    const addItem = [...todos, { id: todoKey, title: inputText }]
+    const addItem = [
+      ...todos,
+      { id: todoKey, title: inputText, completed: false },
+    ]
     setTodoKey(todoKey + 1)
     setTodos(addItem)
     setInputText("")
@@ -74,7 +77,7 @@ export default function Todos() {
     <div>
       <Label text="Todos" />
 
-      <div class="mb-[20px]">
+      <div className="mb-[20px]">
         <span className="mr-[5px]">
           <TextField
             value={inputText}

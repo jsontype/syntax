@@ -3,3 +3,9 @@ export const fetchMovies = async () => {
   const data = await response.json()
   return data.data.movies
 }
+
+export const fetchTodos = async () => {
+  const response = await fetch("https://jsonplaceholder.typicode.com/todos")
+  const data = await response.json()
+  return data.filter((item) => item.userId === 1)
+}
