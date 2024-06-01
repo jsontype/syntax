@@ -24,12 +24,15 @@
   // Jotai: store, useAtom, 데이터 fetch 함수를 import
   import { store } from "../../stores"
   import { useAtom } from "jotai"
+  // Connector 함수를 import
   import { fetchMovies } from "../../connectors"
 
   export default function Movies() {
+    // Jotai: useState를 useAtom으로 수정
     const [movies, setMovies] = useAtom(store.moviesAtom)
     const [isLoading, setIsLoading] = React.useState(false)
 
+    // Mounted: fetch를 받아오도록 수정
     useEffect(() => {
       setIsLoading(true)
       fetchMovies().then((movies) => {
@@ -128,6 +131,6 @@
     )
   }
 
-1. 테스트 : Count 페이지에서 +, - 버튼을 눌러보고, Home 페이지로 이동하여 Count와 state가 동기화되어 있는지 확인한다.
+1. 테스트 : Movies 페이지에서 영화 목록을 불러온 뒤, Home 페이지로 이동하여 Movies state가 동기화되어 있는지 확인한다.
   $ cd app1
   $ npm start
