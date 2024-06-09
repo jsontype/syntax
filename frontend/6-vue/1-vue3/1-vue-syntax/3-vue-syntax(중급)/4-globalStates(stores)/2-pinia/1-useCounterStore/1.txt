@@ -1,3 +1,4 @@
+# ***! 7.
 [Pinia Stores: useCounterStore]
 
 1. 사전준비 : 프로젝트를 새로 깔지 않고, 3-utils/2-useInputUtil 에서의 코드를 그대로 카피해서 가지고 온다.
