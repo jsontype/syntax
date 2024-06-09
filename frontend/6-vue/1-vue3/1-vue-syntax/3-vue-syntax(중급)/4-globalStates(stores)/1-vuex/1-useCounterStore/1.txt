@@ -1,24 +1,145 @@
-# ***! 4.
 [Vuex Stores: useCounterStore]
 
-1. Stores 폴더를 따로 나누는 이유
+1. useCounterStore 같은 훅들을 composables에 놓지 않고, stores 폴더를 따로 나누는 이유
   composables에 모두 몰아서 넣으면 로직이 헷갈리므로, 
   Vuex, Pinia 등의 라이브러리를 사용해 store를 제어하는 훅스는 
   stores에 넣고 쓰기도 한다. (Store 내부 데이터의 get, set 로직 등)
 
 1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
 
-1. 뷰3 스토어 : Vue 3의 Composition API에서 computed를 사용하여 get과 set 메서드를 정의하는 것은 일반적인 접근 방식입니다. 이미 정의된 uploadedSubmitDocumentFiles의 set 메서드를 사용하여 파일 목록을 업데이트하려면, set 메서드를 직접 호출하는 것이 아니라, 해당 computed property에 값을 할당함으로써 set 메서드를 간접적으로 호출할 수 있습니다. ---> 이부분 아래코드 같은 거 자세히 설명좀 해줘. 
-// Computed
-const count = computed({
-  get: (): FileItem[] => {
-    return countStore.count
-  },
-  set: (files: FileItem[]): void => {
-    countStore.count = count
-},
-})
-이런식으로 스토어에 값을 이용해 카운터를 구현하려고 하는 중임.
+1. 설치
+  $ npm i vuex
+
+1. src/stores/counter/index.js 작성 : 스토어 모듈 (실제 스토어를 조작 및 관리)
+  const state = {
+    count: 0,
+  }
+
+  const mutations = {
+    increase(state) {
+      state.count++
+    },
+    decrease(state) {
+      state.count--
+    },
+  }
+
+  const actions = {
+    increase({ commit }) {
+      commit("increase")
+    },
+    decrease({ commit }) {
+      commit("decrease")
+    },
+  }
+
+  const getters = {
+    count: (state) => state.count,
+  }
+
+  export default {
+    namespaced: true,
+    state,
+    mutations,
+    actions,
+    getters,
+  }
+
+1. src/stores/index.js 작성 : 각 스토어 모듈들을 하나로 묶은 Vuex 스토어 설정 파일
+  import { createStore } from "vuex"
+
+  import counter from "./counter"
+
+  const store = createStore({
+    modules: {
+      counter,
+    },
+  })
+
+  export default store
+
+1. src/main.ts 수정 : Stores를 Vue 앱에 등록
+  import { createApp } from "vue"
+  import App from "./App.vue"
+  import router from "./router"
+  import stores from "./stores"
+
+  const app = createApp(App)
+
+  app.use(router)
+  app.use(stores)
+  app.mount("#app")
+
+1. src/stores/useCounterStore.js 작성 : 스토어 변수
+  import { computed } from "vue"
+  import { useStore } from "vuex"
+
+  export function useCounterStore() {
+    const store = useStore()
+    const count = computed(() => store.getters["counter/count"])
+
+    return {
+      count,
+    }
+  }
+
+1. src/composables/useCounter.js 수정 : 스토어 값을 변경하는 로직 만들기
+  import { useStore } from "vuex"
+
+  export function useCounter() {
+    const store = useStore()
+
+    const increase = () => store.dispatch("counter/increase")
+    const decrease = () => store.dispatch("counter/decrease")
+
+    return { increase, decrease }
+  }
+
+1. src/views/Counter.vue 수정 : 로직을 use~, 스테이트를 use~Store 에서 꺼내어 사용하도록 변경
+  <template>
+    <h1>Counter App</h1>
+    <div>
+      <h2>카운트: {{ counterStore.count }}</h2>
+      <button @click="counter.increase">+</button>
+      <button @click="counter.decrease">-</button>
+    </div>
+  </template>
+
+  <script setup>
+  import { useCounterStore } from "@/stores/counter/useCounterStore"
+  import { useCounter } from "@/composables/useCounter"
+
+  // Hooks
+  const counterStore = useCounterStore()
+  const counter = useCounter()
+  </script>
+
+1. src/views/Home.vue 수정 : 스테이트를 use~Store 에서 꺼내어 사용하도록 변경
+  <template>
+    <div>
+      <h1>Home</h1>
+      <p>현재 날짜: {{ formattedDate }}</p>
+      <p>현재 카운트: {{ counterStore.count }}</p>
+    </div>
+  </template>
+
+  <script setup>
+  import { ref, onMounted } from "vue"
+  import { useDateUtil } from "@/utils/useDateUtil"
+  import { useCounterStore } from "@/stores/counter/useCounterStore"
+
+  // Variables
+  const formattedDate = ref("")
+
+  // Hooks
+  const dateUtil = useDateUtil()
+  const counterStore = useCounterStore()
+
+  // Lifecycle Hooks
+  onMounted(() => {
+    formattedDate.value = dateUtil.formatDate(dateUtil.currentDate.value)
+  })
+  </script>
 
 1. 테스트
   $ cd app1

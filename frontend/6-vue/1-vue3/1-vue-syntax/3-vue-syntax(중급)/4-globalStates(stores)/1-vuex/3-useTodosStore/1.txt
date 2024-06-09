@@ -1,0 +1,190 @@
+[Vuex Stores: useTodosStore]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. src/stores/todos/index.js 작성 : 스토어 모듈 (실제 스토어를 조작 및 관리)
+  const state = {
+    todosList: [],
+  }
+
+  const mutations = {
+    updateTodosList(state, newList) {
+      state.todosList = newList
+    },
+  }
+
+  const actions = {
+    updateTodosList({ commit }, newList) {
+      commit("updateTodosList", newList)
+    },
+  }
+
+  const getters = {
+    todos: (state) => state.todosList,
+  }
+
+  export default {
+    namespaced: true,
+    state,
+    mutations,
+    actions,
+    getters,
+  }
+
+1. src/stores/index.js 작성 : 각 스토어 모듈들을 하나로 묶은 Vuex 스토어 설정 파일
+  import { createStore } from "vuex"
+
+  import counter from "./counter"
+  import movies from "./movies"
+  import todos from "./todos"
+
+  const store = createStore({
+    modules: {
+      counter,
+      movies,
+      todos,
+    },
+  })
+
+  export default store
+
+1. src/stores/useTodosStore.js 작성 : 스토어의 스테이트, 로직 짜기
+  import { useStore } from "vuex"
+  import { computed } from "vue"
+
+  export function useTodosStore() {
+    const store = useStore()
+    const todosList = computed(() => store.state.todos.todosList || [])
+
+    const updateTodosList = (newList) => {
+      store.dispatch("todos/updateTodosList", newList)
+    }
+
+    return {
+      todosList,
+      updateTodosList,
+    }
+  }
+
+1. src/components/TodosList.vue 수정 : 스테이트와 로직을 use~Store 에서 꺼내어 사용하도록 변경
+  <template>
+    <div>
+      <div id="addTodo">
+        <input type="text" v-model="newTodo" />
+        <button @click="addTodo">추가</button>
+      </div>
+      <div id="todos">
+        <div v-for="todo in todos" :key="todo.id" class="todo">
+          <span @click="toggleTodo(todo)">
+            <span :class="todo.completed && 'lineThrough'">{{ todo.title }}</span>
+            <input type="checkbox" :checked="todo.completed" />
+          </span>
+          <span>
+            <button @click="delTodo(todo.id)">삭제</button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <script setup>
+  import { ref } from "vue"
+  import { useTodosStore } from "@/stores/todos/useTodosStore"
+
+  const newTodo = ref("")
+  const { todosList, updateTodosList } = useTodosStore()
+
+  const todos = ref([])
+  const userId = ref(1)
+
+  const addTodo = () => {
+    if (newTodo.value.trim()) {
+      const newTodoItem = {
+        id: Date.now(),
+        title: newTodo.value,
+        completed: false,
+      }
+      todos.value.push(newTodoItem)
+      updateTodosList(todos.value)
+      newTodo.value = ""
+    }
+  }
+
+  const toggleTodo = (todo) => {
+    todo.completed = !todo.completed
+    updateTodosList(todos.value)
+  }
+
+  const delTodo = (id) => {
+    todos.value = todos.value.filter((todo) => todo.id !== id)
+    updateTodosList(todos.value)
+  }
+
+  todos.value = todosList.value
+  </script>
+
+  <style scoped>
+  input {
+    margin-right: 5px;
+  }
+  .todo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .lineThrough {
+    text-decoration: line-through;
+  }
+  </style>
+
+1. src/views/Home.vue 수정 : 스테이트를 use~Store 에서 꺼내어 사용하도록 변경
+  ```
+    <template>
+      <div>
+        <h1>Home</h1>
+        <p>현재 날짜: {{ formattedDate }}</p>
+        <p>현재 카운트: {{ counterStore.count }}</p>
+        <p>
+          현재 표시되고 있는 영화목록 :
+          <span v-if="moviesList.length <= 0">없음</span>
+          <span v-else>총 {{ moviesList.length }}개</span>
+          <div v-for="item in moviesList" :key="item.id">
+            {{ item.title }}
+          </div>
+        </p>
+        <p>현재 할 일 목록: 완료 {{ completedTodosCount }}개 / 총 {{ todosList.length }}개</p>
+      </div>
+    </template>
+
+    <script setup>
+    import { ref, onMounted, computed } from "vue"
+    import { useDateUtil } from "@/utils/useDateUtil"
+    import { useCounterStore } from "@/stores/counter/useCounterStore"
+    import { useMoviesStore } from "@/stores/movies/useMoviesStore"
+    import { useTodosStore } from "@/stores/todos/useTodosStore"
+
+    // Variables
+    const formattedDate = ref("")
+
+    // Hooks
+    const dateUtil = useDateUtil()
+    const counterStore = useCounterStore()
+    const { moviesList } = useMoviesStore()
+    const { todosList } = useTodosStore()
+
+    // Computed
+    const completedTodosCount = computed(() => {
+      return todosList.value.filter(todo => todo.completed).length
+    })
+
+    // Lifecycle Hooks
+    onMounted(() => {
+      formattedDate.value = dateUtil.formatDate(dateUtil.currentDate.value)
+    })
+    </script>
+  ```
+
+1. 테스트
+  $ cd app1
+  $ npm run dev

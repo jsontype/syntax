@@ -1,4 +1,4 @@
-import { ref, onMounted } from "vue"
+import { ref } from "vue"
 
 export function useMoviesConnector() {
   const movies = ref([])
@@ -21,8 +21,6 @@ export function useMoviesConnector() {
       loading.value = false
     }
   }
-
-  onMounted(fetchMovies)
 
   return { movies, loading, error, fetchMovies }
 }

@@ -1,0 +1,215 @@
+[Vuex Stores: useLoginStore]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. 배경사양
+  유저정보의 더미데이터를 json 으로 넣고, 이에 부합할 유저로만 로그인한다.
+  - 더미데이터를 json 으로 넣는다.
+  - 이에 부합할 유저로만 로그인한다.
+  Vuex Store 를 만들고, 이를 이용하여 로그인을 한다.
+  - Vuex Store 를 만든다.
+  - 이를 이용하여 로그인을 한다.
+  - 한번 로그인 했으면, 어느 페이지에 가든, 이를 스토어를 통해 유지시킨다.
+
+1. src/data/users.json 작성 : 더미 유저 데이터 만들기 (실제 현장에서는 서버의 DB 데이터를 이용하겠지만, 프론트 수업이므로 그냥 그렇다고 상정하고 더미를 활용하겠음)
+  [
+    {
+      "username": "test",
+      "password": "1234"
+    }
+  ]
+
+1. src/stores/auth/index.js 작성: 스토어 모듈 (실제 스토어를 조작 및 관리)
+  import users from "@/data/users.json"
+
+  const state = {
+    isAuthenticated: false,
+    user: null,
+    authError: null,
+  }
+
+  const mutations = {
+    LOGIN_SUCCESS(state, user) {
+      state.isAuthenticated = true
+      state.user = user
+      state.authError = null
+    },
+    LOGIN_FAILURE(state, error) {
+      state.isAuthenticated = false
+      state.user = null
+      state.authError = error
+    },
+    LOGOUT(state) {
+      state.isAuthenticated = false
+      state.user = null
+      state.authError = null
+    },
+  }
+
+  const actions = {
+    login({ commit }, { username, password }) {
+      const user = users.find(
+        (u) => u.username === username && u.password === password
+      )
+      if (user) {
+        commit("LOGIN_SUCCESS", user)
+      } else {
+        commit("LOGIN_FAILURE", "Invalid username or password")
+      }
+    },
+    logout({ commit }) {
+      commit("LOGOUT")
+    },
+  }
+
+  const getters = {
+    isAuthenticated: (state) => state.isAuthenticated,
+    authError: (state) => state.authError,
+    user: (state) => state.user,
+  }
+
+  export default {
+    namespaced: true,
+    state,
+    mutations,
+    actions,
+    getters,
+  }
+
+1. src/stores/index.js 수정 : 스토어의 스테이트를 로컬 스토리지에 저장하고, 앱이 시작될 때 이를 복원한다.
+  import { createStore } from "vuex"
+  import counter from "./counter"
+  import movies from "./movies"
+  import todos from "./todos"
+  import auth from "./auth"
+
+  const store = createStore({
+    modules: {
+      counter,
+      movies,
+      todos,
+      auth,
+    },
+  })
+
+  // 로컬 스토리지에 로그인 상태 저장
+  store.subscribe((mutation, state) => {
+    if (mutation.type.startsWith("auth/")) {
+      localStorage.setItem("auth", JSON.stringify(state.auth))
+    }
+  })
+
+  // 앱 시작 시 로그인 상태 복원
+  const authData = localStorage.getItem("auth")
+  if (authData) {
+    store.commit("auth/LOGIN_SUCCESS", JSON.parse(authData).user)
+  }
+
+  export default store
+
+1. src/components/LogoutButton.vue 작성 : 로그아웃 기능을 추가하여 언제든지 사용자가 로그아웃할 수 있도록 한다.
+  <template>
+    <div>
+      <form @submit.prevent="handleSubmit" v-if="!isAuthenticated">
+        <input type="text" placeholder="username" v-model="username" required />
+        <input
+          type="password"
+          placeholder="password"
+          v-model="password"
+          required
+        />
+        <button type="submit">Login</button>
+      </form>
+      <!-- 발리데이션 에러시의 메시지 처리 -->
+      <p v-if="authError" style="color: red">{{ authError }}</p>
+      <div v-else>
+        <span v-if="isAuthenticated">로그인 상태입니다...</span>
+        <button v-if="isAuthenticated" @click="logout">로그아웃</button>
+      </div>
+    </div>
+  </template>
+
+  <script setup>
+  import { ref, computed } from "vue"
+  import { useStore } from "vuex"
+
+  const store = useStore()
+  const username = ref("")
+  const password = ref("")
+  const authError = computed(() => store.getters["auth/authError"])
+  const isAuthenticated = computed(() => store.getters["auth/isAuthenticated"])
+
+  const handleSubmit = () => {
+    store.dispatch("auth/login", {
+      username: username.value,
+      password: password.value,
+    })
+  }
+
+  const logout = () => {
+    store.dispatch("auth/logout")
+  }
+  </script>
+
+1. src/views/Home.vue 수정 : 스테이트를 use~Store 에서 꺼내어 사용하도록 변경
+  ```
+    <template>
+      <div>
+        <h1>Home</h1>
+        <p>현재 날짜: {{ formattedDate }}</p>
+        <p>현재 카운트: {{ counterStore.count }}</p>
+        <p>
+          현재 표시되고 있는 영화목록 :
+          <span v-if="moviesList.length <= 0">없음</span>
+          <span v-else>총 {{ moviesList.length }}개</span>
+          <div v-for="item in moviesList" :key="item.id">
+            {{ item.title }}
+          </div>
+        </p>
+        <p>현재 할 일 목록: 완료 {{ completedTodosCount }}개 / 총 {{ todosList.length }}개</p>
+        <span v-if="isAuthenticated">로그인 상태입니다...</span>
+        <span v-else>로그인되지 않았습니다.</span>
+        <button v-if="isAuthenticated" @click="logout">로그아웃</button>
+      </div>
+    </template>
+
+    <script setup>
+    import { ref, onMounted, computed } from "vue";
+    import { useDateUtil } from "@/utils/useDateUtil";
+    import { useCounterStore } from "@/stores/counter/useCounterStore";
+    import { useMoviesStore } from "@/stores/movies/useMoviesStore";
+    import { useTodosStore } from "@/stores/todos/useTodosStore";
+    import { useStore } from "vuex";
+
+    // Variables
+    const formattedDate = ref("");
+
+    // Hooks
+    const dateUtil = useDateUtil();
+    const counterStore = useCounterStore();
+    const { moviesList } = useMoviesStore();
+    const { todosList } = useTodosStore();
+    const store = useStore();
+
+    // Computed
+    const completedTodosCount = computed(() => {
+      return todosList.value.filter(todo => todo.completed).length;
+    });
+
+    const isAuthenticated = computed(() => store.getters['auth/isAuthenticated']);
+
+    // Methods
+    const logout = () => {
+      store.dispatch('auth/logout');
+    };
+
+    // Lifecycle Hooks
+    onMounted(() => {
+      formattedDate.value = dateUtil.formatDate(dateUtil.currentDate.value);
+    });
+    </script>
+  ```
+
+1. 테스트 : ( test / 1234 )로 로그인을 확인하고, 로그아웃 버튼을 눌러 로그아웃을 확인한다.
+  $ cd app1
+  $ npm run dev
