@@ -1,17 +1,10 @@
-import { ref } from "vue"
+import { useStore } from "vuex"
 
 export function useCounter() {
-  const count = ref(0)
+  const store = useStore()
 
-  function increase() {
-    count.value++
-  }
+  const increase = () => store.dispatch("counter/increase")
+  const decrease = () => store.dispatch("counter/decrease")
 
-  function decrease() {
-    if (count.value > 0) {
-      count.value--
-    }
-  }
-
-  return { count, increase, decrease }
+  return { increase, decrease }
 }
