@@ -31,6 +31,12 @@
   alias login1="gcloud auth login"
   alias login2="gcloud auth application-default login"
 
+  # pod
+  alias pod-front="kubectl get pod -n front앱명"
+  alias pod-back="kubectl get pod -n back앱명"
+  # pod 삭제 후 재기동 (pod명이 매번 바뀌므로 alias 말고 아래 cmd 직접 입력함)
+  # kubectl delete pod -n 앱명 pod명
+
   # kubectx alias
   alias kubectx-dev="gcloud container clusters get-credentials 환경명-dev-1  --project 프로젝트명-dev --zone asia-northeast1"
   alias kubectx-tesx="gcloud container clusters get-credentials 환경명-tesx-1 --region asia-northeast1 --project 프로젝트명-tes"
