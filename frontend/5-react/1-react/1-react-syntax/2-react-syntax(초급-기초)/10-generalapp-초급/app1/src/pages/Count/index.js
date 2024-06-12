@@ -10,6 +10,8 @@ export default function Count() {
     <>
       <Label text="Counter" />
 
+      <h1>{count}</h1>
+
       <Button
         size="small"
         variant="outlined"
