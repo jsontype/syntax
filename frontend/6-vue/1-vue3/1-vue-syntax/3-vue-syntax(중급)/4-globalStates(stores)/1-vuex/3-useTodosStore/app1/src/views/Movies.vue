@@ -29,6 +29,7 @@ const movies = computed(() => moviesList.value)
 
 // Lifecycle Hooks
 onMounted(() => {
+  if (movies.value.length > 0) return
   fetchMovies()
 })
 </script>

@@ -23,9 +23,10 @@ import { useMoviesStore } from "@/stores/movies/useMoviesStore"
 
 // Hooks
 const { fetchMovies, loading, error } = useMoviesConnector()
-const { moviesList } = useMoviesStore()
+const moviesStore = useMoviesStore()
 
-const movies = computed(() => moviesList.value)
+// Computed
+const movies = computed(() => moviesStore.moviesList)
 
 // Lifecycle Hooks
 onMounted(() => {

@@ -1,0 +1,363 @@
+# ***! 9.
+[Pinia Stores: useLoginStore]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+
+
+
+
+
+
+
+1. src/stores/movies/useMoviesStore.js 작성 : 스토어 모듈 (실제 스토어를 조작 및 관리)
+  import { defineStore } from "pinia"
+
+  export const useMoviesStore = defineStore("movies", {
+    state: () => ({
+      moviesList: [],
+    }),
+    actions: {
+      updateMoviesList(newList) {
+        this.moviesList = newList
+      },
+    },
+    getters: {
+      movies: (state) => state.moviesList,
+    },
+  })
+
+1. src/composables/useMovies.js 작성 : 스토어 값을 변경하는 로직 만들기
+  import { useMoviesStore } from "@/stores/movies/useMoviesStore"
+
+  export function useMovies() {
+    const moviesStore = useMoviesStore()
+
+    const updateMoviesList = (newList) => {
+      moviesStore.updateMoviesList(newList)
+    }
+
+    return {
+      updateMoviesList,
+    }
+  }
+
+1. src/connector/useMoviesConnector.js 작성 : API 호출 로직에 스토어를 업데이트하는 로직을 추가
+  import { ref } from "vue"
+  import { useMoviesStore } from "@/stores/movies/useMoviesStore"
+
+  export function useMoviesConnector() {
+    const moviesStore = useMoviesStore()
+    const loading = ref(false)
+    const error = ref(null)
+
+    const fetchMovies = async () => {
+      loading.value = true
+      error.value = null
+      try {
+        const response = await fetch(
+          "https://yts.mx/api/v2/list_movies.json?sort_by=rating"
+        )
+        if (!response.ok) throw new Error("Failed to fetch movies")
+        const json = await response.json()
+        // 스토어 업데이트
+        moviesStore.updateMoviesList(json.data.movies)
+      } catch (err) {
+        error.value = err.message
+      } finally {
+        loading.value = false
+      }
+    }
+
+    return { loading, error, fetchMovies }
+  }
+
+1. src/views/Movies.vue 수정 : 스테이트와 로직을 use~Store 에서 꺼내어 사용하도록 변경
+  <template>
+    <div>
+      <h1>Movie App</h1>
+      <div v-if="loading">Loading...</div>
+      <div v-if="error">{{ error }}</div>
+      <div id="movies" v-else>
+        <div v-for="movie in movies" :key="movie.id" class="movie">
+          <a class="movieTitle" :href="movie.url">{{ movie.title }}</a>
+          <img
+            class="movieImage"
+            :src="movie.background_image"
+            :alt="movie.title"
+          />
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <script setup>
+  import { onMounted, computed } from "vue"
+  import { useMoviesConnector } from "@/connectors/useMoviesConnector"
+  import { useMoviesStore } from "@/stores/movies/useMoviesStore"
+
+  // Hooks
+  const { fetchMovies, loading, error } = useMoviesConnector()
+  const moviesStore = useMoviesStore()
+
+  // Computed
+  const movies = computed(() => moviesStore.moviesList)
+
+  // Lifecycle Hooks
+  onMounted(() => {
+    fetchMovies()
+  })
+  </script>
+
+  <style scoped>
+  .movieTitle {
+    display: block;
+  }
+  .movieImage {
+    width: 100%;
+    height: auto;
+  }
+  </style>
+
+
+1. src/views/Home.vue 수정 : 스테이트를 use~Store 에서 꺼내어 사용하도록 변경
+  <template>
+    <div>
+      <h1>Home</h1>
+      <p>현재 날짜: {{ formattedDate }}</p>
+      <p>현재 카운트: {{ counterStore.count }}</p>
+      <p>
+        현재 표시되고 있는 영화목록 :
+        <span v-if="moviesStore.moviesList.length <= 0">없음</span>
+        <span v-else>총 {{ moviesStore.moviesList.length }}개</span>
+        <div v-for="item in moviesStore.moviesList" :key="item.id">
+          {{ item.title }}
+        </div>
+      </p>
+    </div>
+  </template>
+
+  <script setup>
+  import { ref, onMounted, computed } from "vue"
+  import { useDateUtil } from "@/utils/useDateUtil"
+  import { useCounterStore } from "@/stores/counter/useCounterStore"
+  import { useMoviesStore } from "@/stores/movies/useMoviesStore"
+
+  // Variables
+  const formattedDate = ref("")
+
+  // Hooks
+  const dateUtil = useDateUtil()
+  const counterStore = useCounterStore()
+  const moviesStore = useMoviesStore()
+
+  // Lifecycle Hooks
+  onMounted(() => {
+    formattedDate.value = dateUtil.formatDate(dateUtil.currentDate.value)
+  })
+  </script>
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
+
+
+
+
+
+
+
+
+
+
+1. 사전준비
+프로젝트를 새로 깔지 않고, 이전 Vuex 예제 코드를 그대로 카피해서 사용합니다.
+
+2. 설치
+Pinia를 설치합니다:
+
+sh
+코드 복사
+$ npm i pinia
+3. src/data/users.json 작성 : 더미 유저 데이터 만들기
+json
+코드 복사
+[
+  {
+    "username": "test",
+    "password": "1234"
+  }
+]
+4. src/stores/auth.js 작성 : 스토어 모듈 (실제 스토어를 조작 및 관리)
+javascript
+코드 복사
+import { defineStore } from 'pinia'
+import users from '@/data/users.json'
+
+export const useAuthStore = defineStore('auth', {
+  state: () => ({
+    isAuthenticated: false,
+    user: null,
+    authError: null,
+  }),
+  actions: {
+    login(username, password) {
+      const user = users.find(
+        (u) => u.username === username && u.password === password
+      )
+      if (user) {
+        this.isAuthenticated = true
+        this.user = user
+        this.authError = null
+        localStorage.setItem('auth', JSON.stringify(this.$state))
+      } else {
+        this.isAuthenticated = false
+        this.user = null
+        this.authError = 'Invalid username or password'
+      }
+    },
+    logout() {
+      this.isAuthenticated = false
+      this.user = null
+      this.authError = null
+      localStorage.removeItem('auth')
+    },
+    loadAuth() {
+      const authData = localStorage.getItem('auth')
+      if (authData) {
+        Object.assign(this.$state, JSON.parse(authData))
+      }
+    }
+  },
+  getters: {
+    isAuthenticated: (state) => state.isAuthenticated,
+    authError: (state) => state.authError,
+    user: (state) => state.user,
+  },
+})
+5. src/stores/index.js 작성 : Pinia 스토어 설정 파일
+javascript
+코드 복사
+import { createPinia } from 'pinia'
+
+const pinia = createPinia()
+
+export default pinia
+6. src/main.js 수정 : Stores를 Vue 앱에 등록하고, 앱 시작 시 로그인 상태 복원
+javascript
+코드 복사
+import { createApp } from 'vue'
+import App from './App.vue'
+import router from './router'
+import pinia from './stores'
+import { useAuthStore } from './stores/auth'
+
+const app = createApp(App)
+
+app.use(router)
+app.use(pinia)
+
+const authStore = useAuthStore()
+authStore.loadAuth()
+
+app.mount('#app')
+7. src/components/LogoutButton.vue 작성 : 로그아웃 기능을 추가하여 언제든지 사용자가 로그아웃할 수 있도록 한다
+vue
+코드 복사
+<template>
+  <div>
+    <form @submit.prevent="handleSubmit" v-if="!isAuthenticated">
+      <input type="text" placeholder="username" v-model="username" required />
+      <input type="password" placeholder="password" v-model="password" required />
+      <button type="submit">Login</button>
+    </form>
+    <p v-if="authError" style="color: red">{{ authError }}</p>
+    <div v-else>
+      <span v-if="isAuthenticated">로그인 상태입니다...</span>
+      <button v-if="isAuthenticated" @click="logout">로그아웃</button>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref, computed } from 'vue'
+import { useAuthStore } from '@/stores/auth'
+
+const authStore = useAuthStore()
+const username = ref('')
+const password = ref('')
+const authError = computed(() => authStore.authError)
+const isAuthenticated = computed(() => authStore.isAuthenticated)
+
+const handleSubmit = () => {
+  authStore.login(username.value, password.value)
+}
+
+const logout = () => {
+  authStore.logout()
+}
+</script>
+8. src/views/Home.vue 수정 : 스테이트를 use~Store 에서 꺼내어 사용하도록 변경
+vue
+코드 복사
+<template>
+  <div>
+    <h1>Home</h1>
+    <p>현재 날짜: {{ formattedDate }}</p>
+    <p>현재 카운트: {{ counterStore.count }}</p>
+    <p>
+      현재 표시되고 있는 영화목록 :
+      <span v-if="moviesList.length <= 0">없음</span>
+      <span v-else>총 {{ moviesList.length }}개</span>
+      <div v-for="item in moviesList" :key="item.id">
+        {{ item.title }}
+      </div>
+    </p>
+    <p>현재 할 일 목록: 완료 {{ completedTodosCount }}개 / 총 {{ todosList.length }}개</p>
+    <span v-if="isAuthenticated">로그인 상태입니다...</span>
+    <span v-else>로그인되지 않았습니다.</span>
+    <button v-if="isAuthenticated" @click="logout">로그아웃</button>
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted, computed } from 'vue'
+import { useDateUtil } from '@/utils/useDateUtil'
+import { useCounterStore } from '@/stores/counter'
+import { useMoviesStore } from '@/stores/movies'
+import { useTodosStore } from '@/stores/todos'
+import { useAuthStore } from '@/stores/auth'
+
+// Variables
+const formattedDate = ref('')
+
+// Hooks
+const dateUtil = useDateUtil()
+const counterStore = useCounterStore()
+const moviesStore = useMoviesStore()
+const todosStore = useTodosStore()
+const authStore = useAuthStore()
+
+const moviesList = computed(() => moviesStore.moviesList)
+const todosList = computed(() => todosStore.todosList)
+const isAuthenticated = computed(() => authStore.isAuthenticated)
+
+// Computed
+const completedTodosCount = computed(() => {
+  return todosList.value.filter(todo => todo.completed).length
+})
+
+// Methods
+const logout = () => {
+  authStore.logout()
+}
+
+// Lifecycle Hooks
+onMounted(() => {
+  formattedDate.value = dateUtil.formatDate(dateUtil.currentDate.value)
+})
+</script>
+9. 테스트
+sh
+코드 복사
+$ npm run dev
