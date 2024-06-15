@@ -1,0 +1,356 @@
+# ***! 8.
+[Pinia Stores: useTodosStore]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+
+
+
+
+
+
+
+1. src/stores/movies/useMoviesStore.js 작성 : 스토어 모듈 (실제 스토어를 조작 및 관리)
+  import { defineStore } from "pinia"
+
+  export const useMoviesStore = defineStore("movies", {
+    state: () => ({
+      moviesList: [],
+    }),
+    actions: {
+      updateMoviesList(newList) {
+        this.moviesList = newList
+      },
+    },
+    getters: {
+      movies: (state) => state.moviesList,
+    },
+  })
+
+1. src/composables/useMovies.js 작성 : 스토어 값을 변경하는 로직 만들기
+  import { useMoviesStore } from "@/stores/movies/useMoviesStore"
+
+  export function useMovies() {
+    const moviesStore = useMoviesStore()
+
+    const updateMoviesList = (newList) => {
+      moviesStore.updateMoviesList(newList)
+    }
+
+    return {
+      updateMoviesList,
+    }
+  }
+
+1. src/connector/useMoviesConnector.js 작성 : API 호출 로직에 스토어를 업데이트하는 로직을 추가
+  import { ref } from "vue"
+  import { useMoviesStore } from "@/stores/movies/useMoviesStore"
+
+  export function useMoviesConnector() {
+    const moviesStore = useMoviesStore()
+    const loading = ref(false)
+    const error = ref(null)
+
+    const fetchMovies = async () => {
+      loading.value = true
+      error.value = null
+      try {
+        const response = await fetch(
+          "https://yts.mx/api/v2/list_movies.json?sort_by=rating"
+        )
+        if (!response.ok) throw new Error("Failed to fetch movies")
+        const json = await response.json()
+        // 스토어 업데이트
+        moviesStore.updateMoviesList(json.data.movies)
+      } catch (err) {
+        error.value = err.message
+      } finally {
+        loading.value = false
+      }
+    }
+
+    return { loading, error, fetchMovies }
+  }
+
+1. src/views/Movies.vue 수정 : 스테이트와 로직을 use~Store 에서 꺼내어 사용하도록 변경
+  <template>
+    <div>
+      <h1>Movie App</h1>
+      <div v-if="loading">Loading...</div>
+      <div v-if="error">{{ error }}</div>
+      <div id="movies" v-else>
+        <div v-for="movie in movies" :key="movie.id" class="movie">
+          <a class="movieTitle" :href="movie.url">{{ movie.title }}</a>
+          <img
+            class="movieImage"
+            :src="movie.background_image"
+            :alt="movie.title"
+          />
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <script setup>
+  import { onMounted, computed } from "vue"
+  import { useMoviesConnector } from "@/connectors/useMoviesConnector"
+  import { useMoviesStore } from "@/stores/movies/useMoviesStore"
+
+  // Hooks
+  const { fetchMovies, loading, error } = useMoviesConnector()
+  const moviesStore = useMoviesStore()
+
+  // Computed
+  const movies = computed(() => moviesStore.moviesList)
+
+  // Lifecycle Hooks
+  onMounted(() => {
+    fetchMovies()
+  })
+  </script>
+
+  <style scoped>
+  .movieTitle {
+    display: block;
+  }
+  .movieImage {
+    width: 100%;
+    height: auto;
+  }
+  </style>
+
+
+1. src/views/Home.vue 수정 : 스테이트를 use~Store 에서 꺼내어 사용하도록 변경
+  <template>
+    <div>
+      <h1>Home</h1>
+      <p>현재 날짜: {{ formattedDate }}</p>
+      <p>현재 카운트: {{ counterStore.count }}</p>
+      <p>
+        현재 표시되고 있는 영화목록 :
+        <span v-if="moviesStore.moviesList.length <= 0">없음</span>
+        <span v-else>총 {{ moviesStore.moviesList.length }}개</span>
+        <div v-for="item in moviesStore.moviesList" :key="item.id">
+          {{ item.title }}
+        </div>
+      </p>
+    </div>
+  </template>
+
+  <script setup>
+  import { ref, onMounted, computed } from "vue"
+  import { useDateUtil } from "@/utils/useDateUtil"
+  import { useCounterStore } from "@/stores/counter/useCounterStore"
+  import { useMoviesStore } from "@/stores/movies/useMoviesStore"
+
+  // Variables
+  const formattedDate = ref("")
+
+  // Hooks
+  const dateUtil = useDateUtil()
+  const counterStore = useCounterStore()
+  const moviesStore = useMoviesStore()
+
+  // Lifecycle Hooks
+  onMounted(() => {
+    formattedDate.value = dateUtil.formatDate(dateUtil.currentDate.value)
+  })
+  </script>
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
+
+
+
+
+
+
+
+
+
+
+
+3. src/stores/todos.js 작성 : 스토어 모듈 (실제 스토어를 조작 및 관리)
+javascript
+코드 복사
+import { defineStore } from 'pinia'
+
+export const useTodosStore = defineStore('todos', {
+  state: () => ({
+    todosList: [],
+  }),
+  actions: {
+    updateTodosList(newList) {
+      this.todosList = newList
+    },
+  },
+  getters: {
+    todos: (state) => state.todosList,
+  },
+})
+4. src/stores/index.js 작성 : Pinia 스토어 설정 파일
+javascript
+코드 복사
+import { createPinia } from 'pinia'
+
+const pinia = createPinia()
+
+export default pinia
+5. src/main.js 수정 : Stores를 Vue 앱에 등록
+javascript
+코드 복사
+import { createApp } from 'vue'
+import App from './App.vue'
+import router from './router'
+import pinia from './stores'
+
+const app = createApp(App)
+
+app.use(router)
+app.use(pinia)
+app.mount('#app')
+6. src/composables/useTodos.js 작성 : 스토어 값을 변경하는 로직 만들기
+javascript
+코드 복사
+import { useTodosStore } from '@/stores/todos'
+
+export function useTodos() {
+  const todosStore = useTodosStore()
+
+  const updateTodosList = (newList) => {
+    todosStore.updateTodosList(newList)
+  }
+
+  const todosList = computed(() => todosStore.todosList)
+
+  return {
+    todosList,
+    updateTodosList,
+  }
+}
+7. src/components/TodosList.vue 수정 : 스테이트와 로직을 use~Store 에서 꺼내어 사용하도록 변경
+vue
+코드 복사
+<template>
+  <div>
+    <div id="addTodo">
+      <input type="text" v-model="newTodo" />
+      <button @click="addTodo">추가</button>
+    </div>
+    <div id="todos">
+      <div v-for="todo in todos" :key="todo.id" class="todo">
+        <span @click="toggleTodo(todo)">
+          <span :class="todo.completed && 'lineThrough'">{{ todo.title }}</span>
+          <input type="checkbox" :checked="todo.completed" />
+        </span>
+        <span>
+          <button @click="delTodo(todo.id)">삭제</button>
+        </span>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import { useTodos } from '@/composables/useTodos'
+
+const newTodo = ref('')
+const { todosList, updateTodosList } = useTodos()
+
+const todos = ref([])
+
+const addTodo = () => {
+  if (newTodo.value.trim()) {
+    const newTodoItem = {
+      id: Date.now(),
+      title: newTodo.value,
+      completed: false,
+    }
+    todos.value.push(newTodoItem)
+    updateTodosList(todos.value)
+    newTodo.value = ''
+  }
+}
+
+const toggleTodo = (todo) => {
+  todo.completed = !todo.completed
+  updateTodosList(todos.value)
+}
+
+const delTodo = (id) => {
+  todos.value = todos.value.filter((todo) => todo.id !== id)
+  updateTodosList(todos.value)
+}
+
+todos.value = todosList.value
+</script>
+
+<style scoped>
+input {
+  margin-right: 5px;
+}
+.todo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.lineThrough {
+  text-decoration: line-through;
+}
+</style>
+8. src/views/Home.vue 수정 : 스테이트를 use~Store 에서 꺼내어 사용하도록 변경
+vue
+코드 복사
+<template>
+  <div>
+    <h1>Home</h1>
+    <p>현재 날짜: {{ formattedDate }}</p>
+    <p>현재 카운트: {{ counterStore.count }}</p>
+    <p>
+      현재 표시되고 있는 영화목록 :
+      <span v-if="moviesList.length <= 0">없음</span>
+      <span v-else>총 {{ moviesList.length }}개</span>
+      <div v-for="item in moviesList" :key="item.id">
+        {{ item.title }}
+      </div>
+    </p>
+    <p>현재 할 일 목록: 완료 {{ completedTodosCount }}개 / 총 {{ todosList.length }}개</p>
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted, computed } from 'vue'
+import { useDateUtil } from '@/utils/useDateUtil'
+import { useCounterStore } from '@/stores/counter'
+import { useMoviesStore } from '@/stores/movies'
+import { useTodosStore } from '@/stores/todos'
+
+// Variables
+const formattedDate = ref('')
+
+// Hooks
+const dateUtil = useDateUtil()
+const counterStore = useCounterStore()
+const moviesStore = useMoviesStore()
+const todosStore = useTodosStore()
+
+const moviesList = computed(() => moviesStore.moviesList)
+const todosList = computed(() => todosStore.todosList)
+
+// Computed
+const completedTodosCount = computed(() => {
+  return todosList.value.filter(todo => todo.completed).length
+})
+
+// Lifecycle Hooks
+onMounted(() => {
+  formattedDate.value = dateUtil.formatDate(dateUtil.currentDate.value)
+})
+</script>
+9. 테스트
+sh
+코드 복사
+$ npm run dev

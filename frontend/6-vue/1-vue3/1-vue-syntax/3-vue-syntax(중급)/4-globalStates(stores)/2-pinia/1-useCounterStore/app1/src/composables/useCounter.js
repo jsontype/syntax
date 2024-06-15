@@ -1,17 +1,10 @@
-import { ref } from "vue"
+import { useCounterStore } from "@/stores/counter/useCounterStore"
 
 export function useCounter() {
-  const count = ref(0)
+  const counterStore = useCounterStore()
 
-  function increase() {
-    count.value++
-  }
+  const increase = () => counterStore.increase()
+  const decrease = () => counterStore.decrease()
 
-  function decrease() {
-    if (count.value > 0) {
-      count.value--
-    }
-  }
-
-  return { count, increase, decrease }
+  return { increase, decrease }
 }

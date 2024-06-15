@@ -64,6 +64,37 @@
     }
   }
 
+1. src/connectors/useMoviesConnector.js 작성 : API 호출 로직에 스토어를 업데이트하는 로직을 추가
+  import { ref } from "vue"
+  import { useMoviesStore } from "@/stores/movies/useMoviesStore"
+
+  export function useMoviesConnector() {
+    const loading = ref(false)
+    const error = ref(null)
+    const { updateMoviesList } = useMoviesStore()
+
+    const fetchMovies = async () => {
+      loading.value = true
+      error.value = null
+      try {
+        const response = await fetch(
+          "https://yts.mx/api/v2/list_movies.json?sort_by=rating"
+        )
+        if (!response.ok) throw new Error("Failed to fetch movies")
+        const json = await response.json()
+        // 스토어 업데이트
+        updateMoviesList(json.data.movies)
+      } catch (err) {
+        error.value = err.message
+      } finally {
+        loading.value = false
+      }
+    }
+
+    return { loading, error, fetchMovies }
+  }
+
+
 1. src/views/Movies.vue 수정 : 스테이트와 로직을 use~Store 에서 꺼내어 사용하도록 변경
   <template>
     <div>
@@ -96,6 +127,7 @@
 
   // Lifecycle Hooks
   onMounted(() => {
+    if (movies.value.length > 0) return
     fetchMovies()
   })
   </script>
