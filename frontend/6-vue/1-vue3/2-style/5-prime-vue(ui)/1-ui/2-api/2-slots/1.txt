@@ -1,0 +1,56 @@
+[PrimeVue: API - Slots]
+참조URL: https://primevue.org
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. 사전준비 : 프라임뷰 공식 Docs에서 API 리스트를 열어서 확인해 본다.
+  https://primevue.org/toolbar/ 에 접속
+  API 탭을 클릭: 안에 보면, Props, Slots, Interfaces, Types 등을 확인할 수가 있다. 하나씩 써보자.
+
+1. src/components/PrimeToolbarAPISlots.vue.js 생성 : API 문서중 "Slots"에 있는 start, center, end를 사용해보자.
+  ```
+    <template>
+      <div class="card">
+        <Toolbar>
+          <template #start>
+            <Button label="Home" severity="primary" text />
+            <Button label="Counter" severity="secondary" text />
+            <Button label="Movies" severity="secondary" text />
+            <Button label="Todos" severity="secondary" text />
+          </template>
+
+          <template #center>
+            <span>Slots: 여기가 center 부분이다</span>
+          </template>
+
+          <template #end>
+            <Button label="Login" severity="secondary" text />
+            <Button label="Join" severity="secondary" text />
+          </template>
+        </Toolbar>
+      </div>
+    </template>
+
+    <script setup>
+    import Toolbar from "primevue/toolbar"
+    import Button from "primevue/button"
+    </script>
+  ```
+
+1. src/App.vue 수정 : 작성한 컴포넌트를 호출
+  <template>
+    <PrimeButton />
+    <PrimeButtonAPIProps />
+    <PrimeToolbarAPISlots />
+  </template>
+
+  <script setup lang="ts">
+  import PrimeButton from "@/components/PrimeButton.vue"
+  import PrimeButtonAPIProps from "@/components/PrimeButtonAPIProps.vue"
+  import PrimeToolbarAPISlots from "@/components/PrimeToolbarAPISlots.vue"
+  import "primevue/resources/themes/saga-blue/theme.css"
+  </script>
+
+1. 테스트
+  $ cd app1
+  $ npm run dev

@@ -37,7 +37,7 @@
 
   export default pinia
 
-1. src/main.js 수정 : pinia를 Vue 앱에 등록
+1. src/main.js 수정 : main.ts를 .js로 바꾸고, pinia를 Vue 앱에 등록
   import { createApp } from "vue"
   import App from "./App.vue"
   import router from "./router"
@@ -48,6 +48,48 @@
   app.use(router)
   app.use(pinia)
   app.mount("#app")
+
+1. tsconfig.json 수정 : "include"에 "src/**/*.js"를 추가 (main.ts를 .js로 바꿨기 때문에 해야하는 대응)
+  {
+    "compilerOptions": {
+      "target": "ES2020",
+      "useDefineForClassFields": true,
+      "module": "ESNext",
+      "lib": ["ES2020", "DOM", "DOM.Iterable"],
+      "skipLibCheck": true,
+
+      /* Bundler mode */
+      "moduleResolution": "bundler",
+      "allowImportingTsExtensions": true,
+      "resolveJsonModule": true,
+      "isolatedModules": true,
+      "noEmit": true,
+      "jsx": "preserve",
+
+      /* Linting */
+      "strict": true,
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
+      "noFallthroughCasesInSwitch": true
+    },
+    "include": ["src/**/*.js", "src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
+    "references": [{ "path": "./tsconfig.node.json" }]
+  }
+
+1. app1/index.js 수정 : src="/src/main.js"로 변경 (main.ts를 .js로 바꿨기 때문에 해야하는 대응)
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Vite + Vue + TS</title>
+    </head>
+    <body>
+      <div id="app"></div>
+      <script type="module" src="/src/main.js"></script>
+    </body>
+  </html>
 
 1. src/composables/useCounter.js 수정 : 스토어 값을 변경하는 로직 만들기
   import { useCounterStore } from "@/stores/counter/useCounterStore"

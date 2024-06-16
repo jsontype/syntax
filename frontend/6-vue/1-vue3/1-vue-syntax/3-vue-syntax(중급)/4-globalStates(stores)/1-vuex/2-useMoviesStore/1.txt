@@ -94,6 +94,7 @@
     return { loading, error, fetchMovies }
   }
 
+1. src/connector/useMovies.js 스킵 : 이번에는 무비리스트 호출(connector에서 이미 정의한 함수) 외에 아무런 로직이 없으므로 작성하지 않는다.
 
 1. src/views/Movies.vue 수정 : 스테이트와 로직을 use~Store 에서 꺼내어 사용하도록 변경
   <template>

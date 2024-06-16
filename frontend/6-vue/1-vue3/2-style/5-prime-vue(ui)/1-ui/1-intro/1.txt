@@ -1,4 +1,4 @@
-[PrimeVue]
+[PrimeVue: Install]
 참조URL: https://primevue.org
 
 1. 사전준비 : init 앱을 가지고 온다.
@@ -19,22 +19,7 @@
     app.mount('#app');
   ```
 
-1. src/App.vue 수정 : PrimeVue CSS를 임포트해서 PrimeVue를 사용할 수 있게 하고, 컴포넌트를 호출한다.
-  ```
-    <template>
-      <PrimeVueButton />
-    </template>
-
-    <script setup lang="ts">
-    import PrimeVueButton from '@/components/PrimeVueButton.vue'
-    import 'primevue/resources/themes/saga-blue/theme.css';
-    </script>
-
-    <style scoped>
-    </style>
-  ```
-
-1. src/components/PrimeVueButton.js 생성
+1. src/components/PrimeButton.js 생성
   ```
     <template>
       <div class="card flex justify-content-center flex-wrap gap-3">
@@ -52,6 +37,21 @@
     <script setup>
     import Button from 'primevue/button';
     </script>
+  ```
+
+1. src/App.vue 수정 : PrimeVue CSS를 임포트해서 PrimeVue를 사용할 수 있게 하고, 컴포넌트를 호출한다.
+  ```
+    <template>
+      <PrimeButton />
+    </template>
+
+    <script setup lang="ts">
+    import PrimeButton from '@/components/PrimeButton.vue'
+    import 'primevue/resources/themes/saga-blue/theme.css';
+    </script>
+
+    <style scoped>
+    </style>
   ```
 
 1. 테스트
