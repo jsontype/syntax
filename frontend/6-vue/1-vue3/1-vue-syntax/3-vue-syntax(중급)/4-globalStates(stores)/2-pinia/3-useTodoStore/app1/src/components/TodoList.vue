@@ -19,11 +19,38 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { useTodos } from '@/composables/useTodos';
+import { ref } from "vue"
+import { useTodos } from "@/composables/useTodos"
 
-const userId = ref(1);
-const { todos, newTodo, addTodo, toggleTodo, delTodo } = useTodos(userId);
+const newTodo = ref("")
+const { todosList, updateTodosList } = useTodos()
+
+const todos = ref([])
+
+const addTodo = () => {
+  if (newTodo.value.trim()) {
+    const newTodoItem = {
+      id: Date.now(),
+      title: newTodo.value,
+      completed: false,
+    }
+    todos.value.push(newTodoItem)
+    updateTodosList(todos.value)
+    newTodo.value = ""
+  }
+}
+
+const toggleTodo = (todo) => {
+  todo.completed = !todo.completed
+  updateTodosList(todos.value)
+}
+
+const delTodo = (id) => {
+  todos.value = todos.value.filter((todo) => todo.id !== id)
+  updateTodosList(todos.value)
+}
+
+todos.value = todosList.value
 </script>
 
 <style scoped>

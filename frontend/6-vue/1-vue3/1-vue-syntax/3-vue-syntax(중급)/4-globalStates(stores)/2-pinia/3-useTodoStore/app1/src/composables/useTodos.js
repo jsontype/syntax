@@ -1,34 +1,17 @@
-import { ref } from "vue"
+import { computed } from "vue"
+import { useTodosStore } from "@/stores/todos/useTodosStore"
 
-export function useTodos(userId) {
-  const todos = ref([])
-  const newTodo = ref("")
+export function useTodos() {
+  const todosStore = useTodosStore()
 
-  function toggleTodo(item) {
-    item.completed = !item.completed
+  const updateTodosList = (newList) => {
+    todosStore.updateTodosList(newList)
   }
 
-  function addTodo() {
-    if (newTodo.value.trim() === "") {
-      alert("할 일을 입력해주세요.")
-      return
-    }
-    const todo = {
-      id: Date.now(),
-      title: newTodo.value,
-      completed: false,
-      userId: userId.value,
-    }
-    todos.value.push(todo)
-    newTodo.value = "" // 입력 필드 초기화
-  }
+  const todosList = computed(() => todosStore.todosList)
 
-  function delTodo(id) {
-    const index = todos.value.findIndex((todo) => todo.id === id)
-    if (index !== -1) {
-      todos.value.splice(index, 1)
-    }
+  return {
+    todosList,
+    updateTodosList,
   }
-
-  return { todos, newTodo, addTodo, toggleTodo, delTodo }
 }
