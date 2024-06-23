@@ -159,9 +159,24 @@
 
 
 1. Alias 설정
-  Syntax에서 "[Alias]" 검색후, "[자주 쓰는 Alias 목록]" 보면서 절차대로 설정하기
+  일반 alias들은 code ~/.zshrc 를 통해 zshrc 파일을 열어서, 최하단에 다음을 입력후 저장하면 된다.
+    # alias
+    alias zsh-config="code ~/.zshrc"
+    alias chrome='open -na "Google Chrome" --args --user-data-dir=/tmp/dev_chrome_profile --disable-web-security'
+    * 사용해보기 : zsh-config, chrome, ...
+  git alias는 터미널에서 다음을 입력하면 된다.
+    $ git config --global alias.fetch 'fetch origin'
+    $ git config --global alias.pull 'pull origin current'
+    $ git config --global alias.push-f 'push --force-with-lease origin current'
+    * 사용해보기 : fetch, pull, git push-f origin ..., ...
 
+
+
+1. Git 편리하게 쓰기 : alias 목록 확인 및 삭제하기
+  $ git config --global --get-regexp alias
+    전역 alias 목록들을 확인한다.
   
+    
     
 1. 개발자 입장에서 보는 주관적인 맥북 장단점
   장점: 

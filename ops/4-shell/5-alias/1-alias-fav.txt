@@ -19,6 +19,9 @@
   $ code ~/.zshrc : zsh 설정 파일을 연다.
   - zshrc 파일 내부에 아래 내용들을 붙여넣기 한다.
 
+  # zsh alias
+  alias zsh-config="code ~/.zshrc"
+
   # avoid CORS alias
   alias chrome='open -na "Google Chrome" --args --user-data-dir=/tmp/dev_chrome_profile --disable-web-security'
 

@@ -150,8 +150,6 @@
     다음부터 'git fetch'로 'git fetch origin'을 간단히 실행한다.
   $ git config --global alias.pull 'pull origin current'
     다음부터 'git pull'로 'git pull origin [현재 브랜치]'을 간단히 실행한다.
-  $ git config --global alias.push 'push origin current'
-    다음부터 'git push'로 'git push origin [현재 브랜치]'을 간단히 실행한다.
   $ git config --global alias.push-f 'push --force-with-lease origin current'
     다음부터 'git push-f'로 'git push origin [현재 브랜치] --force-with-lease'을 간단히 실행한다.
 
