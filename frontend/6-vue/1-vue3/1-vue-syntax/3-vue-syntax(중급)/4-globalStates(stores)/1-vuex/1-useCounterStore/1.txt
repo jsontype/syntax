@@ -5,7 +5,7 @@
   Vuex, Pinia 등의 라이브러리를 사용해 store를 제어하는 훅스는 
   stores에 넣고 쓰기도 한다. (Store 내부 데이터의 get, set 로직 등)
 
-1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 3-customHooks/3-utils/2-useInputUtil 에서의 코드를 그대로 카피해서 가지고 온다.
 
 1. 설치
   $ npm i vuex
