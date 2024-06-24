@@ -1,0 +1,160 @@
+[Tanstack Query를 이용해 API 연동하기: useQuery]
+
+1. Tanstack Query란? 
+  Tanstack Query(이전의 React Query)는 React 애플리케이션에서 서버 상태 관리를 위한 라이브러리이다.
+  주요 기능과 특징은 다음과 같다:
+  - 데이터 fetching, 데이터 caching, 동기화, 업데이트
+    데이터 캐싱을 자동으로 해준다. (불필요한 네트워크 요청을 줄이기 위해 서버에서 가져온 데이터를 클라이언트에 저장하는 것)
+      예: get을 한 데이터에 대해 update를 하면 자동으로 get을 다시 수행한다. (예 : 게시판)
+      예: 데이터가 오래 되었다고 판단되면 다시 get해준다. (invalidateQueries)
+      예: 동일 데이터를 여러번 요청하면 한번만 요청한다. (옵션에 따라 중복 호출 허용 시간 조절 가능)
+      예: 무한 스크롤 기능 제공 (Infinite Queries)
+    캐시 관리 기능도 제공한다. (캐시 무효화, 백그라운드 업데이트, 가비지 컬렉션, 쿼리와 캐시 상태를 모니터링하는 DevTools 등)
+  - 상태관리
+    복잡한 상태 관리 로직을 간소화한다.
+    로딩, 에러, 성공 상태를 자동으로 처리한다.
+      예: 비동기 과정을 선언적으로 관리할 수 있다. (Suspense, ErrorBoundary 컴포넌트와 fallback 프로퍼티 사용)
+  - 쿼리와 뮤테이션 함수
+    useQuery: 데이터 조회를 위한 훅
+    useMutation: 데이터 수정을 위한 훅
+
+1. 사전준비 : init 앱을 가지고 온다.
+
+1. 설치
+  $ cd app1
+  $ npm i @tanstack/react-query
+
+1. src/Movies.js 작성 : useQuery 함수를 이용해 API를 fetch하는 무비앱 컴포넌트 만들기
+  import React from "react"
+  import { useQuery } from "@tanstack/react-query"
+  import "./Movies.css"
+
+  const fetchMovies = async () => {
+    const res = await fetch(
+      "https://yts.mx/api/v2/list_movies.json?sort_by=rating"
+    )
+    return res.json()
+  }
+
+  function Movies() {
+    const { data, error, isLoading } = useQuery({
+      queryKey: ["movies"],
+      queryFn: fetchMovies,
+    })
+
+    if (isLoading) return <div>Loading...</div>
+    if (error) return <div>Error: {error.message}</div>
+
+    const movies = data.data.movies
+
+    return (
+      <div>
+        <h1>무비 리스트</h1>
+        {movies.map((item) => (
+          <div key={item.id}>
+            <a className="movieTitle" href={item.url}>
+              {item.title}
+            </a>
+            <img
+              className="movieImage"
+              src={item.background_image}
+              alt={item.title}
+            />
+          </div>
+        ))}
+      </div>
+    )
+  }
+
+  export default Movies
+
+1. src/Movies.css 작성
+  .movieTitle {
+    display: block;
+  }
+
+  .movieImage {
+    display: block;
+    width: 500px;
+  }
+
+1. src/App.js 수정 : QueryClient 생성 및 Provider 설정
+  import "./App.css"
+  import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+  import Movies from "./Movies"
+
+  const queryClient = new QueryClient()
+
+  export default function App() {
+    return (
+      <QueryClientProvider client={queryClient}>
+        <div className="App">
+          <Movies />
+        </div>
+      </QueryClientProvider>
+    )
+  }
+
+1. 테스트 : API fetching이 잘 이뤄지는 지 확인
+    $ cd app1
+    $ npm start
+
+1. 정리 : 
+  - useEffect와 useQuery의 API 호출 방식의 차이 정리
+    useEffect 방식 : mounted 시점에서 불러온다.
+      useEffect(() => {
+        fetch(api)
+          .then(res => res.json())
+          .then(json => console.log(json.data))
+      }, [])
+    useQuery 방식 : * Tanstack Query v5에서는 useQuery와 같은 쿼리 관련 함수들이 이제 객체 형태의 인자만을 받도록 변경되었다.
+      const { data, error, isLoading } = useQuery({
+        queryKey: ["movies"],
+        queryFn: () => {
+          fetch(api)
+            .then(res => res.json())
+            .then(json => console.log(json.data))
+        },
+    })
+  - tanstack/react-query의 함수 목록
+    useQuery(key, fetch함수) : API 데이터를 get 처리 
+    useMutation(key, fetch함수) : API 데이터를 post, update 처리. 값을 바꿀 때 사용.
+      key는 string, array를 받는다.
+      fetch함수는 promise를 받는다.
+      return값은 API 호출의 성공 실패 여부와, API return 값을 포함한 객체를 출력한다.
+    useQueries : 여러개의 비동기 query가 있을 때, promise.all처럼 useQuery를 하나로 묶을 수 있다.
+      promise.all과 마찬가지로, 배열에 각 쿼리에 대한 State 값이 객체로 들어온다.
+    QueryCache : 쿼리에 대해 성공, 실패 전처리를 할 수 있다.
+    invalidateQueries(get처리 fetch함수) : update후에 get 다시 실행
+
+
+
+[Tanstack Query를 이용해 API 연동하기: useMutation]
+
+1. useMutation 함수
+  (DB에 insert, delete, update 등을 하는) mutation 함수의 경우에 사용하는 Query 호출 함수이다.
+  mutation 권한을 가진 공개 API가 없기 때문에, 이번엔 실제 작업은 스킵하며, 아래 예시를 참조해서 실무에서 사용할 수 있게만 공부해 두자.
+
+1. useMutation 함수 예시
+```
+  import { useMutation, useQueryClient } from '@tanstack/react-query'
+
+  function AddProduct() {
+    const queryClient = useQueryClient()
+    const mutation = useMutation({
+      mutationFn: addProduct,
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['products'] })
+      },
+    })
+
+    return (
+      <form onSubmit={(e) => {
+        e.preventDefault()
+        mutation.mutate({ name: 'New Product' })
+      }}>
+        <button type="submit">Add Product</button>
+      </form>
+    )
+  }
+```

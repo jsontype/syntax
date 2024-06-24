@@ -1,0 +1,62 @@
+[Chromatic 사용하기: 스토리북 도입한 프로젝트에 연결하고, 스토리북 배포해보기]
+참조 URL: https://www.chromatic.com/
+
+1. Chromatic이란?
+  Chromatic은 Storybook과 연계하여 다음과 같은 기능을 제공하는 라이브러리이다.
+  - 시각적 회귀 테스팅 (Visual Regression Testing, VRT): UI 컴포넌트의 변경사항을 자동으로 감지하고 비교해, 의도하지 않은 UI 변경을 쉽게 찾아내는 기능.
+  - UI 리뷰 및 협업: 팀원들이 UI 변경사항을 쉽게 리뷰하고 피드백을 제공할 수 있는 플랫폼을 제공.
+  - Storybook 호스팅: Chromatic은 Storybook을 자동으로 호스팅하여 팀원들이 쉽게 접근할 수 있게 함.
+  - CI/CD 통합: 지속적 통합 및 배포 파이프라인과 쉽게 통합되어, 코드 변경 시 자동으로 UI 테스트를 실행함.
+  - 버전 관리 및 문서화: UI 컴포넌트의 변경 이력을 추적하고, 자동으로 문서화하여 팀원들이 쉽게 참고할 수 있게 함.
+
+1. Chromatic의 장점
+  UI 버그를 조기에 발견하고 수정할 수 있다.
+  UI 컴포넌트의 일관성을 유지하기 쉬워진다.
+  팀원들이 쉽게 UI 변경사항을 리뷰하고 피드백을 제공할 수 있다.
+
+1. 사전준비 : Chromatic 계정 생성 및 프로젝트 설정
+  Chromatic에 가입: Chromatic 웹사이트(https://www.chromatic.com/)에 방문하여 GitHub 계정으로 가입한다.
+  프로젝트 선택: GitHub 리포지토리와 연동하여 "스토리북이 설치되어 있는" 프로젝트를 선택한다. 이 과정에서 프로젝트 토큰이 발급된다. 이 토큰은 나중에 필요하니 기록해둔다.
+
+1. 설치 : 선택한 프로젝트에 Chromatic을 설치한다.
+  $ npm i -D chromatic
+
+1. .env 생성 : 프로젝트 루트 디렉토리에 .env 파일을 생성하고 다음 내용을 추가한다. 여기서 <your-project-token> 부분에 아까 기록해둔 토큰을 넣는다.
+  CHROMATIC_PROJECT_TOKEN=<your-project-token>
+
+1. package.json 수정 : 아래와 같이 새 스크립트를 추가한다.
+  {
+    ...
+    "scripts": {
+      ...
+      "chromatic": "chromatic"
+    }
+  }
+
+1. 스토리북 배포
+  $ npm run chromatic
+
+
+
+[Chromatic 사용하기: 스토리북을 자동배포를 CI/CD에 통합하기]
+
+1. .github/workflows/chromatic.yml 생성 : CI/CD 통합을 위해 새 github actions 워크플로우 파일 생성
+  name: 'Chromatic'
+  on: push
+  jobs:
+    test:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v1
+        - run: yarn install
+        - uses: chromaui/action@v1
+          with:
+            projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+            token: ${{ secrets.GITHUB_TOKEN }}
+
+1. GitHub Secrets 설정:
+  GitHub 리포지토리 설정에서 "CHROMATIC_PROJECT_TOKEN" 과 "GITHUB_TOKEN"을 GitHub Secrets에 추가한다.
+
+1. 테스트 : PR을 하나 날린 후, PR 화면에서 Chromatic 기능 확인해보기
+  UI 리뷰 및 협업: PR과 연동하여 UI 변경사항을 자동으로 리뷰할 수 있음.
+  시각적 회귀 테스트: 커밋마다 UI 컴포넌트의 스냅샷을 비교하여 시각적 변경사항을 감지하고, 이를 통해 의도하지 않은 UI 변경을 쉽게 발견할 수 있음.
