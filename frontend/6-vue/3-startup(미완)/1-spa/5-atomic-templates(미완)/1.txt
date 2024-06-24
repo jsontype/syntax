@@ -1,6 +1,0 @@
-[컴포넌트 구성]
-
-1. templates/Header.vue : 헤더
-1. templates/Footer.vue : 푸터
-1. templates/Sidebar.vue : 사이드바
-...
