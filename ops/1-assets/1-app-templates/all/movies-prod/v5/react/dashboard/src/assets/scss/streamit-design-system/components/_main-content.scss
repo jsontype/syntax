@@ -1,0 +1,9 @@
+.content-inner {
+    padding: calc(var(--bs-gutter-x, 1rem) * 1);
+}
+
+@include media-breakpoint-down(md) {
+    .content-inner {
+        padding: calc(var(--bs-gutter-x, 1rem) * 1);
+    }
+}

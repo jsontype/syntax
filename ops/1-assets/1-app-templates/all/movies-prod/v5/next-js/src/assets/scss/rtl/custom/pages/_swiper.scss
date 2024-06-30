@@ -1,0 +1,25 @@
+.swiper-button {
+    &.swiper-button-prev {
+		left: auto;
+		right: 1em;
+	}
+
+	&.swiper-button-next {
+		right: auto;
+		left: 1em;
+	}
+}
+
+@media (max-width: 1367px){
+	.joint-arrows{
+		left: auto;
+		right: 1em;
+	}
+}
+
+@media (max-width: 767px){
+	.joint-arrows{
+		right: auto;
+		left: 0;
+	}
+}

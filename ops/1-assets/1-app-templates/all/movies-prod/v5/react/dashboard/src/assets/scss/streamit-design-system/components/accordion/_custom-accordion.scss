@@ -1,0 +1,36 @@
+.custom-accordion {
+    .accordion-button {
+        border: 0;
+        background: inherit;
+        &:not(.collapsed) {
+            background: inherit;
+            box-shadow: none;
+        }
+        &:focus{
+            border: 0;
+            box-shadow:none;
+            background: inherit;
+        }
+    }
+    &.iq-accordion-card{
+        .accordion-button {
+            border-radius: $border-radius;
+        }
+        .accordion-item {
+            margin-bottom: $spacer * 2;
+        }
+    }
+    .accordion-item {
+        border: 0;
+        background: $card-bg;
+        border-radius: $border-radius;
+    }
+}
+.accordion{
+  --#{$prefix}accordion-color: $body-color;
+    .accordion-item{
+        .accordion-header{
+            border-radius: 0.6rem;
+        }
+    }
+}

@@ -1,0 +1,531 @@
+:root {
+  --bs-primary: #e50914;
+  --bs-primary-rgb: 229, 9, 20;
+  --bs-primary-bg-subtle: #faced0;
+  --bs-primary-border-subtle: #f59da1;
+  --bs-link-color-rgb: var(--bs-primary-rgb);
+  --bs-primary-hover-bg: #b70710;
+  --bs-primary-hover-border: #a0060e;
+  --bs-primary-active-bg: #b70710;
+  --bs-primary-active-border: #a0060e;
+  --bs-secondary: #adafb8;
+  --bs-secondary-rgb: 173, 175, 184;
+  --bs-secondary-bg-subtle: #efeff1;
+  --bs-secondary-border-subtle: #dedfe3;
+  --bs-link-color-rgb: var(--bs-secondary-rgb);
+  --bs-secondary-hover-bg: #8a8c93;
+  --bs-secondary-hover-border: #797b81;
+  --bs-secondary-active-bg: #8a8c93;
+  --bs-secondary-active-border: #797b81;
+  --bs-success: #1aa053;
+  --bs-success-rgb: 26, 160, 83;
+  --bs-success-bg-subtle: #d1ecdd;
+  --bs-success-border-subtle: #a3d9ba;
+  --bs-link-color-rgb: var(--bs-success-rgb);
+  --bs-success-hover-bg: #158042;
+  --bs-success-hover-border: #12703a;
+  --bs-success-active-bg: #158042;
+  --bs-success-active-border: #12703a;
+  --bs-warning: #f16a1b;
+  --bs-warning-rgb: 241, 106, 27;
+  --bs-warning-bg-subtle: #fce1d1;
+  --bs-warning-border-subtle: #f9c3a4;
+  --bs-link-color-rgb: var(--bs-warning-rgb);
+  --bs-warning-hover-bg: #c15516;
+  --bs-warning-hover-border: #a94a13;
+  --bs-warning-active-bg: #c15516;
+  --bs-warning-active-border: #a94a13;
+  --bs-danger: #c03221;
+  --bs-danger-rgb: 192, 50, 33;
+  --bs-danger-bg-subtle: #f2d6d3;
+  --bs-danger-border-subtle: #e6ada6;
+  --bs-link-color-rgb: var(--bs-danger-rgb);
+  --bs-danger-hover-bg: #9a281a;
+  --bs-danger-hover-border: #862317;
+  --bs-danger-active-bg: #9a281a;
+  --bs-danger-active-border: #862317;
+  --bs-info: #08B1BA;
+  --bs-info-rgb: 8, 177, 186;
+  --bs-info-bg-subtle: #ceeff1;
+  --bs-info-border-subtle: #9ce0e3;
+  --bs-link-color-rgb: var(--bs-info-rgb);
+  --bs-info-hover-bg: #068e95;
+  --bs-info-hover-border: #067c82;
+  --bs-info-active-bg: #068e95;
+  --bs-info-active-border: #067c82;
+  --bs-light: #dee2e6;
+  --bs-light-rgb: 222, 226, 230;
+  --bs-light-bg-subtle: #f8f9fa;
+  --bs-light-border-subtle: #f2f3f5;
+  --bs-link-color-rgb: var(--bs-light-rgb);
+  --bs-light-hover-bg: #b2b5b8;
+  --bs-light-hover-border: #9b9ea1;
+  --bs-light-active-bg: #b2b5b8;
+  --bs-light-active-border: #9b9ea1;
+  --bs-dark: #000000;
+  --bs-dark-rgb: 0, 0, 0;
+  --bs-dark-bg-subtle: #cccccc;
+  --bs-dark-border-subtle: #999999;
+  --bs-link-color-rgb: var(--bs-dark-rgb);
+  --bs-dark-hover-bg: black;
+  --bs-dark-hover-border: black;
+  --bs-dark-active-bg: black;
+  --bs-dark-active-border: black;
+  --bs-gray: #6c757d;
+  --bs-gray-rgb: 108, 117, 125;
+  --bs-gray-bg-subtle: #e2e3e5;
+  --bs-gray-border-subtle: #c4c8cb;
+  --bs-link-color-rgb: var(--bs-gray-rgb);
+  --bs-gray-hover-bg: #565e64;
+  --bs-gray-hover-border: #4c5258;
+  --bs-gray-active-bg: #565e64;
+  --bs-gray-active-border: #4c5258;
+  --bs-gray-dark: #57585a;
+  --bs-gray-dark-rgb: 87, 88, 90;
+  --bs-gray-dark-bg-subtle: #dddede;
+  --bs-gray-dark-border-subtle: #bcbcbd;
+  --bs-link-color-rgb: var(--bs-gray-dark-rgb);
+  --bs-gray-dark-hover-bg: #464648;
+  --bs-gray-dark-hover-border: #3d3e3f;
+  --bs-gray-dark-active-bg: #464648;
+  --bs-gray-dark-active-border: #3d3e3f;
+}
+:root[data-bs-theme=dark] {
+  --bs-primary-text-emphasis: #ef6b72;
+  --bs-primary-bg-subtle: #2e0204;
+}
+:root[data-bs-theme=dark] {
+  --bs-secondary-text-emphasis: #cecfd4;
+  --bs-secondary-bg-subtle: #232325;
+}
+:root[data-bs-theme=dark] {
+  --bs-success-text-emphasis: #76c698;
+  --bs-success-bg-subtle: #052011;
+}
+:root[data-bs-theme=dark] {
+  --bs-warning-text-emphasis: #f7a676;
+  --bs-warning-bg-subtle: #301505;
+}
+:root[data-bs-theme=dark] {
+  --bs-danger-text-emphasis: #d9847a;
+  --bs-danger-bg-subtle: #260a07;
+}
+:root[data-bs-theme=dark] {
+  --bs-info-text-emphasis: #6bd0d6;
+  --bs-info-bg-subtle: #022325;
+}
+:root[data-bs-theme=dark] {
+  --bs-light-text-emphasis: #ebeef0;
+  --bs-light-bg-subtle: #2c2d2e;
+}
+:root[data-bs-theme=dark] {
+  --bs-dark-text-emphasis: #666666;
+  --bs-dark-bg-subtle: black;
+}
+:root[data-bs-theme=dark] {
+  --bs-gray-text-emphasis: #a7acb1;
+  --bs-gray-bg-subtle: #161719;
+}
+:root[data-bs-theme=dark] {
+  --bs-gray-dark-text-emphasis: #9a9b9c;
+  --bs-gray-dark-bg-subtle: #111212;
+}
+
+[data-bs-theme-color=color-1] {
+  --bs-primary: #0959E4;
+  --bs-primary-rgb: 9, 89, 228;
+  --bs-primary-bg-subtle: #cedefa;
+  --bs-primary-border-subtle: #9dbdf4;
+  --bs-link-color-rgb: var(--bs-primary-rgb);
+  --bs-primary-hover-bg: #0747b6;
+  --bs-primary-hover-border: #063ea0;
+  --bs-primary-active-bg: #0747b6;
+  --bs-primary-active-border: #063ea0;
+  --bs-secondary: #adafb8;
+  --bs-secondary-rgb: 173, 175, 184;
+  --bs-secondary-bg-subtle: #efeff1;
+  --bs-secondary-border-subtle: #dedfe3;
+  --bs-link-color-rgb: var(--bs-secondary-rgb);
+  --bs-secondary-hover-bg: #8a8c93;
+  --bs-secondary-hover-border: #797b81;
+  --bs-secondary-active-bg: #8a8c93;
+  --bs-secondary-active-border: #797b81;
+  --bs-success: #0D953E;
+  --bs-success-rgb: 13, 149, 62;
+  --bs-success-bg-subtle: #cfead8;
+  --bs-success-border-subtle: #9ed5b2;
+  --bs-link-color-rgb: var(--bs-success-rgb);
+  --bs-success-hover-bg: #0a7732;
+  --bs-success-hover-border: #09682b;
+  --bs-success-active-bg: #0a7732;
+  --bs-success-active-border: #09682b;
+  --bs-warning: #EC7D10;
+  --bs-warning-rgb: 236, 125, 16;
+  --bs-warning-bg-subtle: #fbe5cf;
+  --bs-warning-border-subtle: #f7cb9f;
+  --bs-link-color-rgb: var(--bs-warning-rgb);
+  --bs-warning-hover-bg: #bd640d;
+  --bs-warning-hover-border: #a5580b;
+  --bs-warning-active-bg: #bd640d;
+  --bs-warning-active-border: #a5580b;
+  --bs-danger: #E30000;
+  --bs-danger-rgb: 227, 0, 0;
+  --bs-danger-bg-subtle: #f9cccc;
+  --bs-danger-border-subtle: #f49999;
+  --bs-link-color-rgb: var(--bs-danger-rgb);
+  --bs-danger-hover-bg: #b60000;
+  --bs-danger-hover-border: #9f0000;
+  --bs-danger-active-bg: #b60000;
+  --bs-danger-active-border: #9f0000;
+  --bs-info: #07A2C7;
+  --bs-info-rgb: 7, 162, 199;
+  --bs-info-bg-subtle: #cdecf4;
+  --bs-info-border-subtle: #9cdae9;
+  --bs-link-color-rgb: var(--bs-info-rgb);
+  --bs-info-hover-bg: #06829f;
+  --bs-info-hover-border: #05718b;
+  --bs-info-active-bg: #06829f;
+  --bs-info-active-border: #05718b;
+  --bs-light: #dee2e6;
+  --bs-light-rgb: 222, 226, 230;
+  --bs-light-bg-subtle: #f8f9fa;
+  --bs-light-border-subtle: #f2f3f5;
+  --bs-link-color-rgb: var(--bs-light-rgb);
+  --bs-light-hover-bg: #b2b5b8;
+  --bs-light-hover-border: #9b9ea1;
+  --bs-light-active-bg: #b2b5b8;
+  --bs-light-active-border: #9b9ea1;
+  --bs-dark: #000000;
+  --bs-dark-rgb: 0, 0, 0;
+  --bs-dark-bg-subtle: #cccccc;
+  --bs-dark-border-subtle: #999999;
+  --bs-link-color-rgb: var(--bs-dark-rgb);
+  --bs-dark-hover-bg: black;
+  --bs-dark-hover-border: black;
+  --bs-dark-active-bg: black;
+  --bs-dark-active-border: black;
+  --bs-gray: #C2C2C2;
+  --bs-gray-rgb: 194, 194, 194;
+  --bs-gray-bg-subtle: #f3f3f3;
+  --bs-gray-border-subtle: #e7e7e7;
+  --bs-link-color-rgb: var(--bs-gray-rgb);
+  --bs-gray-hover-bg: #9b9b9b;
+  --bs-gray-hover-border: #888888;
+  --bs-gray-active-bg: #9b9b9b;
+  --bs-gray-active-border: #888888;
+  --bs-gray-dark: #57585a;
+  --bs-gray-dark-rgb: 87, 88, 90;
+  --bs-gray-dark-bg-subtle: #dddede;
+  --bs-gray-dark-border-subtle: #bcbcbd;
+  --bs-link-color-rgb: var(--bs-gray-dark-rgb);
+  --bs-gray-dark-hover-bg: #464648;
+  --bs-gray-dark-hover-border: #3d3e3f;
+  --bs-gray-dark-active-bg: #464648;
+  --bs-gray-dark-active-border: #3d3e3f;
+}
+[data-bs-theme-color=color-1][data-bs-theme=dark] {
+  --bs-primary-text-emphasis: #6b9bef;
+  --bs-primary-bg-subtle: #02122e;
+}
+[data-bs-theme-color=color-1][data-bs-theme=dark] {
+  --bs-secondary-text-emphasis: #cecfd4;
+  --bs-secondary-bg-subtle: #232325;
+}
+[data-bs-theme-color=color-1][data-bs-theme=dark] {
+  --bs-success-text-emphasis: #6ebf8b;
+  --bs-success-bg-subtle: #031e0c;
+}
+[data-bs-theme-color=color-1][data-bs-theme=dark] {
+  --bs-warning-text-emphasis: #f4b170;
+  --bs-warning-bg-subtle: #2f1903;
+}
+[data-bs-theme-color=color-1][data-bs-theme=dark] {
+  --bs-danger-text-emphasis: #ee6666;
+  --bs-danger-bg-subtle: #2d0000;
+}
+[data-bs-theme-color=color-1][data-bs-theme=dark] {
+  --bs-info-text-emphasis: #6ac7dd;
+  --bs-info-bg-subtle: #012028;
+}
+[data-bs-theme-color=color-1][data-bs-theme=dark] {
+  --bs-light-text-emphasis: #ebeef0;
+  --bs-light-bg-subtle: #2c2d2e;
+}
+[data-bs-theme-color=color-1][data-bs-theme=dark] {
+  --bs-dark-text-emphasis: #666666;
+  --bs-dark-bg-subtle: black;
+}
+[data-bs-theme-color=color-1][data-bs-theme=dark] {
+  --bs-gray-text-emphasis: #dadada;
+  --bs-gray-bg-subtle: #272727;
+}
+[data-bs-theme-color=color-1][data-bs-theme=dark] {
+  --bs-gray-dark-text-emphasis: #9a9b9c;
+  --bs-gray-dark-bg-subtle: #111212;
+}
+
+[data-bs-theme-color=color-2] {
+  --bs-primary: #1A98FF;
+  --bs-primary-rgb: 26, 152, 255;
+  --bs-primary-bg-subtle: #d1eaff;
+  --bs-primary-border-subtle: #a3d6ff;
+  --bs-link-color-rgb: var(--bs-primary-rgb);
+  --bs-primary-hover-bg: #157acc;
+  --bs-primary-hover-border: #126ab3;
+  --bs-primary-active-bg: #157acc;
+  --bs-primary-active-border: #126ab3;
+  --bs-secondary: #adafb8;
+  --bs-secondary-rgb: 173, 175, 184;
+  --bs-secondary-bg-subtle: #efeff1;
+  --bs-secondary-border-subtle: #dedfe3;
+  --bs-link-color-rgb: var(--bs-secondary-rgb);
+  --bs-secondary-hover-bg: #8a8c93;
+  --bs-secondary-hover-border: #797b81;
+  --bs-secondary-active-bg: #8a8c93;
+  --bs-secondary-active-border: #797b81;
+  --bs-success: #18B55F;
+  --bs-success-rgb: 24, 181, 95;
+  --bs-success-bg-subtle: #d1f0df;
+  --bs-success-border-subtle: #a3e1bf;
+  --bs-link-color-rgb: var(--bs-success-rgb);
+  --bs-success-hover-bg: #13914c;
+  --bs-success-hover-border: #117f43;
+  --bs-success-active-bg: #13914c;
+  --bs-success-active-border: #117f43;
+  --bs-warning: #DB7817;
+  --bs-warning-rgb: 219, 120, 23;
+  --bs-warning-bg-subtle: #f8e4d1;
+  --bs-warning-border-subtle: #f1c9a2;
+  --bs-link-color-rgb: var(--bs-warning-rgb);
+  --bs-warning-hover-bg: #af6012;
+  --bs-warning-hover-border: #995410;
+  --bs-warning-active-bg: #af6012;
+  --bs-warning-active-border: #995410;
+  --bs-danger: #F53030;
+  --bs-danger-rgb: 245, 48, 48;
+  --bs-danger-bg-subtle: #fdd6d6;
+  --bs-danger-border-subtle: #fbacac;
+  --bs-link-color-rgb: var(--bs-danger-rgb);
+  --bs-danger-hover-bg: #c42626;
+  --bs-danger-hover-border: #ac2222;
+  --bs-danger-active-bg: #c42626;
+  --bs-danger-active-border: #ac2222;
+  --bs-info: #05B2DC;
+  --bs-info-rgb: 5, 178, 220;
+  --bs-info-bg-subtle: #cdf0f8;
+  --bs-info-border-subtle: #9be0f1;
+  --bs-link-color-rgb: var(--bs-info-rgb);
+  --bs-info-hover-bg: #048eb0;
+  --bs-info-hover-border: #047d9a;
+  --bs-info-active-bg: #048eb0;
+  --bs-info-active-border: #047d9a;
+  --bs-light: #dee2e6;
+  --bs-light-rgb: 222, 226, 230;
+  --bs-light-bg-subtle: #f8f9fa;
+  --bs-light-border-subtle: #f2f3f5;
+  --bs-link-color-rgb: var(--bs-light-rgb);
+  --bs-light-hover-bg: #b2b5b8;
+  --bs-light-hover-border: #9b9ea1;
+  --bs-light-active-bg: #b2b5b8;
+  --bs-light-active-border: #9b9ea1;
+  --bs-dark: #000000;
+  --bs-dark-rgb: 0, 0, 0;
+  --bs-dark-bg-subtle: #cccccc;
+  --bs-dark-border-subtle: #999999;
+  --bs-link-color-rgb: var(--bs-dark-rgb);
+  --bs-dark-hover-bg: black;
+  --bs-dark-hover-border: black;
+  --bs-dark-active-bg: black;
+  --bs-dark-active-border: black;
+  --bs-gray: #BBBBBB;
+  --bs-gray-rgb: 187, 187, 187;
+  --bs-gray-bg-subtle: #f1f1f1;
+  --bs-gray-border-subtle: #e4e4e4;
+  --bs-link-color-rgb: var(--bs-gray-rgb);
+  --bs-gray-hover-bg: #969696;
+  --bs-gray-hover-border: #838383;
+  --bs-gray-active-bg: #969696;
+  --bs-gray-active-border: #838383;
+  --bs-gray-dark: #57585a;
+  --bs-gray-dark-rgb: 87, 88, 90;
+  --bs-gray-dark-bg-subtle: #dddede;
+  --bs-gray-dark-border-subtle: #bcbcbd;
+  --bs-link-color-rgb: var(--bs-gray-dark-rgb);
+  --bs-gray-dark-hover-bg: #464648;
+  --bs-gray-dark-hover-border: #3d3e3f;
+  --bs-gray-dark-active-bg: #464648;
+  --bs-gray-dark-active-border: #3d3e3f;
+}
+[data-bs-theme-color=color-2][data-bs-theme=dark] {
+  --bs-primary-text-emphasis: #76c1ff;
+  --bs-primary-bg-subtle: #051e33;
+}
+[data-bs-theme-color=color-2][data-bs-theme=dark] {
+  --bs-secondary-text-emphasis: #cecfd4;
+  --bs-secondary-bg-subtle: #232325;
+}
+[data-bs-theme-color=color-2][data-bs-theme=dark] {
+  --bs-success-text-emphasis: #74d39f;
+  --bs-success-bg-subtle: #052413;
+}
+[data-bs-theme-color=color-2][data-bs-theme=dark] {
+  --bs-warning-text-emphasis: #e9ae74;
+  --bs-warning-bg-subtle: #2c1805;
+}
+[data-bs-theme-color=color-2][data-bs-theme=dark] {
+  --bs-danger-text-emphasis: #f98383;
+  --bs-danger-bg-subtle: #310a0a;
+}
+[data-bs-theme-color=color-2][data-bs-theme=dark] {
+  --bs-info-text-emphasis: #69d1ea;
+  --bs-info-bg-subtle: #01242c;
+}
+[data-bs-theme-color=color-2][data-bs-theme=dark] {
+  --bs-light-text-emphasis: #ebeef0;
+  --bs-light-bg-subtle: #2c2d2e;
+}
+[data-bs-theme-color=color-2][data-bs-theme=dark] {
+  --bs-dark-text-emphasis: #666666;
+  --bs-dark-bg-subtle: black;
+}
+[data-bs-theme-color=color-2][data-bs-theme=dark] {
+  --bs-gray-text-emphasis: #d6d6d6;
+  --bs-gray-bg-subtle: #252525;
+}
+[data-bs-theme-color=color-2][data-bs-theme=dark] {
+  --bs-gray-dark-text-emphasis: #9a9b9c;
+  --bs-gray-dark-bg-subtle: #111212;
+}
+
+[data-bs-theme-color=color-3] {
+  --bs-primary: #3ee783;
+  --bs-primary-rgb: 62, 231, 131;
+  --bs-primary-bg-subtle: #d8fae6;
+  --bs-primary-border-subtle: #b2f5cd;
+  --bs-link-color-rgb: var(--bs-primary-rgb);
+  --bs-primary-hover-bg: #32b969;
+  --bs-primary-hover-border: #2ba25c;
+  --bs-primary-active-bg: #32b969;
+  --bs-primary-active-border: #2ba25c;
+  --bs-secondary: #adafb8;
+  --bs-secondary-rgb: 173, 175, 184;
+  --bs-secondary-bg-subtle: #efeff1;
+  --bs-secondary-border-subtle: #dedfe3;
+  --bs-link-color-rgb: var(--bs-secondary-rgb);
+  --bs-secondary-hover-bg: #8a8c93;
+  --bs-secondary-hover-border: #797b81;
+  --bs-secondary-active-bg: #8a8c93;
+  --bs-secondary-active-border: #797b81;
+  --bs-success: #16DB65;
+  --bs-success-rgb: 22, 219, 101;
+  --bs-success-bg-subtle: #d0f8e0;
+  --bs-success-border-subtle: #a2f1c1;
+  --bs-link-color-rgb: var(--bs-success-rgb);
+  --bs-success-hover-bg: #12af51;
+  --bs-success-hover-border: #0f9947;
+  --bs-success-active-bg: #12af51;
+  --bs-success-active-border: #0f9947;
+  --bs-warning: #F79256;
+  --bs-warning-rgb: 247, 146, 86;
+  --bs-warning-bg-subtle: #fde9dd;
+  --bs-warning-border-subtle: #fcd3bb;
+  --bs-link-color-rgb: var(--bs-warning-rgb);
+  --bs-warning-hover-bg: #c67545;
+  --bs-warning-hover-border: #ad663c;
+  --bs-warning-active-bg: #c67545;
+  --bs-warning-active-border: #ad663c;
+  --bs-danger: #F0544F;
+  --bs-danger-rgb: 240, 84, 79;
+  --bs-danger-bg-subtle: #fcdddc;
+  --bs-danger-border-subtle: #f9bbb9;
+  --bs-link-color-rgb: var(--bs-danger-rgb);
+  --bs-danger-hover-bg: #c0433f;
+  --bs-danger-hover-border: #a83b37;
+  --bs-danger-active-bg: #c0433f;
+  --bs-danger-active-border: #a83b37;
+  --bs-info: #2E93B9;
+  --bs-info-rgb: 46, 147, 185;
+  --bs-info-bg-subtle: #d5e9f1;
+  --bs-info-border-subtle: #abd4e3;
+  --bs-link-color-rgb: var(--bs-info-rgb);
+  --bs-info-hover-bg: #257694;
+  --bs-info-hover-border: #206782;
+  --bs-info-active-bg: #257694;
+  --bs-info-active-border: #206782;
+  --bs-light: #dee2e6;
+  --bs-light-rgb: 222, 226, 230;
+  --bs-light-bg-subtle: #f8f9fa;
+  --bs-light-border-subtle: #f2f3f5;
+  --bs-link-color-rgb: var(--bs-light-rgb);
+  --bs-light-hover-bg: #b2b5b8;
+  --bs-light-hover-border: #9b9ea1;
+  --bs-light-active-bg: #b2b5b8;
+  --bs-light-active-border: #9b9ea1;
+  --bs-dark: #000000;
+  --bs-dark-rgb: 0, 0, 0;
+  --bs-dark-bg-subtle: #cccccc;
+  --bs-dark-border-subtle: #999999;
+  --bs-link-color-rgb: var(--bs-dark-rgb);
+  --bs-dark-hover-bg: black;
+  --bs-dark-hover-border: black;
+  --bs-dark-active-bg: black;
+  --bs-dark-active-border: black;
+  --bs-gray: #B3B3B3;
+  --bs-gray-rgb: 179, 179, 179;
+  --bs-gray-bg-subtle: #f0f0f0;
+  --bs-gray-border-subtle: #e1e1e1;
+  --bs-link-color-rgb: var(--bs-gray-rgb);
+  --bs-gray-hover-bg: #8f8f8f;
+  --bs-gray-hover-border: #7d7d7d;
+  --bs-gray-active-bg: #8f8f8f;
+  --bs-gray-active-border: #7d7d7d;
+  --bs-gray-dark: #57585a;
+  --bs-gray-dark-rgb: 87, 88, 90;
+  --bs-gray-dark-bg-subtle: #dddede;
+  --bs-gray-dark-border-subtle: #bcbcbd;
+  --bs-link-color-rgb: var(--bs-gray-dark-rgb);
+  --bs-gray-dark-hover-bg: #464648;
+  --bs-gray-dark-hover-border: #3d3e3f;
+  --bs-gray-dark-active-bg: #464648;
+  --bs-gray-dark-active-border: #3d3e3f;
+}
+[data-bs-theme-color=color-3][data-bs-theme=dark] {
+  --bs-primary-text-emphasis: #8bf1b5;
+  --bs-primary-bg-subtle: #0c2e1a;
+}
+[data-bs-theme-color=color-3][data-bs-theme=dark] {
+  --bs-secondary-text-emphasis: #cecfd4;
+  --bs-secondary-bg-subtle: #232325;
+}
+[data-bs-theme-color=color-3][data-bs-theme=dark] {
+  --bs-success-text-emphasis: #73e9a3;
+  --bs-success-bg-subtle: #042c14;
+}
+[data-bs-theme-color=color-3][data-bs-theme=dark] {
+  --bs-warning-text-emphasis: #fabe9a;
+  --bs-warning-bg-subtle: #311d11;
+}
+[data-bs-theme-color=color-3][data-bs-theme=dark] {
+  --bs-danger-text-emphasis: #f69895;
+  --bs-danger-bg-subtle: #301110;
+}
+[data-bs-theme-color=color-3][data-bs-theme=dark] {
+  --bs-info-text-emphasis: #82bed5;
+  --bs-info-bg-subtle: #091d25;
+}
+[data-bs-theme-color=color-3][data-bs-theme=dark] {
+  --bs-light-text-emphasis: #ebeef0;
+  --bs-light-bg-subtle: #2c2d2e;
+}
+[data-bs-theme-color=color-3][data-bs-theme=dark] {
+  --bs-dark-text-emphasis: #666666;
+  --bs-dark-bg-subtle: black;
+}
+[data-bs-theme-color=color-3][data-bs-theme=dark] {
+  --bs-gray-text-emphasis: #d1d1d1;
+  --bs-gray-bg-subtle: #242424;
+}
+[data-bs-theme-color=color-3][data-bs-theme=dark] {
+  --bs-gray-dark-text-emphasis: #9a9b9c;
+  --bs-gray-dark-bg-subtle: #111212;
+}

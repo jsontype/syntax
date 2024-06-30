@@ -1,0 +1,19 @@
+:root{
+    --default: #50b5ff;
+    --iq-primary: #50b5ff;
+    --iq-primary-dark: #3f414d;
+    --iq-success: '';
+    --iq-success-dark: '';
+    --iq-info: '';
+    --iq-info-dark: '';
+    --iq-danger: '';
+    --iq-danger-dark: '';
+    --iq-warning: '';
+    --iq-warning-dark: '';
+    --iq-pink: '';
+    --iq-pink-dark: '';
+    --iq-dark: '';
+    --iq-dark-dark: '';
+    --iq-light: '';
+    --iq-light-dark: '';
+}

@@ -1,0 +1,28 @@
+/*!
+* Version: 5.0.0
+* Template: Example Project
+* Author: iqonic.design
+* Design and Developed by: iqonic.design
+* NOTE: This file contains the styling for Template.
+*
+*/
+
+// Configuration
+@import "./bootstrap/functions";
+// Variables
+@import "./streamit-design-system/variables";
+@import "./streamit-design-system/variables-dark";
+@import "./streamit-design-system/variables/index";
+@import "./bootstrap/variables";
+@import "./bootstrap/variables-dark";
+@import "./bootstrap/maps";
+@import "./bootstrap/mixins";
+@import "./bootstrap/utilities";
+
+@import "./bootstrap/mixins";
+
+// Streamit Design System Mixin And Helper
+@import "./streamit-design-system/helper/functions";
+@import "./streamit-design-system/helper/mixins";
+
+@import "./rtl/index";

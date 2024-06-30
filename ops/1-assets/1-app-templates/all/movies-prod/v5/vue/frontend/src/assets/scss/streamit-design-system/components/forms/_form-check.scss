@@ -1,0 +1,58 @@
+.iq-qty-btn {
+    .btn {
+        &:focus {
+            box-shadow: unset;
+        }
+    }
+
+    .input-display {
+        width: 3.5rem;
+        cursor: text;
+
+        &:hover {
+            color: $input-focus-color !important;
+            background: transparent !important;
+        }
+    }
+}
+
+@each $color in $colors-name {
+    .iq-qty-btn {
+        .input-display {
+            &.btn-outline-#{$color} {
+                &:focus {
+                    border-color: var(--#{$variable-prefix}#{$color});
+                }
+
+                &:hover {
+                    color: var(--#{$variable-prefix}#{$color}) !important;
+                    background: transparent !important;
+                }
+            }
+        }
+    }
+}
+
+.iq-status-switch {
+    .form-check-input {
+        &:checked {
+            border-color: var(--#{$variable-prefix}info);
+            background-color: var(--#{$variable-prefix}info);
+        }
+
+        &:not(:checked) {
+            border-color: var(--#{$variable-prefix}danger);
+            background-color: var(--#{$variable-prefix}danger);
+            background-image: escape-svg($form-switch-checked-bg-image),
+        }
+    }
+}
+
+.form-check-input {
+    width: 0.875em;
+    height: 0.875em;
+
+    &:focus {
+        box-shadow: none;
+    }
+}

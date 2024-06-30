@@ -1,0 +1,42 @@
+{
+  "public/dashboard/scss/custom.scss": {
+    "file": "assets/custom-03bbf409.css",
+    "isEntry": true,
+    "src": "public/dashboard/scss/custom.scss"
+  },
+  "public/dashboard/scss/customizer.scss": {
+    "file": "assets/customizer-54286c93.css",
+    "isEntry": true,
+    "src": "public/dashboard/scss/customizer.scss"
+  },
+  "public/dashboard/scss/dashboard-custom.scss": {
+    "file": "assets/dashboard-custom-bce37923.css",
+    "isEntry": true,
+    "src": "public/dashboard/scss/dashboard-custom.scss"
+  },
+  "public/dashboard/scss/pro.scss": {
+    "file": "assets/pro-1dafda76.css",
+    "isEntry": true,
+    "src": "public/dashboard/scss/pro.scss"
+  },
+  "public/dashboard/scss/rtl.scss": {
+    "file": "assets/rtl-17596106.css",
+    "isEntry": true,
+    "src": "public/dashboard/scss/rtl.scss"
+  },
+  "public/dashboard/scss/streamit.scss": {
+    "file": "assets/streamit-4a81c4a3.css",
+    "isEntry": true,
+    "src": "public/dashboard/scss/streamit.scss"
+  },
+  "resources/css/app.scss": {
+    "file": "assets/app-c2bdd99e.css",
+    "isEntry": true,
+    "src": "resources/css/app.scss"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-664fa9f3.js",
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  }
+}

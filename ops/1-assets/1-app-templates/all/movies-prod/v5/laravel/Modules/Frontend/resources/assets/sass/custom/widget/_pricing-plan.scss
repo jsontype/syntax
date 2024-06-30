@@ -1,0 +1,76 @@
+.pricing-plan-wrapper {
+  position: relative;
+  background-color: var(--bs-gray-900);
+
+  .pricing-plan-header {
+    padding: 3.75rem 2.8125rem;
+    background: var(--bs-body-bg);
+
+    .plan-name {
+      font-size: 1.25em;
+      margin-bottom: 1.875rem;
+    }
+
+    .sale-price {
+      font-size: 2.437rem;
+    }
+
+    .main-price {
+      font-size: 2.375em;
+    }
+  }
+
+  .pricing-details {
+    padding: 2.8125rem;
+
+    .pricing-plan-description {
+      ul {
+        margin: 0 0 1.875rem;
+
+        li {
+          margin-bottom: 2.5rem;
+          padding-left: 1.625rem;
+          position: relative;
+
+          i {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+          }
+        }
+      }
+    }
+  }
+
+  .pricing-plan-footer {
+    .btn {
+      width: 100%;
+      font-weight: $font-weight-normal;
+      letter-spacing: .0625rem;
+    }
+  }
+
+  &::after {
+    content: "";
+    background: linear-gradient(180deg, var(--bs-primary) 0, rgba(var(--bs-primary-rgb), 0) 100%);
+    position: absolute;
+    top: -0.125em;
+    bottom: -0.125em;
+    left: -0.125em;
+    right: -0.125em;
+    z-index: -1;
+  }
+}
+
+@media (max-width: 480px) {
+  .pricing-plan-wrapper {
+    .pricing-plan-header {
+      padding: 2.5rem 1.875rem;
+    }
+
+    .pricing-details {
+      padding: 1.875rem;
+    }
+  }
+}

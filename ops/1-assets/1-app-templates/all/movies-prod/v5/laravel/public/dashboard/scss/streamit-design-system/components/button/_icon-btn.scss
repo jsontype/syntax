@@ -1,0 +1,63 @@
+.btn-icon {
+    height: $btn-icon-height;
+    width: $btn-icon-width;
+    padding: 0;
+    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+   &.btn{
+        .btn-inner{
+            display: inline-flex;
+            svg{
+                width: 1.5rem;
+                height: 1.5rem;
+            }
+        }
+    }
+    &.btn-sm {
+        height: $btn-icon-height-sm;
+        width: $btn-icon-width-sm;
+        padding: 0;
+        text-align: center;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        .btn-inner{
+            svg{
+                width: 1rem;
+                height: 1rem;
+            }
+        }
+    }
+    &.btn-lg {
+        height: $btn-icon-height-lg;
+        width: $btn-icon-width-lg;
+        padding: 0;
+        text-align: center;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        .btn-inner{
+            svg{
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+        }   
+    }
+    i {
+        height: 100%;
+        width: 100%;
+        line-height: 1.875rem;
+    }
+}
+
+.btn-setting {
+    padding: $spacer * .5;
+    z-index: 900 + 100;
+    top: 50%;
+}
+
+.customizer-btn{
+    transform: rotate(-45deg);
+}
