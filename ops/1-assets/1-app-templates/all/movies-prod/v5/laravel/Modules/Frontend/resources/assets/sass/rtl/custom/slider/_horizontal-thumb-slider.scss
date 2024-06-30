@@ -1,0 +1,77 @@
+.iq-banner-thumb-slider {
+    .slider {
+        .slider-bg {
+            .horizontal_thumb_slider {
+                direction: ltr;
+                left: 0;
+                right: auto;
+                background: linear-gradient(270deg, #141414 0%, rgba(20, 20, 20, 0) 100%);
+                padding: 2.1875rem 2.1875rem 2.1875rem 0;
+                .swiper-wrapper {
+                    .swiper-slide {
+                        direction: rtl;
+                    }
+                }
+                .block-images {
+                    .img-box {
+                        .block-description {
+                            left: auto;
+                            right: 1rem;
+                        }
+                    }
+                }
+                .banner-thumb-slider-nav {
+                    .slider-prev {
+                        left: auto;
+                        right: 0;
+                        transform: scale(-1);
+                    }
+                    .slider-next {
+                        left: auto;
+                        right: 2.8125em;
+                        transform: scale(-1);
+                    }
+                }
+            }
+            .slider-images {
+                .slider--image {
+                    background: linear-gradient(-90.3deg, #181616 9.88%, rgba(19, 18, 18, 0) 31.52%),linear-gradient(-266.54deg, #181616 13.29%, rgba(19, 18, 18, 0) 98.41%);
+                }
+                .description {
+                    left: auto;
+                    right: 6.25rem;
+                }
+            }
+        }
+    }
+}
+
+.movie-tag{
+    li{
+        padding-right: 0;
+        padding-left: 1.725em;
+
+        &:last-child{
+            padding-left: 0;
+        }
+
+        &::before{
+            right: auto;
+            left: .5625em;
+        }
+    }
+}
+
+@media (max-width: 767px){
+    .iq-banner-thumb-slider {
+        .slider {
+            .slider-bg {
+                .slider-images {
+                    .description {
+                        right: 0;
+                    }
+                }
+            }
+        }
+    }        
+}

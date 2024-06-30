@@ -1,0 +1,6 @@
+.waves{
+    &::before, &::after {
+        margin-right: -12px;
+        margin-left: 0;
+    }
+}

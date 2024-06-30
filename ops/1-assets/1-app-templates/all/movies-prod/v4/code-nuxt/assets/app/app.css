@@ -1,0 +1,28 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Variable css */
+/* @import "../css/color/variable.css"; */
+
+/* Fonts */
+/* @import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700,800,900');
+@import url('https://fonts.googleapis.com/css?family=Muli:400,600,700,800,900'); */
+
+/* Ionic icons import */
+/* @import "../css/ionicons.min.css"; */
+
+/*********************************************************
+  Uncomment this Code to enable latest version of Ionic icons
+  !!!! Warning : Old version of ionic font might not work !!!!
+
+  @import "~ionicons/dist/css/ionicons.min.css";
+*********************************************************/
+/* Custom css file import */
+@import "../css/custom.css";
+
+
+
+/* Magnific popup css */
+/* @import "../css/magnific-popup.css"; */
+
+
+

@@ -1,0 +1,154 @@
+.personality-card {
+  li.swiper-slide {
+    padding: 0 0.9375rem;
+  }
+
+  .cast-title {
+    color: var(--bs-heading-color);
+    font-weight: $font-weight-medium;
+
+    &:hover {
+      color: var(--bs-primary);
+    }
+  }
+}
+
+//personality detail
+
+.profile-social-lists {
+  display: flex;
+
+  li {
+    a {
+      font-size: 2em;
+    }
+  }
+}
+
+.person-details {
+  .single-person__sidebar-title {
+    font-size: 1em;
+    font-weight: 500;
+    margin-bottom: 0.313em;
+  }
+}
+
+.trending-dec {
+  padding: 0 0 3.125em;
+  margin-bottom: 3.125em;
+  margin-top: 1.875em;
+}
+
+.iq-personality-card {
+  li {
+    &:first-child {
+      &:hover {
+        .block-images {
+          transform: scale3d(1.1, 1.1, 1) translate3d(6%, 0, 0) perspective(31.25em);
+        }
+      }
+    }
+
+    &:last-child {
+      &:hover {
+        .block-images {
+          transform: scale3d(1.1, 1.1, 1) translate3d(-7%, 0, 0) perspective(31.25em);
+        }
+      }
+    }
+
+    &:hover {
+      .block-images {
+        z-index: 99;
+        transform: scale3d(1.1, 1.1, 1) translate3d(0, 0, 0) perspective(31.25em);
+        transform-origin: 50% 50%;
+        transition: all .6s ease 0s;
+        overflow: visible;
+
+        &::before {
+          opacity: 1;
+        }
+
+        .img-box {
+          position: relative;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          backface-visibility: hidden;
+          transform: translate3d(0, 0, 0);
+        }
+      }
+    }
+
+    .block-images {
+      position: relative;
+      width: 100%;
+      margin-bottom: 1.875em;
+      overflow: hidden;
+      backface-visibility: hidden;
+      transform: translate3d(0, 0, 0);
+      transition: all .6s ease 0s;
+
+      &::before {
+        position: absolute;
+        content: "";
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-left: 0.25em solid var(--bs-primary);
+        background: rgba(var(--bs-black), 0.8);
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        z-index: 9;
+        transition: all .5s ease-in-out;
+      }
+
+      .img-box {
+        position: relative;
+        background: rgba(var(--bs-black), 0.8);
+        transition: all .5s ease-in-out;
+      }
+    }
+
+    .block-description {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      backface-visibility: hidden;
+      transform: translate3d(0, 0, 0);
+      position: absolute;
+      left: 1.563em;
+      top: 0;
+      bottom: 0;
+      z-index: 999;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+
+      .iq-title {
+        padding-right: 3.938em;
+        font-size: 1.125em;
+        color: var(--bs-white);
+        text-transform: capitalize;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        white-space: normal;
+        transform: translate3d(0, 0, 0);
+        -webkit-font-smoothing: antialiased;
+      }
+    }
+  }
+
+
+}
+
+@media (max-width: 767px) {
+  .personality-card {
+    li.swiper-slide {
+      padding: 0 0.4687rem;
+    }
+  }
+}

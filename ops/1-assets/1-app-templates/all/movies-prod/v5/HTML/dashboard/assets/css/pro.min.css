@@ -1,0 +1,9 @@
+/*!
+* Version: 5.1.1
+* Template: Example Project
+* Author: iqonic.design
+* Design and Developed by: iqonic.design
+* NOTE: This file contains the styling for Template.
+*
+*/:focus{outline:none}h1,h2,h3,h4,h5,h6{font-family:var(--bs-heading-font-family)}a{color:var(--bs-primary);-webkit-transition:color 400ms ease,background 400ms ease;-o-transition:color 400ms ease,background 400ms ease;transition:color 400ms ease,background 400ms ease;text-decoration:none}::-moz-selection{color:var(--bs-white);background-color:var(--bs-primary)}::selection{color:var(--bs-white);background-color:var(--bs-primary)}.iq-slider{overflow:hidden;overflow-x:auto}hr{margin:1rem 0;color:inherit;background-color:currentColor;border:0;opacity:.25}.iq-scroller-effect ::-webkit-scrollbar{width:5px;height:5px;-webkit-border-radius:20px;border-radius:20px}.iq-scroller-effect ::-webkit-scrollbar-track{background:#f9f9f9;-webkit-border-radius:20px;border-radius:20px}.iq-scroller-effect ::-webkit-scrollbar-thumb{background:#dbdfe7;-webkit-border-radius:20px;border-radius:20px;-webkit-transition:all 400ms ease;-o-transition:all 400ms ease;transition:all 400ms ease;cursor:pointer}.iq-scroller-effect ::-webkit-scrollbar-thumb:hover{background:#dfe2e9;-webkit-border-radius:20px;border-radius:20px;-webkit-transition:all 400ms ease;-o-transition:all 400ms ease;transition:all 400ms ease}body{-webkit-transition:background-color 250ms ease-in-out;-o-transition:background-color 250ms ease-in-out;transition:background-color 250ms ease-in-out}
+/*# sourceMappingURL=maps/pro.min.css.map */

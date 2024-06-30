@@ -1,0 +1,32 @@
+.checkout-coupon {
+    .iq-checkout-coupon {
+        .iq-button {
+            left: 0;
+            right: auto;
+        }
+    }
+}
+
+.order {
+    .details {
+        .detail {
+            border-right: 0;
+            border-left: 1px dashed var(--bs-border-color);
+            &:last-child {
+                border-left: 0;
+            }
+        }
+    }
+}
+
+
+@media (max-width:767px) {
+    .order {
+        .details {
+            .detail {
+                border-left: none;
+                text-align: right;
+            }
+        }
+    }
+}

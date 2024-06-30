@@ -1,0 +1,24 @@
+/* 
+Swiper Slider Changes
+#post-slider .slick-arrow { top: 14px; }
+
+ltr
+#post-slider .slick-arrow.left { left: auto; right: 70px; }
+#post-slider .slick-arrow.right { left: auto; right: 35px; }
+
+rtl
+#post-slider .slick-arrow.left { right: auto; left: 35px; }
+#post-slider .slick-arrow.right { right: auto; left: 70px; }
+*/
+// Animate css
+@import "~animate.css/animate.min.css";
+@import '~node-snackbar/src/sass/snackbar.sass';
+@import "../css/bootstrap";
+// Font awesome icon Css
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
+.iq-global-search>ul>li a, .slick-arrow, .breadcrumb-item>a{
+  color: var(--iq-primary);
+  &:hover{
+    color: var(--iq-primary);
+  }
+}

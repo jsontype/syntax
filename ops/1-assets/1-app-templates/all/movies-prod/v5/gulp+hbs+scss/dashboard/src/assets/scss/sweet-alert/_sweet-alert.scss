@@ -1,0 +1,134 @@
+//sweet-alert
+.swal2-popup {
+    background: var(--bs-gray-900);
+}
+
+.swal2-title {
+    color: var(--bs-heading-color);
+}
+
+.swal2-content {
+    color: var(--bs-body-color);
+}
+
+.swal2-styled {
+    margin: 0px;
+}
+
+.swal2-close:active {
+    border: hidden;
+}
+
+.swal2-loader {
+    border-color: var(--#{$variable-prefix}primary);
+    background-color: var(--#{$variable-prefix}primary);
+}
+
+.swal2-styled:focus {
+    box-shadow: unset !important;
+}
+
+.swal2-styled.swal2-confirm {
+    background-color: var(--#{$variable-prefix}primary);
+    border: var(--#{$variable-prefix}primary);
+    display: inline-block;
+    border-radius: 0.25em;
+    padding: .625em 1.1em;
+}
+
+.swal2-styled.swal2-cancel {
+    border: var(--#{$variable-prefix}secondary);
+    background-color: var(--#{$variable-prefix}secondary);
+    border-radius: 0.25em;
+    padding: .625em 1.1em;
+}
+
+.swal2-styled.swal2-deny {
+    background-color: var(--#{$variable-prefix}danger);
+    border: var(--#{$variable-prefix}danger);
+    border-radius: 0.25em;
+}
+
+.swal2-styled {
+    margin: 0.3125em;
+    padding: 0.625em 1.1em;
+    transition: box-shadow .1s;
+    box-shadow: 0 0 0 3px transparent;
+    font-weight: 500;
+}
+
+.swal2-icon.swal2-warning {
+    border-color: var(--#{$variable-prefix}warning);
+    color: var(--#{$variable-prefix}warning);
+}
+
+.swal2-icon .swal2-icon-content {
+    border-color: var(--#{$variable-prefix}warning);
+    color: var(--#{$variable-prefix}warning);
+}
+
+.swal2-icon.swal2-info {
+    border-color: var(--#{$variable-prefix}warning);
+    color: var(--#{$variable-prefix}warning);
+}
+
+.swal2-icon.swal2-error {
+    border-color: var(--#{$variable-prefix}danger);
+    color: var(--#{$variable-prefix}danger);
+}
+
+.swal2-icon.swal2-error [class^='swal2-x-mark-line'] {
+    background-color: var(--#{$variable-prefix}danger);
+
+}
+
+.swal2-icon.swal2-success [class^='swal2-success-line'] {
+    background-color: var(--#{$variable-prefix}success);
+}
+
+.swal2-icon.swal2-success {
+    border-color: var(--#{$variable-prefix}success);
+    color: var(--#{$variable-prefix}success);
+}
+
+.swal2-icon.swal2-success:hover {
+    border-color: var(--#{$variable-prefix}success);
+    color: var(--#{$variable-prefix}success);
+}
+
+.swal2-icon.swal2-success .swal2-success-ring {
+    border-color: var(--#{$variable-prefix}success);
+    color: var(--#{$variable-prefix}success);
+}
+
+.swal2-icon.swal2-success .swal2-success-fix {
+    border-color: var(--#{$variable-prefix}success);
+    color: var(--#{$variable-prefix}success);
+}
+
+.swal2-icon.swal2-success [class^='swal2-success-circular-line'] {
+    border-color: var(--#{$variable-prefix}success);
+    color: var(--#{$variable-prefix}success);
+}
+
+.swal2-icon.swal2-success.swal2-icon-show .swal2-success-circular-line-right {
+    border-color: var(--#{$variable-prefix}success);
+    color: var(--#{$variable-prefix}success);
+}
+
+.swal2-close {
+    background-color: var(--#{$variable-prefix}secondary);
+    border: 0px;
+    background: none;
+    color: var(--#{$variable-prefix}secondary);
+    border-color: $white;
+    border-radius: 0px;
+}
+
+.swal2-close:hover {
+    color: var(--#{$variable-prefix}secondary);
+}
+
+.swal2-actions {
+    justify-content: center;
+}

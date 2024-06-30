@@ -1,0 +1,25 @@
+.verticle-slider {
+    .slider--col {
+        margin: 4.06rem 6.06em 4.06rem 2rem;
+    }
+    .slider-images {
+        .slider--image {
+            background: linear-gradient(-83deg, var(--bs-black) 31.49%, rgba(var(--bs-black-rgb), 0) 82.3%);
+        }
+        .description {
+            left: auto;
+            right: 33rem;
+        }
+    }
+}
+
+@media (max-width: 991px){
+    .verticle-slider{
+        .slider-images{
+            .description{
+                left: auto;
+                right: 0;
+            }
+        }
+    } 
+}

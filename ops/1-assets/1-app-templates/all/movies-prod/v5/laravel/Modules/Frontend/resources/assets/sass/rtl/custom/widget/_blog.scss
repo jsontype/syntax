@@ -1,0 +1,18 @@
+.iq-blog-box {
+    .iq-blog-meta-cat-tag {
+        li {
+            float: right;
+        }
+    }
+}
+
+blockquote,
+.block-quote.is-style-large {
+    border-left: 0;
+    border-right: 0.25em solid var(--bs-primary);
+}
+
+.blockquote {
+    border-left: none;
+    border-right: 2px solid var(--bs-primary);
+}

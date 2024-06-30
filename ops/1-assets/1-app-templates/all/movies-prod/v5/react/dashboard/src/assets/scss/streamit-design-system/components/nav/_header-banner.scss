@@ -1,0 +1,220 @@
+.iq-banner {
+    &.hide {
+        .iq-navbar-header {
+            display: none;
+        }
+    }
+    .iq-navbar-header {
+        color: $white;
+        .iq-container {
+            padding: calc(var(--bs-gutter-x, 1rem) * 2);
+            h1,h2,h3,h4,h5,h6, a, p {
+                color: inherit;
+            }
+        }
+        .iq-header-img {
+            height: 160px;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            z-index: -1;
+            transition: all 400ms;
+            transform-origin: center left;
+            overflow: hidden;
+            border-radius: $border-radius-lg;
+            img {
+                object-fit: cover;
+            }
+        }
+    }
+    .navs-bg-color {
+        .iq-header-img {
+            img {
+                display: none;
+            }
+        }
+    }
+}
+
+.iq-banner:not(.hide)+.content-inner {
+    margin-top: -$spacer * 3 !important;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.iq-banner.iq-dashboard-banner:not(.hide)+.content-inner {
+    margin-top: 0 !important;
+    padding: calc(var(--bs-gutter-x, 1rem)*1) !important;
+}
+
+@include media-breakpoint-down(md) {
+    .iq-navbar-header{
+        .iq-header-img{
+            height: 160px !important;
+        }
+    }
+}
+@include media-breakpoint-up(xl) {
+    .iq-banner{
+        &.default, .navs-bg-color{
+            .iq-navbar{
+                &.navs-transparent, &.nav-glass{
+                    .product-offcanvas{
+                        .breadcrumb-title{
+                            color: $white;
+                            h6{
+                                color: $white;
+                            }
+                        }
+                        .iq-nav-menu{
+                            >.nav-item{
+                                >.menu-arrow{
+                                    color: $white;
+                                }
+                                &.active{
+                                    >.menu-arrow{
+                                        color: var(--#{$variable-prefix}primary);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.iq-banner{
+    .navs-bg-color{
+        &.iq-navbar-header{
+            .iq-header-img{
+                background-color: var(--#{$variable-prefix}primary);
+            }
+        }
+        .iq-dashboard-banner{
+           &.iq-navbar-header{
+                background-color: var(--#{$variable-prefix}primary);
+            }
+        }
+    }
+}
+
+.theme-color-purple-img{
+    display: none;
+}
+.theme-color-pink-img{
+    display: none;
+}
+.theme-color-green-img{
+    display: none;
+}
+.theme-color-yellow-img{
+    display: none;
+}
+.theme-color-blue-img{
+    display: none;
+}
+
+.theme-color-red{
+    .theme-color-purple-img{
+        display: none;
+    }
+    .theme-color-pink-img{
+        display: none;
+    }
+    .theme-color-green-img{
+        display: inline-block;
+    }
+    .theme-color-yellow-img{
+        display: none;
+    }
+    .theme-color-blue-img{
+        display: none;
+    }
+    .theme-color-default-img{
+        display: none;
+    }
+}
+
+.theme-color-blue{
+    .theme-color-purple-img{
+        display: inline-block;
+    }
+    .theme-color-pink-img{
+        display: none;
+    }
+    .theme-color-green-img{
+        display: none;
+    }
+    .theme-color-yellow-img{
+        display: none;
+    }
+    .theme-color-blue-img{
+        display: none;
+    }
+    .theme-color-default-img{
+        display: none;
+    }
+}
+
+.theme-color-gray{
+    .theme-color-purple-img{
+        display: none;
+    }
+    .theme-color-pink-img{
+        display: none;
+    }
+    .theme-color-green-img{
+        display: none;
+    }
+    .theme-color-yellow-img{
+        display: none;
+    }
+    .theme-color-blue-img{
+        display: inline-block;
+    }
+    .theme-color-default-img{
+        display: none;
+    }
+}
+
+.theme-color-yellow{
+    .theme-color-purple-img{
+        display: none;
+    }
+    .theme-color-pink-img{
+        display: none;
+    }
+    .theme-color-green-img{
+        display: none;
+    }
+    .theme-color-yellow-img{
+        display: inline-block;
+    }
+    .theme-color-blue-img{
+        display: none;
+    }
+    .theme-color-default-img{
+        display: none;
+    }
+}
+
+.theme-color-pink{
+    .theme-color-purple-img{
+        display: none;
+    }
+    .theme-color-pink-img{
+        display: inline-block;
+    }
+    .theme-color-green-img{
+        display: none;
+    }
+    .theme-color-yellow-img{
+        display: none;
+    }
+    .theme-color-blue-img{
+        display: none;
+    }
+    .theme-color-default-img{
+        display: none;
+    }
+}

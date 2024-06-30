@@ -1,0 +1,16 @@
+.sign-info {
+    display: flex;
+    justify-content: space-between;
+}
+.sign-info .btn-hover{
+    padding: 12px 24px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+.sign-info .custom-control {
+    align-self: center;
+}
+.custom-control, .custom-control label{
+    cursor: pointer;
+}
+.custom-control-input:focus:not(:checked) ~ .custom-control-label::before, .custom-control-input:focus ~ .custom-control-label::before{box-shadow: none;border-color: unset}

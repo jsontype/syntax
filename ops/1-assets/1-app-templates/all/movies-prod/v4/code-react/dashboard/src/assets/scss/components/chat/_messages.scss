@@ -1,0 +1,81 @@
+.msg-list{
+    display: flex;
+    flex-direction: column;
+    .single-msg-content {
+        .msg-detail{
+            span {
+                font-size: 14px;
+            }
+        }
+        .msg-action {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            span {
+                font-size: 12px;
+            }
+        }
+    }
+    .single-msg {
+        position: relative;
+        max-width: 70%;
+        margin-bottom: 12px;
+        padding: 6px 10px;
+        background-color: $white;
+        color: color-yiq($white);
+        border-radius: 0px 8px 8px;
+        .single-msg-shap {
+            position: absolute;
+            top: 0;
+            right: auto;
+            left: -13px;
+        }
+        &.user {
+            border-radius: 8px 0 8px 8px;
+            .single-msg-shap {
+                position: absolute;
+                top: 0;
+                left: auto;
+                right: -13px;
+            }
+            align-self: flex-end;
+            background-color: $primary;
+            color: color-yiq($primary);
+        }
+        .single-msg-content{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            position: relative;
+        }
+    }
+    .single-msg:hover{
+        cursor: auto;
+    }
+}
+
+.triangle-topleft {
+	width: 0;
+	height: 0;
+	border-top: 18px solid $white;
+	border-left: 14px solid transparent;
+}
+.triangle-topright {
+	width: 0;
+	height: 0;
+	border-top: 18px solid $primary;
+	border-right: 14px solid transparent;
+}
+.dark {
+    .triangle-topleft {
+        border-top-color: rgba($white, .1);
+    }
+    .msg-list {
+        .single-msg {
+            background-color: rgba($white, .1);
+            &.user {
+                background-color: rgba($primary, .8);
+            }
+        }
+    }
+}

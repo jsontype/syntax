@@ -1,0 +1,23 @@
+.footer {
+    z-index: 1;
+    font-size: $footer-font-size;
+    background: var(--bs-gray-900);
+    .footer-body {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 1rem calc(var(--bs-gutter-x, 1rem) * 1);
+        @include media-breakpoint-down(md) {
+            justify-content: center;
+        }
+    }
+    &.sticky{
+        position: sticky;
+        bottom: 0;
+    }
+    &.glass{
+        background-color: rgba(var(--bs-gray-900), .1);
+        border-top: 1px solid var(--bs-gray-900);
+        backdrop-filter: blur(10px);
+    }
+}

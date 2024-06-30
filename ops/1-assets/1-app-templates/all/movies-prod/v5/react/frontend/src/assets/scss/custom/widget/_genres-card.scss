@@ -1,0 +1,68 @@
+.iq-card-geners {
+  .block-images {
+    backface-visibility: hidden;
+
+    .img-box {
+      background: linear-gradient(0deg, rgba(12, 11, 17, 0.25) 0%, rgba(12, 11, 17, 0.25) 100%), linear-gradient(180deg, rgba(12, 11, 17, 0.00) 56%, rgba(12, 11, 17, 0.20) 100%);
+
+      &::before {
+        position: absolute;
+        content: "";
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-bottom: 0.09375em solid var(--bs-primary);
+        background: rgba(var(--bs-black), 0.8);
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        z-index: 9;
+        transition: all 0.5s ease-in-out;
+        border-radius: 3px;
+      }
+
+      img {
+        mix-blend-mode: overlay;
+      }
+    }
+
+    &:hover {
+      .img-box {
+        &::before {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  .blog-description {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 99;
+
+    .iq-title {
+      a {
+        font-size: 1.125rem;
+        color: var(--bs-white);
+      }
+    }
+  }
+}
+
+// geners style grid
+.geners-style-grid {
+  .slide-items {
+    margin-bottom: 1.875em;
+  }
+}
+
+@media (max-width:767px) {
+  .geners-card {
+    li.swiper-slide {
+      padding: 0 .4687rem;
+    }
+  }
+}

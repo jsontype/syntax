@@ -1,0 +1,112 @@
+.iq-custom-tab {
+    &.nav-pills {
+        .nav-item {
+            .nav-link {
+                background: none;
+                font-weight: 400;
+                text-transform: capitalize;
+                padding: 1em 1em;
+                margin: 0 1em 0 0;
+                position: relative;
+                overflow: hidden;
+                border-radius: 0;
+                color: var(--bs-white);
+                &::before {
+                    position: absolute;
+                    content: "";
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(0deg, rgba(var(--bs-primary-rgb), 0) 0, rgba(var(--bs-primary-rgb), 0.3) 85%);
+                    opacity: 0;
+                    filter: alpha(opacity=0);
+                    transform: translate3d(0, -50%, 0);
+                    transition: all 0.5s ease-in-out;
+                }
+                &::after {
+                    content: "";
+                    position: absolute;
+                    height: 0.1875em;
+                    top: 0;
+                    bottom: auto;
+                    left: 0;
+                    width: 0;
+                    background: var(--bs-primary);
+                    opacity: 0;
+                    transition: all 0.8s linear;
+                }
+                &.active {
+                    color: var(--bs-primary);
+                    &::before {
+                        opacity: 1;
+                        filter: alpha(opacity=100);
+                        transform: translateZ(0);
+                        transition: all 0.5s ease-in-out;
+                    }
+                    &::after {
+                        opacity: 1;
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+    &.tab-bg-gredient-center {
+        background: linear-gradient(90.06deg, rgba(var(--bs-body-bg-rgb), 0) 1.66%, var(--bs-gray-900) 43.64%, rgba(var(--bs-body-bg-rgb), 0) 89.28%);
+    }
+    &.tab-bg-fill {
+        background: var(--bs-gray-900);
+    }
+}
+
+@media (max-width: 479px) {
+    .iq-custom-tab {
+        flex-direction: column;
+
+        &.nav-pills{
+            .nav-item{
+                .nav-link{
+                    margin: 0;
+                }
+            }
+        }
+    }
+
+}
+
+.iq-custom-tab-style-two {
+    .tab-header {
+        .nav-link {
+            color: var(--bs-body-color);
+            font-weight: $font-weight-medium;
+            position: relative;
+            display: inline-block;
+            padding: .5rem 1.25rem 0 1.25rem;
+
+            &::after {
+                content: '';
+                display: block;
+                width: 0;
+                height: 2px;
+                bottom: 0;
+                background: var(--bs-primary);
+                transition: width .4s ease-in;
+            }
+            &:hover {
+                &::after {
+                    width: 100%;
+                }
+            }
+            &.active {
+                background-color: transparent;
+                &::after {
+                    width: 100%;
+                }
+            }
+        }
+    }
+    .tab-content {
+        padding: 0 6.25rem;
+    }
+}

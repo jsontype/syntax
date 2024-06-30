@@ -1,0 +1,61 @@
+{
+  "name": "code-react",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.11.10",
+    "@testing-library/react": "^11.2.6",
+    "@testing-library/user-event": "^12.8.3",
+    "bootstrap": "^4.6.0",
+    "fslightbox-react": "^1.6.2-2",
+    "gsap": "^3.8.0",
+    "jquery": "^3.4.1",
+    "jvectormap-content": "^0.1.0",
+    "jvectormap-next": "^3.1.1",
+    "morris-js-module": "^1.2.1",
+    "react": "^17.0.2",
+    "react-bootstrap": "^1.5.2",
+    "react-datepicker": "^4.2.1",
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.4",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "5.0.1",
+    "react-select": "^5.1.0",
+    "react-slick": "^0.28.1",
+    "react-slider-swiper": "^2.0.6",
+    "react-transition-group": "^4.4.1",
+    "redux": "^4.1.0",
+    "resolve-url-loader": "^3.1.2",
+    "sass": "^1.32.11",
+    "sass-loader": "^11.0.1",
+    "smooth-scrollbar": "^8.6.2",
+    "swiper": "^6.8.1",
+    "vanillajs-datepicker": "^1.1.4",
+    "web-vitals": "^1.1.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not op_mini all"
+  ],
+  "development": [
+    "last 1 chrome version",
+    "last 1 firefox version",
+    "last 1 safari version"
+  ],
+  "devDependencies": {
+    "vanillajs-datepicker": "^1.1.4"
+  }
+}

@@ -1,0 +1,28 @@
+.select2-container {
+    text-align: right;
+    .select2-selection--single {
+        .select2-selection__rendered {
+            padding-left: 20px;
+            padding-right: 0;
+        }
+    }
+    &.select2-container--default {
+        .select2-selection--single {
+            .select2-selection__arrow {
+                left: 17px;
+                right: auto;
+                b {
+                    right: 50%;
+                    left: auto;
+                    margin-right: -4px;
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+    .select2-results__options {
+        padding: 0.5rem 0;
+    }
+}
+
+
