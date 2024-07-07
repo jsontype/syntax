@@ -18,6 +18,7 @@
 1. Alias 추가 : 터미널에서 사용시 현 세션에서만 적용되며, 영구적 추가는 .zshrc를 수정해야 한다.
   $ code ~/.zshrc : zsh 설정 파일을 연다.
   - zshrc 파일 내부에 아래 내용들을 붙여넣기 한다.
+  $ source ~/.zshrc : zsh 설정 파일의 변경 사항을 적용한다. (zsh을 재기동해도 된다.)
 
   # zsh alias
   alias zsh-config="code ~/.zshrc"

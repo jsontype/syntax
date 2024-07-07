@@ -1,0 +1,8 @@
+[AI 툴]
+
+1. 유용한 AI 툴 모음
+  - microsoft copilot: 개발 업무용 VSCode 플러그인
+  - chatGPT: 개발 업무에서 디폴트로 쓰는 웹앱
+  - perflexity: 개발쪽 정보 추천을 GPT보다 더 잘함.
+  - bard: 변수명, 함수명 추천을 GPT보다 더 잘함.
+  - clovaX: 한국어 대화형 AI. 품질이 쓰레기므로, 한국어 이름 정할 때만 쓰자.
