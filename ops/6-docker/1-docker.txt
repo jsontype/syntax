@@ -1,15 +1,34 @@
-[Docker]
+[도커]
 
-1. 도커란?
-  도커(Docker)는 소프트웨어 개발 및 배포를 위한 플랫폼으로, 
-  애플리케이션을 컨테이너(Container)라는 가벼운 가상 환경에서 실행할 수 있게 해준다.
-  컨테이너는 애플리케이션과 그 실행에 필요한 모든 라이브러리, 설정 파일 등을 포함하여 독립적으로 실행될 수 있는 단위이다.
-  이는 개발 환경과 운영 환경 간의 차이로 인한 문제를 최소화하고, 애플리케이션의 이식성을 높여준다.
+1. Docker란?
+  인프라 구축시에, "정해진 버전의 OS, DB주소, .env, node.js, npm, config, app.js, assets, dependencies 등 모든 것"을 묶어서 하나로 패키징해주는 툴.
+  기존의 VM의 경우, 런타임에 OS를 설치하는 방식이라, 구동이 느린 반면,  
+  Docker를 사용할 경우, Dockerfile에 Image를 넣어두고, Server 런타임에서 꺼내어 쓰는 방식이라, 구동도 빠르고, 간단하게 사용할 수 있다.
+  (Server 런타임은, 개인은 보통 dockerhub, github packages를 사용하지만, 회사 현장에서는 AWS, GCP, Azure를 의미한다.)
 
-1. 도커 실행과 종료
-  실행 : docker-compose up -d
-  종료 : docker-compose down
+1. Docker는 마치 Git과 비슷하다. 
+  Local(PC)에서 Image(Git)를 만들어서, Dockerhub(Github)에 Push를 하고, Server에서 Image(Git)를 Pull 받아서 사용하면 된다.
+  자세한 설명은 아래를 참조한다.
 
-1. Dockerfile 생성
-  프로젝트 루트 디렉토리에 Dockerfile을 생성한다.
-  거기서 베이스 이미지, 작업 디렉토리, 의존성 설치, 파일 복사, 실행 명령 등을 정의한다.
+
+
+[Docker 한눈에 알아보는 구조도]
+
+1. Local(PC)에서 Dockerfile(정해진 버전의 Base Image, .env, node.js, npm, 그리고 assets, config, app.js, dependencies 등 모든 것이 담긴)를 만든다.
+  "Image"는 실행에 필요한 OS 환경을 말하며, "Base Image"는 컨테이너의 시작점으로 사용되는 최소한의 OS 환경을 말한다.
+  (Base Image를 기반으로 추가적인 레이어를 쌓아 사용자 정의 이미지를 만들게 된다.)
+  Dockerfile 작성 시에는, ".dockerignore" 파일을 사용하여 불필요한 파일이 이미지에 포함되지 않도록 할 수 있다.
+  Dockerfile 작성 시에는, 모범 사례를 따르는 것이 중요하다. 예를 들어, 레이어 수를 최소화하고, 캐시를 효과적으로 사용하는 것이 좋다.
+  실무 현장에서는 Dev, Sta, Prod 환경 등, 일반적으로 멀티 스테이지 빌드를 실행한다.
+1-2. Local(PC)에서 아래 명령어로, Dockerfile에 있는 Image 설정을 Build하고 바로 컨테이너를 실행한다.
+  $ docker-compose up --build
+  $ docker-compose up -d
+2. Dockerfile의 Image를 Dockerhub(AWS, GCP, Dockerhub 등)에 Push한다.
+3. Server 런타임에서 Image를 Pull한다.
+4. Server 런타임에서 아래 명령어로, Image를 기반으로 컨테이너를 생성하고 실행한다.
+  $ docker-compose up -d
+
+
+
+...
+https://www.youtube.com/watch?app=desktop&v=LXJhA3VWXFA 9분4초부터 진행...
