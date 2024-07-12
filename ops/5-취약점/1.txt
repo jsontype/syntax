@@ -34,17 +34,24 @@
     일단, 1차적으로 "node_module" 폴더와, "yarn.lock" 파일을 일단 한번 삭제한 뒤, 다시 "yarn install"을 해본다.
 
   - Yarn v1 의 경우: 본격적 대응
-    # $ yarn outdated // 아래 명령어로 deprecated 되거나 EOL 상태의 라이브러리를 확인한다.
-    # - 되지 않을 경우, 아래 명령어로 의존성을 초기화 하면 된다.
-    #   $ rm -rf node_modules yarn.lock
-    #   $ yarn cache clean
-    #   $ yarn install
+    $ yarn outdated // 아래 명령어로 deprecated, EOL, outdated version 등의 정보를 확인할 수 있다.
+    - 이 리스트에서, wanted 보다 낮은 버전의 current 라이브러리가 있는지 확인한다.
+    - yarn outdated 명령어가 듣지 않을 경우, 아래 명령어로 의존성을 초기화 하면 된다.
+      $ rm -rf node_modules yarn.lock
+      $ yarn cache clean
+      $ yarn install
+    - wanted 보다 낮은 버전의 current 라이브러리가 없다면, 다음으로 넘어간다.
+
     $ yarn audit // 프로젝트의 취약점이 몇개 있는지 확인한다.
-    - high 이상의 취약점이 존재할 경우, 그 안에 "patched in" 항목에 있는 라이브러리들을 업그레이드 명단에 넣는다.
-    - moderate 위험도이더라도, high 이상의 취약점 라이브러리의 "path"의 경로에 있는 라이브러리들 중에도 보인다면, 업그레이드 명단에 넣는다.
-    - 업그레이드 명단을 보면서 업그레이드 작업을 진행한다.
-    $ yarn upgrade [package-name]@[version] // outdated된 라이브러리를, 아래 명령어를 통해 해당 버전으로 업그레이드한다.
-    예를 들어, "yarn add postcss@latest braces@latest ws@latest node-fetch@latest"과 같이 할 수 있다.
+    - high 이상의 취약점이 존재할 경우, 그 라이브러리 안에 "patched in" 에 있는 버전과, "path"의 경로에 있는 라이브러리들을 확인.
+    # (old) 
+    # $ yarn upgrade [package-name]@[version] // outdated된 라이브러리를, 아래 명령어를 통해 해당 버전으로 업그레이드한다.
+    # - "yarn add postcss@latest braces@latest ws@latest node-fetch@latest"과 같이 할 수 있다.
+    - yarn.lock을 위 내용을 보면서 수정한다.
+      예를 들어, "ws"라는 라이브러리가 "high" 취약점이면서, patched in이 ">=1.2.0"이라면,
+      "ws"의 기존 버전의 선언문에 "ws@^1.1.0, ws@^1.2.0" 이런 식으로 뒤에 ,를 붙여 "^1.2.0" 버전도 사용하도록 추가한다.
+      ws의 path 안에 있는 "path 라이브러리"들의 의존성으로 담겨져 있는 "ws ^1.1.0" 같은 것들을 모두 "^1.2.0"으로 수정한다.
+      ws의 path 안에 있는 "path 라이브러리"들의 의존성으로 담겨져 있는 "ws ~1.1.0" 같은 것들을 모두 "^1.2.0"으로 수정한다.
     - 업그레이드 후, 아래 명령어로 의존성을 초기화 한다.
     $ rm -rf node_modules yarn.lock
     $ yarn cache clean
