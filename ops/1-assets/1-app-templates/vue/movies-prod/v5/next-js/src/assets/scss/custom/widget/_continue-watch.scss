@@ -1,0 +1,50 @@
+.iq-watching-block {
+  position: relative;
+
+  .block-images {
+    .iq-image-box {
+      position: relative;
+      transition: all 0.5s ease-in-out;
+      border-radius: $border-radius;
+      background: linear-gradient(180deg, rgba(12, 11, 17, 0.00) 50%, var(--bs-black) 100%);
+
+      img {
+        border-radius: $border-radius;
+        height: 180px;
+        mix-blend-mode: overlay;
+      }
+    }
+
+    .iq-preogress {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: auto;
+      bottom: 1rem;
+
+      .data-left-timing {
+        margin-bottom: 0.5rem;
+        padding-left: 20px;
+        display: block;
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .iq-watching-block {
+    .block-images {
+      .iq-image-box {
+        img {
+          height: 100px;
+        }
+      }
+
+      .iq-preogress {
+        .data-left-timing {
+          display: none;
+        }
+      }
+    }
+  }
+}

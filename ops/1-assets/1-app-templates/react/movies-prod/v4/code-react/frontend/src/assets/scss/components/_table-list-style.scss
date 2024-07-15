@@ -1,0 +1,28 @@
+
+.active-project-1{
+    .data-content{
+        margin-left: 15px;
+        line-height: 1.4;
+
+        span , p{
+            display: block;
+        }
+    }
+
+    .h-avatar {
+        position: relative;
+        display: inline-block;
+        vertical-align: bottom;
+    }
+    .h-avatar.is-medium {
+        .avatar {
+            width: 60px;
+            min-width: 60px;
+            height: 60px;
+        }
+    }
+}
+
+.white-space-no-wrap{
+    white-space: nowrap;
+  }  

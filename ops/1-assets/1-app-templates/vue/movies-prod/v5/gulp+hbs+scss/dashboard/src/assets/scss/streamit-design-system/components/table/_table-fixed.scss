@@ -1,0 +1,21 @@
+.table-fixed {
+    overflow: unset;
+    --hui-table-height: 400px;
+
+    .table-responsive {
+        max-height: var(--hui-table-height);
+        .table{
+          overflow: auto;
+            thead {
+                tr {
+                    th {
+                        background-color: var(--bs-body-bg);
+                        position: sticky;
+                        top: 0;
+                        z-index: 1;
+                    }
+                }
+            }
+        }
+    }
+}

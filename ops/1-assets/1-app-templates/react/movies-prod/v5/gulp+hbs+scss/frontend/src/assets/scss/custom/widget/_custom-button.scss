@@ -1,0 +1,76 @@
+.iq-button {
+  .btn {
+    color: var(--bs-white);
+    font-size: 0.875rem;
+    line-height: 1rem;
+    font-weight: $font-weight-medium;
+    border-radius: 0.1875rem;
+    background: rgba(var(--bs-primary-rgb), .8);
+    border: 0.063em solid var(--bs-primary);
+    transition: color 0.3s ease;
+    transform: perspective(0.063em) translateZ(0);
+
+    &:focus,
+    &:active {
+      border-color: var(--bs-primary);
+      background: var(--bs-primary);
+    }
+
+    i {
+      font-size: 0.75rem;
+      margin-left: 0.75rem;
+    }
+
+    .button-text,
+    i {
+      vertical-align: middle;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--bs-primary);
+      border: 0.063em solid var(--bs-primary);
+      transform: scaleX(1);
+      transform-origin: 50%;
+      transition: transform 0.3s ease-out;
+    }
+
+    &:hover {
+      &::before {
+        -webkit-transform: scaleX(0);
+        transform: scaleX(0);
+      }
+    }
+  }
+
+  &.link-button {
+    .btn {
+      padding: 0;
+      color: var(--bs-primary);
+      border: 0;
+      background: transparent;
+
+      &::before {
+        content: none;
+      }
+
+      &:hover {
+        color: var(--bs-primary);
+      }
+    }
+  }
+}
+
+@media (max-width:767px) {
+  .iq-button {
+    .btn {
+      padding: .75rem 1.5rem;
+    }
+  }
+}

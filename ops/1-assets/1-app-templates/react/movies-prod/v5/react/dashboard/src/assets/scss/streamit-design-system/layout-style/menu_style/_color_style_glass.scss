@@ -1,0 +1,10 @@
+.sidebar {
+    &.sidebar-glass{
+        background-color: rgba($white, .1);
+        border-right: 1px solid $white;
+        backdrop-filter: blur(10px);
+        &.sidebar-boxed{
+            border: 1px solid $white;
+        }
+    }
+}

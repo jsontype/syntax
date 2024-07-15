@@ -1,0 +1,42 @@
+:focus{
+	outline: none;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--#{$variable-prefix}heading-font-family);
+}
+a{
+    color: var(--bs-primary);
+    transition: color 400ms ease, background 400ms ease;
+    text-decoration: none;
+}
+
+::selection {
+    color: var(--bs-white);
+    background-color: var(--bs-primary);
+}
+.iq-slider{
+    overflow: hidden;
+    overflow-x: auto;
+}
+hr {
+    margin: $hr-margin-y 0;
+    color: $hr-color; // 1
+    background-color: currentColor;
+    border: 0;
+    opacity: $hr-opacity;
+  }
+.iq-scroller-effect{
+    ::-webkit-scrollbar { width: 5px; height: 5px; border-radius: 20px; }
+
+    /* Scroll Track */
+    ::-webkit-scrollbar-track { background: $body-bg; border-radius: 20px; }
+    
+    /* Scroll Handle */
+    ::-webkit-scrollbar-thumb { background: $border-color; border-radius: 20px; transition: all 400ms ease; cursor: pointer; }
+    
+    /* Scroll Handle on hover */
+    ::-webkit-scrollbar-thumb:hover { background: tint-color($border-color, 10%); border-radius: 20px;transition: all 400ms ease }
+}
+body {
+    transition: background-color 250ms ease-in-out;
+}

@@ -1,0 +1,84 @@
+// custom form field
+.custom-form-field {
+  input {
+    padding: 0 1rem;
+    height: 54px;
+    background-color: rgba(var(--bs-primary-rgb), 0.1);
+    border: 1px solid transparent;
+    transition: all 0.5s ease-in-out;
+    border-radius: 0;
+    color: $headings-color;
+
+    &:focus {
+      border-color: var(--bs-primary);
+      background-color: rgba(var(--bs-primary-rgb), 0.1);
+      color: $headings-color;
+    }
+  }
+
+  textarea {
+    padding: 1rem 1rem 0;
+    height: 54px;
+    background-color: rgba(var(--bs-primary-rgb), 0.1);
+    border: 1px solid transparent;
+    transition: all 0.5s ease-in-out;
+    border-radius: 0;
+    min-height: 9.375em;
+    color: $headings-color;
+
+    &:focus {
+      border-color: var(--bs-primary);
+      background-color: rgba(var(--bs-primary-rgb), 0.1);
+      color: $headings-color;
+    }
+  }
+
+  input[type="checkbox"] {
+    width: auto;
+    margin-right: 10px;
+    height: auto;
+  }
+
+  .mail-box {
+    input {
+      border: 1px solid #dbdfe7;
+
+      &:focus {
+        border-color: var(--bs-primary);
+      }
+    }
+
+    &.style-bordered {
+      input {
+        background-color: transparent;
+        border-color: var(--bs-body-color);
+        color: var(--bs-body-color);
+
+        &:focus {
+          border-color: var(--bs-primary);
+        }
+      }
+    }
+  }
+
+  .select2-container {
+    .select2-selection--single {
+      border-color: transparent;
+    }
+  }
+
+  .select2-container {
+    &.select2-container--open {
+      .select2-selection--single {
+        border-color: var(--bs-primary);
+      }
+    }
+  }
+}
+
+.form-control {
+  &:focus {
+    color: var(--bs-heading-color);
+    border-color: var(--bs-primary);
+  }
+}

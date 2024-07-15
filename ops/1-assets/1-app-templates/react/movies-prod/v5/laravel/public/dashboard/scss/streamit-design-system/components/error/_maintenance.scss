@@ -1,0 +1,26 @@
+.iq-maintenance {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    img {
+        max-height: 350px;
+    }
+    .maintenance-bottom {
+        width: 100%;
+        text-align: center;
+        padding: 0;
+        .bottom-text{
+            position: absolute;
+            left:0;
+            right:0;
+            bottom: 40px;
+           
+        }
+    }
+}
+
+@media (max-width: 1199px) {
+    .iq-maintenance {
+        position: static;
+    }
+}

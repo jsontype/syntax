@@ -1,0 +1,22 @@
+.iq-custom-tab{
+    &.nav-pills{
+        .nav-item{
+            .nav-link{
+                margin: 0 0 0 1em;
+            }
+        }
+    }
+}
+
+@media (max-width: 479px) {
+    .iq-custom-tab {
+        &.nav-pills{
+            .nav-item{
+                .nav-link{
+                    margin: 0;
+                }
+            }
+        }
+    }
+
+}

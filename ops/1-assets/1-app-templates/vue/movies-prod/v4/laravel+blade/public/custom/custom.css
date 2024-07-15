@@ -1,0 +1,22 @@
+.swal2-popup {
+    background: var(--iq-body-bg);
+    color: white;
+}
+
+.swal2-content, .swal2-title{
+    color: white;
+}
+.upload-icone{
+    position: absolute;
+    right: 0;
+    bottom: 9px;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    font-size: 12px;
+    line-height: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

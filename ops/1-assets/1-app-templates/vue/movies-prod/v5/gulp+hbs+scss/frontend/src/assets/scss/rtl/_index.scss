@@ -1,0 +1,12 @@
+[dir="rtl"] {
+    direction: rtl;
+    @import "./custom/bootstrap-rtl";
+    // components
+    @import "./components/index";
+    //widget
+    @import "./custom/widget/widget";
+    // Pages
+    @import "./custom/pages/index";
+    // slider
+    @import "./custom/slider/slider";
+}

@@ -1,0 +1,17 @@
+.swal2-styled {
+    &.swal2-confirm {
+        background: var(--bs-primary) !important;
+
+        &:focus {
+            box-shadow: none;
+        }
+    }
+
+    &.swal2-cancel {
+        background: var(--bs-gray-900) !important;
+
+        &:focus {
+            box-shadow: none;
+        }
+    }
+}

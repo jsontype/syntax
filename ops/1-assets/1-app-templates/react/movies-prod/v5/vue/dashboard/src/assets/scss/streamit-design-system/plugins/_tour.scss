@@ -1,0 +1,84 @@
+.shepherd-element {
+    z-index: 10000;
+    box-shadow: $card-box-shadow;
+    background-color: var(--bs-gray-900);
+    :after, :before , * {
+        max-width: 350px;
+    }
+    &.shepherd-has-title[data-popper-placement^=bottom]>.shepherd-arrow:before {
+        height: 20px;
+        width: 20px;
+        background-color: var(--#{$variable-prefix}white);
+        border-left: 1px solid transparent;
+        border-top: 1px solid transparent;
+    }
+    &[data-popper-placement^=bottom]>.shepherd-arrow {
+        z-index: 10;
+    }
+    .shepherd-button {
+        padding: $input-btn-padding-y-sm $input-btn-padding-x-sm;
+        color: var(--#{$variable-prefix}white);
+        background: var(--#{$variable-prefix}secondary);
+        &:not(:disabled):hover {
+            background-color:var(--#{$variable-prefix}secondary)
+        }
+        &.shepherd-button-secondary {
+            color: var(--#{$variable-prefix}white);
+            &:not(:disabled) {
+                background: var(--#{$variable-prefix}secondary);
+                border: var(--#{$variable-prefix}secondary);
+                &:hover {
+                    background: var(--#{$variable-prefix}secondary);
+                    color: var(--#{$variable-prefix}white);
+                }
+            }
+        }
+        &:not(:disabled) {
+            background: var(--#{$variable-prefix}secondary);
+            &:hover {
+                color: var(--#{$variable-prefix}white);
+            }
+        }
+    }
+    .shepherd-text {
+        padding: $spacer;
+        p:last-child {
+            color: var(--#{$variable-prefix}body-color);
+        }
+    }
+    .shepherd-content {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        word-wrap: 0;
+        word-wrap: break-word;
+        background-color: var(--#{$variable-prefix}gray-900);
+        background-clip: border-box;
+        border-radius: $border-radius-lg;
+        max-height: 230px;
+        box-shadow: none;
+    }
+    .shepherd-footer {
+        justify-content: center;
+        padding-bottom: $spacer;
+        margin: 0;
+        .shepherd-button:last-child {
+            background: var(--#{$variable-prefix}primary);
+            &:hover {
+                background: var(--#{$variable-prefix}primary-shade-20);
+                color: var(--#{$variable-prefix}white);
+            }
+        }
+    }
+}
+.shepherd-header, .shepherd-text, .shepherd-footer{
+    border-radius: $border-radius-lg;
+}
+.shepherd-has-title .shepherd-content .shepherd-header {
+    background:var(--#{$variable-prefix}gray-900);
+    padding: $spacer;
+    padding-bottom: 0;
+}
+.shepherd-modal-overlay-container.shepherd-modal-is-visible {
+    opacity: .1;
+}

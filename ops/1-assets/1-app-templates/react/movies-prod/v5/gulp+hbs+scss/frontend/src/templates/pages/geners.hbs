@@ -1,0 +1,106 @@
+{{#extend layout title="Genres" active="geners" isHeader="true" isFooter="true" path="./" isBreadcrumb="true"}}
+{{#content "content"}}
+    <section class="section-padding">
+        <div class="container-fluid">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <h4 class="main-title text-capitalize mb-0">Movie Genres</h4>
+            </div>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+                <div class="col mb-4">
+                    {{> components/widgets/genres-card geners-title="Action" geners-image="genre/01.webp" geners-url="view-all-movie.html"}}
+                </div>
+                <div class="col mb-4">
+                    {{> components/widgets/genres-card geners-title="Adventure" geners-image="genre/02.webp" geners-url="view-all-movie.html"}}
+                </div>
+                <div class="col mb-4">
+                    {{> components/widgets/genres-card geners-title="Animation" geners-image="genre/03.webp" geners-url="view-all-movie.html"}}
+                </div>
+                <div class="col mb-4">
+                    {{> components/widgets/genres-card geners-title="Comedy" geners-image="genre/04.webp" geners-url="view-all-movie.html"}}
+                </div>
+                <div class="col mb-4">
+                    {{> components/widgets/genres-card geners-title="Drama" geners-image="genre/05.webp" geners-url="view-all-movie.html"}}
+                </div>
+                <div class="col mb-4">
+                    {{> components/widgets/genres-card geners-title="Family" geners-image="genre/06.webp" geners-url="view-all-movie.html"}}
+                </div>
+                <div class="col mb-4">
+                    {{> components/widgets/genres-card geners-title="Fantasy" geners-image="genre/07.webp" geners-url="view-all-movie.html"}}
+                </div>
+            </div>
+            <div class="text-center">
+                {{> components/widgets/custom-button button-title="load more" button-url="javascript:void(0)"}}
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding-bottom">
+        <div class="container-fluid">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <h4 class="main-title text-capitalize mb-0">Tv-Show Genres</h4>
+            </div>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+                <div class="col mb-4">
+                    {{> components/widgets/genres-card geners-title="4K Ultra" geners-image="genre/01.webp"}}
+                </div>
+                <div class="col mb-4">
+                    {{> components/widgets/genres-card geners-title="Brother" geners-image="genre/02.webp"}}
+                </div>
+                <div class="col mb-4">
+                    {{> components/widgets/genres-card geners-title="Brother Relationship" geners-image="genre/03.webp"}}
+                </div>
+                <div class="col mb-4">
+                    {{> components/widgets/genres-card geners-title="Kings" geners-image="genre/04.webp"}}
+                </div>
+                <div class="col mb-4">
+                    {{> components/widgets/genres-card geners-title="music" geners-image="genre/05.webp"}}
+                </div>
+                <div class="col mb-4">
+                    {{> components/widgets/genres-card geners-title="Mythology" geners-image="genre/06.webp"}}
+                </div>
+                <div class="col mb-4">
+                    {{> components/widgets/genres-card geners-title="Premieres" geners-image="genre/07.webp"}}
+                </div>             
+            </div>
+            <div class="text-center">
+                {{> components/widgets/custom-button button-title="load more" button-url="javascript:void(0)"}}
+            </div>
+        </div>
+    </section>
+
+
+    <section class="section-padding-bottom">
+        <div class="container-fluid">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <h4 class="main-title text-capitalize mb-0">Video Genres</h4>
+            </div>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+                <div class="col mb-4">
+                    {{> components/widgets/genres-card geners-title="Action" geners-image="genre/01.webp"}}
+                </div>
+                <div class="col mb-4">
+                    {{> components/widgets/genres-card geners-title="Adventure" geners-image="genre/02.webp"}}
+                </div>
+                <div class="col mb-4">
+                    {{> components/widgets/genres-card geners-title="Animation" geners-image="genre/03.webp"}}
+                </div>
+                <div class="col mb-4">
+                    {{> components/widgets/genres-card geners-title="Comedy" geners-image="genre/04.webp"}}
+                </div>
+                <div class="col mb-4">
+                    {{> components/widgets/genres-card geners-title="Crime" geners-image="genre/05.webp"}}
+                </div>
+                <div class="col mb-4">
+                    {{> components/widgets/genres-card geners-title="Drama" geners-image="genre/06.webp"}}
+                </div>
+                <div class="col mb-4">
+                    {{> components/widgets/genres-card geners-title="Family" geners-image="genre/07.webp"}}
+                </div>
+            </div>
+            <div class="text-center">
+                {{> components/widgets/custom-button button-title="load more" button-url="javascript:void(0)"}}
+            </div>
+        </div>
+    </section>
+{{/content}}
+{{/extend}}

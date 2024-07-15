@@ -1,0 +1,179 @@
+.nav-tabs {
+    @include border-radius($nav-tabs-border-radius);
+    margin-bottom: .5rem;
+
+    .nav-link {
+        @include border-radius($nav-tabs-border-radius);
+    }
+}
+
+.nav-pills {
+    @include border-radius($nav-pills-border-radius);
+    margin-bottom: .5rem;
+}
+
+.nav-tunnel {
+    padding: $spacer * .25;
+    border: 1px solid var(--bs-primary);
+
+    .nav-link {
+        padding: $spacer * .25 1rem;
+        border-radius: 0;
+    }
+}
+
+// Bottom Bordered Nav Tabs
+.tab-bottom-bordered {
+    border-bottom: 4px solid rgba(var(--bs-primary-rgb), .1);
+
+    .nav-tabs {
+        .nav-link {
+            color: var(--bs-body-color);
+            position: relative;
+            border: none;
+
+            &::after {
+                content: '';
+                position: absolute;
+                width: 0%;
+                height: 3px;
+                border-radius: $border-radius;
+                background: var(--bs-primary);
+                bottom: -3px;
+                left: 50%;
+                top: unset;
+                z-index: 1;
+                transition: all 400ms ease;
+            }
+
+            &::before {
+                content: '';
+                position: absolute;
+                width: 0%;
+                height: 3px;
+                border-radius: $border-radius;
+                background: var(--bs-primary);
+                bottom: -3px;
+                right: 50%;
+                top: unset;
+                z-index: 1;
+                transition: all 400ms ease;
+            }
+
+            &.active {
+                background-color: unset;
+                color: var(--bs-primary);
+                box-shadow: unset;
+
+                &::before {
+                    width: 60%;
+                    right: 0;
+                    transition: all 400ms ease;
+                }
+
+                &::after {
+                    width: 60%;
+                    left: 0;
+                    transition: all 400ms ease;
+                }
+            }
+        }
+    }
+
+    &.iq-custom-tab-border {
+        .nav-tabs {
+            .nav-link {
+                &:nth-child(1) {
+                    padding-left: unset;
+                }
+            }
+        }
+    }
+
+    // Style-2
+    &.tab-border-botton-style-2 {
+        .nav-tabs {
+            justify-content: space-between;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--bs-border-color);
+
+            .nav-link {
+                color: $body-color;
+                font-size: $font-size-base;
+                text-transform: capitalize;
+                margin: 0;
+                letter-spacing: 0;
+
+                &.active{
+                    color: var(--bs-primary);
+                }
+
+                &::after {
+                    bottom: -12px;
+                }
+
+                &::before {
+                    bottom: -12px;
+                }
+            }
+        }
+    }
+}
+
+// Icon With Nav Tab
+.nav-iconly {
+    .nav-link {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+
+        @if $enable-rounded ==true {
+            border-radius: 0;
+        }
+
+        padding: 1rem;
+        background: var(--bs-gray-900);
+        color: inherit;
+    }
+}
+
+// Tab Animation
+.tab-content {
+    &.iq-tab-fade-up {
+        .tab-pane.fade {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+
+            &.active.show {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    }
+}
+
+@media (max-width: 991px) {
+    .tab-bottom-bordered {
+
+        // Style-2
+        &.tab-border-botton-style-2 {
+            .nav-tabs {
+                padding-bottom: 0;
+                border-bottom: none;
+
+                .nav-link {
+                    &::after {
+                        bottom: -5px;
+                    }
+
+                    &::before {
+                        bottom: -5px;
+                    }
+                }
+            }
+        }
+    }
+}

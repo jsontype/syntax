@@ -1,0 +1,33 @@
+.countdown {
+  li {
+    &:first-child {
+      margin-left: 2.8125rem;
+      margin-right: 0;
+    }
+    &:last-child {
+      margin-right: 2.8125rem;
+      margin-left: 0;
+    }
+    &::after {
+      left: -2.8125rem;
+      right: auto;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .count-down {
+    li {
+      &:first-child {
+        margin-left: 0;
+      }
+      &:last-child {
+        margin-right: 0;
+      }
+      margin: 0 0 0.625rem;
+      &::after {
+        content: none;
+      }
+    }
+  }
+}

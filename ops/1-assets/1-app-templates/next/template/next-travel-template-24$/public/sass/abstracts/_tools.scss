@@ -1,0 +1,115 @@
+@mixin media-above($breakpoint) {
+  $breakpoint-value: map-get($breakpoints, $breakpoint);
+
+  @media (min-width: $breakpoint-value) {
+    @content;
+  }
+}
+
+@mixin media-below($breakpoint) {
+  $breakpoint-value: map-get($breakpoints, $breakpoint);
+
+  @media (max-width: ($breakpoint-value - 1)) {
+    @content;
+  }
+}
+
+@mixin media-between($lower, $upper) {
+  $lower-breakpoint: map-get($breakpoints, $lower);
+  $upper-breakpoint: map-get($breakpoints, $upper);
+
+  @media (min-width: $lower-breakpoint) and (max-width: ($upper-breakpoint - 1)) {
+    @content;
+  }
+}
+
+@function color-opac($key, $opacity: 1, $map: $colors) {
+  $value: map-get($map, $key);
+  $value: rgba($value, $opacity);
+  @return $value;
+}
+
+.ratio {
+  position: relative;
+  display: block;
+  overflow: hidden;
+
+  &::before {
+    display: block;
+    width: 100%;
+    content: "";
+  }
+}
+
+$aspect-ratios: (
+  (
+    1: 1,
+  ),
+  (
+    2: 1,
+  ),
+  (
+    3: 2,
+  ),
+  (
+    3: 4,
+  ),
+  (
+    4: 3,
+  ),
+  (
+    4: 1,
+  ),
+  (
+    5: 4,
+  ),
+  (
+    8: 5,
+  ),
+  (
+    15: 9,
+  ),
+  (
+    16: 9,
+  ),
+  (
+    64: 45,
+  ),
+  (
+    6: 5,
+  ),
+  (
+    23: 18,
+  ),
+  (
+    41: 35,
+  ),
+  (
+    41: 45,
+  ),
+  (
+    63: 55,
+  )
+) !default;
+
+//
+// Generate a series of ratio classes to be used like so:
+
+// @example
+//   <div class="ratio ratio-16:9">
+
+// @each $ratio in $aspect-ratios {
+//   @each $antecedent, $consequent in $ratio {
+//     @if (type-of($antecedent) != number) {
+//       @error "`#{$antecedent}` needs to be a number.";
+//     }
+
+//     @if (type-of($consequent) != number) {
+//       @error "`#{$consequent}` needs to be a number.";
+//     }
+
+//     .ratio-#{$antecedent}\:#{$consequent}::before {
+//       padding-bottom: ($consequent/$antecedent) * 100%;
+//     }
+//   }
+// }

@@ -1,0 +1,46 @@
+.iq-tag-box {
+    background: linear-gradient(184deg, #090809 3.36%, #040304 96.91%);
+    margin-bottom: 1.875em;
+    text-align: center;
+    height: 9.375em;
+    padding: 0.9375em;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    overflow: hidden;
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+    transition: all .6s ease 0s;
+
+    &::after {
+        position: absolute;
+        content: "";
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-bottom: 0.25em solid var(--bs-primary);
+        width: 100%;
+        height: 100%;
+        transition: all .5s ease-in-out;
+    }
+
+    &:hover {
+        transform: scale3d(1.1, 1.1, 1) translate3d(0, 0, 0) perspective(31.25em);
+        transform-origin: 50% 50%;
+        transition: all .6s ease 0s;
+    }
+
+    .iq-tag {
+        color: var(--bs-primary);
+        font-size: 1rem;
+        line-height: 1.75em;
+        letter-spacing: 1px;
+        font-weight: 500;
+        word-break: break-word;
+        text-transform: capitalize;
+    }
+}

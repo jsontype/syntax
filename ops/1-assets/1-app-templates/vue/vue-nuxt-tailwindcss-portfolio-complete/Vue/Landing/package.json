@@ -1,0 +1,59 @@
+{
+  "name": "styza",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "alpinejs": "^3.13.5",
+    "bootstrap": "^5.1.3",
+    "bootstrap-vue-next": "^0.10.1",
+    "core-js": "^3.8.3",
+    "node-sass": "^9.0.0",
+    "path-browserify": "^1.0.1",
+    "sass-loader": "^13.3.2",
+    "swiper": "10.1.0",
+    "vue": "^3.2.13",
+    "aos": "^2.3.4",
+    "vue-router": "4",
+    "vue-smooth-scroll": "^1.0.13",
+    "vue3-count-to": "^1.1.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "autoprefixer": "^10.4.17",
+    "eslint": "^7.32.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "postcss": "^8.4.35",
+    "swiper": "^10.0.4",
+    "tailwindcss": "^3.4.1",
+    "unplugin-vue-components": "^0.25.1"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/vue3-essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "@babel/eslint-parser"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ]
+}

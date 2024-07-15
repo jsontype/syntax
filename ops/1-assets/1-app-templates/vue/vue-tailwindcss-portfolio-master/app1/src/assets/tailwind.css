@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Styles */
+.mgrid-2 {
+  @apply grid grid-cols-2 gap-6 w-full;
+}
+.mgrid-4 {
+  @apply grid grid-cols-4 gap-6 w-full;
+}

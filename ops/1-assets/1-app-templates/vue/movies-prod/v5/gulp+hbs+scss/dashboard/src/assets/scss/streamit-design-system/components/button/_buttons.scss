@@ -1,0 +1,36 @@
+@each $color, $value in $theme-colors {
+    .btn-#{$color} {
+        --bs-btn-bg: var(--bs-#{$color});
+        --bs-btn-border-color: var(--bs-#{$color});
+        --bs-btn-hover-bg: var(--bs-#{$color}-hover-bg);
+        --bs-btn-hover-border-color: var(--bs-#{$color}-hover-border);
+        --bs-btn-active-bg: var(--bs-#{$color}-active-bg);
+        --bs-btn-active-border-color: var(--bs-#{$color}-active-border);
+        --bs-btn-disabled-bg: var(--bs-#{$color});
+        --bs-btn-disabled-border-color: var(--bs-#{$color});
+    }
+
+    .btn-outline-#{$color} {
+        --bs-btn-color: var(--bs-#{$color});
+        --bs-btn-border-color: var(--bs-#{$color});
+        --bs-btn-hover-bg: var(--bs-#{$color}-hover-bg);
+        --bs-btn-hover-border-color: var(--bs-#{$color}-hover-border);
+        --bs-btn-active-bg: var(--bs-#{$color}-active-bg);
+        --bs-btn-active-border-color: var(--bs-#{$color}-active-border);
+        --bs-btn-disabled-bg: var(--bs-#{$color}-bg-subtle);
+        --bs-btn-disabled-border-color: var(--bs-#{$color});
+    }
+
+    .btn-#{$color}-subtle {
+        --bs-btn-color: var(--bs-#{$color});
+        --bs-btn-bg: var(--bs-#{$color}-bg-subtle);
+        --bs-btn-hover-color: var(--bs-white);
+        --bs-btn-hover-bg: var(--bs-#{$color}-hover-bg);
+        --bs-btn-active-bg: var(--bs-#{$color}-active-bg);
+        --bs-btn-disabled-bg: var(--bs-#{$color});
+    }
+
+    .bg-#{$color}-subtle {
+        color: var(--bs-#{$color});
+    }
+}

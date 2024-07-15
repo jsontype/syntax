@@ -1,0 +1,52 @@
+@import '../../styles/resources.scss';
+
+.newsTitle {
+  font-size: $md;
+  color: $gray;
+  text-decoration: none;
+  border: 1px solid $gray;
+  border-radius: 10px;
+  padding: 3px;
+}
+
+.newsTitle:hover {
+  color: $pink;
+}
+
+
+.good {
+  color: $blue;
+}
+
+.soso {
+  color: $orange;
+}
+
+.bad {
+  color: $red;
+}
+
+.newsItem {
+  margin-top: 20px;
+}
+
+.newDetailItem {
+  margin-top: 7px;
+  margin-bottom: 10px;  
+}
+
+.newDetailItem > span {
+  margin-left: 10px;
+}
+
+.newDetailItem > span:not(:last-child)::after {
+  content: ' | ';
+}
+
+.newsPoint {
+  color: $gray;
+}
+
+.newsWriter {
+  color: $gray;
+}

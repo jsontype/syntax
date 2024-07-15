@@ -1,0 +1,33 @@
+.product-block {
+    .onsale {
+        left: auto;
+        right: 1em;
+    }
+    &.product-list {
+        .product-caption {
+            text-align: right;
+            p.blog-desc {
+                border-image-source: linear-gradient(-90deg, rgba(var(--bs-secondary-rgb), 1), rgba(var(--bs-secondary-rgb), 0.6), rgba(var(--bs-secondary-rgb), 0));
+            }
+        }
+    }
+    .image-wrap {
+        .buttons-holder {
+            left: 0;
+            right: 50%;
+            transform: translate(50%, -50%) scale(0);
+        }
+    }
+    &:hover {
+        .image-wrap {
+            .buttons-holder {
+                transform: translate(50%, -50%) scale(1);
+            }
+        }
+    }
+}
+    
+.product-view-button{
+    margin-right: 0;
+    margin-left: 1em;
+}

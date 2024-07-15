@@ -1,0 +1,174 @@
+.accordion {
+  &__item {
+  }
+
+  &__icon {
+    position: relative;
+
+    .icon {
+      transition: all 0.2s ease-out;
+
+      &:nth-child(1) {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      &:nth-child(2) {
+        position: relative;
+        transform: rotate(-90deg);
+        opacity: 0;
+      }
+    }
+  }
+
+  &__item .accordion__button[aria-expanded="true"] .accordion__icon {
+    > *:nth-child(1) {
+      transform: rotate(90deg);
+      opacity: 0;
+    }
+
+    > *:nth-child(2) {
+      transform: none;
+      opacity: 1;
+    }
+  }
+
+  &__content {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.2s ease-out;
+  }
+
+  &__content__inner {
+  }
+
+  &__button {
+    cursor: pointer;
+  }
+}
+
+.accordion.-simple .accordion {
+  &__item {
+  }
+
+  &__content {
+  }
+
+  &__content__inner {
+  }
+
+  &__button {
+    cursor: pointer;
+    transition: 0.4s;
+
+    button {
+      color: var(--text-dark-1);
+    }
+  }
+
+  &__icon {
+    transition: all 0.2s ease-out;
+
+    > *:nth-child(1) {
+      position: absolute;
+      transition: all 0.2s ease-out;
+    }
+
+    > *:nth-child(2) {
+      position: relative;
+      transform: rotate(-90deg);
+      opacity: 0;
+      transition: all 0.2s ease-out;
+    }
+  }
+
+  &__item .accordion__button[aria-expanded="true"] .accordion__icon {
+    background-color: var(--color-dark-1) !important;
+    color: white !important;
+
+    > *:nth-child(1) {
+      transform: rotate(90deg);
+      opacity: 0;
+    }
+
+    > *:nth-child(2) {
+      transform: none;
+      opacity: 1;
+    }
+  }
+}
+
+.accordion.-map .accordion {
+  &__icon {
+    transition: all 0.2s ease-out;
+  }
+
+  &__item.is-active .accordion__icon {
+    background-color: var(--color-blue-1) !important;
+    color: white !important;
+
+    > * {
+      transform: none !important;
+      opacity: 1 !important;
+    }
+  }
+}
+
+.accordion.-db-sidebar .accordion {
+  &__item {
+  }
+
+  &__content {
+  }
+
+  &__content__inner {
+  }
+
+  &__button {
+    cursor: pointer;
+    transition: 0.4s;
+
+    button {
+      color: var(--text-dark-1);
+    }
+  }
+
+  &__icon {
+    transition: all 0.2s ease-out;
+
+    > *:nth-child(1) {
+      position: absolute;
+      transition: all 0.2s ease-out;
+    }
+
+    > *:nth-child(2) {
+      position: relative;
+      transform: rotate(-90deg);
+      opacity: 0;
+      transition: all 0.2s ease-out;
+    }
+  }
+
+  &__item.is-active {
+    .sidebar__button {
+      background-color: color-opac(blue-1, 0.05) !important;
+      color: var(--color-blue-1) !important;
+    }
+  }
+
+  &__item.is-active .accordion__icon {
+    background-color: var(--color-dark-1) !important;
+    color: white !important;
+
+    > *:nth-child(1) {
+      transform: rotate(90deg);
+      opacity: 0;
+    }
+
+    > *:nth-child(2) {
+      transform: none;
+      opacity: 1;
+    }
+  }
+}

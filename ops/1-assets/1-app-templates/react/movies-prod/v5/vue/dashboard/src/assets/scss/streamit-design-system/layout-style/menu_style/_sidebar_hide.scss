@@ -1,0 +1,13 @@
+.sidebar-none {
+    display: none;
+}
+
+.sidebar-none+.main-content {
+    .sidebar-toggle {
+        display: none;
+    }
+
+    .navbar-brand {
+        margin-left: unset !important;
+    }
+}

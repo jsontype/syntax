@@ -1,0 +1,15 @@
+@mixin noUi-varient($selector, $value) {
+    #{$selector} {
+        .noUi-base {
+            background: tint-color($value, 90%);
+            .noUi-connect{
+                background: $value;
+            }
+        }
+        &.noUi-horizontal {
+            .noUi-handle {
+                border-color: $value;                
+            }
+        }
+    }
+}

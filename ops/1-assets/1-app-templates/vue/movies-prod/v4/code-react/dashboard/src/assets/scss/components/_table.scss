@@ -1,0 +1,135 @@
+.table{
+    // border: 1px solid rgba($primary, .4);
+    // border-radius: $border-radius;
+    overflow: hidden;
+    color: $title-text;
+    span, p{
+        color: $body-text;
+    }
+	th, td{
+		padding: 15px 20px;
+	}
+    .light {
+        th {
+            // padding: .50rem 1.5rem;
+            background-color: rgba($primary, .1);
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+            border-top: 0px;
+            font-weight: 700 !important;
+            // border-top: 1px solid rgba($primary, .4);
+        }
+    }
+    // td {
+    //     border-bottom: 1px solid $border-color;
+	// }
+	&.table-dark {
+		color: $white !important;
+	}
+}
+.table-striped {
+	tbody {
+		tr {
+			&:nth-of-type(odd) {
+				background-color: $body-bg;
+			}
+		}
+	}
+}
+.table-bordered {
+	td {
+		border: 1px solid $border-color;
+	}
+	th {
+		border: 1px solid $border-color;
+	}
+}
+
+.dark {
+    .table{
+        td {
+            border-color: $dark-border-color;
+        }
+    }
+    .dataTables_wrapper {
+        .dataTables_length {
+            label{
+                border-color: $dark-border-color !important;
+            }
+            select{
+                border-color: $dark-border-color !important;
+            }
+        }
+    }
+}
+
+table.dataTable tbody th, table.dataTable tbody td {
+    padding: 15px 20px;
+}
+
+.table thead th {
+    border-bottom: 0px solid;
+}
+
+@media(max-width:766px) {
+	.table-responsive .dataTables_paginate .pagination {
+        padding: 0 20px 0;
+    }
+}
+
+.table{
+    .table-color-heading{
+        background-color: rgba($primary, .05);
+    }
+}
+
+.table-responsive{
+    .dataTables_length{
+        label{
+            padding-left: 20px;
+        }
+    }
+    #DataTables_Table_0_filter{
+        label{
+            padding-right: 20px;
+        }        
+    }
+    .dataTables_info{
+        padding: 0 0 20px 20px;
+    }
+    .dataTables_paginate{
+        .pagination{
+            padding: 0 20px 20px 0;
+        }
+    }
+}
+
+table{
+    th,td{
+        .custom-checkbox, .custom-radio {
+            .custom-control-label {
+                &:after {
+                    top: -0.9rem;
+                }
+                &:before {
+                    top: -0.9rem;
+                }
+            }
+        }
+    }
+    &.table-bordered{
+        td{
+            .custom-checkbox, .custom-radio {
+                .custom-control-label {
+                    &:after {
+                        top: -0.4rem;
+                    }
+                    &:before {
+                        top: -0.4rem;
+                    }
+                }
+            }
+        }
+    }
+}

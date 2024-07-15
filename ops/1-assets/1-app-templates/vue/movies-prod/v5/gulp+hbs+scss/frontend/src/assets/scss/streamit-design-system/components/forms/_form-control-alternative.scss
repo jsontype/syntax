@@ -1,0 +1,105 @@
+.form-group {
+    margin-bottom: $spacer;
+
+    .input-group-text {
+        color: $gray-500;
+    }
+}
+
+.form-group-alt {
+    &.input-group {
+        box-shadow: $box-shadow-sm;
+        border-radius: $border-radius-sm;
+
+        .input-group-text {
+            color: $gray-500;
+        }
+
+        > :not(:first-child):not(.dropdown-menu) {
+            box-shadow: unset;
+
+            &.input-group-text {
+                border: 0;
+                padding-left: 0;
+            }
+        }
+
+        > :not(:last-child):not(.dropdown-menu) {
+            box-shadow: unset;
+            padding-right: 0;
+
+            &.input-group-text {
+                border: 0;
+            }
+        }
+
+        &:focus-within {
+            box-shadow: $box-shadow;
+        }
+    }
+
+    .form-control {
+        border: 0;
+        box-shadow: $box-shadow-sm;
+
+        &.is-valid {
+            box-shadow: $box-shadow;
+
+            &:focus {
+                box-shadow: $box-shadow;
+            }
+        }
+
+        &.is-invalid {
+
+            // box-shadow: $component-error-shadow;
+            &:focus {
+                box-shadow: $box-shadow;
+            }
+        }
+
+        &:focus {
+            box-shadow: $box-shadow;
+        }
+    }
+}
+
+.form-select {
+    box-shadow: none;
+
+    &:focus {
+
+        box-shadow: none;
+    }
+}
+
+.form-control {
+    &[readonly] {
+        background-color: $input-bg;
+    }
+}
+
+form {
+        textarea {
+        &.form-control {
+            resize: none;
+            padding: 1rem;
+            height: 150px;
+        }
+    }
+}
+
+
+.form-collapse {
+    .edit-date-icon {
+        color: $secondary;
+
+        &.collapsed {
+            color: var(--bs-primary);
+        }
+    }
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
