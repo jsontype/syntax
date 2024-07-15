@@ -1,0 +1,61 @@
+.episode-block {
+    position: relative;
+    margin-bottom: 1.875em;
+
+    .episode-number {
+        background: var(--bs-primary);
+        position: absolute;
+        top: 0.9375em;
+        left: 0.9375em;
+        color: var(--bs-white);
+        padding: 0 0.3125em;
+    }
+
+    .episode-play {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 50%;
+        bottom: 0;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 2.8125em;
+        width: 2.8125em;
+        line-height: 2.8125em;
+        text-align: center;
+        background: rgba(var(--bs-white-rgb), .25);
+        border-radius: 50%;
+        margin: 0 auto;
+        transition: all .5s ease-in-out;
+
+        a {
+            position: relative;
+            display: block;
+            height: 2em;
+            width: 2em;
+            line-height: 2em;
+            font-size: 1rem;
+            text-align: center;
+            background: var(--bs-white);
+            color: var(--bs-primary);
+            border-radius: 50%;
+            margin: 0 auto;
+            transition: all .45s ease 0s;
+        }
+    }
+
+    .epi-desc {
+        background: var(--bs-gray-900);
+
+        .rel-date {
+            padding: 0.3125em 0.8em;
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            font-style: italic;
+        }
+    }
+}

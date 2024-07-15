@@ -1,0 +1,12 @@
+.border-gredient-left {
+    border-left: none;
+    border-right: .25em solid var(--bs-primary);
+    background: rgba(0,0,0,0) linear-gradient(-270deg, rgba(var(--bs-primary-rgb), 0), rgba(var(--bs-primary-rgb), 0.3));
+}
+
+.image-flip-rtl {
+    transform: scaleX(-1);
+    > div {
+        transform: scaleX(-1);
+    }
+}

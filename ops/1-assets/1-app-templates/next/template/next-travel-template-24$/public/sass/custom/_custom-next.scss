@@ -1,0 +1,438 @@
+// some ratio class
+.ratio {
+    position: relative;
+    display: block;
+    overflow: hidden;
+}
+.ratio:before {
+    display: block;
+    width: 100%;
+    content: "";
+}
+.ratio-1\:1:before {
+    padding-bottom: 100%;
+}
+.ratio-2\:1:before {
+    padding-bottom: 50%;
+}
+.ratio-3\:2:before {
+    padding-bottom: 66.66667%;
+}
+.ratio-3\:4:before {
+    padding-bottom: 133.33333%;
+}
+.ratio-4\:3:before {
+    padding-bottom: 75%;
+}
+.ratio-4\:1:before {
+    padding-bottom: 25%;
+}
+.ratio-5\:4:before {
+    padding-bottom: 80%;
+}
+.ratio-8\:5:before {
+    padding-bottom: 62.5%;
+}
+.ratio-15\:9:before {
+    padding-bottom: 60%;
+}
+.ratio-16\:9:before {
+    padding-bottom: 56.25%;
+}
+.ratio-64\:45:before {
+    padding-bottom: 70.3125%;
+}
+.ratio-6\:5:before {
+    padding-bottom: 83.33333%;
+}
+.ratio-23\:18:before {
+    padding-bottom: 78.26087%;
+}
+.ratio-41\:35:before {
+    padding-bottom: 85.36585%;
+}
+.ratio-41\:45:before {
+    padding-bottom: 109.7561%;
+}
+.ratio-63\:55:before {
+    padding-bottom: 87.30159%;
+}
+.xl-100vh {
+    @media (min-width: 1920px) {
+        height: 100vh;
+    }
+}
+.object-fit-cover {
+    object-fit: cover;
+}
+.user-select-none {
+    pointer-events: none;
+}
+
+.row {
+    --bs-gutter-x: 30px;
+}
+
+.form-select:focus {
+    border-color: var(--color-dark-1) !important;
+    outline: 0;
+    box-shadow: none;
+}
+.js-testimonials-slider-3 {
+    .slick-dots {
+        text-align: left;
+    }
+}
+
+// inside properties slider css for dots
+.inside-slider {
+    .slick-dots {
+        position: absolute;
+        bottom: 10px;
+
+        li {
+            background: rgba(255, 255, 255, 0.13);
+            &.slick-active {
+                width: 8px;
+                background: #fff;
+            }
+        }
+    }
+    &:hover {
+        .slick-dots li {
+            &:not(.slick-active) {
+                background: rgba(255, 255, 255, 0.43);
+            }
+        }
+    }
+}
+
+// mega menu for lang and currency
+
+.modalGrid__item,
+.modalGrid__item > * > :first-child {
+    transition: all 0.15s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.modalGrid__item {
+    cursor: pointer;
+    border-radius: 4px;
+    &:hover,
+    &.active {
+        background-color: rgba(53, 84, 209, 0.05) !important;
+
+        > * > :first-child {
+            color: var(--color-blue-1);
+        }
+    }
+}
+
+// scroll top
+.scroll-to-top {
+    position: fixed;
+    right: 20px;
+    bottom: 28px;
+    z-index: 9;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    line-height: 40px;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+    background-color: #f6f6f6;
+    color: var(--color-blue-1);
+    transition: all 0.3s ease;
+
+    .icon {
+        transform: rotate(-45deg);
+        display: inline-block;
+        font-size: 14px;
+    }
+    &:hover {
+        background: var(--color-blue-1);
+        color: #fff;
+    }
+}
+// custom dropdown
+.dropdown-menu {
+    border: none;
+    padding: 0;
+    z-index: 7;
+}
+.min-width-400 {
+    min-width: 400px;
+    @media (max-width: 575px) {
+        min-width: 350px;
+    }
+}
+
+// react multi date picker
+.custom_container-picker {
+    display: flex !important;
+}
+@media (min-width: 1300px) {
+    .rmdp-day span {
+        font-size: 16px;
+    }
+    .rmdp-day,
+    .rmdp-week-day {
+        height: 40px;
+        width: 40px;
+    }
+    .rmdp-header-values {
+        font-size: 18px;
+    }
+}
+.custom_input-picker {
+    padding: 0;
+    margin: 0;
+    color: var(--color-light-1);
+    line-height: 1.6;
+    font-size: 14px;
+    &:focus {
+        border: none;
+        box-shadow: none;
+    }
+}
+.rmdp-day.rmdp-selected span:not(.highlight) {
+    background-color: var(--color-dark-3) !important;
+}
+.rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) span:hover {
+    background-color: #51658d !important;
+}
+.rmdp-day.rmdp-today span,
+.rmdp-arrow-container:hover {
+    background-color: var(--color-blue-1) !important;
+}
+.rmdp-week-day {
+    color: var(--color-blue-1) !important;
+}
+.rmdp-header {
+    font-size: 16px !important;
+}
+.rmdp-arrow {
+    margin-top: 7px !important;
+}
+
+// map
+.map-canvas {
+    height: 700px;
+    overflow: hidden;
+    background-color: #f9f9f9;
+
+    @media (max-width: 991px) {
+        height: 400px;
+    }
+
+    iframe {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+// terms tab
+.tabs__controls {
+    .react-tabs__tab--selected {
+        color: var(--color-blue-1);
+        &:focus {
+            outline: none;
+        }
+    }
+    li {
+        cursor: pointer;
+    }
+}
+
+.z-auto {
+    z-index: inherit;
+}
+
+// blog details large image sizing
+.img_large_details {
+    height: 600px;
+    object-fit: cover;
+}
+.ratio-41\:45:before {
+    padding-bottom: 109.7561%;
+}
+
+// header 2 search
+.js-liverSearch .header-search::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    color: #dedede;
+}
+
+.relative-1 {
+    position: relative;
+    z-index: -1;
+}
+
+// footer blue bg text white issue
+.footer-blue_custom {
+    a {
+        transition: 0.3s;
+        &:hover {
+            color: #fff;
+            transform: translateX(4px);
+        }
+    }
+}
+
+// mobile menu
+.mobile_menu-contnet {
+    color: var(--color-dark-1);
+    &.offcanvas {
+        min-height: 100vh;
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+            width: 8px;
+        }
+        &::-webkit-scrollbar-track {
+            background: #fff;
+        }
+        &::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 8px;
+        }
+        &::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    }
+    .ps-sidebar-root {
+        margin-top: 20px;
+        margin-bottom: 20px;
+
+        ul li a {
+            font-size: 17px;
+        }
+        .ps-submenu-expand-icon {
+            > span {
+                width: 7px;
+                height: 7px;
+                color: #777;
+            }
+        }
+    }
+    .pro-header {
+        .fix-icon {
+            cursor: pointer;
+            &:hover {
+                color: var(--color-blue-1);
+            }
+        }
+    }
+    .pro-header,
+    .pro-footer {
+        padding: 20px;
+    }
+}
+
+.dropdown-menu {
+    button {
+        font-weight: 500;
+        &:hover {
+            color: var(--color-blue-1);
+        }
+    }
+}
+.toggle-element.dropdown-menu {
+    button {
+        width: 100%;
+        text-align: left;
+    }
+}
+
+// car galler css
+.slider .swiper-container1 {
+    width: 100%;
+    height: 100%;
+}
+.slider .swiper-container2 {
+    width: 100%;
+    height: 100%;
+}
+.slider__flex {
+    display: flex;
+    align-items: flex-start;
+}
+
+.slider__prev:focus,
+.slider__next:focus {
+    outline: none;
+}
+.slider__thumbs {
+    height: 380px;
+}
+.slider__thumbs .slider__image {
+    transition: 0.25s;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+.slider__thumbs .swiper-slide-thumb-active .slider__image {
+    border-color: #051036;
+}
+
+.slider__images {
+    height: 400px;
+    width: 100%;
+}
+.slider__images .slider__image img {
+    transition: 3s;
+}
+.slider__images .slider__image:hover img {
+    transform: scale(1.1);
+}
+.slider__image {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.slider__image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+.carsSlider .carsSlider-slider img {
+    border: none;
+}
+.carsSlider-slider {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+@media (max-width: 767.98px) {
+    .slider__flex {
+        flex-direction: column-reverse;
+    }
+    .slider__col {
+        flex-direction: row;
+        align-items: center;
+        margin-right: 0;
+        margin-top: 24px;
+        width: 100%;
+    }
+    .slider__images {
+        width: 100%;
+    }
+    .slider__thumbs {
+        height: 60px;
+        width: 304px;
+        margin: auto;
+    }
+}
+
+// counter box border
+.counter-box {
+    > .row + .border-top-light:last-child {
+        display: inline;
+    }
+}
+
+// date range active
+.rmdp-range {
+    background-color: var(--color-blue-1) !important;
+}

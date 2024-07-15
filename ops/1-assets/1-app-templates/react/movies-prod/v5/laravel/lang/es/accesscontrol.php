@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'permission' => 'Permiso',
+    'manager' => 'Administrador',
+    'save' => 'Guardar',
+    'delete' => 'Eliminar',
+    'edit' => 'Editar',
+    'add' => 'Agregar',
+    'view' => 'Ver',
+    'modules' => 'Módulos',
+    'rating' => 'Calificación',
+    'comments' => 'Comentarios',
+    'users' => 'Usuarios',
+    'movie_list' => 'Lista de películas',
+    'shows' => 'Programas',
+    'seasons' => 'Temporadas',
+    'episodes' => 'Episodios',
+    'setting' => 'Configuración',
+    'more' => 'Más',
+    'sidebar' => 'Barra lateral',
+    'header' => 'Encabezado',
+    'live_customizer' => 'Personalizador en vivo',
+    'user' => 'Usuario',
+];

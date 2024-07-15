@@ -1,0 +1,43 @@
+.tv-show-detail {
+    .iq-main-slider {
+        padding: 3.75rem 5em 3.75rem 0;
+
+        &:before {
+            background-image: linear-gradient(-180deg, rgba(51, 51, 51, 0), rgba(var(--bs-black-rgb), 0.8) 70%, var(--bs-black));
+        }
+    }
+}
+
+.share-icons.music-play-lists {
+    li {
+        .share-box {
+            left: -6.2em;
+            right: auto;
+        }
+    }
+}
+
+.iq-contact-list {
+    border-width: 0 0.063rem 0 0;
+}
+
+#back-to-top {
+    .top {
+        left: 1.5625em;
+        right: auto;
+    }
+}
+
+.rtl-box {
+    right: auto;
+    left: 0;
+
+    &.show{
+        transform: translateX(0);
+    }
+}
+
+.rtl-btn {
+    left: auto;
+    right: -2.5em;
+}

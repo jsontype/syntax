@@ -1,0 +1,37 @@
+@include media-breakpoint-up(xl) {
+    .left-border{
+        .iq-nav-menu {
+            li {
+                .iq-header-sub-menu {
+                    .nav-item {
+                        >.nav-link {
+                            &:hover {
+                                padding-left: 1.5rem;
+                                font-weight: 500;
+                                transition: var(--sidebar-transition);
+                                color: var(--#{$variable-prefix}primary);
+                                transition-duration: var(--sidebar-transition-duration);
+                                transition-timing-function: var(--sidebar-transition-function-ease-in-out);
+                            }
+                            &.active{
+                                &::after {
+                                    content: '';
+                                    position: absolute;
+                                    width: 4px;
+                                    height: 100%;
+                                    background: var(--#{$variable-prefix}primary);
+                                    border-radius: $border-radius;
+                                    bottom: 0px;
+                                    left: 0;
+                                    z-index: -1;
+                                }
+                            }
+                        }
+                        
+                    }
+                    
+                }
+            }
+        }
+    }
+}

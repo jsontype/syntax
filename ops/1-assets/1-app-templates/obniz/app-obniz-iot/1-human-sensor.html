@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://unpkg.com/obniz@3.x/obniz.js"></script>
+    <title>인간 감지 센서</title>
+</head>
+
+<body>
+    <h1>인간 감지 센서</h1>
+    <button id="on">ON</button>
+    <button id="off">OFF</button>
+
+    <script>
+        // "OBNIZ_ID를 아래에 입력한다."
+        let obniz = new Obniz("26547254");
+        obniz.onconnect = async () => {
+            // 스피커 연결
+            let speaker = obniz.wired("Keyestudio_Buzzer", { gnd: 0, vcc: 1, signal: 2 });
+
+            // ON　버튼을 눌렀을 때
+            $("#on").on("click", function () {
+                const sensor = obniz.wired("Keyestudio_PIR", {
+                    signal: 11,
+                    vcc: 10,
+                    gnd: 9
+                });
+                sensor.onchange = async val => {
+                    console.log(val ? "Moving!" : "Stopped");
+                    console.log(val)
+                    if (val) {
+                        speaker.play(100);
+                    } else {
+                        speaker.stop();
+                    }
+                };
+            });
+
+            // OFF　버튼을 눌렀을 때
+            $("#off").on("click", function () {
+                speaker.stop();
+            });
+        };
+    </script>
+</body>
+
+</html>

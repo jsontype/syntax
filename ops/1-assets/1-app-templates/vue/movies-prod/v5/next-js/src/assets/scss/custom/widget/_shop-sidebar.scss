@@ -1,0 +1,139 @@
+//-----------------------shop category---------------//
+.shop-box {
+  margin-bottom: 2em;
+  display: inline-block;
+  width: 100%;
+  position: relative;
+  background: transparent;
+  padding: 0 0 2em;
+  border-top: none;
+  border-bottom: 0.0625em solid var(--bs-gray-900);
+}
+
+.shop-list-checkbox {
+  li {
+    margin: 0 0 1.875em .5rem !important;
+    padding: 0 !important;
+    position: relative;
+
+    .checkbox {
+      position: relative;
+
+      &::before {
+        content: "\f0d7";
+        position: absolute;
+        top: -10px;
+        left: 0;
+        right: 0;
+        font-family: Font Awesome\ 5 Free;
+        color: var(--bs-primary);
+        font-weight: 900;
+      }
+    }
+
+    &:last-child {
+      margin: 0 0 0 .5rem !important;
+      padding: 0 !important;
+    }
+  }
+}
+
+//-----------------------shop filter---------------//
+.product-range .noUi-horizontal {
+  height: 0.3rem;
+}
+
+.product-range .noUi-horizontal .noUi-handle {
+  background: var(--bs-primary);
+  box-shadow: unset;
+  top: -0.1975em;
+  width: 0.625em;
+  height: 0.75em;
+  border-radius: 0;
+  right: -0.5em;
+  border: 0em;
+}
+
+.product-range .noUi-connect {
+  background: var(--bs-primary);
+}
+
+.product-range .noUi-handle:after,
+.product-range .noUi-handle:before {
+  display: none;
+}
+
+.product-range .noUi-target {
+  border-radius: 0;
+  border: 0em;
+  box-shadow: none;
+}
+
+//-----------------------shop Product---------------//
+.top-product-img {
+  height: 5em;
+  width: 5em;
+  min-width: 5em;
+  background-color: var(--bs-body-bg);
+}
+
+//-----------------------shop Product price---------------//
+.shop-product {
+  li {
+    a {
+      color: var(--bs-white);
+
+      &:hover {
+        color: var(--bs-primary);
+        transition: all .4s ease 0s;
+      }
+    }
+  }
+}
+
+ul.shop_list_checkbox li {
+  display: inline-block;
+}
+
+.shop_list_checkbox li .shop_checkbox_label {
+  position: relative;
+}
+
+.shop_list_checkbox li .shop_checkbox_label:before {
+  content: "";
+  height: 100%;
+  width: 100%;
+  border: 2px solid var(--bs-gray-900);
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.shop_list_checkbox li {
+  margin: 0 1em 0.5em 0 !important;
+}
+
+.shop_list_checkbox li .shop_checkbox_label {
+  font-size: 14px;
+  position: relative;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  min-height: 2.5em;
+  min-width: 2.5em;
+  line-height: 2.5em;
+  margin: 0 auto;
+  text-align: center;
+  color: var(--bs-white);
+  padding: 0 0.5em;
+}
+
+@media (max-width: 479px) {
+  .shop-box {
+    padding: 0 0 1em;
+    margin-bottom: 1em;
+  }
+}

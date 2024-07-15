@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Streamit - Html - Documentation</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="iqonic themes">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- FontAwesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.8.2/js/all.js" integrity="sha384-DJ25uNYET2XCl5ZF++U8eNxPWqcKohUUBUpKGlNLMchM7q4Wjg2CUpjHLaL8yYPH" crossorigin="anonymous"></script>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="assets/plugins/prism/prism.css">
+    <link rel="stylesheet" href="assets/plugins/elegant_font/css/style.css">
+
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
+
+</head>
+
+<body class="body-green">
+<div class="page-wrapper">
+    <!-- ******Header****** -->
+    <header id="header" class="header">
+        <div class="container">
+            <div class="branding">
+                <h1 class="logo">
+                    <a href="index.html">
+                        <img src="./assets/images/logo.png" alt="logo" class="logo-img">
+                        <span class="text-highlight"><b>Streamit</b></span><span class="text-bold">Docs</span>
+                    </a>
+                </h1>
+
+            </div><!--//branding-->
+
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../../index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="../index.html">HTML</a></li>
+                <li class="breadcrumb-item active">Quick Start</li>
+            </ol>
+
+        </div><!--//container-->
+    </header><!--//header-->
+    <div class="doc-wrapper">
+        <div class="container">
+            <div class="doc-body row">
+                <div class="doc-content col-md-9 col-12 order-1">
+                    <div class="content-inner">
+                        <section id="quick-start-section" class="doc-section">
+                            <!--<div id="doc-header" class="doc-header text-center">
+                                <h1 class="doc-title"><i class="icon fa fa-paper-plane"></i> Quick Start</h1>
+                                <div class="meta"><i class="far fa-clock"></i> Last updated: Feb 5th, 2020</div>
+                            </div>&lt;!&ndash;//doc-header&ndash;&gt;-->
+                            <h2 class="section-title">Installation</h2>
+                            <div id="basic-installation"  class="section-block">
+                                <h3 class="block-title">Basic Installation</h3>
+                                 <p>Steps to be follow for getting started with the template:</p>
+                                <div class="row">
+                                    <div class="col-md-12 col-12">
+                                        <ol>
+                                           <li>Open <span class="text-red">... /Template/html/dashboard</span> Folder to find all the Templates Files</li>
+                                           <li>You'll have to upload these file using a FTP on your server</li>
+                                           <li>
+                                              Make sure you maintain the structure while uploading the required files/folders:
+                                              <ul class="mt-2">
+                                                 <li><i class="fa fa-folder-open" aria-hidden="true"></i><span class="text-highlight"> assets/css</span> - Stylesheets Folder</li>
+                                                 <li><i class="fa fa-folder-open" aria-hidden="true"></i><span class="text-highlight"> assets/fonts</span> - Fonts Folder</li>
+                                                 <li><i class="fa fa-folder-open" aria-hidden="true"></i><span class="text-highlight"> assets/images</span> - Images Folder</li>
+                                                 <li><i class="fa fa-folder-open" aria-hidden="true"></i><span class="text-highlight"> assets/js</span> - Javacripts Folder</li>
+                                                 <li><i class="fa fa-folder-open" aria-hidden="true"></i><span class="text-highlight"> assets/videos</span> - Video and Audio Folder</li>
+                                                 <li><i class="fa fa-folder-open" aria-hidden="true"></i><span class="text-highlight"> theme/index.html</span> - Index File/Homepage</li>
+                                              </ul>
+                                              Other files can be used according to your convenience.
+                                           </li>
+                                           <li>Now that you have followed these steps your basic installation is complete and ready to flaunt your site to the world.</li>
+                                        </ol>
+                                    </div>
+                                </div><!--//row-->
+                            </div><!--//section-block-->
+                            <div id="basic-structure"  class="section-block">
+                                <h3 class="block-title">HTML Structure</h3>
+                                <p>Here is the <strong>general HTML structure of the template:</strong></p>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <pre><code class="language-markup">
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+[Page meta, page css, page js files, page title etc...]
+&lt;/head&gt;
+<p> &lt;body&gt;
+
+   &lt;!-- preloader --&gt;
+   &lt;div  id=&quot;loading&quot; &gt; [LOADER CONTENT] &lt;/div&gt;
+   &lt;!--preloader --&gt;
+
+   &lt;!--header --&gt;
+   &lt;header&gt;
+</p>
+<p> &lt;/header&gt;
+   &lt;!--header --&gt;
+
+   &lt;!--Slider- --&gt;
+   &lt;div id=&quot;rev_slider_1_1_wrapper&quot; class=&quot;rev_slider_wrapper fullscreen-container&quot; &gt;
+   [SLIDER CONTENT]
+   &lt;/div&gt;
+   &lt;!--Slider --&gt;
+
+   &lt;!--main-content- --&gt;
+   &lt;div class="main-content"&gt;
+   &lt;!--Section 1 --&gt;
+   &lt;section&gt;
+   [SECTION 1 CONTENT]
+   &lt;/section&gt;
+   &lt;!--Section 1 --&gt;
+</p>
+<p> &lt;!--Section 2 --&gt;
+   &lt;section&gt;
+   [SECTION 2 CONTENT]
+   &lt;/section&gt;
+   &lt;!--Section 2 --&gt;
+   &lt;div&gt;
+   &lt;!--main-content --&gt;
+   &lt;!--footer --&gt;
+   &lt;footer class=&quot;iq-footer2&quot;&gt;
+   [FOOTER_CONTENT]
+   &lt;/footer&gt;
+   &lt;!--footer --&gt;
+</p>
+<p> &lt;div id=&quot;back-to-top&quot;&gt;
+   [BACK TO TOP CONTENT]
+&lt;/div&gt;
+</p>
+<p>   [PAGE JAVASCRIPTS HERE]</p>
+<p> &lt;/body&gt;
+&lt;/html&gt;</p>
+                                        </code>
+                                    </pre>
+                                    </div>
+                                </div>
+                            </div><!--//section-block-->
+                            <div id="basic-css"  class="section-block">
+                                <h3 class="block-title">CSS Structure</h3>
+                                <p>Here is the <strong>general CSS structure of the template:</strong></p>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <pre><code class="language-markup">
+&lt;!-- Bootstrap CSS --&gt;
+&lt;link rel="stylesheet" href="css/bootstrap.min.css"&gt;
+
+&lt;!-- REVOLUTION STYLE SHEETS --&gt;
+&lt;link rel="stylesheet" type="text/css" href="revsilder/css/settings.css"&gt;
+
+&lt;!-- dataTables CSS --&gt;
+&lt;link rel="stylesheet" href="css/dataTables.bootstrap4.min.css"&gt;
+
+&lt;!-- Typography CSS --&gt;
+&lt;link rel="stylesheet" href="css/typography.css"&gt;
+
+&lt;!-- Style CSS --&gt;
+&lt;link rel="stylesheet" href="css/style.css"&gt;
+
+&lt;!-- Responsive CSS --&gt;
+&lt;link rel="stylesheet" href="css/responsive.css"&gt;
+                                            </code>
+                                        </pre>
+                                    </div>
+                                </div>
+                            </div><!--//section-block css-->
+
+                            <div id="basic-js"  class="section-block">
+                                <h3 class="block-title">Javascript Structure</h3>
+                                <p>Here is the <strong>general Javascript structure of the template:</strong></p>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <pre><code class="language-markup">
+&lt;!-- jQuery first, then Popper.js, then Bootstrap JS --&gt;
+&lt;script src="js/jquery.min.js" &gt;&lt;/script&gt;
+
+&lt;!-- popper  --&gt;
+&lt;script src="js/popper.min.js"&gt;&lt;/script&gt;
+
+&lt;!--  bootstrap --&gt;
+&lt;script src="js/bootstrap.min.js" &gt;&lt;/script&gt;
+
+&lt;!--  jquery dataTable Javascript --&gt;
+&lt;script src="js/jquery.dataTables.min.js" &gt;&lt;/script&gt;
+
+&lt;!-- Appear JavaScript --&gt;
+&lt;script src="js/appear.js"&gt;&lt;/script&gt;
+
+&lt;!-- Count Down JavaScript --&gt;
+&lt;script src="js/countdown.min.js"&gt;&lt;/script&gt;
+
+&lt;!-- Select2 JavaScript --&gt;
+&lt;script src="js/select2.min.js"&gt;&lt;/script&gt;
+
+&lt;!-- Waypoints JavaScript --&gt;
+&lt;script src="js/waypoints.min.js"&gt;&lt;/script&gt;
+
+&lt;!-- Counterup JavaScript --&gt;
+&lt;script src="js/jquery.counterup.min.js"&gt;&lt;/script&gt;
+
+&lt;!--  Wow JavaScript  --&gt;
+&lt;script src="js/wow.min.js" &gt;&lt;/script&gt;
+
+&lt;!-- Slick JavaScript --&gt;
+&lt;script src="js/slick.min.j"&gt;&lt;/script&gt;
+
+&lt;!-- Owl Carousel JavaScript --&gt;
+&lt;script src="js/owl.carousel.min.js"&gt;&lt;/script&gt;
+
+&lt;!-- Magnific JavaScript --&gt;
+&lt;script src="js/jquery.magnific-popup.min.js"&gt;&lt;/script&gt;
+
+&lt;!-- Smooth-scrollbar JavaScript --&gt;
+&lt;script src="js/smooth-scrollbar.js"&gt;&lt;/script&gt;
+
+&lt;!--Apexcharts JavaScript --&gt;
+&lt;script src="js/apexcharts.js"&gt;&lt;/script&gt;
+
+&lt;!-- Chart Custom JavaScript --&gt;
+&lt;script src="js/chart-custom.js"&gt;&lt;/script&gt;
+ 
+&lt;!-- Custom JavaScript --&gt;
+&lt;script src="js/custom.js"&gt;&lt;/script&gt;
+
+                                        </code></pre>
+
+                                    </div>
+                                </div>
+                            </div><!--//section-block Javascript Structure-->
+
+                            <div id="basic-favicon"  class="section-block">
+                                <h3 class="block-title">For Favicon icon</h3>
+                                <p>Favicon is an icon associated with the URL that is displayed at various places, such as in a browser’s address bar or next to the site name in a bookmark list.</p>
+                                <p>You can add a Favicon to your Website using the following code:</p>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <pre><code class="language-markup">&lt;link rel=&quot;shortcut icon&quot; href=&quot;images/favicon.ico&quot;/&gt;</code></pre>
+                                    </div>
+                                </div>
+                            </div><!--//section-block favicon-->
+
+                            <div id="basic-loading"  class="section-block">
+                                <h3 class="block-title">For Page Loading Transitions</h3>
+                                <p>Page Loading Transitions are enabled by default. If you wish to disable the page loading transition you can simply delete below section</p>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <pre> <code class="language-markup">&lt;div id="loading"&gt;
+    &lt;div id="loading-center"&gt;
+        &lt;img src="images/loader.png" alt="loder"&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                                    </div>
+                                </div>
+                            </div><!--//section-block loading-->
+                            <div id="basic-logo"  class="section-block">
+                                <h3 class="block-title">For Logo</h3>
+                                <p>The Logo Container can be found in the Header Container - <span class="atv"> #header</span>. Replace <span class="atv">"logo-black.png"</span> with your own logo image URL.</p>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <pre> <code class="language-markup">&lt;ul class="menu-logo"&gt;
+    &lt;li&gt;
+        &lt;a href="index.html"&gt;
+            &lt;img src="images/logo.gif" alt="logo"&gt;
+        &lt;/a&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+                                    </div>
+                                </div>
+                            </div><!--//section-block logo-->
+                             <div id="basic-fonts"  class="section-block">
+                                <h3 class="block-title">For Changing Fonts</h3>
+                                <p> You can add/change the site font, from all fonts used from <a href="https://www.google.com/fonts"> Google Web Font Services,</a> with the one that suits you the best. You can find the font link in top of the <span class="atv">Style.css</span> in all HTML file. See example below:</p>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <pre> <code class="language-markup">&lt;!-- google font --&gt;
+&lt;link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,600i,700,800|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900" rel="stylesheet"&gt; </code></pre>
+                        <br>
+                        <p>To include new font you can simply add another link like this: </p>
+                        <pre> <code class="language-markup">&lt;!-- google font --&gt;
+&lt;!--Robaoto font --&gt;
+&lt;link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500&display=swap" /&gt;
+
+&lt;!-- popins font --&gt;
+&lt;link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500&display=swap" rel="stylesheet"&gt;</code></pre>
+                                        <br>
+                                        <p>In order to change the fonts, you will need to edit the above links with your custom font, You can easily use <a href="https://www.google.com/fonts"> Google Web Font Services</a> if you plan to use a Google Font or remove it completely. If you plan to use a self hosted font, here is an Example of using <a href="https://css-tricks.com/snippets/css/using-font-face/">Self Hosted Fonts</a></p>
+
+                                    </div>
+                                </div>
+                            </div><!--//section-block fonts-->
+
+                        </section><!--//doc-section-->
+                        <section id="helper-section" class="doc-section">
+                            <h2 class="section-title">Helper classes</h2>
+
+                            <div id="basic-padding"  class="section-block">
+                                <h3 class="block-title">For section padding</h3>
+                                <p>You can add this helper class to set section <span class="atv">padding top 100px</span> and <span class="atv">padding bottom 100px</span>.
+                                   <br> Add <span class="atv">overview-block-ptb</span> class in <span class="atv">section</span> tag. See example below:
+                                </p>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <pre><code class="language-markup">
+&lt;section class=&quot;... overview-block-ptb&quot;&gt;
+  [YOUR CONTENT]<p>
+&lt;/section&gt;
+                                        </code></pre>
+                                    <p> <span class="badge badge-danger">Note</span> Use this helper class to maintain all page section spacing. You can also use <span class="atv">overview-block-pt</span> for only padding top and <span class="atv">overview-block-pb</span> for only padding bottom. </p>
+                                    </div>
+                                </div>
+                            </div><!--//section-block fonts-->
+                            <div class="section-block" id="basic-color">
+                                <h3 class="block-title">For Text color</h3>
+                                <p>You can use color in the Text. simply add <span class="atv"> .main-color </span> ( or any color you want) class where you want to use. See example below: </p>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <pre><code class="language-markup">
+&lt;div class=&quot;main-color&quot;&gt;
+    [YOUR TEXT CONTENT]
+&lt;/div&gt;
+                                        </code></pre>
+                                       <p> <span class="badge badge-danger">Note</span> We include 4 color helper class in our template <span class="atv">text-gray, text-black, main-color and text-white</span>. you can add unlimited color class according to your needs. </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="section-block" id="basic-background">
+                                <h3 class="block-title">For Background color</h3>
+                                <p>You can use color in the background. simply add <span class="atv"> .white-bg</span> (or any color you want) class where you want to use. See example below: </p>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <pre><code class="language-markup">
+&lt;div class=&quot;green-bg&quot;&gt;
+    [YOUR CONTENT]
+&lt;/div&gt;
+                                        </code></pre>
+                                       <p> <span class="badge badge-danger">Note</span> We include 4 color helper class in our template <span class="atv">text-gray, text-black, main-color and text-white</span>. you can add unlimited color class according to your needs. </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="section-block" id="basic-pattern">
+                                <h3 class="block-title">For Background Images and pattern</h3>
+                                <p>You can use an image in the background with parallax effect by simply adding <span class="atv"> InlineStyle </span> in div tag and by use of this you can create your own background. See example below: </p>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <pre><code class="language-markup">
+&lt;div style=&quot;background-image:url(Path); &quot;&gt;
+    [YOUR CONTENT]
+&lt;/div&gt;
+                                        </code></pre>
+                                        <br>
+                                        <p> If your background is small and you want to use repeated background then use styling property <span class="atv"> background-repeat </span> and set the value <span class="atv">repeat</span> or <span class="atv">no-repeat</span>. See the example below:</p>
+
+                                        <pre><code class="language-markup">
+&lt;div style=&quot;background-image:url(Path); background-repeat:no-repeat;&quot;&gt;
+    [YOUR CONTENT]
+&lt;/div&gt;
+                                        </code></pre>
+                                        <br>
+                                        <p> If you want to use your background like cover or cointainer. You just need to add styling property <span class="atv"> background-size </span> and set the value <span class="atv">cover</span> or <span class="atv">cointainer</span>. see the example below:</p>
+                                        <pre><code class="language-markup">
+&lt;div style=&quot;background-image:url(Path); background-size:cover;&quot;&gt;
+    [YOUR CONTENT]
+&lt;/div&gt;</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="section-block" id="basic-overlay">
+                                <h3 class="block-title">For Background overlay</h3>
+                                <p>You can use these <span class="atv"> .iq-over-black-30, .iq-over-white-20, .iq-over-green-90 </span> classes to any element in your HTML code to apply overlay color on any image or section. See example below:</p>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <pre><code class="language-markup">
+&lt;div class=&quot;iq-over-black-80&quot;&gt;
+    [YOUR CONTENT]
+&lt;/div&gt;
+                                        </code></pre>
+                                       <p><strong>Structure: </strong> <span class="atv">.iq-over-{<b>color</b>}-{<b>opacity</b>}</span>. For Example, <span class="atv"> .iq-over-black-80</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section><!--//doc-section-->
+                        <section id="basic-components" class="doc-section">
+                            <h2 class="section-title">Bootstrap Components</h2>
+                            <div class="section-block">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <ul>
+                                           <li>
+                                              <a href="https://getbootstrap.com/docs/4.1/utilities/text/#text-alignment" target="black">Text Alignments</a>
+                                           </li>
+                                           <li>
+                                              <a href="https://getbootstrap.com/docs/4.1/components/alerts/" target="black">Alerts</a>
+                                           </li>
+                                           <li>
+                                              <a href="https://getbootstrap.com/docs/4.1/components/badge/" target="black">Badges</a>
+                                           </li>
+                                           <li>
+                                              <a href="https://getbootstrap.com/docs/4.1/components/carousel/" target="black">Carousel</a>
+                                           </li>
+                                           <li>
+                                              <a href="https://getbootstrap.com/docs/4.1/layout/grid/">Columns</a>
+                                           </li>
+                                           <li>
+                                              <a href="https://getbootstrap.com/docs/4.1/content/tables/">Tables</a>
+                                           </li>
+                                           <li>
+                                              <a href="https://getbootstrap.com/docs/4.1/components/buttons/" target="black">Buttons</a>
+                                           </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </section><!--//doc-section-->
+                        <section id="basic-form" class="doc-section">
+                            <h2 class="section-title">For Contact Form</h2>
+                            <div class="section-block">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <p>Replace dummy email with your email in contact-form.php to get your contact-form working</p>
+                                        <pre><code class="language-markup">$ToEmail = 'demo123@gmail.com';</code></pre>
+                                        <br>
+                                        <p><em>Note: </em>Don't forget to change dummy <b>site-key</b> with your site-key to get your google captcha working</p>
+                                     </div>
+                                  </div>
+                            </div><!--//section-block-->
+                        </section><!--//doc-section-->
+
+                        <section id="basic-sliders" class="doc-section">
+                            <h2 class="section-title">For Sliders</h2>
+                            <div class="section-block">
+                                <p>There 2 different sliders for you to be used on any page with variety of Options. List of the Sliders:</p>
+                                <ul>
+                                   <li><strong><i class="fa fa-folder-open" aria-hidden="true"></i> Owl carousel</strong></li>
+                                </ul>
+                            </div><!--//section-block-->
+                        </section><!--//doc-section-->
+                        <section id="basic-carousel" class="doc-section">
+                            <h2 class="section-title">For Owl carousel</h2>
+                            <div class="section-block">
+                                <p>This excellent carousel slider can be controlled using HTML5 data attributes.</p>
+                                <p>Find the full online <a href="http://www.owlcarousel.owlgraphic.com/docs/started-welcome.html"> owl carousel Slider documentation</a>.</p>
+                            </div><!--//section-block-->
+                        </section><!--//doc-section-->
+                        <section id="basic-display" class="doc-section">
+                            <h2 class="section-title">For Retina Display</h2>
+                            <div class="section-block">
+                                <p>
+                                   The basic concept of a Retina image is that an image twice the size of a standard web image will be displayed on the screen. On a non-retina device an image will be <span class="atv">100px X 100px</span> whereas a Retina device will display the same image but at <span class="atv">200px X 200px.</span> Most devices use this branded concept for Retina devices like having approximately twice the pixel density of a non-retina device.
+                                </p>
+                                <P>If you want to get perfect looking images on Retina screens. For example, you build a website where you upload regular images into Content, you must always upload 2 images in Media
+                                   <br>Add new section which looks like below:
+                                </P>
+                                <pre><code class="language-markup">my_image.png - this is the name for standard image (e.g. 100px X 100px)
+                    my_image@2x.png - this is the example name for retina image and file must be always 2x larger than regular image (e.g. 200px X 200px)</code></pre>
+                                <br>
+                                <p> <span class="badge badge-danger">Note</span> You need to include <span class="atv">retina.js</span> to make your website completely retina ready. See example below:</p>
+                                <pre><code class="language-markup">&lt;!-- retina --&gt;
+                    &lt;script type=&quot;text/javascript&quot; src=&quot;js/retina.js&quot;&gt;&lt;/script&gt;</code></pre>
+                                <p>For more information about retina documentation and to download retina.js <a href="http://imulus.github.io/retinajs/">Click here.</a></p>
+                            </div><!--//section-block-->
+                        </section><!--//doc-section-->
+
+                        <section id="buttons-display" class="doc-section">
+                            <h2 class="section-title">For Retina Display</h2>
+                            <div class="section-block">
+                                <p>
+                                   The basic concept of a Retina image is that an image twice the size of a standard web image will be displayed on the screen. On a non-retina device an image will be <span class="atv">100px X 100px</span> whereas a Retina device will display the same image but at <span class="atv">200px X 200px.</span> Most devices use this branded concept for Retina devices like having approximately twice the pixel density of a non-retina device.
+                                </p>
+                                <P>If you want to get perfect looking images on Retina screens. For example, you build a website where you upload regular images into Content, you must always upload 2 images in Media
+                                   <br>Add new section which looks like below:
+                                </P>
+                                <pre><code class="language-markup">my_image.png - this is the name for standard image (e.g. 100px X 100px)
+                    my_image@2x.png - this is the example name for retina image and file must be always 2x larger than regular image (e.g. 200px X 200px)</code></pre>
+                                <br>
+                                <p> <span class="badge badge-danger">Note</span> You need to include <span class="atv">retina.js</span> to make your website completely retina ready. See example below:</p>
+                                <pre><code class="language-markup">&lt;!-- retina --&gt;
+                    &lt;script type=&quot;text/javascript&quot; src=&quot;js/retina.js&quot;&gt;&lt;/script&gt;</code></pre>
+                                <p>For more information about retina documentation and to download retina.js <a href="http://imulus.github.io/retinajs/">Click here.</a></p>
+                            </div><!--//section-block-->
+                        </section><!--//doc-section-->
+
+                        <section id="basic-source" class="doc-section">
+                            <h2 class="section-title">Source & Credits</h2>
+                            <div class="section-block">
+                                <p>All images and videos are for preview purposes only and are not included in the download files. Images are of copyrights under Creative Commons CC0.</p>
+                                <br>
+                                <h3 class="block-title">Images</h3>
+                                <ul>
+                                   <li>bigstockphoto <a href="https://www.bigstockphoto.com/">bigstockphoto</a></li>
+                                   <li>Pexels <a href="https://www.pexels.com/">Pexels</a></li>
+                                   <li>freepik <a href="http://www.freepik.com/">freepik</a></li>
+                                   <li>pixabay <a href="https://pixabay.com/">pixabay</a></li>
+                                </ul>
+                                <br>
+                                <br>
+                                <h3 class="block-title">Scripts</h3>
+                                <ul>
+                                   <li><a href="https://jquery.com/">Jquery</a></li>
+                                   <li><a href="http://www.owlcarousel.owlgraphic.com/">Owl Carousel 2</a></li>
+                                   <li><a href="http://dimsemenov.com/plugins/magnific-popup/">Magnific Popup</a></li>
+                                   <li><a href="https://github.com/bas2k/jquery.appear/">Jquery appear</a></li>
+                                   <li><a href="https://github.com/mhuggins/jquery-countTo">Counter</a></li>
+                                   <li><a href="https://github.com/glix/jQuery-Plugins/tree/master/Modern-Circular-jQuery-Countdown-Timer-Plugin-Final-Countdown">Countdown</a></li>
+                                </ul>
+                                <br>
+                                <br>
+                                <h3 class="block-title">CSS & Fonts</h3>
+                                <ul>
+                                   <li><a href="http://getbootstrap.com/">Bootstrap</a></li>
+                                   <li><a href="http://fortawesome.github.io/Font-Awesome/">Font Awesome</a></li>
+                                   <li><a href="http://ionicons.com/#cdn">ionicons</a></li>
+                                   <li><a href="https://www.google.com/fonts">Google Fonts</a></li>
+                                </ul>
+                            </div><!--//section-block-->
+                        </section><!--//doc-section-->
+
+                    </div><!--//content-inner-->
+                </div><!--//doc-content-->
+                <div class="doc-sidebar col-md-3 col-12 order-0 d-none d-md-flex">
+                    <div id="doc-nav" class="doc-nav">
+                        <nav id="doc-menu" class="nav doc-menu flex-column sticky">
+                            <a class="font-weight-bolder nav-link scrollto" href="#quick-start-section">Quick Start</a>
+                            <nav class="doc-sub-menu nav flex-column">
+                                <a class="nav-link scrollto" href="#basic-installation">Basic Installation</a>
+                                <a class="nav-link scrollto" href="#basic-structure">HTML Structure</a>
+                                <a class="nav-link scrollto" href="#basic-css">CSS Structure</a>
+                                <a class="nav-link scrollto" href="#basic-js">Javascript Structure</a>
+                                <a class="nav-link scrollto" href="#basic-favicon">For Favicon icon</a>
+                                <a class="nav-link scrollto" href="#basic-loading">For Page Loading Transitions</a>
+                                <a class="nav-link scrollto" href="#basic-logo">For Logo</a>
+                                <a class="nav-link scrollto" href="#basic-fonts">For Changing Fonts</a>
+                            </nav><!--//nav-->
+                            <a class="font-weight-bolder nav-link scrollto" href="#helper-section">Helper classes</a>
+                            <nav class="doc-sub-menu nav flex-column">
+                                <a class="nav-link scrollto" href="#basic-padding">For section padding</a>
+                                <a class="nav-link scrollto" href="#basic-color">For Text color</a>
+                                <a class="nav-link scrollto" href="#basic-background">For Background color</a>
+                                <a class="nav-link scrollto" href="#basic-pattern">For Background Images and pattern</a>
+                                <a class="nav-link scrollto" href="#basic-overlay">For Background overlay</a>
+                            </nav><!--//nav-->
+                            <a class="font-weight-bolder nav-link scrollto" href="#basic-components">Bootstrap Components</a>
+                            <a class="font-weight-bolder nav-link scrollto" href="#basic-form">For Contact Form</a>
+                            <a class="font-weight-bolder nav-link scrollto" href="#basic-sliders">For Sliders</a>
+                            <a class="font-weight-bolder nav-link scrollto" href="#basic-carousel">For Owl carousel</a>
+                            <a class="font-weight-bolder nav-link scrollto" href="#basic-display">For Retina Display</a>
+                            <a class="font-weight-bolder nav-link scrollto" href="#basic-source">Source & Credits</a>
+                        </nav><!--//doc-menu-->
+
+                    </div>
+                </div><!--//doc-sidebar-->
+            </div><!--//doc-body-->
+        </div><!--//container-->
+    </div><!--//doc-wrapper-->
+
+</div><!--//page-wrapper-->
+
+<footer id="footer" class="footer text-center">
+    <div class="container">
+        <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can buy the commercial license via our website: themes.3rdwavemedia.com */-->
+        <small class="copyright">Designed with <i class="fas fa-heart"></i> by <a href="https://themes.3rdwavemedia.com/" target="_blank">Xiaoying Riley</a> for developers</small>
+    </div><!--//container-->
+</footer><!--//footer-->
+
+<!-- Main Javascript -->
+<script type="text/javascript" src="assets/plugins/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="assets/plugins/prism/prism.js"></script>
+<script type="text/javascript" src="assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>
+<script type="text/javascript" src="assets/plugins/stickyfill/dist/stickyfill.min.js"></script>
+<script type="text/javascript" src="assets/js/main.js"></script>
+
+</body>
+</html>

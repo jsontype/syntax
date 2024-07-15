@@ -1,0 +1,18 @@
+.streamit-block .swiper-wrapper {
+  margin: 0 !important;
+}
+.top-ten-block .swiper-wrapper {
+  margin-bottom: 3rem;
+}
+.swiper-backface-hidden .swiper-slide {
+  transform: unset !important;
+  backface-visibility: visible !important;
+}
+.video-js {
+  height: 70vh;
+  width: 100%;
+}
+.vjs-poster img {
+  object-fit: cover !important;
+  display: none;
+}

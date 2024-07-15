@@ -1,0 +1,536 @@
+[
+    {
+        "title": "the hero camp",
+        "age": "18+",
+        "session": "3 sesson",
+        "year":"2020",
+        "image":"images/trending/trending-label.png",
+        "trandingNo": "trending-data1",
+        "series": "#2 in Series Today",
+        "text":"Lorem Ipsum is simply dummy ",
+        "backgroudImage":"01.jpg",
+        "logo":"../assets/images/logo-full.png",
+        "category": [
+            {
+                "title": "starring",
+                "item":[
+                    "Wagner",
+                    "Moura"
+                ]
+            },
+            {
+                "title": "starring",
+                "item":[
+                    "Wagner",
+                    "Moura"
+                ]
+            }
+        ],
+        "season": [
+            {
+                "name": "sss",
+                "trandingNo": "trending-data2",
+                "episods": [
+                    {
+                        "id" : "1",
+                        "title": "ss",
+                        "description": "ss",
+                        "sequence": "1",
+                        "duration": "ss",
+                        "thumbnail": "ss",
+                        "video": "ss",
+                        "realeseDate": "ss"
+                    }
+                ]
+            }
+        ],
+        "trailers":[
+            {
+                "title":"test",
+                "trandingNo": "trending-data3",
+                "List":[
+                    {
+                        "image":"01.jpg",
+                        "episode":"Episode 1",
+                        "size":"2.25 m",
+                        "text":"Lorem Ipsum is simply dummy t"
+                    },
+                    {
+                        "image":"01.jpg",
+                        "episode":"Episode 1",
+                        "size":"2.25 m",
+                        "text":"Lorem Ipsum is simply dummy t"
+                    }
+                ]
+                
+            }
+        ],
+        "recommanded":[
+            {
+                "title":"test",
+                "trandingNo": "trending-data4",
+                "List":[
+                    {
+                        "image":"01.jpg",
+                        "episode":"Episode 1",
+                        "size":"2.25 m",
+                        "text":"Lorem Ipsum is simply dummy t"
+                    },
+                    {
+                        "image":"01.jpg",
+                        "episode":"Episode 1",
+                        "size":"2.25 m",
+                        "text":"Lorem Ipsum is simply dummy t"
+                    }
+                ]
+                
+            }
+            
+        ]
+    },
+    {
+        "title":"the apartment",
+        "age": "18+",
+        "session": "3 sesson",
+        "year":"2020",
+        "image":"images/trending/trending-label.png",
+        "trandingNo": "trending-data1",
+        "series": "#2 in Series Today",
+        "text":"Lorem Ipsum is simply dummy ",
+        "backgroudImage":"02.jpg",
+        "logo":"../assets/images/logo-full.png",
+        "category": [
+            {
+                "title": "starring",
+                "item":[
+                    "Wagner",
+                    "Moura"
+                ]
+            },
+            {
+                "title": "starring",
+                "item":[
+                    "Wagner",
+                    "Moura"
+                ]
+            }
+        ],
+        "season": [
+            {
+                "name": "sss",
+                "trandingNo": "trending-data2",
+                "episods": [
+                    {
+                        "id" : "1",
+                        "title": "ss",
+                        "description": "ss",
+                        "sequence": "1",
+                        "duration": "ss",
+                        "thumbnail": "ss",
+                        "video": "ss",
+                        "realeseDate": "ss"
+                    }
+                ]
+            }
+        ],
+        "trailers":[
+            {
+                "title":"test",
+                "trandingNo": "trending-data3",
+                "List":[
+                    {
+                        "image":"images/episodes/01.jpg",
+                        "episode":"Episode 1",
+                        "size":"2.25 m",
+                        "text":"Lorem Ipsum is simply dummy t"
+                    },
+                    {
+                        "image":"images/episodes/01.jpg",
+                        "episode":"Episode 1",
+                        "size":"2.25 m",
+                        "text":"Lorem Ipsum is simply dummy t"
+                    }
+                ]
+                
+            }
+        ],
+        "recommanded":[
+            {
+                "title":"test",
+                "trandingNo": "trending-data4",
+                "List":[
+                    {
+                        "image":"images/episodes/01.jpg",
+                        "episode":"Episode 1",
+                        "size":"2.25 m",
+                        "text":"Lorem Ipsum is simply dummy t"
+                    },
+                    {
+                        "image":"images/episodes/01.jpg",
+                        "episode":"Episode 1",
+                        "size":"2.25 m",
+                        "text":"Lorem Ipsum is simply dummy t"
+                    }
+                ]
+                
+            }
+            
+        ]
+    },
+    {
+        "title": "the marshal king",
+        "age": "18+",
+        "session": "3 sesson",
+        "year":"2020",
+        "image":"images/trending/trending-label.png",
+        "trandingNo": "trending-data1",
+        "series": "#2 in Series Today",
+        "text":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+        "backgroudImage":"03.jpg",
+        "logo":"../assets/images/logo-full.png",
+        "category": [
+            {
+                "title": "starring",
+                "item":[
+                    "Wagner",
+                    "Moura"
+                ]
+            },
+            {
+                "title": "starring",
+                "item":[
+                    "Wagner",
+                    "Moura"
+                ]
+            }
+        ],
+        "season": [
+            {
+                "name": "sss",
+                "trandingNo": "trending-data2",
+                "episods": [
+                    {
+                        "id" : "1",
+                        "title": "ss",
+                        "description": "ss",
+                        "sequence": "1",
+                        "duration": "ss",
+                        "thumbnail": "ss",
+                        "video": "ss",
+                        "realeseDate": "ss"
+                    }
+                ]
+            }
+        ],
+        "trailers":[
+            {
+                "title":"test",
+                "trandingNo": "trending-data3",
+                "List":[
+                    {
+                        "image":"images/episodes/01.jpg",
+                        "episode":"Episode 1",
+                        "size":"2.25 m",
+                        "text":"Lorem Ipsum is simply dummy t"
+                    },
+                    {
+                        "image":"images/episodes/01.jpg",
+                        "episode":"Episode 1",
+                        "size":"2.25 m",
+                        "text":"Lorem Ipsum is simply dummy t"
+                    }
+                ]
+                
+            }
+        ],
+        "recommanded":[
+            {
+                "title":"test",
+                "trandingNo": "trending-data4",
+                "List":[
+                    {
+                        "image":"images/episodes/01.jpg",
+                        "episode":"Episode 1",
+                        "size":"2.25 m",
+                        "text":"Lorem Ipsum is simply dummy t"
+                    },
+                    {
+                        "image":"images/episodes/01.jpg",
+                        "episode":"Episode 1",
+                        "size":"2.25 m",
+                        "text":"Lorem Ipsum is simply dummy t"
+                    }
+                ]
+                
+            }
+            
+        ]
+    },
+    {
+        "title": "dark zone",
+        "age": "18+",
+        "session": "3 sesson",
+        "year":"2020",
+        "image":"images/trending/trending-label.png",
+        "trandingNo": "trending-data1",
+        "series": "#2 in Series Today",
+        "text":"Lorem Ipsum is simply dummy ",
+        "backgroudImage":"04.jpg",
+        "logo":"../assets/images/logo-full.png",
+        "category": [
+            {
+                "title": "starring",
+                "item":[
+                    "Wagner",
+                    "Moura"
+                ]
+            },
+            {
+                "title": "starring",
+                "item":[
+                    "Wagner",
+                    "Moura"
+                ]
+            }
+        ],
+        "season": [
+            {
+                "name": "sss",
+                "trandingNo": "trending-data2",
+                "episods": [
+                    {
+                        "id" : "1",
+                        "title": "ss",
+                        "description": "ss",
+                        "sequence": "1",
+                        "duration": "ss",
+                        "thumbnail": "ss",
+                        "video": "ss",
+                        "realeseDate": "ss"
+                    }
+                ]
+            }
+        ],
+        "trailers":[
+            {
+                "title":"test",
+                "trandingNo": "trending-data3",
+                "List":[
+                    {
+                        "image":"images/episodes/01.jpg",
+                        "episode":"Episode 1",
+                        "size":"2.25 m",
+                        "text":"Lorem Ipsum is simply dummy t"
+                    },
+                    {
+                        "image":"images/episodes/01.jpg",
+                        "episode":"Episode 1",
+                        "size":"2.25 m",
+                        "text":"Lorem Ipsum is simply dummy t"
+                    }
+                ]
+                
+            }
+        ],
+        "recommanded":[
+            {
+                "title":"test",
+                "trandingNo": "trending-data4",
+                "List":[
+                    {
+                        "image":"images/episodes/01.jpg",
+                        "episode":"Episode 1",
+                        "size":"2.25 m",
+                        "text":"Lorem Ipsum is simply dummy t"
+                    },
+                    {
+                        "image":"images/episodes/01.jpg",
+                        "episode":"Episode 1",
+                        "size":"2.25 m",
+                        "text":"Lorem Ipsum is simply dummy t"
+                    }
+                ]
+                
+            }
+            
+        ]
+    },
+    {
+        "title": "opposite attract",
+        "age": "18+",
+        "session": "3 sesson",
+        "year":"2020",
+        "image":"images/trending/trending-label.png",
+        "trandingNo": "trending-data1",
+        "series": "#2 in Series Today",
+        "text":"Lorem Ipsum is simply dummy ",
+        "backgroudImage":"05.jpg",
+        "logo":"../assets/images/logo-full.png",
+        "category": [
+            {
+                "title": "starring",
+                "item":[
+                    "Wagner",
+                    "Moura"
+                ]
+            },
+            {
+                "title": "starring",
+                "item":[
+                    "Wagner",
+                    "Moura"
+                ]
+            }
+        ],
+        "season": [
+            {
+                "name": "sss",
+                "trandingNo": "trending-data2",
+                "episods": [
+                    {
+                        "id" : "1",
+                        "title": "ss",
+                        "description": "ss",
+                        "sequence": "1",
+                        "duration": "ss",
+                        "thumbnail": "ss",
+                        "video": "ss",
+                        "realeseDate": "ss"
+                    }
+                ]
+            }
+        ],
+        "trailers":[
+            {
+                "title":"test",
+                "trandingNo": "trending-data3",
+                "List":[
+                    {
+                        "image":"images/episodes/01.jpg",
+                        "episode":"Episode 1",
+                        "size":"2.25 m",
+                        "text":"Lorem Ipsum is simply dummy t"
+                    },
+                    {
+                        "image":"images/episodes/01.jpg",
+                        "episode":"Episode 1",
+                        "size":"2.25 m",
+                        "text":"Lorem Ipsum is simply dummy t"
+                    }
+                ]
+                
+            }
+        ],
+        "recommanded":[
+            {
+                "title":"test",
+                "trandingNo": "trending-data4",
+                "List":[
+                    {
+                        "image":"images/episodes/01.jpg",
+                        "episode":"Episode 1",
+                        "size":"2.25 m",
+                        "text":"Lorem Ipsum is simply dummy t"
+                    },
+                    {
+                        "image":"images/episodes/01.jpg",
+                        "episode":"Episode 1",
+                        "size":"2.25 m",
+                        "text":"Lorem Ipsum is simply dummy t"
+                    }
+                ]
+                
+            }
+            
+        ]
+    },
+    {
+        "title": "fire storm",
+        "age": "18+",
+        "session": "3 sesson",
+        "year":"2020",
+        "image":"images/trending/trending-label.png",
+        "trandingNo": "trending-data1",
+        "series": "#2 in Series Today",
+        "text":"Lorem Ipsum is simply dummy ",
+        "backgroudImage":"06.jpg",
+        "logo":"../assets/images/logo-full.png",
+        "category": [
+            {
+                "title": "starring",
+                "item":[
+                    "Wagner",
+                    "Moura"
+                ]
+            },
+            {
+                "title": "starring",
+                "item":[
+                    "Wagner",
+                    "Moura"
+                ]
+            }
+        ],
+        "season": [
+            {
+                "name": "sss",
+                "trandingNo": "trending-data2",
+                "episods": [
+                    {
+                        "id" : "1",
+                        "title": "ss",
+                        "description": "ss",
+                        "sequence": "1",
+                        "duration": "ss",
+                        "thumbnail": "ss",
+                        "video": "ss",
+                        "realeseDate": "ss"
+                    }
+                ]
+            }
+        ],
+        "trailers":[
+            {
+                "title":"test",
+                "trandingNo": "trending-data3",
+                "List":[
+                    {
+                        "image":"images/episodes/01.jpg",
+                        "episode":"Episode 1",
+                        "size":"2.25 m",
+                        "text":"Lorem Ipsum is simply dummy t"
+                    },
+                    {
+                        "image":"images/episodes/01.jpg",
+                        "episode":"Episode 1",
+                        "size":"2.25 m",
+                        "text":"Lorem Ipsum is simply dummy t"
+                    }
+                ]
+                
+            }
+        ],
+        "recommanded":[
+            {
+                "title":"test",
+                "trandingNo": "trending-data4",
+                "List":[
+                    {
+                        "image":"images/episodes/01.jpg",
+                        "episode":"Episode 1",
+                        "size":"2.25 m",
+                        "text":"Lorem Ipsum is simply dummy t"
+                    },
+                    {
+                        "image":"images/episodes/01.jpg",
+                        "episode":"Episode 1",
+                        "size":"2.25 m",
+                        "text":"Lorem Ipsum is simply dummy t"
+                    }
+                ]
+                
+            }
+            
+        ]
+    }
+]

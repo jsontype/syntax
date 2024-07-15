@@ -1,0 +1,90 @@
+[dir=rtl] .choices__list--dropdown .choices__item--selectable,
+[dir=rtl] .choices__list[aria-expanded] .choices__item--selectable {
+    padding-left: 0px !important;
+}
+
+.iq-custom-select .choices__inner {
+    height: 2.7em;
+    padding: 0.4375em 2em 0.5em 1em;
+    border: var(--bs-border-width) solid var(--bs-body-bg);
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    background: var(--bs-gray-900);
+    color: var(--bs-body-color);
+}
+
+.choices__list--dropdown.is-active {
+    border-color: var(--bs-primary) !important;
+    -webkit-border-radius: 0 !important;
+    border-radius: 0 !important;
+    background: var(--bs-gray-900) !important;
+    color: var(--bs-body-color) !important;
+}
+
+.choices__list {
+    display: block !important;
+    max-height: 200px !important;
+    overflow-y: auto !important;
+    word-break: unset !important;
+    padding-right: unset !important;
+}
+
+.choices__list--dropdown>input {
+    padding: 0.5rem 1rem !important;
+    background-color: #3b3b3b !important;
+    border-color: var(--bs-body-bg) !important;
+}
+
+.choices__list .is-highlighted {
+    background-color: var(--bs-primary) !important;
+}
+
+.choices__item--selectable::after {
+    content: "" !important;
+}
+
+.movie-detail-select .choices__inner {
+    background: var(--bs-white);
+    color: var(--bs-primary);
+    height: 2em;
+    padding: 0.2rem 1rem 2rem !important;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    border: none;
+    min-height: unset;
+}
+
+.choices__item--selectable,
+.choices__list[aria-expanded] .choices__item--selectable {
+    padding-right: unset !important;
+}
+
+.choices__list--dropdown .choices__item,
+.choices__list[aria-expanded] .choices__item {
+    padding: 10px !important;
+}
+
+.movie-detail-select .choices__item {
+    padding-right: unset !important;
+}
+
+[dir=rtl] .movie-detail-select .choices .choices__list[aria-expanded] .choices__item--selectable,
+[dir=rtl] .movie-detail-select .choices__inner .choices__list--single {
+    padding-right: 1rem !important;
+}
+
+.trending-choice .choices__list--dropdown {
+    z-index: 100 !important;
+}
+
+.choices[data-type*=select-one]::after {
+    border-color: gray #0000 #0000 !important
+}
+
+.movie-detail-select .choices[data-type*=select-one]::after {
+    border-color: var(--bs-primary) #0000 #0000 !important
+}
+
+.choices__list--dropdown.is-active {
+    z-index: 3 !important;
+}

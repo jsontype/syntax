@@ -1,0 +1,66 @@
+.iq-accordian {
+  .iq-accordian-block {
+    margin-bottom: 1.875rem;
+    padding: 0;
+    overflow: hidden;
+    background: var(--bs-gray-900);
+    border-radius: 0.3125rem;
+
+    .iq-accordian-title {
+      border-radius: 0.25rem;
+      position: relative;
+      padding: 1.875rem 4.688rem 1.875rem 1.875rem;
+      line-height: normal;
+      cursor: pointer;
+      display: flex;
+      text-align: left;
+      color: var(--bs-white);
+      font-weight: 600;
+      text-decoration: $font-weight-semibold;
+
+      .iq-icon-right {
+        position: absolute;
+        right: 1.875rem;
+        top: 1.563rem;
+        text-align: center;
+        background: var(--bs-primary);
+        height: 2.188rem;
+        width: 2.188rem;
+
+        i {
+          color: var(--bs-white);
+          vertical-align: middle;
+          line-height: 2.188rem;
+
+          &.active {
+            display: none;
+          }
+        }
+      }
+    }
+
+    .iq-accordian-details {
+      padding: 1.875rem;
+      border: 0.0625rem solid;
+      border-width: 0.0625rem 0 0 0;
+      border-image-source: linear-gradient(270deg, rgba(38, 37, 37, 0) -1.25%, #6c757d 43.69%, rgba(38, 37, 37, 0) 99.08%);
+      border-image-slice: 1;
+    }
+
+    &.iq-active {
+      .iq-accordian-title {
+        .iq-icon-right {
+          i {
+            &.active {
+              display: block;
+            }
+
+            &.inactive {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}

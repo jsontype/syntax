@@ -1,0 +1,9 @@
+.form-range {
+    &::-webkit-slider-thumb {
+        cursor: pointer;
+    }
+}
+
+input[type=file]::file-selector-button {
+    background-color: rgb(20, 19, 19);
+}

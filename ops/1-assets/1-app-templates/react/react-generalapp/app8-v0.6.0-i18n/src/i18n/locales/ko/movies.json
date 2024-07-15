@@ -1,0 +1,7 @@
+{
+  "title": "무비 앱",
+  "movieTitleOrder": "영화 제목순",
+  "movieRatingOrder": "영화 평점순",
+  "movieReleaseOrder": "영화 개봉연도순",
+  "movieRegistrationOrder": "영화 등록순"
+}

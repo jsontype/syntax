@@ -1,0 +1,12 @@
+[data-bs-theme=dark] {
+    .text-dark {
+        color: var(--bs-white) !important;
+    }
+    .bg-white {
+        background: var(--bs-body-bg) !important;
+    }
+    .section-form fieldset {
+        border: 3px solid rgba(var(--bs-white-rgb), .1);
+    }
+
+}

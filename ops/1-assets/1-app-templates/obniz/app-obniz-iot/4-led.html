@@ -1,0 +1,21 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://obniz.com/js/jquery-3.2.1.min.js"></script>
+    <script src="https://unpkg.com/obniz@3.3.0/obniz.js"></script>
+</head>
+
+<body>
+    <div id="obniz-debug"></div>
+    <h1>LED</h1>
+
+    <script>
+        var obniz = new Obniz("4724-7199");
+        obniz.onconnect = async function () {
+            var led = obniz.wired("LED", { anode: 0, cathode: 1 });
+            led.on();
+        }
+    </script>
+</body>
+
+</html>

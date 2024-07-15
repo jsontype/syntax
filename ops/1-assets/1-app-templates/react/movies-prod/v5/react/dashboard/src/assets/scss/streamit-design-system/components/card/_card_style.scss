@@ -1,0 +1,49 @@
+$prefix: card-;
+
+.#{$prefix}transparent {
+
+    .card,
+    .card-header,
+    .card-footer,
+    .card .nav,
+    .card.card-folder:before {
+        background-color: transparent;
+        box-shadow: unset !important;
+    }
+
+    .card {
+        border: $border-width solid $border-color;
+    }
+
+    .card.card-folder:before {
+        border: 1px solid $white;
+        backdrop-filter: blur(10px);
+        border-bottom: unset;
+    }
+}
+
+.#{$prefix}glass {
+
+    .card,
+    .card-header,
+    .card-footer,
+    .card .nav,
+    .card.card-folder:before {
+        background-color: rgba($white, .1);
+    }
+
+    .card {
+        border: 1px solid $white;
+        backdrop-filter: blur(10px);
+    }
+
+    .card.card-folder:before {
+        border: 1px solid $white;
+        backdrop-filter: blur(10px);
+        border-bottom: unset;
+    }
+
+    background-image: url(../../images/glass-card.png);
+    background-attachment: fixed;
+    background-size: cover;
+}

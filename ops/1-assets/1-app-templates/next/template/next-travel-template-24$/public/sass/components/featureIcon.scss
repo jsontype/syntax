@@ -1,0 +1,9 @@
+.featureIcon.-type-1 {
+  &.-hover-shadow {
+    transition: all 0.3s $easeOutQuart;
+    
+    &:hover {
+      box-shadow: 0px 20px 40px 0px #05103612;
+    }
+  }
+}

@@ -1,0 +1,41 @@
+.ctaCard.-type-1 {
+  position: relative;
+  z-index: 0;
+
+  .ctaCard {
+    &__image {
+      border-radius: inherit;
+    }
+
+    &__content {
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+
+      &::before {
+        content: "";
+        border-radius: inherit;
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, rgba(5, 16, 54, 0.7) 0%, rgba(5, 16, 54, 0) 100%);
+      }
+    }
+  }
+
+  &.-no-overlay {
+    .ctaCard__content::before {
+      display: none;
+    }
+  }
+
+  &:hover {
+  }
+}

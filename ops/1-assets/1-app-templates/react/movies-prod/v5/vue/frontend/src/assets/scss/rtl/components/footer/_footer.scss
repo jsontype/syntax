@@ -1,0 +1,37 @@
+footer{
+    .footer-menu{
+        >li{
+            &::before{
+                left: auto;
+                right: 0;
+                transform: translateY(-50%)scale(-1);
+            }
+        }
+    }
+
+    .menu{
+        li{
+            margin-right: 0;
+            margin-left: 1.875em;
+
+            &:last-child{
+                margin-left: 0;
+            }
+        }
+    }
+}
+
+.mailchimp{
+    .iq-button{
+        .btn{
+            -webkit-border-top-left-radius: .1875rem;
+            border-top-left-radius: .1875rem;
+            -webkit-border-bottom-left-radius: .1875rem;
+            border-bottom-left-radius: .1875rem;
+            -webkit-border-top-right-radius: 0;
+            border-top-right-radius: 0;
+            -webkit-border-bottom-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+    }
+}  

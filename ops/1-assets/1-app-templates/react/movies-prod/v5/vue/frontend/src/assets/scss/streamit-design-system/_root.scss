@@ -1,0 +1,53 @@
+[data-bs-theme="dark"] {
+    --#{$prefix}gray-900: #141314;
+    --#{$prefix}gray-900-rgb: 20, 19, 20;
+    --#{$prefix}gray-800: #343a40; 
+}
+
+[data-bs-theme="hotstar"] {
+    --#{$prefix}primary: #0959E4;
+    --#{$prefix}primary-rgb: 22, 121, 231;
+    --#{$prefix}secondary-color: #fff;
+    --#{$prefix}secondary-color-rgb: 255, 255, 255;
+    --#{$prefix}body-color: #fff;
+    --#{$prefix}body-color-rgb: 255, 255, 255;
+    --#{$prefix}heading-color: #fff;
+    --#{$prefix}body-bg: #0F1014; 
+    --#{$prefix}body-bg-rgb: 15, 16, 20;
+    --#{$prefix}gray-900: #191923;
+    --#{$prefix}gray-900-rgb: 25, 25, 35;
+    --#{$prefix}gray-800: #252833;
+    --#{$prefix}gray-800-rgb: 37, 40, 51;
+}
+
+[data-bs-theme="amazonprime"] {
+    --#{$prefix}primary: #1A98FF;
+    --#{$prefix}primary-rgb: 26, 152, 255;
+    --#{$prefix}secondary-color: #fff;
+    --#{$prefix}secondary-color-rgb: 255, 255, 255;
+    --#{$prefix}body-color: #fff;
+    --#{$prefix}body-color-rgb: 255, 255, 255;
+    --#{$prefix}heading-color: #fff;
+    --#{$prefix}body-bg: #00050D;
+    --#{$prefix}body-bg-rgb: 0, 5, 13;
+    --#{$prefix}gray-900: #1D2127;
+    --#{$prefix}gray-900-rgb: 29, 33, 39;
+    --#{$prefix}gray-800: #191E25;
+    --#{$prefix}gray-800-rgb: 25, 30, 37;
+}
+
+[data-bs-theme="hulu"] {
+    --#{$prefix}primary: #3ee783;
+    --#{$prefix}primary-rgb: 62, 231, 131;
+    --#{$prefix}secondary-color: #fff;
+    --#{$prefix}secondary-color-rgb: 255, 255, 255;
+    --#{$prefix}body-color: #fff;
+    --#{$prefix}body-color-rgb: 255, 255, 255;
+    --#{$prefix}heading-color: #fff;
+    --#{$prefix}body-bg:#0B0C0F;
+    --#{$prefix}body-bg-rgb: 11, 12, 15;
+    --#{$prefix}gray-900: #272C35;
+    --#{$prefix}gray-900-rgb: 39, 44, 53;
+    --#{$prefix}gray-800: #242830;
+    --#{$prefix}gray-800-rgb: 36, 40, 48;
+}

@@ -1,0 +1,24 @@
+@import '../../../styles/resources.scss';
+
+.movieDetail {
+  display: block;
+  text-decoration: none;
+  border: 1px solid $gray;
+  border-radius: $xxs;
+  color: $gray;
+  font-size: $lg;
+  flex: 1;
+  margin-bottom: $lg;
+}
+
+.good {
+  color: $blue;
+}
+
+.soso {
+  color: $orange;
+}
+
+.bad {
+  color: $red;
+}

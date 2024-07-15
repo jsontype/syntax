@@ -1,0 +1,45 @@
+.logo-hotstar,
+.logo-prime,
+.logo-hulu {
+    display: none;
+}
+
+.logo-default {
+    display: block;
+}
+
+[data-bs-theme="hotstar"] {
+    .logo-hotstar {
+        display: block;
+    }
+
+    .logo-default,
+    .logo-prime,
+    .logo-hulu {
+        display: none;
+    }
+}
+
+[data-bs-theme="amazonprime"] {
+    .logo-prime {
+        display: block;
+    }
+
+    .logo-hotstar,
+    .logo-default,
+    .logo-hulu {
+        display: none;
+    }
+}
+
+[data-bs-theme="hulu"] {
+    .logo-hulu {
+        display: block;
+    }
+
+    .logo-hotstar,
+    .logo-prime,
+    .logo-default {
+        display: none;
+    }
+}

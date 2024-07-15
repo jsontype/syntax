@@ -1,0 +1,714 @@
+{{#extend layout title="movie list" isBanner="false" ActiveLink="MovieList" active="movie-list" isFlatpickr="true"
+isSelect2="false" isSweetalert="true" path="../../" }}
+{{#content "content"}}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card pb-3">
+            <div class="card-header border-bottom d-flex justify-content-between align-items-center py-3">
+                <div class="d-flex align-items-center mt-3 gap-2">
+                    <div class="form-group mb-0">
+                        <select type="select" class="form-control select2-basic-multiple" placeholder="No Action">
+                            <option>No Action</option>
+                            <option>Status</option>
+                            <option>Delete</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary ">Apply</button>
+                </div>
+                <button class="btn btn-primary mt-3" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#season-offcanvas" aria-controls="season-offcanvas"><i
+                        class="fa-solid fa-plus me-2"></i>Add Movie</button>
+            </div>
+            <div class="card-body">
+                <div class="table-view table-responsive pt-3 table-space">
+                    <table id="seasonTable" class="data-tables table custom-table movie_table" data-toggle="data-table">
+                        <thead>
+                            <tr class="text-uppercase">
+                                <th class="text-center">
+                                    <input type="checkbox" class="form-check-input" />
+                                </th>
+                                <th>Movie</th>
+                                <th>Quality</th>
+                                <th>Category</th>
+                                <th>Publish Date</th>
+                                <th>Movie Access</th>
+                                <th>Seo</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{> components/widgets/data-table
+                            name="arrival 1999"
+                            thumbnail="movie-thumb/03.jpg"
+                            quality="480/720/1080"
+                            duration="2h 21m"
+                            genres=["action", "fight", "thriller", "etc"]
+                            date="2010"
+                            subtitles="english, hindi"
+                            }}
+
+                            {{> components/widgets/data-table name="day of darkness"
+                            thumbnail="movie-thumb/04.jpg"
+                            quality="480/720/1080"
+                            duration="2h 40m"
+                            genres=["action", "fight", "thriller", "etc"]
+                            date="2010"
+                            subtitles="english, hindi" }}
+
+                            {{> components/widgets/data-table name="don jon"
+                            thumbnail="movie-thumb/05.jpg"
+                            quality="480/720/1080"
+                            duration="3h"
+                            genres=["action", "fight", "thriller", "etc"]
+                            date="2010"
+                            subtitles="english, hindi" }}
+
+                            {{> components/widgets/data-table name="mega fun"
+                            thumbnail="movie-thumb/06.jpg"
+                            quality="480/720/1080"
+                            duration="2h 21m"
+                            genres=["action", "fight", "thriller", "etc"]
+                            date="2010"
+                            subtitles="english, hindi" }}
+
+                            {{> components/widgets/data-table name="my true friends"
+                            thumbnail="movie-thumb/07.jpg"
+                            quality="480/720/1080"
+                            duration="2h 21m"
+                            genres=["action", "fight", "thriller", "etc"]
+                            date="2010"
+                            subtitles="english, hindi" }}
+
+                            {{> components/widgets/data-table name="night mare"
+                            thumbnail="movie-thumb/08.jpg"
+                            quality="480/720/1080"
+                            duration="2h 21m"
+                            genres=["action", "fight", "thriller", "etc"]
+                            date="2010"
+                            subtitles="english, hindi" }}
+
+                            {{> components/widgets/data-table name="portable"
+                            thumbnail="movie-thumb/09.jpg"
+                            quality="480/720/1080"
+                            duration="2h 21m"
+                            genres=["action", "fight", "thriller", "etc"]
+                            date="2010"
+                            subtitles="english, hindi" }}
+
+                            {{> components/widgets/data-table name="suffered"
+                            thumbnail="movie-thumb/10.jpg"
+                            quality="480/720/1080"
+                            duration="2h 21m"
+                            genres=["action", "fight", "thriller", "etc"]
+                            date="2010"
+                            subtitles="english, hindi" }}
+
+                            {{> components/widgets/data-table name="the witcher"
+                            thumbnail="movie-thumb/02.jpg"
+                            quality="480/720/1080"
+                            duration="2h 21m"
+                            genres=["action", "fight", "thriller", "etc"]
+                            date="2010"
+                            subtitles="english, hindi" }}
+
+                            {{> components/widgets/data-table name="troll hunter"
+                            thumbnail="movie-thumb/01.jpg"
+                            quality="480/720/1080"
+                            duration="2h 21m"
+                            genres=["action", "fight", "thriller", "etc"]
+                            date="2010"
+                            subtitles="english, hindi" }}
+
+                            {{> components/widgets/data-table name="troll hunter"
+                            thumbnail="movie-thumb/01.jpg"
+                            quality="480/720/1080"
+                            duration="2h 21m"
+                            genres=["action", "fight", "thriller", "etc"]
+                            date="2010"
+                            subtitles="english, hindi" }}
+
+                            {{> components/widgets/data-table name="troll hunter"
+                            thumbnail="movie-thumb/01.jpg"
+                            quality="480/720/1080"
+                            duration="2h 21m"
+                            genres=["action", "fight", "thriller", "etc"]
+                            date="2010"
+                            subtitles="english, hindi" }}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    {{!-- add --}}
+    <div class="offcanvas offcanvas-end offcanvas-width-80" tabindex="-1" id="season-offcanvas"
+        aria-labelledby="season-offcanvas-lable">
+        <div class="offcanvas-header">
+            <h5 id="offcanvasRightLabel1">Add New Movie</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <form>
+                <div class="section-form">
+                    <fieldset>
+                        <legend>Movie</legend>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                {{> components/partials/input-field label="Movie Name" isRequired="true" type="text"
+                                placeholder="Enter Movie Name"}}
+                            </div>
+                            <div class="col-sm-12">
+                                {{> components/partials/input-field label="Description" type="textarea"
+                                placeholder="Description" }}
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group px-3">
+                                    <label class="form-label flex-grow-1" for="movie-access"><strong>Movie
+                                            Access:</strong></label>
+                                    <select id="movie-access" type="select" class="form-control select2-basic-multiple"
+                                        placeholder="select movie access">
+                                        <option>Free</option>
+                                        <option>standard</option>
+                                        <option>premium</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group px-3">
+                                    <label class="form-label flex-grow-1"
+                                        for="language"><strong>Language:</strong></label>
+                                    <select id="language" type="select" class="form-control select2-basic-multiple"
+                                        placeholder="select language">
+                                        <option>Hindi</option>
+                                        <option>English</option>
+                                        <option>French</option>
+                                        <option>Marathi</option>
+                                        <option>Gujrati</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group px-3">
+                                    <label class="form-label flex-grow-1" for="Genres"><strong>Genres:</strong></label>
+                                    <select id="Genres" type="select" class="form-control select2-basic-multiple"
+                                        placeholder="select genres">
+                                        <option>Action</option>
+                                        <option>Adventure</option>
+                                        <option>Animation</option>
+                                        <option>Horror</option>
+                                        <option>Thriller</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center my-4 px-3">
+                            <h5 class="mb-0">
+                                <strong>Casts / Crews</strong>
+                            </h5>
+                            {{> components/widgets/modals/cast-modal }}
+                        </div>
+                        <div class="row px-3">
+                            <div class="col-sm-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-strip">
+                                        <thead>
+                                            <tr class="text-center">
+                                                <th>Cast/Crew</th>
+                                                <th>Name</th>
+                                                <th>Role</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="text-center">
+                                                <td>Cast</td>
+                                                <td>ABC</td>
+                                                <td>James</td>
+                                                <td>
+                                                    <div class="d-flex align-items-center justify-content-center">
+                                                        <a aria-current="page" href="#" class="active text-success"
+                                                            title="Edit">
+                                                            <i class="fa-solid fa-pen mx-4"></i>
+                                                        </a>
+                                                        <a aria-current="page" href="#" class="active text-danger"
+                                                            title="Delete">
+                                                            <i class="fa-solid fa-trash me-4"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr class="text-center">
+                                                <td>Crew</td>
+                                                <td>XYZ</td>
+                                                <td>Producer</td>
+                                                <td>
+                                                    <div class="d-flex align-items-center justify-content-center">
+                                                        <a aria-current="page" href="#" class="active text-success"
+                                                            title="Edit">
+                                                            <i class="fa-solid fa-pen mx-4"></i>
+                                                        </a>
+                                                        <a aria-current="page" href="#" class="active text-danger"
+                                                            title="Delete">
+                                                            <i class="fa-solid fa-trash me-4"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-5">
+                            <div class="col-lg-3">
+                                {{> components/partials/input-field label="Content Rating" type="text"
+                                placeholder="Rating"}}
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group px-3">
+                                    <label class="form-label flex-grow-1" for="genres"><strong>Release
+                                            Date:</strong></label>
+                                    <input class="form-control flatpickr_humandate" type="text"
+                                        placeholder="release date.." data-id="multiple" readonly="readonly">
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group px-3">
+                                    <label class="form-label flex-grow-1" for="genres"><strong>Publice
+                                            Date:</strong></label>
+                                    <input class="form-control flatpickr_humandate" type="text"
+                                        placeholder="publice date.." data-id="multiple" readonly="readonly">
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                {{> components/partials/input-field label="Duration" type="text"
+                                placeholder="Duration in mins"}}
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>SEO</legend>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                {{> components/partials/input-field label="SEO Title" isRequired="true" type="text"
+                                placeholder="Enter seo title"}}
+                            </div>
+                            <div class="col-sm-12">
+                                {{> components/partials/input-field label="SEO Description" isRequired="true"
+                                type="textarea"
+                                placeholder="SEO Description"}}
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group px-3">
+                                    <label class="form-label flex-grow-1"
+                                        for="genres"><strong>Keywords:</strong></label>
+                                    <select id="genres" type="select" class="form-control select2-basic-multiple"
+                                        placeholder="select genres">
+                                        <option>A</option>
+                                        <option>B</option>
+                                        <option>C</option>
+                                        <option>D</option>
+                                        <option>E</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Media</legend>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                {{> components/partials/input-field label="Thumbnail" isRequired="true"
+                                type="file"}}
+                            </div>
+                            <div class="col-sm-6">
+                                {{> components/partials/input-field label="poster" isRequired="true" type="file"}}
+                            </div>
+                            <div class="col-sm-12">
+                                {{> components/partials/input-field label="Trailer Url" isRequired="true"
+                                type="text"
+                                placeholder="Trailer Link"}}
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center my-4 px-3">
+                            <h5 class="mb-0">
+                                <strong>Video Quality</strong>
+                            </h5>
+                            {{> components/widgets/modals/video-modal }}
+                        </div>
+                        <div class="row px-3">
+                            <div class="col-sm-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr class="text-center">
+                                                <th>Quality</th>
+                                                <th>Video URL</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="text-center">
+                                                <td>720P</td>
+                                                <td>video_720.mp4</td>
+                                                <td>
+                                                    <div class="d-flex align-items-center justify-content-center">
+                                                        <a aria-current="page" href="#" class="active text-success"
+                                                            title="Edit">
+                                                            <i class="fa-solid fa-pen mx-4"></i>
+                                                        </a>
+                                                        <a aria-current="page" href="#" class="active text-danger"
+                                                            title="Delete">
+                                                            <i class="fa-solid fa-trash me-4"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center my-4 px-3">
+                            <h5 class="mb-0">
+                                <strong>Subtitles</strong>
+                            </h5>
+                            {{> components/widgets/modals/subtitle-modal }}
+                        </div>
+                        <div class="row px-3">
+                            <div class="col-sm-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr class="text-center">
+                                                <th>Language</th>
+                                                <th>URL</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="text-center">
+                                                <td>English</td>
+                                                <td>English.txt</td>
+                                                <td>
+                                                    <div class="d-flex align-items-center justify-content-center">
+                                                        <a aria-current="page" href="#" class="active text-success"
+                                                            title="Edit">
+                                                            <i class="fa-solid fa-pen mx-4"></i>
+                                                        </a>
+                                                        <a aria-current="page" href="#" class="active text-danger"
+                                                            title="Delete">
+                                                            <i class="fa-solid fa-trash me-4"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </form>
+        </div>
+        <div class="offcanvas-footer border-top">
+            <div class="d-grid d-flex gap-3 p-3">
+                <button type="submit" class="btn btn-primary d-block">
+                    <i class="fa-solid fa-floppy-disk me-2"></i>Save
+                </button>
+                <button type="button" class="btn btn-outline-primary d-block" data-bs-dismiss="offcanvas"
+                    aria-label="Close">
+                    <i class="fa-solid fa-angles-left me-2"></i>Close
+                </button>
+            </div>
+        </div>
+    </div>
+    {{!-- edit --}}
+    <div class="offcanvas offcanvas-end offcanvas-width-80" tabindex="-1" id="season-offcanvas-edit"
+        aria-labelledby="season-offcanvas-edit-lable">
+        <div class="offcanvas-header">
+            <h5 id="offcanvasRightLabel1">Edit Movie</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <form>
+                <div class="section-form">
+                    <fieldset>
+                        <legend>Movie</legend>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                {{> components/partials/input-field label="Movie Name" isRequired="true" type="text"
+                                placeholder="Enter Movie Name" value="Arrival 1999"}}
+                            </div>
+                            <div class="col-sm-12">
+                                {{> components/partials/input-field label="Description" type="textarea"
+                                placeholder="Description"
+                                value="Lorem Ipsum is simply dummy text of the printing and typesetting industry" }}
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group px-3">
+                                    <label class="form-label flex-grow-1" for="movie-access1"><strong>Movie
+                                            Access:</strong></label>
+                                    <select id="movie-access1" type="select" class="form-control select2-basic-multiple"
+                                        placeholder="select movie access">
+                                        <option>Free</option>
+                                        <option selected>standard</option>
+                                        <option>premium</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group px-3">
+                                    <label class="form-label flex-grow-1"
+                                        for="language1"><strong>Language:</strong></label>
+                                    <select id="language1" type="select" class="form-control select2-basic-multiple"
+                                        placeholder="select language">
+                                        <option>Hindi</option>
+                                        <option selected>English</option>
+                                        <option>French</option>
+                                        <option>Marathi</option>
+                                        <option>Gujrati</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group px-3">
+                                    <label class="form-label flex-grow-1" for="Genres1"><strong>Genres:</strong></label>
+                                    <select id="Genres1" type="select" class="form-control select2-basic-multiple"
+                                        placeholder="select genres">
+                                        <option>Action</option>
+                                        <option>Adventure</option>
+                                        <option selected>Animation</option>
+                                        <option>Horror</option>
+                                        <option>Thriller</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center my-4 px-3">
+                            <h5 class="mb-0">
+                                <strong>Casts / Crews</strong>
+                            </h5>
+                            {{> components/widgets/modals/cast-modal-edit }}
+                        </div>
+                        <div class="row px-3">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-strip">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th>Cast/Crew</th>
+                                            <th>Name</th>
+                                            <th>Role</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="text-center">
+                                            <td>Cast</td>
+                                            <td>ABC</td>
+                                            <td>James</td>
+                                            <td>
+                                                <div class="d-flex align-items-center justify-content-center">
+                                                    <a aria-current="page" href="#" class="active text-success"
+                                                        title="Edit">
+                                                        <i class="fa-solid fa-pen mx-4"></i>
+                                                    </a>
+                                                    <a aria-current="page" href="#" class="active text-danger"
+                                                        title="Delete">
+                                                        <i class="fa-solid fa-trash me-4"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <td>Crew</td>
+                                            <td>XYZ</td>
+                                            <td>Producer</td>
+                                            <td>
+                                                <div class="d-flex align-items-center justify-content-center">
+                                                    <a aria-current="page" href="#" class="active text-success"
+                                                        title="Edit">
+                                                        <i class="fa-solid fa-pen mx-4"></i>
+                                                    </a>
+                                                    <a aria-current="page" href="#" class="active text-danger"
+                                                        title="Delete">
+                                                        <i class="fa-solid fa-trash me-4"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row mt-5">
+                            <div class="col-lg-3">
+                                {{> components/partials/input-field label="Content Rating" type="text"
+                                placeholder="Rating"}}
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group px-3">
+                                    <label class="form-label flex-grow-1" for="genres"><strong>Release
+                                            Date:</strong></label>
+                                    <input class="form-control flatpickr_humandate" type="text"
+                                        placeholder="release date.." data-id="multiple" readonly="readonly">
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group px-3">
+                                    <label class="form-label flex-grow-1" for="genres"><strong>Publice
+                                            Date:</strong></label>
+                                    <input class="form-control flatpickr_humandate" type="text"
+                                        placeholder="publice date.." data-id="multiple" readonly="readonly">
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                {{> components/partials/input-field label="Duration" type="text"
+                                placeholder="Duration in mins"}}
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>SEO</legend>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                {{> components/partials/input-field label="SEO Title" isRequired="true" type="text"
+                                placeholder="Enter seo title" value="v1"}}
+                            </div>
+                            <div class="col-sm-12">
+                                {{> components/partials/input-field label="SEO Description" isRequired="true"
+                                type="textarea"
+                                placeholder="SEO Description" value="Lorem Ipsum is simply dummy text of the printing
+                                and typesetting industry"}}
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group px-3">
+                                    <label class="form-label flex-grow-1"
+                                        for="genres2"><strong>Keywords:</strong></label>
+                                    <select id="genres2" type="select" class="form-control select2-basic-multiple"
+                                        placeholder="select genres">
+                                        <option>A</option>
+                                        <option>B</option>
+                                        <option selected>C</option>
+                                        <option>D</option>
+                                        <option>E</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Media</legend>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                {{> components/partials/input-field label="Thumbnail" isRequired="true"
+                                type="file"}}
+                            </div>
+                            <div class="col-sm-6">
+                                {{> components/partials/input-field label="poster" isRequired="true" type="file"}}
+                            </div>
+                            <div class="col-sm-12">
+                                {{> components/partials/input-field label="Trailer Url" isRequired="true"
+                                type="text"
+                                placeholder="Trailer Link" value="www.demo.com"}}
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center my-4 px-3">
+                            <h5 class="mb-0">
+                                <strong>Video Quality</strong>
+                            </h5>
+                            {{> components/widgets/modals/video-modal-edit }}
+                        </div>
+                        <div class="row">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th>Quality</th>
+                                            <th>Video URL</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="text-center">
+                                            <td>720P</td>
+                                            <td>video_720.mp4</td>
+                                            <td>
+                                                <div class="d-flex align-items-center justify-content-center">
+                                                    <a aria-current="page" href="#" class="active text-success"
+                                                        title="Edit">
+                                                        <i class="fa-solid fa-pen mx-4"></i>
+                                                    </a>
+                                                    <a aria-current="page" href="#" class="active text-danger"
+                                                        title="Delete">
+                                                        <i class="fa-solid fa-trash me-4"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center my-4 px-3">
+                            <h5 class="mb-0">
+                                <strong>Subtitles</strong>
+                            </h5>
+                            {{> components/widgets/modals/subtitle-modal-edit }}
+                        </div>
+                        <div class="row px-5">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th>Language</th>
+                                            <th>URL</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="text-center">
+                                            <td>English</td>
+                                            <td>English.txt</td>
+                                            <td>
+                                                <div class="d-flex align-items-center justify-content-center">
+                                                    <a aria-current="page" href="#" class="active text-success"
+                                                        title="Edit">
+                                                        <i class="fa-solid fa-pen mx-4"></i>
+                                                    </a>
+                                                    <a aria-current="page" href="#" class="active text-danger"
+                                                        title="Delete">
+                                                        <i class="fa-solid fa-trash me-4"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </form>
+        </div>
+        <div class="offcanvas-footer border-top">
+            <div class="d-grid d-flex gap-3 p-3">
+                <button type="submit" class="btn btn-primary d-block">
+                    <i class="fa-solid fa-floppy-disk me-2"></i>Save
+                </button>
+                <button type="button" class="btn btn-outline-primary d-block" data-bs-dismiss="offcanvas"
+                    aria-label="Close">
+                    <i class="fa-solid fa-angles-left me-2"></i>Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{{/content}}
+{{/extend}}

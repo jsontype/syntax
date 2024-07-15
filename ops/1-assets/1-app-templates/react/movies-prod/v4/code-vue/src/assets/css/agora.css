@@ -1,0 +1,144 @@
+#ag-canvas {
+    height: 100%;
+    display: grid;
+    grid-gap: 10px;
+    align-items: center;
+    justify-items: center;
+    grid-template-rows: repeat(12, auto);
+    grid-template-columns: repeat(24, auto);
+}
+
+.ag-item :first-child {
+    border-radius: 6px;
+}
+.ag-item {
+    border-radius: 6px;
+    border: 2px var(--iq-primary) solid;
+    background: url("../images/user/user-1.jpeg") center no-repeat;
+    height: 100%;
+    width: 100%;
+}
+
+#ag-resize-container {
+    background-image: none !important;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    height: auto;
+}
+
+#ag-resize-container .ag-item {
+    border: none !important;
+}
+
+/* button group */
+.ag-btn-group {
+    height: 70px;
+    width: 100%;
+    margin: 0 auto;
+    position: absolute;
+    bottom: 0;
+    background: transparent;
+    z-index: 11;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.ag-btn-group:hover,
+.ag-btn-group.active {
+    background: #252424;
+}
+
+.ag-btn {
+    z-index: 12;
+    opacity: 0;
+    color: white;
+    cursor: pointer;
+    font-size: 38px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+.ag-btn:hover {
+    color: var(--iq-primary);
+}
+
+.ag-btn.disabled,
+.ag-btn.disabled:hover {
+    color: #637c8e;
+    cursor: not-allowed;
+}
+
+.ag-btn-group:hover .ag-btn,
+.ag-btn-group.active .ag-btn {
+    opacity: 1;
+}
+.ag-btn.off.videoControlBtn .ag-icon-camera {
+    display: none;
+}
+.ag-btn.videoControlBtn .ag-icon-camera-off {
+    display: none;
+}
+.ag-btn.videoControlBtn .ag-icon-camera {
+    display: inline-block;
+}
+.ag-btn.off.videoControlBtn .ag-icon-camera-off {
+    display: inline-block;
+}
+.ag-btn.off.audioControlBtn .ag-icon-mic {
+    display: none;
+}
+.ag-btn.audioControlBtn .ag-icon-mic-off {
+    display: none;
+}
+.ag-btn.audioControlBtn .ag-icon-mic {
+    display: inline-block;
+}
+.ag-btn.off.audioControlBtn .ag-icon-mic-off {
+    display: inline-block;
+}
+
+video {
+    max-width: unset !important;
+}
+
+
+
+
+
+.meeting.wrapper {
+    background: #000;
+    height: 100%;
+}
+
+.ag-header-lead {
+    font-size: 16px;
+    line-height: 35px;
+}
+
+.meeting .ag-footer {
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+}
+
+.meeting .ag-main {
+    position: relative;
+}
+
+.meeting .ag-footer :first-child {
+    margin-right: 80px;
+}
+
+.header-logo {
+    width: 60px;
+    height: 35px;
+    margin-right: 12px;
+}
+
+.ag-container {
+    height: 78vh;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+}

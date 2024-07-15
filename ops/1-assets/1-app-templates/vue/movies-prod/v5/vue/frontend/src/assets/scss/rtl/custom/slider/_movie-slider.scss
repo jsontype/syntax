@@ -1,0 +1,34 @@
+.movie-banner {
+    .movie-banner-image {
+        &:before {
+            background: linear-gradient(-90deg, rgb(0, 0, 0) 0%, rgb(20, 20, 20) 35%, rgba(83, 100, 141, 0) 100%);
+        }
+    }
+
+    .shows-content {
+        >div {
+            padding-left: 0;
+            padding-right: 1.875em;
+        }
+    }
+
+    .swiper-banner-button-prev {
+        right: 0;
+        left: auto;
+
+        i {
+            display: inline-block;
+            transform: scalex(-1);
+        }
+    }
+
+    .swiper-banner-button-next {
+        left: 0;
+        right: auto;
+
+        i {
+            display: inline-block;
+            transform: scalex(-1);
+        }
+    }
+}

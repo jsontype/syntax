@@ -1,0 +1,78 @@
+.watchlist-warpper {
+  .block-images {
+    position: relative;
+    overflow: hidden;
+
+    .img-box {
+      img {
+        height: 12.5rem;
+      }
+    }
+
+    .card-description {
+      padding: 1.5rem 0;
+    }
+
+    &:hover {
+      .card-description {
+        opacity: 1;
+      }
+    }
+  }
+
+  &.card-style-two {
+    .block-images {
+      padding: .5rem;
+      margin-bottom: .5rem;
+
+      .img-box {
+        transform: none;
+        width: auto;
+
+        img {
+          width: 150px;
+          height: 90px;
+          object-fit: cover;
+        }
+      }
+
+      &:hover {
+        background: var(--bs-gray-900);
+
+        .img-box {
+          transform: none;
+        }
+      }
+    }
+  }
+}
+
+.playlist-main-banner {
+  .img-detail {
+    background: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding: 1rem;
+    z-index: 0;
+  }
+}
+
+@media (max-width:375px) {
+  .watchlist-warpper {
+    .block-images {
+      .card-description {
+        padding: 1rem 0;
+      }
+    }
+  }
+
+  .playlist-main-banner {
+    .img-detail {
+      padding: 0.5rem;
+    }
+  }
+}

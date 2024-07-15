@@ -1,0 +1,78 @@
+{{#extend layout title="Video Details" active="video-details" isHeader="true" isFooter="true" path="./" isSwiperSlider="true" bodyClass="custom-header-relative" isSelect2="true"}}
+{{#content "content"}}
+<!-- Banner Start -->
+<div class="iq-main-slider site-video">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="pt-0">
+                    <video id="my-video" poster="https://i.ytimg.com/vi_webp/rKVEoyTedv4/maxresdefault.webp"
+                        class="video-js vjs-big-play-centered w-100" controls preload="auto"
+                        data-setup='{ "techOrder"["youtube"], "sources"[{ "type""video/youtube", "src""https://www.youtube.com/watch?v=QCGq1epI9pQ"}], "youtube"{ "iv_load_policy"1 } }'>
+                        <source src="{{path}}assets/images/video/sample-video.mp4" type="video/mp4" />
+                        <source src="MY_VIDEO.webm" type="video/webm" />
+                    </video>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Banner End -->
+
+{{!-- Detail part Start --}}
+<div class="details-part">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                {{> components/widgets/movie-description moveName="Zombie Island" imdbRating="4.8"
+                movieType="Horror" movieDuration="1hr 48mins" movieReleased="Feb 2017"}}
+                {{> components/widgets/movie-source }}
+            </div>
+        </div>
+    </div>
+</div>
+{{!-- detail part End --}}
+
+<!-- Upcoming Start -->
+<section class="upcomimg-block">
+  <div class="container-fluid">
+    <div class="overflow-hidden">
+    <div class="d-flex align-items-center justify-content-between px-3 pt-2 my-4">
+    <h5 class="main-title text-capitalize mb-0">Upcoming</h5>
+    </div>
+    <div class="card-style-slider">
+    <div class="position-relative swiper swiper-card" data-slide="5" data-laptop="5" data-tab="2" data-mobile="2"
+        data-mobile-sm="2" data-autoplay="false" data-loop="true" data-navigation="true" data-pagination="true">
+        <ul class="p-0 swiper-wrapper m-0  list-inline">
+          <li class="swiper-slide">
+              {{>components/widgets/card-style card-image="movies/upcoming/01.webp" card-title="dinoosaur" movie-time="2hr 12mins"}}
+          </li>
+          <li class="swiper-slide">
+              {{>components/widgets/card-style card-image="movies/upcoming/02.webp" card-title="godilla" movie-time="1hr 22mins"}}
+          </li>
+          <li class="swiper-slide">
+              {{>components/widgets/card-style card-image="movies/upcoming/03.webp" card-title="batter caill" movie-time="1hr 55mins"}}
+          </li>
+          <li class="swiper-slide">
+              {{>components/widgets/card-style card-image="movies/upcoming/04.webp" card-title="the co nouerllng" movie-time="1hr 30mins"}}
+          </li>
+          <li class="swiper-slide">
+              {{>components/widgets/card-style card-image="movies/upcoming/05.webp" card-title="fast furious" movie-time="2hr 45mins"}}
+          </li>
+          <li class="swiper-slide">
+              {{>components/widgets/card-style card-image="movies/upcoming/06.webp" card-title="spiderman" movie-time="1hr 45mins"}}
+          </li>
+          <li class="swiper-slide">
+              {{>components/widgets/card-style card-image="movies/upcoming/07.webp" card-title="onepeoc" movie-time="2hr 30mins"}}
+          </li>
+        </ul>
+        <div class="swiper-button swiper-button-next"></div>
+        <div class="swiper-button swiper-button-prev"></div>
+    </div>
+    </div>
+    </div>
+  </div>
+</section>
+<!-- Upcoming End -->
+{{/content}}
+{{/extend}}

@@ -1,0 +1,23 @@
+/*------------- Variable ------------*/
+
+:root {
+  --iq-primary: #e50914;
+  --iq-primary-hover: #bf000a;
+  --iq-light-primary: #d7d3f8;
+  --iq-placeholder:#d9d5d5;
+  --iq-secondary: #6c757d;
+  --iq-white: #ffffff;
+  --iq-black: #000000;
+  --iq-title-text: #23203c;
+  --iq-body-text: #D1D0CF;
+  --iq-body-bg: #141414;
+  --iq-bg1: #191919;
+  --iq-body-border: #393750;
+  --iq-gold: #E6C75F;
+  --iq-black: #000000;
+  --iq-light-black:#292929;
+  --iq-light-gray:#d1d0cf;
+  --iq-gray:#dddddd;
+  --iq-scroll:#888888;
+  --iq-form-gradient-color: rgba(11, 1, 2, 0);
+  --iq-to-gradient-color: rgba(255, 55, 65, 0.3);}
