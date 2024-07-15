@@ -50,8 +50,10 @@
 1. package.json 수정
   "scripts": {
     ... ,
-    "lint": "eslint ./src",
-    "lint:fix": "eslint --fix ./src"
+    "eslint": "eslint ./src",
+    "eslint:fix": "eslint --fix ./src",
+    "lint": "npm run format && npm run eslint",
+    "lint:fix": "npm run format:fix && npm run eslint:fix",
   },
 
 1. VSCode 확장 ESLint 설치

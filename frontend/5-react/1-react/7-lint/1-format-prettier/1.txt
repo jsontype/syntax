@@ -26,7 +26,7 @@
   }
   
 1. prettier 설치
-  $ npm i --save-dev prettier
+  $ npm i -D prettier
 
 1. .prettierrc.js 생성
   module.exports = {

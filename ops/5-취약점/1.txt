@@ -28,7 +28,7 @@
 
 [라이브러리의 취약점 실무적 대응 절차]
 
-1. 라이브러리의 Vulnerability(취약점) 실무적 대응  
+1. 라이브러리의 Vulnerability(취약점) 실무적 대응
   - Yarn v1 의 경우: 최초 대응
     $ yarn audit // 프로젝트의 취약점이 몇개 있는지 확인한다.
     일단, 1차적으로 "node_module" 폴더와, "yarn.lock" 파일을 일단 한번 삭제한 뒤, 다시 "yarn install"을 해본다.
