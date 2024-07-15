@@ -1,0 +1,118 @@
+[NAS 사용 절차]
+참조: Private의 NAS시트 참조 * [] 부분의 정보 있음
+
+1. NAS 내부접속
+  http://QuickConnect.[id].to 로 접속
+
+1. 백엔드 DB 구축 : MySQL
+  방화벽 설정 : NAS 시작아이콘 - 제어판 - 보안 - 방화벽 - custom 프로파일 생성 - 규칙 편집 - mariaDB의 프로토콜 생성 - 편집 - 방화벽 활성화
+  root 삭제 : root 권한은 예측이 쉬우므로, 해킹 방지를 위해, 권한을 삭제하고 다른 ID를 사용하는 것을 권장하기 때문
+    phpmyadmin 접속 - 권한 - 추가 - admin 추가 - 전체권한 체크박스에 체크 - root 권한 삭제 - admin으로 재접속
+  local pc에서 mysql workbench 실행
+    + 버튼 - admin으로 ID/PW 설정 후 DB 접속
+    DB 선택: DB 접속 성공후 쿼리 실행하여 사용할 DB 선택
+    $ use corp
+    $ SELECT * FROM TODOS
+    Default Schema 설정: 왼쪽 사이드바에서 schema 탭 이동 - corp DB를 우클릭 - set as default 클릭
+    연결 테스트: 제어판 - 외부 액세스 - 편집 - 연결 테스트 - Web Station - 외부 접속
+
+1. 포트포워딩 : 외부 접속을 위한 준비절차
+  구글 네스트 앱을 모바일 앱으로 접속 - Favorite - Wifi - 네트워크 설정 - 고급 네트워킹 - 포트 관리 - 전부 ON - + 버튼 - 내부 IP 입력 - 외부 Port 5000, 내부 Port 5000, TCP
+  HTTPS로 하나더 추가 - 외부 Port 5001, 내부 Port 5001, TCP
+  방화벽 설정 추가 : NAS 시작아이콘 - 제어판 - 보안 - 방화벽 - custom 프로파일 생성 - 규칙 편집 - mariaDB의 프로토콜 생성 - 편집 - 추가 포트 5000, 5001 허용으로 3306 밑에 추가
+
+1. NAS 추가 설정
+  인증서 설정 : NAS 설정 - 네트워크 - 보안 - 인증서 (만료시 재설정 가능)
+  HTTP, HTTPS 호스트 설정 : NAS 설정 - 외부 액세스 - DDNS - 고급 - 호스트 - HTTP 5000, HTTPS 5001 설정
+
+1. NAS 외부접속
+  Synology Drive Server를 패키지 센터에서 설치
+  http://[id].synology.me:5000 으로 접속
+  성공시, DB의 json 화면이 뜨고, NodeJS를 사용할 준비가 완료됨
+
+
+  
+[백엔드 MovieApp 환경구축: NodeJS]
+
+1. 백엔드 프로젝트 폴더를 만들기
+
+1. 루트폴더/.env 작성: private 시트의 NAS 시트 참조
+  DB_HOST=[내/외부IP주소]
+  DB_USER=DB권한자ID
+  DB_PASSWORD=DB비밀번호
+  DB_NAME=corp(DB명)
+
+1. 루트폴더에서 터미널 접속 후 필수 package 설치
+  $ npm i express mysql2 dotenv cors
+
+1. index.js 작성: node.js와 express fw으로 이뤄진 DB 접속 테스트 파일
+  const express = require("express")
+  const mysql = require("mysql2")
+  const dotenv = require("dotenv")
+  dotenv.config()
+  const app = express()
+  const port = 8080
+  const cors = require("cors")
+  app.use(cors())
+
+  // 데이터베이스 연결 설정
+  const db = mysql.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+  })
+
+  // 데이터베이스 연결
+  db.connect((err) => {
+    if (err) {
+      console.error("데이터베이스 연결 실패: ", err)
+      return
+    }
+    console.log("데이터베이스 연결 성공")
+  })
+
+  // '/users' 경로로 GET 요청을 보냈을 때 user 테이블의 name 데이터를 가져오는 라우트
+  app.get("/users", (_req, res) => {
+    const query = "SELECT * FROM user"
+
+    db.query(query, (err, results) => {
+      if (err) {
+        console.error("쿼리 실패: ", err)
+        res.status(500).send("서버 오류")
+        return
+      }
+      return res.json(results)
+    })
+  })
+
+  // 서버 시작
+  app.listen(port, () => {
+    console.log(`서버가 http://localhost:${port}에서 실행 중입니다.`)
+  })
+
+
+
+... 여기서부터 계속 진행 필요
+
+[백엔드 MovieApp API 작성: NodeJS]
+
+1. 로그인 (OAuth / Saml SSO / JWT Token 방식 가능하게)
+1. 무비앱 (업로드 이미지 파일, 링크, 문자열, 숫자 등)
+
+[프론트엔드 MovieApp 환경구축: ReactJS]
+1. Docker 환경설정: .env 등
+1. Build: 자동빌드 설정
+1. Deploy To Server: Prod 환경에 배포
+
+[프론트엔드 MovieApp API 연결: ReactJS]
+1. Prod 환경에서 실행해보기: URL 찾기
+1. 도메인 설정하는 방법: www.?.co.jp
+1. 포트포워딩
+
+[프론트엔드 MovieAppManager 환경구축: ReactJS]
+
+[프론트엔드 MovieAppManager API 연결: ReactJS]
+
+[수익구조 만들기: 구글 애드센스]
+1. 설정...? (유투브 수익 신청 때매 가입은 해둔 상태)
