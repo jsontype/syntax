@@ -1,0 +1,32 @@
+<!-- modal-xl -->
+<button type="button" className="btn btn-outline-theme me-2" data-bs-toggle="modal" data-bs-target="#modalXl">Extra large modal</button>
+
+<div className="modal fade" id="modalXl">
+  <div className="modal-dialog modal-xl">
+    <div className="modal-content">
+      ...
+    </div>
+  </div>
+</div>
+
+<!-- modal-lg -->
+<button type="button" className="btn btn-outline-theme me-2" data-bs-toggle="modal" data-bs-target="#modalLg">Large modal</button>
+
+<div className="modal fade" id="modalLg">
+  <div className="modal-dialog modal-lg">
+    <div className="modal-content">
+      ...
+    </div>
+  </div>
+</div>
+
+<!-- modal-sm -->
+<button type="button" className="btn btn-outline-theme me-2" data-bs-toggle="modal" data-bs-target="#modalSm">Small modal</button>
+
+<div className="modal fade" id="modalSm">
+  <div className="modal-dialog modal-sm">
+    <div className="modal-content">
+      ...
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+import { Card } from './../../components/card/card.jsx';
+
+<!-- using grid -->
+<div className="row">
+  <div className="col-sm-8">
+    <Card>...</Card>
+  </div>
+</div>
+
+<!-- using utilities -->
+<Card className="w-25">...</Card>
+<Card className="w-50">...</Card>
+<Card className="w-75">...</Card>
+
+<!-- using custom css -->
+<Card style={{width: '18rem'}}>...</Card>

@@ -1,0 +1,110 @@
+.movie-banner {
+    overflow: hidden;
+    position: relative;
+
+    .swiper-banner-container {
+        height: 70vh;
+    }
+
+    .swiper-banner-container {
+        .swiper-slide-prev,
+        .swiper-slide-next {
+            filter: blur(0.1875em);
+        }
+    }
+
+    .movie-banner-image{
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+
+        img{
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        &:before {
+            width: 100%;
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(20, 20, 20, 1) 35%, rgba(83, 100, 141, 0) 100%);
+        }
+    }
+
+    .shows-content {
+        padding: 0;
+        position: relative;
+
+        >div {
+            padding-left: 1.875em;
+        }
+
+        .slider-ratting {
+            margin-top: 1.25em;
+        }
+
+        .movie-banner-time {
+            margin: 0.625em 0 1.25em;
+        }
+
+        .movie-banner-text {
+            margin: 1.875em 0;
+            max-width: 37.5em;
+        }
+    }
+
+    .swiper-banner-button-next,
+    .swiper-banner-button-prev {
+        position: absolute;
+        top: 50%;
+        cursor: pointer;
+        transform: translateY(-50%);
+        z-index: 999;
+        background: transparent;
+        border: none;
+        color: rgba(var(--bs-white-rgb), 0.9);
+        z-index: 1;
+        height: 4.063rem;
+
+        .arrow-icon {
+            font-size: 3rem;
+            color: var(--bs-white);
+        }
+    }
+
+    .swiper-banner-button-prev {
+        left: 0;
+    }
+
+    .swiper-banner-button-next {
+        right: 0;
+    }
+}
+
+@media (max-width: 767px) {
+    .movie-banner {
+        .swiper-banner-container {
+            height: 28.125rem !important;
+        }
+
+        .shows-content {
+            .movie-banner-text {
+                display: none;
+            }
+        }
+    }
+}
+
+@media (max-width: 479px) {
+    .movie-banner {
+        .swiper-banner-container {
+            height: 21.25rem !important;
+        }
+    }
+}

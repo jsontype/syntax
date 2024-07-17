@@ -1,0 +1,29 @@
+{
+  "appName": "Streamit",
+  "output": "dist",
+  "mini": "false",
+  "layout": "layouts/dashboard/default",
+  "assets": {
+    "fonts": ["./src/assets/fonts/**/*.*"],
+    "style": [
+      "./node_modules/datatables.net-bs5/css/dataTables.bootstrap5.min.css",
+      "./node_modules/select2/dist/css/select2.min.css"
+    ],
+    "js": {
+      "core": [
+        "./node_modules/jquery/dist/jquery.js",
+        "./node_modules/datatables.net/js/jquery.dataTables.min.js",
+        "./node_modules/@popperjs/core/dist/umd/popper.min.js",
+        "./node_modules/bootstrap/dist/js/bootstrap.min.js",
+        "./node_modules/datatables.net-bs5/js/dataTables.bootstrap5.min.js",
+        "./node_modules/waypoints/lib/noframework.waypoints.min.js"
+      ],
+      "external": [
+        "./node_modules/smooth-scrollbar/dist/smooth-scrollbar.js",
+        "./node_modules/counterup2/dist/index.js",
+        "./node_modules/apexcharts/dist/apexcharts.min.js",
+        "./node_modules/select2/dist/js/select2.min.js"
+      ]
+    }
+  }
+}

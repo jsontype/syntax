@@ -1,0 +1,6 @@
+<div className="form-group row mb-3">
+  <label htmlFor="staticEmail" className="col-sm-2 col-form-label">Email</label>
+  <div className="col-sm-10">
+    <input type="text" readonly className="form-control-plaintext" id="staticEmail" value="email@example.com">
+  </div>
+</div>

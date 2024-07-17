@@ -1,0 +1,13 @@
+$delay-step: 0.1s;
+
+@for $i from 1 through 20 {
+  [data-anim*="delay-#{$i}"],
+  [data-anim-child*="delay-#{$i}"] {
+    transition-delay: #{$i * $delay-step};
+    animation-delay: #{$i * $delay-step};
+
+    &::after { animation-delay: #{$i * $delay-step}; }
+
+    > * { animation-delay: #{$i * $delay-step}; }
+  }
+}

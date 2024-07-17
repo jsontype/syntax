@@ -1,0 +1,10 @@
+<!-- radio -->
+<div className="form-check">
+  <input className="form-check-input" type="radio" id="defaultRadio1" disabled />
+  <label className="form-check-label" htmlFor="defaultRadio1">Default checkbox</label>
+</div>
+
+<!-- inline radio -->
+<div className="form-check form-check-inline">
+  ...
+</div>

@@ -1,0 +1,17 @@
+[Plasmo 로컬 앱 설치방법]
+참조: https://github.com/LeeDDHH 자료제공받음
+
+1. Plasmo는 JS 기반으로 크롬 확장기능을 직접 만들 수 있는 프레임워크이다.
+
+1. 만든 앱을 자신의 구글 크롬에 배포하는 방법은 다음과 같다.
+  $ cd app1
+  $ npm i (=yarn install)
+  $ npm run build (=yarn build)
+  구글 크롬을 연다.
+  확장기능관리 (퍼즐 모양) 아이콘 클릭
+  확장기능관리 클릭
+  우측 상단의 "개발자 모드" 클릭
+  좌측상단에서 "압축해제된 확장 프로그램을 로드합니다." 클릭
+  로컬에서 빌드한 "build/chrome-mv3-prod" 폴더를 찾아서 폴더 선택 클릭
+  확장기능관리 (퍼즐 모양) 아이콘 클릭
+  Css layout debug 핀 꽂아두고 사용

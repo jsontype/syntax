@@ -1,0 +1,31 @@
+@mixin customizer-color-variables($color-name, $color-value) {
+    --#{$variable-prefix}#{$color-name}: #{$color-value};
+    --#{$variable-prefix}#{$color-name}-rgb: #{to-rgb($color-value)};
+    --#{$variable-prefix}#{$color-name}-bg-subtle: #{tint-color($color-value, 80%)};
+    --#{$variable-prefix}#{$color-name}-border-subtle: #{tint-color($color-value, 60%)};
+    --#{$variable-prefix}link-color-rgb: var(--#{$variable-prefix}#{$color-name}-rgb);
+    --#{$variable-prefix}#{$color-name}-hover-bg: #{shade-color($color-value, 20%)};
+    --#{$variable-prefix}#{$color-name}-hover-border: #{shade-color($color-value, 30%)};
+    --#{$variable-prefix}#{$color-name}-active-bg: #{shade-color($color-value, 20%)};
+    --#{$variable-prefix}#{$color-name}-active-border: #{shade-color($color-value, 30%)};
+    &[data-#{$variable-prefix}theme="dark"] {
+        --#{$variable-prefix}#{$color-name}-text-emphasis: #{tint-color($color-value, 40%)};
+        --#{$variable-prefix}#{$color-name}-bg-subtle: #{shade-color($color-value, 80%)};
+    }
+}
+
+@each $color, $value in $custom-colors {
+    @if $color == 'default' {
+        :root {
+            @each $name, $hax-value in $value {
+                @include customizer-color-variables($name, $hax-value);
+            }
+        }
+    } @else {
+        [data-#{$variable-prefix}theme-color="#{$color}"] {
+            @each $name, $hax-value in $value {
+                @include customizer-color-variables($name, $hax-value);
+            }
+        }
+    }
+}

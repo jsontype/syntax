@@ -1,0 +1,7 @@
+import { Card, CardGroup } from './../../components/card/card.jsx';
+
+<CardGroup>
+  <Card className="m-1">...</Card>
+  <Card className="m-1">...</Card>
+  <Card className="m-1">...</Card>
+</CardGroup>

@@ -1,0 +1,23 @@
+import React, { useEffect, useContext } from 'react';
+import { AppSettings } from './../../config/app-settings.js';
+
+function LayoutFixedFooter() {
+  const context = useContext(AppSettings);
+  
+  useEffect(() => {
+    context.setAppFooter(true);
+    
+    return function cleanUp() {
+      context.setAppFooter(false);
+    }
+    
+    // eslint-disable-next-line
+  }, []);
+  
+  return (
+    <div>
+    </div>
+  )
+}
+
+export default LayoutFixedFooter;

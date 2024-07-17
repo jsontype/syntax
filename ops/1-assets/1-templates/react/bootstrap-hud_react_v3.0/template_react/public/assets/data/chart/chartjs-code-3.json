@@ -1,0 +1,50 @@
+import React, { useEffect } from 'react';
+import Chart from 'chart.js/auto';
+
+function ChartJs() {
+  useEffect(() => {
+    var themeColor = (getComputedStyle(document.body).getPropertyValue('--bs-theme')).trim();
+    var themeColorRgb = (getComputedStyle(document.body).getPropertyValue('--bs-theme-rgb')).trim();
+    var gray500 = (getComputedStyle(document.body).getPropertyValue('--bs-gray-500')).trim();
+    var gray500Rgb = (getComputedStyle(document.body).getPropertyValue('--bs-gray-500-rgb')).trim();
+    var bodyBg = (getComputedStyle(document.body).getPropertyValue('--bs-body-bg')).trim();
+		
+    new Chart(document.getElementById('radarChart'), {
+      type: 'radar',
+      data: {
+        labels: ['United States', 'Canada', 'Australia', 'Netherlands', 'Germany', 'New Zealand', 'Singapore'],
+        datasets: [{
+          label: 'Mobile',
+          backgroundColor: 'rgba('+ themeColorRgb +', .2)',
+          borderColor: themeColor,
+          pointBackgroundColor: bodyBg,
+          pointBorderColor: themeColor,
+          pointHoverBackgroundColor: bodyBg,
+          pointHoverBorderColor: themeColor,
+          data: [65, 59, 90, 81, 56, 55, 40],
+          borderWidth: 1.5
+        }, {
+          label: 'Desktop',
+          backgroundColor: 'rgba('+ gray500Rgb +', .2)',
+          borderColor: gray500,
+          pointBackgroundColor: bodyBg,
+          pointBorderColor: gray500,
+          pointHoverBackgroundColor: bodyBg,
+          pointHoverBorderColor: gray500,
+          data: [28, 48, 40, 19, 96, 27, 100],
+          borderWidth: 1.5
+        }]
+      }
+    });
+    
+    // eslint-disable-next-line
+  }, []);
+  
+  return (
+    <div>
+      <canvas id="radarChart"></canvas>
+    </div>
+  )
+}
+
+export default ChartJs;

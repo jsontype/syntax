@@ -1,0 +1,32 @@
+[
+	{
+		"name": "FRANCE",
+		"visits": "13,849",
+		"pct": "40.79%",
+		"class": ""
+	},
+	{
+		"name": "SPAIN",
+		"visits": "3,216",
+		"pct": "9.79%",
+		"class": ""
+	},
+	{
+		"name": "MEXICO",
+		"visits": "1,398",
+		"pct": "4.26%",
+		"class": "fw-bold text-theme"
+	},
+	{
+		"name": "UNITED STATES",
+		"visits": "1,090",
+		"pct": "3.32%",
+		"class": ""
+	},
+	{
+		"name": "BELGIUM",
+		"visits": "1,045",
+		"pct": "3.18%",
+		"class": ""
+	}
+]

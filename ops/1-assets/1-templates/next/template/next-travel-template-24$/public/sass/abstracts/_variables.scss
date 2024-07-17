@@ -1,0 +1,78 @@
+:root {
+  --font-primary: "Jost", sans-serif;
+}
+
+$breakpoints: (
+  xs: 480px,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+);
+
+$breakpoints-loop: (
+  xl: 1200px,
+  lg: 992px,
+  md: 768px,
+  sm: 576px,
+  xs: 480px,
+);
+
+$font-size: 16px;
+$text-sizes: 4, 7, 10, 12, 13, 14, 15, 16, 18, 20, 22, 24, 25, 26, 30, 40, 50, 60, 80;
+
+:root {
+  @each $size in $text-sizes {
+    --text-#{$size}: #{$size}px;
+  }
+}
+
+$colors: (
+  white: #ffffff,
+  black: #000000,
+  border: #dddddd,
+
+  dark-1: #051036,
+  dark-2: #0d2857,
+  dark-3: #13357b,
+  dark-4: #163c8c,
+
+  light-1: #697488,
+  light-2: #f5f5f5,
+  light-3: #fbfcff,
+
+  blue-1: #3554d1,
+  blue-2: #e5f0fd,
+
+  green-1: #ebfcea,
+  green-2: #008009,
+
+  yellow-1: #f8d448,
+  yellow-2: #e1c03f,
+  yellow-3: #ffc700,
+  yellow-4: #fff8dd,
+
+  brown-1: #923e01,
+
+  purple-1: #7e53f9,
+
+  red-1: #d93025,
+  red-2: #f1416c,
+  red-3: #fff5f8,
+
+  info-1: #cde9f6,
+  info-2: #4780aa,
+  warning-1: #f7f3d7,
+  warning-2: #927238,
+  error-1: #ecc8c5,
+  error-2: #ab3331,
+  success-1: #def2d7,
+  success-2: #5b7052,
+);
+
+:root {
+  @each $name, $color in $colors {
+    --color-#{$name}: #{$color};
+  }
+}

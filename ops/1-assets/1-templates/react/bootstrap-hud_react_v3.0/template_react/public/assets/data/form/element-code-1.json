@@ -1,0 +1,21 @@
+<!-- text input -->
+<div className="form-group mb-3">
+  <label className="form-label" htmlFor="exampleFormControlInput1">Email address</label>
+  <input type="email" className="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+</div>
+
+<!-- select -->
+<select className="form-control">
+  ...
+</select>
+
+<!-- multiple select -->
+<select multiple className="form-control">
+  ...
+</select>
+
+<!-- textarea -->
+<textarea className="form-control" rows="3"></textarea>
+
+<!-- file input -->
+<input type="file" className="form-control" id="exampleFormControlFile1" />

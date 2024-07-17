@@ -1,0 +1,335 @@
+.hotelsCard.-type-1 {
+  .hotelsCard {
+    &__image {
+      overflow: hidden;
+      border-radius: 4px;
+
+      .cardImage__content .swiper-slide,
+      .cardImage__content > img {
+        transition: all 0.8s $easeOutQuart;
+      }
+
+      .swiper-slide-active {
+        position: relative;
+        z-index: 2;
+      }
+    }
+
+    &__title {
+      span {
+        background-image: linear-gradient(transparent 24px, black 20px);
+        background-size: 0;
+        background-repeat: no-repeat;
+        transition: background-size 0.3s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0s;
+      }
+    }
+  }
+
+  &:hover {
+    .hotelsCard {
+      &__image {
+        .cardImage__content > img,
+        .swiper-slide {
+          transform: scale(1.15);
+        }
+      }
+
+      &__title {
+        span {
+          background-size: 100% !important;
+        }
+      }
+    }
+  }
+}
+
+.tourCard.-type-1 {
+  .tourCard {
+    &__image {
+      overflow: hidden;
+      border-radius: 4px;
+
+      .cardImage__content .swiper-slide,
+      .cardImage__content > img {
+        transition: all 0.8s $easeOutQuart;
+      }
+
+      .swiper-slide-active {
+        position: relative;
+        z-index: 2;
+      }
+    }
+
+    &__title {
+      span {
+        background-image: linear-gradient(transparent 24px, black 20px);
+        background-size: 0;
+        background-repeat: no-repeat;
+        transition: background-size 0.3s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0s;
+      }
+    }
+  }
+
+  &:hover {
+    .tourCard {
+      &__image {
+        .cardImage__content > img,
+        .swiper-slide {
+          transform: scale(1.15);
+        }
+      }
+
+      &__title {
+        span {
+          background-size: 100% !important;
+        }
+      }
+    }
+  }
+}
+
+.activityCard.-type-1 {
+  .activityCard {
+    &__image {
+      overflow: hidden;
+      border-radius: 4px;
+
+      .cardImage__content .swiper-slide,
+      .cardImage__content > img {
+        transition: all 0.8s $easeOutQuart;
+      }
+
+      .swiper-slide-active {
+        position: relative;
+        z-index: 2;
+      }
+    }
+
+    &__title {
+      span {
+        background-image: linear-gradient(transparent 24px, black 20px);
+        background-size: 0;
+        background-repeat: no-repeat;
+        transition: background-size 0.3s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0s;
+      }
+    }
+  }
+
+  &:hover {
+    .activityCard {
+      &__image {
+        .cardImage__content > img,
+        .swiper-slide {
+          transform: scale(1.15);
+        }
+      }
+
+      &__title {
+        span {
+          background-size: 100% !important;
+        }
+      }
+    }
+  }
+}
+
+.rentalCard.-type-1 {
+  .rentalCard {
+    &__image {
+      overflow: hidden;
+      border-radius: 4px;
+
+      .cardImage__content .swiper-slide,
+      .cardImage__content > img {
+        transition: all 0.8s $easeOutQuart;
+      }
+
+      .swiper-slide-active {
+        position: relative;
+        z-index: 2;
+      }
+    }
+
+    &__title {
+      span {
+        background-image: linear-gradient(transparent 24px, black 20px);
+        background-size: 0;
+        background-repeat: no-repeat;
+        transition: background-size 0.3s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0s;
+      }
+    }
+  }
+
+  &:hover {
+    .rentalCard {
+      &__image {
+        .cardImage__content > img,
+        .swiper-slide {
+          transform: scale(1.15);
+        }
+      }
+
+      &__title {
+        span {
+          background-size: 100% !important;
+        }
+      }
+    }
+  }
+}
+
+.rentalCard.-type-2 {
+  .rentalCard {
+    &__image {
+      overflow: hidden;
+      border-radius: 4px;
+
+      .cardImage__content .swiper-slide,
+      .cardImage__content > img {
+        transition: all 0.8s $easeOutQuart;
+      }
+
+      .swiper-slide-active {
+        position: relative;
+        z-index: 2;
+      }
+    }
+
+    &__title {
+      span {
+        background-image: linear-gradient(transparent 24px, black 20px);
+        background-size: 0;
+        background-repeat: no-repeat;
+        transition: background-size 0.3s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0s;
+      }
+    }
+  }
+
+  &:hover {
+    .rentalCard {
+      &__image {
+        .cardImage__content > img,
+        .swiper-slide {
+          transform: scale(1.15);
+        }
+      }
+
+      &__title {
+        span {
+          background-size: 100% !important;
+        }
+      }
+    }
+  }
+}
+
+.carCard.-type-1 {
+  .carCard {
+    &__image {
+      overflow: hidden;
+      border-radius: 4px;
+
+      .cardImage__content .swiper-slide,
+      .cardImage__content > img {
+        transition: all 0.8s $easeOutQuart;
+      }
+
+      .swiper-slide-active {
+        position: relative;
+        z-index: 2;
+      }
+    }
+  }
+
+  &:hover {
+    .carCard {
+      &__image {
+        .cardImage__content > img,
+        .swiper-slide {
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+}
+
+.cruiseCard.-type-1 {
+  .cruiseCard {
+    &__image {
+      overflow: hidden;
+      border-radius: 4px;
+
+      .cardImage__content .swiper-slide,
+      .cardImage__content > img {
+        transition: all 0.8s $easeOutQuart;
+      }
+
+      .swiper-slide-active {
+        position: relative;
+        z-index: 2;
+      }
+    }
+
+    &__title {
+      span {
+        background-image: linear-gradient(transparent 24px, black 20px);
+        background-size: 0;
+        background-repeat: no-repeat;
+        transition: background-size 0.3s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0s;
+      }
+    }
+  }
+
+  &:hover {
+    .cruiseCard {
+      &__image {
+        .cardImage__content > img,
+        .swiper-slide {
+          transform: scale(1.15);
+        }
+      }
+
+      &__title {
+        span {
+          background-size: 100% !important;
+        }
+      }
+    }
+  }
+}
+
+.tourTypeCard.-type-1 {
+  transition: all 0.3s $easeOutQuart;
+
+  .tourTypeCard {
+  }
+
+  &:hover {
+    background-color: var(--color-blue-1) !important;
+    transform: translateY(-10px);
+
+    .tourTypeCard__content > * {
+      color: white !important;
+    }
+  }
+}
+
+.destCard.-type-1 {
+  transition: all 0.3s $easeOutQuart;
+
+  .destCard__image {
+    overflow: hidden;
+
+    img {
+      transition: all 0.5s $easeOutQuart;
+    }
+  }
+
+  &:hover {
+    .destCard__image {
+      img {
+        transform: scale(1.15);
+      }
+    }
+  }
+}

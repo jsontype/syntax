@@ -1,0 +1,25 @@
+import React, { useEffect, useContext } from 'react';
+import { AppSettings } from './../../config/app-settings.js';
+
+function LayoutTopNav() {
+  const context = useContext(AppSettings);
+  
+  useEffect(() => {
+    context.setAppTopNav(true);
+    context.setAppSidebarNone(true);
+    
+    return function cleanUp() {
+      context.setAppTopNav(false);
+      context.setAppSidebarNone(false);
+    }
+    
+    // eslint-disable-next-line
+  }, []);
+  
+  return (
+    <div>
+    </div>
+  )
+}
+
+export default LayoutTopNav;

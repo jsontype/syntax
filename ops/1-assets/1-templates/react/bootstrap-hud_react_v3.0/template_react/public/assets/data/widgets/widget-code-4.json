@@ -1,0 +1,95 @@
+import React, { useEffect } from 'react';
+import Chart from 'chart.js/auto';
+import { Card, CardBody } from './../../components/card/card.jsx';
+
+function Widgets() {
+  var chart = '';
+  
+  function renderChart() {
+    var bodyFontFamily = (getComputedStyle(document.body).getPropertyValue('--bs-body-font-family')).trim();
+    var bodyFontWeight = (getComputedStyle(document.body).getPropertyValue('--bs-body-font-weight')).trim();
+    var bodyColor = (getComputedStyle(document.body).getPropertyValue('--bs-body-color')).trim();
+    var borderColor = (getComputedStyle(document.body).getPropertyValue('--bs-border-color')).trim();
+    var inverseRgb = (getComputedStyle(document.body).getPropertyValue('--bs-inverse-rgb')).trim();
+    var theme = (getComputedStyle(document.body).getPropertyValue('--bs-theme')).trim();
+    
+    Chart.defaults.font.family = bodyFontFamily;
+    Chart.defaults.font.size = 12;
+    Chart.defaults.color = bodyColor;
+    Chart.defaults.borderColor = borderColor;
+    Chart.defaults.plugins.legend.display = true;
+    Chart.defaults.plugins.tooltip.padding = { left: 8, right: 12, top: 8, bottom: 8 };
+    Chart.defaults.plugins.tooltip.cornerRadius = 8;
+    Chart.defaults.plugins.tooltip.titleMarginBottom = 6;
+    Chart.defaults.plugins.tooltip.titleFont.family = bodyFontFamily;
+    Chart.defaults.plugins.tooltip.titleFont.weight = bodyFontWeight;
+    Chart.defaults.plugins.tooltip.footerFont.family = bodyFontFamily;
+    Chart.defaults.plugins.tooltip.displayColors = true;
+    Chart.defaults.plugins.tooltip.boxPadding = 6;
+    Chart.defaults.scale.grid.color = borderColor;
+    Chart.defaults.scale.beginAtZero = true;
+    
+    var chartContainer = document.getElementById('chartContainer');
+    if (chart) {
+      chart.destroy();
+    }
+    if (chartContainer) {
+      chartContainer.innerHTML = '<canvas id="widgetBarChart" className="w-100" height="190"></canvas>';
+      chart = new Chart(document.getElementById('widgetBarChart'), {
+        type: 'bar',
+        data: {
+          labels: ['S','M','T','W','T','F','S'],
+          datasets: [{
+            label: 'Total Visitors',
+            data: [37,31,36,34,43,31,50],
+            backgroundColor: theme,
+            borderColor: 'transparent'
+          }, {
+            label: 'Returning Visitors',
+            data: [27,21,16,14,23,11,30],
+            backgroundColor: 'rgba('+ inverseRgb +', .5)',
+            borderColor: 'transparent'
+          }]
+        }
+      });
+    }
+  }
+  
+  useEffect(() => {
+    renderChart();
+    
+    document.addEventListener('theme-reload', () => {
+      renderChart();
+    });
+    // eslint-disable-next-line
+  }, []);
+  
+  return (
+    <div>
+      <Card>
+        <CardBody className="text-inverse text-center">
+          <div className="fs-16px fw-bold">Weekly Web Analytics</div>
+          <div className="fs-13px mb-3 text-inverse text-opacity-50">Week 11 May - 17 May</div>
+          <div id="chartContainer"></div>
+        </CardBody>
+        <hr className="m-0" />
+        <div className="list-group list-group-flush">
+          <div className="list-group-item border-top-0 rounded-top-0 d-flex align-items-center p-3">
+            <div className="w-40px h-40px bg-inverse bg-opacity-10 d-flex align-items-center justify-content-center">
+              <i className="fa fa-user fa-lg"></i>
+            </div>
+            <div className="flex-fill px-3">
+              <div className="fw-bold">Total Visitors</div>
+              <div className="small text-inverse text-opacity-50">11 May - 17 May</div>
+            </div>
+            <div>
+              <h2 className="mb-0">1.3m</h2>
+            </div>
+          </div>
+        </div>
+      </Card>
+    </div>
+  )
+}
+
+export default Widgets;

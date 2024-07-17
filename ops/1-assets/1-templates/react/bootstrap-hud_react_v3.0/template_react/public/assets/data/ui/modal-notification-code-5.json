@@ -1,0 +1,27 @@
+import React, { useEffect } from 'react';
+import { Toast } from 'bootstrap';
+
+function UiModalNotifications() {
+  useEffect(() => {
+    const toastTrigger1 = document.getElementById('showToast1');
+    const toast1 = document.getElementById('toast-1');
+    if (toastTrigger1) {
+      toastTrigger1.addEventListener('click', () => {
+        const toast = new Toast(toast1);
+        toast.show()
+      })
+    }
+  });
+  
+  return (
+    <button className="btn btn-outline-theme" id="showToast1">Show toast 1</button>
+
+    <div className="toasts-container">
+      <div className="toast fade hide" data-autohide="false" id="toast-1">
+        ...
+      </div>
+    </div>
+  )
+}
+
+export default UiModalNotifications;

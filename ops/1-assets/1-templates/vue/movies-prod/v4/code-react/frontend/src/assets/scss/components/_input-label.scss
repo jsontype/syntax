@@ -1,0 +1,86 @@
+// **********************date
+
+.date-icon-set {
+	position: relative;
+	.form-control {
+		height: 40px;
+	}
+	.search-link {
+		position: absolute;
+		top: 0;
+		right: 15px;
+		font-size: 18px;
+		line-height: 38px;
+		color: $text-muted;
+		&:hover {
+			text-decoration: none;
+		}
+	}
+}
+
+.iq-date-modal {
+	position: relative;
+	.form-control {
+		height: 40px;
+	}
+	.search-link {
+		position: absolute;
+		top: 1px;
+		right: 30px;
+		font-size: 18px;
+		line-height: 38px;
+		color: $text-muted;
+		&:hover {
+			text-decoration: none;
+		}
+	}
+}
+
+.date-icon-set-modal {
+	position: relative;
+	.search-link {
+		position: absolute;
+		top: 33px;
+		right: 33px;
+		font-size: 18px;
+		line-height: 38px;
+		color: $text-muted;
+		&:hover {
+			text-decoration: none;
+		}
+	}
+}
+
+@media(max-width: 766px){
+	.modal-product-search {
+		.form-control {
+			width: 300px;
+			margin-bottom: 1rem;
+		}
+	}	
+}
+
+//  ********************************** product search 
+
+
+.modal-product-search {
+	position: relative;
+	.form-control {
+		height: 40px;
+		width: 350px;
+	}
+	.btn.btn-primary{
+		height: 40px;
+	}
+	.search-link {
+		position: absolute;
+		top: 0;
+		right: 15px;
+		font-size: 18px;
+		line-height: 38px;
+		color: $text-muted;
+		&:hover {
+			text-decoration: none;
+		}
+	}
+}

@@ -1,0 +1,25 @@
+import React, { useEffect, useContext } from 'react';
+import { AppSettings } from './../../config/app-settings.js';
+
+function LayoutMixedNavBoxedLayout() {
+  const context = useContext(AppSettings);
+  
+  useEffect(() => {
+    context.setAppTopNav(true);
+    context.setAppBoxedLayout(true);
+    
+    return function cleanUp() {
+      context.setAppTopNav(false);
+      context.setAppBoxedLayout(false);
+    }
+    
+    // eslint-disable-next-line
+  }, []);
+  
+  return (
+    <div>
+    </div>
+  )
+}
+
+export default LayoutMixedNavBoxedLayout;

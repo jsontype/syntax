@@ -1,0 +1,10 @@
+<!-- checkbox -->
+<div className="form-check">
+  <input className="form-check-input" type="checkbox" id="defaultCheck1" disabled />
+  <label className="form-check-label" htmlFor="defaultCheck1">Default checkbox</label>
+</div>
+
+<!-- inline checkbox -->
+<div className="form-check form-check-inline">
+  ...
+</div>

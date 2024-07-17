@@ -1,0 +1,82 @@
+<!-- Favicon -->
+<link rel="shortcut icon" href="{{ path }}assets/images/favicon.ico">
+{{!-- FontAwesome CDN --}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!-- Library / Plugin Css Build -->
+<link rel="stylesheet" href="{{ path }}assets/css/core/libs.min.css">
+
+{{#compare isTour '==' 'true'}}
+<link rel="stylesheet" href="{{path}}assets/vendor/sheperd/dist/css/sheperd.css">
+{{/compare}}
+
+{{#compare isFlatpickr '==' 'true'}}
+<!-- Flatpickr css -->
+<link rel="stylesheet" href="{{ path }}assets/vendor/flatpickr/dist/flatpickr.min.css">
+{{/compare}}
+
+{{#compare isChoisejs '==' 'true'}}
+<!-- Choisejs css -->
+<link rel="stylesheet" href="{{path}}assets/vendor/choiceJS/style/choices.min.css">
+{{/compare}}
+
+{{#compare isVectorMap '==' 'true'}}
+<link rel="stylesheet" href="{{path}}assets/vendor/leaflet/leaflet.css">
+{{/compare}}
+
+{{#compare isSweetalert '==' 'true'}}
+<!-- Sweetlaert2 css -->
+<link rel="stylesheet" href="{{ path }}assets/vendor/sweetalert2/dist/sweetalert2.min.css">
+{{/compare}}
+
+{{#compare isQuillEditor '==' 'true'}}
+<!-- Quill Editor css -->
+<link rel="stylesheet" href="{{path}}assets/vendor/quill/quill.snow.css">
+{{/compare}}
+
+{{#compare isNoUISlider '==' 'true'}}
+<!-- NoUI Slider css -->
+<link rel="stylesheet" href="{{path}}assets/vendor/noUiSilder/style/nouislider.min.css">
+{{/compare}}
+
+{{#compare isFullCalendar '==' 'true'}}
+<!-- Fullcalender CSS -->
+<link rel='stylesheet' href='{{path}}assets/vendor/fullcalendar/core/main.css' />
+<link rel='stylesheet' href='{{path}}assets/vendor/fullcalendar/daygrid/main.css' />
+<link rel='stylesheet' href='{{path}}assets/vendor/fullcalendar/timegrid/main.css' />
+<link rel='stylesheet' href='{{path}}assets/vendor/fullcalendar/list/main.css' />
+{{/compare}}
+
+{{#compare isUppy '==' 'true'}}
+<!-- Uppy Css -->
+<link rel="stylesheet" href="{{path}}assets/vendor/uppy/uppy.min.css">
+{{/compare}}
+
+<!-- streamit Design System Css -->
+<link rel="stylesheet" href="{{ path }}assets/css/streamit.min.css?v={{version}}">
+
+<!-- Custom Css -->
+<link rel="stylesheet" href="{{ path }}assets/css/custom.min.css?v={{version}}">
+<link rel="stylesheet" href="{{ path }}assets/css/dashboard-custom.min.css?v={{version}}">
+
+<!-- RTL Css -->
+<link rel="stylesheet" href="{{ path }}assets/css/rtl.min.css?v={{version}}">
+
+<!-- Customizer Css -->
+<link rel="stylesheet" href="{{ path }}assets/css/customizer.min.css?v={{version}}">
+
+{{#compare isSwiperSlider '==' 'true'}}
+<link rel="stylesheet" href="{{path}}assets/vendor/swiperSlider/swiper-bundle.min.css">
+{{/compare}}
+
+
+<!-- Google Font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300&display=swap"
+    rel="stylesheet">
+
+{{!-- select2 --}}
+<link rel="stylesheet" href="{{path}}assets/vendor/select2/dist/css/select2.min.css">

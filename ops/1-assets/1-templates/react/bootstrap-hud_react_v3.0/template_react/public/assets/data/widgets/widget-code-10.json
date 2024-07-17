@@ -1,0 +1,28 @@
+<Card>
+  <CardHeader className="fw-bold">Today, Nov 4</CardHeader>
+  <div className="widget-reminder">
+    <div className="widget-reminder-item">
+      <div className="widget-reminder-time">09:00<br />12:00</div>
+      <div className="widget-reminder-divider bg-success"></div>
+      <div className="widget-reminder-content">
+        <div className="fw-bold">Meeting with HR</div>
+        <div className="fs-13px"> - Conference Room</div>
+      </div>
+    </div>
+    <div className="widget-reminder-item">
+      <div className="widget-reminder-time">20:00<br />23:00</div>
+      <div className="widget-reminder-divider bg-primary"></div>
+      <div className="widget-reminder-content">
+        <div className="fw-bold">Dinner with Richard</div>
+        <div className="fs-13px"> - Tom's Too Restaurant</div>
+        <div className="d-flex align-items-center fs-13px mt-2">
+          <div className="flex-fill d-flex align-items-center">
+            <img src="/assets/img/user/user-3.jpg" alt="" width="16" className="rounded-circle me-2" /> Richard Leong
+          </div>
+          <a href="#/" className="ms-auto">Contact</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  ...
+</Card>

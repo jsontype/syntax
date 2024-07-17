@@ -1,0 +1,32 @@
+import React from 'react';
+import Chart from 'react-apexcharts';
+
+function ChartApex() {
+  var themeColorRgb = (getComputedStyle(document.body).getPropertyValue('--bs-theme-rgb')).trim();
+  var themeFont = (getComputedStyle(document.body).getPropertyValue('--bs-body-font-family')).trim();
+  var indigoRgb = (getComputedStyle(document.body).getPropertyValue('--bs-indigo-rgb')).trim();
+  var pinkRgb = (getComputedStyle(document.body).getPropertyValue('--bs-pink-rgb')).trim();
+  var orangeRgb = (getComputedStyle(document.body).getPropertyValue('--bs-warning-rgb')).trim();
+  var inverse = (getComputedStyle(document.body).getPropertyValue('--bs-inverse')).trim();
+  var inverseRgb = (getComputedStyle(document.body).getPropertyValue('--bs-inverse-rgb')).trim();
+  
+  // pie chart
+  var pieChartOptions = {
+    dataLabels: { dropShadow: { enabled: false, top: 1, left: 1, blur: 1, opacity: 1 } },
+    stroke: { show: false },
+    colors: [ 'rgba('+ pinkRgb +', .75)',  'rgba('+ orangeRgb +', .75)',  'rgba('+ themeColorRgb +', .75)', 'rgba('+ inverseRgb +', .5)',  'rgba('+ indigoRgb +', .75)'],
+    labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+    legend: { fontFamily: themeFont, labels: { colors: inverse } },
+    title: { text: 'HeatMap Chart (Single color)', style: { fontSize:  '14px', fontWeight:  'bold', fontFamily:  themeFont, color: inverse } }
+  };
+  
+  var pieChartData = [44, 55, 13, 43, 22];
+
+  return (
+    <div>
+      <Chart type="pie" options={pieChartOptions} series={pieChartData} />
+    </div>
+  )
+}
+
+export default ChartApex;

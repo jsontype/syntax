@@ -1,0 +1,188 @@
+{{#extend layout title="Movie" active="movie" isHeader="true" isFooter="true" path="./" isFslightbox="true"
+isSwiperSlider="true" bodyClass="custom-header-relative"}}
+{{#content "content"}}
+{{!-- main banner start --}}
+<section class="banner-container">
+  <div class="movie-banner">
+    <div class="swiper swiper-banner-container" data-swiper="banner-detail-slider">
+      <div class="swiper-wrapper">
+        {{> components/widgets/movie-slider movieCard="movie-banner-1" image-path="movies/movie-banner-1.webp"
+        movieTitle="John Wick" movieRange="3.5(lmdb)" movieCate="PG" movieTime="1hr 44mins" movieYear="Feb 2018"
+        button-url="movie-detail.html" movieText="Dinosaurs are a diverse group of reptiles of the clade Dinosauria.
+        They first appeared during the Triassic period, between 243 and 233.23 million years ago, although the exact
+        origin and timing of the evolution of dinosaurs is the subject of active research."}}
+        {{> components/widgets/movie-slider movieCard="movie-banner-2" image-path="movies/movie-banner-2.webp"
+        movieTitle="jumanjj" movieRange="3.5(lmdb)" movieCate="G" movieTime="2hr 42mins" movieYear="Nov 2017"
+        button-url="movie-detail.html" movieText="The most brutal emperor in the history of world.He was the founder of
+        the most contiguous empire of the world i.e. the Mongol empire.He made an army by himself by uniting some
+        nomadic tribes and trained them."}}
+        {{> components/widgets/movie-slider movieCard="movie-banner-3" image-path="movies/movie-banner-3.webp"
+        movieTitle="The Witcher" movieRange="3.5(lmdb)" movieCate="PG-13" movieTime="2hr 12mins" movieYear="Dec 2018"
+        button-url="movie-detail.html" movieText="Jumbo also known as Jumbo the Elephant and Jumbo the Circus Elephant,
+        was a 19th-century male African bush elephant born in Sudan. Jumbo was exported to Jardin des Plantes, a zoo in
+        Paris, and then transferred in 1865 to London Zoo in England. Despite public protest, Jumbo was sold to P. T.
+        Barnum, who took him to the United States for exhibition in March 1882."}}
+      </div>
+      <div class="swiper-banner-button-next">
+        <i class="iconly-Arrow-Right-2 icli arrow-icon"></i>
+      </div>
+      <div class="swiper-banner-button-prev">
+        <i class="iconly-Arrow-Left-2 icli arrow-icon"></i>
+      </div>
+    </div>
+  </div>
+</section>
+{{!-- main banner End --}}
+
+{{!-- Popular Movies Start --}}
+<section class="recommended-block section-top-spacing">
+  <div class="container-fluid">
+    <div class="overflow-hidden">
+      <div class="d-flex align-items-center justify-content-between px-3 my-4">
+        <h5 class="main-title text-capitalize mb-0">Popular Movies</h5>
+        <a href="view-all-movie.html" class="text-primary iq-view-all text-decoration-none">View All</a>
+      </div>
+      <div class="card-style-slider">
+        <div class="position-relative swiper swiper-card" data-slide="6" data-laptop="5" data-tab="3" data-mobile="2"
+          data-mobile-sm="2" data-autoplay="false" data-loop="true" data-navigation="true" data-pagination="true">
+          <ul class="p-0 swiper-wrapper m-0  list-inline">
+            <li class="swiper-slide">
+              {{>components/widgets/card-style card-image="movies/popular/01.webp" card-title="CRW" movie-time="2hr :
+              12mins"}}
+            </li>
+            <li class="swiper-slide">
+              {{>components/widgets/card-style card-image="movies/popular/02.webp" card-title="Batte Wiire"
+              movie-time="1hr 22mins"}}
+            </li>
+            <li class="swiper-slide">
+              {{>components/widgets/card-style card-image="movies/popular/03.webp" card-title="Goal" movie-time="2hr :
+              30mins"}}
+            </li>
+            <li class="swiper-slide">
+              {{>components/widgets/card-style card-image="movies/popular/04.webp" card-title="Dandacg" movie-time="1hr
+              30mins"}}
+            </li>
+            <li class="swiper-slide">
+              {{>components/widgets/card-style card-image="movies/popular/05.webp" card-title="mexcan" movie-time="1hr :
+              30mins"}}
+            </li>
+            <li class="swiper-slide">
+              {{>components/widgets/card-style card-image="movies/popular/06.webp" card-title="oit moleld"
+              movie-time="1hr 30mins"}}
+            </li>
+            <li class="swiper-slide">
+              {{>components/widgets/card-style card-image="movies/popular/07.webp" card-title="Another Danger"
+              movie-time="1hr 30mins"}}
+            </li>
+          </ul>
+          <div class="swiper-button swiper-button-next"></div>
+          <div class="swiper-button swiper-button-prev"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{!-- Popular Movies End --}}
+
+{{!-- Specials & Latest Movies Strat --}}
+<section class="recommended-block">
+  <div class="container-fluid">
+    <div class="overflow-hidden">
+      <div class="d-flex align-items-center justify-content-between px-3 my-4">
+        <h5 class="main-title text-capitalize mb-0">Specials & Latest Movies</h5>
+        <a href="view-all-movie.html" class="text-primary iq-view-all text-decoration-none">View All</a>
+      </div>
+      <div class="card-style-slider">
+        <div class="position-relative swiper swiper-card" data-slide="6" data-laptop="5" data-tab="3" data-mobile="2"
+          data-mobile-sm="2" data-autoplay="false" data-loop="true" data-navigation="true" data-pagination="true">
+          <ul class="p-0 swiper-wrapper m-0  list-inline">
+            <li class="swiper-slide">
+              {{>components/widgets/card-style card-image="movies/latest/01.webp" card-title="mortal nories"
+              movie-time="2hr 12mins"}}
+            </li>
+            <li class="swiper-slide">
+              {{>components/widgets/card-style card-image="movies/latest/02.webp" card-title="advetre" movie-time="1hr :
+              30mins"}}
+            </li>
+            <li class="swiper-slide">
+              {{>components/widgets/card-style card-image="movies/latest/03.webp" card-title="net ailo" movie-time="2hr
+              30mins"}}
+            </li>
+            <li class="swiper-slide">
+              {{>components/widgets/card-style card-image="movies/latest/04.webp" card-title="ariivaal" movie-time="2hr
+              45mins"}}
+            </li>
+            <li class="swiper-slide">
+              {{>components/widgets/card-style card-image="movies/latest/05.webp" card-title="dramma" movie-time="1hr :
+              55mins"}}
+            </li>
+            <li class="swiper-slide">
+              {{>components/widgets/card-style card-image="movies/latest/06.webp" card-title="aune" movie-time="1hr :
+              25mins"}}
+            </li>
+            <li class="swiper-slide">
+              {{>components/widgets/card-style card-image="movies/latest/07.webp" card-title="everest" movie-time="1hr :
+              45mins"}}
+            </li>
+          </ul>
+          <div class="swiper-button swiper-button-next"></div>
+          <div class="swiper-button swiper-button-prev"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{!-- Specials & Latest Movies End --}}
+
+{{!-- Movies Recommended For You Strat --}}
+<section class="recommended-block">
+  <div class="container-fluid">
+    <section class="overflow-hidden">
+      <div class="d-flex align-items-center justify-content-between px-3 my-4">
+        <h5 class="main-title text-capitalize mb-0">Movies Recommended For You</h5>
+        <a href="view-all-movie.html" class="text-primary iq-view-all text-decoration-none">View All</a>
+      </div>
+      <div class="card-style-slider">
+        <div class="position-relative swiper swiper-card" data-slide="6" data-laptop="5" data-tab="3" data-mobile="2"
+          data-mobile-sm="2" data-autoplay="false" data-loop="true" data-navigation="true" data-pagination="true">
+          <ul class="p-0 swiper-wrapper m-0  list-inline">
+            <li class="swiper-slide">
+              {{>components/widgets/card-style card-image="movies/recommended/01.webp" card-title="Giikre"
+              movie-time="2hr 12mins"}}
+            </li>
+            <li class="swiper-slide">
+              {{>components/widgets/card-style card-image="movies/recommended/02.webp" card-title="Arrival"
+              movie-time="1hr 22mins"}}
+            </li>
+            <li class="swiper-slide">
+              {{>components/widgets/card-style card-image="movies/recommended/03.webp" card-title="Pricess"
+              movie-time="1hr 30mins"}}
+            </li>
+            <li class="swiper-slide">
+              {{>components/widgets/card-style card-image="movies/recommended/04.webp" card-title="Soull Meate"
+              movie-time="2hr 30mins"}}
+            </li>
+            <li class="swiper-slide">
+              {{>components/widgets/card-style card-image="movies/recommended/05.webp" card-title="Dangacg"
+              movie-time="1hr 45mins"}}
+            </li>
+            <li class="swiper-slide">
+              {{>components/widgets/card-style card-image="movies/recommended/06.webp" card-title="crcikeft"
+              movie-time="2hr 25mins"}}
+            </li>
+            <li class="swiper-slide">
+              {{>components/widgets/card-style card-image="movies/recommended/07.webp" card-title="Avengrs"
+              movie-time="1hr 45mins"}}
+            </li>
+          </ul>
+          <div class="swiper-button swiper-button-next"></div>
+          <div class="swiper-button swiper-button-prev"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>
+{{!-- Movies Recommended For You End --}}
+
+{{/content}}
+{{/extend}}

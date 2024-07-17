@@ -1,0 +1,11 @@
+<!-- additive example -->
+<span className="border"></span>
+
+<!-- subtractive example -->
+<span className="border-0"></span>
+
+<!-- border color example -->
+<span className="border border-primary"></span>
+
+<!-- border color subtle example -->
+<span className="border border-primary-subtle"></span>

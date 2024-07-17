@@ -1,0 +1,40 @@
+import React, { useEffect } from 'react';
+import Chart from 'chart.js/auto';
+
+function ChartJs() {
+  useEffect(() => {
+    var themeColor = (getComputedStyle(document.body).getPropertyValue('--bs-theme')).trim();
+    var themeColorRgb = (getComputedStyle(document.body).getPropertyValue('--bs-theme-rgb')).trim();
+    var inverseRgb = (getComputedStyle(document.body).getPropertyValue('--bs-inverse-rgb')).trim();
+    
+    new Chart(document.getElementById('barChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Jan','Feb','Mar','Apr','May','Jun'],
+        datasets: [{
+          label: 'Total Visitors',
+          data: [37,31,36,34,43,31],
+          backgroundColor: 'rgba('+ themeColorRgb +', .5)',
+          borderColor: themeColor,
+          borderWidth: 1.5
+        },{
+          label: 'New Visitors',
+          data: [12,16,20,14,23,21],
+          backgroundColor: 'rgba('+ inverseRgb +', .2)',
+          borderColor: 'rgba('+ inverseRgb +', .65)',
+          borderWidth: 1.5
+        }]
+      }
+    });
+    
+    // eslint-disable-next-line
+  }, []);
+  
+  return (
+    <div>
+      <canvas id="barChart"></canvas>
+    </div>
+  )
+}
+
+export default ChartJs;

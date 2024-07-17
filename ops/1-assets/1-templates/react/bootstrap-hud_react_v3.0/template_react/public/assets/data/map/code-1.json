@@ -1,0 +1,103 @@
+import React, { useEffect } from 'react';
+import jsVectorMap from 'jsvectormap';
+import 'jsvectormap/dist/maps/world.js';
+import 'jsvectormap/dist/jsvectormap.min.css';
+
+function Map() {
+  function renderMap() {
+    var theme = (getComputedStyle(document.body).getPropertyValue('--bs-theme')).trim();
+    var inverse = (getComputedStyle(document.body).getPropertyValue('--bs-inverse')).trim();
+    var inverseRgb = (getComputedStyle(document.body).getPropertyValue('--bs-inverse-rgb')).trim();
+    var bodyFontFamily = (getComputedStyle(document.body).getPropertyValue('--bs-body-font-family')).trim();
+    const map = document.getElementById('jvectorMap');
+    const mapElm = document.querySelectorAll('.jvm-tooltip');
+    
+    if (map) {
+      for (let i = 0; i < mapElm.length; i++) {
+        mapElm[i].remove();
+      }
+      map.innerHTML = '';
+    
+      var markers = [
+        { name: "Egypt", coords: [26.8206, 30.8025] },
+        { name: "Russia", coords: [61.524, 105.3188] },
+        { name: "Canada", coords: [56.1304, -106.3468] },
+        { name: "Greenland", coords: [71.7069, -42.6043] },
+        { name: "Brazil", coords: [-14.235, -51.9253] }
+      ];
+      new jsVectorMap({
+        selector: '#jvectorMap',
+        map: 'world',
+        zoomButtons: true,
+        normalizeFunction: 'polynomial',
+        hoverOpacity: 0.5,
+        hoverColor: false,
+        zoomOnScroll: false,
+        series: {
+          regions: [{
+            normalizeFunction: 'polynomial'
+          }]
+        },
+        labels: {
+          markers: {
+            render: (marker) => marker.name
+          }
+        },
+        focusOn: {
+          x: 0.5,
+          y: 0.5,
+          scale: 1
+        },
+        markers: markers,
+        markerStyle: {
+          initial: {
+            fill: theme,
+            stroke: 'none',
+            r: 5,
+          },
+          hover: {
+            fill: theme
+          }
+        },
+        markerLabelStyle: {
+          initial: {
+            fontFamily: bodyFontFamily,
+            fontSize: '12px',
+            fill: 'rgba('+ inverseRgb +', .75)'
+          },
+        },
+        regionStyle: {
+          initial: {
+            fill: inverse,
+            fillOpacity: 0.15,
+            stroke: 'none',
+            strokeWidth: 0.4,
+            strokeOpacity: 1
+          },
+          hover: {
+            fillOpacity: 0.5
+          }
+        },
+        backgroundColor: 'transparent',
+      });
+    }
+  }
+  
+  useEffect(() => {
+    renderMap();
+    
+    document.addEventListener('theme-reload', () => {
+      renderMap();
+    });
+    
+    // eslint-diable-next-line
+  }, []);
+  
+  return (
+    <div>
+      <div id="jvectorMap" style={{height: '300px'}}></div>
+    </div>
+  )
+}
+
+export default Map;

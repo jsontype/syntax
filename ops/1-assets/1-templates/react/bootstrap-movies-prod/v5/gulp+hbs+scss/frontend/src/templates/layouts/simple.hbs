@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <title>{{ appName }} |  Responsive Bootstrap 5  Template</title>
+      {{> components/partials/head }}
+      {{#block "head"}}
+      {{/block}}
+  </head>
+  <body class="{{bodyClass}} {{#compare dark '===' 'true'}} dark {{/compare}}">
+    <!-- loader Start -->
+      {{> components/partials/loader }}
+    <!-- loader END -->
+      <div class="main-content">
+        {{#block "content"}}
+        {{/block}}
+      </div>
+    {{> components/partials/script }}
+    {{#block "scripts"}}
+    {{/block}}
+  </body>
+</html>

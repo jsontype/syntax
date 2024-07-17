@@ -1,0 +1,33 @@
+import React, { useEffect } from 'react';
+import Chart from 'chart.js/auto';
+
+function ChartJs() {
+  useEffect(() => {
+    var themeColorRgb = (getComputedStyle(document.body).getPropertyValue('--bs-theme-rgb')).trim();
+    var gray900Rgb = (getComputedStyle(document.body).getPropertyValue('--bs-gray-900-rgb')).trim();
+    var inverseRgb = (getComputedStyle(document.body).getPropertyValue('--bs-inverse-rgb')).trim();
+		
+    new Chart(document.getElementById('pieChart'), {
+      type: 'pie',
+      data: {
+        labels: ['Total Visitor', 'New Visitor', 'Returning Visitor'],
+        datasets: [{
+          data: [300, 50, 100],
+          backgroundColor: ['rgba('+ themeColorRgb +', .5)', 'rgba('+ inverseRgb +', .2)' +', .5)', 'rgba('+ themeColorRgb +', .5)'],
+          hoverBackgroundColor: ['rgba('+ themeColorRgb +', 1)', 'rgba('+ inverseRgb +', 1)', 'rgba('+ gray900Rgb +', 1)'],
+          borderWidth: 0
+        }]
+      }
+    });
+    
+    // eslint-disable-next-line
+  }, []);
+  
+  return (
+    <div>
+      <canvas id="pieChart"></canvas>
+    </div>
+  )
+}
+
+export default ChartJs;

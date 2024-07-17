@@ -1,0 +1,47 @@
+import React from 'react';
+import Chart from 'react-apexcharts';
+
+function ChartApex() {
+  var themeFont = (getComputedStyle(document.body).getPropertyValue('--bs-body-font-family')).trim();
+  var themeFontWeight = (getComputedStyle(document.body).getPropertyValue('--bs-body-font-weight')).trim();
+  var gray300 = (getComputedStyle(document.body).getPropertyValue('--bs-gray-300')).trim();
+  var gray600 = (getComputedStyle(document.body).getPropertyValue('--bs-gray-600')).trim();
+  var indigo = (getComputedStyle(document.body).getPropertyValue('--bs-indigo')).trim();
+  var inverse = (getComputedStyle(document.body).getPropertyValue('--bs-inverse')).trim();
+  var inverseRgb = (getComputedStyle(document.body).getPropertyValue('--bs-inverse-rgb')).trim();
+  var borderColor = (getComputedStyle(document.body).getPropertyValue('--bs-border-color')).trim();
+  
+  // column chart
+  var columnChartOptions = {
+    title: { text: 'Profit & Margin Chart', align: 'center', style: { fontSize:  '14px', fontWeight:  'bold', fontFamily:  themeFont, color: inverse } },
+    plotOptions: { bar: { horizontal: false, columnWidth: '55%', endingShape: 'rounded' } },
+    dataLabels: { enabled: false },
+    stroke: { show: true, width: 2, colors: ['transparent'] },
+    colors: [gray600, indigo, gray300],
+    grid: { borderColor: borderColor },
+    xaxis: { 
+      categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+      axisBorder: { show: true, color: 'rgba('+ inverseRgb +', .25)', height: 1, width: '100%', offsetX: 0, offsetY: -1 },
+      axisTicks: { show: true, borderType: 'solid', color: 'rgba('+ inverseRgb +', .25)', height: 6, offsetX: 0, offsetY: 0 },
+      labels: { style: { colors: inverse, fontSize: '12px', fontFamily: themeFont, fontWeight: themeFontWeight, cssClass: 'apexcharts-xaxis-label' } }
+    },
+    yaxis: { title: { text: '$ (thousands)' }, labels: { style: { colors: inverse, fontSize: '12px', fontFamily: themeFont, fontWeight: themeFontWeight, cssClass: 'apexcharts-xaxis-label' } } },
+    fill: { opacity: 1 },
+    legend: { fontFamily: themeFont, labels: { colors: inverse } },
+    tooltip: { y: { formatter: function (val) { return "$ " + val + " thousands" } } }
+  };
+  
+  var columnChartData = [
+    { name: 'Net Profit', data: [44, 55, 57, 56, 61, 58, 63, 60, 66] }, 
+    { name: 'Revenue', data: [76, 85, 101, 98, 87, 105, 91, 114, 94] }, 
+    { name: 'Free Cash Flow', data: [35, 41, 36, 26, 45, 48, 52, 53, 41] }
+  ];
+  
+  return (
+    <div>
+      <Chart type="bar" options={columnChartOptions} series={columnChartData} />
+    </div>
+  )
+}
+
+export default ChartApex;

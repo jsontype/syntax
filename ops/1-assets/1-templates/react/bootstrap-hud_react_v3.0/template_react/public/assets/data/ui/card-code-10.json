@@ -1,0 +1,25 @@
+import React, { useEffect } from 'react';
+import Masonry from 'masonry-layout';
+import { Card } from './../../components/card/card.jsx';
+
+function UiCard() {
+  useEffect(() => {
+    new Masonry('[data-masonry]');
+  });
+  
+  return (
+    <div className="row" data-masonry='{"percentPosition": true }'>
+      <div className="col-sm-6 col-lg-4 mb-4">
+        <Card>...</Card>
+      </div>
+      <div className="col-sm-6 col-lg-4 mb-4">
+        <Card>...</Card>
+      </div>
+      <div className="col-sm-6 col-lg-4 mb-4">
+        <Card>...</Card>
+      </div>
+    </div>
+  )
+}
+
+export default UiCard;

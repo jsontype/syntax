@@ -1,0 +1,24 @@
+$colors-name: ('primary', 'secondary') !default;
+
+$custom-colors: (
+    "theme-color-blue": map-merge($colors,(
+        "primary": #00C3F9,
+        "secondary": #573BFF,
+    )),
+    "theme-color-gray": map-merge($colors,(
+        "primary": #91969E,
+        "secondary": #FD8D00,
+    )),
+    "theme-color-red": map-merge($colors,(
+        "primary": #DB5363,
+        "secondary": #366AF0,
+    )),
+    "theme-color-yellow": map-merge($colors,(
+        "primary": #EA6A12,
+        "secondary": #6410F1,
+    )),
+    "theme-color-pink": map-merge($colors,(
+        "primary": #E586B3,
+        "secondary": #25C799,
+    )),
+) !default;

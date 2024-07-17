@@ -1,0 +1,135 @@
+footer {
+  .footer-menu {
+    >li {
+      position: relative;
+
+      a {
+        color: var(--bs-body-color);
+        font-size: 0.875rem;
+        transition: all 0.5s ease-in-out;
+        text-transform: capitalize;
+
+        &:hover {
+          color: var(--bs-primary);
+        }
+      }
+
+      &::before {
+        content: "\f054";
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--bs-primary);
+        font-size: 0.625rem;
+      }
+    }
+  }
+
+  .menu {
+    margin-bottom: 0.9375rem;
+
+    li {
+      margin-right: 1.875rem;
+
+      a {
+        color: var(--bs-body-color);
+        font-size: .875rem;
+
+        &:hover {
+          color: var(--bs-primary);
+        }
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+.footer-default {
+  background: var(--bs-gray-900);
+
+  .footer-logo {
+    margin-bottom: 2.5rem;
+  }
+
+  .footer-link-title {
+    font-size: 1.125rem;
+    text-transform: capitalize;
+    font-weight: $font-weight-medium;
+    color: var(--bs-heading-color);
+    margin-bottom: 1.1875rem;
+  }
+
+  .footer-top {
+    padding: 5.625rem 0;
+
+    .contact {
+      font-size: 1.25rem;
+      font-weight: $font-weight-semibold;
+    }
+  }
+
+  .footer-bottom {
+    padding: 3.125em 0em 3.125em 0em;
+  }
+}
+
+.mailchimp {
+  .form-control {
+    background: var(--bs-gray-900);
+    border-top-left-radius: 0.1875rem;
+    border-bottom-left-radius: 0.1875rem;
+  }
+
+  &.mailchimp-dark {
+    .form-control {
+      background: var(--bs-body-bg);
+    }
+  }
+
+  .iq-button {
+    .btn {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      height: 100%;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+}
+
+.footer-merchandise {
+  background: var(--bs-gray-900);
+
+  .footer-inner {
+    padding: 7.375rem 0 6.5rem 0;
+    height: 100%;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .footer-merchandise {
+    .footer-top {
+      padding: 4.375rem 0;
+    }
+
+    .footer-inner {
+      padding: 0;
+    }
+  }
+}
+
+@media (max-width: 767.98px) {
+  .footer-default {
+
+    .footer-top,
+    .footer-bottom {
+      padding: 2rem 0;
+    }
+  }
+}

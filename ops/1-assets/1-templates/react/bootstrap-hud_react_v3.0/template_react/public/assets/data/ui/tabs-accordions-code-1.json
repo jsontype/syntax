@@ -1,0 +1,19 @@
+<ul className="nav nav-tabs">
+  <li className="nav-item me-1"><a href="#home" className="nav-link active" data-bs-toggle="tab">Home</a></li>
+  <li className="nav-item me-1"><a href="#profile" className="nav-link" data-bs-toggle="tab">Profile</a></li>
+  <li className="nav-item me-1 dropdown">
+    <a href="#/" className="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+      Dropdown
+    </a>
+    <div className="dropdown-menu">
+      <a href="#dropdown1" className="dropdown-item" data-bs-toggle="tab">@fat</a>
+      <a href="#dropdown2" className="dropdown-item" data-bs-toggle="tab">@mdo</a>
+    </div> 
+  </li>
+</ul>
+<div className="tab-content pt-3">
+  <div className="tab-pane fade show active" id="home">...</div>
+  <div className="tab-pane fade" id="profile">...</div>
+  <div className="tab-pane fade" id="dropdown1">...</div>
+  <div className="tab-pane fade" id="dropdown2">...</div>
+</div>

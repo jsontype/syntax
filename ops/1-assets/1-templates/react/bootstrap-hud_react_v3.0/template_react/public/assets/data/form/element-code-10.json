@@ -1,0 +1,10 @@
+<div className="mb-3">
+  <label className="form-label" htmlFor="defaultFile">Choose file</label>
+  <input type="file" className="form-control" id="defaultFile" />
+</div>
+
+<!-- small input file -->
+<input type="file" className="form-control form-control-sm" id="smFile" />
+
+<!-- large input file -->
+<input type="file" className="form-control form-control-lg" id="lgFile" />

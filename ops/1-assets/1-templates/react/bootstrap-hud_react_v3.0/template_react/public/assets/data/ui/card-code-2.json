@@ -1,0 +1,8 @@
+import { Card, CardHeader, CardExpandToggler } from './../../components/card/card.jsx';
+
+<Card>
+  <CardHeader className="fw-bold small d-flex">
+    <span className="flex-grow-1">...</span>
+    <CardExpandToggler />
+  </CardHeader>
+</Card>

@@ -1,0 +1,9 @@
+<!-- thead-light -->
+<table className="table">
+  <thead className="table-light">...</thead>
+</table>
+
+<!-- thead-dark -->
+<table className="table">
+  <thead className="table-dark">...</thead>
+</table>

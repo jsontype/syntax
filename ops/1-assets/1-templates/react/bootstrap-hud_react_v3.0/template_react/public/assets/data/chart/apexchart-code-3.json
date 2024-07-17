@@ -1,0 +1,42 @@
+import React from 'react';
+import Chart from 'react-apexcharts';
+
+function ChartApex() {
+  var themeFont = (getComputedStyle(document.body).getPropertyValue('--bs-body-font-family')).trim();
+  var themeFontWeight = (getComputedStyle(document.body).getPropertyValue('--bs-body-font-weight')).trim();
+  var gray600 = (getComputedStyle(document.body).getPropertyValue('--bs-gray-600')).trim();
+  var pink = (getComputedStyle(document.body).getPropertyValue('--bs-pink')).trim();
+  var inverse = (getComputedStyle(document.body).getPropertyValue('--bs-inverse')).trim();
+  var inverseRgb = (getComputedStyle(document.body).getPropertyValue('--bs-inverse-rgb')).trim();
+  var borderColor = (getComputedStyle(document.body).getPropertyValue('--bs-border-color')).trim();
+  
+  // area chart
+  var areaChartOptions = {
+    dataLabels: { enabled: false },
+    stroke: { curve: 'smooth', width: 3 },
+    colors: [pink, gray600],
+    grid: { borderColor: borderColor },
+    xaxis: { 
+      type: 'datetime', categories: ['2024-09-19T00:00:00', '2024-09-19T01:30:00', '2024-09-19T02:30:00', '2024-09-19T03:30:00', '2024-09-19T04:30:00', '2024-09-19T05:30:00', '2024-09-19T06:30:00'],
+      axisBorder: { show: true, color: 'rgba('+ inverseRgb +', .25)', height: 1, width: '100%', offsetX: 0, offsetY: -1 },
+      axisTicks: { show: true, borderType: 'solid', color: 'rgba('+ inverseRgb +', .25)', height: 6, offsetX: 0, offsetY: 0 },
+      labels: { style: { colors: inverse, fontSize: '12px', fontFamily: themeFont, fontWeight: themeFontWeight, cssClass: 'apexcharts-xaxis-label' } }
+    },
+    yaxis: { labels: { style: { colors: inverse, fontSize: '12px', fontFamily: themeFont, fontWeight: themeFontWeight, cssClass: 'apexcharts-xaxis-label' } } },
+    legend: { fontFamily: themeFont, labels: { colors: inverse } },
+    tooltip: { x: { format: 'dd/MM/yy HH:mm' } }
+  };
+  
+  var areaChartData = [
+    { name: 'series1', data: [31, 40, 28, 51, 42, 109, 100] }, 
+    { name: 'series2', data: [11, 32, 45, 32, 34, 52, 41] }
+  ];
+  
+  return (
+    <div>
+      <Chart type="area" options={areaChartOptions} series={areaChartData} />
+    </div>
+  )
+}
+
+export default ChartApex;

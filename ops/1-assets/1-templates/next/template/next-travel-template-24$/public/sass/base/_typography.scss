@@ -1,0 +1,61 @@
+$_sizesBreaks: xl, lg, md, sm;
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  line-height: 1.45;
+  font-weight: 600;
+}
+
+@each $size in $text-sizes {
+  .text-#{$size} {
+    font-size: var(--text-#{$size}) !important;
+  }
+}
+
+@each $media, $width in $breakpoints-loop {
+  @include media-below($media) {
+    @each $size in $text-sizes {
+      .#{$media}\:text-#{$size} {
+        font-size: var(--text-#{$size}) !important;
+      }
+    }
+  }
+}
+
+.lh {
+  &-1  { line-height: 1 !important; }
+  &-11 { line-height: 1.1 !important; }
+  &-12 { line-height: 1.2 !important; }
+  &-13 { line-height: 1.3 !important; }
+  &-14 { line-height: 1.4 !important; }
+  &-15 { line-height: 1.5 !important; }
+  &-16 { line-height: 1.6 !important; }
+  &-17 { line-height: 1.7 !important; }
+  &-18 { line-height: 1.8 !important; }
+  &-19 { line-height: 1.9 !important; }
+  &-2  { line-height: 2 !important; }
+}
+
+.text {
+  &-center { text-align: center; }
+  &-right { text-align: right; }
+  &-left { text-align: left; }
+}
+
+@each $break in $_sizesBreaks {
+  @include media-below($break) {
+    .#{$break}\:text {
+      &-center { text-align: center !important; }
+      &-right { text-align: right !important; }
+      &-left { text-align: left !important; }
+    }
+  }
+}
+
+.fw {
+  &-300 { font-weight: 300; }
+  &-400 { font-weight: 400; }
+  &-500 { font-weight: 500; }
+  &-600 { font-weight: 600; }
+  &-700 { font-weight: 700; }
+}

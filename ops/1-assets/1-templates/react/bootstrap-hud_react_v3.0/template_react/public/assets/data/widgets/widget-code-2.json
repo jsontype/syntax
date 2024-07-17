@@ -1,0 +1,40 @@
+<div className="list-group">
+  <!-- with icon -->
+  <div className="list-group-item d-flex align-items-center">
+    <div className="w-40px h-40px d-flex align-items-center justify-content-center bg-gradient-orange text-white rounded-2 ms-n1">
+      <i className="fa fa-book fa-lg"></i>
+    </div>
+    <div className="flex-fill px-3">
+      <div className="fw-bold">iBooks App</div>
+      <div className="small text-inverse text-opacity-50">32 new download</div>
+    </div>
+    <div className="dropdown">
+      <a href="#/" data-bs-toggle="dropdown" className="text-inverse text-opacity-50"><i className="fa fa-ellipsis-h"></i></a>
+      <div className="dropdown-menu dropdown-menu-end">
+        ...
+      </div>
+    </div>
+  </div>
+  
+  <!-- with image -->
+  <a href="#/" className="list-group-item list-group-item-action d-flex align-items-center text-white">
+    <div className="w-40px h-40px d-flex align-items-center justify-content-center ms-n1">
+      <img src="/assets/img/user/user.jpg" className="ms-100 mh-100 rounded-circle" />
+    </div>
+    <div className="flex-fill ps-3">
+      <div className="fw-bold">
+        Isaiah Hughes <span className="fa fa-circle text-success fs-9px ms-2"></span>
+      </div>
+    </div>
+  </a>
+  
+  <!-- link with icon -->
+  <a href="#/" className="list-group-item list-group-item-action d-flex align-items-center">
+    <div className="flex-fill">
+      <div className="fw-bold">Link with arrow</div>
+    </div>
+    <div>
+      <i className="fa fa-chevron-right"></i>
+    </div>
+  </a>
+</div>

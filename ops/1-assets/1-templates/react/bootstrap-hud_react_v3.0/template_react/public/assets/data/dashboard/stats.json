@@ -1,0 +1,104 @@
+[
+  {
+    "title": "SITE VISITORS",
+    "total": "4.2m",
+    "info": [
+      {
+        "icon": "fa fa-chevron-up fa-fw me-1",
+        "text": "33.3% more than last week"
+      },
+      {
+        "icon": "far fa-user fa-fw me-1",
+        "text": "45.5% new visitors"
+      },
+      {
+        "icon": "far fa-times-circle fa-fw me-1",
+        "text": "3.25% bounce rate"
+      }
+    ],
+    "chartData": [
+      {
+        "name": "Visitors",
+        "data": [
+          69, 34, 70, 73, 41, 32, 73, 72, 89, 57, 42, 86, 78
+        ]
+      }
+    ],
+    "chartType": "bar",
+    "chartHeight": 30
+  },
+  {
+    "title": "STORE SALES",
+    "total": "$35.2K",
+    "info": [
+      {
+        "icon": "fa fa-chevron-up fa-fw me-1",
+        "text": "20.4% more than last week"
+      },
+      {
+        "icon": "fa fa-shopping-bag fa-fw me-1",
+        "text": "33.5% new orders"
+      },
+      {
+        "icon": "fa fa-dollar-sign fa-fw me-1",
+        "text": "6.21% conversion rate"
+      }
+    ],
+    "chartData": [
+      {
+        "name": "Sales",
+        "data": [
+          81, 89, 71, 75, 53, 47, 78, 33, 71, 81, 45, 43, 68
+        ]
+      }
+    ],
+    "chartType": "line",
+    "chartHeight": 30
+  },
+  {
+    "title": "NEW MEMBERS",
+    "total": "4,490",
+    "info": [
+      {
+        "icon": "fa fa-chevron-up fa-fw me-1",
+        "text": "59.5% more than last week"
+      },
+      {
+        "icon": "fab fa-facebook-f fa-fw me-1",
+        "text": "45.5% from facebook"
+      },
+      {
+        "icon": "fab fa-youtube fa-fw me-1",
+        "text": "15.25% from youtube"
+      }
+    ],
+    "chartData": [
+      77, 80, 70
+    ],
+    "chartType": "pie",
+    "chartHeight": 45
+  },
+  {
+    "title": "BANDWIDTH",
+    "total": "4.5TB",
+    "info": [
+      {
+        "icon": "fa fa-chevron-up fa-fw me-1",
+        "text": "5.3% more than last week"
+      },
+      {
+        "icon": "far fa-hdd fa-fw me-1",
+        "text": "10.5% from 'total' usage"
+      },
+      {
+        "icon": "far fa-hand-point-up fa-fw me-1",
+        "text": "2MB per visit"
+      }
+    ],
+    "chartData": [
+      83, 74, 58, 70, 78
+    ],
+    "chartType": "donut",
+    "chartHeight": 45
+  }
+]

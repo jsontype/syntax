@@ -1,0 +1,23 @@
+<!-- tab default with card -->
+<Card>
+  <ul className="nav nav-tabs pt-3 ps-4 pe-4">
+    <li className="nav-item me-1"><a href="#homeWithCard" className="nav-link active" data-bs-toggle="tab">Home</a></li>
+    <li className="nav-item me-1"><a href="#profileWithCard" className="nav-link" data-bs-toggle="tab">Profile</a></li>
+  </ul>
+  <div className="tab-content p-4">
+    <div className="tab-pane fade show active" id="homeWithCard">...</div>
+    <div className="tab-pane fade" id="profileWithCard">...</div>
+  </div>
+</Card>
+
+<!-- tab v2 with card -->
+<Card>
+  <ul className="nav nav-tabs nav-tabs-v2 ps-4 pe-4">
+    <li className="nav-item me-3"><a href="#homev2WithCard" className="nav-link active" data-bs-toggle="tab">Home</a></li>
+    <li className="nav-item me-3"><a href="#profilev2WithCard" className="nav-link" data-bs-toggle="tab">Profile</a></li>
+  </ul>
+  <div className="tab-content p-4">
+    <div className="tab-pane fade show active" id="homev2WithCard">...</div>
+    <div className="tab-pane fade" id="profilev2WithCard">...</div>
+  </div>
+</Card>

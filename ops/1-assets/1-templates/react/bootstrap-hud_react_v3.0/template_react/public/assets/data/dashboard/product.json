@@ -1,0 +1,47 @@
+[
+  {
+    "img": "/assets/img/dashboard/product-1.jpeg",
+    "sku": "SKU90400",
+    "title": "Huawei Smart Watch",
+    "price": "$399.00",
+    "qty": "129",
+    "revenue": "$51,471",
+    "profit": "$15,441"
+  },
+  {
+    "img": "/assets/img/dashboard/product-2.jpeg",
+    "sku": "SKU85999",
+    "title": "Nike Shoes Black Version",
+    "price": "$99.00",
+    "qty": "108",
+    "revenue": "$10,692",
+    "profit": "$5,346"
+  },
+  {
+    "img": "/assets/img/dashboard/product-3.jpeg",
+    "sku": "SKU20400",
+    "title": "White Sony PS4",
+    "price": "$599",
+    "qty": "72",
+    "revenue": "$43,128",
+    "profit": "$4,312"
+  },
+  {
+    "img": "/assets/img/dashboard/product-4.jpeg",
+    "sku": "SKU19299",
+    "title": "Apple Watch Series 5",
+    "price": "$1,099",
+    "qty": "53",
+    "revenue": "$58,247",
+    "profit": "$2,912"
+  },
+  {
+    "img": "/assets/img/dashboard/product-5.jpeg",
+    "sku": "SKU19299",
+    "title": "Black Nikon DSLR",
+    "price": "$1,899",
+    "qty": "50",
+    "revenue": "$90,950",
+    "profit": "$2,848"
+  }
+]

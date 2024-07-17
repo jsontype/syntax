@@ -1,0 +1,77 @@
+[
+  {
+    "id": 1,
+    "sender": "Apple",
+    "time": "1 hour ago",
+    "title": "Your payment is received",
+    "desc": "Praesent id pulvinar orci. Donec ac metus non ligula faucibus venenatis. Suspendisse tortor est, placerat eu dui sed...",
+    "hasAttachment": true,
+    "unread": true
+  },
+  {
+    "id": 2,
+    "sender": "Chance Graham",
+    "time": "5 hours ago",
+    "title": "Trip to South America",
+    "desc": "Quisque luctus sapien sodales pulvinar porta. In pretium accumsan elit, vitae blandit arcu suscipit eu. Ut tortor libero, gravida ut nisl tincidunt, efficitur laoreet mauris.",
+    "hasAttachment": true,
+    "unread": true
+  },
+  {
+    "id": 3,
+    "sender": "Paypal Inc",
+    "time": "Aug 11",
+    "title": "Important information about your order #019244",
+    "desc": "Waltz, bad nymph, for quick jigs vex! Fox nymphs grab quick-jived waltz. Brick quiz whangs jumpy veldt fox. Bright vixens jump; dozy fowl quack. Quick wafting zephyrs vex bold Jim. Quick zephyrs blow, vexing daft Jim.",
+    "hasAttachment": true
+  },
+  {
+    "id": 4,
+    "sender": "Fitbit",
+    "time": "Aug 09",
+    "title": "Stylish accessories for your Charge 2",
+    "desc": "How quickly daft jumping zebras vex. Two driven jocks help fax my big quiz. Quick, Baz, get my woven flax jodhpurs! Now fax quiz Jack! my brave ghost pled."
+  },
+  {
+    "id": 5,
+    "sender": "Apple",
+    "time": "Aug 09",
+    "title": "Your invoice from Apple.",
+    "desc": "Flummoxed by job, kvetching W. zaps Iraq. Cozy sphinx waves quart jug of bad milk. A very bad quack might jinx zippy fowls."
+  },
+  {
+    "id": 6,
+    "sender": "Hotels.com",
+    "time": "Aug 09",
+    "title": "[Ends tonight!] 48 Hour Sale - Save up to 50% + save an extra 10%",
+    "desc": "Phasellus vulputate, ligula ac hendrerit euismod, nunc metus maximus tellus, aliquam finibus justo lorem a augue."
+  },
+  {
+    "id": 7,
+    "sender": "Google Calendar",
+    "time": "Aug 08",
+    "title": "Daily schedule on Tuesday, May 9, 2024",
+    "desc": "Suspendisse potenti. Praesent ac ullamcorper sem. Mauris luctus accumsan felis"
+  },
+  {
+    "id": 8,
+    "sender": "Facebook Blueprint",
+    "time": "Aug 08",
+    "title": "April 2024 – Blueprint Highlights",
+    "desc": "Phasellus pretium viverra tortor, eu sagittis erat aliquam nec. Nunc et volutpat ligula. Duis viverra posuere enim, ac bibendum massa viverra id."
+  },
+  {
+    "id": 9,
+    "sender": "Customer Care",
+    "time": "Aug 08",
+    "title": "Re: [Case #1567940] - Re: [Important] Exabytes",
+    "desc": "Nam imperdiet molestie arcu, et gravida quam lacinia lobortis."
+  },
+  {
+    "id": 10,
+    "sender": "Flight Status",
+    "time": "Aug 07",
+    "title": "[Case#2017022137015743] *FLIGHT RETIMED* **MH2713/15JUL17**",
+    "desc": "Etiam condimentum orci ut velit suscipit, ut accumsan elit aliquet. Nulla cursus mi at]"
+  }
+]
