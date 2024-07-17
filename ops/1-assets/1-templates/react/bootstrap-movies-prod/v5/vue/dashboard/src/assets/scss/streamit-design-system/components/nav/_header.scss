@@ -1,0 +1,25 @@
+.sidebar.sidebar-mini+.main-content {
+    .iq-header-img {
+        transition: all 400ms;
+    }
+}
+.nav{
+    .search-input{
+        &.input-group{
+            &:focus-within{
+                .input-group-text, .form-control{
+                    border-color: var(--#{$variable-prefix}primary-tint-40);
+                }
+            }
+        }
+    }
+}
+@include media-breakpoint-down(md) {
+    .container-fluid{
+        &.content-inner{
+            &.mt-n5{
+                margin-top: unset !important;
+            }
+        }
+    }
+}

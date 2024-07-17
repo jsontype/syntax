@@ -1,0 +1,17 @@
+<div className="d-flex align-items-start">
+  <img src="https://via.placeholder.com/128x128/c9d2e3/212837" alt="" width="64" className="rounded" />
+  <div className="ms-3">
+    <h5 className="mt-0 mb-1">Media heading</h5>
+    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+
+    <div className="d-flex align-items-start mt-3">
+      <a href="#/">
+        <img src="https://via.placeholder.com/128x128/c9d2e3/212837" alt="" width="64" className="rounded" />
+      </a>
+      <div className="ms-3">
+        <h5 className="mt-0 mb-1">Media heading</h5>
+        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+      </div>
+    </div>
+  </div>
+</div>

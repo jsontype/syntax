@@ -1,0 +1,8 @@
+<div className="alert alert-primary">...</div>
+<div className="alert alert-secondary">...</div>
+<div className="alert alert-success">...</div>
+<div className="alert alert-danger">...</div>
+<div className="alert alert-warning">...</div>
+<div className="alert alert-info">...</div>
+<div className="alert alert-dark">...</div>
+<div className="alert alert-light">...</div>

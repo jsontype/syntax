@@ -1,0 +1,56 @@
+/*
+-------------------------------------------------------------------------
+* Template Name    : Nichol - Tailwind CSS Personal Portfolio Templates   * 
+* Author           : SRBThemes                                          *
+* Version          : 1.0.0                                              *
+* Created          : June 2023                                          *
+* File Description : Main CSS file of the template                      *
+*------------------------------------------------------------------------
+*/
+
+/*****************************
+    1. BASIC                 *
+    2. HELPER                *
+    3. NAVBAR                *
+    4. CONTACT               *
+******************************/
+
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components{
+    /* 1. BASIC */
+    ::-webkit-scrollbar {
+        @apply bg-transparent w-0 h-0;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        @apply bg-dark/10;
+    }
+
+    /* 2. HELPER */
+    .btn{
+        @apply py-4 px-7 inline-block font-semibold;
+    }
+    .btn-purple{
+        @apply bg-purple text-white duration-300 hover:bg-purple/80;
+    }
+    .btn-outline-white{
+        @apply inline-block border-2 dark:border-white/[12%] dark:text-white dark:hover:bg-white dark:hover:text-dark duration-300 text-dark hover:bg-dark hover:text-white border-gray/[12%];
+    }
+    .btn-dark{
+        @apply text-sm font-semibold border-2 border-dark duration-300 bg-dark hover:bg-dark/80 text-white dark:bg-white dark:text-dark dark:border-white dark:hover:border-white/60 dark:hover:bg-white/90;
+    }
+
+    /* 3. NAVBAR*/
+    .mobile-nav li.active a{
+        @apply text-purple
+    }
+
+    /* 4. CONTACT */
+    .form-input,.form-textarea{
+        @apply w-full h-14 border-2 border-gray/20 placeholder:text-gray text-dark font-semibold p-5 focus:border-purple focus:ring-0 focus:outline-0; 
+    }
+}

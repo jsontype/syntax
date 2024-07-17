@@ -1,0 +1,4 @@
+<!-- example -->
+<div className="ratio ratio-16x9">
+  <iframe className="embed-responsive-item" src="https://www.youtube.com/embed/3Kf-FlECN7M?rel=0" allowfullscreen></iframe>
+</div>

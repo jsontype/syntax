@@ -1,0 +1,56 @@
+@import "./horizontal-thumb-slider";
+@import "./home-slider";
+@import "./movie-slider";
+@import "./vertical-thumb-slider";
+@import "./tab-thumb-slider";
+
+
+.playbtn {
+    display: block;
+    transition: all 0.5s ease;
+    text-align: center;
+
+    .triangle {
+        transition: all 0.7s ease-in-out;
+        stroke-dasharray: 240;
+        stroke-dashoffset: 480;
+        stroke: var(--bs-white);
+        transform: translateY(0);
+    }
+
+    .circle {
+        stroke: var(--bs-white);
+        stroke-dasharray: 650;
+        stroke-dashoffset: 1300;
+        transition: all 0.5s ease-in-out;
+    }
+
+    span {
+        color: var(--bs-white);
+    }
+
+    &:hover {
+        .triangle {
+            stroke-dashoffset: 0;
+            opacity: 1;
+            stroke: var(--bs-primary);
+            animation: trailorPlay 0.7s ease-in-out;
+        }
+
+        .circle {
+            stroke-dashoffset: 0;
+            stroke: var(--bs-primary);
+        }
+
+        span {
+            color: var(--bs-primary);
+        }
+    }
+}
+
+.w-trailor {
+    font-size: 1.25em;
+    letter-spacing: 0.21875em;
+    margin-left: 0.9375em;
+    vertical-align: middle;
+}

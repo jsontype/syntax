@@ -1,0 +1,18 @@
+import React from 'react';
+import Select from 'react-select';
+
+function FormPlugins() {
+  var selectOptions = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' }
+  ];
+  
+  return (
+    <div>
+      <Select options={this.selectOptions} classNamePrefix="react-select" />
+    </div>
+  )
+}
+
+export default FormPlugins;

@@ -1,0 +1,19 @@
+<form className="was-validated">
+  <!-- valid input -->
+  <input type="text" className="form-control is-valid" required />
+  <div className="valid-feedback">Looks good!</div>
+
+  <!-- invalid input -->
+  <input type="text" className="form-control is-invalid" required />
+  <div className="invalid-feedback">Field is required</div>
+
+  <!-- valid tooltip -->
+  <div className="position-relative">
+    <div className="valid-tooltip">Looks good!</div>
+  </div>
+  
+  <!-- invalid tooltip -->
+  <div className="position-relative">
+    <div className="invalid-tooltip">Field is required</div>
+  </div>
+</form>

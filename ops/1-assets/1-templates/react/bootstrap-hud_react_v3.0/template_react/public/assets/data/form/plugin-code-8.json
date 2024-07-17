@@ -1,0 +1,36 @@
+import React, { useState } from 'react';
+import Moment from 'moment';
+import DateRangePicker from 'react-bootstrap-daterangepicker';
+import 'bootstrap-daterangepicker/daterangepicker.css';
+
+function FormPlugins() {
+  const [dateRangeCurrentWeek, setDateRangeCurrentWeek] = useState(Moment().subtract(7, 'days').format('D MMM YYYY') + ' - ' + Moment().format('D MMM YYYY'));
+  const [dateRangePrevWeek, setDateRangePrevWeek] = useState(Moment().subtract(15, 'days').format('D MMM') + ' - ' + Moment().subtract(8, 'days').format('D MMM YYYY'));
+   
+  function handleDateApplyEvent(event, picker) {
+    var startDate = picker.startDate;
+    var endDate = picker.endDate;
+    var gap = endDate.diff(startDate, 'days');
+    
+    var currentWeek = startDate.format('D MMM YYYY') + ' - ' + endDate.format('D MMM YYYY');
+    var prevWeek = Moment(startDate).subtract(gap, 'days').format('D MMM') + ' - ' + Moment(startDate).subtract(1, 'days').format('D MMM YYYY');
+    
+    setDateRangeCurrentWeek(currentWeek);
+    setDateRangePrevWeek(prevWeek);
+  }
+  
+  return (
+    <div className="d-sm-flex align-items-center mb-3">
+      <DateRangePicker startDate={startDate} endDate={endDate} onApply={handleDateApplyEvent}>
+        <button className="btn btn-outline-theme text-truncate me-3 mb-2 mb-sm-0">
+          <i className="fa fa-fw fa-calendar me-1"></i> 
+          <span>{dateRangeCurrentWeek}</span>
+          <i className="fa fa-fw fa-caret-down me-n1"></i> 
+        </button>
+      </DateRangePicker>
+      <div>compared to <span>{dateRangePrevWeek}</span></div>
+    </div>
+  )
+}
+
+export default FormPlugins;

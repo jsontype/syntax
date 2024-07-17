@@ -1,0 +1,18 @@
+#swiper .swiper-button { position: static; background: var(--iq-primary) 0% 0% no-repeat padding-box; margin: 0 0 0 20px; line-height: 5px; box-shadow: 0px 9px 19px #01041B0D; font-size: 0; transform: none; color: var(--iq-white); -webkit-transition: all 0.4s ease-in-out 0s; -moz-transition: all 0.4s ease-in-out 0s; transition: all 0.4s ease-in-out 0s; }
+#swiper .swiper-button:hover { background: var(--iq-white); color: var(--iq-primary) !important; -webkit-transition: all 0.4s ease-in-out 0s; -moz-transition: all 0.4s ease-in-out 0s; transition: all 0.4s ease-in-out 0s; }
+#swiper { display: flex; align-items: center; justify-content: center; }
+#swiper .swiper-button-prev:before { color: var(--iq-white);  content: "\f30a"; font-family: 'Line Awesome Free'; font-weight: 900; font-size: 20px }
+#swiper .swiper-button-next:before { color: var(--iq-white);  content: "\f30b"; font-family: 'Line Awesome Free'; font-weight: 900; font-size: 20px}
+#swiper .swiper-button-prev:hover::before { color: var(--iq-primary); }
+#swiper .swiper-button-next:hover::before { color: var(--iq-primary); }
+.swiper-button { width: 30px; height: 30px; border-radius: 5px !important; text-align: center; opacity: 1; font-size: 24px; z-index: 9; }
+.swiper-button-next:after{content: 'none'}
+.swiper-button-prev:after{content: 'none'}
+@media (min-width: 320px) and (max-width: 1000px){
+    .swiper-button.swiper-button-prev{
+        display: none !important;
+    }
+    .swiper-button.swiper-button-next{
+        display: none !important;
+    }
+}

@@ -1,0 +1,84 @@
+import React, { useEffect, useRef } from 'react';
+import 'datatables.net-bs5/css/dataTables.bootstrap5.min.css';
+import 'datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css';
+import 'datatables.net-fixedcolumns-bs5/css/fixedColumns.bootstrap5.min.css';
+import 'datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css';
+
+const $ = require('jquery');
+$.DataTable = require('datatables.net');
+require('datatables.net-bs5');
+require('datatables.net-buttons');
+require('datatables.net-buttons/js/buttons.colVis.min.js');
+require('datatables.net-buttons/js/buttons.html5.min.js');
+require('datatables.net-buttons/js/buttons.print.min.js');
+require('datatables.net-buttons-bs5');
+require('datatables.net-responsive');
+require('datatables.net-responsive-bs5');
+require('datatables.net-fixedcolumns');
+require('datatables.net-fixedcolumns-bs5');
+
+function TablePlugins() {
+  const tableRef = useRef(null);
+  
+  useEffect(() => {
+    tableRef.current = $('#datatableDefault').DataTable({
+      dom: "<'row mb-3'<'col-md-4 mb-3 mb-md-0'l><'col-md-8 text-end'<'d-lg-flex justify-content-end'f<'d-lg-block d-none'B>>>>t<'row align-items-center mt-2'<'mr-auto col-md-6 mb-3 mb-md-0 mt-n2 'i><'mb-0 col-md-6'p>>",
+      lengthMenu: [ 10, 20, 30, 40, 50 ],
+      responsive: true,
+      buttons: [
+        { extend: 'print', className: 'btn-sm ms-2' },
+        { extend: 'csv', className: 'btn-sm' }
+      ]
+    });
+    
+    return function cleanUp() {
+      if (tableRef.current) {
+        tableRef.current.destroy();
+      }
+    };
+    
+    // eslint-disable-next-line
+  }, []);
+  
+  
+  return (
+    <div>
+      <table id="datatableDefault" className="table text-nowrap w-100">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Office</th>
+            <th>Age</th>
+            <th>Start Date</th>
+            <th>Salary</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1.</td>
+            <td>Tiger Nixon</td>
+            <td>System Architect</td>
+            <td>Edinburgh</td>
+            <td>61</td>
+            <td>2024/04/25</td>
+            <td>$320,800</td>
+          </tr>
+          <tr>
+            <td>2.</td>
+            <td>Garrett Winters</td>
+            <td>Accountant</td>
+            <td>Tokyo</td>
+            <td>63</td>
+            <td>2024/07/25</td>
+            <td>$170,750</td>
+          </tr>
+          ...
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
+export default TablePlugins;

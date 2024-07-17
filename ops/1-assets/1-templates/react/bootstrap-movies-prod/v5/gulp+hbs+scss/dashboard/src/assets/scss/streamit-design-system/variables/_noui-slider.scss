@@ -1,0 +1,22 @@
+// noUiSlider
+$noUi-track-height:                  .25rem !default;
+$noUi-track-width:                   .25rem !default;
+$noUi-track-btn-width:               1.125rem !default;
+$noUi-track-btn-height:              1.075rem !default;
+$noUi-track-btn-align-y:             -.5rem!default;
+$noUi-track-btn-align-x:             -.5rem!default;
+$noUi-track-btn-radius:              $border-radius-pill !default;
+$noUi-trake-btn-border:              $form-range-thumb-border;
+
+$noUi-track-shadow:                  true;
+
+$noUi-varients: (
+  "primary":     $primary,
+  "secondary":   $secondary,
+  "success":     $success,
+  "danger":      $danger,
+  "warning":     $warning,
+  "info":        $info,
+  "dark":        $dark,
+  "light":       $light
+)!default;

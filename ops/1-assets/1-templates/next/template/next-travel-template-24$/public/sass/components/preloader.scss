@@ -1,0 +1,81 @@
+.preloader {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 5000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: white;
+  transition: opacity 0.6s $easeOutQuart;
+
+  &__wrap {
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 72px;
+    height: 72px;
+    border-radius: 30px;
+    background-color: white;
+    box-shadow: 0px 2px 24px 0px #00000014;
+
+    animation-name: preloaderWraper;
+    animation-iteration-count: infinite;
+    animation-duration: 1.8s;
+    animation-timing-function: ease;
+  }
+
+  &__icon {
+    position: absolute;
+    animation-name: preloader;
+    animation-iteration-count: infinite;
+    animation-duration: 1.8s;
+    animation-timing-function: ease;
+  }
+
+  &__title {
+    font-size: 47px;
+    font-weight: 600;
+    line-height: 68px;
+    letter-spacing: 0em;
+    margin-top: 16px;
+  }
+
+  &.-is-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+@keyframes preloaderWraper {
+  0% {
+    transform: scale(1.0);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: none;
+  }
+}
+
+@keyframes preloader {
+  0% {
+    transform: translateY(150%) scale(1.0);
+  }
+
+  50% {
+    transform: translateY(0%) scale(1.2) rotate(20deg);
+  }
+
+  100% {
+    transform: translateY(-150%) rotate(-20deg);
+  }
+}

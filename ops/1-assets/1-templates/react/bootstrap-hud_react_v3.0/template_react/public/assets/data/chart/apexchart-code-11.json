@@ -1,0 +1,49 @@
+import React from 'react';
+import Chart from 'react-apexcharts';
+
+function ChartApex() {
+  var themeColor = (getComputedStyle(document.body).getPropertyValue('--bs-theme')).trim();
+  var themeFont = (getComputedStyle(document.body).getPropertyValue('--bs-body-font-family')).trim();
+  var gray300 = (getComputedStyle(document.body).getPropertyValue('--bs-gray-300')).trim();
+  var indigo = (getComputedStyle(document.body).getPropertyValue('--bs-indigo')).trim();
+  var cyan = (getComputedStyle(document.body).getPropertyValue('--bs-cyan')).trim();
+  var inverseRgb = (getComputedStyle(document.body).getPropertyValue('--bs-inverse-rgb')).trim();
+  
+  // radial bar chart
+  var radialBarChartOptions = {
+    plotOptions: {
+      radialBar: {
+        offsetY: -10,
+        startAngle: 0,
+        endAngle: 270,
+        hollow: { margin: 5, size: '30%', background: 'transparent', image: undefined },
+        track: { background: 'rgba('+ inverseRgb +', .25)'  },
+        dataLabels: { name: { show: false }, value: { show: false } }
+      }
+    },
+    colors: [cyan, themeColor, indigo, gray300],
+    labels: ['Vimeo', 'Messenger', 'Facebook', 'LinkedIn'],
+    legend: {
+      show: true,
+      floating: true,
+      position: 'left',
+      offsetX: 140,
+      offsetY: 15,
+      labels: { useSeriesColors: true },
+      markers: { size: 0 },
+      formatter: function(seriesName, opts) { return seriesName + ":  " + opts.w.globals.series[opts.seriesIndex] },
+      itemMargin: { horizontal: 1, },
+      fontFamily: themeFont
+    }
+  };
+  
+  var radialBarChartData = [76, 67, 61, 90];
+
+  return (
+    <div>
+      <Chart type="radialBar" options={radialBarChartOptions} series={radialBarChartData} />
+    </div>
+  )
+}
+
+export default ChartApex;

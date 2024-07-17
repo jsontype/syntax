@@ -1,0 +1,24 @@
+<Card>
+  <div className="list-group list-group-flush">
+    <a href="#/" className="list-group-item list-group-item-action d-flex align-items-center text-inverse">
+      <div className="flex-fill pe-3">
+        <div className="fw-bold">Library (20)</div>
+        <div className="small text-inverse text-opacity-50">3,192 Image Found</div>
+      </div>
+      <div>
+        <i className="fa fa-chevron-right fa-lg text-inverse text-opacity-50"></i>
+      </div>
+    </a>
+  </div>
+  <hr className="m-0" />
+  <CardBody>
+    <div className="widget-img-list">
+      <div className="widget-img-list-item"><a href="/assets/img/gallery/gallery-1.jpg" data-lity><span className="img" style={{backgroundImage: 'url(/assets/img/gallery/gallery-1.jpg)'}}></span></a></div>
+      <div className="widget-img-list-item"><a href="/assets/img/gallery/gallery-2.jpg" data-lity><span className="img" style={{backgroundImage: 'url(/assets/img/gallery/gallery-2.jpg)'}}></span></a></div>
+      <div className="widget-img-list-item"><a href="/assets/img/gallery/gallery-3.jpg" data-lity><span className="img" style={{backgroundImage: 'url(/assets/img/gallery/gallery-3.jpg)'}}></span></a></div>
+      <div className="widget-img-list-item"><a href="/assets/img/gallery/gallery-4.jpg" data-lity><span className="img" style={{backgroundImage: 'url(/assets/img/gallery/gallery-4.jpg)'}}></span></a></div>
+      <div className="widget-img-list-item"><a href="/assets/img/gallery/gallery-5.jpg" data-lity><span className="img" style={{backgroundImage: 'url(/assets/img/gallery/gallery-5.jpg)'}}></span></a></div>
+      ...
+    </div>
+  </CardBody>
+</Card>

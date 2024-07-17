@@ -1,0 +1,8 @@
+/*!
+* Version: 5.0.0
+* Template: Example Project
+* Author: iqonic.design
+* Design and Developed by: iqonic.design
+* NOTE: This file contains the styling for Template.
+*
+*/:focus{outline:none}h1,h2,h3,h4,h5,h6{font-family:var(--bs-heading-font-family)}a{color:var(--bs-primary);transition:color .4s ease,background .4s ease;text-decoration:none}::-moz-selection{color:var(--bs-white);background-color:var(--bs-primary)}::selection{color:var(--bs-white);background-color:var(--bs-primary)}.iq-slider{overflow:hidden;overflow-x:auto}hr{margin:1rem 0;color:inherit;background-color:currentColor;border:0;opacity:.25}.iq-scroller-effect ::-webkit-scrollbar{width:5px;height:5px;border-radius:20px}.iq-scroller-effect ::-webkit-scrollbar-track{background:#F9F9F9;border-radius:20px}.iq-scroller-effect ::-webkit-scrollbar-thumb{background:#dbdfe7;border-radius:20px;-webkit-transition:all .4s ease;transition:all .4s ease;cursor:pointer}.iq-scroller-effect ::-webkit-scrollbar-thumb:hover{background:#dfe2e9;border-radius:20px;-webkit-transition:all .4s ease;transition:all .4s ease}body{transition:background-color .25s ease-in-out}

@@ -1,0 +1,57 @@
+{{#extend layout title="View All" active="all-personality" isHeader="true" isFooter="true" path="./" isBreadcrumb="true"}}
+{{#content "content"}}
+
+<div class="section-padding">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 my-4">
+                <div class="d-flex align-items-center justify-content-between">
+                    <h5 class="main-title text-capitalize mb-0">favourite-personality</h5>
+                </div>
+            </div>
+        </div>
+        <div class="card-style-grid">
+            <div class="row row-cols-xl-5 row-cols-md-2 row-cols-1 personality-card">
+                <div class="col mb-4">
+                  {{>components/widgets/personality-card cast-image="01.webp" cast-title="john Abraham" cast-category="actor"}}
+               </div>
+               <div class="col mb-4">
+                  {{>components/widgets/personality-card cast-image="02.webp" cast-title="Leena burton" cast-category="actress"}}
+               </div>
+               <div class="col mb-4">
+                  {{>components/widgets/personality-card cast-image="03.webp" cast-title="Lorina williams " cast-category="actress"}}
+               </div>
+               <div class="col mb-4">
+                  {{>components/widgets/personality-card cast-image="04.webp" cast-title="Davina decorous" cast-category="actress"}}
+               </div>
+               <div class="col mb-4">
+                  {{>components/widgets/personality-card cast-image="05.webp" cast-title="Thomas bailey" cast-category="producer"}}
+               </div>
+               <div class="col mb-4">
+                  {{>components/widgets/personality-card cast-image="06.webp" cast-title="Kelly Reilly" cast-category="actress"}}
+               </div>
+               <div class="col mb-4">
+                  {{>components/widgets/personality-card cast-image="07.webp" cast-title="smith Jonas" cast-category="director"}}
+               </div>
+               <div class="col mb-4">
+                  {{>components/widgets/personality-card cast-image="08.webp" cast-title="angel louis" cast-category="producer"}}
+               </div>
+               <div class="col mb-4">
+                  {{>components/widgets/personality-card cast-image="09.webp" cast-title="Millar joseph" cast-category="actor"}}
+               </div>
+               <div class="col mb-4">
+                  {{>components/widgets/personality-card cast-image="10.webp" cast-title="mark wilson" cast-category="actor"}}
+               </div>
+               <div class="col mb-4">
+                  {{>components/widgets/personality-card cast-image="11.webp" cast-title="Kelley walker" cast-category="director"}}
+               </div>
+               <div class="col mb-4">
+                  {{>components/widgets/personality-card cast-image="12.webp" cast-title="Amy Sedaris" cast-category="actress"}}
+               </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{/content}}
+{{/extend}}

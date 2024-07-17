@@ -1,0 +1,28 @@
+/*!
+* Version: 5.0.0
+* Template: Streamit - Responsive Bootstrap 5.3.2 Template
+* Author: iqonic.design
+* Design and Developed by: iqonic.design
+* NOTE: This file contains the styling for Template.
+*
+*/
+
+// Configuration
+@import "./bootstrap/functions";
+
+// Streamit Design system
+@import "./streamit-design-system/variables";
+@import "./streamit-design-system/variables-dark";
+@import "./bootstrap/variables";
+@import "./bootstrap/variables-dark";
+@import "./bootstrap/maps";
+@import "./bootstrap/mixins";
+@import "./bootstrap/utilities";
+
+// Custom Mixin And Helper
+@import "./streamit-design-system/helper/mixins";
+@import "./streamit-design-system/helper/reboot";
+@import "./streamit-design-system/helper/root";
+
+//rtl
+@import "./rtl/index";

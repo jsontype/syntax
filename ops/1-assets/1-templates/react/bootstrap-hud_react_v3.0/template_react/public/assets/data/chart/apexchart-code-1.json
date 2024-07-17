@@ -1,0 +1,47 @@
+import React from 'react';
+import Chart from 'react-apexcharts';
+
+function ChartApex() {
+  var themeColor = (getComputedStyle(document.body).getPropertyValue('--bs-theme')).trim();
+  var themeFont = (getComputedStyle(document.body).getPropertyValue('--bs-body-font-family')).trim();
+  var themeFontWeight = (getComputedStyle(document.body).getPropertyValue('--bs-body-font-weight')).trim();
+  var gray500 = (getComputedStyle(document.body).getPropertyValue('--bs-gray-500')).trim();
+  var inverse = (getComputedStyle(document.body).getPropertyValue('--bs-inverse')).trim();
+  var inverseRgb = (getComputedStyle(document.body).getPropertyValue('--bs-inverse-rgb')).trim();
+  var borderColor = (getComputedStyle(document.body).getPropertyValue('--bs-border-color')).trim();
+  
+  // line chart
+  var lineChartOptions = {
+    chart: { shadow: { enabled: true, color: 'rgba('+ inverseRgb +', .5)', top: 18, left: 7, blur: 10, opacity: 1 }, toolbar: { show: false } },
+    title: { text: 'Average High & Low Temperature', align: 'center', style: { fontSize:  '14px', fontWeight:  'bold', fontFamily:  themeFont, color: inverse } },
+    colors: [themeColor, gray500],
+    dataLabels: { enabled: true, background: { enabled: true, padding: 4, borderRadius: 2, borderWidth: 0, opacity: 0.9, dropShadow: { enabled: false } } },
+    stroke: { curve: 'smooth', width: 3 },
+    grid: { borderColor: borderColor, row: { colors: ['rgba('+ inverseRgb +', .25)', 'transparent'], opacity: 0.5 } },
+    markers: { size: 4 },
+    xaxis: { 
+      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+      axisBorder: { show: true, color: 'rgba('+ inverseRgb +', .25)', height: 1, width: '100%', offsetX: 0, offsetY: -1 },
+      axisTicks: { show: true, borderType: 'solid', color: 'rgba('+ inverseRgb +', .25)', height: 6, offsetX: 0, offsetY: 0 },
+      labels: { style: { colors: inverse, fontSize: '12px', fontFamily: themeFont, fontWeight: themeFontWeight, cssClass: 'apexcharts-xaxis-label' } }
+    },
+    yaxis: { 
+      min: 5, max: 40,
+      labels: { style: { colors: inverse, fontSize: '12px', fontFamily: themeFont, fontWeight: themeFontWeight, cssClass: 'apexcharts-xaxis-label' } }
+    },
+    legend: { show: true, position: 'top', offsetY: -10, horizontalAlign: 'right', floating: true, fontFamily: themeFont, labels: { colors: inverse } }
+  };
+  
+  var lineChartData = [
+    { name: 'High - 2024', data: [28, 29, 33, 36, 32, 32, 33]  }, 
+    { name: 'Low - 2024', data: [12, 11, 14, 18, 17, 13, 13] }
+  ];
+  
+  return (
+    <div>
+      <Chart type="line" options={lineChartOptions} series={lineChartData} />
+    </div>
+  )
+}
+
+export default ChartApex;

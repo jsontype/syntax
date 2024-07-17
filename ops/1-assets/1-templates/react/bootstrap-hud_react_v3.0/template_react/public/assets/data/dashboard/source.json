@@ -1,0 +1,27 @@
+[
+	{
+		"name": "FEED",
+		"percentage": "25.70%",
+		"class": "bg-theme bg-opacity-95"
+	},
+	{
+		"name": "ORGANIC",
+		"percentage": "24.30%",
+		"class": "bg-theme bg-opacity-75"
+	},
+	{
+		"name": "REFERRAL",
+		"percentage": "23.05%",
+		"class": "bg-theme bg-opacity-55"
+	},
+	{
+		"name": "DIRECT",
+		"percentage": "14.85%",
+		"class": "bg-theme bg-opacity-35"
+	},
+	{
+		"name": "EMAIL",
+		"percentage": "7.35%",
+		"class": "bg-theme bg-opacity-15"
+	}
+]

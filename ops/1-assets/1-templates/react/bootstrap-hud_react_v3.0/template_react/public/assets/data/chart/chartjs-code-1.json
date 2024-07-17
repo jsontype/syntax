@@ -1,0 +1,41 @@
+import React, { useEffect } from 'react';
+import Chart from 'chart.js/auto';
+
+function ChartJs() {
+  useEffect(() => {
+    var themeColor = (getComputedStyle(document.body).getPropertyValue('--bs-theme')).trim();
+    var themeColorRgb = (getComputedStyle(document.body).getPropertyValue('--bs-theme-rgb')).trim();
+    var bodyBg = (getComputedStyle(document.body).getPropertyValue('--bs-body-bg')).trim();
+    
+    new Chart(document.getElementById('lineChart'), {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [{
+          color: themeColor,
+          backgroundColor: 'rgba('+ themeColorRgb +', .2)',
+          borderColor: themeColor,
+          borderWidth: 1.5,
+          pointBackgroundColor: bodyBg,
+          pointBorderWidth: 1.5,
+          pointRadius: 4,
+          pointHoverBackgroundColor: themeColor,
+          pointHoverBorderColor: bodyBg,
+          pointHoverRadius: 7,
+          label: 'Total Sales',
+          data: [12, 19, 4, 5, 2, 3]
+        }]
+      }
+    });
+    
+    // eslint-disable-next-line
+  }, []);
+  
+  return (
+    <div>
+      <canvas id="lineChart"></canvas>
+    </div>
+  )
+}
+
+export default ChartJs;

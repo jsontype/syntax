@@ -1,0 +1,34 @@
+<Card>
+  <CardHeader className="bg-none fw-bold d-flex align-items-center">Discussion group <a href="#/" className="ms-auto text-muted text-decoration-none" data-toggle="card-expand"><i className="fa fa-expand"></i></a></CardHeader>
+  <CardBody className="bg-inverse bg-opacity-10 p-0">
+    <PerfectScrollbar className="h-200px p-3">
+      <div className="widget-chat">
+        <div className="widget-chat-item">
+          <div className="widget-chat-media"><img src="/assets/img/user/user-2.jpg" alt="" /></div>
+          <div className="widget-chat-content">
+            <div className="widget-chat-name">Roberto Lambert</div>
+            <div className="widget-chat-message last">
+              Hey, I'm testing out group messaging.
+            </div>
+          </div>
+        </div>
+        <div className="widget-chat-item reply">
+          <div className="widget-chat-content">
+            <div className="widget-chat-message last">
+              Cool
+            </div>
+            <div className="widget-chat-status"><b>Read</b> 16:26</div>
+          </div>
+        </div>
+        <div className="widget-chat-date">Today 14:21</div>
+        ...
+      </div>
+    </PerfectScrollbar>
+  </CardBody>
+  <CardFooter className="bg-none">
+    <div className="input-group">
+      <input type="text" className="form-control" placeholder="Search for..." />
+      <button className="btn btn-outline-default" type="button"><i className="fa fa-paper-plane text-muted"></i></button>
+    </div>
+  </CardFooter>
+</Card>

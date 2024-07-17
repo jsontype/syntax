@@ -1,0 +1,48 @@
+.offcanvas.live-customizer {
+    box-shadow: $dropdown-box-shadow;
+    border: 0;
+
+    .btn {
+        &.btn-border {
+            color: var(--bs-body-color);
+            border-color: var(--bs-border-color);
+
+            &:hover {
+                color: var(--bs-primary);
+                border-color: var(--bs-primary);
+            }
+
+            &:active {
+                color: var(--bs-primary); 
+                border-color: var(--bs-primary);
+            }
+        }
+    }
+
+    .btn-check:checked+.btn.btn-border,
+    .btn-check:active+.btn.btn-border,
+    .btn.btn-border:active,
+    .btn.btn-border.active {
+        color: var(--bs-white);
+        border-color: var(--bs-primary);
+    }
+
+    .btn-check:checked+.btn.btn-border.bg-transparent,
+    .btn-check:active+.btn.btn-border.bg-transparent,
+    .btn.btn-border:active.bg-transparent,
+    .btn.btn-border.active.bg-transparent {
+        color: var(--bs-primary);
+    }
+}
+
+@media (min-width: 768px) {
+    .offcanvas.live-customizer {
+        width: 450px;
+    }
+
+    .theme-fs-lg {
+        .offcanvas.live-customizer {
+            width: 500px;
+        }
+    }
+}

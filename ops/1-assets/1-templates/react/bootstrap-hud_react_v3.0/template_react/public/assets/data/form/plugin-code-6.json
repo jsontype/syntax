@@ -1,0 +1,14 @@
+import React from 'react';
+import { TagsInput } from 'react-tag-input-component';
+
+function FormPlugins() {
+  var selected = ['Apples', 'Pears'];
+  
+  return (
+    <div>
+      <TagsInput value={selected} name="fruits" placeHolder="enter fruits" />
+    </div>
+  )
+}
+
+export default FormPlugins;

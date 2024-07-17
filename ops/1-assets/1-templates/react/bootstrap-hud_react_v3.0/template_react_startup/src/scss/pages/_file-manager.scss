@@ -1,0 +1,229 @@
+.file-tree {
+	position: relative;
+	
+	& .file-node {
+		position: relative;
+		
+		@if $enable-rtl {
+			padding-right: rem-default(15px);
+		} @else {
+			padding-left: rem-default(15px);
+		}
+		
+		& .file-link {
+			text-decoration: none;
+			padding: $spacer * .25 $spacer * .25;
+			color: var(--#{$prefix}body-text);
+			position: relative;
+			border-radius: $border-radius;
+			display: flex;
+			font-size: $font-size-sm;
+			
+			& > * {
+				&:hover,
+				&:focus {
+					opacity: .75;
+				}
+			}
+			
+			& .file-info {
+				display: flex;
+				flex: 1;
+			}
+			& .file-icon {
+				font-size: $font-size-lg;
+				width: rem(20px);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				
+				@if $enable-rtl {
+					margin-left: $spacer * .35;
+				} @else {
+					margin-right: $spacer * .35;
+				}
+			}
+			& .file-text {
+				flex: 1;
+			}
+		}
+		&.has-sub {
+			& > .file-link {
+				& .file-arrow:before {
+					content: '\2b';
+					position: absolute;
+					top: 50%;
+					margin-top: $font-size-base * $line-height-base * -.5;
+					width: rem(12px);
+					display: flex;
+					justify-content: center;
+					
+					@include fontawesome();
+					@if $enable-rtl {
+						right: rem(-12px);
+					} @else {
+						left: rem(-12px);
+					}
+				}
+			}
+			&.expand {
+				& > .file-tree {
+					display: block;
+				}
+				& > .file-link {
+					& .file-arrow:before {
+						content: '\f068';
+					}
+				}
+			}
+		}
+		&.selected {
+			& > .file-link {
+				font-weight: $font-weight-bold;
+				
+				& > .file-info {
+					opacity: 1;
+				}
+			}
+		}
+	}
+	& .file-tree {
+		display: none;
+	}
+}
+
+.file-manager {
+	--#{$prefix}file-manager-sidebar-width: #{rem(250px)};
+	--#{$prefix}file-manager-mobile-sidebar-margin: #{rem(-250px)};
+	
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	position: relative;
+	
+	& .file-manager-toolbar {
+		background: rgba(var(--#{$prefix}body-bg-rgb), .5);
+		padding: $spacer * .25;
+		border-bottom: 1px solid var(--#{$prefix}border-color);
+		display: flex;
+		flex-wrap: wrap;
+		
+		@include media-breakpoint-down(lg) {
+			overflow: scroll;
+			flex-wrap: nowrap;
+			white-space: nowrap;
+		}
+	}
+	& .file-manager-container {
+		display: flex;
+		flex: 1;
+		overflow: hidden;
+		position: relative;
+		
+		& .file-manager-sidebar {
+			display: flex;
+			flex-direction: column;
+			width: var(--#{$prefix}file-manager-sidebar-width);
+			min-width: var(--#{$prefix}file-manager-sidebar-width);
+			
+			@include media-breakpoint-down(lg) {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				background: rgba(var(--#{$prefix}body-bg-rgb), .95);
+				z-index: 10;
+				transition: $transition-base;
+				
+				@if $enable-rtl {
+					right: var(--#{$prefix}file-manager-mobile-sidebar-margin);
+					margin-right: rem(1px);
+					border-left: 1px solid var(--#{$prefix}border-color-translucent);
+				} @else {
+					left: var(--#{$prefix}file-manager-mobile-sidebar-margin);
+					margin-left: rem(1px);
+					border-right: 1px solid var(--#{$prefix}border-color-translucent);
+				}
+			}
+			
+			& .file-manager-sidebar-mobile-toggler {
+				position: absolute;
+				top: $spacer;
+				width: $spacer * 2;
+				
+				@if $enable-rtl {
+					right: 100%;
+					margin-right: rem(1px);
+				} @else {
+					left: 100%;
+					margin-left: rem(1px);
+				}
+				& .btn {
+					background: rgba(var(--#{$prefix}body-bg-rgb), .95);
+					color: var(--#{$prefix}component-color);
+					border-radius: 0;
+					padding: $spacer * .5 $spacer * .65;
+					box-shadow: $box-shadow;
+					transition: $transition-base;
+					
+					@if $enable-rtl {
+						border-top-left-radius: $border-radius;
+						border-bottom-left-radius: $border-radius;
+						border: 1px solid var(--#{$prefix}border-color-translucent);
+						border-right: none;
+					} @else {
+						border-top-right-radius: $border-radius;
+						border-bottom-right-radius: $border-radius;
+						border: 1px solid var(--#{$prefix}border-color-translucent);
+						border-left: none;
+					}
+				}
+				@include media-breakpoint-up(lg) {
+					display: none;
+				}
+			}
+			
+			& .file-manager-sidebar-content {
+				flex: 1;
+				overflow: hidden;
+			}
+			& .file-manager-sidebar-footer {
+				padding: $spacer * .5 $spacer;
+				border-top: 1px solid var(--#{$prefix}border-color);
+			}
+		}
+		& .file-manager-content {
+			flex: 1;
+			
+			@include media-breakpoint-up(lg) {
+				@if $enable-rtl {
+					border-right: 1px solid var(--#{$prefix}border-color);
+				} @else {
+					border-left: 1px solid var(--#{$prefix}border-color);
+				}
+			}
+			@include media-breakpoint-down(md) {
+				overflow: scroll;
+				flex-wrap: nowrap;
+			}
+		}
+	}
+	&.file-manager-sidebar-mobile-toggled {
+		& .file-manager-sidebar {
+			@if $enable-rtl {
+				right: 0;
+			} @else {
+				left: 0;
+			}
+			@include media-breakpoint-down(lg) {
+				box-shadow: $box-shadow-lg;
+			}
+			& .file-manager-sidebar-mobile-toggler {
+				& .btn {
+					@include media-breakpoint-down(lg) {
+						box-shadow: none;
+					}
+				}
+			}
+		}
+	}
+}

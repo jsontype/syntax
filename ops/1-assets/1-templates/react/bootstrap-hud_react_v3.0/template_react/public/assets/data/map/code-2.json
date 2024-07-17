@@ -1,0 +1,12 @@
+import React from 'react';
+import GoogleMapReact from 'google-map-react';
+
+function Map() {
+  return (
+    <div className="h-300px">
+      <GoogleMapReact defaultCenter={{lat: 25.304304, lng: -90.06591800000001}} className="h-100 w-100" defaultZoom={5}></GoogleMapReact>
+    </div>
+  )
+}
+
+export default Map;

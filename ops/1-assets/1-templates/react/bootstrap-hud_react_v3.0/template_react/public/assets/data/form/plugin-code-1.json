@@ -1,0 +1,13 @@
+import React from 'react';
+import DateTime from 'react-datetime';
+import 'react-datetime/css/react-datetime.css';
+
+function FormPlugins() {
+  return (
+    <div>
+      <DateTime inputProps={{ placeholder: 'Datepicker' }} closeOnSelect={true} />
+    </div>
+  )
+}
+
+export default FormPlugins;

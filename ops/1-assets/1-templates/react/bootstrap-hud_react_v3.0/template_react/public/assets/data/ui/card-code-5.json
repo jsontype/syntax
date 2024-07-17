@@ -1,0 +1,21 @@
+import { Card, CardBody, CardImgOverlay } from './../../components/card/card.jsx';
+
+<!-- image caps -->
+<Card className="mb-3">
+  <CardBody>
+    <img src="https://via.placeholder.com/600x400/c9d2e3/212837" alt="" className="card-img-top" />
+  </CardBody>
+  <CardBody>
+    <h5 className="card-title">...</h5>
+    <p className="card-text">...</p>
+  </CardBody>
+</Card>
+
+<!-- image overlay -->
+<Card className="p-3">
+  <img src="https://via.placeholder.com/600x750/000000/ffffff" alt="" className="card-img" />
+  <CardImgOverlay>
+    <h5 className="card-title">...</h5>
+    <p className="card-text">...</p>
+  </CardImgOverlay>
+</Card>

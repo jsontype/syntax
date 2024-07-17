@@ -1,0 +1,48 @@
+[
+  {
+    "name": "DISK USAGE",
+    "total": "20.04 / 256 GB",
+    "progress": "20%",
+    "time": "Last updated 1 min ago",
+    "info": [
+      {
+        "title": "DISK C",
+        "value": "19.56GB",
+        "class": "text-theme"
+      },
+      {
+        "title": "DISK D",
+        "value": "0.50GB",
+        "class": "text-theme text-opacity-50"
+      }
+    ],
+    "chartData": [
+      53, 64, 88, 90, 38
+    ],
+    "chartType": "donut",
+    "chartHeight": 50
+  },
+  {
+    "name": "BANDWIDTH",
+    "total": "83.76GB / 10TB",
+    "progress": "10%",
+    "time": "Last updated 1 min ago",
+    "info": [
+      {
+        "title": "HTTP",
+        "value": "35.47GB",
+        "class": "text-theme"
+      },
+      {
+        "title": "FTP",
+        "value": "1.25GB",
+        "class": "text-theme text-opacity-50"
+      }
+    ],
+    "chartData": [
+      23, 54, 54, 72, 75
+    ],
+    "chartType": "donut",
+    "chartHeight": 50
+  }
+]

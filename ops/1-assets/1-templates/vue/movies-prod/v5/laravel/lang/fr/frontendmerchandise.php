@@ -1,0 +1,38 @@
+<?php
+
+return [
+    "best_sellers" => "Meilleures ventes",
+    "best_selling_categories" => "Catégories les plus vendues",
+    "activeman" => "Activeman",
+    "avengers" => "Les Avengers",
+    "disney_world" => "Disney World",
+    "fantasia" => "Fantasia",
+    "galaxy_heaven" => "Ciel de la Galaxie",
+    "ghost_spider" => "Fantôme Araignée",
+    "harry_david" => "Harry David",
+    "haunted_halloween" => "Halloween Hanté",
+    "studios" => "Studios",
+    "monster_house" => "Maison de Monstres",
+    "quid_game" => "Jeu Quid",
+    "the_madrid" => "Le Madrid",
+    "the_chapion" => "Le Champion",
+    "warner_bro_films" => "Films Warner Bros",
+    "shop_now" => "Acheter maintenant",
+    "want_more" => "Envie de plus ?",
+    "marvel_studios" => "Studios Marvel",
+    "captian_america" => "Captain America",
+    "lorem_ipsum" => "Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.",
+    "view_collection" => "Voir la collection",
+    "deadpool" => "Deadpool",
+    "wear_streamit" => "Portez Streamit, Achetez Streamit et Aimez Streamit",
+    "buy_exclusive" => "Achetez des produits exclusifs Streamit dans notre magasin et obtenez des avantages incroyables.",
+    "our_multiple" => "Nos emplacements multiples",
+    "australia" => "Australie",
+    "thornridge_cir" => "Circonscription de Thornridge, Syracuse, Connecticut",
+    "working_hours" => "Heures de travail",
+    "newest_products" => "Nouveaux produits",
+    "related_products" => "Produits similaires",
+    "captain_america" => "Captain America",
+
+
+];

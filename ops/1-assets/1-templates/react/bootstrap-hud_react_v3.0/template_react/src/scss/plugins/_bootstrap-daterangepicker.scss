@@ -1,0 +1,305 @@
+.daterangepicker {
+	body & {
+		z-index: $app-header-zindex + 10;
+		border-color: $dropdown-border-color;
+		font-family: inherit;
+		font-size: inherit;
+		background: $dropdown-bg;
+		border-radius: 0;
+		box-shadow: $dropdown-box-shadow;
+		width: auto;
+		
+		&:before,
+		&:after {
+			display: none;
+		}
+		&:after {
+			border-width: rem(7px);
+			top: rem(-7px);
+			
+			@if $enable-rtl {
+				right: rem(10px);
+				left: auto;
+			} @else {
+				left: rem(10px);
+			}
+		}
+		&.opensright {
+			&:after {
+				@if $enable-rtl {
+					left: rem(10px);
+					right: auto;
+				} @else {
+					right: rem(10px);
+					left: auto;
+				}
+			}
+		}
+		& select.monthselect,
+		& select.yearselect {
+			font-size: $font-size-base * .9;
+		}
+		& .drp-calendar {
+			max-width: inherit;
+			padding: rem(12px);
+			
+			& .calendar-table {
+				background: none;
+				border: none;
+				border-radius: 0;
+				
+				& table {
+					& thead,
+					& tbody {
+						& .week {
+							font-size: $font-size-base * .85;
+							color: $gray-100;
+							font-weight: $font-weight-bold;
+						}
+					}
+					& thead {
+						& tr {
+							& th {
+								min-width: auto;
+								width: auto;
+								height: auto;
+								line-height: 1;
+								padding: rem(6px) rem(12px);
+								color: var(--#{$prefix}inverse);
+								font-weight: $font-weight-bold;
+								font-size: inherit;
+								border: none;
+								
+								&.prev,
+								&.next {
+									& span {
+										border-color: rgba(var(--#{$prefix}inverse-rgb), .5);
+									}
+									&:hover,
+									&:focus {
+										background: none;
+										color: var(--#{$prefix}theme);
+										
+										& span {
+											border-color: var(--#{$prefix}theme);
+										}
+									}
+								}
+								&.month {
+									& .yearselect,
+									& .monthselect {
+										border-color: var(--#{$prefix}border-color);
+										background: transparent;
+										border-radius: $border-radius;
+										color: var(--#{$prefix}inverse);
+										transition: all .2s linear;
+										
+										&:focus {
+											outline: none;
+											border-color: $input-focus-border-color;
+											box-shadow: 0 0 0 0.125rem $input-focus-border-color;
+										}
+									}
+								}
+							}
+							&:last-child {
+								& th {
+									font-size: $font-size-base * .85;
+									padding-bottom: rem(8px);
+								}
+							}
+						}
+					}
+					& tbody {
+						& tr {
+							& td {
+								min-width: auto;
+								width: auto;
+								height: auto;
+								line-height: 1.3;
+								padding: rem(10px) rem(6px);
+								font-weight: $font-weight-normal;
+								color: rgba(var(--#{$prefix}inverse-rgb), .75);
+								border-color: $dropdown-border-color;
+								font-size: $font-size-base * .9;
+								border-radius: 0 !important;
+								
+								&.available {
+									&:hover,
+									&:focus {
+										background: var(--#{$prefix}theme);
+										border-color: var(--#{$prefix}theme);
+										color: var(--#{$prefix}theme-color);
+									}
+									&.in-range {
+										background: rgba(var(--#{$prefix}theme-rgb), .25);
+										border-color: rgba(var(--#{$prefix}theme-rgb), .5);
+										color: var(--#{$prefix}inverse);
+										border-radius: 0;
+									}
+									&.active {
+										background: var(--#{$prefix}theme);
+										border-color: var(--#{$prefix}theme);
+										color: var(--#{$prefix}theme-color);
+									}
+									&.start-date {
+										border-radius: 0;
+									}
+									&.end-date {
+										border-radius: 0;
+									}
+								}
+								&.off {
+									background: none;
+									color: rgba(var(--#{$prefix}inverse-rgb), .25);
+								}
+							}
+						}
+					}
+				}
+			}
+			&.left {
+				padding: rem(12px) !important;
+				
+				& .calendar-table {
+					padding: 0 !important;
+				}
+			}
+			&.right {
+				padding: rem(12px) !important;
+				
+				@if $enable-rtl {
+					border-right: 1px solid var(--#{$prefix}border-color);
+				} @else {
+					border-left: 1px solid var(--#{$prefix}border-color);
+				}
+				
+				@include media-breakpoint-down(sm) {
+					border-top: 1px solid var(--#{$prefix}border-color);
+					
+					@if $enable-rtl {
+						border-right: none;
+					} @else {
+						border-left: none;
+					}
+				}
+			}
+		}
+		& .drp-buttons {
+			padding: rem(12px) rem(12px);
+			border-color: var(--#{$prefix}border-color);
+			background: rgba(var(--#{$prefix}inverse-rgb), .05);
+			border: none;
+			
+			& .btn {
+				&.btn-primary {
+					background: none;
+					border: 1px solid var(--#{$prefix}btn-border-color);
+					color: var(--#{$prefix}btn-color);
+					
+					@include button-outline-variant($theme, $theme);
+					
+					&:hover,
+					&:active {
+						background: var(--#{$prefix}btn-hover-bg);
+					}
+				}
+				&.btn-default {
+					background: none;
+					border: 1px solid var(--#{$prefix}btn-border-color);
+					color: var(--#{$prefix}btn-color);
+					
+					@include button-outline-variant($default, $default);
+					
+					&:hover,
+					&:active {
+						color: $black;
+						background: var(--#{$prefix}btn-hover-bg);
+					}
+				}
+			}
+		}
+		& .ranges {
+			display: none;
+		}
+		&.show-ranges {
+			& .ranges {
+				position: relative;
+				display: block;
+				
+				@include media-breakpoint-down(md) {
+					float: none;
+					margin: 0;
+					padding: rem(10px);
+					border-bottom: 1px solid var(--#{$prefix}border-color);
+					overflow: scroll;
+					max-width: rem(560px);
+				}
+				
+				& ul {
+					@include media-breakpoint-down(md) {
+						width: auto;
+						white-space: nowrap;
+						display: flex;
+						flex-wrap: nowrap;
+						
+						@if $enable-rtl {
+							padding-left: rem(10px);
+						} @else {
+							padding-right: rem(10px);
+						}
+					}
+					
+					& li {
+						color: rgba(var(--#{$prefix}inverse-rgb), .5);
+						font-size: $font-size-base - rem(1px);
+						font-weight: $font-weight-base;
+						
+						@include media-breakpoint-down(md) {
+							border-radius: $border-radius;
+							
+							@if $enable-rtl {
+								margin-left: rem(10px) !important;
+							} @else {
+								margin-right: rem(10px) !important;
+							}
+						}
+						
+						&:hover,
+						&:focus {
+							background: rgba(var(--#{$prefix}inverse-rgb), .15);
+							color: rgba(var(--#{$prefix}inverse-rgb), .75);
+						}
+						&.active {
+							background: var(--#{$prefix}theme);
+							color: var(--#{$prefix}theme-color);
+							
+							@if $enable-rtl {
+								margin-left: rem(-1px);
+							} @else {
+								margin-right: rem(-1px);
+							}
+						}
+					}
+				}
+			}
+			& .drp-calendar {
+				&.left { 
+					@if $enable-rtl {
+						border-right: 1px solid rgba(var(--#{$prefix}inverse-rgb), .15) !important;
+					} @else {
+						border-left: 1px solid rgba(var(--#{$prefix}inverse-rgb), .15) !important;
+					}
+					
+					@include media-breakpoint-down(md) {
+						@if $enable-rtl {
+							border-right: none !important;
+						} @else {
+							border-left: none !important;
+						}
+					}
+				}
+			}
+		}
+	}
+}

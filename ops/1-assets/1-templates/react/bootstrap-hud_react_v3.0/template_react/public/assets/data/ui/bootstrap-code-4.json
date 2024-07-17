@@ -1,0 +1,25 @@
+<div id="carouselExample" className="carousel slide" data-ride="carousel">
+  <ol className="carousel-indicators">
+    <li data-bs-target="#carouselExample" data-bs-slide-to="0" className="active"></li>
+    <li data-bs-target="#carouselExample" data-bs-slide-to="1"></li>
+    ...
+  </ol>
+  <div className="carousel-inner">
+    <div className="carousel-item active">
+      <img src="https://via.placeholder.com/728x400/c9d2e3/212837" alt="" className="d-block w-100" />
+      <div className="carousel-caption d-none d-md-block">
+        <h5 className="text-dark">First slide label</h5>
+        <p className="text-dark">Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+      </div>
+    </div>
+    <div className="carousel-item">
+      ...
+    </div>
+  </div>
+  <a className="carousel-control-prev" href="#carouselExample" data-bs-slide="prev">
+    <span className="carousel-control-prev-icon"></span>
+  </a>
+  <a className="carousel-control-next" href="#carouselExample" data-bs-slide="next">
+    <span className="carousel-control-next-icon"></span>
+  </a>
+</div>

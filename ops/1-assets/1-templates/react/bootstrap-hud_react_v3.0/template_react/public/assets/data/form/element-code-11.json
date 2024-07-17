@@ -1,0 +1,13 @@
+<form>
+  <div className="mb-3 row">
+    <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Email</label>
+    <div className="col-sm-10">
+      <input type="email" className="form-control" id="inputEmail3">
+    </div>
+  </div>
+  <div className="mb-3 row">
+    <div className="col-sm-10 offset-sm-2">
+      <button type="submit" className="btn btn-primary">Sign in</button>
+    </div>
+  </div>
+</form>

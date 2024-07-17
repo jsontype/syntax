@@ -1,0 +1,19 @@
+import React, { useState } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+
+function FormPlugins() {
+  const [startDate, setStartDate] = useState(new Date());
+    
+  function handleChange(date) {
+    setStartDate(date);
+  }
+  
+  return (
+    <div>
+      <DatePicker selected={startDate} onChange={handleChange} className="form-control" />
+    </div>
+  )
+}
+
+export default FormPlugins;

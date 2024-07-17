@@ -1,0 +1,62 @@
+[
+   {
+      "title":"You have sold an item - $1,299",
+      "time":"just now",
+      "badge":"PRODUCT",
+      "highlight":true
+   },
+   {
+      "title":"Firewall upgrade",
+      "time":"1 min ago",
+      "badge":"SERVER",
+      "highlight":false
+   },
+   {
+      "title":"Push notification v2.0 installation",
+      "time":"1 mins ago",
+      "badge":"ANDROID",
+      "highlight":false
+   },
+   {
+      "title":"New Subscription - 1yr Plan",
+      "time":"1 min ago",
+      "badge":"SALES",
+      "highlight":true
+   },
+   {
+      "title":"2 Unread enquiry",
+      "time":"2 mins ago",
+      "badge":"ENQUIRY",
+      "highlight":false
+   },
+   {
+      "title":"$30,402 received from Paypal",
+      "time":"2 mins ago",
+      "badge":"PAYMENT",
+      "highlight":true
+   },
+   {
+      "title":"3 payment received",
+      "time":"5 mins ago",
+      "badge":"PAYMENT",
+      "highlight":true
+   },
+   {
+      "title":"1 pull request from github",
+      "time":"5 mins ago",
+      "badge":"GITHUB",
+      "highlight":false
+   },
+   {
+      "title":"3 pending invoice to generate",
+      "time":"5 mins ago",
+      "badge":"INVOICE",
+      "highlight":false
+   },
+   {
+      "title":"2 new message from fb messenger",
+      "time":"7 mins ago",
+      "badge":"INBOX",
+      "highlight":false
+   }
+]

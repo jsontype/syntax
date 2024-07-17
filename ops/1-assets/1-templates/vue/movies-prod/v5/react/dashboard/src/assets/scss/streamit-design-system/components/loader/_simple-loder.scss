@@ -1,0 +1,21 @@
+.loader.simple-loader {
+	background-color: var(--bs-body-bg);
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	place-content: center;
+	overflow: hidden !important;
+	right: 0px;
+	z-index: 1250;
+    .loader-body{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+        width: 100%;
+        height: 100%;
+        position: relative;
+		.image-loader {
+			width: 25em;
+		}
+    }
+}

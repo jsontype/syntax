@@ -1,0 +1,56 @@
+import React from 'react';
+import Chart from 'react-apexcharts';
+
+function ChartApex() {
+  var themeColor = (getComputedStyle(document.body).getPropertyValue('--bs-theme')).trim();
+  var themeFont = (getComputedStyle(document.body).getPropertyValue('--bs-body-font-family')).trim();
+  var themeFontWeight = (getComputedStyle(document.body).getPropertyValue('--bs-body-font-weight')).trim();
+  var pink = (getComputedStyle(document.body).getPropertyValue('--bs-pink')).trim();
+  var orange = (getComputedStyle(document.body).getPropertyValue('--bs-warning')).trim();
+  var inverse = (getComputedStyle(document.body).getPropertyValue('--bs-inverse')).trim();
+  var inverseRgb = (getComputedStyle(document.body).getPropertyValue('--bs-inverse-rgb')).trim();
+  var borderColor = (getComputedStyle(document.body).getPropertyValue('--bs-border-color')).trim();
+  
+  // bubble chart
+  function generateBubbleChartData(baseval, count, yrange) {
+    var i = 0;
+    var series = [];
+    while (i < count) {
+      var x = Math.floor(Math.random() * (750 - 1 + 1)) + 1;;
+      var y = Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
+      var z = Math.floor(Math.random() * (75 - 15 + 1)) + 15;
+      series.push([x, y, z]);
+      baseval += 86400000;
+      i++;
+    }
+    return series;
+  }
+  
+  var bubbleChartOptions = {
+    dataLabels: { enabled: false },
+    colors: [themeColor, orange, 'rgba('+ inverseRgb +', .5)', pink],
+    grid: { borderColor: borderColor },
+    fill: { opacity: 0.8 },
+    title: { text: 'Simple Bubble Chart', style: { fontSize:  '14px', fontWeight:  'bold', fontFamily:  themeFont, color: inverse } },
+    legend: { fontFamily: themeFont, labels: { colors: inverse } },
+    xaxis: { tickAmount: 12, type: 'category', labels: { style: { colors: inverse, fontSize: '12px', fontFamily: themeFont, fontWeight: themeFontWeight, cssClass: 'apexcharts-xaxis-label' } } },
+    yaxis: { max: 70, labels: { style: { colors: inverse, fontSize: '12px', fontFamily: themeFont, fontWeight: themeFontWeight, cssClass: 'apexcharts-xaxis-label' } } }
+  };
+  
+  var bubbleChartData = [
+    { name: 'Bubble1', data: generateBubbleChartData(new Date('11 Feb 2024 GMT').getTime(), 20, { min: 10, max: 60 }) },
+    {  name: 'Bubble2', data: generateBubbleChartData(new Date('11 Feb 2024 GMT').getTime(), 20, { min: 10, max: 60 }) },
+    { name: 'Bubble3', data: generateBubbleChartData(new Date('11 Feb 2024 GMT').getTime(), 20, { min: 10, max: 60 }) },
+    { name: 'Bubble4', data: generateBubbleChartData(new Date('11 Feb 2024 GMT').getTime(), 20, { min: 10, max: 60 }) }
+  ];
+  
+  render() {
+    return (
+      <div>
+        <Chart type="bubble" options={bubbleChartOptions} series={bubbleChartData} />
+      </div>
+    )
+  }
+}
+
+export default ChartApex;

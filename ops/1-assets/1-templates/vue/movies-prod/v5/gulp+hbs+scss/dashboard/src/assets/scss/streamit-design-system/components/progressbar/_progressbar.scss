@@ -1,0 +1,63 @@
+// Circle Progress
+
+.circle-progress-value {
+	stroke-width: 8px;
+}
+
+.circle-progress-circle {
+	stroke-width: 4px;
+}
+
+.circle-progress {
+	&>svg {
+		height: 60px;
+		width: 60px;
+	}
+}
+
+.circle-progress {
+	&.sidebar-circle {
+		&>svg {
+			height: 130px;
+			width: 130px;
+		}
+	}
+}
+
+@each $color,
+$value in $circle-progress-colors {
+	@include circle-progress-varient(".circle-progress-#{$color}", $value);
+}
+
+.card-slide {
+	.card-slie-arrow {
+		left: 2.5rem;
+		right: 0px;
+		width: 1.5rem;
+		height: 1.5rem;
+		position: absolute;
+		top: 2.9rem;
+		object-fit: cover;
+	}
+}
+
+.icon-pill {
+	a {
+		box-shadow: 0 4px 8px 0px rgba(76, 128, 178, 0.2);
+	}
+}
+
+
+@each $color in $colors-name {
+	.circle-progress-#{$color} {
+		svg {
+			.circle-progress-value {
+				stroke: var(--#{$variable-prefix}#{$color});
+			}
+
+			.circle-progress-text {
+				fill: var(--#{$variable-prefix}#{$color});
+			}
+		}
+	}
+}

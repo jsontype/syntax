@@ -1,0 +1,24 @@
+import { Card, CardHeader, CardBody } from './../../components/card/card.jsx';
+
+<!-- basic usage -->
+<Card>
+  <CardHeader className="fw-bold small">CARD HEADER HERE</CardHeader>
+  <CardBody>
+    <h5 className="card-title">Card title</h5>
+    <h6 className="card-subtitle mb-3 text-white text-opacity-50">Card subtitle</h6>
+    <p className="card-text mb-3">...</p>
+    <div>
+      <a href="#/" className="card-link">Card link</a>
+      <a href="#/" className="card-link">Another link</a>
+    </div>
+  </CardBody>
+</Card>
+
+<!-- card with list-group -->
+<Card>
+  <ul className="list-group list-group-flush">
+    <li className="list-group-item">...</li>
+    <li className="list-group-item">Dapibus ac facilisis in</li>
+    <li className="list-group-item">Vestibulum at eros</li>
+  </ul>
+</Card>

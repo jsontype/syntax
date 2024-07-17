@@ -1,0 +1,66 @@
+import React from 'react';
+import Chart from 'react-apexcharts';
+
+function ChartApex() {
+  var themeColor = (getComputedStyle(document.body).getPropertyValue('--bs-theme')).trim();
+  var themeFont = (getComputedStyle(document.body).getPropertyValue('--bs-body-font-family')).trim();
+  var themeFontWeight = (getComputedStyle(document.body).getPropertyValue('--bs-body-font-weight')).trim();
+  var gray300 = (getComputedStyle(document.body).getPropertyValue('--bs-gray-300')).trim();
+  var orange = (getComputedStyle(document.body).getPropertyValue('--bs-warning')).trim();
+  var inverse = (getComputedStyle(document.body).getPropertyValue('--bs-inverse')).trim();
+  var inverseRgb = (getComputedStyle(document.body).getPropertyValue('--bs-inverse-rgb')).trim();
+  var borderColor = (getComputedStyle(document.body).getPropertyValue('--bs-border-color')).trim();
+  
+  // mixed chart
+  var mixedChartOptions = {
+    chart: { stacked: false },
+    dataLabels: { enabled: false },
+    stroke: { width: [0, 0, 3] },
+    colors: [themeColor, 'rgba('+ inverseRgb +', .5)', orange],
+    grid: { borderColor: borderColor },
+    title: { text: 'XYZ - Stock Analysis (2015 - 2024)', align: 'center', style: { fontSize:  '14px', fontWeight:  'bold', fontFamily:  themeFont, color: inverse } },
+    xaxis: {
+      categories: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
+      axisBorder: { show: true, color: gray300, height: 1, width: '100%', offsetX: 0, offsetY: -1 },
+      axisTicks: { show: true, borderType: 'solid', color: gray300, height: 6, offsetX: 0, offsetY: 0 },
+      labels: { style: { colors: inverse, fontSize: '12px', fontFamily: themeFont, fontWeight: themeFontWeight, cssClass: 'apexcharts-xaxis-label' } }
+    },
+    yaxis: [{
+      axisTicks: { show: true },
+      axisBorder: { show: true, color: themeColor },
+      labels: { style: { colors: inverse, fontSize: '12px', fontFamily: themeFont, fontWeight: themeFontWeight, cssClass: 'apexcharts-xaxis-label' } },
+      title: { text: "Income (thousand crores)", style: { color: themeColor } },
+      tooltip: { enabled: true }
+    },{
+      seriesName: 'Income',
+      opposite: true,
+      axisTicks: { show: true, },
+      axisBorder: { show: true, color: 'rgba('+ inverseRgb +', .5)' },
+      labels: { style: { colors: inverse, fontSize: '12px', fontFamily: themeFont, fontWeight: themeFontWeight, cssClass: 'apexcharts-xaxis-label' } },
+      title: { text: "Operating Cashflow (thousand crores)", style: { color: 'rgba('+ inverseRgb +', .5)' } },
+    }, {
+      seriesName: 'Revenue',
+      opposite: true,
+      axisTicks: { show: true },
+      axisBorder: { show: true, color: orange },
+      labels: { style: { colors: inverse, fontSize: '12px', fontFamily: themeFont, fontWeight: themeFontWeight, cssClass: 'apexcharts-xaxis-label' } },
+      title: { text: "Revenue (thousand crores)", style: { color: orange } }
+    }],
+    tooltip: { fixed: { enabled: true, position: 'topLeft', offsetY: 30, offsetX: 60 } },
+    legend: { horizontalAlign: 'left', offsetX: 40, fontFamily: themeFont, labels: { colors: inverse } }
+  };
+  
+  var mixedChartData = [
+    { name: 'Income', type: 'column', data: [1.4, 2, 2.5, 1.5, 2.5, 2.8, 3.8, 4.6] }, 
+    { name: 'Cashflow', type: 'column',  data: [1.1, 3, 3.1, 4, 4.1, 4.9, 6.5, 8.5] },
+    { name: 'Revenue', type: 'line', data: [20, 29, 37, 36, 44, 45, 50, 58] }
+  ];
+  
+  return (
+    <div>
+      <Chart type="line" options={mixedChartOptions} series={mixedChartData} />
+    </div>
+  )
+}
+
+export default ChartApex;

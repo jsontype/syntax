@@ -1,0 +1,53 @@
+.iq-cast {
+    position: relative;
+    margin-bottom: 2rem;
+
+    .iq-cast-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 1.25em;
+        background: linear-gradient(24.12deg, var(--bs-black) 0.77%, transparent 96.59%);
+    }
+}
+
+.cast-images {
+    &::before {
+        position: absolute;
+        content: "";
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        transition: all .5s ease-in-out;
+        background: var(--bs-gray-900);
+    }
+
+    .img-box {
+        height: 8rem;
+        position: relative;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    .block-description {
+        position: relative;
+
+        .iq-title {
+            font-size: 1.125em;
+            color: var(--bs-white);
+            text-transform: capitalize;
+
+            a {
+                font-size: inherit;
+                color: inherit;
+            }
+        }
+    }
+}

@@ -1,0 +1,60 @@
+{{#compare isProductImage '==' 'true'}}
+<div class="position-relative">
+    <a data-fslightbox="product" href="{{path}}assets/images/{{product-image}}">
+        <img src="{{path}}assets/images/{{product-image}}" class="img-fluid w-100 product-detail-image" alt="product-image" loading="lazy">
+    </a>
+    {{#compare isSale '==' 'true'}}
+        <span class="iq-on-sale badge bg-dark">Sale!</span>
+    {{/compare}}
+    {{#compare isNew '==' 'true'}}
+        <span class="iq-on-new badge bg-primary">New</span>
+    {{/compare}}
+</div>
+{{else}}
+<div class="product-tab-slider">
+    <div class="swiper product-tab-slider-thumb" data-swiper="slider-prodcut-images">
+        <div class="swiper-wrapper m-0">
+            <div class="swiper-slide p-0">
+                <a data-fslightbox="product" href="{{path}}assets/images/{{product-slider-image1}}">
+                    <img src="{{path}}assets/images/{{product-slider-image1}}" class="img-fluid product-detail-image"
+                        alt="product-slide-image">
+                </a>
+            </div>
+            <div class="swiper-slide p-0">
+                <a data-fslightbox="product" href="{{path}}assets/images/{{product-slider-image2}}">
+                    <img src="{{path}}assets/images/{{product-slider-image2}}" class="img-fluid product-detail-image"
+                        alt="product-slide-image">
+                </a>
+            </div>
+            <div class="swiper-slide p-0">
+                <a data-fslightbox="product" href="{{path}}assets/images/{{product-slider-image3}}">
+                    <img src="{{path}}assets/images/{{product-slider-image3}}" class="img-fluid product-detail-image"
+                        alt="product-slide-image">
+                </a>
+            </div>
+            <div class="swiper-slide p-0">
+                <a data-fslightbox="product" href="{{path}}assets/images/{{product-slider-image4}}">
+                    <img src="{{path}}assets/images/{{product-slider-image4}}" class="img-fluid product-detail-image"
+                        alt="product-slide-image">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="swiper product-tab-slider-images" data-swiper="slider-thumbs-product">
+        <div class="swiper-wrapper m-0">
+            <div class="swiper-slide p-0">
+                <img src="{{path}}assets/images/{{product-slider-image1}}" class="img-fluid" alt="product-slide-image">
+            </div>
+            <div class="swiper-slide p-0">
+                <img src="{{path}}assets/images/{{product-slider-image2}}" class="img-fluid" alt="product-slide-image">
+            </div>
+            <div class="swiper-slide p-0">
+                <img src="{{path}}assets/images/{{product-slider-image3}}" class="img-fluid" alt="product-slide-image">
+            </div>
+            <div class="swiper-slide p-0">
+                <img src="{{path}}assets/images/{{product-slider-image4}}" class="img-fluid" alt="product-slide-image">
+            </div>
+        </div>
+    </div>
+</div>
+{{/compare}}

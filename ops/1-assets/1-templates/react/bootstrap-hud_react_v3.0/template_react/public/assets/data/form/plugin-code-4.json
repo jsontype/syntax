@@ -1,0 +1,12 @@
+import React from 'react';
+import InputMask from 'react-input-mask';
+
+function FormPlugins() {
+  return (
+    <div>
+      <InputMask mask="99/99/9999" className="form-control" placeholder="mm/dd/yyyy" />
+    </div>
+  )
+}
+
+export default FormPlugins;

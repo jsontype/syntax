@@ -1,0 +1,55 @@
+import React from 'react';
+import Chart from 'react-apexcharts';
+
+function ChartApex() {
+  var themeColor = (getComputedStyle(document.body).getPropertyValue('--bs-theme')).trim();
+  var themeFont = (getComputedStyle(document.body).getPropertyValue('--bs-body-font-family')).trim();
+  var themeFontWeight = (getComputedStyle(document.body).getPropertyValue('--bs-body-font-weight')).trim();
+  var gray300Rgb = (getComputedStyle(document.body).getPropertyValue('--bs-gray-300-rgb')).trim();
+  var inverse = (getComputedStyle(document.body).getPropertyValue('--bs-inverse')).trim();
+  var inverseRgb = (getComputedStyle(document.body).getPropertyValue('--bs-inverse-rgb')).trim();
+  
+  // radar chart
+  var radarChartOptions = {
+    labels: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    plotOptions: {
+      radar: {
+        size: 140,
+        polygons: {
+          strokeColors: 'rgba('+ inverseRgb +', .25)',
+          strokeWidth: 1,
+          connectorColors: 'rgba('+ inverseRgb +', .25)',
+          fill: { colors: ['rgba('+ gray300Rgb +', .25)', 'rgba('+ inverseRgb +', .25)'] }
+        }
+      }
+    },
+    title: { text: 'Radar with Polygon Fill', style: { fontSize:  '14px', fontWeight:  'bold', fontFamily:  themeFont, color: inverse } },
+    colors: [themeColor],
+    markers: { size: 4, colors: [themeColor], strokeColor: themeColor, strokeWidth: 2 },
+    tooltip: { y: { formatter: function(val) { return val } } },
+    yaxis: {
+      tickAmount: 7,
+      labels: { 
+        formatter: function(val, i) { return (i % 2 === 0) ? val : ''; },
+        style: { colors: inverse, fontSize: '12px', fontFamily: themeFont, fontWeight: themeFontWeight, cssClass: 'apexcharts-xaxis-label' } 
+      }
+    },
+    xaxis: {
+      axisBorder: { show: true, color: 'rgba('+ inverseRgb +', .25)', height: 1, width: '100%', offsetX: 0, offsetY: -1 },
+      axisTicks: { show: true, borderType: 'solid', color: 'rgba('+ inverseRgb +', .25)', height: 6, offsetX: 0, offsetY: 0 },
+      labels: { style: { colors: inverse, fontSize: '12px', fontFamily: themeFont, fontWeight: themeFontWeight, cssClass: 'apexcharts-xaxis-label' } }
+    }
+  };
+  
+  var radarChartData = [
+    { name: 'Series 1', data: [20, 100, 40, 30, 50, 80, 33] }
+  ];
+  
+  return (
+    <div>
+      <Chart type="radar" options={radarChartOptions} series={radarChartData} />
+    </div>
+  )
+}
+
+export default ChartApex;

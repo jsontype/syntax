@@ -1,0 +1,21 @@
+<!-- default -->
+<div className="progress">
+  <div className="progress-bar" style="width: 50%">50%</div>
+</div>
+
+<!-- multiple bars -->
+<div className="progress">
+  <div className="progress-bar" style="width: 33%">33%</div>
+  <div className="progress-bar bg-warning" style="width: 20%">20%</div>
+  <div className="progress-bar bg-danger" style="width: 20%">20%</div>
+</div>
+
+<!-- striped -->
+<div className="progress">
+  <div className="progress-bar progress-bar-striped" style="width: 50%">50%</div>
+</div>
+
+<!-- striped & animated -->
+<div className="progress">
+  <div className="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width: 33%">33%</div>
+</div>

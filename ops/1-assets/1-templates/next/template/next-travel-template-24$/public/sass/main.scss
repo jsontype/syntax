@@ -1,0 +1,44 @@
+@import "./abstracts/tools";
+@import "./abstracts/variables";
+
+@import "./animations/easings.scss";
+@import "./animations/animations.scss";
+@import "./animations/core.scss";
+
+@import "./base/base";
+@import "./base/button";
+@import "./base/form";
+@import "./base/typography";
+
+@import "./components/404.scss";
+@import "./components/sectionTitle.scss";
+@import "./components/masthead.scss";
+@import "./components/citiesCard.scss";
+@import "./components/ctaCard.scss";
+@import "./components/tabs.scss";
+@import "./components/accordion.scss";
+@import "./components/header.scss";
+@import "./components/cardImage.scss";
+@import "./components/footer.scss";
+@import "./components/mainSearch.scss";
+@import "./components/featureIcon.scss";
+@import "./components/testimonials.scss";
+@import "./components/pagination.scss";
+@import "./components/dashboard.scss";
+@import "./components/blogCard.scss";
+@import "./components/dragSlider.scss";
+@import "./components/niceSelect.scss";
+@import "./components/mapFilter.scss";
+@import "./components/hotelsCard.scss";
+
+@import "./components/preloader.scss";
+
+@import "./utilities/spacing";
+@import "./utilities/utilities";
+
+@import "./vendors/icons.scss";
+
+// custom scss for all site & slick
+@import "./custom/custom-slick";
+@import "./custom/price-range-slider";
+@import "./custom/custom-next";

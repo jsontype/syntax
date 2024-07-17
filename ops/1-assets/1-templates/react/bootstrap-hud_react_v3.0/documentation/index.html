@@ -1,0 +1,711 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<head lang="en">
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title>Documentation - HUD REAC</title>
+    <!-- Bootstrap styles -->
+    <link href="assets/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="assets/bootstrap/css/docs.css" rel="stylesheet">
+    <link href="assets/bootstrap/js/google-code-prettify/prettify.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="assets/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body data-spy="scroll" data-target=".bs-docs-sidebar">
+	<div class="navbar navbar-inverse navbar-page">
+		<div class="navbar-inner">
+			<div class="container">
+				<button type="button" class="btn btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="brand" href="index.html"><img src="assets/images/logo.png" style="max-height: 16px; margin-top: 3px; display: block;"></a>
+				<div class="nav-collapse collapse">
+					<ul class="nav">
+						<li class="active">
+							<a href="index.html">React Version</a>
+						</li>
+					</ul>
+					<ul class="nav pull-right">
+						<li>
+							<a href="change_log.html">Change Log</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<header class="jumbotron subhead" id="overview">
+		<div class="container">
+			<h1 class="text-center"><img src="assets/images/logo.png" style="max-height: 60px" /> <span class="version">v3.0</span></h1>
+			<p class="lead text-center">Bootstrap 5 responsive admin template</p>
+			<p class="documented">documented by Sean Ngu</p>
+		</div>
+	</header>
+	<div class="container">
+		<div class="row">
+			<div class="span12">
+				<div class="well">
+					<p>
+						<strong>
+							Updated on: 17/July/2024<br>
+							By: Sean Ngu<br>
+						</strong>
+					</p>
+					<p>
+						Thank you for purchasing my theme. If you have any questions that are beyond the scope of this help file,
+						please feel free to send your question via <a href="https://themeforest.net/user/seantheme" target="_blank">ThemeForest</a>. Thanks so much!
+					</p>
+				</div>
+			</div><!-- end span12 -->
+		</div><!-- end row -->
+		<div class="row">
+			<div class="span3 bs-docs-sidebar">
+				<ul class="nav nav-list bs-docs-sidenav affix-top">
+					<li><a href="#installation"><i class="icon-chevron-right"></i>Installation</a></li>
+					<li><a href="#fileStructure"><i class="icon-chevron-right"></i>File Structure</a></li>
+					<li><a href="#page-structure"><i class="icon-chevron-right"></i>Page Structure</a></li>
+					<li><a href="#page-components"><i class="icon-chevron-right"></i>Components</a></li>
+					<li><a href="#page-config"><i class="icon-chevron-right"></i>Page Config</a></li>
+					<li><a href="#page-route"><i class="icon-chevron-right"></i>Page Route</a></li>
+					<li><a href="#page-menu"><i class="icon-chevron-right"></i>Page Menu</a></li>
+					<li><a href="#theme-color"><i class="icon-chevron-right"></i>Theme Color</a></li>
+					<li><a href="#theme-cover"><i class="icon-chevron-right"></i>Theme Cover</a></li>
+					<li><a href="#light-mode"><i class="icon-chevron-right"></i>Light Mode <span class="label label-important">NEW</span></a></li>
+					<li><a href="#rtl-mode"><i class="icon-chevron-right"></i>RTL Mode</a></li>
+					<li><a href="#scss-configuration"><i class="icon-chevron-right"></i>SCSS Configuration</a></li>
+					<li><a href="#bootstrap-components"><i class="icon-chevron-right"></i>Bootstrap Components</a></li>
+					<li><a href="#bootstrap-javascript"><i class="icon-chevron-right"></i>Bootstrap Javascript</a></li>
+					<li><a href="#references"><i class="icon-chevron-right"></i>References</a></li>
+				</ul>
+			</div>
+			<div class="span9">
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="page-header">
+							<h3 id="installation"><strong>A) Installation</strong> - <a href="#top">top</a></h3>
+						</div>
+						<p>
+							Follow the following step to install the reactjs in your localhost<br />
+							You may refer to their official documentation for how to setup the node js & npm. <br />
+							<a href="https://www.npmjs.com/get-npm" target="_blank">Setup Guide</a>
+						</p>
+<pre class="prettyprint linenums">
+&lt;!-- run the following command --&gt;
+cd /your-path-url/template_react
+npm install --force
+npm start
+
+&lt;!-- browse the url --&gt;
+http://localhost:3000/
+</pre>
+						<p>
+							Verify that you are running at least node <code>20.x.x</code> or later and <code>npm 10.x.x</code> by running <code>node -v</code> and <code>npm -v</code> in a terminal/console window. Older versions produce errors, but newer versions are fine.
+						</p>
+					</div><!-- end span12 -->
+				</div><!-- end row-fluid -->
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="page-header">
+							<h3 id="fileStructure"><strong>B) File Structure</strong> - <a href="#top">top</a></h3>
+						</div>
+						<p>File structure overview for React JS Version</p>
+						
+<pre class="prettyprint linenums">
+template_react/
+├── package.json
+├── README.md
+├── public/
+└── src/
+    ├── app.jsx
+    ├── index.js
+    ├── index.css
+    ├── webpack.config.js
+    ├── assets/ 
+    ├── components/
+    ├── composables/
+    ├── config/
+    ├── pages/
+    └── scss/
+</pre>
+					</div><!-- end span12 -->
+				</div><!-- end row-fluid -->
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="page-header">
+							<h3 id="page-structure"><strong>C) Page Structure</strong> - <a href="#top">top</a></h3>
+						</div>
+						<p>Below is the code from <code>app.jsx</code> which include the header, sidebar, content, footer and theme panel. You may remove the component if you are not using it.</p>
+<pre class="prettyprint linenums">
+import React, { useEffect, useState } from 'react';
+import Header from './components/header/header.jsx';
+import TopNav from './components/top-nav/top-nav.jsx';
+import Sidebar from './components/sidebar/sidebar.jsx';
+import Content from './components/content/content.jsx';
+import Footer from './components/footer/footer.jsx';
+import ThemePanel from './components/theme-panel/theme-panel.jsx';
+import { AppSettings } from './config/app-settings.js';
+
+function App() {
+  var defaultOptions = {
+    appMode: '',
+    appTheme: '',
+    appCover: '',
+    appHeaderNone: false,
+    appSidebarNone: false,
+    appSidebarCollapsed: false,
+    appContentNone: false,
+    appContentClass: '',
+    appContentFullHeight: false,
+    appBoxedLayout: false,
+    appFooter: false,
+		appTopNav: false,
+    hasScroll: false
+  };
+  const [appHeaderNone, setAppHeaderNone] = useState(defaultOptions.appHeaderNone);
+  const [appSidebarNone, setAppSidebarNone] = useState(defaultOptions.appSidebarNone);
+  const [appSidebarCollapsed, setAppSidebarCollapsed] = useState(defaultOptions.appSidebarCollapsed);
+  const [appContentNone, setAppContentNone] = useState(defaultOptions.appContentNone);
+  const [appContentClass, setAppContentClass] = useState(defaultOptions.appContentClass);
+  const [appContentFullHeight, setAppContentFullHeight] = useState(defaultOptions.appContentFullHeight);
+  const [appBoxedLayout, setAppBoxedLayout] = useState(defaultOptions.appBoxedLayout);
+  const [appFooter, setAppFooter] = useState(defaultOptions.appFooter);
+  const [appTopNav, setAppTopNav] = useState(defaultOptions.appTopNav);
+  const [hasScroll, setHasScroll] = useState(defaultOptions.hasScroll);
+  const providerValue = {
+    setAppHeaderNone, 
+    setAppSidebarNone, 
+    setAppSidebarCollapsed, 
+    setAppContentNone, 
+    setAppContentClass,
+    setAppContentFullHeight,
+    setAppBoxedLayout,
+    setAppFooter,
+		setAppTopNav
+  };
+    
+  var handleSetAppTheme = (value) => {
+    if (value) {
+      var newTheme = value;
+      for (var x = 0; x < document.body.classList.length; x++) {
+        if ((document.body.classList[x]).indexOf('theme-') > -1 && document.body.classList[x] !== newTheme) {
+          document.body.classList.remove(document.body.classList[x]);
+        }
+      }
+      
+      if (localStorage && value) {
+        localStorage.appTheme = value;
+      }
+      
+      document.body.classList.add(newTheme);
+      document.dispatchEvent(new Event('theme-reload'));
+    }
+  }
+	
+  var handleSetAppMode = (value) => {
+    if (value) {
+      document.documentElement.setAttribute('data-bs-theme', value);
+    }
+  }
+    
+  var handleSetAppCover = (value) => {
+    if (value) {
+      var htmlElm = document.querySelector('html');
+      for (var x = 0; x < document.documentElement.classList.length; x++) {
+        var targetClass = document.documentElement.classList[x];
+        if (targetClass.search('bg-cover-') > -1) {
+          htmlElm.classList.remove(targetClass);
+        }
+      }
+      htmlElm.classList.add(value);
+    
+      if (localStorage && value) {
+        localStorage.appCover = value;
+      }
+    }
+  }
+  
+  useEffect(() => {
+    if (defaultOptions.appMode) {
+      handleSetAppMode(defaultOptions.appMode);
+    }
+    if (defaultOptions.appTheme) {
+      handleSetAppTheme(defaultOptions.appTheme);
+    }
+    if (defaultOptions.appCover) {
+      handleSetAppCover(defaultOptions.appCover);
+    }
+    window.addEventListener('scroll', handleScroll);
+    
+    if (localStorage) {
+      if (typeof localStorage.appMode !== 'undefined') {
+        handleSetAppMode(localStorage.appMode);
+      }
+      if (typeof localStorage.appTheme !== 'undefined') {
+        handleSetAppTheme(localStorage.appTheme);
+      }
+      if (typeof localStorage.appCover !== 'undefined') {
+        handleSetAppCover(localStorage.appCover);
+      }
+    }
+    
+    return function cleanUp() {
+      window.removeEventListener('scroll', handleScroll)
+    };
+    
+    // eslint-disable-next-line
+  }, []);
+  
+  var handleScroll = () => {
+    setHasScroll((window.scrollY > 0) ? true : false);
+  }
+  
+  return (
+    &lt;AppSettings.Provider value={providerValue}&gt;
+      &lt;div className={
+        'app ' +
+        (appBoxedLayout ? 'app-boxed-layout ' : '') + 
+        (appContentFullHeight ? 'app-content-full-height ' : '') + 
+        (appHeaderNone ? 'app-without-header ' : '') + 
+        (appSidebarNone ? 'app-without-sidebar ' : '') + 
+        (appSidebarCollapsed ? 'app-sidebar-collapsed ' : '') + 
+        (appFooter ? 'app-footer-fixed ' : '') + 
+        (appTopNav ? 'app-with-top-nav ' : '') + 
+        (hasScroll ? 'has-scroll ' : '')
+      }&gt;
+        {!appHeaderNone && (&lt;Header /&gt;)}
+        {appTopNav && (&lt;TopNav /&gt;)}
+        {!appSidebarNone && (&lt;Sidebar /&gt;)}
+        {!appContentNone && (&lt;Content className={appContentClass} /&gt;)}
+        {appFooter && (&lt;Footer /&gt;)}
+        &lt;ThemePanel /&gt;
+    &lt;/AppSettings.Provider&gt;
+  )
+}
+
+export default App;
+</pre>
+					</div><!-- end span12 -->
+				</div><!-- end row-fluid -->
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="page-header">
+							<h3 id="page-components"><strong>D) Components</strong> - <a href="#top">top</a></h3>
+						</div>
+						<p>List of components inside the components folder</p>
+<pre class="prettyprint linenums">
+components/
+├── card/
+├── content/
+├── footer/
+├── header/
+├── nav-scroll-to/
+├── sidebar/
+├── top-nav/
+└── theme-panel/
+</pre>
+					</div><!-- end span12 -->
+				</div><!-- end row-fluid -->
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="page-header">
+							<h3 id="page-config"><strong>E) Page Config</strong> - <a href="#top">top</a></h3>
+						</div>
+						<p>Example of how to change page options in single page</p>
+<pre class="prettyprint linenums">
+import React, { useEffect, useContext } from 'react';
+import { AppSettings } from './../../config/app-settings.js';
+
+function PageWithoutSidebar() {
+  const context = useContext(AppSettings);
+
+  useEffect(() => {
+    context.setAppSidebarNone(true);
+    
+    return function cleanUp() {
+      context.setAppSidebarNone(false);
+    }
+    
+    // eslint-disable-next-line
+  }, []);
+}
+
+export default PageWithoutSidebar
+</pre>
+						<p>List of default options can be set in <code>app.jsx</code>:</p>
+<pre class="prettyprint linenums">
+var defaultOptions = {
+  appMode: '',
+  appTheme: '',
+  appCover: '',
+  appHeaderNone: false,
+  appSidebarNone: false,
+  appSidebarCollapsed: false,
+  appContentNone: false,
+  appContentClass: '',
+  appContentFullHeight: false,
+  appBoxedLayout: false,
+  appFooter: false,
+  appTopNav: false,
+  hasScroll: false
+};
+</pre>
+						<p>List of functions can be used in single page:</p>
+<pre class="prettyprint linenums">
+setAppHeaderNone, 
+setAppSidebarNone, 
+setAppSidebarCollapsed, 
+setAppContentNone, 
+setAppContentClass,
+setAppContentFullHeight,
+setAppBoxedLayout,
+setAppFooter,
+setAppTopNav
+</pre>
+					</div><!-- end span12 -->
+				</div><!-- end row-fluid -->
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="page-header">
+							<h3 id="page-route"><strong>F) Page Route</strong> - <a href="#top">top</a></h3>
+						</div>
+						<p>File to configure the app routes</p>
+<pre class="prettyprint linenums">
+config/
+└── app-route.js
+</pre>
+						<p>Below is the route structures with two level support</p>
+<pre class="prettyprint linenums">
+import React from 'react';
+import App from './../app.jsx';
+import { Navigate } from 'react-router-dom';
+
+import EmailInbox from './../pages/email/inbox.js';
+import EmailCompose from './../pages/email/compose.js';
+import EmailDetail from './../pages/email/detail.js';
+
+const AppRoute = [
+  {
+    path: '*', 
+    element: <App />,
+    children: [
+      { path: '', element: <Navigate to='/email' /> },
+      { path: 'email/*', 
+        children: [
+          { path: 'inbox', element: <EmailInbox /> },
+          { path: 'compose', element: <EmailCompose /> },
+          { path: 'detail', element: <EmailDetail /> }
+        ]
+      }
+    ]
+  }
+];
+
+
+export default AppRoute;
+</pre>
+					</div><!-- end span12 -->
+				</div><!-- end row-fluid -->
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="page-header">
+							<h3 id="page-menu"><strong>G) Page Menu</strong> - <a href="#top">top</a></h3>
+						</div>
+						<p>File to configure the page sidebar menu</p>
+<pre class="prettyprint linenums">
+config/
+└── app-menu.js
+</pre>
+						<p>Below is the sidebar structures with two level support</p>
+<pre class="prettyprint linenums">
+const Menu = [
+  { is_header: true, title: 'Navigation' },
+  { path: '/email', icon: 'bi bi-envelope', title: 'Email',
+    children: [
+      { path: '/email/inbox', title: 'Inbox' }, 
+      { path: '/email/compose', title: 'Compose' }, 
+      { path: '/email/detail', title: 'Detail' }
+    ]
+  }, 
+  { is_divider: true }, 
+  { is_header: true, title: 'Users' },
+];
+
+export default Menu;
+</pre>
+					</div><!-- end span12 -->
+				</div><!-- end row-fluid -->
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="page-header">
+							<h3 id="theme-color"><strong>H) Theme Color</strong> - <a href="#top">top</a></h3>
+						</div>
+						<p>
+							The default theme color is set to the <code>teal</code> color. You may change it from <code>/src/scss/_variables.scss</code>
+						</p>
+<pre class="prettyprint linenums">
+// LINE 79
+$theme:        $teal !default;
+</pre>
+						<p>
+							Besides that, you can also set the theme color by adding the value <code>theme-{ color-name }</code> to <code>/src/app.jsx</code>
+						</p>
+<pre class="prettyprint linenums">
+// LINE 82
+appTheme: 'theme-blue',
+</pre>
+						<div class="alert alert-info">
+							<b>***IMPORTANT***</b><br />
+
+							You might need to remove the <code>&lt;ThemePanel /&gt;</code> component from <code>/src/app.jsx</code>.<br /><br />
+							This is because app-theme-panel will store a <b>localStorage</b> variable and append the theme class automatically when page load
+							if you have select any theme color before from theme panel.
+						</div>
+					</div><!-- end span12 -->
+				</div><!-- end row-fluid -->
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="page-header">
+							<h3 id="theme-cover"><strong>I) Theme Cover</strong> - <a href="#top">top</a></h3>
+						</div>
+						<p>
+							Add the 'cover' class to the <code>&lt;html&gt;</code> tag to change the page cover. You can modify the cover image from either <code>/src/scss/images/</code>. Note that both light and dark mode have separate background cover images.
+							You may add the class to the <code>/public/index.html</code> as well.
+						</p>
+						<h4>Available Cover Options</h4>
+						<pre class="prettyprint linenums">&lt;html class="bg-cover-2"&gt;
+&lt;html class="bg-cover-3"&gt;
+&lt;html class="bg-cover-4"&gt;
+&lt;html class="bg-cover-5"&gt;
+&lt;html class="bg-cover-6"&gt;
+&lt;html class="bg-cover-7"&gt;
+&lt;html class="bg-cover-8"&gt;
+&lt;html class="bg-cover-9"&gt;
+</pre>
+					</div><!-- end span12 -->
+				</div><!-- end row-fluid -->
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="page-header">
+							<h3 id="light-mode"><strong>J) Light Mode</strong> - <a href="#top">top</a></h3>
+						</div>
+						<p>
+							Starting from <b>version 2.0</b>, we have implemented a default dark mode theme that is applied to the <code>/public/index.html</code>. 
+							This is achieved through the use of the <code>data-bs-theme="dark"</code> attribute in the <code>&lt;html&gt;</code> tag.
+						</p>
+						<p>
+							If you wish to enable the light mode instead, you can easily do so by removing the <code>data-bs-theme="dark"</code> attribute from the HTML tag. 
+							This will disable the default dark mode and enable the light mode theme.
+						</p>
+						<p>
+							Please note that once you remove the <code>data-bs-theme="dark"</code> attribute, 
+							the light mode theme will persist even if the user refreshes the page or navigates to a different page within the application.
+						</p>
+						<h4>Here's an example:</h4>
+						<b>change from</b>
+						<pre class="prettyprint linenums">&lt;!DOCTYPE html&gt;
+&lt;html lang="en" data-bs-theme="dark"&gt;
+&lt;/html&gt;
+</pre>
+						<b>to</b>
+						<pre class="prettyprint linenums">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;/html&gt;
+</pre>
+						<p>
+							With this example, the <code>data-bs-theme="dark"</code> attribute has been removed from html tag. This will enable the light mode to the entire page.
+						</p>
+						<p>
+							<b>OR</b>
+						</p>
+						<p>
+							If you want to apply light / dark mode to a single component only, you can add the <code>data-bs-theme="light|dark"</code> attribute to that component.
+						</p>
+						<pre class="prettyprint linenums">&lt;div class="card" data-bs-theme="light"&gt;
+  &lt;div class="card-body"&gt;
+    &lt;!-- your component content here --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+						
+					</div><!-- end span12 -->
+				</div><!-- end row-fluid -->
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="page-header">
+							<h3 id="rtl-mode"><strong>K) RTL Mode</strong> - <a href="#top">top</a></h3>
+						</div>
+						<p>To enable RTL mode, follow these steps:</p>
+						<ol>
+							<li style="margin-bottom: 10px;">Navigate to the <code>/src/scss/_variables.scss</code> file in your code editor.</li>
+							<li style="margin-bottom: 10px;">
+								Find the <code>$enable-rtl</code> variable and change its value to true:
+								<pre class="prettyprint linenums" style="margin: 10px 0;">$enable-rtl: true;
+</pre>
+								This will enable RTL mode for your application.
+							</li>
+							<li style="margin-bottom: 10px;">Save the changes to the file.</li>
+						</ol>
+					</div><!-- end span12 -->
+				</div><!-- end row-fluid -->
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="page-header">
+							<h3 id="scss-configuration"><strong>L) SCSS Configuration</strong> - <a href="#top">top</a></h3>
+						</div>
+						<p><b>Global Variables</b></p>
+						<p>
+							The <code>/src/scss/_variables.scss</code> file contains the variables that control the styles of your application.
+						</p>
+						<p>
+							To edit these variables, navigate to the <code>/src/scss/_variables.scss</code> file in your code editor and modify the values of the variables to suit your needs.
+						</p>
+						<pre class="prettyprint linenums">&lt;!-- global variable --&gt;
+/src/scss/_variables.scss
+</pre>
+						<p><b>Dark Mode Variables</b></p>
+						<p>
+							The <code>/src/scss/_variables-dark.scss</code> file contains the variables that control the styles for dark mode. 
+							These variables are used in conjunction with the variables in the <code>/src/scss/_variables.scss</code> file to provide different values for light and dark modes.
+						</p>
+						<pre class="prettyprint linenums">&lt;!-- dark mode variable --&gt;
+/src/scss/_variables-dark.scss
+</pre>
+					</div><!-- end span12 -->
+				</div><!-- end row-fluid -->
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="page-header">
+							<h3 id="bootstrap-components"><strong>M) Bootstrap Components</strong> - <a href="#top">top</a></h3>
+						</div>
+						<p>We have created the common re-usable <code>card</code> bootstrap component for this template. You may found the card component via <code>/src/components/bootstrap/</code></p>
+<pre class="prettyprint linenums">
+//usage 
+import { 
+  Card, 
+  CardHeader, 
+  CardBody, 
+  CardImgOverlay, 
+  CardFooter, 
+  CardGroup, 
+  CardExpandToggler 
+} from './../../components/card/card.jsx';
+
+&lt;CardGroup&gt;
+  &lt;Card&gt;
+    &lt;CardHeader&gt;
+      ... 
+      &lt;CardExpandToggler /&gt;
+    &lt;/CardHeader&gt;
+    &lt;CardBody&gt;...&lt;/CardBody&gt;
+    &lt;CardFooter&gt;...&lt;/CardFooter&gt;
+    &lt;CardImgOverlay&gt;...&lt;/CardImgOverlay&gt;
+  &lt;/Card&gt;
+&lt;/CardGroup&gt;
+</pre>
+					</div><!-- end span12 -->
+				</div><!-- end row-fluid -->
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="page-header">
+							<h3 id="bootstrap-javascript"><strong>N) Bootstrap Javascript</strong> - <a href="#top">top</a></h3>
+						</div>
+						<p>You may use the default bootstrap data attribute like <code>data-bs-toggle="dropdown"</code> OR import the required modules from bootstrap.
+<pre class="prettyprint linenums">
+// usage example
+import { ScrollSpy } from 'bootstrap';
+
+new ScrollSpy(document.body, {
+  target: '#sidebar-bootstrap',
+  offset: 200
+})
+</pre>
+					</div><!-- end span12 -->
+				</div><!-- end row-fluid -->
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="page-header">
+							<h3 id="references"><strong>O) References</strong> - <a href="#top">top</a></h3>
+						</div>
+						<p>
+							I've used the following images, icons or other files as listed.
+						</p>
+						<p><b>Plugins</b></p>
+						<ol style="margin-bottom: 20px">
+							<li><b>ApexCharts</b>: <a target="_blank" href="https://apexcharts.com/">https://apexcharts.com/</a></li>
+							<li><b>Bootstrap</b>: <a target="_blank" href="http://getbootstrap.com/">http://getbootstrap.com/</a></li>
+							<li><b>Bootstrap Icons</b>: <a target="_blank" href="https://icons.getbootstrap.com/">https://icons.getbootstrap.com/</a></li>
+							<li><b>Chart.js</b>: <a target="_blank" href="https://chartjs.org">https://chartjs.org</a></li>
+							<li><b>Datatables</b>: <a target="_blank" href="https://datatables.net/blog/2022-06-22-vue">https://datatables.net/</a></li>
+							<li><b>FontAwesome</b>: <a target="_blank" href="https://fontawesome.com/">https://fontawesome.com/</a></li>
+							<li><b>Fullcalendar</b>: <a target="_blank" href="https://fullcalendar.io/">https://fullcalendar.io/</a></li>
+							<li><b>Google Map React</b>: <a target="_blank" href="https://github.com/google-map-react/google-map-react">https://github.com/google-map-react/google-map-react</a></li>
+							<li><b>Highlight.js</b>: <a target="_blank" href="https://highlightjs.org/">https://highlightjs.org/</a></li>
+							<li><b>Iconify</b>: <a target="_blank" href="https://icon-sets.iconify.design/">https://icon-sets.iconify.design/</a></li>
+							<li><b>jQuery</b>: <a target="_blank" href="https://jquery.com/">https://jquery.com/</a></li>
+							<li><b>jsvectormap</b>: <a target="_blank" href="https://github.com/themustafaomar/jsvectormap">https://github.com/themustafaomar/jsvectormap</a></li>
+							<li><b>lity</b>: <a target="_blank" href="https://sorgalla.com/lity/">https://sorgalla.com/lity/</a></li>
+							<li><b>masonry</b>: <a target="_blank" href="https://masonry.desandro.com/">https://masonry.desandro.com/</a></li>
+							<li><b>moment</b>: <a target="_blank" href="http://momentjs.com/">http://momentjs.com/</a></li>
+							<li><b>PdfMake</b>: <a target="_blank" href="http://pdfmake.org/#/">http://pdfmake.org/#/</a></li>
+							<li><b>Perfect Scrollbar</b>: <a target="_blank" href="https://github.com/mercs600/vue3-perfect-scrollbar">https://github.com/mercs600/vue3-perfect-scrollbar</a></li>
+							<li><b>PhotoSwipe</b>: <a target="_blank" href="https://photoswipe.com/">https://photoswipe.com/</a></li>
+							<li><b>Popper.js</b>: <a target="_blank" href="https://popper.js.org/">https://popper.js.org/</a></li>
+							<li><b>React</b>: <a target="_blank" href="https://reactjs.org/">https://reactjs.org/</a></li>
+							<li><b>React Apexcharts</b>: <a target="_blank" href="https://www.npmjs.com/package/react-apexcharts">https://www.npmjs.com/package/react-apexcharts</a></li>
+							<li><b>React Bootstrap Daterangepicker</b>: <a target="_blank" href="https://github.com/skratchdot/react-bootstrap-daterangepicker">https://github.com/skratchdot/react-bootstrap-daterangepicker</a></li>
+							<li><b>React Color</b>: <a target="_blank" href="http://casesandberg.github.io/react-color/">http://casesandberg.github.io/react-color/</a></li>
+							<li><b>React Countdown</b>: <a target="_blank" href="https://github.com/ndresx/react-countdown">https://github.com/ndresx/react-countdown</a></li>
+							<li><b>React Datepicker</b>: <a target="_blank" href="https://github.com/Hacker0x01/react-datepicker">https://github.com/Hacker0x01/react-datepicker</a></li>
+							<li><b>React Datetime</b>: <a target="_blank" href="https://github.com/arqex/react-datetime">https://github.com/arqex/react-datetime</a></li>
+							<li><b>React Highlight</b>: <a target="_blank" href="https://github.com/akiran/react-highlight">https://github.com/akiran/react-highlight</a></li>
+							<li><b>React Input Mask</b>: <a target="_blank" href="https://github.com/sanniassin/react-input-mask">https://github.com/sanniassin/react-input-mask</a></li>
+							<li><b>React Perfect Scrollbar</b>: <a target="_blank" href="https://github.com/goldenyz/react-perfect-scrollbar">https://github.com/goldenyz/react-perfect-scrollbar</a></li>
+							<li><b>React Quill</b>: <a target="_blank" href="https://github.com/zenoamaro/react-quill">https://github.com/zenoamaro/react-quill</a></li>
+							<li><b>React Router DOM</b>: <a target="_blank" href="https://github.com/remix-run/react-router">https://github.com/remix-run/react-router</a></li>
+							<li><b>React Select</b>: <a target="_blank" href="https://github.com/JedWatson/react-select/tree/master#readme">https://github.com/JedWatson/react-select/tree/master#readme</a></li>
+							<li><b>React Tag Input Component</b>: <a target="_blank" href="https://github.com/hc-oss/react-tag-input-component#readme">https://github.com/hc-oss/react-tag-input-component#readme</a></li>
+						</ol>
+						<p><b>Photos</b></p>
+						<ol>
+							<li><b>Unsplash</b>: <a target="_blank" href="https://unsplash.com/">https://unsplash.com/</a></li>
+							<li><b>Freepik</b>: <a target="_blank" href="https://www.freepik.com/">https://www.freepik.com/</a></li>
+						</ol>
+					</div>
+				</div><!-- end row-fluid -->
+			</div><!-- end span12 -->
+		</div><!-- end row-fluid -->
+	</div><!-- end container -->
+	
+	<footer class="footer">
+		<div class="container text-left">
+			<p>Once again, thank you so much for purchasing this theme. As I said at the beginning, I'd be glad to help you if you have any questions relating to this theme. No guarantees, but I'll do my best to assist. If you have a more general question relating to the themes, you might consider visiting the forums and asking your question via <a href="mailTo:nguoksiong@live.co.uk">email</a>.</p> 
+			<br />
+			<p class="append-bottom alt large"><strong>Sean Ngu</strong></p>
+			<p><a href="#top">Go To Table of Contents</a></p>
+		</div>
+	</footer><!-- end footer -->
+	
+	<script src="assets/bootstrap/js/jquery.js"></script>
+	<script src="assets/bootstrap/js/bootstrap-transition.js"></script>
+	<script src="assets/bootstrap/js/bootstrap-alert.js"></script>
+	<script src="assets/bootstrap/js/bootstrap-modal.js"></script>
+	<script src="assets/bootstrap/js/bootstrap-dropdown.js"></script>
+	<script src="assets/bootstrap/js/bootstrap-scrollspy.js"></script>
+	<script src="assets/bootstrap/js/bootstrap-tab.js"></script>
+	<script src="assets/bootstrap/js/bootstrap-tooltip.js"></script>
+	<script src="assets/bootstrap/js/bootstrap-popover.js"></script>
+	<script src="assets/bootstrap/js/bootstrap-button.js"></script>
+	<script src="assets/bootstrap/js/bootstrap-collapse.js"></script>
+	<script src="assets/bootstrap/js/bootstrap-carousel.js"></script>
+	<script src="assets/bootstrap/js/bootstrap-typeahead.js"></script>
+	<script src="assets/bootstrap/js/bootstrap-affix.js"></script>
+
+	<script src="assets/bootstrap/js/holder/holder.js"></script>
+	<script src="assets/bootstrap/js/google-code-prettify/prettify.js"></script>
+	<script src="assets/bootstrap/js/application.js"></script>
+</body>
+</html>

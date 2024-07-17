@@ -1,0 +1,23 @@
+import React, { useEffect, useContext } from 'react';
+import { AppSettings } from './../../config/app-settings.js';
+
+function LayoutMixedNav() {
+  const context = useContext(AppSettings);
+  
+  useEffect(() => {
+    context.setAppTopNav(true);
+    
+    return function cleanUp() {
+      context.setAppTopNav(false);
+    }
+    
+    // eslint-disable-next-line
+  }, []);
+  
+  return (
+    <div>
+    </div>
+  )
+}
+
+export default LayoutMixedNav;

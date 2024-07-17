@@ -1,0 +1,5 @@
+<!-- example -->
+<p className="text-theme"></p>
+
+<!-- example emphasis -->
+<p className="text-primary-emphasis"></p>

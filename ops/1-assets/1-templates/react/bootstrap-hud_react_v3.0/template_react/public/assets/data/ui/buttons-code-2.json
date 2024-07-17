@@ -1,0 +1,17 @@
+<button type="button" className="btn btn-outline-theme">Theme</button>
+<button type="button" className="btn btn-outline-default mb-1 me-1">Default</button>
+<button type="button" className="btn btn-outline-secondary mb-1 me-1">Secondary</button>
+<button type="button" className="btn btn-outline-light mb-1 me-1">Light</button>
+<button type="button" className="btn btn-outline-dark mb-1 me-1">Dark</button>
+<button type="button" className="btn btn-outline-info mb-1 me-1">Info</button>
+<button type="button" className="btn btn-outline-primary mb-1 me-1">Primary</button>
+<button type="button" className="btn btn-outline-purple mb-1 me-1">Purple</button>
+<button type="button" className="btn btn-outline-indigo mb-1 me-1">Indigo</button>
+<button type="button" className="btn btn-outline-link mb-1 me-1">Link</button>
+<button type="button" className="btn btn-outline-danger mb-1 me-1">Danger</button>
+<button type="button" className="btn btn-outline-pink mb-1 me-1">Pink</button>
+<button type="button" className="btn btn-outline-warning mb-1 me-1">Warning</button>
+<button type="button" className="btn btn-outline-yellow mb-1 me-1">Yellow</button>
+<button type="button" className="btn btn-outline-lime mb-1 me-1">Lime</button>
+<button type="button" className="btn btn-outline-green mb-1 me-1">Green</button>
+<button type="button" className="btn btn-outline-success mb-1 me-1">Success</button>

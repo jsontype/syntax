@@ -1,0 +1,52 @@
+.countdown {
+  li {
+    margin: 0 2.8125rem;
+    text-align: center;
+
+    .numberDisplay {
+      font-size: 3.0625rem;
+      font-weight: $font-weight-semibold;
+      color: var(--bs-white);
+    }
+
+    &::after {
+      content: ":";
+      position: absolute;
+      right: -2.8125rem;
+      top: 15%;
+      color: var(--bs-primary);
+      font-size: 3.125rem;
+      font-weight: $font-weight-bold;
+    }
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+
+      &::after {
+        content: none;
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .count-down {
+    flex-direction: column;
+
+    li {
+      margin: 0 0 0.625rem;
+
+      .numberDisplay {
+        font-size: 2.5rem;
+      }
+
+      &::after {
+        content: none;
+      }
+    }
+  }
+}
