@@ -11,7 +11,7 @@
     .git directory : (깃혀브 서버에 있는) 버전 히스토리를 가지고 있는 깃 리포지토리
 
 
-        
+
 1. Git 관련 용어
   add . : 트럭에 바뀐 택배를 싣는 것 = staging
   commit -m "" : 택배 송장에 무슨 물건이지 적는 것
@@ -40,13 +40,13 @@
   $ git status : 현재 상태 확인하기
     -h : 헬프모드로 모든 옵션을 알려준다.
     -s : 간단하게 확인한다.
-  
+
   $ git checkout : 체크아웃
     git checkout feat/1 : "github등을 통해 만들어져서 local에 이미 존재하는" feat/1이라는 branch에 체크아웃
     * git checkout -b feat/1 : local에 feat/1이라는 branch를 생성하면서 체크아웃
         이슈를 해결할 브랜치를 github를 통해 만들지 않을 경우 이 방법을 쓴다. 단, 이때는 commit 명에 #이슈번호를 써서 연동해두는 게 좋다.    
 
-  $ git diff : 깃허브 브런치내의 기존 / 현재의 diff를 비교 조사한다. (vscode를 못 믿어서, 푸시가 되었는지 확실히 확인하고 싶을 때)
+  $ git diff : 깃허브 브런치 내의 기존 / 현재의 diff를 비교 조사한다. (vscode를 못 믿어서, 푸시가 되었는지 확실히 확인하고 싶을 때)
 
   $ git push : 제조 후엔 add, commit, push. 외워둘 것
     git add 올릴파일명(전부일경우에는 .)
@@ -88,7 +88,9 @@
       git stash : 현재 브랜치의 이름과 마지막 커밋 이름으로 Stash 이름을 지정한 뒤 저장한다.
       git stash apply : 가장 최근의 stash를 가져와 적용한다.
     - 스태시를 여러 개 사용할 때
-      git stash -m "stash되는 작업 내용 설명" : 코멘트를 붙여서 stash 배열에 unshift 형태로(0번째 인덱스에) 추가한다.
+      ★★ git stash -u -m "stash되는 작업 내용 설명" : stash 배열에 unshift 형태로(0번째 인덱스에) 추가한다.
+        -m을 붙이면 원하는 코멘트를 붙여준다.
+        -u를 붙이면 add 안된 부분 까지 스태싱해 줌 
       git stash list : stash 목록을 확인한다. 여기서 stash@{0}, stash@{1} 등 인덱스 순으로 스택이 쌓여져서 저장되는 것을 확인할 수 있다.
       git stash apply 0 : 0번째 인덱스에 있는 stash@{0}를 가져와 작업한다.
       git stash drop : 가장 최근의 stash를 삭제한다.
@@ -200,6 +202,7 @@
 
 
 [Git 트러블슈팅 모음]
+
 1. 트러블슈팅: 대량의 데이터가 변경되었을 때의 push 시의 에러
   문제: git push 시에 "error: RPC failed; HTTP 500 curl 22 The requested URL returned error: 500" 에러
     - 세부 메시지가 "send-pack: unexpected disconnect while reading sideband packet" 인 경우
