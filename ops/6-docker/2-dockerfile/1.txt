@@ -1,0 +1,147 @@
+[Dockerfile 만들기]
+참조 URL(도커 참조): https://docs.docker.com/reference/dockerfile/
+참조 URL(도커 모범사례구축): https://docs.docker.com/build/building/best-practices/
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. Dockerfile 작성의 원칙 
+  - Dockerfile는 레이어 방식으로 작성한다.
+    가장 하위층(Layer 0)에, Base Image(FROM node:18)를 두고,
+    그 다음으로 빈번히 바뀌는 것을 다음 층(Layer 1)에 두고,
+    그 다음으로 빈번히 바뀌는 것을 다음 층(Layer 2)에 두고,
+    그 다음으로 빈번히 바뀌는 것을 다음 층(Layer 3)에 두고,
+    그 다음으로 빈번히 바뀌는 것을 다음 층(Layer 4)에 둔다.
+    즉, 가장 빈번히 발생하는 것일수록 가장 마지막에 작성한다.
+    Dockerfile의 명령어는 하나하나가 다 레이어로 되어있어서,
+    가장 빈번히 변경되는 걸 제일 나중에 적으면, 레이어 제일 윗층으로 배치가 되기 때문에,
+    예를 들어, 이미지를 만든 뒤, 나중에 Layer 3에 있는 src 파일이 변경이 되어서 새로운 이미지를 만들어야 될 때,
+    변경 안된 층들은 재사용(캐시) 처리하고, 변경된 층(Layer 3)부터 꼭대기(Layer 4)까지만 바꾼다.
+    그렇게 해서, 매번 이미지를 만들 때 시간을 단축할 수 있다.
+
+1. Dockerfile 작성 : Dockerfile 내부에 Image를 정의
+```
+  # Layer 0: 제일 처음에는 항상 "FROM baseImage"를 가지고 온다. 즉, 어떤 베이스를 사용할 것인지를 선택한다.
+  FROM node:18
+
+  # WORKDIR는 유닉스 명령어에서의 "cd"와 같다. 여기서는 루트디렉토리에서부터 어플리케이션을 복사해올 폴더를 정한다.
+  WORKDIR /app
+  # 패키지 인스톨에 필요한 파일을 카피해온다. 빈번히 변경되는 파일일 수록 마지막에 작성하는 게 좋다.
+  COPY package.json package-lock.json ./
+  # 패키지 인스톨을 진행한다. npm install 대신 npm ci를 사용해야, package-lock.json에 명시된 버전으로부터 버전이 바뀌지 않는다.
+  RUN npm ci
+  # 소스파일을 카피해온다.
+  COPY index.js .
+
+  # Layer 4: 엔트리포인트라는 명령어를 이용해서, 앱을 실행한다. 아래는 "node index.js"를 실행한다는 뜻이다.
+  ENTRYPOINT [ "node", "index.js" ]
+```
+
+
+
+[Docker Image 실행]
+
+1. 사전준비 : 도커 데스크톱앱을 실행시켜둔다.
+
+1. Dockerfile 내부에서 정의된 Image를 실행
+  app1 폴더 안에서 새 터미널을 연 뒤 다음을 실행하면, 로컬의 Dockerfile을 빌드할 수 있다.
+  $ docker build -f Dockerfile -t app1-docker .
+    -f Dockerfile: Dockerfile의 파일명을 명시한 것이다.
+    -t app1-docker: 도커 이미지의 이름을 지정한 것이다.
+    마지막 .: build context이다. 여기서는 Dockerfile이 최상위 경로에 있으므로 .이다.
+  $ docker images
+    REPOSITORY 확인: "app1-docker" 이미지가 있을 것이다. 깃허브 Repository와 동일하다고 생각하면 된다. 나중에 Container에 올릴 때, 이 이름이 재사용될 것이다.
+    TAG 확인: 이미지의 버전을 따로 명시해두지 않았기 때문에 그냥 최신 버전인 "latest"로 지정되었다.
+
+1. Docker Container 실행
+  $ docker run -d -p 8080:8081 app1-docker
+    -d: "detach(분리)"를 의미한다.
+      Node.js 백엔드 앱을 돌리기 위해서는, 도커가 백그라운드에서 계속 동작해야하는데, 그럴려면 터미널이 계속 동작해야겠지?
+      그럼 명령어를 수행하고, "터미널아, 내가 끝날 때까지 기다리지 말고, 넌 니가 하는 일을 해."라고, "detach(분리)"를 하는 것이다.
+    -p 8080:8080: "port publishing"을 의미한다.
+      즉, 퍼블리싱할 port를 지정해주는 것이다. docker run을 하는 런타임(현재 로컬PC)의 포트 8080과, 컨테이너 포트 8080을 연결하라는 뜻이다.
+    위 명령어를 실행하면, 컨테이너의 ID가 프린트되는 것을 확인할 수 있을 것이다. (기존에 사용하던 포트와 겹치면 8081:8081 등으로 런타임 포트나 컨테이너 포트를 바꾼다.)
+  $ docker ps
+    위 명령어를 통해, 현재 실행되고 있는 컨테이너들의 리스트를 확인할 수 있다.
+
+1. 테스트: 백엔드앱을 터미널 상에서 실행하지 않고도 localhost:8080에 접속할 수 있음을 확인한다.
+  http://localhost:8080 접속 후, Hello World! 가 뜨는 것을 확인
+
+1. Docker 로그 및 상태 확인
+  $ docker logs [Container ID]
+    위 명령어를 통해 실행중인 백엔드앱에서 발생한 로그 확인할 수 있다.
+  터미널 사용 대신 docker 데스크톱 앱에서도 여러가지 정보를 확인할 수 있다.
+    리스트에 있는 image를 클릭
+    Logs 확인 : LOGS 탭
+    환경변수(.env) 확인 : INSPECT 탭
+    사용하고 있는 리소스(CPU, Memory, Disk, Network) 확인 : STATS 탭
+    컨테이너 내부에서 터미널 사용 : >_ 아이콘 버튼 클릭 - 앱 실행 명령어($ cat index.js) 등등 직접 입력 가능
+
+1. Dockerhub에 Docker 올리기
+  Dockerhub(http://hub.docker.com/)에 가입 후, (http://hub.docker.com/repositories/[usernmae])으로 접속한다.
+  "Create repository" 버튼을 누르고 다음 폼을 입력한다.
+    Repository명 : app1-Docker
+    Visibility : Public
+  Dockerhub의 비밀번호를 지정한다.
+    브라우져 화면 우측 위에 "사용자 아이콘" 클릭
+    "Account settings" 클릭
+    Password 밑에 "Rest password" 클릭
+    gmail 확인하여 "Rest password" 클릭
+    비밀번호 변경
+  다음 명령어를 통해 이미지를 푸시한다.
+    $ docker tag app1-docker:latest jsontype/app1-docker:latest : 태그를 단다.
+      * 태그란? : 이미지를 식별하는 "버젼"을 붙인 라벨 (예: 1.1, 2.15, ...)
+    $ docker images : 도커 태그(latest)를 확인한다.
+    $ docker login : username과 아까 변경한 비밀번호를 입력한다.
+    $ docker push jsontype/app1-docker:latest : 이미지를 푸시한다.
+    https://hub.docker.com/r/jsontype/app1-docker/tags 에 접속해서, 태그가 잘 푸시되었는지 확인한다.
+
+1. Push와 Pull하기
+  다음에 다시 push하려면 다음 두 과정만 진행하면 된다.
+    $ docker login : 로그인은 필수이다.
+    $ docker push jsontype/app1-docker:latest
+  다음에 다시 도커 Image를 "Pull" 받아서, 언제든지 실행할 수 있다. (다른 PC나 다른 런타임 등의 타환경에서도 마찬가지이다.)
+    $ docker login : 로그인은 필수이다.
+    $ docker pull jsontype/app1-docker:latest : dockerhub로부터 image를 pull 받아서, 로컬의 리스트에 담는다.
+    $ docker images : docker image가 리스트에 잘 들어왔는지 확인한다.
+    $ docker build -t jsontype/app1-docker:latest . : 해당 도커를 빌드한다.
+    $ docker run -d -p 8080:8080 jsontype/app1-docker:latest : 도커를 지정한 포트로 실행한다.
+
+  
+
+[Docker 실행 끄기, Docker Image 삭제]
+
+1. 실행되고 있는 Docker Container를 끄기
+  $ docker ps : 끄고 싶은 CONTAINER ID를 확인한다.
+  $ docker stop [CONTAINER ID] : 끈다.
+  $ docker ps : 확인한다.
+
+1. Docker Container에 Push한 Image를, Image 리스트로부터 삭제하기
+  $ docker images : 삭제하고 싶은 IMAGE ID를 확인한다.
+  $ docker rmi [IMAGE ID] : 삭제한다.
+  $ docker images : 확인한다.
+
+
+
+[실무현장에서의 Docker는 어떨까?]
+
+1. 실무 현장에서 일하는 프론트엔드에게 있어서 docker가 주는 의미는?
+  해당 도커를 "pull" 받은 뒤, 백엔드앱을 clone을 따고, 백엔드앱 폴더에서 해당 docker를 기동시키면,
+  local 환경에서 특별한 환경설정이나 기동 필요없이 바로 백엔드를 구동 가능하다는 것이다. (단 ".env"의 경우, 보안상 현장에서 직접 받아야 할 수도 있다.)
+
+1. 실무 현장에서 Dockerfile에 실제로 담기는 것들은 뭐가 있을까?
+  정해진 버전의 Base Image, .env, node.js, npm, assets, config, app.js, dependencies 등 모든 것이 담길 수 있다.      
+
+1. 실무 현장에서도 docker 명령어를 쓰는가?
+  내 경험상 docker-compose 를 썼던 것 같다. 이걸 사용할 경우에는 다음 명령어를 쓴다.
+    $ docker-compose up --build : 빌드 명령어
+    $ docker-compose up -d : 실행 명령어 (-d는 detach를 의미. 터미널과 분리해서 계속 켜겠다는 뜻)
+
+1. 실무 현장에서 Dockerfile 작성시의 유의사항!
+  Dockerfile 작성 시에는, ".dockerignore" 파일을 사용하여 불필요한 파일이 이미지에 포함되지 않도록 할 수 있다.
+  또, Dockerfile 작성 시에는, 모범 사례를 따르는 것이 중요하다. (참조 URL을 참조하자.)
+    - 예를 들어, 레이어 수를 최소화하고, 캐시를 효과적으로 사용하는 것이 좋다.
+  실무 현장에서는 Dev, Sta, Prod 환경 등, 일반적으로 멀티 스테이지 빌드를 실행한다.
+
+1. docker 용어 재정리! (필요시 추가하자)
+  "Image": 실행에 필요한 OS 환경을 말한다.
+  "Base Image": 컨테이너의 시작점으로 사용되는 최소한의 OS 환경을 말한다. (Base Image를 기반으로 추가적인 레이어를 쌓아 사용자 정의 이미지를 만들게 된다.)
