@@ -1,0 +1,15 @@
+[Nuxt3 설치방법]
+
+1. Nuxt3 앱 설치하기
+  $ npx nuxi init app1
+  빌드도구? npm 선택
+  Initialize git repository? No 선택
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
+
+1. Nuxt3에서 상식적으로 알아두어야 할 것들
+  Nuxt3는 vite와 ts를 기본적으로 사용한다.
+  따라서 Vue 앱에서 "vite.config.js"였던 설정파일은 자동으로 "nuxt.config.ts"가 된다.
+
