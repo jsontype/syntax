@@ -1,0 +1,149 @@
+[로그인 ID/PW + JWT 환경에서 BBS 글 수정, 삭제 세션 처리]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. 설치
+  $ cd app1
+  $ npm i bcrypt
+
+1. src/app/register/page.js 생성 : 회원가입 페이지 생성
+  export default function Register() {
+    return (
+      <div>
+        <form method="POST" action="/api/auth/signup">
+          <input name="name" type="text" placeholder="이름" />
+          <input name="email" type="text" placeholder="이메일" />
+          <input name="password" type="password" placeholder="비번" />
+          <button type="submit">id/pw 가입요청</button>
+        </form>
+      </div>
+    )
+  }
+
+1. api/auth/signup.js 생성 : 회원가입 API 생성
+  import { connectDB } from "@/app/api/connectDB"
+  // 암호화 라이브러리
+  import bcrypt from "bcrypt"
+
+  export default async function handler(req, res) {
+    if (req.method === "POST") {
+      // await bcrypt.hash(암호화할 내용, 아무숫자) : 암호화해준다.
+      const hash = await bcrypt.hash(req.body.password, 10)
+      req.body.password = hash
+      try {
+        const db = (await connectDB).db("db1")
+        await db.collection("user").insertOne(req.body)
+        res.status(200).json("회원가입이 완료되었습니다.")
+      } catch (e) {
+        console.log(e)
+      }
+    }
+  }
+
+1. 중간테스트
+  mongodb.com
+  Browser Collection
+  db1/user
+  가입정보가 잘 들어와있고, 그중 password 부분이 bcrypt 암호화 되어 있는지 확인
+
+1. src/pages/api/auth/[...nextauth].js 수정 : ID/PW로 로그인할 경우 JWT에 의해 토큰을 생성해주도록 수정
+  import NextAuth from "next-auth"
+  import GithubProvider from "next-auth/providers/github"
+  import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
+  import { connectDB } from "@/app/api/connectDB"
+  import CredentialsProvider from "next-auth/providers/credentials"
+  import bcrypt from "bcrypt"
+
+  export const authOptions = {
+    providers: [
+      // OAuth
+      GithubProvider({
+        clientId: "Next Back 용 clientId!",
+        clientSecret: "Next Back 용 clientSecret!",
+      }),
+
+      // PW + JWT Token
+      CredentialsProvider({
+        // 로그인페이지의 폼을 자동생성 해주는 코드
+        name: "credentials",
+        credentials: {
+          email: { label: "email", type: "text" },
+          password: { label: "password", type: "password" },
+        },
+        // 로그인 요청시 실행되는코드 : 직접 DB에서 id와 password를 비교하고, 맞으면 return 결과, 틀리면 return null 해야함
+        async authorize(credentials) {
+          const db = (await connectDB).db("db1")
+          const user = await db
+            .collection("user")
+            .findOne({ email: credentials.email })
+          if (!user) {
+            console.log("해당 이메일은 없음")
+            return null
+          }
+          const pwcheck = await bcrypt.compare(
+            credentials.password,
+            user.password
+          )
+          if (!pwcheck) {
+            console.log("비번 틀림")
+            return null
+          }
+          return user
+        },
+      }),
+    ],
+
+    // JWT 만료일설정
+    session: {
+      strategy: "jwt",
+      maxAge: 30 * 24 * 60 * 60, // 30일
+    },
+
+    callbacks: {
+      // JWT 만들 때 실행되는 코드 : user 변수는 DB의 유저정보가 담겨있고 token.user에 저장할 때 JWT에 들어간다.
+      jwt: async ({ token, user }) => {
+        if (user) {
+          token.user = {}
+          token.user.name = user.name
+          token.user.email = user.email
+          token.user.image = user.image
+        }
+        return token
+      },
+      // 유저 세션이 조회될 때마다 실행되는 코드
+      session: async ({ session, token }) => {
+        session.user = token.user // JWT Token에 있는 user 정보를 세션에 저장한다.
+        return session
+      },
+    },
+
+    adapter: MongoDBAdapter(connectDB),
+    secret: "Next Back 용 secret!",
+  }
+
+  export default NextAuth(authOptions)
+
+
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
+  http://localhost:3000/bbs
+  로그인 해본다.
+  로그아웃 해본다.
+  새 글을 쓴다.
+  새 글에서 삭제을 눌러본다. : 제대로 삭제된다.
+  writer가 세션 email과 다른 글에서 삭제을 눌러본다. : 500 에러가 발생한다.
+  (세션 email과 다른 글이 없다면 mongodb.com의 Browse Collection 클릭해서 email 정보를 직접 변경한다.)
+  새 글을 쓴다.
+  새 글에서 삭제을 눌러본다. : 제대로 수정된다.
+  writer가 세션 email과 다른 글에서 수정을 눌러본다. : 500 에러가 발생한다. 
+  (세션 email과 다른 글이 없다면 mongodb.com의 Browse Collection 클릭해서 email 정보를 직접 변경한다.)
+
+
+
+1. DB 정리하기 : BBS 상의 글을 모두 지워둔다.
+  mongodb.com 접속
+  Browse Collection 클릭
+  db1의 bbs1 클릭
+  모든 글에서 우측 delete 버튼 클릭
