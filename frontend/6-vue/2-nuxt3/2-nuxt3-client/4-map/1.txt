@@ -1,0 +1,46 @@
+[map 써서 html 줄이기]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. src/app/list/layout.js 수정 : 핑크배경 정신사나우니 끄기
+  import React from "react"
+
+  export default function layout({ children }) {
+    return (
+      <>
+        <div>{children}</div>
+      </>
+    )
+  }
+
+1. src/app/list/page.js 수정
+  import React from "react"
+  import styles from "./page.module.css"
+
+  export default function List() {
+    const items = [
+      { id: 1, name: "토마토", price: 5 },
+      { id: 2, name: "파스타", price: 30 },
+      { id: 3, name: "코코넛", price: 7 },
+    ]
+
+    const render = items.map((item) => {
+      return (
+        <div key={item.id}>
+          {item.name} ${item.price}
+        </div>
+      )
+    })
+
+    return (
+      <div>
+        <h2 className={styles.title}>상품목록</h2>
+        <div>{render}</div>
+      </div>
+    )
+  }
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
+  http://localhost:3000
