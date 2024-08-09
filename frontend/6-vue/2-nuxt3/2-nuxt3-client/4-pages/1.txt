@@ -1,0 +1,80 @@
+[Pages]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. tsconfig.json 수정 : baseUrl 설정
+  * Nuxt는 기본적으로 ~가 루트폴더라서 설정안해도 됨.
+    "@" 같은 기호로 특별히 지정하고 싶다면 설정하는 것임.
+    또한 모든 코드를 src 안에 넣었을 때  "@/*": ["./src/*"] 로 바꾼다던가 할 때 사용함.
+  {
+    "extends": "./.nuxt/tsconfig.json",
+    "compilerOptions": {
+      "baseUrl": "/",
+      "paths": {
+        "@/*": ["./*"]
+      }
+    }
+  }
+
+1. pages/about.vue 생성 : 새 페이지 만들기
+  <template>
+    <div>About 페이지입니다.</div>
+  </template>
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
+  http://localhost:3000
+  http://localhost:3000/about
+
+
+
+[Components & Props]
+
+1. components/Cart.vue 생성 : 새 컴포넌트 만들기
+  <template>
+    <div>가격: {{ price }}</div>
+  </template>
+
+  <script setup>
+  defineProps({
+    price: Number
+  })
+  </script>
+
+1. pages/list.vue 수정 : 컴포넌트에 프롭 넘겨주면서 사용
+  <template>
+    <div>
+      <div>수량: {{ count }}</div>
+      <div>가격: {{ count * price }}</div>
+      <button @click="onIncrease">+</button>
+      <button @click="onDecrease">-</button>
+    </div>
+  </template>
+
+  <script setup>
+  import { ref } from 'vue'
+
+  const props = defineProps({
+    price: Number
+  })
+
+  const count = ref(0)
+
+  const onIncrease = () => {
+    count.value += 1
+  }
+
+  const onDecrease = () => {
+    if (count.value > 0) {
+      count.value -= 1
+    }
+  }
+  </script>
+
+1. 테스트 : 3개의 페이지 다 보기
+  $ cd app1
+  $ npm run dev
+  http://localhost:3000
+  http://localhost:3000/about
+  http://localhost:3000/list

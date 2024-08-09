@@ -1,0 +1,46 @@
+[v-for 써서 렌더링하기]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. pages/list.vue 수정 : v-for 디렉티브를 사용해 map과 같은 방식으로 데이터를 반복 렌더링하기
+  <template>
+    <div>
+      <h2 class="title">상품목록</h2>
+      <div>
+        <div v-for="item in items" :key="item.id">
+          {{ item.name }} ${{ item.price }}
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <script setup>
+  const items = [
+    { id: 1, name: "토마토", price: 5 },
+    { id: 2, name: "파스타", price: 30 },
+    { id: 3, name: "코코넛", price: 7 }
+  ]
+  </script>
+
+  <style scoped>
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    color: gray;
+  }
+
+  .item {
+    color: gray;
+    font-size: 14px;
+  }
+
+  .item:hover {
+    color: pink;
+  }
+  </style>
+
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
+  http://localhost:3000
