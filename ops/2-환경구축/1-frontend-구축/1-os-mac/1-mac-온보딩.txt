@@ -15,9 +15,8 @@
 
 1. 시스템 환경설정
   최적화된 배터리 충전 켜기 : 왼쪽상단 애플 마크 -> 시스템환경설정 -> 배터리 -> 배터리탭 -> 최적화된 배터리 충전
-  배터리모드 절전 설정 : 배터리 -> 배터리탭 -> 디스플레이 끄기 1시간
-  어탭터모드 절전 설정 : 어탭터 -> 어탭터탭 -> 디스플레이 끄기 3시간
-  * "디스플레이끄기"가 "배터리탭"에 없을 경우 "화면잠금" 설정안에 있음
+  배터리모드 절전 설정 : 배터리 -> 배터리탭 -> 디스플레이 끄기 1시간 * "디스플레이끄기"가 "배터리탭"에 없을 경우 "화면잠금" 설정안에 있음
+  어탭터모드 절전 설정 : 어탭터 -> 어탭터탭 -> 디스플레이 끄기 3시간 * "디스플레이끄기"가 "배터리탭"에 없을 경우 "화면잠금" 설정안에 있음
   화면보호기 설정 : 화면보호기 검색 -> Flurry 선택
   마우스, 마우스 스크롤 설정 : 마우스 검색 -> 속도 최고 빠름에서 두단계 아래, 자연스러운 스크롤 선택 해제
 
@@ -167,7 +166,7 @@
   git alias는 터미널에서 다음을 입력하면 된다.
     $ git config --global alias.fetch 'fetch origin'
     $ git config --global alias.pull 'pull origin current'
-    $ git config --global alias.push-f 'push --force-with-lease origin current'
+    $ git config --global alias.push-f 'push --force-with-lease'
     * 사용해보기 : fetch, pull, git push-f origin ..., ...
 
 
