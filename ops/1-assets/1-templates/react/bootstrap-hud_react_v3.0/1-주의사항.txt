@@ -1,0 +1,7 @@
+- 주의사항
+"syntax 안에서는 npm i로 설치하지 말자."
+syntax 특성상 .gitignore에 node_modules를 추가하지 않기 때문에, 50mb 용량 제한이 걸려버린다.
+
+- 사용하려면...
+"다른 레포를 판 뒤" .gitignore에 node_modules를 추가해서 npm으로 설치하자.
+이때를 위해 ".gitignore" 파일을 현재 폴더에 추가해둔다.
