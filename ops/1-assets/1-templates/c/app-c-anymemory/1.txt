@@ -1,3 +1,0 @@
-안녕하세요;hello
-배고파요;hungry
-잠자요;sleep

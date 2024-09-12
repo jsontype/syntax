@@ -1,6 +1,0 @@
-<!-- table-responsive -->
-<div className="table-responsive">
-  <table className="table">
-    ...
-  </table>
-</div>
