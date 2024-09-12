@@ -1,6 +1,0 @@
-<!-- caption -->
-<table className="table">
-  <caption>List of users</caption>
-  <thead>...</thead>
-  <tbody>...</tbody>
-</table>

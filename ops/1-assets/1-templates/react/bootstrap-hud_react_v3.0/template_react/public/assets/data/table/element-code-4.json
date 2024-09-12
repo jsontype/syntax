@@ -1,4 +1,0 @@
-<!-- table-bordered -->
-<table className="table table-bordered">
-  ...
-</table>
