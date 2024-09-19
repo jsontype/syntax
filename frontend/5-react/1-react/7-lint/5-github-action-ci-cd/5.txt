@@ -7,7 +7,8 @@
   $ cd app1
   $ git checkout master
 
-1. CI/CD (지속적 통합/배포)
+1. CI/CD (지속적 통합/배포)란?
+  CI, CD의 yml 파일을 등록해두면, "push했을 때 PR 페이지에서 CI 테스트가 자동으로 돌아가게" 할 수 있다.
   CI/CD의 뜻은, 지속적인 통합/서비스제공/배포이다. (= Continuous Integration/Delivery/Deployment)
   CI/CD가 하는 일은, 애플리케이션 개발 단계를 자동화한다. 
   새로운 코드의 통합으로 인해 개발 및 운영팀에 발생하는 문제(일명 통합 지옥)를 해결하기 위한 솔루션이다.
