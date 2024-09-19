@@ -1,0 +1,65 @@
+[Husky]
+
+1. husky란?
+  husky는 "Git 훅은 특정 Git 작업이 발생할 때 자동으로 실행되는 스크립트"이다.
+  즉, "코드를 커밋하거나 푸시할 때 특정 작업을 실행"할 수 있다.
+  husky를 사용하면 코드 품질을 유지하고, 테스트를 자동화하며, 프로젝트의 코드 스타일을 일관되게 유지하는 데 큰 도움이 된다.
+
+1. husky로 할 수 있는 것들
+  prettier(포맷 검증), eslint(스크립트 검증), commit lint(커밋 메시지 검증), jest(테스트 검증) 등
+
+1. 일반 현장 스탠다드
+  일반적으로는 "lint-staged"를 사용하여 커밋할 파일만 검사하도록 설정하고,
+  "pre-commit" 훅을 추가하여 커밋 전에 코드 스타일 검사를 실행하도록 설정한다.
+
+
+
+[Husky의 Git Hooks를 이용해서 테스트 자동화]
+
+1. husky 설정
+  - github에서 레포지토리의 클론을 딴 뒤, 프로젝트 폴더로 이동
+  - husky 설치
+    $ npm install -D Husky
+
+1. git hooks 설정
+  - git hooks 활성화
+    $ npx husky install
+  - pre-commit 훅 추가: 커밋전에 "모든" 코드의 스타일 검사를 실행하도록 설정
+    $ npx husky add .husky/pre-commit "npm run lint"
+  - pre-push 훅 추가: 푸시전에 테스트를 실행하도록 설정
+    $ npx husky add .husky/pre-push "npm test"
+
+1. 테스트
+  $ git add .
+  $ git checkout -b feat/add_husky
+  $ git commit -m "feat: husky"
+  $ git push origin master
+   
+
+
+[lint-staged를 설정하여 커밋할 파일만 검사하도록 설정]
+
+1. lint-staged 설정
+  - lint-staged 설치
+    $ npm install -D lint-staged
+  
+1. package.json 수정 : lint-staged 추가
+  {
+    "lint-staged": {
+      "*.js": "eslint --fix"
+    }
+  }
+
+1. pre-commit 훅 수정: lint-staged 실행하도록 설정
+  - pre-commit 또는 pre-push 훅 추가 (양자택일): 커밋전에 혹은 푸시전에 "커밋한 파일만" 코드 스타일 검사를 실행하도록 설정
+    $ npx husky add .husky/pre-commit "npx lint-staged"
+    $ npx husky add .husky/pre-push "npx lint-staged"
+  - pre-push 훅 추가: 푸시전에 테스트를 실행하도록 설정
+    $ npx husky add .husky/pre-push "npm test"
+
+1. 테스트
+  $ git add .
+  $ git checkout -b feat/add_husky
+  $ git commit -m "feat: husky"
+  $ git push origin master
+ 
