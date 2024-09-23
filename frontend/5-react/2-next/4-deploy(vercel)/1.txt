@@ -17,7 +17,7 @@
     * 빌드가 성공하면 다음으로 넘어가며, 실패하면 에러의 처리를 한다.
   vercel.com에 접속한다.
   Github로 회원가입한다.
-  vercel.com에 재접속한뒤, "Create a New Project"를 클릭한다.
+  vercel.com에 재접속한뒤, "Create(또는 Add) a New Project"를 클릭한다.
   "Import Git Repository"를 클릭한다.
   bbs 레포지토리 옆의 "Import" 버튼을 누른다.
   "Configure Project"의 폼을 작성한다.
