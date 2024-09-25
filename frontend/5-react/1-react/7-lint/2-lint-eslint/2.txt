@@ -91,3 +91,24 @@
   $ npm run lint // 에러 찾기
   $ npm run lint:fix // 에러 수정
   src/App.js 코드가 실제로 수정되었는지 확인 : class가 className으로 바뀌는지 확인
+
+1. ★필독: eslint의 fix 기능에 대한 흔한 오해
+  eslint 룰에 의해 보고된 문제(error, warn)는 
+  fix를 통해 고칠 수 있는 "fixable"한 것도 있지만, "not fixable"한 것들도 있다.
+  "fixable"의 예를 들면, object-shorthand 규칙에 의해 보고된 문제는 "eslint --fix" 커맨드를 통해 자동으로 수정될 수 있다.
+    ```
+      const obj = { foo: foo }
+    ```
+    의 경우,
+    ```
+      const obj = { foo }    
+    ```
+    로 자동수정됨
+  "not fixable"의 예를 들면, sort-imports의 경우, import 순서에 관한 룰인데, 그 중 일부가 자동으로 수정되지 않는다.
+  ```
+    import  { a, b } from 'bar.js' ;
+    // not fixable: bar.js는 foo.js 이전에 import 하면 안되는 상황. 이 경우는 사람이 직접 수정해야한다.
+    import  { d, c } from 'foo.js' ;
+    // fixable: c, d의 순서로 써야한다.
+  ```
+  이런 경우 편집기의 suggestion을 활용해서 수정하도록 하자.
