@@ -12,19 +12,14 @@
     다운로드한 파일을 실행시키면 nvm이 설치가 된다.
     vscode를 재기동
     $ nvm -v
-  - nvm 설치 (Windows)
-    다음 주소에서 nvm-setup.exe 파일을 다운로드 : https://github.com/coreybutler/nvm-windows/releases
-    다운로드한 파일을 실행시키면 nvm이 설치가 된다.
-    vscode를 재기동
-    $ nvm -v
   - nvm 사용하는 법 (Windows)
     $ nvm list available : 설치할 수 있는 Node.js 목록을 표시한다.
     $ nvm install 18.16.0 : 특정 버전의 Node.js를 설치한다.
     $ nvm use 18.16.0 : 특정 버전의 Node.js를 사용한다.
     $ nvm uninstall 18.16.0 : 특정 버전의 Node.js를 삭제한다.
     $ nvm list : 현 nvm로 로컬에 설치된 node의 리스트를 확인한다.
-1. logicool g hub
-1. microsoft store에서 powertoys 설치 : 맥의 spotlight, spectacle 기능을 윈도우에서 쓸 수 있게 해줌
+1. (skip) logicool g hub
+1. (skip) microsoft store에서 powertoys 설치 : 맥의 spotlight, spectacle 기능을 윈도우에서 쓸 수 있게 해줌
   alt + space : 맥의 spotlight와 같음
     . : 프로그램 찾기
     ! : 프로그램 찾아서 중지하기
@@ -38,7 +33,7 @@
 [powershell 터미널에 깃 브랜치 표시되도록 세팅하기]
 * 참조 URL: https://ohmyposh.dev/docs/installation/windows
 
-1. oh-my-posh 및 MesloLGM Nerd Font 설치
+1. (skip) oh-my-posh 및 MesloLGM Nerd Font 설치
   "관리자모드"로 powershell 실행
   $ winget install JanDeDobbeleer.OhMyPosh -s winget
   "관리자모드"로 Powershell을 재기동
