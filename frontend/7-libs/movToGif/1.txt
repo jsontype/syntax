@@ -1,0 +1,9 @@
+[ffmpeg]
+참조: https://qiita.com/mikene_koko/items/b132f1e9afef82d589b3
+
+1. 용도
+  맥북의 mov 영상 파일을 gif로 취득하여 화면에서 저용량으로 사용할 수 있게 함
+
+1. 사용방법
+  $ brew install ffmpeg
+  $ ffmpeg -i ~/Desktop/画面収録\ 2020-06-22\ 18.29.41.mov -r 10 ~/Desktop/20200622.gif
