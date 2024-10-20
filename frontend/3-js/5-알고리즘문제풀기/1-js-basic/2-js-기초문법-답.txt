@@ -1,5 +1,3 @@
-
-
 [JS 기초문법 알고리즘 문제풀이]
 
 1. 조건문
@@ -20,8 +18,18 @@ for (let i = 0; i < arr.length; i++) {
 console.log('답: ', sum1)
 
 // 문제(난이도 1/3) : 0부터 10미만의 더하는 코드를 만들어라.
+let sum = 0;
+for (let i = 0; i < 10; i++) {
+    sum += i;
+}
+console.log(sum);
 
 // 문제(난이도 1/3) : 1부터 10까지 곱하는 코드를 만들어라.
+let sum = 0;
+for (let i = 0; i < 10; i++) {
+    sum *= i;
+}
+console.log(sum);
 
 // 문제(난이도 2/3) : arr의 모든 값들을 세제곱(** 3)한 값을 각각 출력하라.
 console.log('답: ')
@@ -30,6 +38,9 @@ for (let i = 0; i < arr.length; i++){
 }
 
 // 문제(난이도 2/3) : arr의 모든 값들이 각각 세제곱(** 3)으로 된 배열을 출력하라.
+let arr = [1, 2, 3, 4, 5];
+let cubedArr = arr.map(num => num ** 3);
+console.log(cubedArr); (예상 결과값은 [1, 8, 27, 64, 125])
 
 // 문제(난이도 2/3) : arr의 각 값들의 2승의 총합을 구하는 반복문을 만들어보라.
 let sum2 = 0

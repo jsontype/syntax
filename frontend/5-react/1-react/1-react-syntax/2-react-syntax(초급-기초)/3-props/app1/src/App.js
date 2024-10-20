@@ -4,14 +4,17 @@ import Hello from './Hello'
 export default function App() {  
   const name = 'Shin'
   const mark = '!'
+  const sayHello = () => {
+    alert('Hello!')
+  }
+  const sayText = (text) => {
+    alert(text)
+  }
 
   return (
     <div className="hello">
-      <Hello />
-      <Hello />
-      <Hello />
       {/* 1. 프롭 준다. */}
-      <Hello name={name} mark={mark} />
+      <Hello name={name} mark={mark} sayHello={sayHello} sayText={sayText} />
     </div>
   )
 }

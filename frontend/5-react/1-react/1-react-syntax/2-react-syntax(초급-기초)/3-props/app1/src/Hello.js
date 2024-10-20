@@ -10,8 +10,11 @@ import React from 'react'
 // }
 
 // 4. 비구조화 할당으로 받는 법 (토글) : props를 여러번 쓰지 않아도 되어 더 편리하므로 더 자주 쓴다.
-export default function Hello({name, mark}) {
-    return (
-        <div>Hello {name} {mark}</div>
-    )
+export default function Hello({name, mark, sayHello, sayText}) {
+  return (
+    <>
+      <div onClick={() => sayHello()}>Say Hello To {name} {mark}</div>
+      <div onClick={() => sayText('Hi!')}>Say Text To {name} {mark}</div>
+    </>
+  )
 }
