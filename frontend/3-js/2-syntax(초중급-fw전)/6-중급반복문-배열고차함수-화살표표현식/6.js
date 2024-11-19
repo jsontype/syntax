@@ -12,7 +12,9 @@ let arr = [1, 3, 3, 4, 4, 5]
 // * return이 있을 시, 더 깔끔하게 변경이 가능하다.
 
 // forEach문 용도 : For 쓰기 싫을 때 쓴다. (리턴 없는 경우만 찾아서)
-arr.forEach((item) => { console.log(item) })
+arr.forEach((item) => {
+  console.log(item)
+})
 // arr.forEach((item, index) => { (item > 3) ? console.log('index ===>', index) : console.log('') })
 // arr.forEach((value, index, arr) => { console.log('value, index, arr ===>', value, index, arr) })
 
@@ -33,14 +35,10 @@ arr.forEach((item) => { console.log(item) })
 // arr.reduce((acc, item) => acc + item / arr.length) // average // * return이 있을 시, {}을 제거해 더 깔끔한 변경이 가능하다.
 // arr.reduce((accumluate, value, index, array) => accumluate + value ) // * return이 있을 시, {}을 제거해 더 깔끔한 변경이 가능하다.
 
-
-
 // ** 반복문으로 값을 나타내는 배열고차함수 findIndex의 경우에도, 화살표함수로 표현이 가능하다.
 // findIndex문 용도 : 「조건」에 해당하는 「최초의 인덱스」 찾기
 // console.log(arr.findIndex((item) => { return item > 3 }))
 // console.log(arr.findIndex((item) => item > 3)) // * return이 있을 시, {}을 제거해 더 깔끔한 변경이 가능하다.
-
-
 
 // 1. 과제: 다음 진도로 넘어가기전에, 이 틀에서 아래 API를 이용해서 movieApp을 한번 만들어보자.
 //     API: https://yts.mx/api/v2/list_movies.json?sort_by=rating
