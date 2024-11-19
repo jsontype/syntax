@@ -11,24 +11,24 @@
 
 // 1. Array Destructuring : [0].. [3].. 인덱스대로 변수명 지정해서 값 설정
 const arr = ["yang", "kang", "shin", "kim"]
-const [user1,,,user4] = arr // arr의 배열에서, 인덱스[0]과 건너뛰어서(= ,,,) 인덱스[3]을 각각 user1, user4에 집어넣는다는 의미
+const [user1, , , user4] = arr // arr의 배열에서, 인덱스[0]과 건너뛰어서(= ,,,) 인덱스[3]을 각각 user1, user4에 집어넣는다는 의미
 console.log(user1, user4)
 
 // 1. Object Destructuring : id.. name.. 키 이름대로 값 설정
 const obj = {
-    id: "yang123",
-    pw: "1324yasdf",
-    userName: "yang"
+  id: "yang123",
+  pw: "1324yasdf",
+  userName: "yang",
 }
 // 비구조화 할당 : 아래 두 코드와 세번째 코드와 같다.
 // const id = obj.id
 // const name = obj.name
-const {id, userName} = obj // 리액트에서 자주 씀
+const { id, userName } = obj // 리액트에서 자주 씀
 console.log(id, userName)
 
 // 1. Object Destructuring : myId, myName으로 키 이름 바꿔서 값 설정
 // 비구조화 할당 : 아래 두 코드와 세번째 코드와 같다.
 // const myId = obj.id
 // const myName = obj.name
-const {id: myId, userName: myName} = obj
+const { id: myId, userName: myName } = obj
 console.log(myId, myName)

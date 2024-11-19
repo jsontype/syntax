@@ -1,7 +1,5 @@
 [Hooks, For와 함께 배열 렌더링된 상태에서 CRUD 구현]
 
-
-
 1. 리액트에서 배열을 수정하는 방법 : push, splice, sort 등의 함수를 사용하면 안 된다. 대신 기존의 배열을 한번 복사하고 나서 수정한 뒤, 갈아 끼워야 한다.    
     선언
         const arr = [] 대신, const [arr, setArr] = useState([])을 사용한다.

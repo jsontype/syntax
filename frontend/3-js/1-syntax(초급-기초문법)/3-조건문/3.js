@@ -39,22 +39,20 @@ if (!a) {
 // 이 연산자는 어떤 값의 "진리값(truthiness)"을 불리언 값(true 또는 false)으로 변환하는 데 사용된다.
 // !! 연산자를 사용하는 주된 이유는 어떤 값이 명시적으로 true 또는 false인지 확인하고 싶을 때입니다.
 // 예를 들어, 어떤 옵션이 있는지 없는지를 불리언 값으로 표현하고 싶을 때 유용하다.
-//  연산자는 주로 이는 조건문, 불리언 값을 요구하는 함수 인자, 또는 조건적 렌더링 등에서 유용하게 사용될 수 있다. 
-const options = {};
+//  연산자는 주로 이는 조건문, 불리언 값을 요구하는 함수 인자, 또는 조건적 렌더링 등에서 유용하게 사용될 수 있다.
+const options = {}
 // !!를 사용하여 options 객체가 비어있지 않은지 확인 (항상 true 반환, 객체 자체가 'truthy'이기 때문)
 if (!!options) {
-  console.log("options는 'truthy'입니다.");
+  console.log("options는 'truthy'입니다.")
 } else {
-  console.log("options는 'falsy'입니다.");
+  console.log("options는 'falsy'입니다.")
 }
 
 // ?? 논리연산자 :(Nullish Coalescing) : ES2020에서 도입되었다. 어떤 값을 명시적으로 불리언 값으로 변환할 때 사용된다.
-// 이 연산자는 왼쪽 피연산자가 null이나 undefined일 경우에만 오른쪽 피연산자의 값을 반환하고, 그렇지 않으면 왼쪽 피연산자의 값을 반환한다. 
+// 이 연산자는 왼쪽 피연산자가 null이나 undefined일 경우에만 오른쪽 피연산자의 값을 반환하고, 그렇지 않으면 왼쪽 피연산자의 값을 반환한다.
 // || 연산자와 비슷하지만, 0, NaN, 빈 문자열과 같이 "falsy"하지만 유효한 값들을 "falsy"로 간주하지 않는다는 차이가 있다.
-const output = input ?? "기본값";
-console.log(output); // 빈 문자열인 ""를 출력 ("", 이 경우 빈 문자열은 유효한 값으로 간주)
-
-
+const output = input ?? "기본값"
+console.log(output) // 빈 문자열인 ""를 출력 ("", 이 경우 빈 문자열은 유효한 값으로 간주)
 
 // 문제
 // apple = 5
@@ -120,17 +118,17 @@ console.log("토글 2회 실행 값: ", toggle)
 
 if (true) {
   // 이 부분은 실행된다. true는 truthy이다.
-  console.log("truthy");
+  console.log("truthy")
 }
 
 if ("Hello") {
   // 이 부분은 실행된다. 'Hello'는 truthy한 문자열이다.
-  console.log("truthy");
+  console.log("truthy")
 }
 
 if ({}) {
   // 이 부분은 실행된다. 빈 객체는 truthy이다.
-  console.log("truthy");
+  console.log("truthy")
 }
 
 /*
@@ -146,17 +144,17 @@ if ({}) {
 
 if (false) {
   // 이 부분은 실행되지 않는다. false는 falsy이다.
-  console.log("falsy");
+  console.log("falsy")
 }
 
 if ("") {
   // 이 부분은 실행되지 않는다. 빈 문자열은 falsy이다.
-  console.log("falsy");
+  console.log("falsy")
 }
 
 if (null) {
   // 이 부분은 실행되지 않는다. null은 falsy이다.
-  console.log("falsy");
+  console.log("falsy")
 }
 
 /*
@@ -169,27 +167,27 @@ if (null) {
 */
 function checkValues1(sth1, sth2, sth3) {
   if (sth1 >= 1) {
-    console.log("sth1은 1 이상이다");
+    console.log("sth1은 1 이상이다")
     if (sth2 >= 2) {
       // 이 줄이 길다고 가정해보자.
-      console.log("sth2는 2 이상이다");
+      console.log("sth2는 2 이상이다")
       if (sth3 >= 3) {
         // 이 줄이 길다고 가정해보자.
-        console.log("sth3는 3 이상이다");
+        console.log("sth3는 3 이상이다")
       } else {
         // 이 줄이 길다고 가정해보자.
-        console.log("sth3는 3 미만이다");        
+        console.log("sth3는 3 미만이다")
       }
       // ... 이런 코딩이 반복될수록 코드의 가독성은 최악이 될 것이다.
     } else {
-      console.log("sth2는 2 미만이다");
+      console.log("sth2는 2 미만이다")
     }
   } else {
-    console.log("sth1은 1 미만이다");
+    console.log("sth1은 1 미만이다")
   }
 }
 // 함수 사용 예: sth1, sth2, sth3에 해당하는 값을 대입
-checkValues1(3, 4, 5);
+checkValues1(3, 4, 5)
 
 /*
   if return 문을 사용할 때의 장점 : 
@@ -198,23 +196,21 @@ checkValues1(3, 4, 5);
     중첩을 줄이고 오류 가능성을 감소시키는 데 도움이 된다.
 */
 function checkValues2(sth1, sth2, sth3) {
-  if (sth1 < 1) {
-    return "sth1은 1 미만이다";
-  }
+  if (sth1 < 1) return "sth1은 1 미만이다"
   // 이 줄이 길다고 가정해보자.
-  console.log("sth1은 1 이상이다");
+  console.log("sth1은 1 이상이다")
   if (sth2 < 2) {
-    return "sth2는 2 미만이다";
+    return "sth2는 2 미만이다"
   }
   // 이 줄이 길다고 가정해보자.
-  console.log("sth2는 2 이상이다");
+  console.log("sth2는 2 이상이다")
   if (sth3 < 3) {
-    return "sth3는 3 미만이다";
+    return "sth3는 3 미만이다"
   }
   // 이 줄이 길다고 가정해보자.
-  console.log("sth3는 3 이상이다");
+  console.log("sth3는 3 이상이다")
   // ... 이런 코딩은 반복되어도 코드의 가독성이 낮아지지 않는다.
-  return "모든 조건을 만족";
+  return "모든 조건을 만족"
 }
-// 함수 사용 예: sth1, sth2, sth3을 적절한 값으로 대체
-console.log(checkValues2(3, 4, 5)); 
+// // 함수 사용 예: sth1, sth2, sth3을 적절한 값으로 대체
+// console.log(checkValues2(3, 4, 5))

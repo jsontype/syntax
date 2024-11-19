@@ -9,7 +9,7 @@ let arr = [1, 3, 3, 4, 4, 5]
 
 // for문 용도 : 막코딩
 for (let i = 0; i < arr.length; i++) {
-    console.log('arr[i] ===>', arr[i]) // 값
+  console.log("arr[i] ===>", arr[i]) // 값
 }
 
 // 배열고차함수
@@ -17,7 +17,11 @@ for (let i = 0; i < arr.length; i++) {
 // 배열고차함수에는 forEach, map, find, findIndex, filter, reduce, sort, some, every등이 있다.
 
 // forEach문 용도 : For 쓰기 싫을 때 쓴다. (리턴 없는 경우만 찾아서)
-// arr.forEach(function (item) { console.log(item) }) // 배열값들을 함수처리
+// arr.forEach(function (item, index, arr) {
+//     console.log(item)
+//     console.log(index)
+//     console.log(arr)
+//   }) // 배열값들을 함수처리
 
 // map문 용도 : 배열값 수정해서 새 배열 만들 때(배열 길이는 유지)
 // arr.map(function (item) { return item + 1 }) // newArr === [2, 4, 4, 5, 5, 6]
@@ -32,8 +36,6 @@ for (let i = 0; i < arr.length; i++) {
 // < 정리 >
 // 속도 비교 : for > reduce > filter > forEach > map >>> $.each(jquery)
 // * 함수형 반복문은, 파라미터를 늘리면, value, index, array자체 모두를 취할 수 있다.
-
-
 
 // 1. 문제 : 다음 함수를, 숫자 배열이 주어졌을 때, 10보다 큰 숫자의 "개수"를 반환하는 함수로 만들어라.
 // function countBiggerThanTen(numbers) {}
