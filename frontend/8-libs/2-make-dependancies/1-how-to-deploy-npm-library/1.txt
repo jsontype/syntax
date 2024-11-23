@@ -1,0 +1,92 @@
+[npm 라이브러리 만들기]
+
+1. 라이브러리를 만들고, 오픈 소스에 기여하기
+
+1. 라이브러리용 폴더 생성
+  $ mkdir app1-test
+  $ cd app1-test
+  $ npm init
+
+1. index.js 작성: 기본 코드 만들기
+  function add(a, b) {
+      return a + b;
+  }
+  module.exports = { add };
+
+1. tsconfig.json 작성: TypeScript 설정 (선택사항)
+
+1. git repo에 연결하기 (선택사항)
+
+1. .gitignore 작성 (선택사항)
+  node_modules
+  dist
+
+1. test 라이브러리 설치 (선택사항)
+  $ npm i jest
+
+1. test/index.test.js 작성: test 코드 작성 (선택사항)
+  const { add } = require('../src/index');
+  test('adds 1 + 2 to equal 3', () => {
+      expect(add(1, 2)).toBe(3);
+  });
+
+1. package.json 수정: package.json에 빌드 스크립트를 추가하여 트랜스파일 과정을 자동화. "test" 스크립트의 경우, jest를 설치했다면 "test": "jest"로 하면 됨
+  {
+    "name": "app1-test",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "build": "babel src -d dist"
+    },
+    "author": "",
+    "license": "ISC"
+  }
+
+1. npm library에 배포하기
+  $ npm login
+  $ npm publish
+
+
+
+[npm 라이브러리 쓰기]
+
+1. 앱 용 폴더 생성
+  cd..
+  $ mkdir app1-use
+  $ cd app1-use
+  $ npm init -y
+
+1. 만든 라이브러리를 앱에 설치
+  $ npm i app1-test
+
+1. index.js 작성: 라이브러리를 불러와서 사용하는 코드 작성
+  const { add } = require("app1-test")
+  console.log(add(1, 2)) // 출력: 3
+
+1. package.json 수정: start 스크립트 추가
+  {
+    "name": "app1-use",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "node index"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "app1-test": "^1.0.0"
+    }
+  }
+
+1. 테스트: app1-use 위치에서 실행
+  $ npm start
+
+1. 요약
+  다른 프로젝트에서 npm install my-library 명령어로 설치한 후, require('my-library')를 통해 불러온다.
+  불러온 함수(add)를 사용해 원하는 기능을 실행할 수 있다.
+  이 과정으로, 라이브러리를 배포하고 다른 프로젝트에서 사용하는 방법까지 완성이다.
