@@ -1,4 +1,4 @@
-[Svelte 반복문]
+[SvelteKit 반복문]
 
 1. src/routes/for/+page.svelt 생성: 루프 렌더링 사용해보기
   <ul>

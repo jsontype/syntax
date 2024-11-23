@@ -1,4 +1,4 @@
-[Svelt 자식컴포넌트와 프롭스]
+[SvelteKit 자식컴포넌트와 프롭스]
 
 1. vite.config.js 수정: 컴포넌트를 임포트할 때 src를 절대경로로 편하게 사용하기 위해, resolve: { alias: { src: '/src' } } 추가하기
   # import { sveltekit } from '@sveltejs/kit/vite';

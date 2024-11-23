@@ -1,4 +1,4 @@
-[Svelt 조건문]
+[SvelteKit 조건문]
 
 1. src/routes/if/+page.svelt 생성: if, else 조건부 렌더링 사용해보기
   {#if loggedIn}

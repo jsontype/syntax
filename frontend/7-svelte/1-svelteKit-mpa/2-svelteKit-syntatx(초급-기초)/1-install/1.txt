@@ -1,4 +1,4 @@
-[Svelt]
+[SvelteKit]
 
 1. 설치
   $ nvm use 18.18.0 // .zshrc에 넣어두는 것을 추천
