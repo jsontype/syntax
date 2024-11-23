@@ -1,0 +1,41 @@
+[Svelt 자식컴포넌트와 프롭스]
+
+1. vite.config.js 수정: 컴포넌트를 임포트할 때 src를 절대경로로 편하게 사용하기 위해, resolve: { alias: { src: '/src' } } 추가하기
+  # import { sveltekit } from '@sveltejs/kit/vite';
+  # import { defineConfig } from 'vite';
+
+  # export default defineConfig({
+  #   plugins: [sveltekit()],
+    resolve: {
+      alias: {
+        src: '/src', // src 경로 설정
+      },
+  #   },
+  # });
+
+1. src/components/MessageComponent/index.svelte 생성: 
+  <!-- Props -->
+  <p>{message}</p>
+  <h1>{count}</h1>
+
+  <script>
+  // Props로 받는 변수들은 export let으로 선언해야 한다.
+  export let message;
+  export let count;
+  </script>
+
+1. src/routes/props/+page.svelt 생성: 자식컴포넌트를 임포트하고, 프롭스를 지정해주며 사용해보기
+  <!-- Props 보내면서 자식 Component에 보낼 수 있다. -->
+  <MessageComponent message="Hello world" count={count} />
+  <button on:click={() => count++}>+</button>
+  <button on:click={() => count--}>-</button>
+
+  <script>
+    import MessageComponent from 'src/components/MessageComponent/index.svelte';  
+    let count = 0;
+  </script>
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
+  http://localhost:5173

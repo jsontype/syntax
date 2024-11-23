@@ -1,0 +1,17 @@
+[Svelte 반복문]
+
+1. src/routes/for/+page.svelt 생성: 루프 렌더링 사용해보기
+  <ul>
+    {#each items as item}
+      <li>{item}</li>
+    {/each}
+  </ul>
+
+  <script>
+    let items = ["Apple", "Banana", "Cherry", "Pine Apple"];
+  </script>
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
+  http://localhost:5173
