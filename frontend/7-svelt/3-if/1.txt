@@ -1,0 +1,19 @@
+[Svelt 변수]
+
+1. src/routes/var/+page.svelt 생성 : 라우터 사용해보기
+  <main>
+    <button on:click={() => count++}>
+      Count: {count}
+    </button>
+    <p>Double: {double}</p>
+  </main>
+  
+  <script>
+    let count = 0;
+    $: double = count * 2;
+  </script>
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
+  http://localhost:5173

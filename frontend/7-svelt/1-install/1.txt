@@ -4,9 +4,6 @@
   $ nvm use 18.18.0 // .zshrc에 넣어두는 것을 추천
   $ npx sv create app1 // app1이라는 이름의 프로젝트 생성
   선택: minial, no, library 없이
-  $ cd app1
-  $ npm run dev
-  $ http://localhost:5173 접속
 
 1. 구조
   - static: 정적 파일 (이미지 등)
@@ -14,3 +11,25 @@
     - lib: 라이브러리
     - routes: 페이지
     - app.html: html 문서
+
+
+  
+1. src/routes/about/+page.svelt 생성 : 라우터 사용해보기
+  <main>
+    <h1 class="title">Hello {name}!</h1>
+  </main>
+
+  <script>
+  let name = "Svelte";
+  </script>
+
+  <style>
+  .title {
+    color: blue;
+  }
+  </style>
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
+  http://localhost:5173
