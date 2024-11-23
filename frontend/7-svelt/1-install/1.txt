@@ -7,3 +7,10 @@
   $ cd app1
   $ npm run dev
   $ http://localhost:5173 접속
+
+1. 구조
+  - static: 정적 파일 (이미지 등)
+  - src/
+    - lib: 라이브러리
+    - routes: 페이지
+    - app.html: html 문서
