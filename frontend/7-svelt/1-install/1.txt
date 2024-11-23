@@ -1,0 +1,9 @@
+[Svelt]
+
+1. 설치
+  $ nvm use 18.18.0 // .zshrc에 넣어두는 것을 추천
+  $ npx sv create app1 // app1이라는 이름의 프로젝트 생성
+  선택: minial, no, library 없이
+  $ cd app1
+  $ npm run dev
+  $ http://localhost:5173 접속
