@@ -19,7 +19,7 @@
 1. husky 설정
   - github에서 레포지토리의 클론을 딴 뒤, 프로젝트 폴더로 이동
   - husky 설치
-    $ npm install -D Husky
+    $ npm install -D husky
 
 1. git hooks 설정
   - git hooks 활성화
