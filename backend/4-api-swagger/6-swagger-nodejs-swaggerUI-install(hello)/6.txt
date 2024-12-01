@@ -1,0 +1,40 @@
+[Node.js Swagger UI 패키지 사용 - Swagger UI를 사용해서 API 수정할 준비하기]
+
+1. app.js 수정 : Swagger UI를 사용해서 API 수정할 준비하기
+    'use strict';
+
+    var SwaggerExpress = require('swagger-express-mw');
+    // 1. SwaggerUI 미들웨어를 불러온다.
+    var SwaggerUI = require('swagger-tools/middleware/swagger-ui');
+
+    var app = require('express')();
+    module.exports = app;
+
+    var config = {
+        appRoot: __dirname
+    };
+
+    SwaggerExpress.create(config, function(err, swaggerExpress) {
+        if (err) { throw err; }
+
+        // 2. 서버쪽에 host주소/포트번호를 설정한다.
+        swaggerExpress.runner.swagger.host = '127.0.0.1:10010';
+        // 3. swaggerUI 미들웨어를 연동한다.
+        app.use(SwaggerUI(swaggerExpress.runner.swagger));
+        swaggerExpress.register(app);
+
+        var port = process.env.PORT || 10010;
+        app.listen(port);
+
+        if (swaggerExpress.runner.swagger.paths['/hello']) {
+            console.log('try this:\ncurl http://127.0.0.1:' + port + '/hello?name=Scott');
+        }
+    });
+
+    
+
+1. 테스트
+    $ cd app1
+    $ swagger project start
+    브라우져에서 동작 확인 : http://127.0.0.1:10010/hello?name=Scott
+    브라우져에서 api/swagger/swagger.yaml에서 작성되어 있는 swagger 문서 확인 : http://127.0.0.1:10010/docs/ 

@@ -1,0 +1,43 @@
+[독립된 웹 문서 형태의 Swagger UI 구동해보기]
+
+1. 독립된 웹 문서 형태의 Swagger UI로 된 Petstore 예제 다운받기
+    깃허브 접속 : https://github.com/swagger-api/swagger-ui
+    download zip
+    압축풀기
+    압축푼 파일중 dist 폴더를 제외하고 모두 삭제
+    app1 폴더에 dist 폴더 넣기
+    dist/index.html 실행
+    petstore 기본예제가 실행된다.
+
+1. 독립된 웹 문서 형태의 Swagger UI 사용해보기
+    스웨거허브 접속 : https://app.swaggerhub.com/ -> Github로 로그인
+    API Export : API2 - Jsonplaceholder API에 들어감 -> 우측상단 Export -> Download API -> YAML Resolved -> 다운된 파일을 가져옴 -> 이름을 api.yaml으로 변경
+    app1 폴더에 api.yaml 파일 넣기
+    http-server를 글로벌로 설치
+        $ npm i -g http-server
+    API 구동 : api.yaml의 위치에서 "관리자 권한으로" Shell 터미널 열기 (* 또는 vscode를 관리자 권한으로 연 뒤 Shell 실행)
+        $ cd app1
+        $ http-server --cors
+        - 만일 http-server --cors 실행시, "http-server : 이 시스템에서 스크립트를 실행할 수 없으므로 ... 파일을 로드할 수 없습니다." 의 에러메시지가 뜨는 경우
+            powershell을 관리자 권한으로 열기
+            권한 확인
+                $ get-ExecutionPolicy
+                결과가 Restricted로 나온다면 권한이 없는 것임
+                - 권한 상태값
+                    Restricted : default설정값으로, 스크립트 파일을 실행할 수 없다.            
+                    AllSigned : 신뢰할 수 있는(서명된) 스크립트 파일만 실행할 수 있다.
+                    RemoteSigned : 로컬에서 본인이 생성한 스크립트와, 신뢰할 수 있는(서명된) 스크립트 파일 실행할 수 있다.
+                    Unrestricted : 모든 스크립트 실행가능
+                    ByPass : 경고/차단 없이 모든 것을 실행가능
+                    Undefined : 권한을 설정하지 않겠음
+            권한 부여
+                $ Set-ExecutionPolicy RemoteSigned
+                $ Y
+            권한 다시 확인
+                $ get-ExecutionPolicy
+                결과가 RemoteSigned로 나온다면 권한부여 성공
+    API 구동 서버 주소가 나온다.
+        http://192.168.3.30:8080/api.yaml 에 접속해서 출력 확인 (http://192.168.3.30:8080/로 접속하면 디렉토리가 나온다)
+    dist/swagger-initializer.js 파일의 url 부분을 http://192.168.3.30:8080/api.yaml 로 수정한다. (만일 api.yaml 내용을 수정할 경우, 기존 캐쉬 삭제 필요)
+    dist/index.html 실행 (또는 http://192.168.3.30:8080/dist 접속) : 정상적으로 Jsonplaceholder API의 Swagger가 출력되는지 확인
+    테스트 : Jsonplaceholder API의 Swagger를 Try it out 해서 작동하는지 확인 (API3 - Google 검색 자동완성은 http 환경이 아니면 허용하지 않아서 패스)

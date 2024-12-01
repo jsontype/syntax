@@ -1,0 +1,127 @@
+[Node.js Swagger UI 패키지 사용 - Plus API 새로 생성하기]
+
+1. api/controllers/hello_world.js 수정 : 새로운 API의 모듈과 함수 작성
+  'use strict';
+
+  var util = require('util');
+
+  module.exports = {
+    hello: hello,
+    // 6. 새로운 API의 모듈 작성
+    plus,
+  };
+
+  function hello(req, res) {
+    var name = req.swagger.params.name.value || 'stranger';
+    var hello = util.format('Hello, %s!', name);
+    res.json(hello);
+  }
+
+  // 7. 새로운 API의 함수 작성
+  function plus(req, res) {
+    let a = req.query.a;
+    let b = req.query.b;
+    let result = Number(a) + Number(b);
+    res.json(String(result));
+  }
+
+
+  
+1. api/swagger/swagger.yaml 수정 : 새로운 API의 API 명세서 작성
+  swagger: "2.0"
+  info:
+    version: "0.0.1"
+    title: Hello World App
+  host: localhost:10010
+  basePath: /
+  schemes:
+    - http
+    - https
+  consumes:
+    - application/json
+  produces:
+    - application/json
+  paths:
+    /hello:
+      x-swagger-router-controller: hello_world
+      get:
+        description: Returns 'Hello' to the caller
+        operationId: hello
+        parameters:
+          - name: name
+            in: query
+            description: The name of the person to whom to say hello
+            required: false
+            type: string
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/HelloWorldResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+    # 8. 새로운 API의 명세서 작성(1) : /hello 이하를 복붙하면 편함
+    /plus:
+      x-swagger-router-controller: hello_world
+      get:
+        description: Plus API
+        operationId: plus
+        parameters:
+          - name: a
+            in: query
+            description: First Value
+            required: true
+            type: integer
+          - name: b
+            in: query
+            description: Second Value
+            required: true
+            type: integer          
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/PlusResponse" # 성공시 리턴값
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse" # 실패시 리턴값
+    /swagger:
+      x-swagger-pipe: swagger_raw
+  # 5. API Key를 설정(2)
+  securityDefinitions:
+    api_key:
+      type: apiKey
+      in: query
+      name: api_key
+  security:
+    - api_key: []
+  definitions:
+    HelloWorldResponse:
+      required:
+        - message
+      properties:
+        message:
+          type: string
+    ErrorResponse:
+      required:
+        - message
+      properties:
+        message:
+          type: string
+    # 9. 새로운 API의 명세서 작성(2) : 리턴 형식 작성
+    PlusResponse:
+      required:
+        - result # 리턴값 명칭
+      properties:
+        result:
+          type: integer # 리턴값 타입
+
+
+
+1. 테스트 : API Key 도입 확인
+  $ cd app1
+  $ swagger project start
+  브라우져에서 동작 확인 : http://127.0.0.1:10010/docs/ -> default -> /plus -> try it out -> a, b에 숫자 입력 -> 우상단 api_key에 'my_key' 입력 -> 정상작동

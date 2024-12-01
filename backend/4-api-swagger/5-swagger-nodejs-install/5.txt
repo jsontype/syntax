@@ -1,0 +1,22 @@
+[Node.js Swagger UI 패키지 사용 - 설치]
+
+1. Node.js Swagger UI 패키지 사용
+    설치형 Swagger(Node.js로 구동되는 서버 안에서 swagger를 이용하도록 설정)를 통해, 
+    API 명세를 직접 기입하지 않고 만들어줘서, 더 빠르게 개발할 수 있는 방법이다.
+
+
+
+1. 설치
+    $ npm i -g swagger
+    $ swagger project create app1
+    express 선택
+    $ cd app1
+    $ swagger project start
+    - at Bagpipes 에러가 뜰 경우 원인과 해결책
+        원인은 버전 문제이다. 해결책은 다음과 같다.
+        app1\node_modules\bagpipes\lib\fittingTypes\user.js 파일에 들어간다.
+        var split = err.message.split(path.sep); 이 행을 찾는다.
+        var split = err.message.split('\n')[0].split(path.sep); 이 내용으로 변경한다.
+    http://127.0.0.1:10010/hello?name=Scott URL 주소가 출력될 것이다. 해당 주소로 접속해보자.
+    http://127.0.0.1:10010/hello?name=yang 으로 query를 바꿔서 던져보자. 내용이 바뀌는 것을 확인할 수 있다.
+    정리 : 이것은, hello라고 하는 아주 간단한 API가 미리 개발되어있는 형태로 제공이 되고 있는 것이다!

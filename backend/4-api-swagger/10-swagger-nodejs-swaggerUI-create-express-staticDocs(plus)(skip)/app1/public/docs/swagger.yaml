@@ -1,0 +1,55 @@
+openapi: 3.0.0
+info:
+  version: "1.0.0"
+  title: "Plus API"
+  description: "두 인자값을 더해주는 간단한 API"
+servers:
+  - description: Plus API
+    url: http://localhost:3000
+host: localhost:3000
+basePath: /
+schemes:
+  - http
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /plus:
+    get:
+      description: Plus API
+      parameters:
+        - name: a
+          in: query
+          description: First Value
+          required: true
+          type: integer
+        - name: b
+          in: query
+          description: Second Value
+          required: true
+          type: integer
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/PlusResponse" # 성공시 리턴값
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse" # 실패시 리턴값
+# 리턴 형식 작성
+definitions:
+  PlusResponse:
+    required:
+      - result # 리턴값 명칭
+    properties:
+      result:
+        type: integer # 리턴값 타입
+  ErrorResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
