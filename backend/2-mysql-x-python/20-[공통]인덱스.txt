@@ -1,0 +1,153 @@
+[인덱스]
+참조: https://stricky.tistory.com/310
+
+1. 인덱스
+정의:
+인덱스를 데이터베이스에서 사용하는 가장 큰 이유는 쿼리의 성능을 높이기 위해서입니다. 
+인덱스는 테이블 내 데이터를 정렬한 뒤 필요로 하는 데이터만 빨리 가지고 오기 위해서 사용을 하게 됩니다.
+예를 들어,
+에버랜드 놀이동산에 들어가서 정문에서부터 T 익스프레스를 타고 싶다면 어디로 가야 할지 에버랜드 지도를 보고 가면 되겠죠?
+뭐 물론, 많이 가보신 분들이야 눈감고도 찾아가시겠지만.. 이런 지도가 없이 에버랜드를 처음 간 사람은 T 익스프레스를 어떻게 찾아야 할까요?
+물론 표지판을 따라서 갈 수 있겠지만 그게 없다면 왼쪽이나 오른쪽 어느 한쪽부터 반대편까지 다 찾아봐야 하는 거죠. 
+그러다가 T 익스프레스를 빨리 만날 수도 있겠지만, 그렇지 못하고 마지막까지 찾아 헤맬지도 모릅니다.
+바로 그때, 이 지도의 역할이 인덱스의 역할을 하는 겁니다. 이 지도 한 장만 있다면 T 익스프레스로 가는 가장 빠른 길을 찾아서 단번에 찾을 수 있을 것입니다.
+데이터베이스 내 테이블 데이터도 마찬가지입니다. 인덱스가 없다면 테이블 데이터 처음부터 끝까지 해당 데이터가 있는지 하나하나 찾아봐야 합니다. 그것이 바로 Full scan입니다. 
+만약 인덱스가 해당 테이블에 있다면 인덱스를 보고 해당 데이터의 위치로 바로 가서 데이터를 가지고 올 수 있겠죠? 그게 바로 index scan이라는 것이죠!
+인덱스가 무엇인지 감이 오시나요?
+사용법:
+CREATE INDEX idx명 ON table명 ( column 1, column 2, ... )
+인덱스를 CREATE 방식으로 테이블에 추가
+ALTER TABLE table명 ADD INDEX idx명 ( column 1, column 2, ... );
+인덱스를 ALTER ADD 방식으로 테이블에 추가
+ALTER TABLE table명 ADD UNIQUE INDEX idx명 (column1, column2);
+유니크 인덱스를 추가
+SHOW INDEX FROM table명
+생성된 인덱스를 조회
+ALTER TABLE table명 DROP INDEX idx명
+인덱스를 삭제
+
+1. 학습 준비
+CREATE TABLE table_15th_index (
+	title       varchar(255) not null comment '게시물제목',
+    content     longtext         null comment '게시물내용',
+    del_flg     tinyint(1)   not null comment '삭제여부' default 0,
+    create_date datetime     not null comment '등록일시' default current_timestamp(),
+    create_user varchar(30)  not null comment '등록자ID',
+    update_date datetime         null comment '수정일시' default current_timestamp(),
+    update_user varchar(30)  not null comment '수정자ID'
+)
+
+INSERT INTO table_15th_index (`title`, `content`, `create_user`, `update_user`) value ('test1', 'content', 'tester1', 'tester1')
+,('test2', 'content', 'tester1', 'tester1')
+,('test3', 'content', 'tester1', 'tester1')
+,('test4', 'content', 'tester1', 'tester1')
+,('test5', 'content', 'tester1', 'tester1')
+,('test6', 'content', 'tester1', 'tester1')
+,('test7', 'content', 'tester1', 'tester1')
+,('test8', 'content', 'tester1', 'tester1')
+,('test9', 'content', 'tester1', 'tester1')
+
+INSERT INTO table_15th_index SELECT * FROM table_15th_index (* 여러번 반복)
+한번 실행할 때마다 게시판 양을 두배로 늘립니다. * PK 설정시 사용 불가능
+
+
+
+1. 인덱스종류1 : 클러스터 인덱스
+정의:
+Primary key 설정 시 자동 생성됩니다. 해당 Primary key 칼럼 데이터가 변경되더라도 항상 정렬을 유지합니다.
+테이블당 1개의 클러스터 인덱스를 생성할 수 있습니다. 
+지정된 칼럼을 기준으로 테이블 내 데이터가 물리적으로 정렬됩니다. 
+테이블이 물리적으로 정렬되므로 인해 리프 노드가 필요 없으며, 추가적인 공간이 필요치 않습니다.
+조회 성능은 빠르지만, insert, update, delete 작업처럼 데이터 변경이 있을 시에는 정렬 작업등으로 인하여 성능이 떨어지게 되는 단점을 가지고 있습니다.
+또한 클러스터 인덱스가 생성 되게 되면 테이블 내 다른 보조 인덱스에 Primary key값을 포함하게 됩니다. 
+이로 인해 보조 인덱스들의 크기가 커질 수 있습니다.
+클러스터 인덱스를 제외한 기타 단일, 복합, 커버드 인덱스는 논 클러스터인덱스라고 부르며, 테이블당 249개 까지 생성이 가능합니다.
+예시:
+예시 없음 (클러스터 인덱스는 PK생성시 PK를 기준으로 자동 취득)
+
+
+
+1. 인덱스종류2 : 논클러스터 인덱스
+1) 단일 인덱스
+정의:
+인덱스 생성 시 하나의 칼럼만 지정하는 경우를 말합니다.
+주로 데이터가 많지 않은 경우 사용하게 됩니다. 주로 사용하는 SQL에 조건이 하나만 걸릴 때 생성하게 됩니다.
+셀렉트문을 통해 속도를 확인해봅시다. (실행시 테이블창 우측에 컬럼수와 함께 0.001s 형태로 속도가 나옵니다.)
+예시:
+ALTER TABLE table_15th_index ADD INDEX single_idx ( create_user )
+SHOW INDEX FROM table_15th_index
+SELECT * FROM table_15th_index
+ALTER TABLE table_15th_index DROP INDEX single_idx 
+
+2) 복합 인덱스
+정의:
+인덱스를 생성할 때 칼럼을 두 개 이상 지정하는 경우를 말합니다.
+주로 사용하는 조회 쿼리에 조건이 많이 걸린다면 고려해볼 만한 인덱스입니다.
+복합 인덱스 역시 단일 인덱스와 마찬가지로 
+데이터베이스 내 테이블과 다른 공간에 해당 데이터를 가지고 와서 정렬하기 때문에 데이터베이스 내 용량을 점유하게 됩니다.
+셀렉트문을 통해 속도를 확인해봅시다. (실행시 테이블창 우측에 컬럼수와 함께 0.001s 형태로 속도가 나옵니다.)
+예시:
+ALTER TABLE table_15th_index ADD INDEX complex_idx ( create_user, create_date )
+SHOW INDEX FROM table_15th_index
+SELECT * FROM table_15th_index
+ALTER TABLE table_15th_index DROP INDEX complex_idx 
+
+3) 커버드 인덱스
+정의:
+커버드 인덱스란, SQL내에서 출력하는 칼럼 및 조건에 삽입된 칼럼이 모두 인덱스에 정보가 있어서
+실제 테이블을 조회하지 않고도 데이터를 가지고 올 수 있는 경우에 사용되는 인덱스를 말합니다.
+커버드 SQL이라고도 하며, 성능적인 측면만 고려할 시 가장 좋은 방법일 수 있습니다.
+이 인덱스로 지정하는 것이 SELECT문의 응답이 가장 빠릅니다.
+셀렉트문을 통해 속도를 확인해봅시다. (실행시 테이블창 우측에 컬럼수와 함께 0.001s 형태로 속도가 나옵니다.)
+예시:
+ALTER TABLE table_15th_index ADD INDEX covered_idx ( title, del_flg, create_date, create_user, update_user, update_user ) : 제한이 3072바이트 이상인 컬럼은 안되므로 content는 뺍니다.
+SHOW INDEX FROM table_15th_index
+SELECT * FROM table_15th_index 
+ALTER TABLE table_15th_index DROP INDEX covered_idx 
+
+
+
+2. 인덱스의 장단점, 기준, 부작용 등
+1) 인덱스 생성시의 장점:
+인덱스의 장점이자 사용하는 이유는,
+인덱스 사용에 따른 DML 조작시의 성능에 영향을 주기 때문입니다.
+그 영향은 아래와 같습니다.
+DML 종류                  : 클러스터 인덱스(PK) => 싱글 인덱스 => 복합 인덱스 => 커버드 인덱스
+SELECT 성능               :                                                         => 좋은
+INSERT DELETE UPDATE 성능 :                                                         => 나쁜
+
+2) ★인덱스 생성의 기준
+첫째, Primary key 칼럼이 있다면 생성할 필요 없습니다.
+    Primary key가 부여된 칼럼에는 위에서 언급했다시피 클러스터 인덱스가 생성됩니다. 
+    또한 Unique제약 조건이 걸려있는 칼럼 또한 마찬가지입니다. 
+    위 두 가지 제약조건이 적용된 칼럼에는 인덱스를 따로 추가할 필요가 없습니다.
+둘째, 테이블 내 데이터가 많을 때 만듭니다.
+    테이블 내 데이터가 많지 않을 때는 Full scan이 Index scan보다 더 빠를 수 있습니다.
+    인덱스는 테이블 내 데이터가 많으면 많을수록 더 극명한 효과를 가지고 올 수 있습니다.
+셋째, Cardinality가 높은 컬럼에 생성
+    Cardinality란 어떤 칼럼 내 값의 분산도를 말합니다. 
+    예를 들어, 주민등록번호 칼럼과 성별이 들어있는 칼럼을 생각해보면, 
+    유일한 값인 주민등록번호가 들어간 칼럼은 Cadinality가 높다라고 이야기할 수 있으며, 
+    성별은 단 두 개의 데이터만 들어가 있으므로 Cardinality가 낮다고 표현할 수 있습니다.
+    즉, Cardinality가 높은 칼럼에 인덱스를 생성하는 것이 유리합니다.
+넷째, SELECT시에 사용하는 조건절에 따라, 인덱스를 사용할 수 없는 조건절이 있으니 이를 참고합니다.
+    ! Eqaul이 아닌 비교연산자를 사용할 경우
+        WHERE 컬럼명 <> 'Y' 
+        WHERE 컬럼명 NOT IN (1, 2, 3)
+        WHERE 컬럼명 NOT BETWEEN 1 AND 10
+        WHERE 컬럼명 IS NOT NULL (Mysql 에서는 가능)
+        WHERE col_name like '%TEST'
+    ! Function을 사용하는 경우
+        WHERE substring(col_name , 1) = 'A'
+    ! 데이터 타입이 서로 다른 경우
+        char_col = 10 (char형 컬럼에 숫자형을 조건으로 입력 하는 경우)
+
+3) 인덱스의 부작용
+첫째, 오버헤드입니다.
+    테이블에 데이터가 insert, update, delete 될 때 인덱스 역시 갱신이 이루어집니다. 
+    이때 인덱스를 갱신하는 것을 오버헤드라고 표현하는데, 그만큼 insert, update, delete 작업이 느려질 수 있습니다. 
+    대신 그만큼 select는 빨라 지겠지만요.
+둘째, 오사용의 문제가 있습니다.
+    한 개의 테이블에 다수의 인덱스를 생성하게 되면 옵티마이저가 실행계획을 만들 때 의도하지 않은 인덱스를 사용하게 될 수 있습니다.
+    옵티마이저가 만능이 아니기 때문에 이런 문제가 발생할 수 있습니다.
+    그래서 사용자는 테이블에 인덱스를 생성할 때 무조건 생성하는 것이 아니라 필요한 곳에 적재적소에 생성을 하길 바랍니다.
