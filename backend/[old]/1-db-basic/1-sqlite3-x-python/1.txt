@@ -9,7 +9,7 @@
     사용자가 필요하고 원하는 것을 관계형 데이터베이스(RDBMS)에게 요청(쿼리)하는 걸 이야기합니다. 
     사용자가 원하는 것을 정확하게 표현해서 이야기해야 데이터베이스도 쿼리에 알맞은 정확한 답변을 내놓을 수 있겠죠.
     그러려면 정확하게 데이터베이스에 질의(쿼리)하는 방법을 알아야 합니다.
-    RDBMS에는 여러 가지 종류(sqlite, oracle, mysql, mariadb, ms-sql, postgresql, greenplum 등등)가 있지만, 이걸 다 따로따로 공부할 필요는 없습니다.
+    RDBMS에는 여러 가지 종류(sqlite, oracle, mysql, mariadb, ms-sql, postgre 등등)가 있지만, 이걸 다 따로따로 공부할 필요는 없습니다.
     하나의 데이터베이스를 골라 SQL를 공부하시면, 그 어떤 RDBMS에서도 능숙하게 사용할 수 있습니다.
     마치, 우리가 아반떼로 운전을 배웠는데, 갑자기 그랜저 등을 운전하게 되더라도 약간의 다른 사용법만 숙지한다면 
     다른 차량을 운전을 하는데 큰 문제가 없는 것처럼 말입니다.
@@ -27,7 +27,7 @@
     DDL.py을 실행
     데이터베이스 study1.db를 A5M2에 추가
     해당 db의 <default>를 연다.
-    *.py를 실행해서 sql 쿼리를 커밋    
+    python *.py를 실행해서 sql 쿼리를 커밋    
     <default>에서 ctrl + F5로 새로고침하여 커밋 내용 확인
 
 1. SQL 학습 순서
@@ -38,3 +38,7 @@
     4) 현장에 있는 타인의 SQL을 훔쳐보면서 "왜 이렇게 결과가 나왔을까?", "어떤 테이블이 어떤 테이블과 어떻게 Join 되었을까?" 이런 궁금증을 가지고 확인해본다.
 
 1. SQLite3는 DDL CRUD와 DML SIDU의 최소한의 기능만을 가지고 있으므로, 기본수업은 여기까지만 가능하다.
+
+1. DB의 종류
+- RDBMS DB(Schema, SQL O): mysql(mariadb), oracle, sqlite, ms-sql, postgre
+- NoSQL DB(Schema, SQL X): mongodb

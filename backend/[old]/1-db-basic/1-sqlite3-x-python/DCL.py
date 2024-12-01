@@ -8,7 +8,7 @@ def setDB():
 # DCL : Dababase Control Language
 # DCL의 다른 명령어들은 단독으로 사용되는 경우가 많습니다.
 # GRANT: 데이터베이스 사용자에게 특정 작업의 수행 권한을 부여할 때
-# 예) GRANT SELECT ON SCOTT.EMP TO EXPERT : EXPERT에게 table_1st을 볼 권한을 준다.
+# 예) GRANT SELECT ON table_1st TO EXPERT : EXPERT에게 table_1st을 볼 권한을 준다.
 # REVOKE: 데이터베이스 사용자에게 부여권 수행 권한을 박탈할 때
 # 예) REVOKE 뻇을권한 ON 객체이름 FROM 누구 : EXPERT로부터 table_1st을 볼 권한을 뺏는다.
 
