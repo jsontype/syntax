@@ -1,8 +1,8 @@
 [DB]
 
-1. DB
+1. DB의 종류
   - RDBMS (Relational DataBase Management System) (Schema, SQL O): mysql(mariadb), oracle, sqlite, ms-sql, postgre
-    SQLで操作する"テーブル"形のDB
+    SQL로 조작하는 "테이블" 형태의 DB
     SQL (Structured Query Langauge)
       1) DDL - Data Definition Language
         CREATE TABLE user_table( no INT, id VARCHAR(50), username VARCHAR(50) );

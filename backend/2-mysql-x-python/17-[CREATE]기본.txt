@@ -1,0 +1,82 @@
+[CREATE문: 테이블 작성]
+참조: https://stricky.tistory.com/294
+
+DDL(Data Definition Language)이란 DB내의 다양한 오브젝트들을 생성하고 변경하고 관리하는 문장입니다.
+
+1. CREATE문
+CREATE문으로 대부분의 MySQL 오브젝트들을 생성할 수 있습니다. Table, Prodedule, Function, Index, User 등등.. 
+모든 오브젝트들에 대한 CREATE 문을 다 소개해드릴 순 없기 때문에 이 중에서 Table과 user를 생성하는 CREATE 문의 예제로 설명을 드리도록 하겠습니다.
+
+1) CREATE TABLE
+create table table_13th_codememo (
+    id          varchar(100) not null comment '코드명',
+    kor_name    varchar(100) not null comment '한글코드명',
+    type        varchar(3)   not null comment '공통코드유형코드',
+    upper_name  varchar(100) null     comment '상위코드명',
+    code_table  varchar(100) null     comment '코드테이블명',
+    is_used     varchar(1)   not null comment '사용여부',
+    create_date datetime     not null comment '등록일시',
+    create_user varchar(30)  not null comment '등록자ID',
+    update_date datetime     not null comment '수정일시',
+    update_user varchar(30)  not null comment '수정자ID',
+    update_pid  varchar(50)  not null comment '수정프로그램ID',
+        primary key (id)
+) comment '공통_공통코드', engine = InnoDB
+
+설명
+primary key (id) : 기본키가 되는 컬럼을 설정합니다.
+    만약 두 개 이상 복수의 칼럼을 PK로 설정을 하고 싶다면
+    "primary key (id, other_column, the_other_column)" 이런 식으로 ", "로 구분하여 나열하면 됩니다.
+    단, PK로 설정하는 칼럼은 위에서 "not null"로 정의되어야 합니다.    
+comment '공통_공통코드' : 이는 테이블의 논리명, 또는 코멘트를 이야기하는 것입니다. 
+engine = InnoDB; : MySQL에는 두 가지 테이블 스토리지 엔진이 존재하는데, "InnoDB"와 "MyISAM"이 그것입니다. 
+    어떤 스토리지 엔진으로 테이블 데이터를 저장하겠느냐를 선택하는 것입니다.
+    이를 CREATE TABLE DDL 실행 시에 명시하지 않으면 
+    첫 번째 스키마 내 초기 설정 스토리지 엔진 값, 
+    두 번째 해당 MySQL의 초기 설정 스토리지 엔진 값으로 생성이 됩니다.
+ 
+2) CREATE USER : DB 계정별 권한 확인, 적용, 부여, 회수 계정 생성
+우선, 계정 목록을 보는 방법 
+select host, user from user
+계정 생성 방법 
+create user 'user'@'127.0.0.1' id..
+
+3) ALTER 문 : MySQL DB 내 다양한 오브젝트들을 수정 및 변경
+alter table table_13th_codememo modify create_date datetime default current_timestamp() null
+옵션의 컬럼을 null로 변경
+
+alter table table_13th_codememo change type type2 varchar(4) not null
+컬럼명을 type2으로 변경
+
+alter table table_13th_codememo modify id decimal(20,8) null comment '코드인덱스'
+컬럼 코멘트를 변경
+
+alter table table_13th_codememo add user_id int null after id
+신규 컬럼을 추가 하는데, fee 컬럼 뒤로 위치
+
+alter table table_13th_codememo modify id int not null
+receive 컬럼의 데이터 타입을 변경
+
+3. TRUNCATE 문
+TRUNCATE 문은 테이블의 데이터 삭제와 함께  해당 테이블이 쓰고 있던 디스크 공간을 반납하게 됩니다. 
+TRUNCATE문 자체가 테이블을 DROP 했다가 다시 CREATE 하기 때문입니다. 
+이점이 delete와 가장 다른 점입니다.
+
+TRUNCATE TABLE table_13th_codememo
+기존에 AUTO_INCREMENT로 지정하여 값이 증가하던 칼럼이 초기화됩니다.
+* 단, MySQL에서는 ORACLE과 달라 TRUNCATE시 인덱스가 DROP 되지 않습니다.
+기본적으로 TRUNCATE 사용 시 주의할 점은 DELETE보다 전체 데이터를 삭제할 때는 더 빠르나 
+이후 데이터 복구가 불가능하다는 단점이 있습니다.
+
+4. DROP 문
+DROP 문은 테이블 및 기타 MySQL 오브젝트들을 삭제하는 명령어입니다. 
+만약 이 명령어를 통해서 테이블을 삭제한다면 해당 테이블의 row들은 물론 생성되어 있던 인덱스와 함께 저장공간까지 모두 반납되게 됩니다.
+DROP 문의 사용 예제를 보시겠습니다.
+
+DROP TABLE table_13th_codememo
+이 DDL명령을 실행하고 나면 테이블이 삭제됩니다.
+
+그러면 안 되겠지만, MySQL에서는 실수로 테이블을 DROP 했을 때는 BINLOG파일을 이용해서 해당 데이터를 살릴 수도 있습니다.
+물론 앞서 배웠던 SELECT문들도 정말 중요하지만, 데이터 관리 시점에서 볼 때는 DDL문이 훨씬 더 중요합니다.
+DB 관리자를 희망하시는 분들은 이 내용을 잘 숙지하시기 바랍니다.
+한번 DDL을 잘못 실행하면 정말... 큰 고난을 겪을 수도 있으니, DDL문은 항상 신중하게 두 번 세 번 확인 후 실행하는 습관을 들이셔야 합니다.
