@@ -1,0 +1,6 @@
+[nodejs - mysql - api]
+
+1. Install mysql
+  $ npm i mysql
+
+1. Create a database
