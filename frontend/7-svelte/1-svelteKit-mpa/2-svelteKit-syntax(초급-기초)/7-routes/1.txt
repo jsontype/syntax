@@ -1,0 +1,251 @@
+[SvelteKit 라우터]
+
+1. 라우터란?
+  라우터는 사용자가 요청한 URL에 따라 앱이 어떤 화면을 보여줄지 결정하는 역할을 한다.
+  SvelteKit에서는 src/routes 폴더에 있는 파일들이 라우터 역할을 한다.
+  - 예: src/menu/home/index.svelte 파일은 "/menu/home" URL에 접속했을 때 보여지는 화면을 담당한다.
+
+1. src/components/NavBar/index.svelte 생성: NavBar 컴포넌트를 사용해, 라우터로 "홈 / 블로그 / 로그인" 페이지로 각각 이동할 수 있는 상단 메뉴 화면 만들기
+  <button class={getBtnClass(1)} on:click={() => move(1)}>About</button>
+  <button class={getBtnClass(2)} on:click={() => move(2)}>Blog</button>
+  <button class={getBtnClass(3)} on:click={() => move(3)}>Login</button>
+
+  <script>
+  import { on } from "svelte/events"
+  import { goto } from '$app/navigation';
+
+  export let active;
+
+  const move = (num) => {
+    active = num;
+    goPage(num);
+  }
+
+  const goPage = (item) => {
+    const path = item === 1 ? '/menu/home' : item === 2 ? '/menu/blog' : '/menu/login';
+    goto(path);
+  }
+
+  const getBtnClass = (num) => {
+    return active === num ? 'btn active' : 'btn';
+  }
+  </script>
+
+  <style>
+  .btn {
+    background-color: white;
+    border: 1px solid white;  
+  }
+  .active {
+    background-color: gray;
+    color: white;
+  }
+  </style>
+
+1. src/routes/menu/home/index.svelte 생성: 홈 화면 만들기
+  <NavBar active={1} />
+  <h1>홈</h1>
+  <script>
+  import NavBar from 'src/components/NavBar/index.svelte';  
+  </script>
+
+1. src/routes/menu/blog/index.svelte 생성: 블로그 화면 만들기
+  <NavBar active={2} />
+  <h1>블로그</h1>
+  <script>
+  import NavBar from 'src/components/NavBar/index.svelte';  
+  </script>
+
+1. src/store/index.svelte 수정: "ID", "로그인 여부" 키를 갖고 있는 로그인 객체 스토어 추가
+  import { writable } from "svelte/store";
+
+  // 초기값 설정
+  const initCount2 = typeof window !== 'undefined' && localStorage.getItem("count2") ? Number(localStorage.getItem("count2")) : 0
+  const initLoginData = typeof window !== 'undefined' && localStorage.getItem("loginData") ? JSON.parse(localStorage.getItem("loginData")) : { id: "", loggedIn: true }
+
+  // Stores
+  export const count2 = writable(initCount2);
+  export const loginData = writable(initLoginData);
+
+  // 구독
+  if (typeof window !== 'undefined') { 
+    count2.subscribe(value => { localStorage.setItem("count2", value); }) 
+  }
+  if (typeof window !== 'undefined') { 
+    loginData.subscribe(value => { localStorage.setItem("loginData", JSON.stringify(value)); }) 
+  }
+
+1. src/routes/menu/login/index.svelte 생성: 스토어데이터를 활용하여, 로그인/로그아웃 화면 만들기
+  <NavBar active={3} />
+  <h1>로그인</h1>
+
+  {#if $loginData.loggedIn}
+    <p>Welcome back!</p>
+    <div>유저정보</div>
+    <div>ID: {$loginData.id}</div>
+    <button on:click={() => logout(id)}>로그아웃</button>
+  {:else}
+    <input type="text" placeholder="아이디" on:change={() => onChange(event, 'id')} value={id} />
+    <input type="password" placeholder="비밀번호" on:change={() => onChange(event, 'pw')} value={pw} />
+    <!-- 테스트: test, 1234로 로그인 할 것! -->
+    <button on:click={() => login(id, pw)}>로그인</button>
+  {/if}
+
+  <script>
+  import NavBar from 'src/components/NavBar/index.svelte';  
+  import { loginData } from "src/store/index.svelte";
+
+  let id = '';
+  let pw = '';
+
+  const onChange = (event, type) => {
+    console.log('event: ', event)
+    if (type === 'id') {
+      id = event.target.value;
+    } else if (type === 'pw') {
+      pw = event.target.value;
+    }
+  }
+
+  const login = (id, pw) => {
+    if (!id || !pw) {
+      alert('아이디와 비밀번호를 입력해주세요.');
+      return;
+    }
+    if (id !== 'test' || pw !== '1234') {
+      alert('아이디 또는 비밀번호가 일치하지 않습니다.');
+      return;
+    } else {
+      alert('로그인 되었습니다.');
+      $loginData = { id: id, loggedIn: true };
+    }
+  }
+
+  const logout = (id) => {
+    alert('로그아웃 되었습니다.');
+    $loginData.loggedIn = false;
+  }
+  </script>
+
+1. src/components/NavBar/index.svelte 생성: 로그인 상태에서는 상단 메뉴중 Login 메뉴를 User로 문구를 변경되도록 수정
+  <button class={getBtnClass(1)} on:click={() => move(1)}>About</button>
+  <button class={getBtnClass(2)} on:click={() => move(2)}>Blog</button>
+  <button class={getBtnClass(3)} on:click={() => move(3)}>{ $loginData.loggedIn ? 'User' : 'Login' }</button>
+  {#if $loginData.loggedIn}
+    <span class="welcome">{$loginData.id}님, 환영합니다!</span>
+  {/if}
+
+  <script>
+  import { on } from "svelte/events"
+  import { goto } from '$app/navigation';
+  import { loginData } from "src/store/index.svelte";
+
+  export let active;
+
+  const move = (num) => {
+    active = num;
+    goPage(num);
+  }
+
+  const goPage = (item) => {
+    const path = item === 1 ? '/menu/home' : item === 2 ? '/menu/blog' : '/menu/login';
+    goto(path);
+  }
+
+  const getBtnClass = (num) => {
+    return active === num ? 'btn active' : 'btn';
+  }
+  </script>
+
+  <style>
+  .btn {
+    background-color: white;
+    border: 1px solid white;  
+  }
+  .active {
+    background-color: gray;
+    color: white;
+  }
+  .welcome {
+    margin-left: 20px;
+  }
+  </style>
+
+
+
+[SvelteKit 동적 라우터]
+
+1. 동적 라우팅이란?
+  동적 라우팅은 URL에 변수를 넣어서 다양한 화면을 보여주는 방식이다.
+  SvelteKit에서는 파일 이름에 대괄호([])를 사용하여 동적 라우팅을 설정할 수 있다.
+  - 예: src/menu/blog/[id]/index.svelte 파일은 "menu/blog/1", "menu/blog/2", ... 등의 각각의 ID를 지정한 URL에 접속했을 때 보여지는 화면을 담당한다.
+
+1. src/store/blogDB.js 생성: Mock DB로, 가짜 블로그 데이터 만들기
+  export let blogs = [
+    { id: 1, title: '첫 블로그', content: '안녕하세요, 첫 블로그입니다'},
+    { id: 2, title: '두번째 블로그', content: '저는 김 아무개입니다.'},
+    { id: 3, title: '세번째 블로그', content: '오늘은 맑습니다.'},
+    { id: 4, title: '네번째 블로그', content: '블로그 공부를 했습니다.'},
+    { id: 5, title: '내용없는 블로그', content: ''},
+  ]
+
+1. src/routes/menu/blog/index.svelte 수정: 블로그 목록을 클릭하면 해당 블로그 상세 페이지로 이동하도록 수정 (동적 라우팅)
+  <NavBar active={2} />
+  <h1>블로그</h1>
+  <ul>
+    {#each blogs as blog}
+      <li><a class="blogLink" href="blog/{blog.id}">{blog.title}</a></li>
+    {/each}
+  </ul>
+
+  <script>
+  import NavBar from 'src/components/NavBar/index.svelte';  
+  import { blogs } from 'src/store/blogDB.js'; // 블로그 Mock DB
+  </script>
+
+  <style>
+  .blogLink {
+    text-decoration: none;  
+    color: black;
+  }
+  .blogLink:hover {
+    text-decoration: underline;
+    color: gray;
+  }
+  </style>
+
+1. src/routes/menu/blog/[id]/index.svelte 생성: 동적 라우팅으로 블로그 ID를 URL 파라미터로 받아서, 화면에 해당 ID의 블로그 내용을 출력하기
+  <a class="blogLink" href="/menu/blog">돌아가기</a>
+  <h1>블로그 상세</h1>
+  <p># {id}</p>
+  <p>{blogTitle}</p>
+  <p>{blogContent}</p>
+
+  <script>
+  import { page } from '$app/stores'; // SvelteKit의 page 스토어
+  import { blogs } from 'src/store/blogDB.js'; // 블로그 Mock DB
+
+  const id = $page.params.id; // 현재 경로의 [id] 파라미터
+  const blogTitle = blogs[id - 1]?.title || '제목 없음'; // 안전하게 blogs 데이터 접근
+  const blogContent = blogs[id - 1]?.content || '내용 없음'; // 안전하게 blogs 데이터 접근
+  </script>
+
+  <style>
+  .blogLink {
+    text-decoration: none;  
+    color: black;
+  }
+  .blogLink:hover {
+    text-decoration: underline;
+    color: gray;
+  }
+  </style>
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
+  - "http://localhost:3000/menu/home" 접속: 홈 화면 확인
+  - "http://localhost:3000/menu/blog" 접속: 블로그 목록 확인
+  - 블로그 목록에서 블로그 제목 클릭: 해당 블로그 상세 페이지로 이동 확인
+  - "http://localhost:3000/menu/login" 접속: 로그인 화면 확인
+  - 로그인 후, "http://localhost:3000/menu/login" 접속: 로그인 상태에서는 User로 변경되고, 로그아웃 버튼 확인

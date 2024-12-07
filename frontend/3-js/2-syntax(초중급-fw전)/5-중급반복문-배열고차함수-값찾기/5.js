@@ -18,10 +18,10 @@ for (let i = 0; i < arr.length; i++) {
 
 // forEach문 용도 : For 쓰기 싫을 때 쓴다. (리턴 없는 경우만 찾아서)
 // arr.forEach(function (item, index, arr) {
-//     console.log(item)
-//     console.log(index)
-//     console.log(arr)
-//   }) // 배열값들을 함수처리
+//   console.log(item) // 1 -> 3 -> 3 -> 4 -> 4 -> 5
+//   console.log(index) // 0 -> 1 -> 2 -> 3 -> 4 -> 5
+//   console.log(arr) // [1, 3, 3, 4, 4, 5] -> 반복
+// }) // 배열값들을 함수처리
 
 // map문 용도 : 배열값 수정해서 새 배열 만들 때(배열 길이는 유지)
 // arr.map(function (item) { return item + 1 }) // newArr === [2, 4, 4, 5, 5, 6]
