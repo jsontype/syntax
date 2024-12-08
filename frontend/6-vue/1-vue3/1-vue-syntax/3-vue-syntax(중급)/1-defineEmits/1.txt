@@ -1,8 +1,8 @@
 [Emit]
 
-1. 사전준비 : init 앱을 가지고 온다.
+1. 사전준비: init 앱을 가지고 온다.
 
-1. 사전준비 : src/components/HelloWorld.vue 삭제
+1. 사전준비: src/components/HelloWorld.vue 삭제
 
 1. Emit이란?
   "Emit"은 영어 단어로, "내보내다", "발생시키다"와 같은 의미를 가지고 있다.

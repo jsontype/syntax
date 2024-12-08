@@ -8,9 +8,9 @@
   특히 computed, ref와 같은 자주 사용되는 Vue Composition API를 매번 수동으로 임포트하지 않아도 되기 때문에 코드가 더욱 깔끔해지고, 개발 속도도 향상될 수 있다.
   그러므로 Auto Import가 필요해지는 것이다. 앞으로 임포트는 이 라이브러리를 써서 자동으로 처리해주자.
 
-1. 사전준비 : init 앱을 가지고 온다.
+1. 사전준비: init 앱을 가지고 온다.
 
-1. 사전준비 : src/components/HelloWorld.vue 삭제
+1. 사전준비: src/components/HelloWorld.vue 삭제
 
 1. 라이브러리 설치
   $ npm i -D unplugin-auto-import (= yarn add -D unplugin-auto-import)

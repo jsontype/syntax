@@ -1,13 +1,13 @@
 [React에 TailwindCSS 적용]
 참조 URL: https://tailwindcss.com/
 
-1. 사전준비 : init 앱을 가지고 온다.
+1. 사전준비: init 앱을 가지고 온다.
 
-1. 설치 : devDependencies에 tailwindcss, postcss, autoprefixer 설치
+1. 설치: devDependencies에 tailwindcss, postcss, autoprefixer 설치
   $ npm install -D tailwindcss postcss autoprefixer
   $ npx tailwindcss init // postcss.config.js, tailwind.config.js의 init 파일을 설치해준다. (직접 작성시에는 할 필요없음)
 
-1. 설치 : devDependencies에 웹팩 로더 라이브러리 설치
+1. 설치: devDependencies에 웹팩 로더 라이브러리 설치
   $ npm i -D postcss-loader css-loader style-loader
 
 1. postcss.config.js 생성

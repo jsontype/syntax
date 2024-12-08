@@ -13,11 +13,11 @@ https://github.com/jsontype/old.git
 
 # Frequently reused phrases in syntax
 
-1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
-1. 사전준비 : server 앱을 켜둔다.
-1. 사전준비 : init 앱을 가지고 온다.
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+1. 사전준비: server 앱을 켜둔다.
+1. 사전준비: init 앱을 가지고 온다.
    이번 챕터에서는 vue2 init 앱으로 진행한다.
-1. 사전준비 : 이번에는 코드가 길기 때문에, 교육시 손코딩 하지말고 다음 폴더에 app1을 카피 페이스트한 뒤 VSCode상에서 파일 차분 보면서 설명한다.
+1. 사전준비: 이번에는 코드가 길기 때문에, 교육시 손코딩 하지말고 다음 폴더에 app1을 카피 페이스트한 뒤 VSCode상에서 파일 차분 보면서 설명한다.
 1. 참조: 이 글을 작성하는 시점의 뷰 버전은 "^3.3.11"이다.
 1. 테스트
    $ cd app1
@@ -48,7 +48,8 @@ https://github.com/jsontype/old.git
    API: https://fakestoreapi.com/products
    DOC: https://fakestoreapi.com/docs
 
-# CI 체크 * Temporary
+# CI 체크 \* Temporary
+
 1. readme.md 파일 다수 존재시 루트 폴더내의 파일 외에는 삭제
 1. .github 폴더 존재시 github로 폴더 이름 변경
 

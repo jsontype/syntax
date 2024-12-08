@@ -1,7 +1,7 @@
 [Jotai: Movies]
 참조: https://jotai.org
 
-1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
 
 1. src/connectors/index.js 작성 : Movies의 경우는 src/connectors/index.js를 통해서, 최초 서버로부터 get을 한다. 그걸 store 데이터에 저장한다.
   export const fetchMovies = async () => {

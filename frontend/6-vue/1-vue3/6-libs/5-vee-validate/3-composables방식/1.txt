@@ -2,9 +2,9 @@
 참조URL: https://vee-validate.logaretm.com/v4/examples/custom-inputs
 참조URL: https://vee-validate.logaretm.com/v4/guide/validation#validation-schemas-with-yup
 
-1. 사전준비 : init 앱을 가지고 온다.
+1. 사전준비: init 앱을 가지고 온다.
 
-1. 사전준비 : src/components/HelloWorld.vue 삭제
+1. 사전준비: src/components/HelloWorld.vue 삭제
 
 1. 라이브러리 설치
   $ npm i vee-validate (= yarn add vee-validate) // 발리데이션 처리하는 라이브러리

@@ -1,6 +1,6 @@
 [Storybook]
 
-1. 사전준비 : init 앱을 가지고 온다.
+1. 사전준비: init 앱을 가지고 온다.
 
 1. Storybook이란?
   React.js나 Next.js 프로젝트에서 컴포넌트를 개발할 때,

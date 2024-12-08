@@ -1,7 +1,7 @@
 [Jotai: Count]
 참조: https://jotai.org
 
-1. 사전준비 : 초급 generalapp 코드를 그대로 카피해서 가지고 온다.
+1. 사전준비: 초급 generalapp 코드를 그대로 카피해서 가지고 온다.
 
 1. 설치
   $ npm i jotai

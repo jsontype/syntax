@@ -1,18 +1,17 @@
 [Node.js(express)와 실제 DB 연동하기]
 
-1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 app2 코드를 그대로 카피해서 가지고 온다.
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 app2 코드를 그대로 카피해서 가지고 온다.
 
-1. 환경변수에 SQLite3 설치
+1. 사전준비: 환경변수에 SQLite3 설치
   $ brew install sqlite3
   $ sqlite3 --version
 
-1. 백엔드앱에 SQLite3 모듈 설치
+1. 사전준비: 백엔드앱에 SQLite3 모듈 설치
   $ cd app2
   $ npm i sqlite3
 
-1. SQLite3 데이터베이스 생성
+1. 사전준비: SQLite3 데이터베이스 생성
   $ sqlite3 users.db
-
   # SQLite3 CLI에서 다음 명령어를 실행하여 테이블 생성
   CREATE TABLE users ( userId TEXT PRIMARY KEY, password TEXT NOT NULL, name TEXT NOT NULL );
   .exit
@@ -127,21 +126,23 @@
 
   module.exports = router
 
-1. 테스트
+1. 테스트: * 이전과 다르게 이번에는 실제 DB를 수정하므로, 등록/수정/삭제한 정보는 백엔드 앱을 재기동해도 계속 남아있다.
   $ cd app2
   $ node index
-  insomnia나 postman을 연다.
-  등록 : POST http://localhost:8080/users/create 
-    리퀘스트바디 JSON 
+  get 확인: get은 postman 쓰지 않고 브라우져상에서 확인 가능하다.
+  - API DOC 확인: http://localhost:8080/
+  - 조회: http://localhost:8080/users/
+  - 상세조회: http://localhost:8080/users/hihihi
+  postman 준비: insomnia나 postman을 연다.
+  - 등록: POST http://localhost:8080/users/create (* URL에 /users/ 를 빼먹지 않도록 주의!)
+    리퀘스트바디 JSON
       { "userId": "hihihi", "password": "1234", "name": "hihi" } 넣기
       { "userId": "hahaha", "password": "1234", "name": "haha" } 넣기      
     GET http://localhost:8080/users/ 에서 확인
     GET http://localhost:8080/users/hihihi 에서 확인
-
-  수정 : PUT http://localhost:8080/users/update/hihihi
+  - 수정: PUT http://localhost:8080/users/update/hihihi
     리퀘스트바디 JSON 
       { "password": "5678", "name": "hihihi" } 넣기
     GET http://localhost:8080/users/hihihi 에서 확인
-
-  삭제 : DELETE http://localhost:8080/users/delete/hihihi
+  - 삭제: DELETE http://localhost:8080/users/delete/hihihi
     GET http://localhost:8080/users/ 에서 확인

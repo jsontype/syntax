@@ -1,9 +1,9 @@
 [PrimeVue: Install]
 참조URL: https://primevue.org
 
-1. 사전준비 : init 앱을 가지고 온다.
+1. 사전준비: init 앱을 가지고 온다.
 
-1. 사전준비 : src/components/HelloWorld.vue 삭제
+1. 사전준비: src/components/HelloWorld.vue 삭제
 
 1. 라이브러리 설치
   $ npm i primevue primeicons

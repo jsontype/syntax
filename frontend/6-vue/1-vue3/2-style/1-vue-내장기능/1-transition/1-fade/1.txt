@@ -1,7 +1,7 @@
 [Vue Transition]
 참조URL: https://ko.vuejs.org/guide/built-ins/transition
 
-1. 사전준비 : init 앱을 가지고 온다. (HelloWorld.vue 지우지 않는다!)
+1. 사전준비: init 앱을 가지고 온다. (HelloWorld.vue 지우지 않는다!)
 
 1. Transition이란?
   Vue에서는 화면이 전환되는 것을 Transition(트랜지션)이라 한다.

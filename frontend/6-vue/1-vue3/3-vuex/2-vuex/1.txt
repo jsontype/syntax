@@ -1,10 +1,10 @@
 [Store 사용하기: vuex]
 
-1. 사전준비 : init 앱을 가지고 온다.
+1. 사전준비: init 앱을 가지고 온다.
 
-1. 사전준비 : src/components/HelloWorld.vue 삭제
+1. 사전준비: src/components/HelloWorld.vue 삭제
 
-1. 사전준비 : 설치
+1. 사전준비: 설치
   $ npm i vuex
 
 1. vuex란?

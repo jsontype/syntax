@@ -1,6 +1,6 @@
 [useState로 counter 앱 만들기 복습]
 
-1. 사전준비 : init 앱을 가지고 온다.
+1. 사전준비: init 앱을 가지고 온다.
 
 1. src/Counter.js 생성 : 기존 useState로 작업
   import React from "react"

@@ -1,8 +1,8 @@
 [Sass 변수]
 
-1. 사전준비 : init 앱을 가지고 온다.
+1. 사전준비: init 앱을 가지고 온다.
 
-1. 사전준비 : 라이브러리 설치
+1. 사전준비: 라이브러리 설치
   $ cd app1
   $ npm i node-sass (= yarn add node-sass)
 

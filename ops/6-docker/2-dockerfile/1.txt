@@ -2,7 +2,7 @@
 참조 URL(도커 참조): https://docs.docker.com/reference/dockerfile/
 참조 URL(도커 모범사례구축): https://docs.docker.com/build/building/best-practices/
 
-1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
 
 1. Dockerfile 작성의 원칙 
   - Dockerfile는 레이어 방식으로 작성한다.
@@ -40,7 +40,7 @@
 
 [Docker Image 실행]
 
-1. 사전준비 : 도커 데스크톱앱을 실행시켜둔다.
+1. 사전준비: 도커 데스크톱앱을 실행시켜둔다.
 
 1. Dockerfile 내부에서 정의된 Image를 실행
   app1 폴더 안에서 새 터미널을 연 뒤 다음을 실행하면, 로컬의 Dockerfile을 빌드할 수 있다.

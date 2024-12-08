@@ -3,9 +3,9 @@
 1. zod란?
   zod는 타입스크립트용 스키마 검증 라이브러리이다.
 
-1. 사전준비 : init 앱을 가지고 온다.
+1. 사전준비: init 앱을 가지고 온다.
 
-1. 사전준비 : src/components/HelloWorld.vue 삭제
+1. 사전준비: src/components/HelloWorld.vue 삭제
 
 1. 라이브러리 설치
   $ npm i zod

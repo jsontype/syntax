@@ -24,7 +24,7 @@
 
 [Composables: useCounter]
 
-1. 사전준비 : generalapp-초급 앱을 가져온다.
+1. 사전준비: generalapp-초급 앱을 가져온다.
 
 1. src/composables/useCounter.js 작성 : 로직 분리를 위한 커스텀훅 만들기
   import { useState } from "react"

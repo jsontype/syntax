@@ -1,6 +1,6 @@
 [React Query를 이용해 API 연동하기: useQuery]
 
-1. 사전준비 : init 앱을 가지고 온다.
+1. 사전준비: init 앱을 가지고 온다.
 
 1. React Query 설치
   $ cd app1

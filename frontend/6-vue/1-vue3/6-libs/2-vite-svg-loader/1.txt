@@ -1,11 +1,11 @@
 [Vite-svg-loader: 아이콘 svg 파일을 쉽게 불러오는 라이브러리]
 참조URL: https://github.com/exceljs/exceljs?tab=readme-ov-file#interface
 
-1. 사전준비 : init 앱을 가지고 온다.
+1. 사전준비: init 앱을 가지고 온다.
 
-1. 사전준비 : src/components/HelloWorld.vue 삭제
+1. 사전준비: src/components/HelloWorld.vue 삭제
 
-1. 사전준비 : 아이콘 svg 파일들을 준비한다.
+1. 사전준비: 아이콘 svg 파일들을 준비한다.
   https://icons8.com/icons 에 들어가서 google과 apple을 검색해, 적절한 아이콘들을 svg로 카피해서 아래의 파일들을 만든다.  
   - src/assets/icons/google.svg
   - src/assets/icons/facebook.svg

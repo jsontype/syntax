@@ -1,7 +1,7 @@
 [Columns 설정하기]
 참조 URL: https://tailwindcss.com/docs/columns/
 
-1. 설치 : devDependencies에 추가
+1. 설치: devDependencies에 추가
   $ npm i -D eslint-plugin-tailwindcss prettier-plugin-tailwindcss
 
 1. src/Columns.js 생성

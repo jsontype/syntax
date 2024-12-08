@@ -18,7 +18,7 @@
     useQuery: 데이터 조회를 위한 훅
     useMutation: 데이터 수정을 위한 훅
 
-1. 사전준비 : init 앱을 가지고 온다.
+1. 사전준비: init 앱을 가지고 온다.
 
 1. 설치
   $ cd app1

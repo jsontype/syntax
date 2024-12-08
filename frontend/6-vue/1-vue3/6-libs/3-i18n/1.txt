@@ -1,8 +1,8 @@
 [i18n: 텍스트 다국어지원 라이브러리]
 
-1. 사전준비 : init 앱을 가지고 온다.
+1. 사전준비: init 앱을 가지고 온다.
 
-1. 사전준비 : src/components/HelloWorld.vue 삭제
+1. 사전준비: src/components/HelloWorld.vue 삭제
 
 1. 라이브러리 설치
   $ npm i vue-i18n
