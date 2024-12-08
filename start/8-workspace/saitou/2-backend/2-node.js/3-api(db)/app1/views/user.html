@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- menu -->
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/create">Create User</a></li>
+      <li><a href="/update">Update User</a></li>
+      <li><a href="/delete">Delete User</a></li>
+      <li><a href="/login">Login</a></li>
+    </ul>
+
+    <h1>User Detail</h1>
+    <div id="userDetail"></div>
+
+    <script>
+      const userId = window.location.pathname.split("/").pop() // URLでuserIdを取得
+      // localhost:3000/user/hihihi -> ["", "user", "hihihi"] -> "hihihi"
+      fetch(`http://localhost:8080/users/${userId}`)
+        .then((res) => res.json())
+        .then((user) => {
+          const userData = document.createElement("userData")
+          userData.innerHTML = `
+            <div>id: ${user.userId}</div>
+            <div>name: ${user.name}</div>
+          `
+          document.getElementById("userDetail").appendChild(userData)
+        })
+    </script>
+  </body>
+</html>

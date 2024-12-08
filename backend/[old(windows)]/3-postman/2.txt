@@ -1,0 +1,73 @@
+[번외: POSTMAN으로 DEV환경에 새 거래 제원 만들기]
+
+1. 배경 : 어떤 경우에 이 작업을 진행하는가?
+  가끔씩 릴리즈 끝나고 나서, 새 릴리즈 단위에서 helm의 *.yaml.gotmpl 파일에서 아래와 같이 백엔드의 주소가 바뀌는 경우가 있다.
+  그러면, 부정앱의 localhost에서, 기존의 *.payment_groups 테이블에서 레코드가 삭제되어 있으므로 자세한 내용을 볼 수 없게 된다.
+  이럴 때 새로운 거래 제원을 스스로 만들어야 한다.
+
+1. postman: 다운후, 로그인
+  * 맥에서 안 켜질 경우, 컨트롤 + 클릭으로 열기 하면 열림
+
+1. api key를 컨플에서 취득
+
+1. postman: environment 탭 클릭 후 설정
+  + 버튼을 클릭
+  이름을 "DEV ENV"로 설정
+  아래 variables 항목들을 입력, 값들은 initial value에 넣으면 됨
+    accessKey: (필요한 경우 입력)
+    accessSecret: (필요한 경우 입력)
+    endpoint: https://yts.mx/api/v2/list_movies.json
+  cmd + s로 저장
+
+1. postman: collenction 탭 클릭 후 설정
+  + 버튼을 클릭
+  이름을 "DEV COL"로 설정
+  우측 상단에, "No environment"를 클릭후 "DEV ENV"로 변경
+  Authorization 탭으로 이동해, "JWT Bearer"를 클릭
+  Payload 부분에, 다음 내용을 입력
+    {
+      "token": "토큰값",
+      "expiresAt": "2024-05-09T14:09:29+09:00",
+      "routingKey": "gcp"
+    }
+  Variables 부분에, 객체 키 / 밸류 나눠서 입력    
+
+1. postman: collenction 탭의 3점(...) 아이콘 누르고, add request를 클릭하여, auth post 날리는 요청 쿼리 만들기
+  POST: {{endpoint}}/v1/auth
+  Headers: 
+    Content-Type: application/json
+  BODY(Raw Input/JSON): 위에서 취득한 값을 넣기 (아래는 DEV의 경우의 값임)
+    {
+      "accessKey": (필요한 경우 입력)
+      "accessSecret": (필요한 경우 입력)
+    }
+  post 날린 뒤 나온 res 카피해두기 : 아래는 예시
+    {
+      "token": "토큰값",
+      "expiresAt": "2024-05-09T14:09:29+09:00",
+      "routingKey": "gcp"
+    }
+
+1. postman: collenction 탭의 3점(...) 아이콘 누르고, add request를 클릭하여, pay post 날리는 요청 쿼리 만들기
+  POST: {{endpoint}}/v1/transactions:pay
+  Headers: 
+    x-routing-key: gcp
+  Authorization(Bearer Token): 위에서 auth 쿼리 날려서 취득한 res.token 값을 넣기
+  BODY(Raw Input/JSON):
+    {
+      POST 날리기 위한 리퀘스트 객체 키: 밸류
+    }
+
+
+    
+[트러블슈팅]
+
+1. 내가 잘 안된 경우 : 잘 되는 사람의 environment, collenction의 json을 import 하기
+  json 파일 받기
+  collection 탭에서, import 버튼 클릭, json 업로드
+  environment 탭에서, import 버튼 클릭, json 업로드
+  
+1. 남이 잘 안된 경우 : 잘 안된 사람에게 environment, collenction의 json을 export 하기
+  collection 우측의 3점 아이콘 클릭, export 클릭, json 다운로드
+  environment 우측의 3점 아이콘 클릭, export 클릭, json 다운로드
+  json 파일 전달

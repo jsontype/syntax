@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- menu -->
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/create">Create User</a></li>
+      <li><a href="/update">Update User</a></li>
+      <li><a href="/delete">Delete User</a></li>
+      <li><a href="/login">Login</a></li>
+    </ul>
+
+    <h1>User List</h1>
+    <ul id="userList"></ul>
+
+    <script>
+      fetch("http://localhost:8080/users")
+        .then((res) => res.json())
+        .then((users) => {
+          console.log("users", users)
+          const userList = document.getElementById("userList")
+          users.forEach((user) => {
+            const li = document.createElement("li")
+            li.innerHTML = `<a href="/user/${user.userId}">${user.userId}</a>`
+            userList.appendChild(li)
+          })
+        })
+    </script>
+  </body>
+</html>

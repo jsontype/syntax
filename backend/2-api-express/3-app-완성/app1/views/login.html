@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- menu -->
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/create">Create User</a></li>
+      <li><a href="/update">Update User</a></li>
+      <li><a href="/delete">Delete User</a></li>
+      <li><a href="/login">Login</a></li>
+    </ul>
+
+    <h1>Login</h1>
+
+    <form id="loginForm">
+      <input type="text" id="userId" placeholder="Enter ID" required />
+      <input
+        type="password"
+        id="password"
+        placeholder="Enter Password"
+        required
+      />
+      <button type="submit">Login</button>
+      <button type="button" onclick="gotoSignUp()">Sign Up</a>
+    </form>
+
+    <script>
+      function gotoSignUp() {
+        window.location.href = "/create"
+      }
+
+      document.getElementById("loginForm").addEventListener("submit", (e) => {
+        e.preventDefault()
+
+        const userId = document.getElementById("userId").value
+        const password = document.getElementById("password").value
+
+        fetch("http://localhost:8080/users")
+          .then((res) => res.json())
+          .then((users) => {
+            const user = users.find((user) => user.userId === userId)
+            if (user) {
+              if (user.password === password) {
+                alert("Login Success")
+                document.getElementById("userId").value = ""
+                document.getElementById("password").value = ""
+                window.location.href = "/"
+                // TODO: 「SESSION / TOKENから認証情報を取って、STOREに入れる」 などの処理を追加する
+              } else {
+                return alert("Password Incorrect")
+              }
+            } else {
+              return alert("User Not Found")
+            }
+          })
+      })
+    </script>
+  </body>
+</html>

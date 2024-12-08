@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- menu -->
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/create">Create User</a></li>
+      <li><a href="/update">Update User</a></li>
+      <li><a href="/delete">Delete User</a></li>
+      <li><a href="/login">Login</a></li>
+    </ul>
+
+    <h1>Sign Up</h1>
+
+    <form id="createForm">
+      <input type="text" id="userId" name="userId" placeholder="Enter ID" />
+      <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Enter Password"
+      />
+      <input type="text" id="name" name="name" placeholder="Enter User Name" />
+      <button type="submit">Sign Up</button>
+    </form>
+
+    <script>
+      document.getElementById("createForm").addEventListener("submit", (e) => {
+        e.preventDefault()
+
+        const userId = document.getElementById("userId").value
+        const password = document.getElementById("password").value
+        const name = document.getElementById("name").value
+
+        fetch("http://localhost:8080/users/create", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userId, password, name }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data)
+          })
+          .finally(() => {
+            alert("Sign Up Success")
+            document.getElementById("userId").value = ""
+            document.getElementById("password").value = ""
+            document.getElementById("name").value = ""
+            window.location.href = "/login"
+          })
+      })
+    </script>
+  </body>
+</html>

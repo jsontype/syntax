@@ -1,0 +1,444 @@
+[Node.js(express)와 백엔드, 프론트엔드 연동하기]
+
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 최신 app1 (프론트앱), app2 (백엔드앱) 코드를 그대로 카피해서 가지고 온다.
+
+
+
+[백엔드 대응]
+
+1. 사전준비 : 백엔드에 cors 미들웨어 설치
+  $ cd app2
+  $ npm i cors
+  * 설치 이유 : 프론트가 localhost:3000 포트를 사용하고, 백엔드가 localhost:8080 포트를 사용해, 도메인이 다르므로 CORS 위반을 하기 때문에, 추가 설정이 필요하다.
+
+1. app2/index.js 수정: CORS 설정 추가
+  const express = require("express")
+  const app = express()
+  const port = 8080
+  const cors = require("cors")
+
+  // Backend API Documentation
+  const readme = `
+    <h2>API</h2>
+    <ul>
+      <li>[GET] /users : ユーザーリスト照会</li>
+      <li>[GET] /users/:userId : IDに該当するユーザー照会</li>
+      <li>[POST] /users/create : ユーザー登録</li>
+      <li>[PUT] /users/update/:userId : ユーザー更新</li>
+      <li>[DELETE] /users/delete/:userId : ユーザー削除</li>    
+    </ul>
+  `
+
+  app.get("/", (_req, res) => {
+    return res.send(readme)
+  })
+
+  // Backend API Routes
+  // 一部のoriginを許可する
+  // app.use(cors({
+  //   origin: 'http://localhost:3000',
+  //   methods: ['GET', 'POST', 'PUT', 'DELETE', 'FETCH'],
+  //   allowedHeaders: ['Content-Type', 'Authorization'],
+  //   credentials: true
+  // }))
+
+  // 全てのoriginを許可する
+  app.use(cors())
+
+  app.use(express.json())
+  app.use(express.urlencoded({ extended: true }))
+
+  app.use("/users", require("./routes/users"))
+
+  // Listener
+  app.listen(port, () => {
+    console.log(`App listening at http://localhost:${port}`)
+  })
+
+
+
+[프론트엔드 대응]
+
+1. app1/app.js 수정: app.js에서 요청에 따라 올바른 페이지를 렌더링하도록 루트 추가
+  // CJS Module : CommonJS
+  const express = require("express")
+  const app = express()
+  const port = 3000
+
+  app.listen(port, () => {
+    console.log(`App listening at http://localhost:${port}`)
+  })
+
+  // Router Setting
+  app.set("views", __dirname + "/views")
+  app.set("view engine", "ejs")
+  app.engine("html", require("ejs").renderFile)
+
+  // Router
+  app.get("/", (_req, res) => {
+    res.render("index.html") // ユーザーのリストを表示
+  })
+
+  app.get("/user/:userId", (_req, res) => {
+    res.render("user.html") // ユーザーの詳細を表示
+  })
+
+  app.get("/create", (_req, res) => {
+    res.render("create.html") // ユーザーの新規作成
+  })
+
+  app.get("/update", (_req, res) => {
+    res.render("update.html") // ユーザーの更新
+  })
+
+  app.get("/delete", (_req, res) => {
+    res.render("delete.html") // ユーザーの削除
+  })
+
+  app.get("/login", (_req, res) => {
+    res.render("login.html") // ログイン
+  })
+
+1. app1/views/index.html 수정: 리스트 조회 화면
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Document</title>
+    </head>
+    <body>
+      <!-- menu -->
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/create">Create User</a></li>
+        <li><a href="/update">Update User</a></li>
+        <li><a href="/delete">Delete User</a></li>
+        <li><a href="/login">Login</a></li>
+      </ul>
+
+      <h1>User List</h1>
+      <ul id="userList"></ul>
+
+      <script>
+        fetch("http://localhost:8080/users")
+          .then((res) => res.json())
+          .then((users) => {
+            console.log("users", users)
+            const userList = document.getElementById("userList")
+            users.forEach((user) => {
+              const li = document.createElement("li")
+              li.innerHTML = `<a href="/user/${user.userId}">${user.userId}</a>`
+              userList.appendChild(li)
+            })
+          })
+      </script>
+    </body>
+  </html>
+
+1. app1/views/user.html 수정: 유저 상세 조회 화면
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Document</title>
+    </head>
+    <body>
+      <!-- menu -->
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/create">Create User</a></li>
+        <li><a href="/update">Update User</a></li>
+        <li><a href="/delete">Delete User</a></li>
+        <li><a href="/login">Login</a></li>
+      </ul>
+
+      <h1>User Detail</h1>
+      <div id="userDetail"></div>
+
+      <script>
+        const userId = window.location.pathname.split("/").pop() // URLでuserIdを取得
+        // localhost:3000/user/hihihi -> ["", "user", "hihihi"] -> "hihihi"
+        fetch(`http://localhost:8080/users/${userId}`)
+          .then((res) => res.json())
+          .then((user) => {
+            const userData = document.createElement("userData")
+            userData.innerHTML = `
+              <div>id: ${user.userId}</div>
+              <div>name: ${user.name}</div>
+            `
+            document.getElementById("userDetail").appendChild(userData)
+          })
+      </script>
+    </body>
+  </html>
+
+1. app1/views/create.html 수정: 회원가입 화면
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Document</title>
+    </head>
+    <body>
+      <!-- menu -->
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/create">Create User</a></li>
+        <li><a href="/update">Update User</a></li>
+        <li><a href="/delete">Delete User</a></li>
+        <li><a href="/login">Login</a></li>
+      </ul>
+
+      <h1>Sign Up</h1>
+
+      <form id="createForm">
+        <input type="text" id="userId" name="userId" placeholder="Enter ID" />
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Enter Password"
+        />
+        <input type="text" id="name" name="name" placeholder="Enter User Name" />
+        <button type="submit">Sign Up</button>
+      </form>
+
+      <script>
+        document.getElementById("createForm").addEventListener("submit", (e) => {
+          e.preventDefault()
+
+          const userId = document.getElementById("userId").value
+          const password = document.getElementById("password").value
+          const name = document.getElementById("name").value
+
+          fetch("http://localhost:8080/users/create", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ userId, password, name }),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              console.log(data)
+            })
+            .finally(() => {
+              alert("Sign Up Success")
+              document.getElementById("userId").value = ""
+              document.getElementById("password").value = ""
+              document.getElementById("name").value = ""
+              window.location.href = "/login"
+            })
+        })
+      </script>
+    </body>
+  </html>
+
+1. app1/views/update.html 수정: 유저 수정 화면
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Document</title>
+    </head>
+    <body>
+      <!-- menu -->
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/create">Create User</a></li>
+        <li><a href="/update">Update User</a></li>
+        <li><a href="/delete">Delete User</a></li>
+        <li><a href="/login">Login</a></li>
+      </ul>
+
+      <h1>Update</h1>
+
+      <form id="updateForm">
+        <!-- TODO: STOREから「ログインしているIDの情報」を生かして、表示だけするように変更 -->
+        <input
+          type="text"
+          id="userId"
+          name="userId"
+          placeholder="Enter ID"
+          required
+        />
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Enter New Password"
+          required
+        />
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Enter New User Name"
+          required
+        />
+        <button type="submit">Update</button>
+      </form>
+
+      <script>
+        document.getElementById("updateForm").addEventListener("submit", (e) => {
+          e.preventDefault()
+
+          const userId = document.getElementById("userId").value
+          const password = document.getElementById("password").value
+          const name = document.getElementById("name").value
+
+          fetch(`http://localhost:8080/users/update/${userId}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ password, name }),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              console.log(data)
+            })
+            .finally(() => {
+              alert("Update Success")
+              document.getElementById("userId").value = ""
+              document.getElementById("password").value = ""
+              document.getElementById("name").value = ""
+              window.location.href = "/"
+            })
+        })
+      </script>
+    </body>
+  </html>
+
+1. app1/views/delete.html 수정: 유저 삭제 화면
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Document</title>
+    </head>
+    <body>
+      <!-- menu -->
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/create">Create User</a></li>
+        <li><a href="/update">Update User</a></li>
+        <li><a href="/delete">Delete User</a></li>
+        <li><a href="/login">Login</a></li>
+      </ul>
+
+      <h1>Delete User</h1>
+      <form id="deleteForm">
+        <!-- TODO: STOREから「ログインしているIDの情報」を生かして、表示だけするように変更 -->
+        <input
+          type="text"
+          id="userId"
+          placeholder="Delete Target (ID)"
+          required
+        />
+        <button type="submit">Delete</button>
+      </form>
+
+      <script>
+        document.getElementById("deleteForm").addEventListener("submit", (e) => {
+          e.preventDefault()
+
+          const userId = document.getElementById("userId").value
+
+          fetch(`http://localhost:8080/users/delete/${userId}`, {
+            method: "DELETE",
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              console.log(data)
+            })
+            .finally(() => {
+              alert("Delete Success")
+              document.getElementById("userId").value = ""
+              window.location.href = "/"
+            })
+        })
+      </script>
+    </body>
+  </html>
+
+1. app1/views/login.html 수정: 유저 로그인 화면
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Document</title>
+    </head>
+    <body>
+      <!-- menu -->
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/create">Create User</a></li>
+        <li><a href="/update">Update User</a></li>
+        <li><a href="/delete">Delete User</a></li>
+        <li><a href="/login">Login</a></li>
+      </ul>
+
+      <h1>Login</h1>
+
+      <form id="loginForm">
+        <input type="text" id="userId" placeholder="Enter ID" required />
+        <input
+          type="password"
+          id="password"
+          placeholder="Enter Password"
+          required
+        />
+        <button type="submit">Login</button>
+        <button type="button" onclick="gotoSignUp()">Sign Up</a>
+      </form>
+
+      <script>
+        function gotoSignUp() {
+          window.location.href = "/create"
+        }
+
+        document.getElementById("loginForm").addEventListener("submit", (e) => {
+          e.preventDefault()
+
+          const userId = document.getElementById("userId").value
+          const password = document.getElementById("password").value
+
+          fetch("http://localhost:8080/users")
+            .then((res) => res.json())
+            .then((users) => {
+              const user = users.find((user) => user.userId === userId)
+              if (user) {
+                if (user.password === password) {
+                  alert("Login Success")
+                  document.getElementById("userId").value = ""
+                  document.getElementById("password").value = ""
+                  window.location.href = "/"
+                  // TODO: 「SESSION / TOKENから認証情報を取って、STOREに入れる」 などの処理を追加する
+                } else {
+                  return alert("Password Incorrect")
+                }
+              } else {
+                return alert("User Not Found")
+              }
+            })
+        })
+      </script>
+    </body>
+  </html>
+
+1. 테스트
+  - 로컬에서 백엔드 앱 기동
+    $ cd app2
+    $ node index
+  - 로컬에서 프론트 앱 기동
+    $ cd app1  
+    $ node app
+  - 브라우저에서 http://localhost:3000 접속
+    사용자 리스트, 사용자 상세 조회, 회원가입, 사용자 수정, 사용자 삭제, 로그인 페이지에서 각각 API 요청이 잘 동작하는지 확인한다.

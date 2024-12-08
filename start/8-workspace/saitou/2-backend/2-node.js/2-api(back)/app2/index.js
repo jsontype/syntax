@@ -8,6 +8,9 @@ const readme = `
   <ul>
     <li>[GET] /users : ユーザーリスト照会</li>
     <li>[GET] /users/:userId : IDに該当するユーザー照会</li>
+    <li>[POST] /users/create : ユーザー登録</li>
+    <li>[PUT] /users/update/:userId : ユーザー更新</li>
+    <li>[DELETE] /users/delete/:userId : ユーザー削除</li>    
   </ul>
 `
 
