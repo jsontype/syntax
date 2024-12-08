@@ -1,8 +1,8 @@
 [computed]
 
-1. 사전준비 : init 앱을 가지고 온다.
+1. 사전준비: init 앱을 가지고 온다.
 
-1. 사전준비 : src/components/HelloWorld.vue 삭제
+1. 사전준비: src/components/HelloWorld.vue 삭제
 
 1. computed란?
   computed 속성은 내부적으로 의존하는 반응형 상태가 변경될 때만 다시 계산되고,

@@ -1,11 +1,11 @@
 [이미 서비스하고 있는 화면을 Copy해서 Figma 만들기 : Google]
 
-1. 사전준비 : h2d 파일 받기
+1. 사전준비: h2d 파일 받기
   google 웹스토어 - html.to.design 설치
   피그마를 따기 원하는 사이트의 상용환경(로컬은 안됨. 예를 들어, http://Google.com 같이 들어가서)에 들어간다.
   크롬 브라우저의 html.to.plugin을 실행후, 캡쳐를 실행하여 h2d 파일을 다운로드 받는다.
 
-1. 사전준비 : figma
+1. 사전준비: figma
   figma.com에서 회원가입 - Create new team 클릭 - Collaborators 지정 - + 누르고 작업을 시작한다.
 
 1. Figma 작업

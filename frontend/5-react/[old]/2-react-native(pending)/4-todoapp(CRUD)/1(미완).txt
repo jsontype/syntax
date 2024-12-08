@@ -1,6 +1,6 @@
 [리액트 네이티브 Todo App]
 
-1. 사전준비 : init 앱을 가지고 온다.
+1. 사전준비: init 앱을 가지고 온다.
 
 1. static 아이콘을 다운
   브라우저에서 다음에 접속 : https://material.io/resources/icons/?style=baseline

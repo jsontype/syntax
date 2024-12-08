@@ -1,6 +1,6 @@
 [리액트 네이티브 styled-components 설치]
 
-1. 사전준비 : init 앱을 가지고 온다.
+1. 사전준비: init 앱을 가지고 온다.
 
 1. 설치
   $ cd app1

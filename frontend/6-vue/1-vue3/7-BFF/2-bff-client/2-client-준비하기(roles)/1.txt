@@ -1,8 +1,8 @@
 [클라이언트 앱 UI 준비해두기]
 
-1. 사전준비 : init 앱을 가지고 온다.
+1. 사전준비: init 앱을 가지고 온다.
 
-1. 사전준비 : src/components/HelloWorld.vue 삭제
+1. 사전준비: src/components/HelloWorld.vue 삭제
 
 1. 클라이언트 앱 UI 준비해두기
   이대로 UI를 만들게 되면, 상단에 메뉴가 있고, 사이드바와, 메인 컨텐츠가 있는 형태로 만들어진다.

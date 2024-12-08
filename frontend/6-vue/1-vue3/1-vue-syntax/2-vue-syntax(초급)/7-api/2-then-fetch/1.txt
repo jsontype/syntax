@@ -1,8 +1,8 @@
 [fetch]
 
-1. 사전준비 : init 앱을 가지고 온다.
+1. 사전준비: init 앱을 가지고 온다.
 
-1. 사전준비 : src/components/HelloWorld.vue 삭제
+1. 사전준비: src/components/HelloWorld.vue 삭제
 
 1. src/components/MoviaApp.vue 생성 : fetch 내장함수를 사용하여 영화 목록을 불러오기
   ```

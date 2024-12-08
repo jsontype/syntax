@@ -1,7 +1,7 @@
 [i18n 설치 : 다국어 대응 라이브러리]
 참조URL: https://velog.io/@upisdown/React-%EB%8B%A4%EA%B5%AD%EC%96%B4-i18n-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-%EC%82%AC%EC%9A%A9%EB%B2%95
 
-1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
 
 1. 설치
   $ npm i i18n react-i18next i18next --save

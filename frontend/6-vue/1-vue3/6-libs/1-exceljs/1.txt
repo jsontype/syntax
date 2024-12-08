@@ -1,11 +1,11 @@
 [exceljs: 엑셀 파일 내용을 읽어들어오는 라이브러리, excel을 쓰는 B2B 현장에서 필수]
 참조URL: https://github.com/exceljs/exceljs?tab=readme-ov-file#interface
 
-1. 사전준비 : init 앱을 가지고 온다.
+1. 사전준비: init 앱을 가지고 온다.
 
-1. 사전준비 : src/components/HelloWorld.vue 삭제
+1. 사전준비: src/components/HelloWorld.vue 삭제
 
-1. 사전준비 : 2 x 2 행렬 내용이 들어가 있는 엑셀파일을 하나 준비 (예: data.xlsx)
+1. 사전준비: 2 x 2 행렬 내용이 들어가 있는 엑셀파일을 하나 준비 (예: data.xlsx)
 
 1. 라이브러리 설치
   $ npm install exceljs

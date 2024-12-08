@@ -1,9 +1,9 @@
 [PrimeVue: API - Props]
 참조URL: https://primevue.org
 
-1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
 
-1. 사전준비 : 프라임뷰 공식 Docs에서 API 리스트를 열어서 확인해 본다.
+1. 사전준비: 프라임뷰 공식 Docs에서 API 리스트를 열어서 확인해 본다.
   https://primevue.org/button/ 에 접속
   API 탭을 클릭: 안에 보면, Props, Slots, Interfaces, Types 등을 확인할 수가 있다. 하나씩 써보자.
 

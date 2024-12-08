@@ -8,7 +8,7 @@
     JS의 generator 함수를 사용하면, 타입별로 액션을 모니터링할 수 있는 특징이 있었다.
     이와 같은 원리를 이용해서, 기존에 thunk를 사용해서 구현했던 비동기 카운터 기능을 redux-saga에서도 구현할 수 있다.
 
-1. 설치 : redux-saga 라이브러리
+1. 설치: redux-saga 라이브러리
     $ npm i history
     $ npm i redux-saga
 

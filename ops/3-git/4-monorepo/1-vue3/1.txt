@@ -7,14 +7,14 @@
   이를 통해 코드 공유와 관리가 용이해진다.
   여기서는 Yarn Workspaces를 사용하여 Vue3 앱에서 이를 설정하는 방법을 안내해보겠다.
 
-1. 사전준비 : 깃허브에서 새로운 monorepo1 저장소를 생성 후, 클론을 뜬다.
+1. 사전준비: 깃허브에서 새로운 monorepo1 저장소를 생성 후, 클론을 뜬다.
 
-1. 사전준비 : 클론딴 폴더에서 npm 초기화
+1. 사전준비: 클론딴 폴더에서 npm 초기화
   $ npm init -y (= yarn init -y)
 
-1. 사전준비 : packages 폴더 생성 
+1. 사전준비: packages 폴더 생성 
 
-1. 사전준비 : packages 폴더 안에 Vue3 init 앱을 가지고 온다.
+1. 사전준비: packages 폴더 안에 Vue3 init 앱을 가지고 온다.
 
 1. packages/app1/package.json 파일 수정 : 해당 워크스페이스의 이름을 설정한다.
   {

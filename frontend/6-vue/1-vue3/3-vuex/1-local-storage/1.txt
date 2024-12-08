@@ -1,10 +1,10 @@
 [Store 사용하기: localStorage]
 
-1. 사전준비 : init 앱을 가지고 온다.
+1. 사전준비: init 앱을 가지고 온다.
 
-1. 사전준비 : src/components/HelloWorld.vue 삭제
+1. 사전준비: src/components/HelloWorld.vue 삭제
 
-1. 사전준비 : 글로벌 스테이트에 대한 배경지식 익히기
+1. 사전준비: 글로벌 스테이트에 대한 배경지식 익히기
   - Store란?
     "Store"는 애플리케이션의 상태(데이터)를 중앙에서 관리하는 저장소이다.
   - Global State란?

@@ -1,15 +1,22 @@
 [Node.js(express)와 백엔드, 프론트엔드 연동하기]
 
-1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 최신 app1 (프론트앱), app2 (백엔드앱) 코드를 그대로 카피해서 가지고 온다.
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 최신 app1 (프론트앱), app2 (백엔드앱) 코드를 그대로 카피해서 가지고 온다.
 
 
 
 [백엔드 대응]
 
-1. 사전준비 : 백엔드에 cors 미들웨어 설치
+1. 사전준비: SQLite3 데이터베이스 생성
+  $ cd app2
+  $ sqlite3 users.db
+  # SQLite3 CLI에서 다음 명령어를 실행하여 테이블 생성
+  CREATE TABLE users ( userId TEXT PRIMARY KEY, password TEXT NOT NULL, name TEXT NOT NULL );
+  .exit
+
+1. 설치: 백엔드에 cors 미들웨어 설치
+  * 설치 이유 : 프론트가 localhost:3000 포트를 사용하고, 백엔드가 localhost:8080 포트를 사용해, 도메인이 다르므로 CORS 위반을 하기 때문에 이 설정이 필요하다.
   $ cd app2
   $ npm i cors
-  * 설치 이유 : 프론트가 localhost:3000 포트를 사용하고, 백엔드가 localhost:8080 포트를 사용해, 도메인이 다르므로 CORS 위반을 하기 때문에, 추가 설정이 필요하다.
 
 1. app2/index.js 수정: CORS 설정 추가
   const express = require("express")
@@ -58,6 +65,8 @@
 
 
 [프론트엔드 대응]
+
+1. 사전준비: 불필요한 about.html 파일은 삭제
 
 1. app1/app.js 수정: app.js에서 요청에 따라 올바른 페이지를 렌더링하도록 루트 추가
   // CJS Module : CommonJS

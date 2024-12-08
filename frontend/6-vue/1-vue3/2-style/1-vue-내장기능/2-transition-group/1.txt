@@ -1,7 +1,7 @@
 [TransitionGroup]
 참조URL: https://ko.vuejs.org/guide/built-ins/transition-group.html
 
-1. 사전준비 : init 앱을 가지고 온다.
+1. 사전준비: init 앱을 가지고 온다.
 
 1. TransitionGroup란?
   여러 엘리먼트 또는 컴포넌트들이 한꺼번에 DOM에 들어오거나 나갈 때 (v-for 리스트에 삽입, 제거 또는 이동할 때 등)

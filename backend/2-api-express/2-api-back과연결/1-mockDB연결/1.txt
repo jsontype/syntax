@@ -1,19 +1,16 @@
 [Node.js(express)와 MockDB를 연동하기]
 
-1. app2 백엔드 앱 설치
+1. 설치: app2 백엔드 앱
   $ mkdir app2
   $ npm init
+  $ npm i express
 
-
-  
 1. models/User.js 생성 : MockDB 생성 (* 폴더명 주의! models임)
   module.exports = [
     { userId: "hihihi", password: "password12*", info: "hi!" },
     { userId: "bybyby", password: "password12*", info: "by!" },
     { userId: "gogogo", password: "password12*", info: "go!" },
   ]
-
-
 
 1. package.json 수정 : scripts 수정을 통해 npm start로 작동할 수 있도록 변경하고, 디펜던시에 express를 추가한다.
   {
@@ -29,9 +26,7 @@
     }
   }
 
-
-
-1. routes/users.js 생성 : DB 정보에 get, post로 액서스할 API 로직 생성
+1. routes/users.js 생성: DB 정보에 get, post로 액서스할 API 로직 생성 (* 테스트시에는, URL에 /users/create 처럼 /users를 꼭 넣어야 하므로 주의!)
   const express = require("express")
 
   // API URI를 라우팅하는 객체
@@ -93,8 +88,6 @@
 
   module.exports = router
 
-
-
 1. index.js 생성 : 서버와 API 연동
   const express = require("express")
   const app = express()
@@ -127,9 +120,23 @@
   // port listner 연결
   app.listen(port, () => console.log(`listening on http://localhost:${port}`))
 
-
-
-1. 테스트 : 브라우져 상에서 가능한 것은 GET뿐이므로 GET만 테스트
+1. 테스트: * 단순히 mockDB를 통해 API를 테스트하는 것이므로, 백엔드를 재기동하면 등록/수정/삭제했던 정보는 초기화되므로 주의!
   $ cd app2
   $ node index
-  http://localhost:8080/users/hihihi 에서 확인 (* URL 주의!)
+  get 확인: get은 postman 쓰지 않고 브라우져상에서 확인 가능하다.
+  - API DOC 확인: http://localhost:8080/
+  - 조회: http://localhost:8080/users/
+  - 상세조회: http://localhost:8080/users/hihihi
+  postman 준비: insomnia나 postman을 연다.
+  - 등록: POST http://localhost:8080/users/create (* URL에 /users/ 를 빼먹지 않도록 주의!)
+    리퀘스트바디 JSON
+      { "userId": "hihihi", "password": "1234", "name": "hihi" } 넣기
+      { "userId": "hahaha", "password": "1234", "name": "haha" } 넣기      
+    GET http://localhost:8080/users/ 에서 확인
+    GET http://localhost:8080/users/hihihi 에서 확인
+  - 수정: PUT http://localhost:8080/users/update/hihihi
+    리퀘스트바디 JSON 
+      { "password": "5678", "name": "hihihi" } 넣기
+    GET http://localhost:8080/users/hihihi 에서 확인
+  - 삭제: DELETE http://localhost:8080/users/delete/hihihi
+    GET http://localhost:8080/users/ 에서 확인

@@ -1,6 +1,6 @@
 [DefineModel]
 
-1. 사전준비 : init 앱을 가지고 온다.
+1. 사전준비: init 앱을 가지고 온다.
 
 1. DefineModel란?
   v-model prop에 대응하는 값을 정의하는 함수로,

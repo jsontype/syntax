@@ -1,6 +1,6 @@
 [eslint Vue3]
 
-1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
 
 1. eslint 설치 : 
   $ npm install --save-dev eslint eslint-plugin-vue eslint-config-standard (= npm install -D eslint eslint-plugin-vue eslint-config-standard)
@@ -60,7 +60,7 @@
 
 [eslint Nuxt3]
 
-1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
 
 1. eslint 설치 : 
   $ npm i -D eslint @nuxtjs/eslint-module eslint-plugin-vue @nuxtjs/eslint-config-typescript

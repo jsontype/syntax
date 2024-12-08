@@ -1,6 +1,6 @@
 [Pinia Stores: useCounterStore]
 
-1. 사전준비 : 프로젝트를 새로 깔지 않고, 3-customHooks/3-utils/2-useInputUtil 에서의 코드를 그대로 카피해서 가지고 온다.
+1. 사전준비: 프로젝트를 새로 깔지 않고, 3-customHooks/3-utils/2-useInputUtil 에서의 코드를 그대로 카피해서 가지고 온다.
 
 1. useCounterStore 같은 훅들을 composables에 놓지 않고, stores 폴더를 따로 나누는 이유
   composables에 모두 몰아서 넣으면 로직이 헷갈리므로, 

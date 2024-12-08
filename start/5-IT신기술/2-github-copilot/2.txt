@@ -4,7 +4,7 @@
   https://github.com/features/copilot 에 접속한 뒤, 결재 플랜 선택
   계좌 정보 걸고 Free Trial 시작하기
 
-1. 설치 : Github Copilot
+1. 설치: Github Copilot
   VSCode에서 Github Copilot 확장을 설치한다.
   VSCode 좌측 하단 사용자 아이콘 클릭후 Github 계정을 연결
 

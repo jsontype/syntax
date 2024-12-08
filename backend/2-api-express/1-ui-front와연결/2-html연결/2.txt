@@ -1,8 +1,63 @@
-[Express 모듈을 DOM과 연결하기]
+[express 서버에 html 연동해보기]
 
-1. views/index.html 생성
-2. npm ejs를 검색 및 설치. html안에서 js를 같이 쓸수 있게 해주는 템플릿.
-3. $ npm i ejs
-4. app.js 생성 (render를 통해 index.html을 불러옴)
-5. 브라우져에서 localhost:3000을 통해 확인하기
-6. 만들기 어려운 웹서버를 굉장히 빠르게 설치했음을 알 수 있다.
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. 설치
+  $ npm i ejs
+
+1. app.js 수정 : 프론트화면 UI를 띄울 웹 서버 구축
+  // express를 통해 프론트엔드 서버 구축
+  const express = require("express")
+  const app = express()
+  const port = 3000
+  const server = app.listen(port, () => {
+    console.log(`Start Server : http://localhost:${port}`)
+  })
+
+  // 라우터 설정
+  app.set("views", __dirname + "/views/")
+  app.set("view engine", "ejs")
+  app.engine("html", require("ejs").renderFile)
+
+  // 라우터 : '/*'를 넣어서 url path별로 처리할 페이지를 컨트롤해줌
+  app.get("/", (req, res) => {
+    res.render("index.html")
+  })
+
+  app.get("/about", (req, res) => {
+    res.render("about.html")
+  })
+
+1. views/index.html 생성 : 홈 화면 UI 작성
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+  <body>
+    인덱스 화면입니다.
+  </body>
+  </html>
+
+1. views/about.html 생성 : 소개 화면 UI 작성
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+  <body>
+    About 페이지입니다.
+  </body>
+  </html>          
+        
+1. 테스트
+  $ cd app1
+  $ node app
+  http://localhost:3000/
+  http://localhost:3000/about

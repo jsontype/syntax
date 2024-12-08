@@ -1,6 +1,6 @@
 [Jest 테스트]
 
-1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
 
 1. Jest와 React Testing Library 설치
   $ npm i --save-dev jest @testing-library/react @testing-library/jest-dom jest-environment-jsdom
