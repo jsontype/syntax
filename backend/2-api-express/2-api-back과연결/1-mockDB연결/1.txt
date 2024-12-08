@@ -1,0 +1,135 @@
+[Node.js(express)와 MockDB를 연동하기]
+
+1. app2 백엔드 앱 설치
+  $ mkdir app2
+  $ npm init
+
+
+  
+1. models/User.js 생성 : MockDB 생성 (* 폴더명 주의! models임)
+  module.exports = [
+    { userId: "hihihi", password: "password12*", info: "hi!" },
+    { userId: "bybyby", password: "password12*", info: "by!" },
+    { userId: "gogogo", password: "password12*", info: "go!" },
+  ]
+
+
+
+1. package.json 수정 : scripts 수정을 통해 npm start로 작동할 수 있도록 변경하고, 디펜던시에 express를 추가한다.
+  {
+    "name": "app1",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "scripts": {
+      "start": "node app"
+    },
+    "dependencies": {
+      "express": "^4.18.2"
+    }
+  }
+
+
+
+1. routes/users.js 생성 : DB 정보에 get, post로 액서스할 API 로직 생성
+  const express = require("express")
+
+  // API URI를 라우팅하는 객체
+  const router = express.Router()
+
+  // Mock DB 객체
+  const User = require("../models/User")
+
+  // [GET] /users/:userId : ID에 해당하는 유저 정보 조회
+  router.get("/:userId?", (_req, res) => {
+    const userId = _req.params.userId
+    if (userId) {
+      for (let i = 0; i < User.length; i++) {
+        if (userId === User[i].userId) {
+          return res.send(User[i])
+        }
+      }
+      return res.status(404).send("User not found")
+    }
+    // [GET] /users : 유저 리스트 조회
+    return res.send(User)
+  })
+
+  // [POST] /create : 유저 생성
+  router.post("/create", (req, res) => {
+    const userId = req.body.userId
+    const password = req.body.password
+    const name = req.body.name
+    const newUser = { userId, password, name }
+    User.push(newUser)
+    return res.send(User)
+  })
+
+  // [PUT] /update/:userId : ID에 해당하는 유저 정보 수정
+  router.put("/update/:userId", (req, res) => {
+    const userId = req.params.userId
+    const password = req.body.password
+    const name = req.body.name
+    for (let i = 0; i < User.length; i++) {
+      if (userId === User[i].userId) {
+        User[i] = { userId, password, name }
+        return res.send(User[i])
+      }
+    }
+    return res.status(404).send("User not found")
+  })
+
+  // [DELETE] /delete/:userId : ID에 해당하는 유저 정보 삭제
+  router.delete("/delete/:userId", (req, res) => {
+    const userId = req.params.userId
+    for (let i = 0; i < User.length; i++) {
+      if (userId === User[i].userId) {
+        User.splice(i, 1)
+        return res.send(User)
+      }
+    }
+    return res.status(404).send("User not found")
+  })
+
+  module.exports = router
+
+
+
+1. index.js 생성 : 서버와 API 연동
+  const express = require("express")
+  const app = express()
+  const port = 8080
+
+  // app.get("/", (req, res) => res.send("Hello World!"))
+  // app.use("/", (req, res) => res.sendFile(__dirname + "/index.html"))
+
+  // api doc 연결
+  const readme = `
+    <h2>API</h2>
+    <ul>
+      <li>[GET] /users : ユーザーリスト照会</li>
+      <li>[GET] /users/:userId : IDに該当するユーザー照会</li>
+      <li>[POST] /users/create : ユーザー登録</li>
+      <li>[PUT] /users/update/:userId : ユーザー更新</li>
+      <li>[DELETE] /users/delete/:userId : ユーザー削除</li>
+    </ul>
+  `
+  app.get("/", (req, res) => {
+    return res.send(readme)
+  })
+
+  // api 연결
+  app.use(express.json())
+  app.use(express.urlencoded({ extended: false }))
+  const userRouter = require("./routes/users")
+  app.use("/users", userRouter)
+
+  // port listner 연결
+  app.listen(port, () => console.log(`listening on http://localhost:${port}`))
+
+
+
+1. 테스트 : 브라우져 상에서 가능한 것은 GET뿐이므로 GET만 테스트
+  $ cd app2
+  $ node index
+  http://localhost:8080/users/hihihi 에서 확인 (* URL 주의!)

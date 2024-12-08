@@ -1,0 +1,14 @@
+登録：POST http://localhost:8080/users/create
+    リクエストボディ JSON
+      { "userId": "hihihi", "password": "1234", "name": "hihi" } を入れる
+      { "userId": "hahaha", "password": "1234", "name": "haha" } を入れる
+    GET http://localhost:8080/users/ で確認
+    GET http://localhost:8080/users/hihihi で確認
+
+修正：PUT http://localhost:8080/users/update/hihihi
+    リクエストボディ JSON
+      { "password": "5678", "name": "hihihi" } を入れる
+    GET http://localhost:8080/users/hihihi で確認
+
+削除：DELETE http://localhost:8080/users/delete/hihihi
+    GET http://localhost:8080/users/ で確認

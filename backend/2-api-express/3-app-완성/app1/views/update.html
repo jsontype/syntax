@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- menu -->
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/create">Create User</a></li>
+      <li><a href="/update">Update User</a></li>
+      <li><a href="/delete">Delete User</a></li>
+      <li><a href="/login">Login</a></li>
+    </ul>
+
+    <h1>Update</h1>
+
+    <form id="updateForm">
+      <!-- TODO: STOREから「ログインしているIDの情報」を生かして、表示だけするように変更 -->
+      <input
+        type="text"
+        id="userId"
+        name="userId"
+        placeholder="Enter ID"
+        required
+      />
+      <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Enter New Password"
+        required
+      />
+      <input
+        type="text"
+        id="name"
+        name="name"
+        placeholder="Enter New User Name"
+        required
+      />
+      <button type="submit">Update</button>
+    </form>
+
+    <script>
+      document.getElementById("updateForm").addEventListener("submit", (e) => {
+        e.preventDefault()
+
+        const userId = document.getElementById("userId").value
+        const password = document.getElementById("password").value
+        const name = document.getElementById("name").value
+
+        fetch(`http://localhost:8080/users/update/${userId}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ password, name }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data)
+          })
+          .finally(() => {
+            alert("Update Success")
+            document.getElementById("userId").value = ""
+            document.getElementById("password").value = ""
+            document.getElementById("name").value = ""
+            window.location.href = "/"
+          })
+      })
+    </script>
+  </body>
+</html>

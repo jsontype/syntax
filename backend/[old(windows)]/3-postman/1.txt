@@ -1,73 +1,55 @@
-[POSTMAN으로 DEV환경에 새 거래 제원 만들기]
+[API 테스트 프로그램 설치 : Postman / Insomnia]
 
-1. 배경 : 어떤 경우에 이 작업을 진행하는가?
-  가끔씩 릴리즈 끝나고 나서, 새 릴리즈 단위에서 helm의 *.yaml.gotmpl 파일에서 아래와 같이 백엔드의 주소가 바뀌는 경우가 있다.
-  그러면, 부정앱의 localhost에서, 기존의 *.payment_groups 테이블에서 레코드가 삭제되어 있으므로 자세한 내용을 볼 수 없게 된다.
-  이럴 때 새로운 거래 제원을 스스로 만들어야 한다.
+1. Postman을 쓰는 이유
+  REST API를 테스트할 때,
+  브라우져 상에서는 get api만 주소창에 입력해서 간단히 테스트할 수 있다. 
+  그러나 request body에 값을 담아서 post로 넘기는 테스트는 <form> 태그를 만들고 코딩을 해야한다.
+  이를 편리하게 바로 테스트할 수 있게 해주는 것이 Postman이다.
+  Postman외에도, Insomnia나 REST Client 등의 프로그램이 있다.
 
-1. postman: 다운후, 로그인
-  * 맥에서 안 켜질 경우, 컨트롤 + 클릭으로 열기 하면 열림
+1. 사전준비 : 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
 
-1. api key를 컨플에서 취득
-
-1. postman: environment 탭 클릭 후 설정
-  + 버튼을 클릭
-  이름을 "DEV ENV"로 설정
-  아래 variables 항목들을 입력, 값들은 initial value에 넣으면 됨
-    accessKey: (필요한 경우 입력)
-    accessSecret: (필요한 경우 입력)
-    endpoint: https://yts.mx/api/v2/list_movies.json
-  cmd + s로 저장
-
-1. postman: collenction 탭 클릭 후 설정
-  + 버튼을 클릭
-  이름을 "DEV COL"로 설정
-  우측 상단에, "No environment"를 클릭후 "DEV ENV"로 변경
-  Authorization 탭으로 이동해, "JWT Bearer"를 클릭
-  Payload 부분에, 다음 내용을 입력
-    {
-      "token": "토큰값",
-      "expiresAt": "2024-05-09T14:09:29+09:00",
-      "routingKey": "gcp"
-    }
-  Variables 부분에, 객체 키 / 밸류 나눠서 입력    
-
-1. postman: collenction 탭의 3점(...) 아이콘 누르고, add request를 클릭하여, auth post 날리는 요청 쿼리 만들기
-  POST: {{endpoint}}/v1/auth
-  Headers: 
-    Content-Type: application/json
-  BODY(Raw Input/JSON): 위에서 취득한 값을 넣기 (아래는 DEV의 경우의 값임)
-    {
-      "accessKey": (필요한 경우 입력)
-      "accessSecret": (필요한 경우 입력)
-    }
-  post 날린 뒤 나온 res 카피해두기 : 아래는 예시
-    {
-      "token": "토큰값",
-      "expiresAt": "2024-05-09T14:09:29+09:00",
-      "routingKey": "gcp"
-    }
-
-1. postman: collenction 탭의 3점(...) 아이콘 누르고, add request를 클릭하여, pay post 날리는 요청 쿼리 만들기
-  POST: {{endpoint}}/v1/transactions:pay
-  Headers: 
-    x-routing-key: gcp
-  Authorization(Bearer Token): 위에서 auth 쿼리 날려서 취득한 res.token 값을 넣기
-  BODY(Raw Input/JSON):
-    {
-      POST 날리기 위한 리퀘스트 객체 키: 밸류
-    }
+1. API테스트 준비
+  - 테스트 준비 1 : API 테스트 프로그램을 설치
+    ★★ 추천 API 테스트 프로그램 : Postman, Insomnia, REST Client(VSCode 확장)
+      ★ REST Client 사용법 : .rest, .http 파일에 GET http://127.0.0.1:3000/api/user 등을 입력 후 Send Request 버튼 눌러서 확인 가능
+    GET만 테스트할 거라면 브라우져 상에서 api 주소를 입력해도 되지만,
+    GET외의 경우에는 Postman 또는 Insomnia 등의 API 테스트 프로그램이 필수이다.
+  - 테스트 준비 2 : express 앱을 실행시켜서 서버를 구동해두자.
+    $ cd app1
+    $ npm start
+  - 테스트 시작 : Postman 또는 Insomnia 등의 툴을 켜고 아래의 api 테스트를 해보자.
 
 
+
+[API 테스트]
     
-[트러블슈팅]
+1. [GET] Get 테스트 : 유저목록 조회
+  REST (POST) : http://localhost:3000/users
+  SEND 버튼 클릭
+  우측 Response Preview 탭에서 Response Body 확인
+    
+1. [GET] Get 테스트 : ID 해당 유저 조회
+  REST (GET) : http://localhost:3000/users/hihihi
+  SEND 버튼 클릭
+  우측 Response Preview 탭에서 Response Body 확인
 
-1. 내가 잘 안된 경우 : 잘 되는 사람의 environment, collenction의 json을 import 하기
-  json 파일 받기
-  collection 탭에서, import 버튼 클릭, json 업로드
-  environment 탭에서, import 버튼 클릭, json 업로드
+1. [POST] Create 테스트 : 유저 생성
+  REST (POST) : http://localhost:3000/users/create
+  Request Body (JSON) : 
+    {
+      "userId":"zzz",
+      "password":"password12*",
+      "info":"sleep!"
+    }
+  SEND 버튼 클릭
+  우측 Response Preview 탭에서 Response Body 확인 (DB에 제대로 Create 되었는지 확인)
   
-1. 남이 잘 안된 경우 : 잘 안된 사람에게 environment, collenction의 json을 export 하기
-  collection 우측의 3점 아이콘 클릭, export 클릭, json 다운로드
-  environment 우측의 3점 아이콘 클릭, export 클릭, json 다운로드
-  json 파일 전달
+1. [DELETE] Delete 테스트 : 유저 삭제
+  REST (DELETE) : http://localhost:3000/users/zzz
+  SEND 버튼 클릭
+  우측 Response Preview 탭에서 Response Body 확인 (DB에 제대로 Delete 되었는지 확인)
+
+1. ★★ 에러 났을 때 백엔드쪽에 보내야 하는 정보
+  cURL 카피
+  Insomnia 리퀘스트바디 / 프리뷰 화면 캡쳐
