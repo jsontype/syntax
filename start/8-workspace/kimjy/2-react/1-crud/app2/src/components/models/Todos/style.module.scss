@@ -1,0 +1,18 @@
+@import "../../../styles/resources.scss";
+
+.todoItem {
+  margin-right: $margin-half;
+}
+
+.btnItem {
+  margin: $margin-0;
+}
+
+.doneItem {
+  text-decoration: line-through;
+}
+
+.btn {
+  background-color: $transparent;
+  border: $border-10;
+}

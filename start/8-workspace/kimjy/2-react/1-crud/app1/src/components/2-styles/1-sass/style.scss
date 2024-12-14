@@ -1,0 +1,51 @@
+// 지역 변수 사용
+$font-local: Helvetica, sans-serif;
+$primary-color-local: orange;
+
+.basic {
+  font: 100% $font-local;
+  color: $primary-color-local;
+}
+
+// 글로벌 변수 사용 : resources.scss 파일을 import하는 것으로 전역 변수 사용 가능 -> 재사용성 증가 -> 프레임에서 벗어나지 않는다.
+@import "../../../styles/resources.scss";
+
+.global-basic {
+  font: $font-sm;
+  color: $primary;
+}
+
+// 함수 사용 : lighten(), darken(), mix() 등의 내장함수 사용 가능 + @mixin을 사용해 사용자 정의 함수 사용 가능 -> 말할 필요가 없죠?
+@mixin button-color($color) {
+  font: $font-md;
+  color: $white;
+  background-color: $color;
+  border: 1px solid darken($color, 20%);
+  border-radius: $font-md;
+  padding: $font-sm $font-md;
+  margin: $margin;
+
+  // pseudo class 사용
+  &:hover {
+    background-color: lighten($color, 20%);
+  }
+  &:active {
+    background-color: darken($color, 20%);
+  }
+}
+
+.primary-button {
+  @include button-color($primary);
+}
+
+.secondary-button {
+  @include button-color($secondary);
+}
+
+.warning-button {
+  @include button-color($warning);
+}
+
+.danger-button {
+  @include button-color($danger);
+}

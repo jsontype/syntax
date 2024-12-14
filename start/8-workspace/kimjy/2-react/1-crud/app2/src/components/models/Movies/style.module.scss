@@ -1,0 +1,28 @@
+@import "../../../styles/resources.scss";
+
+.movieItem {
+  margin-bottom: $margin-50;
+  text-decoration: none;
+}
+.movieTitle {
+  text-decoration: none;
+  font-size: $font-xxl;
+  &:hover {
+    color: $gray;
+    text-decoration: underline;
+  }
+}
+.movieRating {
+  &.good {
+    color: $blue;
+  }
+  &.soso {
+    color: $orange;
+  }
+  &.bad {
+    color: $red;
+  }
+}
+.movieDescription {
+  font-size: $font-xs;
+}
