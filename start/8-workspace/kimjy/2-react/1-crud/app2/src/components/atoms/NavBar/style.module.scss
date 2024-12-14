@@ -1,0 +1,15 @@
+@import "../../../styles/resources.scss";
+
+.navBar {
+  font-size: $font-lg;
+}
+
+.navBarItem {
+  margin-right: $margin-20;
+  text-decoration: none;
+  color: $font-dark;
+  &:hover {
+    color: $gray;
+    text-decoration: underline;
+  }
+}

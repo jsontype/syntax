@@ -28,15 +28,32 @@
     .block--modifier {}
     .block__element--modifier {}
 
+1. BEM 예시
+  상황: movie 블록의 rating 엘리먼트가 good 모디파이어를 가지고 있다.
+  사용: <div className="movie__rating--good">
+  # 실제 사용할 때는 <div className={`movie__rating${movie.rating >= 9 ? '--good' : '--bad'}`}> 이런 느낌으로!
+  정의: 
+    .movie {
+      &__title {
+        font-size: 20px;
+      }
+      &__rating {
+        &--good {}
+        $--soso {}
+        $--bad {}
+      }
+    }
+
 1. BEM의 장점
   시각적으로 알아보기 쉽다.
   무슨 기능인지 직관적으로 알 수 있다.
   css만으로 구조를 알 수 있다.
-  SASS,SCSS와 사용하기 편하다.
+  SASS, SCSS와 사용하기 편하다.
   선택자 우선순위 규칙을 낮은 수준으로 유지할 수 있다.
   높은 재사용성
   대규모 CSS를 효율적으로 관리할 수 있다.
-  (OOCSS, SMACSS도 해당하지만) 네이밍룰에 통일성을 가져 타 개발자와의 팀프로젝트를 가능하게 한다.
+  (OOCSS, SMACSS도 해당하지만) 네이밍룰에 통일성을 가져 타 개발자와의 팀 프로젝트를 가능하게 한다.
+  # movie-rating-good, movie_rating_good, movieRatingGood 이런 식으로 개발자마다 자기 마음대로 네이밍 하는 것을 방지
 
 1. BEM의 특징 : 모두 "클래스명이 엄격한 의미를 갖게 하는" 특징들이다.
   가급적 약어 사용을 피한다.

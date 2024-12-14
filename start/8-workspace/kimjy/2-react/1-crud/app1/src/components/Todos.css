@@ -1,0 +1,16 @@
+.todoItem {
+  margin-right: 5px;
+}
+
+.btnItem {
+  margin: 0px;
+}
+
+.doneItem {
+  text-decoration: line-through;
+}
+
+.btn {
+  background-color: transparent;
+  border: 0px;
+}
