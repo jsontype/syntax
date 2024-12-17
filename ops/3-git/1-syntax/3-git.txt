@@ -147,11 +147,13 @@
 
 
 
-1. Git 편리하게 쓰기 : alias 목록 추가하기
+1. Git 편리하게 쓰기 : alias 목록 추가하기 (필수)
   $ git config --global alias.fetch 'fetch origin'
     다음부터 'git fetch'로 'git fetch origin'을 간단히 실행한다.
-  $ git config --global alias.pull 'pull origin current'
+  $ git config --global pull.default current
     다음부터 'git pull'로 'git pull origin [현재 브랜치]'을 간단히 실행한다.
+  $ git config --global push.default current
+    다음부터 'git push'로 'git push origin [현재 브랜치]'을 간단히 실행한다.
   $ git config --global alias.push-f 'push --force-with-lease'
     다음부터 'git push-f'로 'git push --force-with-lease'을 간단히 실행한다. (force는 current를 지원하지 않는 듯 하다.)
 
