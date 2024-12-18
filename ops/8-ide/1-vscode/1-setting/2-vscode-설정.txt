@@ -24,3 +24,7 @@
   Explorer: Compact Folders 체크에 해제한다.
   Explorer: Confirm Delete 체크에 해제한다.
   Explorer: Confirm Drag and Drop 체크에 해제한다.
+
+1. 테마 설정
+  workbench theme: dark(default)로 설정하지만 취향에 따라 바꿀 수 있음
+  workbench theme icon: material icon theme으로 설정
