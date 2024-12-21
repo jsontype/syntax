@@ -3,11 +3,13 @@
 1. CRA로 만들어진 리액트 초기앱을 가져온다.
 
 1. @testing-library를 프로젝트에 설치
+  $ npm i jest
   $ npm i @testing-library/react @testing-library/jest-dom
   $ npm i -D --exact jest-watch-typeahead@0.6.5
   $ npm audit fix // critical 취약점 해결
 
 1. src/Profile.js : 테스트 대상인 Profile 컴포넌트를 작성
+  (* 주의: <b> 태 안에, "username: {username}" 이런 식으로 username: 이런 거 붙이면 안됨. getByText 함수가 읽지를 못함.)
   import React from 'react'
 
   export default function Profile ({ username, name }) {

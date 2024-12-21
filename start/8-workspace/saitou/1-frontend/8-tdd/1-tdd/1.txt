@@ -1,0 +1,45 @@
+[TDD]
+
+Test Driven Development
+
+- Unit Test : 特定の機能をテストする
+- Integration Test : 複数の機能をテストする
+- End-to-End Test : システム全体をテストする(ユーザーベースで)
+
+Move
+Attack
+Gather
+
+- Unit Test : 
+CODE:
+  const move = () => {
+    ...
+    return sth;
+  }
+JEST:
+  test('move', () => {
+    expect(move()).toBe(sth);
+  });
+
+- Integration Test :
+CODE:
+  const move = () => {
+    ...
+    return sth;
+  }
+  const attack = () => {
+    ...
+    return sth;
+  }
+  const gather = () => {
+    ...
+    return sth;
+  }
+JEST:
+  test('move', () => {
+    // move -> attack -> gather
+    ...
+    expect(result()).toBe(sth);
+  });
+
+- End-to-End Test : 実際にゲームをして、結果を確認する
