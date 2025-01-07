@@ -1,0 +1,27 @@
+[AWS: Amazon Web Service]
+
+1. Core Terms 
+  EC2 (Elastic Compute Cloud) : Server Computer
+  S3 (Simple Storage Service) : Cloud Drive
+  IAM (Identity and Access Management) : Role(사용자 권한)을 관리하는 서비스.
+
+
+
+[Counter App + File Upload / Download App]
+
+1. front-app1, back-app1 作成
+
+1. AWS login
+  awsdemo****@gmail.com 作成
+  https://aws.amazon.com/ko/
+  Root user password 作成して、加入
+
+1. EC2 작성
+  EC2 검색
+  인스탄스 기동 클릭
+  Amazon Linux 2023 AMI (Amazon Machine Image) 선택
+  새로운 키 페어 작성: key_pair_name.pem으로(=이름은 임의)
+  $ ssh -i "key_pair_name.pem" ec2-user@3.22.222.123(=Public IPv4 Address)
+  [ec2-user@ip-172-31-6-227 ~]$ <- 이게 지금 그니까 서버 컴퓨터 안의 터미널을 켠 상태.
+  여기에서, Node.js 설치, Backend 앱 기동, DB도 설치해서 관리한다.
+  그 다음、S3 Bucket Create하고, Backend and DB install하고, 기동해보기 -> Frontend localhost에서 기동해서 백엔드 API 사용해보기
