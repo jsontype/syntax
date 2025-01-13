@@ -7,6 +7,9 @@
 1. src/global.d.ts 생성 : ts에서는 sass 로더를 선언해야한다.
   declare module '*.scss';
 
+1. 설치
+  $ npm install -D sass-embedded  
+
 1. 변경작업
   css 파일의 확장자를 *.scss로 변경
   임포트부의 확장자도 모두 *.scss로 변경
