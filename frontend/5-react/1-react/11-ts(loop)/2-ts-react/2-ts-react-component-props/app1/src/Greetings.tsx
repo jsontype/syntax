@@ -1,5 +1,5 @@
 // 컴포넌트가 받을 프롭스의 데이터타입 정의
-type GreetingsProps = {
+interface GreetingsProps {
     // props로 받아오는 변수의 데이터타입 정의
     name: string
     mark: string
