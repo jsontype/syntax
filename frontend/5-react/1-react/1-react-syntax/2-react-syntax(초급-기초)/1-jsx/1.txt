@@ -1,5 +1,19 @@
 [JSX 문법]
 
+1. 설치 (작성 당시 사용한 Node 버전 : 18.20.3)
+  $ npx create-react-app@latest app1
+  $ cd app1
+  $ npm start (= yarn start)
+  - 설치 후 최초 세팅
+    reportWebVitals.js (성능측정용인데, 지금은 이걸 지워야 실행이 됨)
+    App.test.js
+    index.css 삭제
+    logo.svg 삭제
+    setupTests.js
+    App.css (코드만 비워두기)
+    README.MD 지우기
+    index.js, App.js 수정 : 불필요 부분을, 연동까지 삭제
+
 1. React.js 구조
   public/ : 정적파일폴더(html, 이미지, 영상, 음악 파일 모음)(추후 추가)
   src/components/ : 컴포넌트폴더(버튼같은 부품 모음)(추후 추가)
