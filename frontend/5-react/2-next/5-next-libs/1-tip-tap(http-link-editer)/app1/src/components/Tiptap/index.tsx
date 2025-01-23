@@ -28,7 +28,7 @@ const Tiptap = () => {
     ],
     content: `
       <p>
-        113241234213421342134213421342134 http://google.com 오!!! 스고이!
+        링크는 다음과 같습니다. http://google.com 들어가보세요!
       </p>
     `,
   })
