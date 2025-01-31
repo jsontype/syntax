@@ -4,10 +4,160 @@
   - beforeunload: 사용자가 페이지를 떠나기 전에 실행
   - unload: 사용자가 페이지를 떠날 때 실행  
   - visibilitychange: 사용자가 탭을 전환할 때 실행
-  위 이벤트들은 브라우저에서 발생하는 이벤트이지만,
-  최신 브라우저(특히 크롬, 엣지, 사파리 등)에서는 보안 때문에 
-  beforeunload 이벤트와 관련된 기능을 제한하고 있다.
 
-1. 결론
-  사용자가 탭을 끄거나 하는 식으로, 페이지를 닫으려고 하면 경고창을 띄워보거나 하는 것은 불가능하다.
-  경고창 뿐 아니라 UI에 영향을 주는 어떤 행위도 할 수가 없다.
+1. 각 이벤트의 실행 조건
+  사용자가 페이지 탭을 끄려고 탭의 x 버튼을 눌렀을 때 : "beforeunload 이벤트가 실행된다."
+    beforeunload 이벤트에서, event.preventDefault()를 호출하면 경고창을 띄울 수 있다.
+    그 뒤, 경고창에서 "취소"했을 때 실행할 여러가지 JS 코드를 삽입할 수 있다.
+    - 단, alert(), confirm()같은 UI에 영향을 주는 함수는 실행되지 않는다.
+    - 최신 브라우저(특히 크롬, 엣지, 사파리 등)에서는 보안 때문에 해당 기능을 제한하고 있기 때문이다.  
+  경고창이 떠졌을 때
+    cancel을 누르면 아무것도 하지 않고, "beforeunload 이벤트만 실행하고 끝난다."
+    leave를 누르면 페이지를 떠나고, "beforeunload 이벤트 실행한 뒤, unload 이벤트를 실행한다."
+  페이지 탭을 끈 게 아니라, 다른 메뉴로 이동해서 해당 DOM이 없어졌을 뿐일 때
+    "visibilitychange 이벤트가 실행된다."
+
+1. src/components/AsyncLoopResumeBeforeUnloadTab/index.js 생성: 위 내용 다 들어간 핵심 코드
+  import { useState, useEffect, useRef } from "react"
+
+  const AsyncLoopResumeBeforeUnloadTab = () => {
+    const [users, setUsers] = useState([]) // 사용자 데이터 상태
+    const [isFetching, setIsFetching] = useState(true) // 데이터 가져오기 활성화 상태
+    const intervalRef = useRef(null) // setInterval 저장용 ref
+
+    // 🔹 사용자 목록을 가져오는 함수
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch("https://jsonplaceholder.typicode.com/users")
+        const data = await response.json()
+        setUsers(data) // 데이터 갱신
+        console.log("✅ 새로운 데이터 가져옴:", data)
+      } catch (error) {
+        console.error("❌ 데이터 가져오기 실패:", error)
+      }
+    }
+
+    useEffect(() => {
+      // 🔹 갱신 시작 함수
+      const startFetching = () => {
+        if (!intervalRef.current) {
+          fetchUsers() // 첫 번째 실행
+          intervalRef.current = setInterval(fetchUsers, 3000) // 3초마다 실행
+          console.log("🔄 데이터 갱신 시작됨")
+        }
+      }
+
+      // 🔹 갱신 중지 함수
+      const stopFetching = () => {
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current)
+          intervalRef.current = null
+          console.log("⏸ 데이터 갱신 중단됨")
+        }
+      }
+
+      // 🔹 최초 실행 시 갱신 시작
+      if (isFetching) {
+        startFetching()
+      }
+
+      // 🔹 페이지를 떠날 때 (`beforeunload`)
+      const handleBeforeUnload = (event) => {
+        event.preventDefault()
+        console.log("🚨 URL를 떠나지 않았음 - 데이터 갱신 중단하지 않음")
+        startFetching()
+      }
+
+      const handleUnload = (event) => {
+        event.preventDefault()
+        console.log("🚨 URL을 떠남 - 데이터 갱신 중단")
+        stopFetching()
+      }
+
+      const handleVisibilityChange = (event) => {
+        event.preventDefault()
+        console.log("🚨 URL은 떠나지 않았으나, 컴포넌트를 끔 - 데이터 갱신 중단")
+        // 다른 메뉴로 가서 컴포넌트를 꺼도 데이터 갱신을 중단하고 싶지 않다면, 아래 부분을 주석처리하면 된다.
+        stopFetching()
+      }
+
+      window.addEventListener("beforeunload", handleBeforeUnload)
+      window.addEventListener("unload", handleUnload)
+      document.addEventListener("visibilitychange", handleVisibilityChange)
+
+      return () => {
+        // 🔹 cleanup: 이벤트 리스너 해제 & 인터벌 정리
+        window.removeEventListener("beforeunload", handleBeforeUnload)
+        window.removeEventListener("unload", handleUnload)
+        document.removeEventListener("visibilitychange", handleVisibilityChange)
+
+        stopFetching()
+      }
+    }, [isFetching])
+
+    return (
+      <div>
+        <h1>사용자 목록 (10초마다 갱신됨)</h1>
+        <ul>
+          {users.map((user) => (
+            <li key={user.id}>
+              <strong>{user.name}</strong> ({user.email})
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
+
+  export default AsyncLoopResumeBeforeUnloadTab
+
+1. src/components/.. 안에 있는 모든 다른 폴더들 작성 (스킵 가능)
+  - AlertBeforeUnloadTab/index.js
+  - NoAlertBeforeUnloadTab/index.js
+  - JsBeforeUnloadTab/index.js
+  - AsyncLoopStopBeforeUnloadTab/index.js
+  - AsyncLoopNoStopBeforeUnloadTab/index.js
+
+1. src/App.js 생성: 렌더링
+  import "./App.css"
+  import { useState } from "react"
+  import AlertBeforeUnloadTab from "./components/AlertBeforeUnloadTab"
+  import NoAlertBeforeUnloadTab from "./components/NoAlertBeforeUnloadTab"
+  import JsBeforeUnloadTab from "./components/JsBeforeUnloadTab"
+  import AsyncLoopStopBeforeUnloadTab from "./components/AsyncLoopStopBeforeUnloadTab"
+  import AsyncLoopResumeBeforeUnloadTab from "./components/AsyncLoopResumeBeforeUnloadTab"
+  import AsyncLoopNoStopBeforeUnloadTab from "./components/AsyncLoopNoStopBeforeUnloadTab"
+
+  export default function App() {
+    const [openId, setOpenId] = useState(0)
+
+    return (
+      <div className="App">
+        <h2>Hello React!</h2>
+
+        <button onClick={() => setOpenId(0)}>None</button>
+        <button onClick={() => setOpenId(1)}>Alert</button>
+        <button onClick={() => setOpenId(2)}>No Alert</button>
+        <button onClick={() => setOpenId(3)}>Change States</button>
+        <button onClick={() => setOpenId(4)}>Stop Async Loop</button>
+        <button onClick={() => setOpenId(5)}>Resume Async Loop</button>
+        <button onClick={() => setOpenId(6)}>No Stop Async Loop</button>
+
+        { openId === 0 && <div>none</div> }
+        { openId === 1 && <AlertBeforeUnloadTab /> }
+        { openId === 2 && <NoAlertBeforeUnloadTab /> }
+        { openId === 3 && <JsBeforeUnloadTab /> }
+        { openId === 4 && <AsyncLoopStopBeforeUnloadTab /> }
+        { openId === 5 && <AsyncLoopResumeBeforeUnloadTab /> }
+        { openId === 6 && <AsyncLoopNoStopBeforeUnloadTab /> }
+      </div>
+    )
+  }
+
+1. 테스트
+  $ cd app1
+  $ npm start
+  Resume Async Loop 버튼 클릭
+  페이지 탭 끄기: 컨펌 모달이 뜨는지 확인
+  취소 버튼 클릭: 데이터 갱신 중단되지 않음 (handleBeforeUnload 실행됨)
+  다른 메뉴로 이동: 데이터 갱신 중단됨 (handleVisibilityChange 실행됨)
