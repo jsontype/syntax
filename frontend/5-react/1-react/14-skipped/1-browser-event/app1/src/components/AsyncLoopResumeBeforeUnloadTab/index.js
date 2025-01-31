@@ -44,23 +44,33 @@ const AsyncLoopResumeBeforeUnloadTab = () => {
     // 🔹 페이지를 떠날 때 (`beforeunload`)
     const handleBeforeUnload = (event) => {
       event.preventDefault()
-      console.log("🚨 페이지를 떠나지 않았음 - 데이터 갱신 중단하지 않음")
+      console.log("🚨 URL를 떠나지 않았음 - 데이터 갱신 중단하지 않음")
       startFetching()
     }
 
-    // const handleUnload = (event) => {
-    //   event.preventDefault()
-    //   console.log("🚨 페이지를 떠남 - 데이터 갱신 중단")
-    //   stopFetching()
-    // }
+    const handleUnload = (event) => {
+      event.preventDefault()
+      console.log("🚨 URL을 떠남 - 데이터 갱신 중단")
+      stopFetching()
+    }
+
+    const handleVisibilityChange = (event) => {
+      event.preventDefault()
+      console.log("🚨 URL은 떠나지 않았으나, 컴포넌트를 끔 - 데이터 갱신 중단")
+      // 다른 메뉴로 가서 컴포넌트를 꺼도 데이터 갱신을 중단하고 싶지 않다면, 아래 부분을 주석처리하면 된다.
+      stopFetching()
+    }
 
     window.addEventListener("beforeunload", handleBeforeUnload)
-    // document.addEventListener("handleUnload", handleUnload)
+    window.addEventListener("unload", handleUnload)
+    document.addEventListener("visibilitychange", handleVisibilityChange)
 
     return () => {
       // 🔹 cleanup: 이벤트 리스너 해제 & 인터벌 정리
       window.removeEventListener("beforeunload", handleBeforeUnload)
-      // document.removeEventListener("handleUnload", handleUnload)
+      window.removeEventListener("unload", handleUnload)
+      document.removeEventListener("visibilitychange", handleVisibilityChange)
+
       stopFetching()
     }
   }, [isFetching])
