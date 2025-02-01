@@ -6,26 +6,18 @@
     React.memo : 컴퍼넌트 (컴퍼넌트의 렌더링 결과)를 메모화하는 React 의 API (메소드)
         컴퍼넌트를 메모화하는 것으로, 컴퍼넌트의 재렌더링을 스킵 할 수 있다.
     
-
-
 1. src/App.js 수정 : props => { ... } 부분을 React.memo()로 감쌀 것
     // ★★ 컴포넌트 메모화
     const Child = React.memo(props => { ... })
-
-
 
 1. 테스트 : 개발자도구를 켜고, react context devtool의 profiler를 켠 뒤 App 버튼을 눌렀을 때, Child 부분이 리랜더링 안되는 지를 확인
     $ cd app1
     $ npm start
 
-
-
 1. 라이트하우스 성능 테스트
     크롬에서 개발자도구를 연다.
     라이트하우스 탭에서 퍼포먼스만 체크한 뒤 분석 버튼을 누른다.
     결과 확인한다.
-
-    
 
 1. pagespeed 웹앱을 통한 성능 테스트 : 배포 후 테스트할 경우
     https://pagespeed.web.dev/ 에 들어간다.

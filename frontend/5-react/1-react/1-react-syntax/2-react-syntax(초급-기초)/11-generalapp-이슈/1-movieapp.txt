@@ -9,8 +9,6 @@ API: https://yts.mx/api/v2/list_movies.json?sort_by=rating
   background_color에서 해상도가 높은 cover image를 찾아 그것으로 변경
 [무비] 스타일: 타이틀 후버링시 화면 개선
   타이틀 a 태그에 후버링 했을 시 백그라운드 컬러 gray로 수정
-[무비] 스타일: 앱 타이틀의 가운데 정렬
-  "무비 리스트" 문구를 화면 중간으로 표시 (text-align: center)
 [무비] 스타일: 무비 이미지 폭 제한
   영화 이미지 너비를 100px로 변경
 [무비] 스타일: 리스트 간의 간격 개선
@@ -20,7 +18,7 @@ API: https://yts.mx/api/v2/list_movies.json?sort_by=rating
 
 [무비] 로직: 영화 제작년도의 표시
   렌더링 부분에 <div className='movieYear'>{item.year}</div>를 추가하기
-  (CSS) .movie .movieYear {}의 경우, 폰트사이즈를 0.5rem, 색을 red로 표시하기      
+  (CSS) .movie .movieYear {}의 경우, 폰트사이즈를 0.5rem, 색을 red로 표시하기
 [무비] 로직: 영화 평점의 표시
   title 옆에 (8/10)의 형태로 표시
 [무비] 로직: 영화 평점별 폰트 컬러 변경

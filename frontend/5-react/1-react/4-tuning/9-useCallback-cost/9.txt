@@ -44,8 +44,6 @@
         // <주석 토글 4> : "Child 재렌더링 비용 >>> useCallback 실행비용"이므로 3 ->4로 가서 useCallback을 사용하면 큰 효과를 얻을 수 있다.
         // const handleClick = useCallback(() => { console.log("click") }, [])
 
-
-
         return (
             <>
                 <p>Counter: {count}</p>
