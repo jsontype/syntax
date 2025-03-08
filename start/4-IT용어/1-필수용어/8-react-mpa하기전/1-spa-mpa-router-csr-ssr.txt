@@ -1,18 +1,18 @@
 [프론트 현장필수용어: SPA, MPA, Router, CSR, SSR, SEO, SASS, SCSS]
 
-1. SPA
+1. SPA: React, Vue
   Single Page Application. 모든 정적 리소스를 최초 한번에 다운로드하고, 
     페이지 갱신할 때는 필요한 일부 컴포넌트 데이터만 갱신한다.
-  CSR(Client Side Rendering)방식으로 렌더링한다. 
+  CSR(Client Side Rendering)방식으로 렌더링한다.
     CSS를 컴포넌트별 scope으로 지정하고 
     이후 웹팩이 하나의 모듈로 번들링해서 클라이언트에서 렌더링한다.
   장점 : 페이지 일부만 바뀌므로 깜빡거림이 없다. 서버에 무리를 주지 않는다. 컴포넌트별 개발 용이(생산성)
-    B2B에 좋다. SEO 대응이 불필요. 서버 비용 절감이 필요.
+    B2B에 많이 채용. SEO 대응이 불필요. 서버 비용 절감이 필요.
   단점 : SEO(검색엔진최적화, Search Engine Optimization) 대응에 좋지 않다. 
-    * SEO에 불리한 이유는, 모든 페이지의 소스가 <div id='app' />안에 다 담겨있어, 검색할 만한 색인이 없다.
+    * SEO에 불리한 이유는, 모든 페이지의 소스가 <div id='app'></div>안에 다 담겨있어, 검색할 만한 색인이 없다.
       이 점을 극복하기 위해 SSR 방식을 적용해서 해결 가능하다.
 
-1. MPA
+1. MPA: Next.js, Nuxt.js
   Multiple Page Application. 새 페이지 요청시마다 전체 페이지를 렌더링한다.
   SSR(Server Side Rendering)방식으로 렌더링한다.
   B2C에 좋다. SEO 대응이 필요. 서버 비용 절감보다 고객의 짧은 로딩 속도 및 사용 경험이 더 중요하다.
@@ -22,7 +22,7 @@
 
 1. Router : 페이지간 이동을 Routing (루팅, 라우팅), 이동하게 해주는 도구를 Router(루터, 라우터)라고 한다.
   SPA Router : react-router 라이브러리의 함수
-  MPA Router : next.route 함수
+  MPA Router : next.route 함수, App Router로 페이지 자동 생성
 
 1. 요건정의에서 SPA/MPA 스트럭쳐를 결정할 때 고려할 부분
   ★★ SEO 관점이 중요한지? (SEO 비용도 많이 들기 때문에, 이게 가장 큰 분기점이 된다. MPA인 Next/Nuxt를 채용하는 가장 핵심적인 이유이다!)

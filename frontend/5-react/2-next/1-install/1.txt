@@ -1,0 +1,10 @@
+1. 설치
+  https://nextjs.org/docs/app/getting-started/installation
+
+1. 버전 
+  Node 18.20.3 (* 18.18.0 이상)
+  Next.js 15.2.1
+  yarn 1.22.22
+
+1. 설치를 한다.
+1. eslint 설정을 한다.
