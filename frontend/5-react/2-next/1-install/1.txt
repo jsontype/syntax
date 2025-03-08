@@ -1,10 +1,28 @@
-1. 설치
-  https://nextjs.org/docs/app/getting-started/installation
-
 1. 버전 
   Node 18.20.3 (* 18.18.0 이상)
   Next.js 15.2.1
   yarn 1.22.22
 
-1. 설치를 한다.
+1. 설치
+  https://nextjs.org/docs/app/getting-started/installation
+  $ npx create-next-app@latest
+  앱 이름: app1
+  TypeScript, ESLint, Tailwind CSS, src/, App Router, import alias(@/*) 에 Yes로 설치
+  - yarn을 사용: node_modules/, package-lock.json 삭제 후, yarn install로 설치
+
 1. eslint 설정을 한다.
+  - eslint.config.mjs
+  - mjs란?
+    mjs: esmodule
+    cjs: commonjs
+    둘간의 차이점 설명:
+      - esmodule
+        - import/export 사용 가능
+        - .mjs 확장자 사용
+        - package.json에 "type": "module" 추가
+        - .eslintrc.mjs, .prettierrc.mjs, .babelrc.mjs, .next.config
+      - commonjs
+        - require/module.exports 사용 가능
+        - .js 확장자 사용
+        - package.json에 "type": "commonjs" 추가
+        - .eslintrc.js, .prettierrc.js, .babelrc.js, next.config.js
