@@ -24,8 +24,8 @@
   3. 프론트엔드 FW는 Next  
     * FW 선정기준
       SPA vs MPA 선정
-        SPA : B2B Saas, DDD, 빠른개발필요, SEO불필요, 백엔드 다수
-        MPA : B2C, SSR, 빠른작동필요, SEO필요, 프론트엔드 다수
+        SPA : B2B(Saas), CSR만 사용, DDD, 빠른개발필요, SEO불필요, 백엔드 다수
+        MPA : B2B, B2C, CSR과 함께 SSR도 사용, 빠른작동필요, SEO필요, 프론트엔드 다수
       Vue vs React 선정
         Vue / Nuxt : 
           규모가 작고 가벼운 프로젝트를 빠르게 만들고 싶다.
