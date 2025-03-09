@@ -1,0 +1,23 @@
+1. swr 사용법: 데이터 fetching 라이브러리
+  // 기존의 fetch 코드
+  await fetch('/api/hello')
+    .then(res => res.json())
+    .then(data => console.log(data))
+
+  // 위 코드를 아래처럼 간단하게 사용 가능
+  import useSWR from 'swr'
+
+  function Profile() {
+    const fetch = (...args) => fetch(...args).then(res => res.json())
+    const { data, error } = useSWR('/api/user', fetch)
+
+    if (error) return <div>failed to load</div>
+    if (!data) return <div>loading...</div>
+    return <div>hello, {data.name}!</div>
+  }
+
+1. swr 설치
+  $ yarn add swr
+
+1. 루트 layout.tsx에서 movie-csr-swr, movie-ssr-swr 링크 만들기
+1. movie-csr-swr, movie-ssr-swr(얘는 사실 csr과의 혼합임) 각각 구현하기

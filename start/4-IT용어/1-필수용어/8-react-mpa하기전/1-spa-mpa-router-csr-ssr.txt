@@ -1,6 +1,6 @@
 [프론트 현장필수용어: SPA, MPA, Router, CSR, SSR, SEO]
 
-1. SPA (Single Page Application): React, Vue
+1. SPA (Single Page Application): React, Vue, Svelte
   정의: 모든 정적 리소스를 최초 한번에 다운로드하고, 페이지 갱신 시 필요한 일부 데이터만 갱신한다.
   루터: "React Router"와 같은 라이브러리를 사용한다.
   렌더링: CSR (Client Side Rendering) 방식으로 렌더링한다.
@@ -8,7 +8,7 @@
     CSR 단점: SEO 대응을 잘하지 못한다. (이 문제는 SSR을 통해 해결할 수 있다.)
     CSR 사용사례: B2B, 서버 비용 절감이 필요할 때 사용한다.
 
-2. MPA (Multiple Page Application): Next, Nuxt
+2. MPA (Multiple Page Application): Next, Nuxt, SvelteKit
   정의: 새 페이지 요청 시마다 전체 페이지를 렌더링한다.
   루터: "App Router"를 사용하고, 페이지 전이시에는 "Link 컴포넌트"나 "next/navigation의 useRouter 훅 등"을 사용한다.
   렌더링: CSR 또는 SSR 방식으로 렌더링할 수 있다.

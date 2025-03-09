@@ -20,7 +20,7 @@ const eslintConfig = [
       'no-console': ['warn', { allow: ['warn', 'error'] }],
       'prefer-const': 'error',
       eqeqeq: ['error', 'always'],
-      curly: ['error', 'all'],
+      curly: ['error', 'multi-line'],
       'no-var': 'error',
       '@typescript-eslint/no-explicit-any': 'warn',
       'react-hooks/rules-of-hooks': 'error',

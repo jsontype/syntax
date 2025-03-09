@@ -26,3 +26,7 @@
         - .js 확장자 사용
         - package.json에 "type": "commonjs" 추가
         - .eslintrc.js, .prettierrc.js, .babelrc.js, next.config.js
+
+1. prettier 설정을 한다.
+  $ yarn add -D prettier
+  .prettier.config.mjs 파일 생성
