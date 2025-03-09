@@ -1,5 +1,5 @@
 1. layout.tsx 파일을 수정한다.
-1. movie page를 만든다. (next.config.mjs에 image domain 추가할 것)
+1. movie page를 만든다. (CORS 에러 방지를 위해 next.config.ts에 image domain 추가할 것)
 1. counter page를 만든다.
 1. 중첩 레이아웃 페이지: movie/layout.tsx를 만든다. 중첩됨을 확인했다.
 1. 동적 라우팅을 사용하는 페이지: movie/[id]/page.tsx를 만든다. 상세페이지 동작확인 완료.
