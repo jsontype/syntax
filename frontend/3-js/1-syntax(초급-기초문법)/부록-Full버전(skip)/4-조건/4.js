@@ -104,6 +104,8 @@
 // }
 // // console.log(user1.age.value) // * 이것은 reference error가 난다.
 // console.log(user1.age?.value) // 옵셔널체이닝 (Optional Chaining) : age가 없으면 undefined를 내고 error를 내지 않는다. 단, 에러를 감춰버리기 때문에, 남용하면 안된다.
+// // (중요) 예를 들어, if (obj !== undefined && obj.data[0]) 는 if (obj?.data[0]) 과 동일 하다. 초보처럼 obj !== undefined 를 쓰지말고 가급적 옵셔널체이닝을 쓰도록 하자.
+
 // console.log(user1.age ?? '로딩중') // 널리쉬코울레싱 (nullish ) : age가 undefined, null이면 오른쪽을 보여줌.
 
 
