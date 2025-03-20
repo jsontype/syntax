@@ -1,0 +1,59 @@
+[ref를 사용하여 DOM 요소 조작하기]
+
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. (컴포넌트의 Props로서의) Ref란?
+  템플릿 안의 DOM 요소에 직접 접근하거나 조작할 필요가 있을 때 참조(reference)하기 위해 사용한다.
+  예를 들어, 요소의 크기나 위치를 계산하거나 스크롤을 제어할 때 유용하다.
+
+1. src/components/DOMRef.vue 작성
+  ```
+    <template>
+      <div>
+        <input ref="textArea" type="text" placeholder="여기에 입력하세요" />
+        <button @click="focusInput">포커스 주기</button>
+      </div>
+    </template>
+
+    <script lang="ts" setup>
+    import { ref } from 'vue';
+
+    // ref로 input 요소 참조
+    const textArea = ref<HTMLInputElement | null>(null)
+
+    // 버튼 클릭 시 input 필드에 포커스 주기
+    const focusInput = () => {
+      if (textArea.value) {
+        textArea.value.focus()
+      }
+    }
+    </script>
+
+    <style scoped>
+    input {
+      margin-right: 10px;
+      padding: 5px;
+    }
+    button {
+      padding: 5px 10px;
+    }
+    </style>
+  ```
+
+1. src/App.vue 수정 : 컴포넌트 호출
+  ```
+    <template>
+      <DOMRef />
+    </template>
+
+    <script setup lang="ts">
+    import DOMRef from '@/components/DOMRef.vue'
+    </script>
+
+    <style scoped>
+    </style>
+  ```
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
