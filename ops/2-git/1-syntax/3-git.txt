@@ -67,6 +67,13 @@
     메신져로 리뷰자에게 PR 리뷰를 요청한다고 연락한다.
     깃허브의 PR창에서 리뷰자가 master 브랜치에 feat/1을 병합해준다. (실습에선 master, 현장에선 develop에 할 것이다)
 
+  * 깃허브에 연쇄 PR이 필요한 경우의 흐름
+    만일 코드가 이어져야 하는데 티켓이 나눠져있는 상황이라면, 다음과 같이 PR을 날리면 된다.
+      PR1 : "dev" <- "feat/1"
+      PR2 : "feat/1" <- "feat/2"
+    이러면 PR1이 머지되면 바로 PR2의 머지처인 "feat/1"이 자동으로 "dev"로 바뀐다.
+    PR1, PR2를 동시에 날릴 경우, 리뷰자에게 순서만 알려주면 된다.
+
   Closing : merged된 후 기존 branch삭제
     git checkout master : 최신 master 깃을 리모트에서 체크아웃하고 master 로컬 branch를 생성한다.
     git branch -D feat/1 : 로컬 branch 삭제. -D는 commit 이력이 남아있어도 강제로 branch를 삭제한다는 옵션임.
