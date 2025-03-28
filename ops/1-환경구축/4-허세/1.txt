@@ -1,0 +1,29 @@
+[맥 허세 개발 세팅 ㅋㅋㅋ]
+
+1. CPU 사용률 실시간: 터미널 하나 항상 띄워두고 "요즘 빌드할 게 많아서 CPU 많이 써요" 한 마디.
+  $ top -o cpu
+  
+1. htop 풀컬러 시스템 모니터: 색깔풀~한 터미널로 CPU 코어별 부하 보여주며, "멀티코어 최적화 잘 돼있네" 척.
+  $ brew install htop
+  $ htop
+
+1. 종합 시스템 정보: "터미널 하나로 다 본다니까요~" 한마디. 심지어 디스크 I/O까지 뜸.
+  $ brew install glances
+  $ glances
+
+1. 맥북 정보: 애플 로고 ASCII 아트 뿜뿜. "M1이 아니라서 좀 느려요..."
+  $ brew install neofetch
+  $ neofetch
+
+1. 물고기 수족관 띄우기: "저는 마음의 여유를 중요시해요" 라며 물고기 수영 중…
+  $ brew install asciiquarium
+  $ asciiquarium
+
+1. 매트릭스 해커 모드: "제가 해킹당한 건 아니죠?"
+  $ brew install cmatrix
+  $ cmatrix
+
+1. 철학적인 개발자 이미지: "코드는 감성입니다."
+  $ brew install cowsay fortune lolcat
+  $ fortune | cowsay | lolcat
+  $ echo 'fortune | cowsay | lolcat' >> ~/.zshrc
