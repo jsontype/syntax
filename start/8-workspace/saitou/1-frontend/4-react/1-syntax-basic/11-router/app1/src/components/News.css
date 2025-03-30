@@ -1,9 +1,0 @@
-.newsTitle {
-  text-decoration: none;
-  color: black;
-}
-
-.newsTitle:hover {
-  background: pink;
-  color: white;
-}
