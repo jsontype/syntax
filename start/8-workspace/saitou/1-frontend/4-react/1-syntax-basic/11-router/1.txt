@@ -1,6 +1,0 @@
-Router
-
-* React-router設置
-$ cd app1
-$ npm i react-router-dom
-

@@ -1,8 +1,8 @@
 [Vue 설치방법]
 
-1. vue cli를 사용한 예전 방법
-  $ npm install -g @vue/cli
-  $ vue create app1
+# 1. (old) vue cli를 사용한 예전 방법
+#   $ npm install -g @vue/cli
+#   $ vue create app1
 
 1. (추천) vite를 사용한 요즘 방법 (vite는 npm 7버전 이상에서만 가능, 요새는 자동으로 들어가 있음)
   $ npm init vite@latest

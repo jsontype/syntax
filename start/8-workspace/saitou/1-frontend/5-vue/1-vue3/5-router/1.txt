@@ -1,6 +1,0 @@
-$ npm i vue-router
-
-1. src/main.ts
-
-1. src/router.ts
-

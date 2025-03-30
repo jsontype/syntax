@@ -1,2 +1,0 @@
-1. src/global.d.ts
-  declare module '*.scss';
