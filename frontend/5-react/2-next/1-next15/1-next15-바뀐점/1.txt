@@ -1,0 +1,138 @@
+[섹션1. 인트로]
+버전 정보: Node 16.14 이상
+
+1. Next 바뀐 점
+  - Next 13 이후에 바뀐 점
+    기존에는 Pages Router만 썼었는데, App Router를 쓸 수 있게 되었다.
+      /pages -> /app
+      csr, ssr 중심 -> React Server Components 지원
+      fetch(), getStaticProps, getServerSideProps -> async 컴포넌트 사용
+      pages/indext.tsx, pages/blog/[slug].tsx -> app/page.tsx, app/blog/[slug]/page.tsx
+      _app.tsx로 전체 앱 커버 -> layout.tsx 레이아웃 중첩지원
+    App Router를 도입한 이유
+      기존의 Pages Router의 부족했던 부분들은 구조상의 문제로 개선이 안 됐는데 그 부분을 개선했음  
+
+  - Next 15에서 바뀐 점
+    codemod 지원
+      $ npx @next/codemod@canary upgrade latest: 14 버전 이하의 코드베이스를 최신 Next.js 및 React 버전으로 자동 변환하는 도구 
+      단 충돌나는 부분은 수동으로 수정해야 함
+    비동기 요청 API로의 전환 (중요)
+      변경전
+        ```
+          const cookieStore = cookies();
+          const token = cookieStore.get('token');      
+        ```
+      변경후: headers(), cookies(), params, searchParams 등의 함수가 비동기(async)로 변경됨
+        (서버가 요청 도착 전에 준비 작업을 수행할 수 있도록 개선하기 위함)
+        ```
+          const cookieStore = await cookies();
+          const token = cookieStore.get('token');
+        ```
+    캐싱 동작의 변화 (중요)
+      fetch()는 더이상 캐시되지 않으며, cache가 필요하면 아래와 같은 옵션이 필수가 됨
+        ```
+          fetch('https://...', { cache: 'force-cache' });
+        ```
+    React 19 지원
+    개발 및 빌드 성능 향상
+      Turbopack 개발 서버 안정화
+        $ next dev --turbo
+    정적 라우트 인디케이터 추가
+      시각적 표시기 도입: 개발 모드에서 각 라우트가 정적인지 동적인지 시각적으로 표시하여, 성능 최적화에 도움을 줌.
+    next.config.ts 지원: next 설정파일에 타입스크립트 지원
+    ESLint 9 지원
+
+1. 리액트 압축 요약 강좌
+# ***! 1. 현황: 4/81 -> 5 TODO
+
+1. 에러 잘 질문하는 법
+1. 효율적 학습방법
+
+[섹션2. 기획자와 디자이너가 기획서를 던져주었다]
+
+1. Next 프로젝트 시작하기
+1. 브라우저 주소 app 폴더에 반영하기
+1. 라우트 그룹
+1. template.tsx, Link, Image, redirect
+1. css module을 선택한 이유
+1. 페러렐 라우트
+1. 클라이언트 컴포넌트로 전환하기
+1. default.tsx
+1. 인터셉팅 라우트
+1. private folder
+1. 로그인 모달에서 발생하는 문제 해결하기 (router.replace)
+1. Main, SignupModal css 설명
+
+[섹션3. 본격 클론 시작!]
+
+1. 레이아웃 클론하기
+1. useSelectedLayoutSegment로 ActiveLink 만들기
+1. 오른쪽 섹션 클론코딩
+1. 홈탭 만들면서 Context API 적용해보기
+1. PostForm 만들기 (타이핑 외우기)
+1. 게시글 만들며 dayjs 사용해보기
+1. classnames로 클래스 합성하기 (feat.npmtrends로 라이브러리 고르기)
+1. /compose/tweet 만들기
+1. usePathname과 /explore 페이지
+1. [Next 15 반영] useSearchParams와 프로필, /search 페이지
+1. 이벤트 캡쳐링과 /status/[id] 페이지
+1. faker.js와 /photo/[photoId]
+1. /messages 페이지 라이브 클론
+1. 다중 이미지 구역 만들기
+1. 반응형 만들기
+
+[섹션4. 그런데 백엔드 개발자가 API를 아직 못 만들었다]
+
+1. msw 세팅과 .env
+1. next용 msw 컴포넌트
+1. 서버 컴포넌트에서 Server Actions 사용하기
+1. [Next 15] Form 컴포넌트
+1. 클라이언트 컴포넌트에서 Server Actions 사용하기
+1. 미들웨어, 라우트 핸들러, catch-all 라우트
+1. next-auth로 로그인하기
+1. 로그아웃 & 로그인 여부에 따라 화면 다르게 하기
+1. react-query SSR 설정하기
+1. [Next 15] 바뀐 fetch의 cache + Request Momoization & Data Cache
+1. 클라이언트 react-query
+1. react-query를 쓰는 이유와 fresh, stale, inactive
+1. refetch, invalidate, reset의 차이
+1. 팔로잉 게시글, 검색 결과 불러오기
+1. 조건부 쿼리 & 쿼리 재사용하기
+1. 에러 상황 처리하기 (유저 정보 없음)
+1. 게시글 상세 페이지, 답글, 포토모달
+1. 미흡한 부분 구현하기
+1. 인피니트 스크롤링
+1. react-intersection-observer로 더 불러오기
+1. [Next 15] force-cache로 캐싱하기
+1. Suspense로 Streaming하여 최적화하기 (feat. loading.tsx, error.tsx)
+
+[섹션5. 백엔드 개발자가 드디어 API 문서를 주었다]
+
+1. 백엔드 서버 세팅하기
+1. 회원가입 실제로 하기
+1. url rewrites
+1. 로그아웃, 로그인 실제로 하기
+1. 업로드 이미지 미리보기
+1. 게시글 업로드 완성 & setQueryData
+1. useMutation 사용하기
+1. 주소에 해시가 들어가면 문제가 됩니다 (encodeURIComponent)
+1. 하트 누를 때 optimistic update 적용하기
+1. 팔로우/언팔로우 optimistic update
+1. 서로 다른 컴포넌트간 query 일치하게 하기
+1. 프론트 서버에서 백엔드 서버로 쿠키 보내기
+1. 메타데이터 설정하기
+1. 답글과 재게시글 꾸미기
+1. 제게시, 답글 기능 zustand로 만들어보기
+
+[섹션6. 보너스: 백엔드 개발자가 퇴사했다]
+
+1. request memoization과 data cache
+1. Full Route Cache와 Router Cache (static vs dynamic)
+1. Static(SSG) 모드와 ISR 모드, 마이크로프론트엔드
+1. 배포 직전 build 하기
+1. 보너스: 배포 맛보기(과금주의)
+1. 보너스: 카톡 공유용 데이터 넣기
+1. /message 페이지 수정하기
+1. 웹소켓으로 실시간 채팅 구현하기
+1. 리버스 인피니트 스크롤링
+1. 보너스: Vanilla Extract 적용하기
