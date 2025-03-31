@@ -1,9 +1,9 @@
-import React from "react";
+import React from "react"
 // import PropTypes from "prop-types"; // TS 도입 이전에 쓰던 라이브러리이다.
 
 /*
   [주의!] 
-    해당 파일은 2019년 이전 자료로, 함수형 컴포넌트에서도 state 관리와 life cycle method 를 구현하게 해주는 "리액트 훅스"가 나오기 "전"의 코딩방식에 대한 참고용이다.
+    해당 파일은 2019년 이전 자료로, 함수 컴포넌트에서도 state 관리와 life cycle method 를 구현하게 해주는 "리액트 훅스"가 나오기 "전"의 코딩방식에 대한 참고용이다.
     리액트 유지보수 현장에 가게 되면 이런 방식으로 되어 있으므로 지식적으로는 정리해두는 게 좋을 것 같다.
   
   [클래스 컴포넌트의 Life Cycle]
@@ -49,20 +49,19 @@ class App extends React.Component {
     console.log("component updated")
   }
 
-
   // 변할 데이터를 담는 곳
   state = {
-    count: 0
+    count: 0,
   }
   // currnet : 외부의 영향을 받지 않고 currentState로부터 데이터를 세팅할 수 있는 방식이다.
   add = () => {
     // this.setState({count: this.state.count + 1}) // 기존의 좋지 않은 방식
-    this.setState(current => ({count: current.count + 1}))
+    this.setState((current) => ({ count: current.count + 1 }))
     // console.log('add ===> ', this.state.count)
   }
   minus = () => {
     // this.setState({count: this.state.count - 1}) // 기존의 좋지 않은 방식
-    this.setState(current => ({count: current.count - 1}))
+    this.setState((current) => ({ count: current.count - 1 }))
     // console.log('minus ===> ', this.state.count)
   }
   // 렌더를 통해서 데이터를 표시
@@ -79,4 +78,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default App

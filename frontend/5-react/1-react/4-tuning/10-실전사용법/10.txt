@@ -1,6 +1,6 @@
 [현장에서 실전 리팩토링 하는 법]
 
-1. 조사를 원하는 함수형 컴포넌트의 렌더링 횟수 조사
+1. 조사를 원하는 함수 컴포넌트의 렌더링 횟수 조사
   const count = useRef(0)
   count.current++
   console.log(count.current)
