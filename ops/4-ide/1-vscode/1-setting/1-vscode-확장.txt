@@ -28,7 +28,7 @@
 
 1. React 일 때 추가사항
   "ES7+ React/Redux/React-Native snippets"
-    React 검색 후 맨 처음 나오는 것을 설치. rfc로 치면 함수형 컴포넌트 자동완성(★★ rfs, rcc, rfsp ... 등 가능)
+    React 검색 후 맨 처음 나오는 것을 설치. rfc로 치면 함수 컴포넌트 자동완성(★★ rfs, rcc, rfsp ... 등 가능)
   "Auto Import - ES6, TS, JSX, TSX"
     빨간 줄에 커서를 대고 자동수정을 누르면, 풀다운이 뜨고 거기서 원 출처를 선택하면 자동으로 import 코드가 생성됨
 

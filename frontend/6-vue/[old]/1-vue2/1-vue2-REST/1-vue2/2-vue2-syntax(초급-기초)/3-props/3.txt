@@ -30,7 +30,7 @@
   }
   </style>
 
-1. src/components/HelloWorld.js 생성 : vbase 입력시 함수형 컴포넌트 자동 생성하므로 참조
+1. src/components/HelloWorld.js 생성 : vbase 입력시 함수 컴포넌트 자동 생성하므로 참조
   <template>
     <div class="text">
       Hello {{ name }}!
