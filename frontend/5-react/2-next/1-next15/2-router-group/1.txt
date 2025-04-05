@@ -1,0 +1,177 @@
+[Router Group]
+
+1. src/app/(afterLogin)/layout.tsx 작성: 중첩 레이아웃
+  - (afterLogin), (beforeLogin): 루터그룹. 실제로 경로에 반영되지는 않음. 하위 폴더들에 layout 적용 용도
+  ```
+    import {ReactNode} from "react";
+
+    export default function AfterLoginLayout({ children }: { children: ReactNode }) {
+      return (
+        <div>
+          애프터 로그인 레이아웃
+          {children}
+        </div>
+      )
+    }
+  ```
+
+1. src/app/(afterLogin)/home/layout.tsx 작성: 중첩 레이아웃
+  ```
+    export default function Home() {
+      return (
+        <main>
+          홈페이지
+        </main>
+      )
+    }
+  ```
+
+1. src/app/(afterLogin)/home/page.tsx 작성: 페이지
+  ```
+    export default function Home() {
+      return (
+        <main>
+          홈페이지
+        </main>
+      )
+    }
+  ```
+
+1. src/app/(afterLogin)/[username]/layout.tsx 작성: username 슬러그를 이용한 유저 페이지
+  - [slug]: 동적 세그먼트. slug의 뜻은 "이름표"라는 뜻으로, URL의 일부로 사용되는 변수를 의미한다. 예를 들어, /users/[username]에서 [username]은 동적 세그먼트이다.
+  ```
+    export default function Profile() {
+      return (
+        <main>
+          프로필
+        </main>
+      )
+    }
+  ```
+
+1. src/app/(afterLogin)/[username]/status/[id]/page.tsx 작성: 게시물 id 슬러그를 이용한 유저별 게시물 페이지
+  ```
+    export default function Page() {
+      return (
+        <main>
+          게시글 상세
+        </main>
+      )
+    }
+  ```
+
+1. src/app/(afterLogin)/compose/tweet/page.tsx 작성: 게시물 페이지
+  ```
+    export default function Page() {
+      return (
+        <main>
+          게시물
+        </main>
+      )
+    }
+  ```
+
+1. src/app/(afterLogin)/explore/page.tsx 작성: 탐색 페이지
+  ```
+    export default function Page() {
+      return (
+        <main>
+          탐색
+        </main>
+      )
+    }
+  ```
+
+1. src/app/(afterLogin)/messages/page.tsx 작성: 메시지 페이지
+  ```
+    export default function Page() {
+      return (
+        <main>
+          쪽지페이지
+        </main>
+      )
+    }
+  ```
+
+1. src/app/(afterLogin)/search/page.tsx 작성: 검색 페이지
+  ```
+    export default function Page() {
+      return (
+        <main>
+          검색
+        </main>
+      )
+    }
+  ```
+
+1. src/app/(beforeLogin)/layout.tsx 작성  
+  - page.tsx: page는 layout의 자식으로 들어감.
+  - default.tsx: 동시에 두 화면을 띄울 때, 플로팅 쪽 화면이 아직 뜨지 않았을 때 @modal 폴더에 상응하는 빈 페이지. (동시에 같은 폴더 위치에) pages와 공존할 수 없으며 둘중 하나만 쓴다.
+    동시에 두 화면을 보여주는 페러렐라우팅을 쓸 때 사용한다. 예를 들어, 모달 등에서 사용.
+  - layout.tsx: 페이지가 바뀌어도 유지되는 부분. 상단바, 하단바 등
+  - template.tsx: 페이지가 바뀔 때마다 리렌더링 되는 부분. (동시에 같은 폴더 위치에) layout과 공존할 수 없으며 둘중 하나만 쓴다.
+    template은 페이지를 넘나들 때마다 뭔가 처리를 해야할 때 사용한다. 예를 들어, 페이지 전환 시 "애니메이션 효과"를 주거나 "구글 애널리틱스" 같이 방문자 정보의 기록 등이 있다.
+  ```
+    import {ReactNode} from "react";
+
+    type Props = { children: ReactNode, modal: ReactNode };
+    export default function Layout({ children }: Props) {
+      return (
+        <div>
+          {children}
+        </div>
+      )
+    }
+    
+    // 주소가 localhost:3000일 때는 children->page.tsx, modal->@modal/default.tsx
+    // 주소가 localhost:3000/i/flow/login 때는 chldren->i/flow/login/page.tsx, modal->@modal/i/flow/login/page.tsx
+  ```
+
+1. src/app/(beforeLogin)/login/page.tsx 작성
+  - /login은 /i/flow/login으로 redirect
+  ```
+    import {redirect} from "next/navigation";
+
+    export default function Login() {
+      redirect('/i/flow/login')
+    }
+  ```
+
+1. src/app/(beforeLogin)/i/flow/login/page.tsx 작성:
+  ```
+    export default function Page() {
+      return (
+        <main>
+          로그인모달
+        </main>
+      );
+    }
+  ```
+
+1. src/app/(beforeLogin)/i/flow/signup/page.tsx 작성:
+  ```
+    export default function Page() {
+      return (
+        <main>
+          회원가입모달
+        </main>
+      );
+    }
+  ```
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
+  - 각 페이지에 접속하여 정상적으로 작동하는지 확인한다.
+    localhost:3000
+    localhost:3000/login
+    localhost:3000/i/flow/login
+    localhost:3000/i/flow/signup
+    localhost:3000/home
+    localhost:3000/messages
+    localhost:3000/explore
+    localhost:3000/compose/tweet
+    localhost:3000/search
+    localhost:3000/status
+    localhost:3000/status/1 # 404페이지 유도
+    localhost:3000/zzz # 404페이지 유도

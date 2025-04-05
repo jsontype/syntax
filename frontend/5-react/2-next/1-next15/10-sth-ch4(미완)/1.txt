@@ -1,0 +1,12 @@
+[섹션6. 보너스: 백엔드 개발자가 퇴사했다]
+
+1. request memoization과 data cache
+1. Full Route Cache와 Router Cache (static vs dynamic)
+1. Static(SSG) 모드와 ISR 모드, 마이크로프론트엔드
+1. 배포 직전 build 하기
+1. 보너스: 배포 맛보기(과금주의)
+1. 보너스: 카톡 공유용 데이터 넣기
+1. /message 페이지 수정하기
+1. 웹소켓으로 실시간 채팅 구현하기
+1. 리버스 인피니트 스크롤링
+1. 보너스: Vanilla Extract 적용하기

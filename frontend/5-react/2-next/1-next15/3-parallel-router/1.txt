@@ -1,0 +1,53 @@
+[섹션2. 기획자와 디자이너가 기획서를 던져주었다]
+* 버전 정보: Node 18.20.3
+
+1. src/app/(beforeLogin)/@modal/i/flow/signup과/page.tsx 작성
+1. src/app/(beforeLogin)/@modal/i/flow/login/page.tsx 작성: 페러렐 라우팅으로 페이지 전환 없이 모달 띄우기
+  - 페러렐 라우트: 한 화면 안에서 여러 부분을 동시에 보여주는 기능. 예를 들어, 도메인을 이동해서 모달을 띄울 때, 기존의 뒤 화면을 남기면서 모달창을 생성할 수 있음.
+  - (beforeLogin) 내부의 @modal 안에 (.)/flow/signup을 만들어야 함
+  - (beforeLogin)과 동등 레벨에 만드는 경우 The default export is not a React Component in page 에러 발생
+  - /login에서 /i/flow/login으로 가기 위해서는 redirect로는 안 되고, router.replace를 해야 함. "use client" 사용 필요.
+
+1. src/app/(beforeLogin)/page.tsx 작성
+  - 페러렐 라우트: 형제 관계에 @modal 이런 식으로 폴더를 만들고 그 안에 page.tsx를 작성하면 됨.
+
+1. src/app/(beforeLogin)/layout.tsx 작성
+  - 페러렐 라우트: @modal은 모달을 띄우는 용도. @modal은 페이지가 아님. 페이지는 page.tsx로 작성하고, layout.tsx에서 해당 모달을 띄울 수가 있음.
+
+1. src/app/(beforeLogin)/@modal/page.tsx 작성
+1. src/app/(beforeLogin)/@modal/login.module.css 작성
+  - 클라이언트 컴포넌트로 전환하기
+
+1. src/app/(beforeLogin)/@modal/default.tsx 작성
+  - default.tsx: 페러렐 라우트가 필요없을 때, "기본으로 보여줄 파일"을 만들어놓기 위한 page 파일
+  - 위와 같은 폴더 구조에서, 페러렐 라우트가 필요없을 때는, @ 폴더의 기본 page.tsx가 없어서, 빈 화면이 되어버리는데, 그때, 에러가 난다.
+  - 주소가 localhost:3000일 때는 children -> page.tsx, modal -> @modal/page.tsx 가 되는데, 여기가 아예 빈 화면이므로 @modal/default.tsx로 대신한 것임 (이때 default.tsx가 없으면 page가 없어서 404가 나므로 추가해준 것)
+  - 주소가 localhost:3000/i/flow/signup일 때는 children -> i/flow/signup/page.tsx, modal -> @modal/i/flow/signup/page.tsx
+  - 인터셉팅 라우트 @modal/(.)i/flow/signup/page.tsx 더 윗단계면 @modal/(..)i/flow/signup/page.tsx: 
+    @modal/(.)i/flow/signup/page.tsx: @modal의 자식으로 i/flow/signup이 들어감
+    @modal/(..)i/flow/signup/page.tsx: @modal의 자식으로 i/flow/signup이 들어감. @modal의 자식으로 i/flow가 들어감. @modal의 자식으로 i가 들어감.
+
+1. src/app/(beforeLogin)/_component/page.tsx 작성: 프라이빗 폴더. 주소창엔 안뜬다. 폴더 정리용.
+  - private folder: 페이지간 공통 컴포넌트를 중복제거하기 위한 폴더
+
+1. src/app/(beforeLogin)/login/page.tsx 작성: 로그인 모달에서 발생하는 문제 해결하기 (router.replace)
+  - redirect: 서버 컴포넌트의 이동
+    redirect는 페이지를 이동하는 것임. 페이지를 이동하면 주소창이 바뀜 (서버에서 리다이렉트되므로)
+    서버 컴포넌트를 이동시, 인터셉트 루팅은 되지 않는다. 왜냐면 인터셉트 라우팅은 클라이언트에서 "화면만 바꾸는" 방식인데, redirect()는 아예 서버에서 새 요청을 받아 처리하니까 인터셉트가 불가능함. redirect()는 서버에서 주소를 강제로 바꾸는 거라, 인터셉트나 페러렐처럼 클라이언트 내에서 일어나는 화면 조작은 못 함.
+    (페러렐 루팅은 완전히 안되는 건 아닌데 사용방법이 달라서 안될 수도 있음)
+  - router.push: 클라이언트 컴포넌트의 이동. 'use client' 필요
+    router.push는 페이지를 이동하는 것임. 페이지를 이동하면 주소창도 바뀜.
+    localhost:3000 -> localhost:3001/login -> localhost:3000/i/flow/signup : 이 순서로 화면 이동을 했을 때,
+    localhost:3000 -> localhost:3001/login -> localhost:3000/i/flow/signup : 히스토리 기록은 이렇게 된다. 그러나 localhost:3001/login 가 localhost:3000/i/flow/signup 로 리다이렉팅 하기 때문에, 무한해서 login 뒤로는 못감.
+    이런 경우를 방지 하기 위해서 router.replace를 사용해야 함.
+  - router.replace: 클라이언트 컴포넌트의 이동. 'use client' 필요
+    router.replace는 페이지를 이동하는 것이 아니라, 페이지를 바꾸는 것임. 페이지를 바꿔도 주소창은 바뀌나 이전거 히스토리가 남지 않음.
+    localhost:3000 -> localhost:3001/login -> localhost:3000/i/flow/signup : 이 순서로 화면 이동을 했을 때,
+    localhost:3000 -> localhost:3000/i/flow/signup : 히스토리 기록은 이렇게 된다.
+  - 배경 사라지는 문제: use client로 바꾸고 배경 똑같이 깔아주는 식으로 해결함
+
+1. _component/... 작성: 공통 컴포넌트의 중복제거
+
+1. src/app/(beforeLogin)/@modal/i/flow/signup/page.tsx 작성
+  - Main, SignupModal css 설명
+  

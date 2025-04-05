@@ -1,0 +1,2 @@
+# 현황: In progress 12 // Total 81 
+# 강의노트: https://cooked-place-140.notion.site/Next-js-App-Router-X-com-126206795adc4675a9a6e73d75faeb6b
