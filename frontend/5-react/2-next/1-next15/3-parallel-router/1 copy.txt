@@ -1,0 +1,18 @@
+  - default.tsx: 
+    '(beforeLogin)/layout.tsx'에서 사용하는 'modal'은 패러렐 루트('@modal' 폴더)를 통해 불러온다.  
+    '@modal' 폴더가 패러렐 루트인데, 그 안에 아무런 화면(page.tsx)이 없으면, 메인 페이지에서 'modal' 영역이 비어 에러 발생 (404, 'not a React component' 등).  
+    이때 'default.tsx'는 '모달이 없는 상황에서도 렌더링 오류를 방지하기 위한 빈 대체 화면' 역할을 한다.  
+    만약 '@modal/page.tsx'를 만들면, '(beforeLogin)/page.tsx'와 '같은 계층'이 되어 충돌이 생기므로 'default.tsx'를 사용해야 한다.
+  - 패러렐 루트: 
+    '@modal'처럼 두 화면을 동시에 띄우는 목적의 폴더.
+    '/@modal/i/flow/login' → '@modal' 아래 'i/flow/login' 경로를 현재 children과 함께 표시
+      > 주소: '/' → children: 'page.tsx', modal: '/@modal/default.tsx'  
+      > 주소: '/login' → children: '/i/flow/login/page.tsx', modal: '/@modal/i/flow/login/page.tsx'  
+      > 주소: '/i/flow/login' → children: '/i/flow/login/page.tsx', modal: '/@modal/i/flow/login/page.tsx'
+  - 인터셉트 루트 (.) (..):
+    기존 라우트 트리의 흐름을 가로채서 특정 위치에 UI(예: 모달)를 삽입할 때 사용하는 라우팅 방식.  
+    '보통 패러렐 루트('@modal')와 함께 쓰이며', 기존 페이지를 유지하면서 '모달 같은 UI만 추가'로 띄우고 싶을 때 사용한다.
+    '@modal/(.)i/flow/login'  → '@modal' 아래 'i/flow/login'만 가로채서 children과 함께 표시 (기본 동작과 동일)  
+      > 주소: '/i/flow/login' → children: '/i/flow/login/page.tsx', modal: '/@modal/(.)i/flow/login/page.tsx'
+    '@modal/(..)i/flow/login' → '@modal' 아래 'i/flow/login'뿐 아니라 그 '상위 경로'들('i/flow', 'i')도 순차적으로 검색하여 modal 페이지가 있으면 가로채 렌더링
+      > 주소: '/i/flow/login' →  children: '/i/flow/login/page.tsx', modal: '/@modal/(..)i/flow/login/page.tsx', '/@modal/(..)i/flow/page.tsx', '/@modal/(..)i/page.tsx'의 순으로 페이지를 검색

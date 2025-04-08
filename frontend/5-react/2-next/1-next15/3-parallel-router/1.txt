@@ -1,34 +1,656 @@
 [섹션2. 기획자와 디자이너가 기획서를 던져주었다]
 * 버전 정보: Node 18.20.3
 
-1. src/app/(beforeLogin)/@modal/i/flow/signup과/page.tsx 작성
-1. src/app/(beforeLogin)/@modal/i/flow/login/page.tsx 작성: 페러렐 라우팅으로 페이지 전환 없이 모달 띄우기
-  - 페러렐 라우트: 한 화면 안에서 여러 부분을 동시에 보여주는 기능. 예를 들어, 도메인을 이동해서 모달을 띄울 때, 기존의 뒤 화면을 남기면서 모달창을 생성할 수 있음.
-  - (beforeLogin) 내부의 @modal 안에 (.)/flow/signup을 만들어야 함
-  - (beforeLogin)과 동등 레벨에 만드는 경우 The default export is not a React Component in page 에러 발생
-  - /login에서 /i/flow/login으로 가기 위해서는 redirect로는 안 되고, router.replace를 해야 함. "use client" 사용 필요.
+1. src/app/(beforeLogin)/_component/main.module.css 작성: css 모듈 사전준비. css는 로직이 아니므로 설명은 생략한다.
+  ```
+    .container {
+      display: flex;
+      flex-direction: row;
+      background-color: #fff;
+      width: 100dvw;
+      height: 100dvh;
+    }
+    .left {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .right h1 {
+      font-weight: bold;
+      font-size: 64px;
+      margin: 48px 0;
+    }
+    .right h2 {
+      font-weight: bold;
+      font-size: 31px;
+      margin-bottom: 32px;
+    }
+    .right h3 {
+      font-weight: bold;
+      font-size: 17px;
+      margin-bottom: 20px;
+      margin-top: 40px;
+    }
 
-1. src/app/(beforeLogin)/page.tsx 작성
-  - 페러렐 라우트: 형제 관계에 @modal 이런 식으로 폴더를 만들고 그 안에 page.tsx를 작성하면 됨.
+    .signup {
+      width: 300px;
+      height: 40px;
+      border-radius: 20px;
+      padding: 0 16px;
+      font-size: 15px;
+      background-color: rgb(29, 155, 240);
+      color: white;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .signup:hover {
+      background-color: rgb(26, 140, 216);
+    }
+    .login {
+      width: 300px;
+      height: 40px;
+      border-radius: 20px;
+      padding: 0 16px;
+      font-size: 15px;
+      color: rgb(29, 155, 240);
+      border: 1px solid rgb(207, 217, 222);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .login:hover {
+      background-color: rgba(29, 155, 240, 0.1);
+    }
+  ```
+
+1. src/app/(beforeLogin)/_component/login.module.css 작성: css 모듈. css는 로직이 아니므로 설명은 생략한다.
+  ```
+    .modalBackground {
+      width: 100vw;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.4);
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .modalBackground {
+        background-color: rgba(91, 112, 131, 0.4);
+      }
+    }
+
+    .modal {
+      background-color: rgb(var(--background-end-rgb));
+      position: relative;
+      top: 5%;
+      max-width: 80vw;
+      min-width: 600px;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      height: 450px;
+    }
+
+    .modalHeader {
+      padding: 36px 80px 20px;
+      font-size: 31px;
+      font-weight: bold;
+    }
+
+    .modal form {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .modalBody {
+      flex: 1;
+      padding: 0 80px;
+    }
+    @media all and (min-width: 687px) {
+      .modal {
+        top: 5%;
+        min-width: 600px;
+        max-width: 600px;
+        height: 450px;
+        padding: 0;
+      }
+      .modalHeader {
+        padding: 36px 80px 20px;
+      }
+      .modalBody {
+        padding: 0 80px;
+      }
+    }
+
+    .inputDiv {
+      display: flex;
+      flex-direction: column;
+      height: 56px;
+      position: relative;
+      margin: 12px 0;
+    }
+    .inputLabel {
+      width: 100%;
+      display: inline-block;
+      position: absolute;
+      top: 0;
+      border: 1px solid rgb(207, 217, 222);
+      border-radius: 4px;
+      font-size: 13px;
+      height: 56px;
+      padding: 8px 8px 0;
+      color: rgb(83, 100, 113);
+    }
+    .inputLabel:focus-within {
+      color: red;
+    }
+    .input {
+      width: 100%;
+      border: none;
+      font-size: 17px;
+      margin-top: 16px;
+      padding: 12px 8px 8px;
+      outline: none;
+    }
+
+    .modalFooter {
+      padding: 24px 80px;
+    }
+
+    .actionButton {
+      width: 100%;
+      height: 50px;
+      border-radius: 25px;
+      background-color: rgb(15, 20, 25);
+      color: white;
+      font-size: 17px;
+      cursor: pointer;
+      border: none;
+    }
+    .actionButton:disabled {
+      opacity: 0.5;
+    }
+    .actionButton:hover {
+      background-color: rgb(39, 44, 48);
+    }
+
+    .closeButton {
+      width: 34px;
+      height: 34px;
+      border-radius: 17px;
+      border: none;
+      cursor: pointer;
+      background-color: #fff;
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .closeButton:hover {
+      background-color: rgba(15, 20, 25, 0.1);
+    }
+    @media (prefers-color-scheme: dark) {
+      .closeButton {
+        background-color: black;
+      }
+      .closeButton svg {
+        fill: white;
+      }
+    }
+  ```
+
+1. src/app/(beforeLogin)/_component/signup.module.css 작성: css 모듈 사전준비. css는 로직이 아니므로 설명은 생략한다.
+  ```
+    .modalBackground {
+      width: 100vw;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+    @media (prefers-color-scheme: dark) {
+      .modalBackground {
+        background-color: rgba(91, 112, 131, 0.4);
+      }
+    }
+    .modal {
+      background-color: rgb(var(--background-end-rgb));
+      position: relative;
+      top: 5%;
+      max-width: 80vw;
+      min-width: 600px;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      height: 550px;
+    }
+
+    .modalHeader {
+      padding: 36px 80px 20px;
+      font-size: 31px;
+      font-weight: bold;
+    }
+
+    .modal form {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .modalBody {
+      flex: 1;
+      padding: 0 80px;
+    }
+    @media all and (min-width: 687px) {
+      .modal {
+        top: 5%;
+        min-width: 600px;
+        max-width: 600px;
+        height: 550px;
+        padding: 0;
+      }
+      .modalHeader {
+        padding: 36px 80px 20px;
+      }
+      .modalBody {
+        padding: 0 80px;
+      }
+    }
+
+    .inputDiv {
+      display: flex;
+      flex-direction: column;
+      height: 56px;
+      position: relative;
+      margin: 12px 0;
+    }
+    .inputLabel {
+      width: 100%;
+      display: inline-block;
+      position: absolute;
+      top: 0;
+      border: 1px solid rgb(207, 217, 222);
+      border-radius: 4px;
+      font-size: 13px;
+      height: 56px;
+      padding: 8px 8px 0;
+      color: rgb(83, 100, 113);
+    }
+    .inputLabel:focus-within {
+      color: red;
+    }
+    .input {
+      width: 100%;
+      border: none;
+      font-size: 17px;
+      margin-top: 16px;
+      padding: 12px 8px 8px;
+      outline: none;
+    }
+
+    .modalFooter {
+      padding: 24px 80px;
+    }
+
+    .actionButton {
+      width: 100%;
+      height: 50px;
+      border-radius: 25px;
+      background-color: rgb(15, 20, 25);
+      color: white;
+      font-size: 17px;
+    }
+    .actionButton:disabled {
+      opacity: 0.5;
+    }
+    .actionButton:hover {
+      background-color: rgb(39, 44, 48);
+    }
+
+    .closeButton {
+      width: 34px;
+      height: 34px;
+      border-radius: 17px;
+      border: none;
+      cursor: pointer;
+      background-color: #fff;
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .closeButton:hover {
+      background-color: rgba(15, 20, 25, 0.1);
+    }
+    @media all and (min-width: 687px) {
+      .closeButton {
+        left: 16px;
+      }
+    }
+    @media (prefers-color-scheme: dark) {
+      .closeButton {
+        background-color: black;
+      }
+      .closeButton svg {
+        fill: white;
+      }
+    }
+  ```
+
+1. src/app/(beforeLogin)/_component/Main.tsx 작성: 프라이빗 폴더. 주소창엔 안뜬다. 폴더 정리용.
+  - private folder: 루터 그룹 (예: (beforeLogin)) 내의 페이지간 공통 컴포넌트를 중복제거하기 위한 폴더
+  - 내용은 src/app/page.tsx 에서 잘라내서 가져오면 된다.
+    이후 src/app/page.tsx 파일은 삭제한다. 
+    삭제하면, 메인의 page가 없어지기 때문에 자동적으로 그 다음 직계자손인 (beforeLogin)/page.tsx 가 메인 페이지가 된다.
+    형제 루터그룹인 (afterLogin)/page.tsx 는 존재하지 않기 때문에 스킵된다.
+    아래 코드는 초기화면인 src/app/(beforeLogin)/page.tsx에서 호출하는 Main 컴포넌트가 될 예정이다.
+  ```
+    import styles from "@/app/(beforeLogin)/_component/main.module.css";
+    import Image from "next/image";
+    import zLogo from "../../../../public/zlogo.png";
+    import Link from "next/link";
+
+    export default function Main() {
+      return (
+        <>
+          <div className={styles.left}>
+            <Image src={zLogo} alt="logo" />
+          </div>
+          <div className={styles.right}>
+            <h1>지금 일어나고 있는 일</h1>
+            <h2>지금 가입하세요.</h2>
+            <Link href="/i/flow/signup" className={styles.signup}>계정 만들기</Link>
+            <h3>이미 트위터에 가입하셨나요?</h3>
+            <Link href="/login" className={styles.login}>로그인</Link>
+          </div>
+        </>
+      )
+    }
+  ```
+
+1. src/app/(beforeLogin)/page.tsx 작성: 위의 초기화면, 즉 Main 컴포넌트를 불러오는 메인 페이지가 된다.
+  ```
+    import Main from "@/app/(beforeLogin)/_component/Main";
+
+    export default function Home() {
+      return (
+        <Main />
+      )
+    }
+  ```
 
 1. src/app/(beforeLogin)/layout.tsx 작성
-  - 페러렐 라우트: @modal은 모달을 띄우는 용도. @modal은 페이지가 아님. 페이지는 page.tsx로 작성하고, layout.tsx에서 해당 모달을 띄울 수가 있음.
+  - 메인 페이지의 레이아웃에 대한 설명
+    페이지는 여기 위에 있는 page.tsx로 작성하고, layout.tsx에서 해당 모달을 띄울 수가 있게끔 처리를 할 예정임.
+    여기서 나중에 만들 @modal은 페이지가 아니라 모달이기 때문에, page.tsx가 아니라, default.tsx로 작성할 예저임.
+    이를 페러렐 루트라고 함. 추후 @modal 폴더가 나올 때 다시 설명할 예정.
+    (페러렐 루트: 동시에 두 화면 띄울 때 쓰는 @ 붙은 폴더. 예를 들어 modal은 모달을 띄우는 용도인데, @modal로 폴더를 만들면 페러렐 루트 폴더가 된다.)
+  ```  
+    import { ReactNode } from "react";
+    import styles from '@/app/(beforeLogin)/_component/main.module.css';
 
-1. src/app/(beforeLogin)/@modal/page.tsx 작성
-1. src/app/(beforeLogin)/@modal/login.module.css 작성
+    type Props = { children: ReactNode, modal: ReactNode };
+    export default function Layout({ children, modal }: Props) {
+      return (
+        <div className={styles.container}>
+          {children}
+          {modal}
+        </div>
+      )
+    }
+
+    // 주소가 localhost:3000일 때는 children->page.tsx, modal->@modal/default.tsx
+    // 주소가 localhost:3000/i/flow/login 때는 chldren->i/flow/login/page.tsx, modal->@modal/i/flow/login/page.tsx
+  ```
+
+1. src/app/(beforeLogin)/_component/LoginModal.tsx 작성: 로그인 모달을 공통 컴포넌트로 작성
   - 클라이언트 컴포넌트로 전환하기
+  ```
+    "use client";
 
-1. src/app/(beforeLogin)/@modal/default.tsx 작성
-  - default.tsx: 페러렐 라우트가 필요없을 때, "기본으로 보여줄 파일"을 만들어놓기 위한 page 파일
-  - 위와 같은 폴더 구조에서, 페러렐 라우트가 필요없을 때는, @ 폴더의 기본 page.tsx가 없어서, 빈 화면이 되어버리는데, 그때, 에러가 난다.
-  - 주소가 localhost:3000일 때는 children -> page.tsx, modal -> @modal/page.tsx 가 되는데, 여기가 아예 빈 화면이므로 @modal/default.tsx로 대신한 것임 (이때 default.tsx가 없으면 page가 없어서 404가 나므로 추가해준 것)
-  - 주소가 localhost:3000/i/flow/signup일 때는 children -> i/flow/signup/page.tsx, modal -> @modal/i/flow/signup/page.tsx
-  - 인터셉팅 라우트 @modal/(.)i/flow/signup/page.tsx 더 윗단계면 @modal/(..)i/flow/signup/page.tsx: 
-    @modal/(.)i/flow/signup/page.tsx: @modal의 자식으로 i/flow/signup이 들어감
-    @modal/(..)i/flow/signup/page.tsx: @modal의 자식으로 i/flow/signup이 들어감. @modal의 자식으로 i/flow가 들어감. @modal의 자식으로 i가 들어감.
+    import style from '@/app/(beforeLogin)/_component/login.module.css';
+    import {useState} from "react";
 
-1. src/app/(beforeLogin)/_component/page.tsx 작성: 프라이빗 폴더. 주소창엔 안뜬다. 폴더 정리용.
-  - private folder: 페이지간 공통 컴포넌트를 중복제거하기 위한 폴더
+    export default function LoginModal() {
+      const [id, setId] = useState();
+      const [password, setPassword] = useState();
+      const [message, setMessage] = useState();
+      const onSubmit = () => {};
+      const onClickClose = () => {};
+
+      const onChangeId = () => {};
+
+      const onChangePassword = () => {};
+
+      return (
+        <div className={style.modalBackground}>
+          <div className={style.modal}>
+            <div className={style.modalHeader}>
+              <button className={style.closeButton} onClick={onClickClose}>
+                <svg width={24} viewBox="0 0 24 24" aria-hidden="true"
+                    className="r-18jsvk2 r-4qtqp9 r-yyyyoo r-z80fyv r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-19wmn03">
+                  <g>
+                    <path
+                      d="M10.59 12L4.54 5.96l1.42-1.42L12 10.59l6.04-6.05 1.42 1.42L13.41 12l6.05 6.04-1.42 1.42L12 13.41l-6.04 6.05-1.42-1.42L10.59 12z"></path>
+                  </g>
+                </svg>
+              </button>
+              <div>로그인하세요.</div>
+            </div>
+            <form onSubmit={onSubmit}>
+              <div className={style.modalBody}>
+                <div className={style.inputDiv}>
+                  <label className={style.inputLabel} htmlFor="id">아이디</label>
+                  <input id="id" className={style.input} value={id} onChange={onChangeId} type="text" placeholder=""/>
+                </div>
+                <div className={style.inputDiv}>
+                  <label className={style.inputLabel} htmlFor="password">비밀번호</label>
+                  <input id="password" className={style.input} value={password} onChange={onChangePassword} type="password" placeholder=""/>
+                </div>
+              </div>
+              <div className={style.message}>{message}</div>
+              <div className={style.modalFooter}>
+                <button className={style.actionButton} disabled={!id && !password}>로그인하기</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      );
+    }
+  ```
+
+1. src/app/(beforeLogin)/_component/SignupModal.tsx 작성: 회원가입 모달을 공통 컴포넌트로 작성
+  - 클라이언트 컴포넌트로 전환하기
+  ```
+    "use client";
+
+    import style from './signup.module.css';
+    import { useRouter } from "next/navigation";
+    import { ChangeEventHandler, FormEventHandler, useState } from "react";
+
+    export default function SignupModal() {
+      const [id, setId] = useState('');
+      const [password, setPassword] = useState('');
+      const [nickname, setNickname] = useState('');
+      const [image, setImage] = useState('');
+      const [imageFile, setImageFile] = useState<File>();
+
+      const router = useRouter();
+      const onClickClose = () => {
+        router.back();
+        // TODO: 뒤로가기가 /home이 아니면 /home으로 보내기
+      }
+
+      const onChangeId: ChangeEventHandler<HTMLInputElement> = (e) => { setId(e.target.value) };
+
+      const onChangePassword: ChangeEventHandler<HTMLInputElement> = (e) => { setPassword(e.target.value) };
+      const onChangeNickname: ChangeEventHandler<HTMLInputElement> = (e) => { setNickname(e.target.value) };
+      const onChangeImageFile: ChangeEventHandler<HTMLInputElement> = (e) => {
+        e.target.files && setImageFile(e.target.files[0])
+      };
+
+      const onSubmit: FormEventHandler = (e) => {
+        e.preventDefault();
+        fetch('http://localhost:9090/api/users', {
+          method: 'post',
+          body: JSON.stringify({
+            id,
+            nickname,
+            image,
+            password,
+          }),
+          credentials: 'include',
+        }).then((response: Response) => {
+          console.log(response.status);
+          if (response.status === 200) {
+            router.replace('/home');
+          }
+        }).catch((err) => {
+          console.error(err);
+        });
+      }
+
+      return (
+        <>
+          <div className={style.modalBackground}>
+            <div className={style.modal}>
+              <div className={style.modalHeader}>
+                <button className={style.closeButton} onClick={onClickClose}>
+                  <svg width={24} viewBox="0 0 24 24" aria-hidden="true"
+                    className="r-18jsvk2 r-4qtqp9 r-yyyyoo r-z80fyv r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-19wmn03">
+                    <g>
+                      <path
+                        d="M10.59 12L4.54 5.96l1.42-1.42L12 10.59l6.04-6.05 1.42 1.42L13.41 12l6.05 6.04-1.42 1.42L12 13.41l-6.04 6.05-1.42-1.42L10.59 12z"></path>
+                    </g>
+                  </svg>
+                </button>
+                <div>계정을 생성하세요.</div>
+              </div>
+              <form>
+                <div className={style.modalBody}>
+                  <div className={style.inputDiv}>
+                    <label className={style.inputLabel} htmlFor="id">아이디</label>
+                    <input id="id" className={style.input} type="text" placeholder=""
+                      value={id}
+                      onChange={onChangeId}
+                    />
+                  </div>
+                  <div className={style.inputDiv}>
+                    <label className={style.inputLabel} htmlFor="name">닉네임</label>
+                    <input id="name" className={style.input} type="text" placeholder=""
+                      value={nickname}
+                      onChange={onChangeNickname}
+                    />
+                  </div>
+                  <div className={style.inputDiv}>
+                    <label className={style.inputLabel} htmlFor="password">비밀번호</label>
+                    <input id="password" className={style.input} type="password" placeholder=""
+                      value={password}
+                      onChange={onChangePassword}
+                    />
+                  </div>
+                  <div className={style.inputDiv}>
+                    <label className={style.inputLabel} htmlFor="image">프로필</label>
+                    <input id="image" className={style.input} type="file" accept="image/*"
+                      onChange={onChangeImageFile}
+                    />
+                  </div>
+                </div>
+                <div className={style.modalFooter}>
+                  <button className={style.actionButton} disabled>가입하기</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </>
+      )
+    }
+  ```
+
+1. src/app/(beforeLogin)/@modal/default.tsx 직상
+  - default.tsx: 
+    '(beforeLogin)/layout.tsx'에서 사용하는 'modal'은 패러렐 루트('@modal' 폴더)를 통해 불러온다.  
+    '@modal' 폴더가 패러렐 루트인데, 그 안에 아무런 화면(page.tsx)이 없으면, 메인 페이지에서 'modal' 영역이 비어 에러 발생 (404, 'not a React component' 등).  
+    이때 'default.tsx'는 '모달이 없는 상황에서도 렌더링 오류를 방지하기 위한 빈 대체 화면' 역할을 한다.  
+    만약 '@modal/page.tsx'를 만들면, '(beforeLogin)/page.tsx'와 '같은 계층'이 되어 충돌이 생기므로 'default.tsx'를 사용해야 한다.
+  - 패러렐 루트: 
+    '@modal'처럼 두 화면을 동시에 띄우는 목적의 폴더.
+    '/@modal/i/flow/login' → '@modal' 아래 'i/flow/login' 경로를 현재 children과 함께 표시
+      > 주소: '/' → children: 'page.tsx', modal: '/@modal/default.tsx'  
+      > 주소: '/login' → children: '/i/flow/login/page.tsx', modal: '/@modal/i/flow/login/page.tsx'  
+      > 주소: '/i/flow/login' → children: '/i/flow/login/page.tsx', modal: '/@modal/i/flow/login/page.tsx'
+  - 인터셉트 루트 (.) (..):
+    기존 라우트 트리의 흐름을 가로채서 특정 위치에 UI(예: 모달)를 삽입할 때 사용하는 라우팅 방식.  
+    '보통 패러렐 루트('@modal')와 함께 쓰이며', 기존 페이지를 유지하면서 '모달 같은 UI만 추가'로 띄우고 싶을 때 사용한다.
+    '@modal/(.)i/flow/login'  → '@modal' 아래 'i/flow/login'만 가로채서 children과 함께 표시 (기본 동작과 동일)  
+      > 주소: '/i/flow/login' → children: '/i/flow/login/page.tsx', modal: '/@modal/(.)i/flow/login/page.tsx'
+    '@modal/(..)i/flow/login' → '@modal' 아래 'i/flow/login'뿐 아니라 그 '상위 경로'들('i/flow', 'i')도 순차적으로 검색하여 modal 페이지가 있으면 가로채 렌더링
+      > 주소: '/i/flow/login' →  children: '/i/flow/login/page.tsx', modal: '/@modal/(..)i/flow/login/page.tsx', '/@modal/(..)i/flow/page.tsx', '/@modal/(..)i/page.tsx'의 순으로 페이지를 검색
+  - (.) 문법을 굳이 쓰는 이유:
+    아래 둘은 기본적으로는 같지만, (.)는 명시적으로 인터셉트(intercept) 하겠다는 의도를 드러내는 문법이다.
+      /@modal/i/flow/login/page.tsx → 기본적인 페러렐 라우팅
+      /@modal/(.)i/flow/login/page.tsx → 같은 경로를 인터셉트한다고 명시
+    즉, 라우팅이 복잡해질 때 "여기서 인터셉트한다"는 걸 명확히 하기 위해 사용한다.
+    또는 상위 디렉토리에 있는 (..)와 헷갈리지 않게 의도를 구분하고자 할 때도 사용한다.
+      /@modal/(.)product/[id] → 해당 상품 페이지를 인터셉트
+      /@modal/(..)product/[id] → 상위까지 포함해서 모달 구성
+  ```
+    export default function Default() {
+      return null;
+    }
+  ```
+
+1. src/app/(beforeLogin)/@modal/(.)i/flow/login/page.tsx 작성: 로그인 모달
+  - 인터셉트 루트: 루트를 인터셉트하는 개념인데, @를 사용한 페러렐 루트와 함께 쓸 수 있다.
+    이를 해결하기 위해, (.) (..) 등을 붙여 상대적으로 다른 계층에 있는 화면을 인터셉트하여 동시에 띄우는 것임.
+      (.)를 쓰는 경우는 @modal의 자식으로 i/flow/login이 들어감.
+      (..)를 쓰는 경우는 @modal의 자식으로 i/flow 또는 i가 들어감.
+    
+    /login에서 /i/flow/login으로 가기 위해서는 redirect로는 안 되고, router.replace를 해야 함. "use client" 사용 필요.
+  ```  
+    import LoginModal from "@/app/(beforeLogin)/_component/LoginModal";
+
+    export default function Page() {
+      return (
+        <LoginModal />
+      );
+    }
+  ```
+
+1. src/app/(beforeLogin)/@modal/(.)i/flow/signup/page.tsx 작성: 페러렐 라우팅으로 페이지 전환 없이 모달 띄우기
+  ```  
+    import SignupModal from "@/app/(beforeLogin)/_component/SignupModal";
+
+    export default function Signup() {
+      return (
+        <SignupModal />
+      )
+    }
+  ```  
 
 1. src/app/(beforeLogin)/login/page.tsx 작성: 로그인 모달에서 발생하는 문제 해결하기 (router.replace)
   - redirect: 서버 컴포넌트의 이동
@@ -45,9 +667,43 @@
     localhost:3000 -> localhost:3001/login -> localhost:3000/i/flow/signup : 이 순서로 화면 이동을 했을 때,
     localhost:3000 -> localhost:3000/i/flow/signup : 히스토리 기록은 이렇게 된다.
   - 배경 사라지는 문제: use client로 바꾸고 배경 똑같이 깔아주는 식으로 해결함
+  ```
+    "use client";
 
-1. _component/... 작성: 공통 컴포넌트의 중복제거
+    import { useRouter } from "next/navigation";
+    import Main from "@/app/(beforeLogin)/_component/Main";
 
-1. src/app/(beforeLogin)/@modal/i/flow/signup/page.tsx 작성
-  - Main, SignupModal css 설명
+    export default function Login() {
+      const router = useRouter();
+      router.replace('/i/flow/login');
+      return (
+        <Main />
+      );
+    }
+  ```
+
+1. src/app/(beforeLogin)/i/flow/login/page.tsx 수정: localhost:3000/login을 통해 들어갔을 때 띄울 부분? 공통 컴포넌트 활용.
+  - @modal도 있지만, 똑같은 코드가 여기에도 필요한 이유: 
+    @modal은 모달을 띄우는 용도. @modal은 페이지가 아님. 페이지는 page.tsx로 작성하고, layout.tsx에서 해당 모달을 띄울 수가 있음.
+    반면 여기는, src/app/(beforeLogin)/i/flow/login/page.tsx는 페이지이기 때문에, @modal에 있는 컴포넌트를 불러와서 사용해야 함.
+  ```
+    import LoginModal from "@/app/(beforeLogin)/_component/LoginModal";
+
+    export default function Page() {
+      return (
+        <LoginModal />
+      );
+    }
+  ```
+
+1. src/app/(beforeLogin)/i/flow/signup/page.tsx 수정: localhost:3000/login을 통해 들어갔을 때 띄울 부분? 공통 컴포넌트 활용.
+  ```
+    import SignupModal from "@/app/(beforeLogin)/_component/SignupModal";
+
+    export default function Signup() {
+      return (
+        <SignupModal />
+      )
+    }
+  ```  
   
