@@ -1,12 +1,5 @@
 [섹션3. 본격 클론 시작!]
 
-1. 레이아웃 클론하기
-1. useSelectedLayoutSegment로 ActiveLink 만들기
-1. 오른쪽 섹션 클론코딩
-1. 홈탭 만들면서 Context API 적용해보기
-1. PostForm 만들기 (타이핑 외우기)
-1. 게시글 만들며 dayjs 사용해보기
-1. classnames로 클래스 합성하기 (feat.npmtrends로 라이브러리 고르기)
 1. /compose/tweet 만들기
 1. usePathname과 /explore 페이지
 1. [Next 15 반영] useSearchParams와 프로필, /search 페이지

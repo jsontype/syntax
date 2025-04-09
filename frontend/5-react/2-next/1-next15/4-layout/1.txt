@@ -1,0 +1,74 @@
+[섹션3. 본격 클론 시작!]
+
+1. 레이아웃 클론하기
+1. useSelectedLayoutSegment로 ActiveLink 만들기
+1. 오른쪽 섹션 클론코딩
+1. 홈탭 만들면서 Context API 적용해보기
+1. PostForm 만들기 (타이핑 외우기)
+1. 게시글 만들며 dayjs 사용해보기
+1. classnames로 클래스 합성하기 (feat.npmtrends로 라이브러리 고르기)
+
+
+<ch2-1>
+1.src/app/(afterLogin)/layout.tsx 수정
+1.src/app/(afterLogin)/layout.module.css 작성
+- 왼쪽과 오른쪽에 flex-grow: 1; 을 각각 넣어서 레이아웃 섹션의 가운데 정렬
+- 왼쪽 레이아웃 고정
+- 오른쪽 레이아웃은 나눠서 메인페이지 부분을 main으로 처리, 우측 검색 사이드바를 section으로 처리
+- leftSectionFixed로 왼쪽 섹션에서 고정되는 부분을 지정해놓고 width는 inherit으로 부모의 leftSection과 동일한 px 값으로 처리
+
+
+
+1.src/app/(afterLogin)/_component/NavMenu.tsx 작성 : navigation 만들기
+- next 훅인 useSelectedLayoutSegment로 ActiveLink 만들기 : segment 가 어느 페이지에 가든 그 레이아웃에 가장 상단 이름을 받아서 넣어줌. 예를 들어, compose/tweet에 들어가면 'compose'가 segment 변수안에 들어간다. 만일 tweet까지 받고 싶으면 useSelectedLayoutSegments (s 추가한 것) 을 쓰면 ['compose', 'tweet'] 이런 배열로 받을 수도 있다.
+- use... Hook을 쓰기 때문에 클라이언트 컴포넌트를 써야한다.
+
+
+1.src/app/(afterLogin)/_component/LogoutButton.tsx 작성: 로그아웃 버튼에 표시될 유저 정보를 일단 더미데이터로 작성해두기
+- on 이벤트함수를 쓰기 때문에 클라이언트 컴포넌트를 써야한다.
+- 개발자도구(F12)의 element에서 svg 복사 등 요소를 복사할 때는 Outer HTML 복사로 복사할 것.
+1.src/app/(afterLogin)/_component/logoutButton.module.css.tsx 작성
+
+
+1.src/app/(afterLogin)/_component/Trend.tsx 작성
+1.src/app/(afterLogin)/_component/trendSection.module.css 작성
+1.src/app/(afterLogin)/_component/TrendSection.tsx 작성 : 반복문 처리해서 우측 사이드바에 "실시간 트렌드" 리스트를 표시하는 컴포넌트 만들기. 더미데이터로 작성.
+
+
+1.src/app/(afterLogin)/_component/followRecommend.module.css 작성
+1.src/app/(afterLogin)/_component/FollowRecommend.tsx 작성: 우측 하단에 팔로우 대상자 추천해주는 컴포넌트 만들기. 더미데이터로 작성.
+
+
+1.src/app/(afterLogin)/home/_component/tab.module.css
+1.src/app/(afterLogin)/home/_component/Tab.tsx: "추천/팔로우 중"을 눌러서 스테이트 변경에 따른 반응을 시켜야 하므로 클라이언트 컴포넌트
+1.src/app/(afterLogin)/home/_component/TabProvider.tsx 작성: Post.tsx에서도 블러처리 반영되게 하려면 상태관리가 필요함. Context API로 상태 관리할 것.
+
+
+1.src/app/(afterLogin)/home/_component/postForm.module.css 작성: 
+1.src/app/(afterLogin)/home/_component/PostForm.tsx 작성: 유저 이미지 표시, 이미지 업로드, 게시하기 버튼, PostForm 만들기(타이핑 외우기)
+
+
+1.src/app/(afterLogin)/_component/post.module.css 작성: 공통컴포넌트로 게시물 화면 스타일 작성. 
+- 눈여겨볼 부분은 손 올렸을 때 부드럽게 배경이 회색이 되는 transition 정도.
+- transition-duration이 0.2초인데 여기서 초기값은 .uploadButton의 백그라운드컬러이고, 마지막값은 .uploadButton:hover의 백그라운드 컬러이다.
+- 또, 이미지 위에 postShade div를 겹쳐넣어서 이미지위에 커서 후버링시 살짝 이미지가 어두워지게 표현. (착시현상)
+1.src/app/(afterLogin)/_component/Post.tsx 작성: 공통컴포넌트로 게시물 화면 작성.
+- 서버 컴포넌트로 작성
+- 게시글 만들며 dayjs 사용해보기: 데이트타입처리 라이브러리, moment랑 사용법 똑같음, 글 쓴지 몇시간 지났는지 편하게 알려주고 한글 플러그인까지 제공
+
+
+1.src/app/(afterLogin)/home/home.module.css 작성: 휠 내릴 때 윗 부분 고정섹션처리 및 블러처리
+1.src/app/(afterLogin)/home/page.tsx: 홈탭 만들면서 Context API 적용해보기, 추천/팔로우 중 탭마다 다른 게시물 정보를 송출, 프로바이더 내부만 ContextAPI를 쓸 수 있으므로, 탭과 폼과 포스트 부분을 합쳐서 Tab 프로바이더로 묶어줌
+
+
+1.src/app/(afterLogin)/_component/ActionButton.tsx: 이미지 밑에 뜨는 3개의 액션버튼 구현하기
+- classnames 라이브러리의 cx 함수를 통해 css 클래스를 조건부로 합성하기(배열로도 되고, 인자값 콤마 구분으로도 됨)
+- npmtrends로 라이브러리 비교해서 고르기 - 특정 라이브러리 검색 후 + 버튼으로 비교대상 추가가능)
+
+
+
+
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
