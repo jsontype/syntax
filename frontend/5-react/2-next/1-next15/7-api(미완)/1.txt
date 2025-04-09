@@ -1,16 +1,5 @@
 [섹션4. 그런데 백엔드 개발자가 API를 아직 못 만들었다]
 
-1. msw 세팅과 .env
-1. next용 msw 컴포넌트
-1. 서버 컴포넌트에서 Server Actions 사용하기
-1. [Next 15] Form 컴포넌트
-1. 클라이언트 컴포넌트에서 Server Actions 사용하기
-1. 미들웨어, 라우트 핸들러, catch-all 라우트
-1. next-auth로 로그인하기
-1. 로그아웃 & 로그인 여부에 따라 화면 다르게 하기
-1. react-query SSR 설정하기
-1. [Next 15] 바뀐 fetch의 cache + Request Momoization & Data Cache
-1. 클라이언트 react-query
 1. react-query를 쓰는 이유와 fresh, stale, inactive
 1. refetch, invalidate, reset의 차이
 1. 팔로잉 게시글, 검색 결과 불러오기
