@@ -1,0 +1,181 @@
+[코딩테스트 퀴즈형식: 마크업, 스타일 관련. 선택형 상식문제 (질문)]
+
+1. 다음 중 날짜 또는 시간과 무관한 강조를 할 때 사용하는 적절한 태그는?
+A. <b>
+B. <strong>
+C. <mark>
+D. <time>
+
+2. <section> 요소 안에 올 수 없는 요소는?
+A. <article>
+B. <p>
+C. <table>
+D. 없음
+
+3. 다음 중 <dl> 태그 안에서 잘못 사용된 구조는?
+A. <dl><dt>이름</dt><dd>홍길동</dd></dl>
+B. <dl><dd>값</dd><dt>키</dt></dl>
+C. <dl><dt>질문</dt><dd>답변1</dd><dd>답변2</dd></dl>
+D. <dl><dt><h3>항목</h3></dt><dd>내용</dd></dl>
+
+4. <ul> 요소 안에 올 수 없는 요소는?
+A. <li>
+B. <p>
+C. <ul>
+D. 없음
+
+5. 다음 중 <main> 태그에 대한 설명으로 옳은 것은?
+A. 문서 어디에나 여러 번 사용 가능하다
+B. <footer> 안에 들어가야 한다
+C. 문서의 주요 콘텐츠를 나타내는 요소다
+D. 반드시 <header> 뒤에 와야 한다
+
+6. <address> 태그의 올바른 사용 예는?
+A. <address>서울시 강남구</address>
+B. <address><p>2023년 12월 1일</p></address>
+C. <address><img src="map.png"></address>
+D. <address><footer>내용</footer></address>
+
+7. 다음 HTML 중 문서 구조에 어긋나는 것은?
+A. <p>내용1</p><p>내용2</p>
+B. <p><ul><li>항목</li></ul></p>
+C. <div><p>문단</p></div>
+D. <section><h2>제목</h2><p>내용</p></section>
+
+8. <strong> 요소의 의미는?
+A. 단순한 굵은 글씨
+B. 시각적으로 강조된 글씨
+C. 중요도를 나타내는 의미적 강조
+D. 기울임 강조
+
+9. <i> 요소를 사용하는 이유는?
+A. 텍스트를 기울이기 위해
+B. 중요도를 강조하기 위해
+C. 의미 없는 시각 효과용
+D. 아이콘이나 전문용어, 기술용어 등 구체적 의미를 부여하기 위해
+
+10. <footer> 안에 올 수 있는 적절한 요소는?
+A. <main>
+B. <nav>
+C. <header>
+D. <h1>
+
+11. <small> 태그의 의미는?
+A. 텍스트를 작게 보이게 한다
+B. 중요도가 낮은 부가정보를 의미한다
+C. 마우스를 올리면 작아진다
+D. 구형 브라우저에서만 동작한다
+
+12. <meta> 태그가 사용되는 위치는?
+A. <body>
+B. <footer>
+C. <head>
+D. 어디서나 가능
+
+13. <article> 태그의 적절한 용도는?
+A. 단락 구분용
+B. 독립된 콘텐츠 블록용
+C. 헤더 영역용
+D. 버튼용
+
+14. <h1>~<h6>의 역할은?
+A. 글자 크기 설정용
+B. 강조용 텍스트
+C. 문서의 제목 및 구조 표현
+D. 스타일링 요소
+
+15. 다음 중 <img> 요소에 필수 속성이 아닌 것은?
+A. src
+B. alt
+C. title
+D. 없음
+
+16. HTML5에서 사용되지 않는 요소는?
+A. <b>
+B. <center>
+C. <figure>
+D. <aside>
+
+17. <nav> 요소의 역할은?
+A. 문서의 메인 영역
+B. 하단 정보 표시
+C. 탐색 링크 그룹
+D. 본문 콘텐츠
+
+18. <button> 요소의 기본 타입은?
+A. submit
+B. button
+C. reset
+D. 없음
+
+19. <input> 태그에 readonly 속성을 주면?
+A. 숨겨진다
+B. 값 변경 불가, 복사는 가능
+C. 완전 비활성화된다
+D. 라벨처럼 동작한다
+
+20. <input> 요소에서 placeholder 속성의 역할은?
+A. 고정값
+B. 사용자가 입력한 값
+C. 입력 전 안내 텍스트
+D. 백업 값
+
+21. 다음 중 유효한 HTML 구조는?
+A. <ul><li>항목1<li>항목2</ul>
+B. <table><thead><td>항목</td></thead></table>
+C. <dl><dt>키</dt><dd>값</dd></dl>
+D. <p><div>내용</div></p>
+
+22. 다음 중 <table> 사용 시 <thead>, <tbody>, <tfoot>의 순서로 알맞은 것은?
+A. <tfoot> - <thead> - <tbody>
+B. <thead> - <tbody> - <tfoot>
+C. <tbody> - <thead> - <tfoot>
+D. 순서 상관없음
+
+23. <label>과 <input> 연결 방법으로 올바른 것은?
+A. <label><input></label>
+B. <label for="id"><input></label>
+C. <input id="id"><label for="id">텍스트</label>
+D. B와 C 모두 맞음
+
+24. <script src="script.js">를 올바르게 닫는 방법은?
+A. <script src="script.js" />
+B. <script src="script.js">내용</script>
+C. <script src="script.js"></script>
+D. <script link="script.js">
+
+25. 다음 중 CSS의 선택자로 올바르지 않은 것은?
+A. #id
+B. .class
+C. div > p
+D. *~*~*
+
+26. box-sizing: border-box;일 때 요소의 실제 높이에 포함되는 것은?
+A. content 영역만
+B. padding만
+C. border와 padding 모두
+D. margin 포함 전체
+
+27. position: absolute;의 기준이 되는 요소는?
+A. 항상 body
+B. 가장 가까운 position 설정된 조상
+C. window
+D. 부모 요소
+
+28. display: none;과 visibility: hidden;의 차이점은?
+A. 동일하다
+B. 앞은 공간 차지 안함, 뒤는 공간 차지함
+C. 반대임
+D. 무조건 visibility가 우선한다
+
+29. 미디어 쿼리 사용 예 중 적절한 것은?
+A. @media (max-size: 500px)
+B. @media screen and (max-width: 500px)
+C. @media width <= 500px
+D. @media when screen 500px
+
+30. 반응형 디자인을 위해 사용되는 HTML 메타 태그는?
+A. <meta charset="UTF-8">
+B. <meta name="viewport" content="width=device-width, initial-scale=1.0">
+C. <meta name="theme-color" content="#000000">
+D. <meta responsive>
