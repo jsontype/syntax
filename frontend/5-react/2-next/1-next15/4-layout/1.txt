@@ -1,74 +1,1155 @@
-[섹션3. 본격 클론 시작!]
+[레이아웃을 통해 본격적으로 X의 UI 클론하기]
 
-1. 레이아웃 클론하기
-1. useSelectedLayoutSegment로 ActiveLink 만들기
-1. 오른쪽 섹션 클론코딩
-1. 홈탭 만들면서 Context API 적용해보기
-1. PostForm 만들기 (타이핑 외우기)
-1. 게시글 만들며 dayjs 사용해보기
-1. classnames로 클래스 합성하기 (feat.npmtrends로 라이브러리 고르기)
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
 
+1. src/app/(afterLogin)/_component/followRecommend.module.css 작성
+  .container {
+    padding: 12px 0;
+    height: 66px;
+    display: flex;
+  }
 
-<ch2-1>
-1.src/app/(afterLogin)/layout.tsx 수정
-1.src/app/(afterLogin)/layout.module.css 작성
-- 왼쪽과 오른쪽에 flex-grow: 1; 을 각각 넣어서 레이아웃 섹션의 가운데 정렬
-- 왼쪽 레이아웃 고정
-- 오른쪽 레이아웃은 나눠서 메인페이지 부분을 main으로 처리, 우측 검색 사이드바를 section으로 처리
-- leftSectionFixed로 왼쪽 섹션에서 고정되는 부분을 지정해놓고 width는 inherit으로 부모의 leftSection과 동일한 px 값으로 처리
+  .userLogo {
+    width: 40px;
+    margin-right: 12px;
+  }
 
+  .userLogo, .userLogo img {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+  }
 
+  .userInfo {
+    flex: 1;
+  }
 
-1.src/app/(afterLogin)/_component/NavMenu.tsx 작성 : navigation 만들기
-- next 훅인 useSelectedLayoutSegment로 ActiveLink 만들기 : segment 가 어느 페이지에 가든 그 레이아웃에 가장 상단 이름을 받아서 넣어줌. 예를 들어, compose/tweet에 들어가면 'compose'가 segment 변수안에 들어간다. 만일 tweet까지 받고 싶으면 useSelectedLayoutSegments (s 추가한 것) 을 쓰면 ['compose', 'tweet'] 이런 배열로 받을 수도 있다.
-- use... Hook을 쓰기 때문에 클라이언트 컴포넌트를 써야한다.
+  .title {
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 20px;
+  }
 
+  .count {
+    color: rgb(83, 100, 113);
+    font-size: 13px;
+    line-height: 16px;
+  }
 
-1.src/app/(afterLogin)/_component/LogoutButton.tsx 작성: 로그아웃 버튼에 표시될 유저 정보를 일단 더미데이터로 작성해두기
-- on 이벤트함수를 쓰기 때문에 클라이언트 컴포넌트를 써야한다.
-- 개발자도구(F12)의 element에서 svg 복사 등 요소를 복사할 때는 Outer HTML 복사로 복사할 것.
-1.src/app/(afterLogin)/_component/logoutButton.module.css.tsx 작성
+  .followButtonSection {
+    width: 76px;
+  }
 
+  .followButtonSection button {
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    color: white;
+    background: #000;
+    font-size: 14px;
+    font-weight: bold;
+    height: 32px;
+    border-radius: 16px;
+  }
+  .followButtonSection button:hover {
+    background-color: rgb(39,44,48);
+  }
 
-1.src/app/(afterLogin)/_component/Trend.tsx 작성
-1.src/app/(afterLogin)/_component/trendSection.module.css 작성
-1.src/app/(afterLogin)/_component/TrendSection.tsx 작성 : 반복문 처리해서 우측 사이드바에 "실시간 트렌드" 리스트를 표시하는 컴포넌트 만들기. 더미데이터로 작성.
+1. src/app/(afterLogin)/_component/FollowRecommend.tsx 작성: 우측 하단에 팔로우 대상자 추천해주는 컴포넌트 만들기. 더미데이터로 작성.
+  "use client"
 
+  import style from './followRecommend.module.css';
 
-1.src/app/(afterLogin)/_component/followRecommend.module.css 작성
-1.src/app/(afterLogin)/_component/FollowRecommend.tsx 작성: 우측 하단에 팔로우 대상자 추천해주는 컴포넌트 만들기. 더미데이터로 작성.
+  export default function FollowRecommend() {
+    const onFollow = () => {};
 
+    const user = {
+      id: 'elonmusk',
+      nickname: 'Elon Musk',
+      image: '/yRsRRjGO.jpg'
+    };
 
-1.src/app/(afterLogin)/home/_component/tab.module.css
-1.src/app/(afterLogin)/home/_component/Tab.tsx: "추천/팔로우 중"을 눌러서 스테이트 변경에 따른 반응을 시켜야 하므로 클라이언트 컴포넌트
-1.src/app/(afterLogin)/home/_component/TabProvider.tsx 작성: Post.tsx에서도 블러처리 반영되게 하려면 상태관리가 필요함. Context API로 상태 관리할 것.
+    return (
+      <div className={style.container}>
+        <div className={style.userLogoSection}>
+          <div className={style.userLogo}>
+            <img src={user.image} alt={user.id} />
+          </div>
+        </div>
+        <div className={style.userInfo}>
+          <div className={style.title}>{user.nickname}</div>
+          <div className={style.count}>@{user.id}</div>
+        </div>
+        <div className={style.followButtonSection}>
+          <button onClick={onFollow}>팔로우</button>
+        </div>
+      </div>
+    )
+  }
 
+1. src/app/(afterLogin)/_component/NavMenu.tsx 작성 : navigation 만들기
+  - next 훅인 useSelectedLayoutSegment로 ActiveLink 만들기 : segment 가 어느 페이지에 가든 그 레이아웃에 가장 상단 이름을 받아서 넣어줌. 예를 들어, compose/tweet에 들어가면 'compose'가 segment 변수안에 들어간다. 만일 tweet까지 받고 싶으면 useSelectedLayoutSegments (s 추가한 것) 을 쓰면 ['compose', 'tweet'] 이런 배열로 받을 수도 있다.
+  - use... Hook을 쓰기 때문에 클라이언트 컴포넌트를 써야한다.
+  "use client";
 
-1.src/app/(afterLogin)/home/_component/postForm.module.css 작성: 
-1.src/app/(afterLogin)/home/_component/PostForm.tsx 작성: 유저 이미지 표시, 이미지 업로드, 게시하기 버튼, PostForm 만들기(타이핑 외우기)
+  import style from './navMenu.module.css';
+  import {useSelectedLayoutSegment} from "next/navigation";
+  import Link from "next/link";
 
+  export default function NavMenu() {
+    const segment = useSelectedLayoutSegment();
+    console.log(segment);
+    const me = { // 임시로 내 정보 있는것처럼
+      id: 'zerohch0'
+    }
 
-1.src/app/(afterLogin)/_component/post.module.css 작성: 공통컴포넌트로 게시물 화면 스타일 작성. 
-- 눈여겨볼 부분은 손 올렸을 때 부드럽게 배경이 회색이 되는 transition 정도.
-- transition-duration이 0.2초인데 여기서 초기값은 .uploadButton의 백그라운드컬러이고, 마지막값은 .uploadButton:hover의 백그라운드 컬러이다.
-- 또, 이미지 위에 postShade div를 겹쳐넣어서 이미지위에 커서 후버링시 살짝 이미지가 어두워지게 표현. (착시현상)
-1.src/app/(afterLogin)/_component/Post.tsx 작성: 공통컴포넌트로 게시물 화면 작성.
-- 서버 컴포넌트로 작성
-- 게시글 만들며 dayjs 사용해보기: 데이트타입처리 라이브러리, moment랑 사용법 똑같음, 글 쓴지 몇시간 지났는지 편하게 알려주고 한글 플러그인까지 제공
+    return (
+      <>
+        <li>
+          <Link href="/home">
+            <div className={style.navPill}>
+              {segment === 'home' ?
+                <>
+                  <svg width={26} viewBox="0 0 24 24" aria-hidden="true"
+                      className="r-18jsvk2 r-4qtqp9 r-yyyyoo r-lwhw9o r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-cnnz9e">
+                    <g>
+                      <path
+                        d="M12 1.696L.622 8.807l1.06 1.696L3 9.679V19.5C3 20.881 4.119 22 5.5 22h13c1.381 0 2.5-1.119 2.5-2.5V9.679l1.318.824 1.06-1.696L12 1.696zM12 16.5c-1.933 0-3.5-1.567-3.5-3.5s1.567-3.5 3.5-3.5 3.5 1.567 3.5 3.5-1.567 3.5-3.5 3.5z"></path>
+                    </g>
+                  </svg>
+                  <div style={{fontWeight: 'bold'}}>홈</div>
+                </> :
+                <>
+                  <svg width={26} viewBox="0 0 24 24" aria-hidden="true"
+                      className="r-18jsvk2 r-4qtqp9 r-yyyyoo r-lwhw9o r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-cnnz9e">
+                    <g>
+                      <path
+                        d="M12 9c-2.209 0-4 1.791-4 4s1.791 4 4 4 4-1.791 4-4-1.791-4-4-4zm0 6c-1.105 0-2-.895-2-2s.895-2 2-2 2 .895 2 2-.895 2-2 2zm0-13.304L.622 8.807l1.06 1.696L3 9.679V19.5C3 20.881 4.119 22 5.5 22h13c1.381 0 2.5-1.119 2.5-2.5V9.679l1.318.824 1.06-1.696L12 1.696zM19 19.5c0 .276-.224.5-.5.5h-13c-.276 0-.5-.224-.5-.5V8.429l7-4.375 7 4.375V19.5z"></path>
+                    </g>
+                  </svg>
+                  <div>홈</div>
+                </>}
+            </div>
+          </Link>
+        </li>
+        <li>
+          <Link href="/explore">
+            <div className={style.navPill}>
+              {segment && (['search', 'explore'].includes(segment)) ?
+                <>
+                  <svg width={26} viewBox="0 0 24 24" aria-hidden="true"
+                      className="r-18jsvk2 r-4qtqp9 r-yyyyoo r-lwhw9o r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-cnnz9e">
+                    <g>
+                      <path
+                        d="M10.25 4.25c-3.314 0-6 2.686-6 6s2.686 6 6 6c1.657 0 3.155-.67 4.243-1.757 1.087-1.088 1.757-2.586 1.757-4.243 0-3.314-2.686-6-6-6zm-9 6c0-4.971 4.029-9 9-9s9 4.029 9 9c0 1.943-.617 3.744-1.664 5.215l4.475 4.474-2.122 2.122-4.474-4.475c-1.471 1.047-3.272 1.664-5.215 1.664-4.971 0-9-4.029-9-9z"></path>
+                    </g>
+                  </svg>
+                  <div style={{fontWeight: 'bold'}}>탐색하기</div>
+                </> :
+                <>
+                  <svg width={26} viewBox="0 0 24 24" aria-hidden="true"
+                      className="r-18jsvk2 r-4qtqp9 r-yyyyoo r-lwhw9o r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-cnnz9e">
+                    <g>
+                      <path
+                        d="M10.25 3.75c-3.59 0-6.5 2.91-6.5 6.5s2.91 6.5 6.5 6.5c1.795 0 3.419-.726 4.596-1.904 1.178-1.177 1.904-2.801 1.904-4.596 0-3.59-2.91-6.5-6.5-6.5zm-8.5 6.5c0-4.694 3.806-8.5 8.5-8.5s8.5 3.806 8.5 8.5c0 1.986-.682 3.815-1.824 5.262l4.781 4.781-1.414 1.414-4.781-4.781c-1.447 1.142-3.276 1.824-5.262 1.824-4.694 0-8.5-3.806-8.5-8.5z"></path>
+                    </g>
+                  </svg>
+                  <div>탐색하기</div>
+                </>
+              }
+            </div>
+          </Link>
+        </li>
+        <li>
+          <Link href="/messages">
+            <div className={style.navPill}>
+              {segment === 'messages' ?
+                <>
+                  <svg width={26} viewBox="0 0 24 24" aria-hidden="true"
+                      className="r-18jsvk2 r-4qtqp9 r-yyyyoo r-lwhw9o r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-cnnz9e">
+                    <g>
+                      <path
+                        d="M1.998 4.499c0-.828.671-1.499 1.5-1.499h17c.828 0 1.5.671 1.5 1.499v2.858l-10 4.545-10-4.547V4.499zm0 5.053V19.5c0 .828.671 1.5 1.5 1.5h17c.828 0 1.5-.672 1.5-1.5V9.554l-10 4.545-10-4.547z"></path>
+                    </g>
+                  </svg>
+                  <div style={{fontWeight: 'bold'}}>쪽지</div>
+                </> :
+                <>
+                  <svg width={26} viewBox="0 0 24 24" aria-hidden="true"
+                      className="r-18jsvk2 r-4qtqp9 r-yyyyoo r-lwhw9o r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-cnnz9e">
+                    <g>
+                      <path
+                        d="M1.998 5.5c0-1.381 1.119-2.5 2.5-2.5h15c1.381 0 2.5 1.119 2.5 2.5v13c0 1.381-1.119 2.5-2.5 2.5h-15c-1.381 0-2.5-1.119-2.5-2.5v-13zm2.5-.5c-.276 0-.5.224-.5.5v2.764l8 3.638 8-3.636V5.5c0-.276-.224-.5-.5-.5h-15zm15.5 5.463l-8 3.636-8-3.638V18.5c0 .276.224.5.5.5h15c.276 0 .5-.224.5-.5v-8.037z"></path>
+                    </g>
+                  </svg>
+                  <div>쪽지</div>
+                </>}
+            </div>
+          </Link>
+        </li>
+        {me?.id && <li>
+          <Link href={`/${me?.id}`}>
+            <div className={style.navPill}>
+              {segment === me.id ? <>
+                  <svg width={26} viewBox="0 0 24 24" aria-hidden="true"
+                      className="r-18jsvk2 r-4qtqp9 r-yyyyoo r-lwhw9o r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-cnnz9e">
+                    <g>
+                      <path
+                        d="M17.863 13.44c1.477 1.58 2.366 3.8 2.632 6.46l.11 1.1H3.395l.11-1.1c.266-2.66 1.155-4.88 2.632-6.46C7.627 11.85 9.648 11 12 11s4.373.85 5.863 2.44zM12 2C9.791 2 8 3.79 8 6s1.791 4 4 4 4-1.79 4-4-1.791-4-4-4z"></path>
+                    </g>
+                  </svg>
+                  <div style={{fontWeight: 'bold'}}>프로필</div>
+                </> :
+                <>
+                  <svg width={26} viewBox="0 0 24 24" aria-hidden="true"
+                      className="r-18jsvk2 r-4qtqp9 r-yyyyoo r-lwhw9o r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-cnnz9e">
+                    <g>
+                      <path
+                        d="M5.651 19h12.698c-.337-1.8-1.023-3.21-1.945-4.19C15.318 13.65 13.838 13 12 13s-3.317.65-4.404 1.81c-.922.98-1.608 2.39-1.945 4.19zm.486-5.56C7.627 11.85 9.648 11 12 11s4.373.85 5.863 2.44c1.477 1.58 2.366 3.8 2.632 6.46l.11 1.1H3.395l.11-1.1c.266-2.66 1.155-4.88 2.632-6.46zM12 4c-1.105 0-2 .9-2 2s.895 2 2 2 2-.9 2-2-.895-2-2-2zM8 6c0-2.21 1.791-4 4-4s4 1.79 4 4-1.791 4-4 4-4-1.79-4-4z"></path>
+                    </g>
+                  </svg>
+                  <div>프로필</div>
+                </>}
+            </div>
+          </Link>
+        </li>}
+      </>
+    );
+  }
 
+1. src/app/(afterLogin)/_component/logoutButton.module.css.tsx 작성
+  .logOutButton {
+    width: 258px;
+    height: 66px;
+    padding: 12px;
+    display: flex;
+    margin: 12px 0;
+    cursor: pointer;
+    border: none;
+    align-items: center;
+    background-color: #fff;
+    text-align: left;
+  }
+  .logOutButton:hover {
+    background-color: rgba(15,20,25, 0.1);
+    border-radius: 33px;
+  }
+  .logOutUserImage {
+    display: flex;
+    align-items: center;
+  }
+  .logOutUserImage img {
+    width: 40px;
+    border-radius: 50%;
+  }
+  .logOutUserName {
+    margin: 0 12px;
+  }
+  .logOutUserName > div:first-child {
+    font-weight: bold;
+  }
 
-1.src/app/(afterLogin)/home/home.module.css 작성: 휠 내릴 때 윗 부분 고정섹션처리 및 블러처리
-1.src/app/(afterLogin)/home/page.tsx: 홈탭 만들면서 Context API 적용해보기, 추천/팔로우 중 탭마다 다른 게시물 정보를 송출, 프로바이더 내부만 ContextAPI를 쓸 수 있으므로, 탭과 폼과 포스트 부분을 합쳐서 Tab 프로바이더로 묶어줌
+1. src/app/(afterLogin)/_component/LogoutButton.tsx 작성: 로그아웃 버튼에 표시될 유저 정보를 일단 더미데이터로 작성해두기
+  - on 이벤트함수를 쓰기 때문에 클라이언트 컴포넌트를 써야한다.
+  - 개발자도구(F12)의 element에서 svg 복사 등 요소를 복사할 때는 Outer HTML 복사로 복사할 것.
+  "use client"
 
+  import style from "./logoutButton.module.css";
 
-1.src/app/(afterLogin)/_component/ActionButton.tsx: 이미지 밑에 뜨는 3개의 액션버튼 구현하기
-- classnames 라이브러리의 cx 함수를 통해 css 클래스를 조건부로 합성하기(배열로도 되고, 인자값 콤마 구분으로도 됨)
-- npmtrends로 라이브러리 비교해서 고르기 - 특정 라이브러리 검색 후 + 버튼으로 비교대상 추가가능)
+  export default function LogoutButton() {
+    const me = { // 임시로 내 정보 있는것처럼
+      id: 'zerohch0',
+      nickname: '제로초',
+      image: '/5Udwvqim.jpg',
+    }
 
+    const onLogout = () => {};
 
+    return (
+      <button className={style.logOutButton} onClick={onLogout}>
+        <div className={style.logOutUserImage}>
+          <img src={me.image} alt={me.id}/>
+        </div>
+        <div className={style.logOutUserName}>
+          <div>{me.nickname}</div>
+          <div>@{me.id}</div>
+        </div>
+      </button>
+    )
+  }  
 
+1. src/app/(afterLogin)/layout.module.css 작성
+  - 왼쪽과 오른쪽에 flex-grow: 1; 을 각각 넣어서 레이아웃 섹션의 가운데 정렬
+  - 왼쪽 레이아웃 고정
+  - 오른쪽 레이아웃은 나눠서 메인페이지 부분을 main으로 처리, 우측 검색 사이드바를 section으로 처리
+  - leftSectionFixed로 왼쪽 섹션에서 고정되는 부분을 지정해놓고 width는 inherit으로 부모의 leftSection과 동일한 px 값으로 처리
+  .container {
+    display: flex;
+    align-items: stretch;
+    background-color: #fff;
+  }
 
+  .leftSectionWrapper {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .leftSection {
+    width: 275px;
+    height: 100dvh;
+  }
+
+  .leftSectionFixed {
+    position: fixed;
+    width: inherit;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .leftSectionFixed nav {
+    flex: 1;
+  }
+  .leftSectionFixed nav li {
+    list-style-type: none;
+  }
+
+  .logo {
+    display: inline-block;
+    height: 56px;
+    margin-top: 2px;
+  }
+
+  .logoPill {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .logoPill:hover {
+    background-color: rgba(15,20,25, 0.1);
+  }
+
+  .postButton {
+    margin: 16px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 52px;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 8px 28px;
+    background-color: rgb(29, 155, 240);
+    width: 234px;
+    border: none;
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+    font-size: 17px;
+    border-radius: 26px;
+  }
+
+  .postButton:hover {
+    background-color: rgb(26, 140, 216);
+  }
+
+  .rightSectionWrapper {
+    display: flex;
+    align-items: flex-start;
+    height: 100dvh;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .rightSectionInner {
+    height: 100%;
+    width: 990px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .main {
+    width: 600px;
+    height: 200dvh;
+  }
+
+  .rightSection {
+    width: 350px;
+    height: 100%;
+  }
+
+  .search {
+    position: fixed;
+    height: 42px;
+    width: inherit;
+    border-radius: 21px;
+    background-color: rgb(239, 243, 244);
+    margin-top: 6px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+  }
+
+  .search svg {
+    margin-left: 20px;
+    fill: rgb(83, 100, 113);
+  }
+
+  .search input {
+    outline: none;
+    background-color: inherit;
+    border: none;
+    padding: 12px;
+    margin-left: 5px;
+    font-size: 15px;
+  }
+
+  .followRecommend {
+    font-size: 20px;
+    font-weight: bold;
+    background-color: rgb(247, 249, 249);
+    border-radius: 16px;
+    margin: 12px 0;
+    padding: 12px 16px;
+  }
+  .followRecommend h3 {
+    padding-bottom: 12px;
+  }
+
+1. src/app/(afterLogin)/layout.tsx 수정
+  import {ReactNode} from "react";
+  import style from '@/app/(afterLogin)/layout.module.css';
+  import Link from "next/link";
+  import Image from "next/image";
+  import ZLogo from '../../../public/zlogo.png';
+  import NavMenu from "@/app/(afterLogin)/_component/NavMenu";
+  import LogoutButton from "@/app/(afterLogin)/_component/LogoutButton";
+  import TrendSection from "@/app/(afterLogin)/_component/TrendSection";
+  import FollowRecommend from "@/app/(afterLogin)/_component/FollowRecommend";
+
+  export default function AfterLoginLayout({ children }: { children: ReactNode }) {
+    return (
+      <div className={style.container}>
+        <header className={style.leftSectionWrapper}>
+          <section className={style.leftSection}>
+            <div className={style.leftSectionFixed}>
+              <Link className={style.logo} href="/home">
+                <div className={style.logoPill}>
+                  <Image src={ZLogo} alt="z.com로고" width={40} height={40} />
+                </div>
+              </Link>
+              <nav>
+                <ul>
+                  <NavMenu />
+                </ul>
+                <Link href="/compose/tweet" className={style.postButton}>게시하기</Link>
+              </nav>
+              <LogoutButton />
+            </div>
+          </section>
+        </header>
+        <div className={style.rightSectionWrapper}>
+          <div className={style.rightSectionInner}>
+            <main className={style.main}>{children}</main>
+            <section className={style.rightSection}>
+              <div style={{ marginBottom: 60, width: 'inherit' }}>
+                <form className={style.search}>
+                  <svg width={20} viewBox="0 0 24 24" aria-hidden="true">
+                    <g>
+                      <path
+                        d="M10.25 3.75c-3.59 0-6.5 2.91-6.5 6.5s2.91 6.5 6.5 6.5c1.795 0 3.419-.726 4.596-1.904 1.178-1.177 1.904-2.801 1.904-4.596 0-3.59-2.91-6.5-6.5-6.5zm-8.5 6.5c0-4.694 3.806-8.5 8.5-8.5s8.5 3.806 8.5 8.5c0 1.986-.682 3.815-1.824 5.262l4.781 4.781-1.414 1.414-4.781-4.781c-1.447 1.142-3.276 1.824-5.262 1.824-4.694 0-8.5-3.806-8.5-8.5z"></path>
+                    </g>
+                  </svg>
+                  <input type="search" />
+                </form>
+              </div>
+              <TrendSection />
+              <div className={style.followRecommend}>
+                <h3>팔로우 추천</h3>
+                <FollowRecommend />
+                <FollowRecommend />
+                <FollowRecommend />
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+1. src/app/(afterLogin)/_component/Trend.tsx 작성
+  import Link from "next/link";
+  import style from './trend.module.css';
+  export default function Trend() {
+    return (
+      <Link href={`/search?q=트렌드`} className={style.container}>
+        <div className={style.count}>실시간트렌드</div>
+        <div className={style.title}>제로초</div>
+        <div className={style.count}>1,234 posts</div>
+      </Link>
+    )
+  }
+
+1. src/app/(afterLogin)/_component/trendSection.module.css 작성
+  .trendBg {
+    background-color: rgb(247, 249, 249);
+    border-radius: 16px;
+    margin-top: 12px;
+  }
+  .trend {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 12px 0;
+  }
+  .trend h3 {
+    margin-bottom: 12px;
+    padding: 0 16px;
+  }
+
+1. src/app/(afterLogin)/_component/TrendSection.tsx 작성 : 반복문 처리해서 우측 사이드바에 "실시간 트렌드" 리스트를 표시하는 컴포넌트 만들기. 더미데이터로 작성.
+  import style from './trendSection.module.css';
+  import Trend from "@/app/(afterLogin)/_component/Trend";
+
+  export default function TrendSection() {
+    return (
+      <div className={style.trendBg}>
+        <div className={style.trend}>
+          <h3>나를 위한 트렌드</h3>
+          <Trend />
+          <Trend />
+          <Trend />
+          <Trend />
+          <Trend />
+          <Trend />
+          <Trend />
+          <Trend />
+          <Trend />
+          <Trend />
+        </div>
+      </div>
+    )
+  }
+
+1. src/app/(afterLogin)/home/_component/tab.module.css 작성
+  .main {
+    width: 600px;
+    border-color: rgb(239, 243, 244);
+    border-right-width: 1px;
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-right-style: solid;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .homeFixed {
+    position: fixed;
+    z-index: 1;
+    width: 598px;
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border-color: rgb(239, 243, 244);
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+  }
+  @media (prefers-color-scheme: dark) {
+    .homeFixed {
+        background-color: rgba(0, 0, 0, 0.65);
+        border-color: rgb(47, 51, 54);
+    }
+  }
+  .homeText {
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: bold;
+    padding: 12px 16px;
+  }
+
+  .homeTab {
+    height: 53px;
+    display: flex;
+  }
+
+  .homeTab > div {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    cursor: pointer;
+    position: relative;
+  }
+  .homeTab a:hover {
+    background-color: rgba(15,20,25, 0.1);
+  }
+
+  .tabIndicator {
+    height: 4px;
+    align-self: center;
+    background-color: rgb(29, 155, 240);
+    min-width: 56px;
+    width: 56px;
+    position: absolute;
+    bottom: 0px;
+    border-radius: 9999px;
+  }
+
+1. src/app/(afterLogin)/home/_component/Tab.tsx 작성: "추천/팔로우 중"을 눌러서 스테이트 변경에 따른 반응을 시켜야 하므로 클라이언트 컴포넌트
+  "use client";
+  import style from './tab.module.css';
+  import {useState} from "react";
+
+  export default function Tab() {
+    const [tab, setTab] = useState('rec');
+
+    const onClickRec = () => {
+      setTab('rec');
+    }
+    const onClickFol = () => {
+      setTab('fol');
+    }
+
+    return (
+      <div className={style.homeFixed}>
+        <div className={style.homeText}>홈</div>
+        <div className={style.homeTab}>
+          <div onClick={onClickRec}>
+            추천
+            <div className={style.tabIndicator} hidden={tab === 'fol'}></div>
+          </div>
+          <div onClick={onClickFol}>
+            팔로우 중
+            <div className={style.tabIndicator} hidden={tab === 'rec'}></div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+1. src/app/(afterLogin)/home/_component/TabProvider.tsx 작성: Post.tsx에서도 블러처리 반영되게 하려면 상태관리가 필요함. Context API로 상태 관리할 것.
+  "use client"
+
+  import {createContext, ReactNode, useState} from "react";
+
+  export const TabContext = createContext({
+    tab: 'rec',
+    setTab: (value: 'rec' | 'fol') => {},
+  });
+
+  type Props = { children: ReactNode };
+  export default function TabProvider({ children }: Props) {
+    const [tab, setTab] = useState('rec');
+
+    return (
+      <TabContext.Provider value={{ tab, setTab }}>
+        {children}
+      </TabContext.Provider>
+    )
+  }
+
+1. src/app/(afterLogin)/home/_component/postForm.module.css 작성
+  .postUserSection {
+    margin-right: 12px;
+    width: 40px;
+  }
+
+  .postUserImage {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+  }
+
+  .postUserImage img {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+  }
+
+  .postForm {
+    margin-top: 101px;
+    display: flex;
+    padding: 16px 16px 8px;
+    border-color: rgb(239, 243, 244);
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+  }
+  @media (prefers-color-scheme: dark) {
+    .postForm {
+        border-color: rgb(47, 51, 54);
+    }
+  }
+  .postInputSection {
+    flex: 1;
+  }
+  .postButtonSection {
+    width: 100%;
+  }
+  .postForm textarea {
+    width: 100%;
+    border: none;
+    padding: 12px 0;
+    font-size: 20px;
+    line-height: 24px;
+    outline: none;
+  }
+  .postForm textarea::placeholder {
+    font-family: Malgun Gothic;
+  }
+  .footerButtons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .footerButtonLeft {
+    flex: 1;
+  }
+  .uploadButton {
+    width: 34px;
+    height: 34px;
+    border: none;
+    cursor: pointer;
+    border-radius: 17px;
+    transition-duration: 0.2s;
+    transition-property: background-color;
+    background-color: rgb(29, 155, 240, 0.01);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .uploadButton:hover {
+    background-color: rgb(29, 155, 240, 0.1);
+  }
+  .uploadButton svg {
+    fill: rgb(29, 155, 240);
+  }
+  .actionButton:disabled {
+    opacity: 0.5;
+  }
+  .actionButton {
+    width: 94px;
+    height: 36px;
+    border: none;
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+    font-size: 15px;
+    border-radius: 18px;
+    background-color: rgb(29, 155, 240);
+  }
+  .actionButton:hover {
+    background-color: rgb(26, 140, 216);
+  }
+
+1. src/app/(afterLogin)/home/_component/PostForm.tsx 작성: 유저 이미지 표시, 이미지 업로드, 게시하기 버튼, PostForm 만들기(타이핑 외우기)
+  "use client"
+
+  import {ChangeEventHandler, FormEventHandler, useRef, useState} from "react";
+  import style from './postForm.module.css';
+
+  export default function PostForm() {
+    const imageRef = useRef<HTMLInputElement>(null);
+    const [content, setContent] = useState('');
+    const me = {
+      id: 'zerohch0',
+      image: '/5Udwvqim.jpg'
+    };
+
+    const onChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
+      setContent(e.target.value);
+    }
+
+    const onSubmit: FormEventHandler = (e) => {
+      e.preventDefault();
+    }
+
+    const onClickButton = () => {
+      imageRef.current?.click();
+    }
+
+    return (
+      <form className={style.postForm} onSubmit={onSubmit}>
+        <div className={style.postUserSection}>
+          <div className={style.postUserImage}>
+            <img src={me.image} alt={me.id} />
+          </div>
+        </div>
+        <div className={style.postInputSection}>
+          <textarea value={content} onChange={onChange} placeholder="무슨 일이 일어나고 있나요?"/>
+          <div className={style.postButtonSection}>
+            <div className={style.footerButtons}>
+              <div className={style.footerButtonLeft}>
+                <input type="file" name="imageFiles" multiple hidden ref={imageRef} />
+                <button className={style.uploadButton} type="button" onClick={onClickButton}>
+                  <svg width={24} viewBox="0 0 24 24" aria-hidden="true">
+                    <g>
+                      <path
+                        d="M3 5.5C3 4.119 4.119 3 5.5 3h13C19.881 3 21 4.119 21 5.5v13c0 1.381-1.119 2.5-2.5 2.5h-13C4.119 21 3 19.881 3 18.5v-13zM5.5 5c-.276 0-.5.224-.5.5v9.086l3-3 3 3 5-5 3 3V5.5c0-.276-.224-.5-.5-.5h-13zM19 15.414l-3-3-5 5-3-3-3 3V18.5c0 .276.224.5.5.5h13c.276 0 .5-.224.5-.5v-3.086zM9.75 7C8.784 7 8 7.784 8 8.75s.784 1.75 1.75 1.75 1.75-.784 1.75-1.75S10.716 7 9.75 7z"></path>
+                    </g>
+                  </svg>
+                </button>
+              </div>
+              <button className={style.actionButton} disabled={!content}>게시하기</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    )
+  }
+
+1. src/app/(afterLogin)/home/home.module.css 작성: 휠 내릴 때 윗 부분 고정섹션처리 및 블러처리
+  .main {
+    width: 600px;
+    border-color: rgb(239, 243, 244);
+    border-right-width: 1px;
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-right-style: solid;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  @media all and (min-width: 687px) {
+    .main {
+        width: 600px;
+    }
+  }
+  @media (prefers-color-scheme: dark) {
+    .main {
+        border-color: rgb(47, 51, 54);
+    }
+  }
+
+1. src/app/(afterLogin)/home/page.tsx: 홈탭 만들면서 Context API 적용해보기
+  - 추천/팔로우 중 탭마다 다른 게시물 정보를 송출
+  - 프로바이더 내부만 ContextAPI를 쓸 수 있으므로, 탭과 폼과 포스트 부분을 합쳐서 Tab 프로바이더로 묶어줌
+  import style from './home.module.css';
+  import Tab from "@/app/(afterLogin)/home/_component/Tab";
+  import TabProvider from "@/app/(afterLogin)/home/_component/TabProvider";
+  import PostForm from "@/app/(afterLogin)/home/_component/PostForm";
+  import Post from "@/app/(afterLogin)/_component/Post";
+
+  export default function Home() {
+    return (
+      <main className={style.main}>
+        <TabProvider>
+          <Tab/>
+          <PostForm />
+          <Post/>
+          <Post/>
+          <Post/>
+          <Post/>
+          <Post/>
+          <Post/>
+          <Post/>
+          <Post/>
+          <Post/>
+          <Post/>
+          <Post/>
+          <Post/>
+        </TabProvider>
+      </main>
+    )
+  }
+
+1. src/app/(afterLogin)/_component/ActionButton.tsx: 이미지 밑에 뜨는 3개의 액션버튼 구현하기
+  - classnames 라이브러리의 cx 함수를 통해 css 클래스를 조건부로 합성하기(배열로도 되고, 인자값 콤마 구분으로도 됨)
+  - npmtrends로 라이브러리 비교해서 고르기 - 특정 라이브러리 검색 후 + 버튼으로 비교대상 추가가능)
+  "use client"
+  import style from './post.module.css';
+  import cx from 'classnames';
+
+  export default function ActionButtons() {
+    const commented = true;
+    const reposted = true;
+    const liked = false;
+
+    const onClickComment = () => {}
+    const onClickRepost = () => {}
+    const onClickHeart = () => {}
+
+    return (
+      <div className={style.actionButtons}>
+        <div className={cx(style.commentButton, { [style.commented]: commented })}>
+          <button onClick={onClickComment}>
+            <svg width={24} viewBox="0 0 24 24" aria-hidden="true">
+              <g>
+                <path
+                  d="M1.751 10c0-4.42 3.584-8 8.005-8h4.366c4.49 0 8.129 3.64 8.129 8.13 0 2.96-1.607 5.68-4.196 7.11l-8.054 4.46v-3.69h-.067c-4.49.1-8.183-3.51-8.183-8.01zm8.005-6c-3.317 0-6.005 2.69-6.005 6 0 3.37 2.77 6.08 6.138 6.01l.351-.01h1.761v2.3l5.087-2.81c1.951-1.08 3.163-3.13 3.163-5.36 0-3.39-2.744-6.13-6.129-6.13H9.756z"></path>
+              </g>
+            </svg>
+          </button>
+          <div className={style.count}>{1 || ''}</div>
+        </div>
+        <div className={cx(style.repostButton, reposted && style.reposted)}>
+          <button onClick={onClickRepost}>
+            <svg width={24} viewBox="0 0 24 24" aria-hidden="true">
+              <g>
+                <path
+                  d="M4.5 3.88l4.432 4.14-1.364 1.46L5.5 7.55V16c0 1.1.896 2 2 2H13v2H7.5c-2.209 0-4-1.79-4-4V7.55L1.432 9.48.068 8.02 4.5 3.88zM16.5 6H11V4h5.5c2.209 0 4 1.79 4 4v8.45l2.068-1.93 1.364 1.46-4.432 4.14-4.432-4.14 1.364-1.46 2.068 1.93V8c0-1.1-.896-2-2-2z"></path>
+              </g>
+            </svg>
+          </button>
+          <div className={style.count}>{1 || ''}</div>
+        </div>
+        <div className={cx([style.heartButton, liked && style.liked])}>
+          <button onClick={onClickHeart}>
+            <svg width={24} viewBox="0 0 24 24" aria-hidden="true">
+              <g>
+                <path
+                  d="M16.697 5.5c-1.222-.06-2.679.51-3.89 2.16l-.805 1.09-.806-1.09C9.984 6.01 8.526 5.44 7.304 5.5c-1.243.07-2.349.78-2.91 1.91-.552 1.12-.633 2.78.479 4.82 1.074 1.97 3.257 4.27 7.129 6.61 3.87-2.34 6.052-4.64 7.126-6.61 1.111-2.04 1.03-3.7.477-4.82-.561-1.13-1.666-1.84-2.908-1.91zm4.187 7.69c-1.351 2.48-4.001 5.12-8.379 7.67l-.503.3-.504-.3c-4.379-2.55-7.029-5.19-8.382-7.67-1.36-2.5-1.41-4.86-.514-6.67.887-1.79 2.647-2.91 4.601-3.01 1.651-.09 3.368.56 4.798 2.01 1.429-1.45 3.146-2.1 4.796-2.01 1.954.1 3.714 1.22 4.601 3.01.896 1.81.846 4.17-.514 6.67z"></path>
+              </g>
+            </svg>
+          </button>
+          <div className={style.count}>{0 || ''}</div>
+        </div>
+      </div>
+    )
+  }
+
+1. src/app/(afterLogin)/_component/post.module.css 작성: 공통컴포넌트로 게시물 화면 스타일 작성. 
+  - 눈여겨볼 부분은 손 올렸을 때 부드럽게 배경이 회색이 되는 transition 정도.
+  - transition-duration이 0.2초인데 여기서 초기값은 .uploadButton의 백그라운드컬러이고, 마지막값은 .uploadButton:hover의 백그라운드 컬러이다.
+  - 또, 이미지 위에 postShade div를 겹쳐넣어서 이미지위에 커서 후버링시 살짝 이미지가 어두워지게 표현. (착시현상)
+  .post {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 16px;
+    border-color: rgb(239, 243, 244);
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    transition-property: background-color, box-shadow;
+    transition-duration: 0.2s;
+    cursor: pointer;
+  }
+  .post:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+  }
+
+  .postWrapper {
+    display: flex;
+    flex-direction: row;
+  }
+  .postReposted {
+    display: flex;
+    align-items: center;
+    color: rgb(83, 100, 113);
+    margin-left: 24px;
+    font-size: 13px;
+    line-height: 20px;
+  }
+  .postReposted svg {
+    fill: rgb(83, 100, 113)
+  }
+
+  .postUserSection {
+    margin-right: 12px;
+    width: 40px;
+  }
+
+  .postUserImage {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+  }
+
+  .postShade {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .postShade:hover {
+    background-color: rgba(26, 26, 26, 0.15);
+  }
+  .postUserImage img {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+  }
+
+  .postUserName {
+    font-weight: bold;
+  }
+  .postUserNick, .postDate {
+    color: rgb(83, 100, 113);
+  }
+  .postDate:hover {
+    text-decoration: underline;
+  }
+
+  .postImageSection {
+
+  }
+
+  .postBody {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .postUserName:hover {
+    text-decoration: underline;
+  }
+
+  .postMeta {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .postImageSection img {
+    margin-top: 12px;
+    width: 100%;
+    border-radius: 16px;
+  }
+
+  .actionButtons {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    column-gap: 4px;
+    margin-top: 12px;
+  }
+
+  .actionButtons svg {
+    fill: rgb(83, 100, 113);
+  }
+
+  .commentButton, .repostButton, .heartButton {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .commentButton button, .repostButton button, .heartButton button {
+    background: #ffffff;
+    border: none;
+    outline: none;
+    display: flex;
+    width: 38px;
+    height: 38px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 19px;
+    cursor: pointer;
+    transition-property: background-color;
+    transition-duration: 0.2s;
+    margin-right: 4px;
+  }
+  .actionButtons .count {
+    font-size: 13px;
+    color: rgb(83, 100, 113);
+  }
+
+  .commentButton button {
+    background-color: rgba(29, 155, 240, 0.01);
+  }
+
+  .commentButton:hover button {
+    background-color: rgba(29, 155, 240, 0.1);
+  }
+
+  .commentButton.commented svg, .commentButton:hover svg {
+    fill: rgb(29, 155, 240)
+  }
+
+  .commentButton.commented .count, .commentButton:hover .count {
+    color: rgb(29, 155, 240);
+  }
+
+  .repostButton button {
+    background-color: rgba(0, 186, 124, 0.01);
+  }
+
+  .repostButton:hover button {
+    background-color: rgba(0, 186, 124, 0.1);
+  }
+
+  .repostButton.reposted svg, .repostButton:hover svg {
+    fill: rgb(11, 175, 123)
+  }
+
+  .repostButton.reposted .count, .repostButton:hover .count {
+    color: rgb(11, 175, 123)
+  }
+
+  .heartButton button {
+    background-color: rgba(249, 24, 128, 0.01)
+  }
+
+  .heartButton:hover button {
+    background-color: rgba(249, 24, 128, 0.1)
+  }
+
+  .heartButton.liked svg, .heartButton:hover svg {
+    fill: rgb(228, 34, 126);
+  }
+
+  .heartButton.liked .count, .heartButton:hover .count {
+    color: rgb(228, 34, 126);
+  }
+
+1. src/app/(afterLogin)/_component/Post.tsx 작성: 공통컴포넌트로 게시물 화면 작성.
+  - 서버 컴포넌트로 작성
+  - 게시글 만들며 dayjs 사용해보기: 데이트타입처리 라이브러리, moment랑 사용법 똑같음, 글 쓴지 몇시간 지났는지 편하게 알려주고 한글 플러그인까지 제공
+  import style from './post.module.css';
+  import Link from "next/link";
+  import dayjs from 'dayjs';
+  import relativeTime from 'dayjs/plugin/relativeTime';
+  import 'dayjs/locale/ko';
+  import ActionButtons from "@/app/(afterLogin)/_component/ActionButtons";
+  
+  dayjs.locale('ko');
+  dayjs.extend(relativeTime)
+  
+  export default function Post() {
+    const target = {
+      User: {
+        id: 'elonmusk',
+        nickname: 'Elon Musk',
+        image: '/yRsRRjGO.jpg',
+      },
+      content: '클론코딩 라이브로 하니 너무 힘들어요 ㅠㅠ',
+      createdAt: new Date(),
+      Images: [],
+    }
+    return (
+      <article className={style.post}>
+        <div className={style.postWrapper}>
+          <div className={style.postUserSection}>
+            <Link href={`/${target.User.id}`} className={style.postUserImage}>
+              <img src={target.User.image} alt={target.User.nickname}/>
+              <div className={style.postShade} />
+            </Link>
+          </div>
+          <div className={style.postBody}>
+            <div className={style.postMeta}>
+              <Link href={`/${target.User.id}`}>
+                <span className={style.postUserName}>{target.User.nickname}</span>
+                &nbsp;
+                <span className={style.postUserId}>@{target.User.id}</span>
+                &nbsp;
+                ·
+                &nbsp;
+              </Link>
+              <span className={style.postDate}>{dayjs(target.createdAt).fromNow(true)}</span>
+            </div>
+            <div>{target.content}</div>
+            <div className={style.postImageSection}>
+  
+            </div>
+            <ActionButtons />
+          </div>
+        </div>
+      </article>
+    )
+  }
 
 1. 테스트
   $ cd app1
   $ npm run dev
+  http://localhost:3000/home 에 들어가서, 추천 / 팔로우 중 탭을 변경해보기

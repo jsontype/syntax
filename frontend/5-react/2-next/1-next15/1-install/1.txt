@@ -165,12 +165,12 @@
     }
 
     body {
-      color: rgb(var(--foreground-rgb));
+      color: black;
       background: rgb(var(--background-end-rgb));
     }
 
     a {
-      color: inherit;
+      color: black;
       text-decoration: none;
     }
 
@@ -356,3 +356,4 @@
 1. 테스트
   $ cd app1
   $ npm run dev
+  http://localhost:3000/ 에 접속해서 초기화면이 표시되는지 확인하기

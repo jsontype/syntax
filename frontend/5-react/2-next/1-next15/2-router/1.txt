@@ -1,4 +1,6 @@
-[Router Group]
+[Router Group으로 동일 페이지 path에 다른 레이아웃 적용하기]
+
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
 
 1. src/app/(afterLogin)/layout.tsx 작성: 중첩 레이아웃
   - (afterLogin), (beforeLogin): 루터그룹. 실제로 경로에 반영되지는 않음. 하위 폴더들에 layout 적용 용도
@@ -162,7 +164,7 @@
 1. 테스트
   $ cd app1
   $ npm run dev
-  - 각 페이지에 접속하여 정상적으로 작동하는지 확인한다.
+  각 페이지에 접속하여 정상적으로 작동하는지 확인해보기
     localhost:3000
     localhost:3000/login
     localhost:3000/i/flow/login

@@ -25,6 +25,8 @@
     ES(Ecma Script) Lint(문법 오류, 코드 컨벤션 등을 잡아주는 검사기능)는, 자바스크립트 문법에서의 에러를 표시해줌
   "Gitlens"
     협업시 누가 구현한 코드인지를 짙은 회색 글씨로 알려줌
+  "better comments"
+    // !, // ? 등의 주석을 색깔별로 구분해줌
 
 1. React 일 때 추가사항
   "ES7+ React/Redux/React-Native snippets"
