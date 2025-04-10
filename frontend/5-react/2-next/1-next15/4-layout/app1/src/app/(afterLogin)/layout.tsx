@@ -1,4 +1,4 @@
-import {ReactNode} from "react";
+import { ReactNode } from "react";
 import style from '@/app/(afterLogin)/layout.module.css';
 import Link from "next/link";
 import Image from "next/image";
@@ -54,7 +54,6 @@ export default function AfterLoginLayout({ children }: { children: ReactNode }) 
           </section>
         </div>
       </div>
-
     </div>
   )
 }

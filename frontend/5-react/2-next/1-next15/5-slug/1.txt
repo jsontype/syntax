@@ -1,4 +1,4 @@
-[섹션3. 본격 클론 시작!]
+[Slug를 활용해, 본격적으로 compose, explore, messages 화면 클론하기]
 
 1. /compose/tweet 만들기
 1. usePathname과 /explore 페이지

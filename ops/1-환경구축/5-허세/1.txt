@@ -27,3 +27,9 @@
   $ brew install cowsay fortune lolcat
   $ fortune | cowsay | lolcat
   $ echo 'fortune | cowsay | lolcat' >> ~/.zshrc
+
+1. (윈도우 cmd) 춤추는 아저씨
+  win + x
+  cmd
+  $ color a                                                                                                  
+  $ curl ascii.live/rick

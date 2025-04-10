@@ -10,9 +10,9 @@ export default function ActionButtons({ white }: Props) {
   const reposted = false;
   const liked = false;
 
-  const onClickComment = () => {}
-  const onClickRepost = () => {}
-  const onClickHeart = () => {}
+  const onClickComment = () => { }
+  const onClickRepost = () => { }
+  const onClickHeart = () => { }
 
   return (
     <div className={style.actionButtons}>

@@ -86,12 +86,12 @@ body {
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
+  color: black;
   background: rgb(var(--background-end-rgb));
 }
 
 a {
-  color: inherit;
+  color: black;
   text-decoration: none;
 }
 
