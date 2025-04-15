@@ -1,359 +1,130 @@
-[Next 15로 새 프로젝트 시작하기]
+[Next 12, 13, 15 설치방법, 버전별 차이점]
 * 버전 정보: Node 18.20.3
+* API 참조: https://yts.mx/api/v2/list_movies.json?sort_by=rating
 
 1. Next 바뀐 점
-  - Next 13 이후에 바뀐 점
-    기존에는 Pages Router만 썼었는데, App Router를 쓸 수 있게 되었다.
-      /pages -> /app
-      csr, ssr 중심 -> React Server Components 지원
-      fetch(), getStaticProps, getServerSideProps -> async 컴포넌트 사용
-      pages/indext.tsx, pages/blog/[slug].tsx -> app/page.tsx, app/blog/[slug]/page.tsx
-      _app.tsx로 전체 앱 커버 -> layout.tsx 레이아웃 중첩지원
-    App Router를 도입한 이유
-      기존의 Pages Router의 부족했던 부분들은 구조상의 문제로 개선이 안 됐는데 그 부분을 개선했음
+  - Next 13 이후
+    루터: Pages Router -> App Router로 Pages Router의 구조상의 문제를 개선
+    폴더 / 파일명: pages/index.tsx, pages/blog/[slug].tsx -> app/page.tsx, app/blog/[slug]/page.tsx
+    렌더링: CSR은 useEffect(), SSG는 getStaticProps, SSR는 getServerSideProps로 렌더링 -> Server Components (async 함수 기반으로 직접 fetch 가능), use client 선언시 Client Component로 전환 가능
+    레이아웃: _app.tsx로 전체 앱 커버 -> layout.tsx 레이아웃 중첩 지원
 
-  - Next 15에서 바뀐 점
-    codemod 지원
-      $ npx @next/codemod@canary upgrade latest: 14 버전 이하의 코드베이스를 최신 Next.js 및 React 버전으로 자동 변환하는 도구 
-      단 충돌나는 부분은 수동으로 수정해야 함
-    비동기 요청 API로의 전환 (중요)
+  - Next 14는 그냥 속도 향상됐다 정도로만 알아두자.
+
+  - Next 15 이후
+    (중요) 비동기 요청 API로의 전환: 
       변경전
         ```
-          const cookieStore = cookies();
-          const token = cookieStore.get('token');      
+          export default function index() {
+            const cookieStore = cookies();
+            const token = cookieStore.get('token');      
+          }
         ```
-      변경후: headers(), cookies(), params, searchParams 등의 함수가 비동기(async)로 변경됨
-        (서버가 요청 도착 전에 준비 작업을 수행할 수 있도록 개선하기 위함)
+      변경후: headers(), cookies(), params('/login'), searchParams('?q=1234') 등의 함수가 비동기(async)로 변경됨
+        (await를 걸게 되는 이유: 서버가 요청 도착 전에 미리 렌더링해서 속도 향상하기 위함)
         ```
-          const cookieStore = await cookies();
-          const token = cookieStore.get('token');
+          export default async function page() {
+            const headers = await headers();
+            const token = headers.get('token');
+          }
         ```
-    캐싱 동작의 변화 (중요)
+    (중요) 캐싱 옵션이 필수:
       fetch()는 더이상 캐시되지 않으며, cache가 필요하면 아래와 같은 옵션이 필수가 됨
         ```
           fetch('https://...', { cache: 'force-cache' });
         ```
-    React 19 지원
-    개발 및 빌드 성능 향상
-      Turbopack 개발 서버 안정화
-        $ next dev --turbo
-    정적 라우트 인디케이터 추가
-      시각적 표시기 도입: 개발 모드에서 각 라우트가 정적인지 동적인지 시각적으로 표시하여, 성능 최적화에 도움을 줌.
-    next.config.ts 지원: next 설정파일에 타입스크립트 지원
-    ESLint 9 지원    
+    터보팩 추가:
+      Next 15부터는 Webpack 대신 Turbopack을 기본으로 사용
+      Turbopack은 Rust로 작성된 차세대 번들러로, Webpack보다 빠른 속도를 자랑함
+      Turbopack은 아직 실험적이므로, 안정성이 떨어질 수 있음
+      Turbopack을 사용하려면, `next dev` 대신 `next dev --turbo`를 사용해야 함
 
-1. Next 프로젝트 시작하기
-  $ npx create-next-app@15.2.4 app1 # 2025년 3월 기준 latest 버전
+
+
+[Next 12]
+
+1. Next12 프로젝트 시작하기
+  $ npx create-next-app@12.3.7 app1 --ts
+  $ cd app1
+  $ npm i
+
+1. pages/index.tsx 수정
+
+1. pages/에 폴더 및 파일 생성
+  pages/
+  ├── csr/index.tsx              ← CSR (페이지 요청할때마다 렌더링 / 로딩화면 있음)
+  ├── ssr/index.tsx              ← SSR (페이지 요청할때마다 렌더링 / 로딩화면 없음)
+  ├── ssg/index.tsx              ← SSG (처음만 렌더링 / 로딩화면 없음)
+  └── index.tsx                  ← 기본 페이지
+
+1. ssg와 ssr의 차이점
+  - ssg.tsx: (Static Side Generation) 빌드시에만 렌더링, 정적 캐시로 재렌더링을 안함
+  - ssr.tsx: 요청마다 새로 렌더링, 항상 최신 데이터로 재렌더링
+  - csr.tsx: 페이지 로드 후 클라이언트에서 렌더링, 클라이언트의 created, updated 라이프사이클에서 데이터를 가져옴. 페이지로드는 빠르나, 로딩화면 발생.
+
+1. 실제 적용 예시
+  - ssg.tsx: 블로그 글 목록, 상품 페이지 (자주 안 바뀌는 콘텐츠)
+  - ssr.tsx: 실시간 주식 정보, 로그인 사용자별 데이터 등 (항상 최신 필요)
+  - csr.tsx: 이벤트(사용자 입력)이 잦은 페이지 (예: 인풋폼, 소트테이블, 필터링검색 등)
+
+
+
+[Next 13]
+
+1. Next13 프로젝트 시작하기
+  $ npx create-next-app@13.5.11 app2
     Typescript? > Yes
     ESLint? > Yes
-    Tailwind CSS? > No
+    Tailwind CSS? > Yes
+    src/? > Yes
+    App Router? > Yes
+    import alias? > No (No로 하면 /src 절대경로가 기본값인 @이 됨)
+  $ cd app2
+  $ npm i
+
+1. app/page.tsx 수정
+
+1. app/에 폴더 및 파일 생성
+  app/
+  ├── csr/page.tsx              ← CSR (페이지 요청할때마다 렌더링 / 로딩화면 있음)
+  ├── ssr/page.tsx              ← SSR (페이지 요청할때마다 렌더링 / 로딩화면 없음)
+  ├── ssg/page.tsx              ← SSG (처음만 렌더링 / 로딩화면 없음)
+  └── page.tsx                  ← 기본 페이지
+
+
+
+[Next 15]
+
+1. Next15 프로젝트 시작하기
+  $ npx create-next-app@15.2.4 app3 # 2025년 3월 기준 latest 버전
+    Typescript? > Yes
+    ESLint? > Yes
+    Tailwind CSS? > Yes (No로 하면 자동으로 css module로 설정됨. 즉 page.module.css이 자동 생성됨)
     src/? > Yes
     App Router? > Yes
     Turbopack? > No
     import alias? > No (No로 하면 /src 절대경로가 기본값인 @이 됨)
-  $ cd app1
+  $ cd app3
   $ npm i
 
-1. Next 구조 익히기
-  /app1
-    /public: svg, image 등 모든 사람이 접근할 수 있는 애셋
-    /src
-      /app: 주소와 관련된 파일들
-      /app외: 주소와 관련되지 않은 파일들 (ex, api, components, hooks, utils)
-    package.json: 프로젝트에 필요한 패키지들. ^로 시작하는 것은 그 버전으로부터 계속 최신 버전으로 업데이트해서 쓴다는 얘기.
-    next.config.js: Next 설정 파일. Next 13부터는 app 폴더가 기본값이 됨.
-    tsconfig.json: Typescript 설정 파일. tsconfig.json의 baseUrl을 src로 설정하면 절대경로를 사용할 수 있음.
-    .eslintrc.json: ESLint 설정 파일. Next 13부터는 app 폴더가 기본값이 됨.
-    .gitignore: git에서 무시할 파일들. node_modules, .next, .turbo 등.    
+1. app/page.tsx 수정
 
-1. src/public/*.svg 삭제: 기존 이미지 삭제하고, 아래의 이미지 파일 가져오기
-  public/favicon.png : 파비콘. 브라우져 호환을 위해 png로도 준비해둔 것.
-  public/5Udwvqim.jpg : 개발자 로고
-  public/yRsRRjGO.jpg : 기존 X 웹앱 로고
-  public/zlogo.png : 웹앱 로고
+1. app/에 폴더 및 파일 생성
+  app/
+  ├── csr/page.tsx              ← CSR (페이지 요청할때마다 렌더링 / 로딩화면 있음)
+  ├── ssr/page.tsx              ← SSR (페이지 요청할때마다 렌더링 / 로딩화면 없음)
+  ├── ssg/page.tsx              ← SSG (처음만 렌더링 / 로딩화면 없음)
+  └── page.tsx                  ← 기본 페이지
 
-1. src/app/favicon.ico 삭제: 기존 이미지 삭제하고, 아래의 이미지 파일 가져오기
-  src/app/favicon.ico : 파비콘
 
-1. src/app/globals.css 작성: 전역 css를 작성할 수 있음.
-  ```
-    :root {
-      --max-width: 1100px;
-      --border-radius: 12px;
-      --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
-      'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
-      'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
 
-      --foreground-rgb: 0, 0, 0;
-      --background-start-rgb: 214, 219, 220;
-      --background-end-rgb: 255, 255, 255;
-
-      --primary-glow: conic-gradient(
-        from 180deg at 50% 50%,
-      #16abff33 0deg,
-      #0885ff33 55deg,
-      #54d6ff33 120deg,
-      #0071ff33 160deg,
-        transparent 360deg
-      );
-      --secondary-glow: radial-gradient(
-        rgba(255, 255, 255, 1),
-        rgba(255, 255, 255, 0)
-      );
-
-      --tile-start-rgb: 239, 245, 249;
-      --tile-end-rgb: 228, 232, 233;
-      --tile-border: conic-gradient(
-      #00000080,
-      #00000040,
-      #00000030,
-      #00000020,
-      #00000010,
-      #00000010,
-      #00000080
-      );
-
-      --callout-rgb: 238, 240, 241;
-      --callout-border-rgb: 172, 175, 176;
-      --card-rgb: 180, 185, 188;
-      --card-border-rgb: 131, 134, 135;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --foreground-rgb: 255, 255, 255;
-        --background-start-rgb: 0, 0, 0;
-        --background-end-rgb: 0, 0, 0;
-
-        --primary-glow: radial-gradient(rgba(1, 65, 255, 0.4), rgba(1, 65, 255, 0));
-        --secondary-glow: linear-gradient(
-          to bottom right,
-          rgba(1, 65, 255, 0),
-          rgba(1, 65, 255, 0),
-          rgba(1, 65, 255, 0.3)
-        );
-
-        --tile-start-rgb: 2, 13, 46;
-        --tile-end-rgb: 2, 5, 19;
-        --tile-border: conic-gradient(
-        #ffffff80,
-        #ffffff40,
-        #ffffff30,
-        #ffffff20,
-        #ffffff10,
-        #ffffff10,
-        #ffffff80
-        );
-
-        --callout-rgb: 20, 20, 20;
-        --callout-border-rgb: 108, 108, 108;
-        --card-rgb: 100, 100, 100;
-        --card-border-rgb: 200, 200, 200;
-      }
-    }
-
-    * {
-      box-sizing: border-box;
-      padding: 0;
-      margin: 0;
-    }
-
-    html,
-    body {
-      max-width: 100vw;
-      overflow-x: hidden;
-    }
-
-    body {
-      color: black;
-      background: rgb(var(--background-end-rgb));
-    }
-
-    a {
-      color: black;
-      text-decoration: none;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      html {
-        color-scheme: dark;
-      }
-    }
-  ```
-
-1. src/app/page.module.css 작성: css module을 사용하여 css를 작성할 수 있음.
-  - css module을 선택한 이유: tailwind는 호불호 갈림. styled component는 SSR에 호환문제. vanilla extract(css.ts)는 윈도우와 호환문제 있음. css 모듈은 next 기본 내장이라 따로 라이브러리 설치도 필요없음.
-  - dvw, dvy는 2025년도 기준 최신 기능인데, weight: 100%보다 더 좋다. 이유는 모바일에서 주소창 발생시의 어긋남까지 해결해주기 때문.
-  - 그 외 css 자체는 로직이 아니라서 딱히 설명할 게 없음. 궁금하면 직접 gpt에 각각이 뭘 의미하는지 물어볼 것.
-  ```
-    .container {
-      display: flex;
-      flex-direction: row;
-      background-color: rgb(var(--background-end-rgb));
-      width: 100dvw;
-      height: 100dvh;
-    }
-    .left {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .right {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .right h1 {
-      font-weight: bold;
-      font-size: 64px;
-      margin: 48px 0;
-    }
-    .right h2 {
-      font-weight: bold;
-      font-size: 31px;
-      margin-bottom: 32px;
-    }
-    .right h3 {
-      font-weight: bold;
-      font-size: 17px;
-      margin-bottom: 20px;
-      margin-top: 40px;
-    }
-
-    .signup {
-      width: 300px;
-      height: 40px;
-      border-radius: 20px;
-      padding: 0 16px;
-      font-size: 15px;
-      background-color: rgb(29, 155, 240);
-      color: white;
-      border: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .signup:hover {
-      background-color: rgb(26, 140, 216);
-    }
-    .login {
-      width: 300px;
-      height: 40px;
-      border-radius: 20px;
-      padding: 0 16px;
-      font-size: 15px;
-      color: rgb(29, 155, 240);
-      border: 1px solid rgb(207, 217, 222);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .login:hover {
-      background-color: rgba(29,155,240,0.1);
-    }
-    @media all and (min-width: 1000px) {
-      .container {
-        flex-direction: row;
-        padding: 0;
-      }
-      .left {
-        flex: 1;
-        justify-content: center;
-      }
-      .left img {
-        width: 450px;
-        height: 550px;
-      }
-      .right {
-        justify-content: center;
-      }
-      .right h1 {
-        font-size: 64px;
-      }
-    }
-  ```
-
-  1. src/app/page.tsx 작성: 초기 화면. 페이지의 진입점.
-  - Link와 a 태그의 차이: a 태그는 페이지를 새로고침. Link는 페이지를 새로고침하지 않음. Next는 페이지를 새로고침하면 안 됨.
-  - Image와 img 태그의 차이: Image는 Next에서 제공하는 이미지 태그로, 자동으로 Next에서 최적화를 해준다.
-  ```
-    import styles from "./page.module.css";
-    import Image from "next/image";
-    import zLogo from "../../public/zlogo.png";
-    import Link from "next/link";
-
-    export default function Main() {
-      return (
-        <div className={styles.container}>
-          <div className={styles.left}>
-            <Image src={zLogo} alt="logo" />
-          </div>
-          <div className={styles.right}>
-            <h1>지금 일어나고 있는 일</h1>
-            <h2>지금 가입하세요.</h2>
-            <Link href="/i/flow/signup" className={styles.signup}>계정 만들기</Link>
-            <h3>이미 트위터에 가입하셨나요?</h3>
-            <Link href="/login" className={styles.login}>로그인</Link>
-          </div>
-        </div>
-      )
-    }
-  ```
-
-1. src/app/layout.tsx 작성: 초기 화면의 레이아웃. 모든 페이지에 공통적으로 적용되는 레이아웃을 작성할 수 있음.
-  - 레이아웃은 중첩이 가능함. (자식 폴더에도 레이아웃이 있으면 중첩됨)
-  - Inter: Google Fonts에서 가져온 폰트고, 이 코드에서 inter는 그 폰트를 전역에 적용하는 역할을 함.
-  - children: 자동으로 동일 폴더 내의 page.tsx가 됨.
-  ```
-    import type { Metadata } from 'next'
-    import { Inter } from 'next/font/google'
-    import './globals.css'
-
-    const inter = Inter({ subsets: ['latin'] })
-
-    export const metadata: Metadata = {
-      title: 'Create Next App',
-      description: 'Generated by create next app',
-    }
-
-    type Props = {
-      children: React.ReactNode,
-    };
-    export default function RootLayout({
-      children,
-    }: Props) {
-      return (
-        <html lang="en">
-          <body className={inter.className}>
-            {children}
-          </body>
-        </html>
-      )
-    }
-  ```
-
-1. src/app/not-found.tsx 작성: 404 페이지
-  - Next의 404 페이지를 커스터마이징할 수 있음
-  - 기본적으로 제공되는 404 페이지는 src/app/not-found.tsx로 작성해야 함. 다른 이름으로 작성하면 안 됨.
-  ```
-    import Link from "next/link";
-    import { NextPage } from "next";
-
-    const NotFound: NextPage = () => {
-      return (
-        <div>
-          <div>이 페이지는 존재하지 않습니다. 다른 페이지를 검색해 보세요.</div>
-          <Link href="/search">검색</Link>
-        </div>
-      )
-    }
-
-    export default NotFound;
-  ```
+1. 각 버전의 코드 차이 비교해보기
 
 1. 테스트
-  $ cd app1
+  $ cd app1 | app2 | app3
   $ npm run dev
-  http://localhost:3000/ 에 접속해서 초기화면이 표시되는지 확인하기
+  - 각 페이지의 렌더링 차이 비교
+    http://localhost:3000/
+    http://localhost:3000/ssr
+    http://localhost:3000/ssg
+    http://localhost:3000/csr
