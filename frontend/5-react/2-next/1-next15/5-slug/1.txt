@@ -8,3 +8,30 @@
 1. /messages 페이지 라이브 클론
 1. 다중 이미지 구역 만들기
 1. 반응형 만들기
+
+
+
+<ch2-2>
+1.src/(afterLogin)/@modal/default.tsx 작성: 페러렐 라우팅을 위한 빈 디폴트 페이지 만들기
+1.src/(afterLogin)/@modal/compose/tweet/page.tsx 작성: 새 트윗 작성 모달 만들기
+
+1.src/(afterLogin)/home/_component/postForm.module.css 작성: 모달을 float으로 띄운다.
+1.src/(afterLogin)/home/_component/PostForm.tsx 작성
+
+1.src/(afterLogin)/@modal/(.)compose/PostForm.tsx 작성: 실제 post 모달 작성
+1.src/(afterLogin)/layout.module.css 작성
+1.src/(afterLogin)/layout.tsx 작성: usePathname을 통해서 ? 뒤의 쿼리 스트링 취득
+- RightSearchZone을 통해 우측 레이아웃 나누기
+
+1.src/(afterLogin)/explore/page.tsx 작성
+- SearchForm으로 공통 컴포넌트 작업하기
+
+1.SearchForm.tsx 작성
+- Next15에서는 params(/path)랑 searchParams(?q=1234)가 비동기가 되었다. 그래서 await로, 그리고 함수에 async를 넣어야 한다. React.use()로 감싸줘야한다.
+
+1.search/page.tsx 작성
+1.클라이언트 컴포넌트에서 서버컴포넌트를 임포트해서 쓸 때에는 항상 children이나 props로 보내야한다. 안 그럼 서버 컴포가 클라이언트 컴포가 되어버린다.
+
+그냥 알아둘 것들...
+- cx는 클래스 합치는 ClassNames 라이브러리의 함수이다.
+- 미디어쿼리 @media all and ....
