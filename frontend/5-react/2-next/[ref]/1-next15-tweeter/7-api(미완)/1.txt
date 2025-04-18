@@ -1,6 +1,5 @@
 [섹션4. 그런데 백엔드 개발자가 API를 아직 못 만들었다]
 
-1. react-query를 쓰는 이유와 fresh, stale, inactive
 1. refetch, invalidate, reset의 차이
 1. 팔로잉 게시글, 검색 결과 불러오기
 1. 조건부 쿼리 & 쿼리 재사용하기
