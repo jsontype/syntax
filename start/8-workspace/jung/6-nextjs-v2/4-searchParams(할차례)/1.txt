@@ -1,0 +1,8 @@
+[Next 15 searchParams 의 비동기화]
+
+?sort=title
+?sort=year
+?sort=rating
+
+클라이언트사이드 : const { sort } = useSearchParams
+서버사이드 (await searchParams).get('sort')

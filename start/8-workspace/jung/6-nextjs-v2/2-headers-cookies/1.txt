@@ -1,0 +1,26 @@
+[Next 15 headers-cookies-params-searchParams 의 비동기화]
+
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 app3 폴더의 코드를 그대로 카피해서 가지고 온다.
+
+1. src/app/ssg 와 src/app/csr 폴더 삭제
+
+1. src/app/layout.tsx 수정: 네비게이션 바 이동
+
+1. src/app/ssr은 src/app//movies 로 폴더 변경: 무비 페이지
+
+1. src/app/page.tsx 수정: 홈 페이지
+
+1. src/actions/setCookie.ts 작성: 서버 액션 함수. 
+- use server가 필수이다.
+- 서버 컴포넌트는 tsx로 만들지만, 액션 함수는 ts로만 이뤄짐.
+
+1. src/app/components/setCookieButton.tsx 작성: 클라이언트 컴포넌트.
+- use client가 필수이다.
+- onClick 이벤트가 발생하면, 서버 액션 함수를 호출하여 쿠키를 설정하지만, 이때 onClick은 Client Component에서만 사용 가능하다.
+
+1. src/app/movies/page.tsx 수정: 
+  - headers()와 cookies()는 Next 13까지는 동기 함수였지만, Next 15부터는 비동기로 바뀌었다.
+  - 서버 렌더링 시 필요한 정보 — 예를 들어 user-agent나 인증 쿠키—를 안전하게 받아올 수 있다.
+  - 이를 통해 사용자 디바이스 정보, 인증 상태 등에 따라 맞춤형 SSR 콘텐츠를 구현할 수 있습니다.
+
+1. 테스트

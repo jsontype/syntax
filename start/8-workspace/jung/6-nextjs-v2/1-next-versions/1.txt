@@ -41,6 +41,8 @@
 
 
 
+
+
 [Next 12]
 
 1. Next12 프로젝트 시작하기
@@ -57,20 +59,7 @@
   ├── ssg/index.tsx              ← SSG (처음만 렌더링 / 로딩화면 없음)
   └── index.tsx                  ← 기본 페이지
 
-1. ssg와 ssr의 차이점
-  - ssg.tsx: (Static Side Generation) 빌드시에만 렌더링, 정적 캐시로 재렌더링을 안함
-  - ssr.tsx: 요청마다 새로 렌더링, 항상 최신 데이터로 재렌더링
-  - csr.tsx: 페이지 로드 후 클라이언트에서 렌더링, 클라이언트의 created, updated 라이프사이클에서 데이터를 가져옴. 페이지로드는 빠르나, 로딩화면 발생.
 
-1. 실제 적용 예시
-  - ssg.tsx: 블로그 글 목록, 상품 페이지 (자주 안 바뀌는 콘텐츠)
-  - ssr.tsx: 실시간 주식 정보, 로그인 사용자별 데이터 등 (항상 최신 필요)
-  - csr.tsx: 이벤트(사용자 입력)이 잦은 페이지 (예: 인풋폼, 소트테이블, 필터링검색 등)
-
-1. 위계
-  - 부모가 CSR: 자식은 CSR만 가능
-  - 부모가 SSR: 자식은 SSR, SSG, CSR 다 가능
-  - 부모가 SSG: 자식은 SSG, CSR 가능
 
 
 
@@ -98,6 +87,15 @@
 
 
 
+
+
+
+
+
+
+
+
+
 [Next 15]
 
 1. Next15 프로젝트 시작하기
@@ -112,24 +110,47 @@
   $ cd app3
   $ npm i
 
-1. src/app/page.tsx 수정
-
-1. src/app/에 폴더 및 파일 생성
-  app/
-  ├── csr/page.tsx              ← CSR (페이지 요청할때마다 렌더링 / 로딩화면 있음)
-  ├── ssr/page.tsx              ← SSR (페이지 요청할때마다 렌더링 / 로딩화면 없음)
-  ├── ssg/page.tsx              ← SSG (처음만 렌더링 / 로딩화면 없음)
-  └── page.tsx                  ← 기본 페이지
 
 
+1. ssg와 ssr의 차이점
+  - ssg.tsx: (Static Side Generation) 빌드시에만 렌더링, 정적 캐시로 재렌더링을 안함
+  - ssr.tsx: 요청마다 새로 렌더링, 항상 최신 데이터로 재렌더링
+  - csr.tsx: 페이지 로드 후 클라이언트에서 렌더링, 클라이언트의 created, updated 라이프사이클에서 데이터를 가져옴. 페이지로드는 빠르나, 로딩화면 발생.
 
-1. 각 버전의 코드 차이 비교해보기
+1. 실제 적용 예시
+  - ssg.tsx: 블로그 글 목록, 상품 페이지 (자주 안 바뀌는 콘텐츠)
+  - ssr.tsx: 실시간 주식 정보, 로그인 사용자별 데이터 등 (항상 최신 필요)
+  - csr.tsx: 이벤트(사용자 입력)이 잦은 페이지 (예: 인풋폼, 소트테이블, 필터링검색 등)
 
-1. 테스트
-  $ cd app1 | app2 | app3
-  $ npm run dev
-  - 각 페이지의 렌더링 차이 비교
-    http://localhost:3000/
-    http://localhost:3000/ssr
-    http://localhost:3000/ssg
-    http://localhost:3000/csr
+1. 위계
+  - 부모가 CSR: 자식은 CSR만 가능
+  - 부모가 SSR: 자식은 SSR, SSG, CSR 다 가능
+  - 부모가 SSG: 자식은 SSG, CSR 가능
+
+1. Next 15 이후 변경점
+  (중요) 비동기 요청 API로의 전환: 
+    변경전
+      ```
+        export default function index() {
+          const cookieStore = cookies();
+          const token = cookieStore.get('token');      
+        }
+      ```
+    변경후: headers(), cookies(), params('/login'), searchParams('?q=1234') 등의 함수가 비동기(async)로 변경됨
+      (await를 걸게 되는 이유: 서버가 요청 도착 전에 미리 렌더링해서 속도 향상하기 위함)
+      ```
+        export default async function page() {
+          const headers = await headers();
+          const token = headers.get('token');
+        }
+      ```
+  (중요) 캐싱 옵션이 필수:
+    fetch()는 더이상 캐시되지 않으며, cache가 필요하면 아래와 같은 옵션이 필수가 됨
+      ```
+        fetch('https://...', { cache: 'force-cache' });
+      ```
+  터보팩 추가:
+    Next 15부터는 Webpack 대신 Turbopack을 기본으로 사용
+    Turbopack은 Rust로 작성된 차세대 번들러로, Webpack보다 빠른 속도를 자랑함
+    Turbopack은 아직 실험적이므로, 안정성이 떨어질 수 있음
+    Turbopack을 사용하려면, `next dev` 대신 `next dev --turbo`를 사용해야 함
