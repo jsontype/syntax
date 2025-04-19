@@ -67,6 +67,11 @@
   - ssr.tsx: 실시간 주식 정보, 로그인 사용자별 데이터 등 (항상 최신 필요)
   - csr.tsx: 이벤트(사용자 입력)이 잦은 페이지 (예: 인풋폼, 소트테이블, 필터링검색 등)
 
+1. 위계
+  - 부모가 CSR: 자식은 CSR만 가능
+  - 부모가 SSR: 자식은 SSR, SSG, CSR 다 가능
+  - 부모가 SSG: 자식은 SSG, CSR 가능
+
 
 
 [Next 13]
@@ -82,9 +87,9 @@
   $ cd app2
   $ npm i
 
-1. app/page.tsx 수정
+1. src/app/page.tsx 수정
 
-1. app/에 폴더 및 파일 생성
+1. src/app/에 폴더 및 파일 생성
   app/
   ├── csr/page.tsx              ← CSR (페이지 요청할때마다 렌더링 / 로딩화면 있음)
   ├── ssr/page.tsx              ← SSR (페이지 요청할때마다 렌더링 / 로딩화면 없음)
@@ -107,9 +112,9 @@
   $ cd app3
   $ npm i
 
-1. app/page.tsx 수정
+1. src/app/page.tsx 수정
 
-1. app/에 폴더 및 파일 생성
+1. src/app/에 폴더 및 파일 생성
   app/
   ├── csr/page.tsx              ← CSR (페이지 요청할때마다 렌더링 / 로딩화면 있음)
   ├── ssr/page.tsx              ← SSR (페이지 요청할때마다 렌더링 / 로딩화면 없음)

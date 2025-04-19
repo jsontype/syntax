@@ -1,0 +1,18 @@
+[Next 15 params 의 비동기화]
+
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. src/app/components/backButton.tsx 작성: 클라이언트 컴포넌트. 뒤로가기 버튼
+
+1. src/app/movies/[id]/page.tsx: movies 상세 페이지 만들기
+- [slug] 개념: id 등 routeParams를 받기위한 폴더 방식이다. [id]는 movies/123에서 id가 123임을 의미한다.
+- 서버컴포넌트에서는 import 불필요. 아래와 같이 props으로 받아서, (await params).id 를 사용하여 [slug]의 id를 가져온다.
+  export default async function MovieDetail({ params }: { params: Promise<{ id: string }> }) {
+    const movieId = (await params).id
+    ... 중략
+
+1. src/app/components/movieDetailComment.tsx 작성: 클라이언트 컴포넌트. 댓글 작성 버튼
+  - 클라이언트컴포넌트에서는 useParams()를 사용하여 [slug]의 id를 가져온다.
+  - import { useParams } from 'next/navigation' 필요
+
+1. 테스트
