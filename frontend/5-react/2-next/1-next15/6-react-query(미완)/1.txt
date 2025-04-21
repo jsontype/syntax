@@ -1,0 +1,67 @@
+실제 현장에서는 fetch -> axios -> redux-sage, redux-thunk, mobx, .... -> useSWR -> react-query를 많이 사용함
+...에 들어갈 것들
+
+react-query를 쓰는 이유
+1. 캐싱에 유리함 = 서버에서 데이터를 가져오는 것과 클라이언트에서 가져오는 것을 구분할 수 있음 = 구분해서, 서버를 뚜드려야한다면, 캐시를 사용해서 안뚜드려서 속도가 빨라짐.
+1. 서버 두드리기가 실패했을 때, 다시 실행횟수 등... fresh, stale, inactive를 구분해서 stale 상태일 때 리펫치 조건을 걸 수 있다.
+1. error, loading, success를 useState로 직접 setState해서 관리하지 않아도 됨 -> csr이여야 했었는데, ssr는 안된다는 얘기? -> 해결
+  const { isLoading, error, data } = useQuery('repoData', () =>
+    fetch('https://api.github.com/repos/tannerlinsley/react-query').then(res =>
+      res.json(),
+    ),
+  )
+1. useQuery, useMutation을 사용해서, 쿼리와 뮤테이션을 구분할 수 있다.
+  useMutation(
+    (newTodo) => fetch('/api/todos', {
+      method: 'POST',
+      body: JSON.stringify(newTodo),
+    }),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('todos')
+      },
+    }
+  )
+1. useQueryClient를 사용해서, 쿼리 클라이언트를 사용할 수 있다.
+1. useInfiniteQuery를 사용해서, 무한 스크롤을 구현할 수 있다.
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+  } = useInfiniteQuery(
+    'projects',
+    fetchProjects,
+    {
+      getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
+    }
+  )
+1. usePaginatedQuery를 사용해서, 페이지네이션을 구현할 수 있다.
+  const {
+    data,
+    isLoading,
+    isError,
+    isFetching,
+    isStale,
+    refetch,
+  } = usePaginatedQuery(
+    'projects',
+    fetchProjects,
+    {
+      page: pageNumber,
+      staleTime: 1000 * 60 * 5, // 5분
+      cacheTime: 1000 * 60 * 10, // 10분
+      refetchOnWindowFocus: false, // 윈도우 포커스 시 리패치 안함
+      refetchOnReconnect: false, // 재연결 시 리패치 안함
+      refetchInterval: false, // 리패치 안함
+      retry: false, // 실패 시 리패치 안함
+      onSuccess: (data) => {
+        console.log(data)
+      },
+      onError: (error) => {
+        console.log(error)
+      },
+    }
+  )
+...
