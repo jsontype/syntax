@@ -1,7 +1,36 @@
 [섹션4. 그런데 백엔드 개발자가 API를 아직 못 만들었다]
 
 1. refetch, invalidate, reset의 차이
-1. 팔로잉 게시글, 검색 결과 불러오기
+  - TANSTACK 야자수 데브툴 왼쪽에서 ['posts', 'recommends']가 있다는 전제하에의 Actions
+  - Actions에서 Refetch를 누르면 새로 페칭을 함. 누르면 Fetching이 1 됐다가 Fresh로 바뀜. (queryClient.refetchQueries)
+    무조건 새로 가져옴. 화면에 안 보인다 해도 그 데이터를 리페치하고 싶을 때
+  - Invalidate도 Refetch랑 동일한 동작임. 누르면 캐시를 무효화하고 새로 페칭을 함. (queryClient.invalidateQueries)
+    Observer가 쿼리디테일에 떠있는데, observer가 1이 되는 순간 다시 가져온다.
+    invalidate는 inactive일 때는 안 가져오고, 데이터를 쓰고 있을 때만 가져온다는 점에 refetch와 다름.
+    즉, 화면에 안 보이는 데이터는 리페치하지 않음.
+  - Reset은 캐시를 초기화함. (queryClient.clear())
+    데이터를 모두 초기값으로 되돌림.
+  - Trigger Loading / Restore Loading 토글 (queryClient.setQueryData)
+    Loading 상태를 보고싶을 때. Loading을 트리거할 수 있음.
+  - Trigger Error / Restore Error 토글 (queryClient.setQueryData)
+    Error 상태를 보고싶을 때. Error를 트리거할 수 있음.
+
+1. handlers.ts 수정: 팔로잉 게시글, 검색 결과 불러오기
+  http.get('/api/followingPosts', (req, res) => {
+    const { userId } = req.query
+    const posts = getPostsByUserId(userId)
+    res.json(posts)
+  })
+  이런 식으로 추가한다.
+
+1. home/_lib/getFollowingPosts.ts: 팔로잉 게시글 가져오기
+1. TabDecider.tsx: 탭 디스패치
+  - useReducer로 탭을 관리하는 컴포넌트
+  - useReducer는 상태를 관리하는 훅으로, 상태와 디스패치 함수를 반환함.
+  - 디스패치 함수는 액션 객체를 받아서 상태를 업데이트함.
+  - 액션 객체는 type과 payload를 가짐.
+  - type은 어떤 액션인지 나타내고, payload는 추가적인 데이터를 담음.
+
 1. 조건부 쿼리 & 쿼리 재사용하기
 1. 에러 상황 처리하기 (유저 정보 없음)
 1. 게시글 상세 페이지, 답글, 포토모달
