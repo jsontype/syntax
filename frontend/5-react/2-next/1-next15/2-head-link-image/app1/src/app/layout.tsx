@@ -33,6 +33,7 @@ export default function RootLayout({
           <span className="pr-1"><Link href="/">홈</Link></span>
           <span className="pr-1"><Link href="/movies">무비앱(SSR)</Link></span>
         </div>
+        <hr />
         {/* Main */}
         {children}
       </body>

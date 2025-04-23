@@ -11,25 +11,28 @@ type Movie = {
   large_cover_image: string
 }
 
-// 서버 요청 함수
-async function getData(sort: string = 'rating'): Promise<Movie[]> {
-  const response = await fetch(`https://yts.mx/api/v2/list_movies.json?sort_by=${sort}`, {
+// 서버 요청 함수: 파라미터에 초기값을 넣어서 null 체크를 하지 않아도 된다.
+async function getData(sort: string = 'rating', limit: number = 20): Promise<Movie[]> {
+  const response = await fetch(`https://yts.mx/api/v2/list_movies.json?sort_by=${sort}&limit=${limit}`, {
     cache: 'no-store',
   })
   const data = await response.json()
   return data.data.movies
 }
 
+// searchParams의 Props 타입을 이렇게 선언해도 된다. 단 Next15부터는 searchParams가 비동기이므로 Promise를 쓰는 것을 잊지 말자.
 type Props = {
-  searchParams: {
-    sort?: string
-  }
+  searchParams: Promise<{
+    sort: string
+    limit: number
+  }>
 }
 
 export default async function SSR({ searchParams }: Props) {
   // 서버 컴포넌트에서 searchParams를 사용하려면 Props로 받아야 함.
   // Next15에서는 searchParams에 await가 필요함. (25/4/21 메모: VSCode는 업데이트가.. 불필요하다고 뜨지만 있어야함...)
-  const sort = (await searchParams).sort || 'rating'
+  // 단수일 때는 { id } 이렇게 비구조화 할당으로 하겠지만, 복수일 때는 아래처럼 선언 후, query.sort, query.limit 식으로 쓴다.
+  const query = await searchParams
 
   const headersList = await headers()
   const cookiesList = await cookies()
@@ -40,13 +43,14 @@ export default async function SSR({ searchParams }: Props) {
   console.log('header / UserAgent: ', headerUserAgent)
   console.log('cookie / MyToken: ', cookieMyToken)
 
-  const movies = await getData(sort)
+  const movies = await getData(query.sort, query.limit)
 
   return (
     <div>
-      <h1>SSR: 무비 리스트</h1>
-
-      <SortPulldown />
+      <div className="flex justify-between">
+        <h1>SSR: 무비 리스트</h1>
+        <SortPulldown />
+      </div>
 
       <div>
         {movies.map((movie) => (
@@ -57,7 +61,7 @@ export default async function SSR({ searchParams }: Props) {
               </Link>
             </h2>
             <p>
-              <Image src={movie.large_cover_image} alt={movie.title} width={500} height={300} />
+              <Image src={movie.large_cover_image} alt={movie.title} width={500} height={750} />
             </p>
           </div>
         ))}

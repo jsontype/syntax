@@ -24,12 +24,19 @@
   이런 식으로 추가한다.
 
 1. home/_lib/getFollowingPosts.ts: 팔로잉 게시글 가져오기
-1. TabDecider.tsx: 탭 디스패치
-  - useReducer로 탭을 관리하는 컴포넌트
-  - useReducer는 상태를 관리하는 훅으로, 상태와 디스패치 함수를 반환함.
-  - 디스패치 함수는 액션 객체를 받아서 상태를 업데이트함.
-  - 액션 객체는 type과 payload를 가짐.
-  - type은 어떤 액션인지 나타내고, payload는 추가적인 데이터를 담음.
+
+1. TabDecider.tsx: 탭 변경
+
+1. src/app/(afterLogin)/search/_component/SearchResult.tsx: 다이나믹 쿼리키 타입에 주목할 것.
+  - IPost[], Object, IPost[], [_1: string, _2: string, Props['searchParams']]
+  - IPost[]: 데이터 결과값 타입, Object는 에러의 타입이다.
+
+  const {data} = useQuery<IPost[], Object, IPost[], [_1: string, _2: string, Props['searchParams']]>({
+    queryKey: ["posts", "search", searchParams],
+    queryFn: getSearchResult,
+    staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
+    gcTime: 300 * 1000,
+  });
 
 1. 조건부 쿼리 & 쿼리 재사용하기
 1. 에러 상황 처리하기 (유저 정보 없음)

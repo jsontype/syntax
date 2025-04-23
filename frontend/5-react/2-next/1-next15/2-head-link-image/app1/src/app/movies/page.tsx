@@ -1,4 +1,5 @@
 // export const dynamic = 'force-dynamic' // 선택사항: 명시적으로 SSR 선언하는 용도
+import Image from 'next/image'
 
 type Movie = {
   id: number
@@ -24,7 +25,7 @@ export default async function SSR() {
       {movies.map(movie => (
         <div key={movie.id}>
           <a href={movie.url}>{movie.title}</a>
-          <img src={movie.background_image} alt={movie.title} width={300} />
+          <Image src={movie.background_image} alt={movie.title} width={300} height={125} />
         </div>
       ))}
     </div>

@@ -1,12 +1,6 @@
 import BackButton from '@/app/components/BackButton'
 import MovieDetailComment from '@/app/components/MovieDetailComment'
-
-type Cast = {
-  name: string
-  character_name: string
-  url_small_image: string
-  imdb_code: string
-}
+import Image from 'next/image'
 
 type Movie = {
   id: number
@@ -32,7 +26,6 @@ type Movie = {
   large_screenshot_image1?: string
   large_screenshot_image2?: string
   large_screenshot_image3?: string
-  cast?: Cast[]
 }
 
 // 서버 요청 함수 (params.id 사용)
@@ -47,15 +40,13 @@ async function getData(id: string): Promise<Movie> {
 
 export default async function MovieDetail({ params }: { params: Promise<{ id: string }> }) {
   // (중요) Next15에서는 서버컴포넌트에서 params를 받을 때, params의 타입을 Promise로 감싸야하며, 사용할 때 await를 써야한다. import 불필요.
-  const movieId = (await params).id
-
-  const movie = await getData(movieId)
+  const { id } = await params // const id = (await params).id 와 같다.
+  const movie = await getData(id)
 
   console.log('movie: ', movie)
 
   return (
     <div>
-      {/* ***! */}
       <BackButton />
 
       <h1>상세페이지</h1>
@@ -76,29 +67,20 @@ export default async function MovieDetail({ params }: { params: Promise<{ id: st
       <h2>설명: {movie.description_full ?? '-'}</h2>
 
       <MovieDetailComment />
-      <h3 className="text-sm text-gray-500">ReviewCat133: 너무 재밌어요.</h3>
-      <h3 className="text-sm text-gray-500">Ydh1133: 재미없어요.</h3>
 
-      <h2>출연진:</h2>
-      {movie.cast?.length ? (
-        <ul>
-          {movie.cast.map((actor) => (
-            <li key={actor.imdb_code}>
-              <img src={actor.url_small_image} alt={actor.name} width={50} style={{ verticalAlign: 'middle', marginRight: '8px' }} />
-              <strong>{actor.name}</strong> — {actor.character_name}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>-</p>
-      )}
+      {/* 
+        TODO: 아래는 댓글 리스트가 들어갈 부분
+          - 이걸 실제로 실을 때에는 요청마다 갱신하게끔 'force-cache'를 'no-store' SSG -> SSR로 변경해야함.
+          - 위 MovieDetailComment 컴포넌트는 댓글 입력창이라 클라이언트 컴포이므로 분리함.
+      */}
+      <h3 className="text-sm text-gray-500">아직 댓글이 없습니다.</h3>
 
       <h2>스크린샷:</h2>
       <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
         {[movie.medium_screenshot_image1, movie.medium_screenshot_image2, movie.medium_screenshot_image3]
           .filter(Boolean)
           .map((src, i) => (
-            <img key={i} src={src!} alt={`screenshot${i + 1}`} width={300} />
+            <Image key={i} src={src!} alt={`screenshot${i + 1}`} width={300} height={300} />
           ))}
       </div>
     </div>

@@ -1,12 +1,14 @@
 import Link from 'next/link'
 import SetCookieButton from '@/app/components/SetCookieButton'
 import { headers, cookies } from 'next/headers'
+import Image from 'next/image'
 
 type Movie = {
   id: number
   title: string
   url?: string
   large_cover_image: string
+  cast: []
 }
 
 // 서버 요청 함수
@@ -60,12 +62,11 @@ export default async function SSR() {
     <div key={movie.id}>
       <h2>
         <Link href={`/movies/${movie.id}`}>
-          {movie.title}</Link></h2>
+          {movie.title}
+        </Link>
+      </h2>
       <p>
-        <img
-          src={movie.large_cover_image}
-          alt={movie.title}
-        />
+        <Image src={movie.large_cover_image} alt={movie.title} width={500} height={750} />
       </p>
     </div>
   ))

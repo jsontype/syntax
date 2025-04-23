@@ -17,13 +17,13 @@ export default function MovieDetailComment() {
       return
     }
 
-    alert(`댓글이 등록되었습니다. \n 댓글 내용: ${comment} \n 영화 ID: ${id}`)
+    alert(`TODO: 댓글이 등록되었습니다. \n 댓글 내용: ${comment} \n 영화 ID: ${id}`)
     setComment('')
   }
 
   return (
     <div>
-      <h2>댓글</h2>
+      <h2># {id} 영화의 댓글</h2>
       <form onSubmit={onSubmit}>
         <input
           type="text"

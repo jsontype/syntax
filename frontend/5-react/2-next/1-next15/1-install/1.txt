@@ -123,12 +123,11 @@
 
 
 
-1. 각 버전의 코드 차이 비교해보기
-
-1. 테스트
-  $ cd app1 | app2 | app3
-  $ npm run dev
+1. 테스트: VSCode에서 각 페이지의 코드 차이, 실제 화면에서의 렌더링 차이 비교
+  - VSCode에서 각 페이지의 코드 차이 비교 
   - 각 페이지의 렌더링 차이 비교
+    $ cd app1 | app2 | app3
+    $ npm run dev
     http://localhost:3000/
     http://localhost:3000/ssr
     http://localhost:3000/ssg
