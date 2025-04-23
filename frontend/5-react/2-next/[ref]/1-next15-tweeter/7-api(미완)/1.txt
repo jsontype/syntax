@@ -38,7 +38,12 @@
     gcTime: 300 * 1000,
   });
 
-1. 조건부 쿼리 & 쿼리 재사용하기
+1. getSearchResult.ts: 조건부 쿼리 & 쿼리 재사용하기
+  -getSearchResult 함수: 리액트 쿼리에서는 객체가 Next의 tags 안에 들어갈 수 없다. 문자열을 넣어줘야 한다. 그러므로 searchParams.q 를 넣어주었다.
+
+1. handlers.ts 수정: 조건부 쿼리 & 쿼리 재사용하기
+  -http.get('/api/search/:tag', ...) 부분: api에서 콜론은 슬러그와 같은 자리라 생각하면 됨. params.tag 와 같이 뺄 수있음
+
 1. 에러 상황 처리하기 (유저 정보 없음)
 1. 게시글 상세 페이지, 답글, 포토모달
 1. 미흡한 부분 구현하기
