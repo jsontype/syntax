@@ -32,11 +32,11 @@ export default function Home() {
         <Image
           src="https://img.yts.mx/assets/images/movies/captain_america_brave_new_world_2025/background.jpg"
           alt="배경 이미지"
-          fill
+          fill // fill은 부모 div의 width, height를 따라감. 따라서 부모 div의 크기를 지정해줘야 한다.
+          sizes="600" // fill을 쓸 때는 sizes에 width size를 넣어주는 게 좋다. 안 넣으면 콘솔에 경고가 뜸.
           style={{ objectFit: 'cover' }}
-          // width={1000} // 필수이지만, fill 속성 사용 시 width, height 속성은 무시됨.
-          // height={600} // 필수이지만, fill 속성 사용 시 width, height 속성은 무시됨.
-          priority
+          priority // priority는 페이지 로딩 시 가장 먼저 로드되도록 설정하는 것. (SEO 최적화에 도움)
+        // lazy-loading="lazy" // lazy-loading은 priority를 쓰면 기본값이 "eager"가 되는데, "lazy"를 쓸 경우에는 priority를 쓰면 안됨.
         />
         <div className="absolute top-1/2 left-1/2 text-white text-4xl font-bold transform -translate-x-1/2 -translate-y-1/2">
           {/* Link */}
@@ -49,19 +49,21 @@ export default function Home() {
           {/* form: pages router 방식에서는 <Form>을, app router 방식에서는 <form> 사용. api/login.ts에 action 험수를 만들면 연결 가능. */}
           <div className="my-10 text-center">
             <form action="/api/login" method="POST">
-              <input
-                type="text"
-                name="username"
-                placeholder="아이디"
-                className="border p-2 mr-2"
-              />
-              <input
-                type="password"
-                name="password"
-                placeholder="비밀번호"
-                className="border p-2 mr-2"
-              />
-              <button type="submit" className="mt-10 bg-green-700 text-white px-4 py-2 rounded hover:bg-green-800">
+              <div className="my-4">
+                <input
+                  type="text"
+                  name="username"
+                  placeholder="아이디"
+                  className="border p-2 mr-2"
+                />
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="비밀번호"
+                  className="border p-2 mr-2"
+                />
+              </div>
+              <button className="bg-green-700 text-white mt-5 px-4 py-2 rounded hover:bg-green-800">
                 로그인
               </button>
             </form>

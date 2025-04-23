@@ -126,6 +126,11 @@
     )
   }
 
-1. 테스트
+1. 테스트: SSG의 무비 디테일 페이지, 무비 디테일 페이지에서 호출하는 CSR의 댓글 컴포넌트 확인
+
+1. 테스트: 무비 리스트에서 headers와 cookies 확인
   $ cd app1
   $ npm run dev
+  - 무비 리스트 페이지에서 headers와 cookies 정보가 잘 들어오는지 콘솔로그 확인
+  - 무비 리스트 페이지의 최하단에 있는 버튼을 클릭하면, cookies 정보가 초기값 "정보 없음"으로부터 잘 갱신되는지 콘솔로그 확인
+  - app1/src/app/movies/page.tsx 에 있는 SetCookieButton 컴포넌트 호출부에서 content 프롭의 값을 바꿔가며, cookies 정보가 잘 갱신되는 지 한번 더 확인

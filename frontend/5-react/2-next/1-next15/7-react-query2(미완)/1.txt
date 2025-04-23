@@ -1,0 +1,45 @@
+[Next 15 react-query 기능 상세 1]
+
+1. 리액트쿼리가 생각보다 기능이 많아서 자주쓰는 기능들을 추가적으로 한번 정리하고가야할 필요가있음
+
+* 과제: SSR에서 쿼리 키를 사용하기 (useQuery의 queryKey를 사용해서 쿼리 키를 사용한다.)
+* 과제: SSR에서 쿼리 클라이언트를 사용하기 (useQueryClient를 사용해서 쿼리 클라이언트를 사용한다.)
+* 과제: SSR에서 쿼리 클라이언트를 사용해서 쿼리 무효화하기 (useQueryClient의 invalidateQueries를 사용해서 쿼리 무효화하기.)
+* 과제: SSR에서 쿼리 클라이언트를 사용해서 쿼리 리패치하기 (useQueryClient의 refetchQueries를 사용해서 쿼리 리패치하기.)
+* 과제: SSR에서 쿼리 클라이언트를 사용해서 쿼리 리셋하기 (useQueryClient의 resetQueries를 사용해서 쿼리 리셋하기.)
+* 과제: SSR에서 쿼리 클라이언트를 사용해서 쿼리 삭제하기 (useQueryClient의 removeQueries를 사용해서 쿼리 삭제하기.)
+* 과제: SSR에서 쿼리 클라이언트를 사용해서 쿼리 캐시하기 (useQueryClient의 setQueryData를 사용해서 쿼리 캐시하기.)
+* 과제: SSR에서 쿼리 클라이언트를 사용해서 쿼리 캐시 삭제하기 (useQueryClient의 clear로 쿼리 캐시 삭제하기.)
+* 과제: SSR에서 쿼리 클라이언트를 사용해서 쿼리 캐시 무효화하기 (useQueryClient의 invalidateQueries로 쿼리 캐시 무효화하기.)
+* 과제: SSR에서 쿼리 클라이언트를 사용해서 쿼리 캐시 리패치하기 (useQueryClient의 refetchQueries로 쿼리 캐시 리패치하기.)
+* 과제: SSR에서 쿼리 클라이언트를 사용해서 쿼리 캐시 리셋하기 (useQueryClient의 resetQueries로 쿼리 캐시 리셋하기.)
+
+1. react-query를 쓰는 이유: 쿼리 키 시스템
+  쿼리 키 시스템이란, 쿼리 키를 사용해서 데이터를 구분하는 것이다. 쿼리 키는 배열로 되어있다. ["post", "recommend"] 이런식으로 되어있다.
+  - redux-toolkit 대신 react-query이나 swr를 쓰는 이유 : redux-toolkit이나 redux-saga, redux-thunk 같은 걸로도 서버 페칭(비동기 처리)이 되지만,
+    redux의 핵심은 데이터를 컴포넌트간에 공유하는 것이 핵심.
+    react-query나 swr는 데이터를 "가져오는 행위"가 핵심이 된다.
+    또, react-query는 가져오면서 "캐싱"을 잘 해준다. 캐싱을 하면 트래픽 비용을 줄이고, 속도도 빠름.
+    인터페이스를 표준화했다. (loading, success, error 등의 데이터 등)
+    키 시스템도 잘 되어있다. ["post", "recommend"] 등 사용부.
+
+1. react-query를 쓰는 이유: fresh, stale, inactive 상태 관리
+  - fresh, stale, inactive 상태 관리
+    서버 두드리기가 실패했을 때, 다시 실행횟수 등... fresh, stale, inactive를 구분해서 
+    stale 상태일 때 리펫치 조건을 걸 수 있다.
+  - RQProvider.tsx
+    react-query에는 아래 데이터 상태 3가지가 있다. 펫치받은 데이터가 이들중 어느 상태인지는 화면에서 야자수 클릭하면 확인할 수 있음.
+    >>> fresh : 서버에서 데이터를 불러오면 기본적으로 이것. 최종데이터. 계속 써도 되는 데이터. 그러나 언제까지 프레시한 데이터일까? 그래서, 프레시 기간을 설정해야한다.
+    >>> stale : staleTime: 60이면 60ms 뒤에 fresh에서 stale 상태로 간다. infinity를 하면 항상 fresh. 일반적으로 모든 데이터는 특정 시간이 지나면 프레시하지 않게 된다. 그 상태를 stale이라 한다. stale 상태에서는 특정 기회가 되면 항상 서버에서 새로 가져와야 한다.
+    그 특정 refretch기회는, refetchOnWindowFocus , retryOnMount, refetchOnReconnect 이 세개를 기준으로 그 다시 가져오는 기회를 정한다. retry는 서버 가져오는 게 실패시 몇번 다시 시도할 거냐에 대한 설정.
+    >>> inactive : gcTime이란 게 있다. 이는 garbage collector 타임인데 기본은 5분이다. 보는 화면에서 Post를 안 부르면 inactive가 되는데, 이후, 메모리가 너무 많으면 안쓰는 데이터들을 처리를 해준다. 그래서 메모리를 정리해준다.
+    브라우져에서 메모리가 넘어가면 앱이 터져버린다. gcTime은 staleTime보다 길어야한다. (gcTime이 넘어서 메모리가 정리되어버리면 staleTime의 캐시초기화가 의미가 없어져버리기 때문)
+
+1. react-query를 쓰는 이유: 캐싱에 유리함. useQueryClient를 사용해서, 캐싱 등 각종 쿼리 클라이언트를 사용할 수 있다.
+  - 캐싱에 유리함 (useQueryClient 사용)
+    서버에서 데이터를 가져오는 것과 클라이언트에서 가져오는 것을 구분할 수 있다.
+    구분해서, 서버를 뚜드려야한다면, 캐시를 사용해서 안뚜드려서 속도가 빨라짐.
+
+1. 테스트: 리액트쿼리 기능 ... 확인
+1. 테스트: 리액트쿼리 기능 ... 확인
+1. 테스트: 리액트쿼리 기능 ... 
