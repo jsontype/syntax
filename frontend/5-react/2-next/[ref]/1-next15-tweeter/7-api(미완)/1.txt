@@ -39,15 +39,47 @@
   });
 
 1. getSearchResult.ts: 조건부 쿼리 & 쿼리 재사용하기
-  -getSearchResult 함수: 리액트 쿼리에서는 객체가 Next의 tags 안에 들어갈 수 없다. 문자열을 넣어줘야 한다. 그러므로 searchParams.q 를 넣어주었다.
+  - getSearchResult 함수: 리액트 쿼리에서는 객체가 Next의 tags 안에 들어갈 수 없다. 문자열을 넣어줘야 한다. 그러므로 searchParams.q 를 넣어주었다.
 
 1. handlers.ts 수정: 조건부 쿼리 & 쿼리 재사용하기
-  -http.get('/api/search/:tag', ...) 부분: api에서 콜론은 슬러그와 같은 자리라 생각하면 됨. params.tag 와 같이 뺄 수있음
+  - http.get('/api/search/:tag', ...) 부분: api에서 콜론은 슬러그와 같은 자리라 생각하면 됨. params.tag 와 같이 뺄 수있음
+  - 에러 처리 어떻게 하나 잘 봐둘 것
 
-1. 에러 상황 처리하기 (유저 정보 없음)
-1. 게시글 상세 페이지, 답글, 포토모달
-1. 미흡한 부분 구현하기
-1. 인피니트 스크롤링
-1. react-intersection-observer로 더 불러오기
-1. [Next 15] force-cache로 캐싱하기
-1. Suspense로 Streaming하여 최적화하기 (feat. loading.tsx, error.tsx)
+1. TrendSection.tsx: useSession 사용하기. 이것으로 사용자에 해당하는 글 보기.
+  - 로그인을 했을 때만 trends 쿼리키를 가져오도록 설정
+
+1. UserPost.tsx: 특정 유저의 게시물만 표시하는 프론트화면
+1. getUserPosts.tsx: 훅 함수
+1. SinglePost.tsx: 한 개 게시물만 표시하는 프론트화면
+1. getSinglePost: 훅 함수
+1. [id]/page.tsx: prefetchQuery의 사용. 미리 펫치해두는 것.
+
+1. home/page.tsx: 인피니트 스크롤링
+  - 인피니트 스크롤링을 할 때에는 initialPageParam을 꼭 반드시 넣어줘야한다. 이게, 커서 값인데, 처음에는 무조건 0. 그래야 12345 게시글을 불러온다.
+1. PostRecommends.tsx: 인피니트 스크롤링
+  - 인피니트 스크롤링을 할 때에는 initialPageParam을 꼭 반드시 넣어줘야한다. 이게, 커서 값인데, 처음에는 무조건 0. 그래야 12345 게시글을 불러온다. 다음번 커서는 5가 되고, 그 다음번 커서는 10이 된다.
+  - getNextPageParam도 필요하다. 하지만 꼭 5씩 커진다고 보장할 수 없다. lastPage 0, 5, 10에 들어있는 거를 마지막 게시글의 postId를 넣어줘야한다. 페이지별로 따로 들어가있다. 2차원 배열로. [[1,2,3,4,5], [6,7,8,9,10] ...] 이런식으로...
+  - 타입은 Infinite 용으로 다시 설정해야한다.
+  - return 쪽 xml에, <> 대신 <Fragment>를 쓴 이유 : prop이 있는 return의 경우, Fragment라고 반드시 적어줘야한다. 맵에 key 넣어주기 위해서 Prop이 필요했다.
+  - react-intersection-observer의 useInview로 인피티니 스크롤링 더 불러오기 : 스크롤이 제일 끝으로 갔을 때의 내용을 추가하는 처리
+  >> 옛날방식: scroll-height가 문서 전체의 길이와 일치할 때
+  >> 요즘방식: react-Intersaction-observer 라이브러리를 사용해, 맨 밑에 가상의 tag를 넣어두고, 스크롤이 가장 끝에 갔을 때 그 tag가 보이는데, 그 태그가 화면에 보이는 순간을 이벤트로 호출해서, 다음 데이터가 불려오는 함수가 발생되게 할 수 있다.
+  >> $ npm install react-intersection-observer
+  >> 이 안에는 useInview라는 훅이 있다. 옵션에는 threshold (몇 px 정도의 이벤트가 호출될 것인가인데, 태그 보이자마자 바로 보일 거기 때문에 0으로 했음). delay는 이게 보이고 몇초후에 이벤트 발생시킬 것인가인데. 이것도 0으로. 바로 보일거라서. 호출은 useEffect의 deps에 InView를 넣어주면 됨.
+  - isFetching은 데이터를 가져오는 순간을 의미함. 중복 펫칭을 막기 위해 !isFetching으로 펫칭할 때에 분기처리를 넣어줄 것.
+
+[Suspense로 Streaming하여 최적화하기(feat. loading.tsx, error.tsx)]
+1. 로딩중 에러가 나오면 _lib에 있는 error.tsx, loading.tsx가 나오게끔 처리한다.
+1. 로딩이면 Suspense로 감싸서 하면 된다. 이걸로 SSR에서 로딩 처리가 되게끔 헌다. 리액트 쿼리가 필요하다.
+1. 로딩이 된건 데이터가 페칭. 코드 스플레이팅하거나 스크롤링 같은거 할때 쓰는 거. 레이지 로딩할 때. 
+1. 유즈훅. 유즈만 쓸수있는 신기능은 프로미스 넣으면 됨. 그거 넣으면 프로미스 리졸브될때까지 기다려줌.
+  유즈는 프로미스를 다룸. 유즈는 if문이나 try문안에도 들어갈 수 잇음. 커스텀훅인데도. 다만 커스텀훅이나 컴포넌트 내부긴 해야함.
+1. 로딩.tsx가 감지하는 건 서스펜스 룰을 그대로 감지한다.
+1. 클라이언트컴포넌트의 로딩에서는 isPending을 넣어주면 됨. isPending 완전 처음. 데이터 페칭 시작하면 IsLoading이 시작됨.
+  그러나 useSuspenseQuery로 대체를 하면, 얘를 suspense로 인식을 하므로, TabDecider를 묶었던 suspense의 로딩을 그대로 사용하게 된다.
+1. 그리고 위 대응은 인피니트 스크롤링을 해주는 useInfinityQuery 대신 useSuspenseInfinityQuery도 마찬가지다.
+
+1. TabDeciderSuspense.tsx와 page.tsx의 TabDecider 컴포 호출부 : 서버컴포넌트의 로딩에서는 서스펜스 컴포넌트로 렌더링 최적화하기
+  - 서스펜스 컴포넌트 : 먼저 그릴 거 먼저 그리고(레이아웃 등), 특정 부위만 렌더링을 지연해주는 것(영화 목록 표시 부분). 서버사이드 렌더링에서 로딩이 필요하지 않은 부분만 먼저 화면에 보여주고, 나중에 로딩이 필요한 부분만 나중에 보여주는 방식으로 사용한다.
+  - 서스펜스가 최상단에 있어야 Hyudrtation 등등은 TabDecider 컴포내에서 적용이 가능.
+  - 로딩이 필요없는 애들은 서스펜스 바깥으로 빼서 먼저 렌더링되게 만든다.

@@ -1,5 +1,7 @@
 [Next 15 react-query 페칭]
 
+>>> 리액트쿼리-loading, error... suspense, use훅 분리 순으로 내부 폴더 정렬?
+
 1. 데이터 페칭 라이브러리
   React의 데이터 페칭에는 다음과 같은 방법들이 있다.
   🔹 useEffect + fetch: 기본 방식.
