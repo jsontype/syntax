@@ -133,14 +133,14 @@
 1. 설치
   $ npm i @tanstack/react-query @tanstack/react-query-devtools
 
-1. src/app/queryClientProviders.tsx 작성: React Query Provider를 제공하는 클라이언트 컴포넌트 작성
+1. src/app/RQProviders.tsx 작성: React-query의 QueryClientProvider를 제공하는 클라이언트 컴포넌트 작성
   - 프로바이더란, 컴포넌트 트리의 루트에서 전역 상태를 관리하는 컴포넌트를 말한다.
   - 프로바이더를 통해 하위의 모든 컴포넌트에서 react-query를 사용할 수 있도록 한다.
 
 1. src/app/layout.tsx 수정: 
   - metadata를 export하고 기본 레이아웃을 제공하는 앱의 루트 레이아웃이다.
   - 여기서 navbar도 호출해주고 있는데, 원래는 navbar를 따로 component로 만들어서 임포트해서 쓰는 게 좋긴 하다.
-  - 여기서 providers 컴포넌트를 호출하여, Reqact Query Provider로 감싸준다. 이걸 해야 react-query가 제대로 작동한다.
+  - 여기서 RQProviders 컴포넌트를 호출하여, Reqact Query Provider로 감싸준다. 이걸 해야 react-query가 제대로 작동한다.
 
 
 
