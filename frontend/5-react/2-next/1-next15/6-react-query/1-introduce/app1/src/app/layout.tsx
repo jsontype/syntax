@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
-import QueryClientProviders from './queryClientProviders'
+import RQProviders from './RQProviders'
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,9 +36,9 @@ export default function RootLayout({
         </div>
         <hr />
         {/* Main */}
-        <QueryClientProviders>
+        <RQProviders>
           {children}
-        </QueryClientProviders>
+        </RQProviders>
       </body>
     </html>
   );
