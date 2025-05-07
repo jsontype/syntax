@@ -22,11 +22,11 @@
     기본적으로 SSR은 로딩이 없음을 전제하고 있기에 "잠시동안 반응이 없는 것처럼 보인다."
     이처럼 서치파람 마지막에서 로딩이 발생을 하는데, "SSR 컴포넌트를 단순히 로딩만을 위해서 setLoading 이런거 하려고 CSR로 바꾼다"는 건 말이 안된다.
     이 때, fetch 말고 react-query의 useQuery를 쓰면 일단 "로딩, 에러, 데이타"를 동시에 서버 컴포넌트에서 쓸수있게 제공해준다.
-    useQuery는 서버에서 데이터를 가져오는 훅이다. useQuery는 세가지 상태를 가지고 있다. { loading, error, data } 이다.
+    useQuery는 서버에서 데이터를 가져오는 훅이다. useQuery는 세가지 상태를 가지고 있다. { isLoading, error, data } 이다.
     useQuery는 서버에서 데이터를 가져오는 동안 { loading } 상태가 된다. 데이터가 성공적으로 가져와지면 { data } 상태가 된다. 데이터 가져오기에 실패하면 { error } 상태가 된다.
     이걸로 SSR, SSG의 "suspense" 즉 펜딩 상태를 구현하면 된다.
     용례는 다음과 같을 수 있겠다.
-    const { loading, error, data } = useQuery('repoData', () =>
+    const { isLoading, error, data } = useQuery('repoData', () =>
       fetch('https://api.github.com/repos/tannerlinsley/react-query').then(res =>
         res.json(),
       ),
@@ -50,7 +50,7 @@
       redux-toolkit, redux-saga, redux-thunk 같은 걸로도 서버 페칭(비동기 처리)이 되지만,
       redux의 핵심은 컴포넌트간에 "데이터를 공유"하는 것이 핵심이 되고, react-query나 swr는 "데이터를 호출"하는 것이 핵심이 된다.
       그러다보니, swr, react-query는 가져오면서 "캐싱"을 잘 해준다. 캐싱을 하면 트래픽 비용을 줄이고, 속도도 빠름.
-      react-query는 response 인터페이스를 { loading, error, data } 로 표준화했고, 쿼리 키 시스템도 잘 되어있다. ["post", "recommend"] 처럼 배열에 담아 사용한다.
+      react-query는 response 인터페이스를 { isLoading, error, data } 로 표준화했고, 쿼리 키 시스템도 잘 되어있다. ["post", "recommend"] 처럼 배열에 담아 사용한다.
     - 쿼리 키를 통해서, 쿼리의 "캐싱, 무효화, 리패치" 등등을 쉽게 구현할 수 있다.
       - 쿼리 캐싱: queryClient.setQueryData('queryKeyName', data)
       - 쿼리 무효화: queryClient.invalidateQueries('queryKeyName')

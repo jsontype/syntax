@@ -153,6 +153,7 @@
     http://localhost:3000/movies?sort=year&limit=50
 
 1. 다음 과제: React Query로 무비 페칭하기
+  - 배경: fetch를 쓰고 있는데, SSR인 무비리스트 페이지에서 "제목, 연도, 평점 풀다운을 변경"해서 새롭게 sorting 된 데이터를 받으려고 하면 "pause가 발생하는 부분을 로딩"으로 구현하고 싶다.
   * 다음 과제: SSR에서 로딩 구현하기 (CSR처럼 setLoading을 쓸 수 없으니 react-query의 useQuery를 써서 loading을 구현한다.)
   * 다음 과제: SSR에서 에러 처리하기 (useQuery의 error를 사용해서 에러를 처리한다.)
   * 다음 과제: SSR에서 성공 처리하기 (useQuery의 success를 사용해서 성공을 처리한다.)
