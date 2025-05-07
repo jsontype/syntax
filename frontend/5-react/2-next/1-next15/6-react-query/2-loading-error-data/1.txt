@@ -1,4 +1,4 @@
-[Next 15 react-query 기능 상세 1]
+[무비리스트 화면에서 react-query 로딩, 에러 화면 구현]
 
 1. 다음 과제들: React Query의 다양한 부가 기능 활용하기
   리액트쿼리가 생각보다 기능이 많아서 자주쓰는 기능들을 추가적으로 한번 정리하고가야할 필요가 있다.
@@ -21,5 +21,37 @@
   * 다음 과제: SSR에서 무한 스크롤 구현하기 (useInfiniteQuery를 사용해서 무한 스크롤을 구현한다.)
   * 다음 과제: SSR에서 페이지네이션 구현하기 (usePaginatedQuery를 사용해서 페이지네이션을 구현한다.)
 
-1. SSR에서 로딩 구현하기 (CSR처럼 setLoading을 쓸 수 없으니 react-query의 useQuery를 써서 loading을 구현한다.)
-  >>> 리액트쿼리-loading, error... suspense, use훅 분리 순으로 내부 폴더 정렬?
+1. React Query의 로딩, 에러 처리 기능 상세
+  - 로딩: isFetching, isLoading, isPending
+  - 에러: error, isError
+  - 성공: data, isSuccess
+
+1. src/app/components/MoviesList.tsx: 렌더링되는 무비 리스트만 CSR 컴포넌트로 처리해서 우상단 정렬 풀다운 적용으로 refetch 발생시 로딩화면 표시
+  - 서버사이드(movies/page.tsx)에서 데이터 프리페칭은 유지 (로딩화면 없음)
+  - 클라이언트사이드(MoviesList.tsx)에서 렌더링 (로딩화면 보임)
+
+1. 무비상세 화면은 SSG라 첫 렌더링 이후 로딩이 전혀 없기 때문에 대응하지 않아도 된다.
+  초기에는 로딩이 있지만, SSG(Static Site Generation)에서는 초기 로딩을 보여줄 수 없다. 
+  그 이유는, SSG는 빌드 시점에 모든 페이지를 미리 생성합니다
+  사용자가 페이지를 요청할 때는 이미 생성된 HTML을 그대로 보여주기 때문에
+  데이터를 가져오는 과정이 없어서 로딩 상태가 발생하지 않는다.
+  만약 초기 로딩을 보여주고 싶다면:
+  SSG 대신 현재 대응한 "movies 페이지 + MoviesList 컴포넌트"처럼 SSR(Server Side Rendering)+CSR(Client Side Rendering) 조합으로 변경하거나,
+  클라이언트 컴포넌트로 변경하여 React Query를 사용해야 한다.
+  하지만 무비 상세 화면은 SSG로 구현하는 것이 적절하다.
+    - 영화 상세 정보는 자주 변경되지 않는 정적 데이터
+    - 빠른 페이지 로드가 중요
+    - 로딩 상태가 없어도 사용자 경험에 큰 영향이 없음
+  따라서:
+    - MovieDetail은 SSG로 구현 (현재 구조 유지)
+    - MoviesList는 SSR + React Query로 구현 (현재 구조 유지)
+  이렇게 마무리 짓도록 하겠다.  
+
+1. 테스트: 무비리스트 로딩 / 에러 확인
+  $ cd app1
+  $ npm run dev
+  - 무비리스트 화면에서 정렬 풀다운을 변경해 refetch 발생시, 로딩화면이 발생하는지 확인
+    (로딩이 초기에는 SSR이라 짧게만 잠깐 보이고, 풀다운 변경시는 길게 보일 예정)
+  - src/app/components/MoviesList.tsx 코드 내에서 "* 주석 풀 것"을 검색후 풀어서 에러화면이 발생하는지 확인
+    (확인 후 푼 주석은 다시 주석처리 해두기)
+  
