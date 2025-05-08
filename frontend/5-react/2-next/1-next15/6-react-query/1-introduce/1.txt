@@ -2,19 +2,24 @@
 
 1. 데이터 페칭 라이브러리의 종류
   🔹 useEffect + fetch: 기본 방식.
-  🔹 Redux-thunk: 전역 상태관리 방식. 비동기 로직을 액션으로 분리. 대규모 앱에서 사용.
-  🔹 Redux-saga: 전역 상태관리 방식. generator 기반 사이드이펙트 처리로 복잡한 흐름을 가지고 있다. polling이 필요할 때 사용.
-  🔹 Redux-toolkit(RTK): 전역 상태관리 방식. Redux-thunk를 쉽게 바꾼 것. 리덕스의 모던 개발 표준.
-  🔹 Zustand, Jotai, Recoil 등: 가볍고 간단한 상태 공유. 가능한 미니멀하게 전역 상태 관리를 하고자 할 때 사용.
-  🔹 React-query: 비동기 + 캐싱 + 자동 리페치. 서버 데이터를 중심으로 하는 앱에서 사용. 
-  🔹 SWR: lightweight. React Query Next.js 에서 특히 많이 씀
-  🔹 GraphQL Apollo Client: /GraphQL 쿼리 관리 특화 /GraphQL API 사용 시
-  🔹 Next.js 서버: /getServerSideProps, getStaticProps, App Router async /SSR/SSG/ISR 가능 /SEO/빠른 초기 로딩
-  🔹 커스텀: /Custom Hook (useFetch, useUser), /페칭로직 재사용, /다수 컴포넌트에서 동일 로직 필요 시
+  # 🔹 axios: 더 쉽게 데이터를 페칭할 수 있도록 해주는 라이브러리.
+  # 🔹 Redux-thunk: 전역 상태관리 방식. 비동기 로직을 액션으로 분리. 대규모 앱에서 사용.
+  # 🔹 Redux-saga: 전역 상태관리 방식. generator 기반 사이드이펙트 처리로 복잡한 흐름을 가지고 있다. polling이 필요할 때 사용.
+  # 🔹 Redux-toolkit(RTK): 전역 상태관리 방식. Redux-thunk를 쉽게 바꾼 것. 리덕스의 모던 개발 표준.
+  # 🔹 Zustand, Jotai, Recoil 등: 가볍고 간단한 상태 공유. 가능한 미니멀하게 전역 상태 관리를 하고자 할 때 사용.
+  🔹 React-query: 비동기 + 캐싱 + 자동 리페치. 서버 데이터를 중심으로 하는 앱에서 사용.
+  # 🔹 SWR: react-query의 lightweight 버전. Next.js 에서 특히 많이 씀.
+  # 🔹 GraphQL Apollo Client: /GraphQL 쿼리 관리 특화 /GraphQL API 사용 시
+  # 🔹 Next.js 서버: /getServerSideProps, getStaticProps, App Router async /SSR/SSG/ISR 가능 /SEO/빠른 초기 로딩
+  # 🔹 커스텀: /Custom Hook (useFetch, useUser), /페칭로직 재사용, /다수 컴포넌트에서 동일 로직 필요 시
 
 1. 데이터 페칭 방식의 변천사: 
-  🔹 실제 현장에서는 fetch -> axios -> redux-saga, redux-thunk -> useSWR -> ...(위에서 하나 취사선택)... -> react-query 의 역사적 흐름이 있었음.
+  🔹 실제 현장에서는 fetch -> axios -> redux-saga, redux-thunk -> useSWR -> ...(위에서 하나 취사선택)... -> react-query
   🔹 지금은 리액트 쿼리를 가장 많이 사용함. 페칭할 때 useQuery, useMutation, useInfiniteQuery, usePaginatedQuery 등등 본적 있다면 그게 이거임.
+
+1. React Query의 기본 사용 방식 이해하기
+  - React Query는 기본적으로 CSR에서만 사용가능하다.
+  - 그러나, prefetchQuery를 사용하면 SSR에서도 사용가능하다.
 
 1. react-query를 쓰는 이유들
   🔹 "error, loading, data"를 서버 페치 함수에서 바로 내어주니, 각 상태에 대해 useState 설정 없이, SSR에서 로딩 구현하기가 가능하다.
@@ -136,6 +141,15 @@
 1. src/app/RQProviders.tsx 작성: React-query의 QueryClientProvider를 제공하는 클라이언트 컴포넌트 작성
   - 프로바이더란, 컴포넌트 트리의 루트에서 전역 상태를 관리하는 컴포넌트를 말한다.
   - 프로바이더를 통해 하위의 모든 컴포넌트에서 react-query를 사용할 수 있도록 한다.
+  - Q. 프로바이더가 use client이면 그 하위는 모두 csr가 되는 문제가 발생하지 않을까?
+    A. 이 파일 내의 'use client' 지시문은 해당 컴포넌트와 그 자식 컴포넌트들을 클라이언트 컴포넌트로 만드는 것이 아니라, 
+    해당 컴포넌트부터 클라이언트 컴포넌트로 동작하게 만든다.
+    RQProviders에 'use client'를 붙이면 RQProviders 컴포넌트만 클라이언트 컴포넌트가 된다.
+    그 안에 들어가는 자식 컴포넌트들은 각자의 'use client' 지시문에 따라 결정된다.
+    RQProviders는 클라이언트 컴포넌트 (QueryClient를 사용하기 위해)
+    page.tsx는 서버 컴포넌트 (데이터 프리페칭을 위해)
+    MovieList는 클라이언트 컴포넌트 (상호작용을 위해)
+    이렇게 각 컴포넌트의 역할에 맞게 서버/클라이언트 컴포넌트를 구분할 수 있다.
 
 1. src/app/layout.tsx 수정: 
   - metadata를 export하고 기본 레이아웃을 제공하는 앱의 루트 레이아웃이다.

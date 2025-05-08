@@ -1,0 +1,15 @@
+[React-query의 staleTime, gcTime 등]
+
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. src/app/RQProviders.tsx 수정
+  - useState로 QueryClient 인스턴스 관리
+  - 전역 기본 설정 추가: staleTime(5초), gcTime(5분), retry(3회)
+  - ReactQueryDevtools 추가로 캐시 상태 시각화
+
+1. src/app/movies/page.tsx 수정
+  - staleTime(10초), gcTime(30초) 설정: 개별 쿼리 옵션 오버라이드 예시 (하지만 MoviesList.tsx의 CSR에서 RQProvider의 옵션을 적용하기 때문에 의미는 없음)
+
+1. 테스트: 야자수 눌러 데브툴 켜서 무비 리스트를 연 뒤, 캐시의 상태를 확인 (fresh/stale 확인)
+  $ cd app1
+  $ npm run dev

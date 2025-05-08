@@ -1,0 +1,54 @@
+[Next 15 SSR에서 쿼리 키를 사용하기]
+
+1. React Query 쿼리 키 개요 
+  React Query을 SSR에서 사용하기 위해 prefetchQuery를 사용하는데,
+  이 때, prefetchQuery의 인자값에 쿼리 키를 넣어서 쿼리를 캐싱할 수 있다.
+  쿼리 키는 쿼리의 고유 식별자로, 쿼리의 데이터를 캐싱하고 관리하는 데 사용된다.
+
+1. React Query의 SSR의 prefetchQuery에서 쿼리 키를 사용하는 이유 상세
+  - 캐싱 관리: 
+    쿼리 키를 사용하면, 데이터를 효율적으로 캐싱하고 관리할 수 있다.
+    구체적으로는, 서버에서 미리 데이터를 가져와서 클라이언트로 전달하므로, 초기 로딩 시간이 단축돼, 사용자 경험이 향상된다.
+  - 상태 관리: 
+    로딩, 에러, 데이터 상태를 쉽게 관리할 수 있다.
+  - 데이터 동기화: 
+    ['movies', 'list', query.sort, query.limit]등으로 데이터를 쿼리키로 지정해두면, 서버와 클라이언트가 동일한 쿼리 키 사용을 함으로써, 서버와 클라이언트 간의 데이터를 일관되게 유지할 수 있다.  
+    이로 인해 하이드레이션(서버와 클라이언트의 HTML 불일치) 문제를 방지해준다. 이로 인해 데이터 일관성 문제를 해결해준다.
+    또, 계층적 쿼리 키 구조로 데이터 관리, 'movies' → 'list' → query.sort → query.limit 순으로 세분화, 필요한 데이터만 선택적으로 무효화가 가능하다. 즉, 캐시 관리를 효율적으로 할 수 있다.
+  - 성능 최적화: 
+    서버 사이드가 프리페칭을 해주어 데이터를 전달하고, 이를 받은 클라이언트에서는 그 캐시된 데이터를 재사용해, 불필요한 서버 요청을 줄이고 성능을 향상시킬 수 있다.
+    HydrationBoundary와 함께 사용하면 하이드레이션 최적화도 해준다.
+
+1. src/app/movies/page.tsx 수정: 무비리스트 페이지에 쿼리 키를 추가하기
+  - 서버 컴포넌트
+  - prefetchQuery로 데이터 프리페칭: 속도 향상
+  - 방법: queryClient.prefetchQuery()의 인자값에 아래의 키들로 구성된 객체를 넣어서 전달한다.
+    {
+      queryKey: ['movies', 'list', query.sort, query.limit], // 쿼리 키
+      queryFn: () => getData(query.sort, query.limit), // 실제 데이터를 가져오는 함수
+    }
+
+1. src/app/components/moviesList.tsx 수정: 하이드레이션 문제(서버에서 렌더링된 HTML과 클라이언트에서 렌더링된 HTML이 일치하지 않아서 발생하는 문제) 수정하기
+  - 서버 컴포넌트에서 데이터를 가져오는 함수를 호출하고, 그 데이터를 클라이언트 컴포넌트에서 사용하는 방식으로 수정한다.
+  - 이렇게 하면, 동일한 쿼리 키를 사용해서, 서버에서 렌더링된 HTML과 클라이언트에서 렌더링된 HTML이 일치하게 되어, 하이드레이션 문제를 해결할 수 있다.
+
+
+
+[무비 상세 페이지의 SSR에서도 prefetchQuery를 통해 react-query를 적용하고, query key도 추가하기]
+
+1. src/app/components/MovieDetail.tsx 수정: 상세의 CSR 컴포넌트를 만들어, react-query를 적용
+  - 무비 상세 페이지에도 무비 상세 페이지의 SSR에서도 prefetchQuery를 통해 react-query를 적용하고, query key도 추가하기
+
+1. src/app/movies/[id]/page.tsx 수정: 무비 상세 SSG 페이지에도 쿼리 키 추가하기
+  - MovieDetail 컴포넌트를 호출하는 식으로 변경
+  - 방법: queryClient.prefetchQuery()의 인자값에 아래의 키들로 구성된 객체를 넣어서 전달한다.
+    {
+      queryKey: ['movies', 'detail', id], // 쿼리 키
+      queryFn: () => getData(id), // 실제 데이터를 가져오는 함수
+    }
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
+  쿼리키 도입으로 하이드레이션 문제가 해결되어 있는지 확인
+  쿼리키 도입으로 렌더링 속도가 향상되어 있는지 확인 (무비리스트만)

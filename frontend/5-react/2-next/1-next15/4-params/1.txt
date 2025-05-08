@@ -6,7 +6,8 @@
   - handleClick은 event리스너이기 때문에, client 컴포넌트에서만 사용 가능하다. = use client가 필수이다.
   - 렌더링 방식의 위계
     - 부모가 CSR: 자식은 CSR만 가능. SSR을 자식으로 넣어도 자동으로 CSR로 바뀜.
-    - 부모가 SSR, SSG: 자식은 SSR, CSR 다 가능
+    - 부모가 SSR, SSG: 자식은 SSR, SSG, CSR 다 가능
+
   'use client'
 
   import { useRouter } from 'next/navigation'
@@ -25,7 +26,7 @@
     )
   }
 
-1. src/app/components/MovieDetailComment.tsx 작성: SSG의 자식으로 들어가는 클라이언트 컴포넌트. 댓글 컴포넌트
+1. src/app/components/MovieDetailComment.tsx 작성: SSG의 자식으로 들어가는 CSR 컴포넌트. 댓글 컴포넌트
   - onChange가 event리스너이기 때문에, comment, setComment가 스테이터스이기 때문에 client 컴포넌트에서만 사용 가능하다. = use client가 필수이다.
   - slug는 클라이언트 컴포넌트에서는 useParams()으로 받아온다. = import { useParams } from 'next/navigation' 필요
 
