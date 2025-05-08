@@ -1,6 +1,6 @@
 [Next 15 headers, cookies 의 비동기화]
 
-1. src/actions/setCookie.ts 작성: 서버 액션 함수. 
+1. src/app/actions/setCookie.ts 작성: 서버 액션 함수. 
   - use server가 필수이다.
   - 서버 컴포넌트는 tsx로 만들지만, 액션 함수는 ts로만 이뤄짐.
   ```

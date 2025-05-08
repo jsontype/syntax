@@ -13,7 +13,8 @@
 
 1. src/app/components/SortPulldown.tsx 작성: 클라이언트 컴포넌트로, sort 풀다운 컴포넌트 만들어두기
   - event listner를 사용해서 sort 풀다운을 선택했을 때, URL의 쿼리스트링을 바꿔주는 컴포넌트
-  - 클라이언트 컴포넌트에서 searchParams를 사용하려면 useSearchParams()를 임포트해서 사용해야 함.
+  - * SSR의 await searchParams를, CSR 컴포넌트에서 사용하려면 useSearchParams()를 임포트해서 사용해야 함.
+  - * SSR의 await params를, CSR 컴포넌트에서 사용하려면 useParams()를 임포트해서 사용해야 함.
   ```
     "use client"
 

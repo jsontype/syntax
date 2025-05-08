@@ -74,10 +74,20 @@
     실제 용례:
       <title>	: 브라우저 탭 제목, 검색엔진 제목
       <meta name="description">	: 검색 결과 요약 설명
-      <meta property="og:..."> : SNS 공유 시 사용될 제목, 설명,이미지
+      <meta property="og:..."> : SNS 공유 시 사용될 제목, 설명, 이미지
       <meta name="robots"> : 검색엔진 크롤링 허용 여부 (index, follow 등)
   - Link: 'next/link'에서 임포트하는 Next.js의 내장 컴포넌트로, 페이지 간의 클라이언트 사이드 탐색을 지원한다.
     <a href=""> 대신 사용하여 페이지를 전환할 때 전체 페이지를 새로 고치지 않고도 빠르게 탐색할 수 있게 해준다. 속도 향상.
+    Link 컴포넌트 속성에는 다음과 같은 것들이 있다.
+      - href: 이동할 페이지의 경로
+      - prefetch: 미리 로드
+      - passHref: 부모 컴포넌트에서 href 전달
+      - replace: 탐색 기록에 추가하지 않고 페이지 전환
+      - scroll: 스크롤 위치 유지 여부
+      - shallow: 탐색 기록에 추가하지 않고 페이지 전환
+      - locale: 다국어 지원 시 사용
+      - legacyBehavior: 이전 버전 호환성 유지
+      - as: 실제 이동할 페이지의 경로
   - Image: 'next/image'에서 임포트하는 Next.js의 내장 이미지 최적화 컴포넌트로, 이미지를 자동으로 최적화하여 성능을 향상시킨다.    
     <img src=""> 대신 사용하여 이미지의 크기를 자동으로 조정하고, 로딩 속도를 개선하며, 다양한 해상도에 맞게 이미지를 제공한다.
     Image 컴포넌트 속성에는 다음과 같은 것들이 있다.
@@ -92,18 +102,20 @@
     Image 컴포넌트에서 height, width는 필수인 이유 등, 자주 묻는 질문에 대한 정리
       - Q. Image 컴포넌트에서 height, width는 왜 필수?
         next/image는 이미지를 로딩하기 전에 레이아웃을 확보해야 하므로, 브라우저에 "미리" 가로세로 크기를 알려줄 필요가 있다.
+        하지만 정확할 필요는 없다.
       - Q. 비율이 안 맞게 넣으면 어떻게하지? / 왜 height, width를 지정한대로 렌더링하지 않지?
         next/image는 기본적으로 이미지의 원본 비율을 유지하면서 렌더링된다. (기본값이 layout="intrinsic")
         따라서 width와 height는 비율을 위한 힌트일 뿐이고, 실제 DOM 상에서는 width: 100%, height: auto와 유사하게 동작할 수 있다.
+        즉, 실제 이미지 크기를 의미하는 게 아니다.
       - Q. 어차피 원본 비율을 유지한다면, width 하나만 넣던지, height 하나만 넣던지 해도 되야하는데, 굳이 height, width를 다 넣으면서까지 Image 컴포넌트를 사용해야 하는 이유는?
         서버 사이드 렌더링 시 layout 미리 계산 기능이 들어있기 때문. → CLS (Cumulative Layout Shift) 방지 → 화면이 덜 흔들림
-        LCP 최적화 → 페이지 로딩 속도 지표 개선
-      - Q. LCP (Largest Contentful Paint) 란?
+        LCP(Largest Contentful Paint) 최적화 → 페이지 로딩 속도 지표 개선
+      - Q. LCP(Largest Contentful Paint) 란?
         사용자가 웹페이지를 방문했을 때,
         사용자가 느끼는 가장 중요한 콘텐츠(이미지 등 가장 큰 콘텐츠)가 화면에 완전히 보이는 시점을 측정한 값        
   - Form 컴포넌트 X: 사용안함
+    <Form>은 보통 spa에서 'react-router-dom'에서 임포트하거나, pages-router에서만 'next/form'에서 가져와서 쓰는데,
     Next.js의 app-router에서는 <Form>을 사용하지 않음. <form> 태그 사용. 대신 action 프롭에 서버 액션 함수를 넣어서 사용.
-    spa에서 'react-router-dom'에서 임포트하거나, pages-router에서만 'next/form'에서 가져와서 씀.
 
   ```
     import Head from 'next/head'

@@ -8,7 +8,6 @@
   * 다음 과제: SSR에서 에러 처리하기 (useQuery의 error를 사용해서 에러를 처리한다.)
   * 다음 과제: SSR에서 성공 처리하기 (useQuery의 success를 사용해서 성공을 처리한다.)
   * 다음 과제: SSR에서 쿼리 키를 사용하기 (useQuery의 queryKey를 사용해서 쿼리 키를 사용한다.)
-  * 다음 과제: SSR에서 쿼리 클라이언트를 사용하기 (useQueryClient를 사용해서 쿼리 클라이언트를 사용한다.)
   * 다음 과제: SSR에서 쿼리 클라이언트를 사용해서 쿼리 무효화하기 (useQueryClient의 invalidateQueries를 사용해서 쿼리 무효화하기.)
   * 다음 과제: SSR에서 쿼리 클라이언트를 사용해서 쿼리 리패치하기 (useQueryClient의 refetchQueries를 사용해서 쿼리 리패치하기.)
   * 다음 과제: SSR에서 쿼리 클라이언트를 사용해서 쿼리 리셋하기 (useQueryClient의 resetQueries를 사용해서 쿼리 리셋하기.)
@@ -20,7 +19,7 @@
   * 다음 과제: SSR에서 쿼리 클라이언트를 사용해서 쿼리 캐시 리셋하기 (useQueryClient의 resetQueries로 쿼리 캐시 리셋하기.)
   * 다음 과제: SSR에서 무한 스크롤 구현하기 (useInfiniteQuery를 사용해서 무한 스크롤을 구현한다.)
   * 다음 과제: SSR에서 페이지네이션 구현하기 (usePaginatedQuery를 사용해서 페이지네이션을 구현한다.)
-
+  
 1. React Query의 로딩, 에러 처리 기능 상세
   - 로딩: isFetching, isLoading, isPending
   - 에러: error, isError
@@ -29,6 +28,7 @@
 1. src/app/components/MoviesList.tsx: 렌더링되는 무비 리스트만 CSR 컴포넌트로 처리해서 우상단 정렬 풀다운 적용으로 refetch 발생시 로딩화면 표시
   - 서버사이드(movies/page.tsx)에서 데이터 프리페칭은 유지 (로딩화면 없음)
   - 클라이언트사이드(MoviesList.tsx)에서 렌더링 (로딩화면 보임)
+  - 에러 표시: 주석을 풀거나, devTool을 RQProvider에 추가해서, 해당 쿼리키 눌러서, Trigger Error 눌러서 에러 표시를 간단하게 가능
 
 1. 무비상세 화면은 SSG라 첫 렌더링 이후 로딩이 전혀 없기 때문에 대응하지 않아도 된다.
   초기에는 로딩이 있지만, SSG(Static Site Generation)에서는 초기 로딩을 보여줄 수 없다. 

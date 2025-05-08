@@ -1,0 +1,15 @@
+[React-query의 staleTime, gcTime 등]
+
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. src/app/components/MoviesList.tsx 수정
+  - useQueryClient로 쿼리 캐시 데이터 조회
+  - 데이터 상태 표시 UI 추가 (fresh/stale 시각화)
+  - 상태값(isStale, dataUpdatedAt) 활용 예시
+  - useQueryClient로 쿼리 캐시 직접 조작: 수동 재요청(refetch)/강제 갱신(invalidate) 버튼 추가
+
+1. 테스트: 
+  $ cd app1
+  $ npm run dev
+  무비 리스트 페이지에서 데이터 상태 카드에서 "캐시 조회" 등 각각 버튼 눌러보기
+  야자수 눌러 데브툴 켜서 무비 리스트를 연 뒤, 캐시의 상태를 확인
