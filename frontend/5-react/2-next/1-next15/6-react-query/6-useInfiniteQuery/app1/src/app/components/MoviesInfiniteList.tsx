@@ -46,53 +46,65 @@ type Props = {
 
 export default function MoviesInfiniteList({ searchParams }: Props) {
   const queryClient = useQueryClient()
-  // 무한 스크롤에서, 더 이상 불러올 영화가 없으면 false로 설정
+  const queryKey = ['movies', 'infinite', searchParams.sort, searchParams.limit]
+
+  // 다음 페이지 존재 여부 state: 무한 스크롤에서, 더 이상 불러올 영화가 없으면 false로 설정
   const [hasNextPage, setHasNextPage] = useState(true)
-  // 무한 스크롤 감지 영역 참조 - IntersectionObserver에서 사용
+  // 무한 스크롤 감지 영역 ref: 스크롤이 이 observerTarget 밑으로 내려갈 경우, 무한 스크롤 감지 영역 태그가 보여지고, 그때 무한 스크롤 발동: IntersectionObserver에서 사용
   const observerTarget = useRef<HTMLDivElement>(null)
 
   const {
     data,
-    fetchNextPage,
-    isFetchingNextPage,
-    error,
-    status
+    fetchNextPage, // 무한 스크롤 시의 다음 페이지 호출 함수
+    isFetchingNextPage, // 무한 스크롤 시의 다음 페이지 로딩 상태
+    error, // 무한 스크롤 시의 에러 상태: 에러 객체 (error.message 등)
+    status // 무한 스크롤 시의 데이터 상태: 'pending' | 'error' | 'success'
   } = useInfiniteQuery({
-    // useInfiniteQuery도 쿼리키를 사용합니다. 쿼리키는 캐싱 및 무효화에 중요합니다.
-    queryKey: ['movies', 'infinite', searchParams.sort, searchParams.limit],
+    queryKey,
     queryFn: ({ pageParam }) => getData(searchParams.sort, pageParam, searchParams.limit),
+    // 초기 페이지 번호: 무한 스크롤에서는 이 키가 반드시 있어야 한다. 없으면 안 된다.
+    // 여기 CSR 컴포넌트에서는 SortPulldown에서 요청을 해서 재렌더링 되었을 때의 초기 페이지 번호가 된다.
     initialPageParam: 1,
+    // 다음 페이지 호출 함수: 무한 스크롤 시의 다음 페이지 호출 함수
     getNextPageParam: (lastPage, allPages) => {
       // 더 이상 불러올 영화가 없으면 undefined 반환 (무한 스크롤 중지)
       const fetchedMoviesCount = allPages.reduce((total, page) => total + page.movies.length, 0)
       const totalMovieCount = lastPage.movie_count
-
       // 더 이상 불러올 영화가 없으면 false로 설정
       if (fetchedMoviesCount >= totalMovieCount) {
         setHasNextPage(false)
         return undefined
       }
-
+      // 다음 페이지가 존재하면, 다음 페이지 번호 반환
       return lastPage.page_number + 1
     },
   })
 
   // 인터섹션 옵저버를 사용하여 무한 스크롤 구현
+  // 인터섹션 옵저버란?: 특정 요소가 화면에 보이는지 여부를 감지하는 자바스크립트 API
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      entries => {
+    // 인터섹션 옵저버 객체 생성
+    const observer: IntersectionObserver = new IntersectionObserver(
+      // entries는 인터섹션 옵저버가 제공하는 배열. 배열의 값들은 감지된 태그의 정보를 담고 있는 객체들이다.
+      (entries: IntersectionObserverEntry[]) => {
+        // useRef로 선언한 observerTarget 태그가 감지됐고, 다음 페이지가 존재하고, 다음 페이지 로딩 상태가 아니면, 다음 페이지를 호출하라.
         if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
           fetchNextPage()
         }
       },
+      // threshold는 몇 % 보여지면 다음 페이지를 호출할지 설정하는 값. 즉, 아래는 observerTarget 태그가 50% 보여지는 경우, 다음 페이지를 호출함
       { threshold: 0.5 }
     )
 
+    // observerTarget 태그를 감지 대상의 태그로 설정: useRef로 선언했기 때문에, current가 필요하다.
     const currentTarget = observerTarget.current
+
+    // 위에서 생성한, 인터섹션 옵저버 객체(observer) 안의 observe 메서드를 사용해서, observerTarget 태그를 감지하도록 설정
     if (currentTarget) {
       observer.observe(currentTarget)
     }
 
+    // useEffect 훅에서 destory 라이프사이클: 컴포넌트가 사라질 때, 인터섹션 옵저버 객체를 해제하는 작업을 수행
     return () => {
       if (currentTarget) {
         observer.unobserve(currentTarget)
@@ -148,7 +160,7 @@ export default function MoviesInfiniteList({ searchParams }: Props) {
           </div>
 
 
-          {/* 다음 페이지 수동 로드 버튼 */}
+          {/* 다음 페이지 수동 로드 버튼: fetchNextPage() 이게 useInfiniteQuery 훅의 다음 페이지를 호출하는 함수 */}
           <div>
             <button
               onClick={() => fetchNextPage()}
@@ -162,18 +174,36 @@ export default function MoviesInfiniteList({ searchParams }: Props) {
             </button>
           </div>
 
-          {/* 쿼리 캐시 무효화 */}
+          {/* 쿼리 캐시 무효화: invalidateQueries() 이게 useQueryClient의 캐시 무효화를 해주는 함수 */}
           <div>
             <button
-              onClick={() => queryClient.invalidateQueries({ queryKey: ['movies', 'infinite', searchParams.sort, searchParams.limit] })}
-              className="px-2 py-1 bg-purple-500 text-white rounded-md text-xs">
+              onClick={() => queryClient.invalidateQueries({ queryKey })}
+              className="px-2 py-1 bg-blue-500 text-white rounded-md text-xs">
               강제 갱신 (Invalidate)
+            </button>
+          </div>
+
+          {/* 쿼리 캐시 리셋 */}
+          <div>
+            <button
+              onClick={() => queryClient.resetQueries({ queryKey })}
+              className="px-2 py-1 bg-gray-500 text-white rounded-md text-xs">
+              캐시 리셋 (Reset)
+            </button>
+          </div>
+
+          {/* 쿼리 캐시 전체 제거 */}
+          <div>
+            <button
+              onClick={() => queryClient.clear()}
+              className="px-2 py-1 bg-gray-500 text-white rounded-md text-xs">
+              모든 캐시 제거 (Clear)
             </button>
           </div>
         </div>
       </div>
 
-      {/* 영화 목록 그리드 - 상단 패딩 추가 */}
+      {/* 영화 목록 그리드 - 상단 패딩 추가, movie.id에다가 index를 조합한 텍스트로 key를 만들어서 중복 방지 */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-4">
         {movies.map((movie, index) => (
           <div key={`${movie.id}-${index}`} className="border rounded-lg overflow-hidden shadow-lg transform transition-transform hover:scale-105">
@@ -195,7 +225,7 @@ export default function MoviesInfiniteList({ searchParams }: Props) {
         ))}
       </div>
 
-      {/* 무한 스크롤 감지 영역 */}
+      {/* observerTarget 태그: 무한 스크롤 감지 영역. 옵져버타켓 ref은 리스트의 맨 밑에 놔야 무한 스크롤링이 가능하다. */}
       {hasNextPage && (
         <div
           ref={observerTarget}
