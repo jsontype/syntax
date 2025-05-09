@@ -11,7 +11,7 @@ type Movie = {
   large_cover_image: string
 }
 
-// 서버 사이드에서 데이터 프리패칭 함수
+// API 호출 함수
 async function getData(sort: string = 'rating', limit: number = 20): Promise<Movie[]> {
   // * 주석 풀 것: 테스트를 위해 100% 확률로 에러 발생
   // if (Math.random() !== 0) {
