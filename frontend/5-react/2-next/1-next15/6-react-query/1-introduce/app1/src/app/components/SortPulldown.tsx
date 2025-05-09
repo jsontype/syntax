@@ -29,9 +29,9 @@ export default function SortPulldown() {
     <form onSubmit={handleSubmit} className="border-1 p-2">
       <label htmlFor="sort-select">정렬 기준: </label>
       <select id="sort-select" value={sort} onChange={handleChangeSort}>
+        <option value="rating">평점</option>
         <option value="title">제목</option>
         <option value="year">연도</option>
-        <option value="rating">평점</option>
       </select>
       <label htmlFor="sort-select" className="mx-4">표시: </label>
       <select id="sort-select" value={itemPerPage} onChange={handleChangeItemPerPage}>
