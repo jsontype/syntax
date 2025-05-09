@@ -29,16 +29,20 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* Header: NavBar */}
-        <div>
-          <span className="pr-1"><Link href="/">홈</Link></span>
-          <span className="pr-1"><Link href="/movies">무비앱(SSR)</Link></span>
+        {/* Header: NavBar - 상단에 고정 */}
+        <div className="sticky top-0 bg-black shadow-md z-20 py-3 px-4">
+          <span className="pr-3 font-medium"><Link href="/">홈</Link></span>
+          <span className="pr-3 font-medium"><Link href="/movies">무비앱(SSR)</Link></span>
+          <span className="pr-3 font-medium"><Link href="/movies-infinite">무비앱(무한스크롤)</Link></span>
+          <hr className="mt-3" />
         </div>
-        <hr />
-        {/* Main */}
-        <RQProviders>
-          {children}
-        </RQProviders>
+
+        {/* Main - 상단 네비게이션을 위한 패딩 추가 */}
+        <div className="p-4">
+          <RQProviders>
+            {children}
+          </RQProviders>
+        </div>
       </body>
     </html>
   );
