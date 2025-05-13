@@ -1,0 +1,45 @@
+[React-query의 무한 스크롤 구현하기]
+
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. src/app/components/MoviesInfiniteList.tsx 작성
+  - useQuery 훅이 아니라, useInfiniteQuery 훅을 사용해서, 무비 리스트 페이지에서 무한 스크롤을 구현한다
+  - ** components/MoviesList.tsx 컴포넌트와 뭐가 다른지 비교해보자.
+
+1. src/app/movies-infinite/page.tsx 작성: useInfiniteQuery를 사용해서 무한 스크롤을 구현한다
+  - queryClient.prefetch 함수가 아니라, queryClient.prefetchInfiniteQuery 함수를 사용한다.
+  - ** movies/page.tsx 페이지와 뭐가 다른지 비교해보자.
+
+1. src/app/layout.tsx 수정
+  - 무비 리스트 페이지에 무한 스크롤 링크 추가
+  - 네비게이션 sticky 고정
+
+1. 테스트: "무비앱(무한스크롤)" 페이지에서 무한 스크롤 테스트
+  $ cd app1
+  $ npm run dev
+
+1. 참조: React Query의 무한 스크롤에서 사용할 수 있는 다양한 옵션
+  - 이하의 옵션들을 사용하여, 무한 스크롤의 동작을 세밀하게 제어할 수 있다.
+  - 기본 옵션
+    * queryKey: 쿼리를 식별하는 고유한 키
+    * queryFn: 데이터를 가져오는 함수
+    * getNextPageParam: 무한 스크롤 시의 다음 페이지 호출 함수
+    * getPreviousPageParam: 무한 스크롤 시의 이전 페이지 호출 함수 (이번 강에서는 사용하지 않음)
+  - 무한 스크롤 특화 옵션:
+    * initialPageParam: (필수) 초기 페이지 파라미터
+    * maxPages: (선택) 최대 페이지 수 제한
+    * select: (선택) 데이터 변환 함수
+      (select의 용례: 페이지의 표시 순서를 거꾸로 변경하는 데이터 변환이 필요한 경우, 다음과 같이 대응할 수 있다.)
+        select: (data) => ({
+          pages: [...data.pages].reverse(),
+          pageParams: [...data.pageParams].reverse(),
+        })
+  - 무한 스크롤 동작 제어:
+    * fetchNextPage: 다음 페이지 로드 함수
+    * fetchPreviousPage: 이전 페이지 로드 함수
+    * hasNextPage: 다음 페이지 존재 여부
+    * hasPreviousPage: 이전 페이지 존재 여부
+    * isFetchingNextPage: 다음 페이지 로딩 중 여부
+    * isFetchingPreviousPage: 이전 페이지 로딩 중 여부
+  - 데이터 변환 옵션:
+    * placeholderData: 로딩 중 표시할 데이터 (이번 강에서는 사용하지 않음)

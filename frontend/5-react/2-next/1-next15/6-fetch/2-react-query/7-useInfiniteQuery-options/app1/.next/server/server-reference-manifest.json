@@ -1,0 +1,17 @@
+{
+  "node": {
+    "604a26a0e6b41fa6a0da4bfd63701a95a3f21fb77e": {
+      "workers": {
+        "app/movies-infinite/page": {
+          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fdev%2FDesktop%2Fworkspace%2Fsyntax%2Ffrontend%2F5-react%2F2-next%2F1-next15%2F6-react-query%2F7-useInfiniteQuery-options%2Fapp1%2Fsrc%2Fapp%2Factions%2FsetCookie.ts%22%2C%5B%7B%22id%22%3A%22604a26a0e6b41fa6a0da4bfd63701a95a3f21fb77e%22%2C%22exportedName%22%3A%22setLoginToken%22%7D%5D%5D%5D&__client_imported__=true!",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/movies-infinite/page": "action-browser"
+      }
+    }
+  },
+  "edge": {},
+  "encryptionKey": "Sbv2miFoyalG5KAmHgFtvex+TZSfZbVu8Lw8sAiZW3E="
+}
