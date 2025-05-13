@@ -1,0 +1,169 @@
+[react-query 소개]
+
+1. 사전준비: 프로젝트를 새로 깔지 않고, searchParams 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. 데이터 페칭 방식의 변천사: 
+  🔹 실제 현장에서는 fetch -> axios -> redux-saga, redux-thunk -> useSWR -> ...(위에서 하나 취사선택)... -> react-query
+  🔹 지금은 리액트 쿼리를 가장 많이 사용함. 페칭할 때 useQuery, useMutation, useInfiniteQuery, usePaginatedQuery 등등 본적 있다면 그게 이거임.
+
+1. React Query의 기본 사용 방식 이해하기
+  - React Query는 기본적으로 CSR에서만 사용가능하다.
+  - 그러나, prefetchQuery를 사용하면 SSR에서도 사용가능하다.
+
+1. react-query를 쓰는 이유들
+  🔹 "error, loading, data"를 서버 페치 함수에서 바로 내어주니, 각 상태에 대해 useState 설정 없이, SSR에서 로딩 구현하기가 가능하다.
+    현재 앱은, /movies 화면의 우상단에서, "정렬기준을 선택하고 적용"을 누를 때마다, "SSR에서 재패치가 발생해서 로딩이 발생"하고 있는데,
+    기본적으로 SSR은 로딩이 없음을 전제하고 있기에 "잠시동안 반응이 없는 것처럼 보인다."
+    이처럼 서치파람 마지막에서 로딩이 발생을 하는데, "SSR 컴포넌트를 단순히 로딩만을 위해서 setLoading 이런거 하려고 CSR로 바꾼다"는 건 말이 안된다.
+    이 때, fetch 말고 react-query의 useQuery를 쓰면 일단 "로딩, 에러, 데이타"를 동시에 서버 컴포넌트에서 쓸수있게 제공해준다.
+    useQuery는 서버에서 데이터를 가져오는 훅이다. useQuery는 세가지 상태를 가지고 있다. { isLoading, error, data } 이다.
+    useQuery는 서버에서 데이터를 가져오는 동안 { loading } 상태가 된다. 데이터가 성공적으로 가져와지면 { data } 상태가 된다. 데이터 가져오기에 실패하면 { error } 상태가 된다.
+    이걸로 SSR, SSG의 "suspense" 즉 펜딩 상태를 구현하면 된다.
+    용례는 다음과 같을 수 있겠다.
+    const { isLoading, error, data } = useQuery('repoData', () =>
+      fetch('https://api.github.com/repos/tannerlinsley/react-query').then(res =>
+        res.json(),
+      ),
+    )
+  🔹 "useQuery, useMutation"을 사용해, 쿼리와 뮤테이션을 구분할 수 있다.
+    용례는 다음과 같을 수 있겠다.
+    useMutation(
+    (newTodo) => fetch('/api/todos', {
+      method: 'POST',
+      body: JSON.stringify(newTodo),
+    }),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('todos')
+      },
+    }
+    )
+  🔹 "쿼리 키" 시스템을 제공한다. 쿼리 키란, 쿼리의 고유 식별자이다.
+    - 쿼리 키 시스템이란, 쿼리 키를 사용해서 데이터를 구분하는 것이다. 쿼리 키는 배열로 되어있다. ["post", "recommend"] 이런식으로 되어있다.
+      redux-toolkit 대신 react-query이나 swr를 쓰는 이유가 바로 이 쿼리 키 때문이다.
+      redux-toolkit, redux-saga, redux-thunk 같은 걸로도 서버 페칭(비동기 처리)이 되지만,
+      redux의 핵심은 컴포넌트간에 "데이터를 공유"하는 것이 핵심이 되고, react-query나 swr는 "데이터를 호출"하는 것이 핵심이 된다.
+      그러다보니, swr, react-query는 가져오면서 "캐싱"을 잘 해준다. 캐싱을 하면 트래픽 비용을 줄이고, 속도도 빠름.
+      react-query는 response 인터페이스를 { isLoading, error, data } 로 표준화했고, 쿼리 키 시스템도 잘 되어있다. ["post", "recommend"] 처럼 배열에 담아 사용한다.
+    - 쿼리 키를 통해서, 쿼리의 "캐싱, 무효화, 리패치" 등등을 쉽게 구현할 수 있다.
+      - 쿼리 캐싱: queryClient.setQueryData('queryKeyName', data)
+      - 쿼리 무효화: queryClient.invalidateQueries('queryKeyName')
+      - 쿼리 리패치: queryClient.refetchQueries('queryKeyName')
+      - 쿼리 캐시삭제: queryClient.clear()
+      - 쿼리 리셋: queryClient.resetQueries('queryKeyName')
+      - 쿼리 삭제: queryClient.removeQueries('queryKeyName')    
+  🔹 "fresh, stale, inactive" 상태의 관리가 가능하다. 
+      - fresh, stale, inactive 상태란?
+        서버 두드리기가 실패했을 때, 다시 실행횟수 등... fresh, stale, inactive를 구분해서 커스터마이징하기 위한 상태이다.
+        이것으로 refetching 시점과 garbage collection 시점을 구체적으로 커스터마이징할 수 있다.
+        fresh 상태일 때는 
+        stale 상태일 때 refetching 조건을 걸 수 있다.
+        inactive 상태일 때는 메모리 누수를 막기 위해 캐시를 삭제한다.
+      - 페치받은 데이터가 이들중 어느 상태인지는 화면에서 야자수 클릭하면 확인할 수 있다.
+        >>> fresh : 서버에서 데이터를 불러오면 기본적으로 이것. "최신 데이터"이므로 refetching을 하지 않는다. 계속 써도 되는 데이터. 그러나 언제까지 프레시한 데이터일까? 그래서, 프레시한 기간을 설정해야한다.
+        >>> stale : "staleTime: 60"을 설정하면, 60ms 뒤에 fresh에서 stale 상태로 간다. "staleTime: infinity"로 설정하면 항상 fresh이다.
+            그러나, 일반적으로 모든 데이터는 특정 시간이 지나면 프레시하지 않게 되어야 한다. 그리고, 그 상태를 stale이라 한다.
+            stale 상태에서는 특정 트리거가 발생하면 서버에서 새로 가져온다. 그때 "refetchOnWindowFocus, retryOnMount, refetchOnReconnect" 이 세개를 refetch의 트리거로 정한다.
+            한편 "retry"는 서버 가져오는 게 실패시 몇번 다시 시도할 거냐에 대한 설정이다.
+        >>> inactive : 가비지 콜렉팅을 하기 위한 상태. 기본적으로 가비지 콜렉팅이 안 이뤄지면 브라우져에서 메모리가 넘어가면 앱이 터져버린다.
+            (실제로 옛날에 했던 준공도 PDF 위에 와이파이 터지는 양 보여주는 무선기 설치위치 사전설계프로그램이 그랬음. 또 포토샵 같이 기능 많은 웹앱들이 특히 잘 터짐)
+            아무튼, 보고 있는 화면이 새 쿼리를 부르지 않은 상태로 특정 시간이 지나면, inactive 상태가 되는데,
+            이후, 메모리가 너무 많으면 안쓰는 데이터들을 처리를 해준다. 너무 메모리가 많으면 garbage collector가 inactive한 데이터들을 메모리로부터 자동으로 삭제해주는데, 그래서 메모리를 정리해준다.
+            "gcTime: 60000"와 같이 설정하면, 60000ms 뒤부터 inactive 상태의 데이터들을 삭제한다. 미설정시, 기본은 5분이다.
+            반드시 gcTime은 staleTime보다 길어야한다. (gcTime이 넘어서 메모리가 정리되어버리면 staleTime의 캐시초기화가 의미가 없어져버리기 때문)
+  🔹 useQueryClient를 사용해서, "캐싱" 처리가 되는 각종 쿼리 클라이언트를 간단히, 안전하게 구현할 수 있다.
+    - 서버에서 데이터를 가져오는 것과 클라이언트에서 가져오는 것을 구분할 수 있다.
+      이를 구분해서, 서버를 두드려야한다면, 캐시를 사용해서 불필요한 호출을 억제하므로 렌더링 속도가 빨라진다.
+  🔹 useInfiniteQuery를 사용해서, "무한스크롤"을 간단히, 안전하게 구현할 수 있다.
+    용례는 다음과 같을 수 있겠다.
+    const {
+      data,
+      fetchNextPage,
+      hasNextPage,
+      isFetching,
+      isFetchingNextPage,
+    } = useInfiniteQuery(
+      'projects',
+      fetchProjects,
+      {
+        getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
+      }
+    )
+  🔹 usePaginatedQuery를 사용해서, "페이지네이션"을 간단히, 안전하게 구현할 수 있다.
+    용례는 다음과 같을 수 있겠다.
+    const {
+      data,
+      isLoading,
+      isError,
+      isFetching,
+      isStale,
+      refetch,
+    } = usePaginatedQuery(
+      'projects',
+      fetchProjects,
+      {
+        page: pageNumber,
+        staleTime: 1000 * 60 * 5, // 5분
+        cacheTime: 1000 * 60 * 10, // 10분
+        refetchOnWindowFocus: false, // 윈도우 포커스 시 리패치 안함
+        refetchOnReconnect: false, // 재연결 시 리패치 안함
+        refetchInterval: false, // 리패치 안함
+        retry: false, // 실패 시 리패치 안함
+        onSuccess: (data) => {
+          console.log(data)
+        },
+        onError: (error) => {
+          console.log(error)
+        },
+      }
+    )
+
+
+
+[react-query를 사용하기 위한 사전준비들]
+
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. 설치
+  $ npm i @tanstack/react-query @tanstack/react-query-devtools
+
+1. src/app/RQProviders.tsx 작성: React-query의 QueryClientProvider를 제공하는 클라이언트 컴포넌트 작성
+  - 프로바이더란, 컴포넌트 트리의 루트에서 전역 상태를 관리하는 컴포넌트를 말한다.
+  - 프로바이더를 통해 하위의 모든 컴포넌트에서 react-query를 사용할 수 있도록 한다.
+  - Q. 프로바이더가 use client이면 그 하위는 모두 csr가 되는 문제가 발생하지 않을까?
+    A. 이 파일 내의 'use client' 지시문은 해당 컴포넌트와 그 자식 컴포넌트들을 클라이언트 컴포넌트로 만드는 것이 아니라, 
+    해당 컴포넌트부터 클라이언트 컴포넌트로 동작하게 만든다.
+    RQProviders에 'use client'를 붙이면 RQProviders 컴포넌트만 클라이언트 컴포넌트가 된다.
+    그 안에 들어가는 자식 컴포넌트들은 각자의 'use client' 지시문에 따라 결정된다.
+    RQProviders는 클라이언트 컴포넌트 (QueryClient를 사용하기 위해)
+    page.tsx는 서버 컴포넌트 (데이터 프리페칭을 위해)
+    MovieList는 클라이언트 컴포넌트 (상호작용을 위해)
+    이렇게 각 컴포넌트의 역할에 맞게 서버/클라이언트 컴포넌트를 구분할 수 있다.
+
+1. src/app/layout.tsx 수정: 
+  - metadata를 export하고 기본 레이아웃을 제공하는 앱의 루트 레이아웃이다.
+  - 여기서 navbar도 호출해주고 있는데, 원래는 navbar를 따로 component로 만들어서 임포트해서 쓰는 게 좋긴 하다.
+  - 여기서 RQProviders 컴포넌트를 호출하여, Reqact Query Provider로 감싸준다. 이걸 해야 react-query가 제대로 작동한다.
+
+
+
+[react-query를 사용하기: 실전]
+
+1. src/app/components/MoviesList.tsx 작성: 무비 리스트를 client 컴포넌트로 작성
+
+1. src/app/movies/page.tsx 수정: 무비 리스트의 부모로서, 무비 리스트의 호출부와 api 취득부를 server 컴포넌트로 작성
+  - @tanstack/react-query 에서, HydrationBoundary, QueryClient, dehydrate 함수를 사용하는데 각각의 기능은 다음과 같다.
+    - HydrationBoundary: CSR 컴포넌트를 SSR 컴포넌트와 동기화하는 역할. 이게 없으면, 서로간의 상태가 일치하지 않을 때 hydration mismatch 에러가 발생할 수 있다.
+    - QueryClient: 쿼리 클라이언트(useQuery, useMutation, useInfiniteQuery, usePaginatedQuery 등등)를 생성하고 관리하는 역할
+    - dehydrate: 서버에서 생성된 쿼리 데이터를 클라이언트에서 사용할 수 있도록 변환하는 역할.
+  
+1. 테스트: 리액트쿼리로 무비 페칭이 똑같이 잘 되는지 확인
+  $ cd app1
+  $ npm run dev
+  - localhost:3000/movies 무비리스트 페이지에 접속한다.
+  - 리액트 쿼리로도 각각의 무비 리스트 페이지가 잘 페칭되고, 표시되는지 확인한다.
+    http://localhost:3000/movies
+    http://localhost:3000/movies?sort=rating&limit=20
+    http://localhost:3000/movies?sort=year&limit=10
+    http://localhost:3000/movies?sort=year&limit=30
+    http://localhost:3000/movies?sort=year&limit=50
