@@ -1,0 +1,5 @@
+[Layout & 공통 컴포넌트]
+
+8.1. `_app.tsx`로 전역 레이아웃 구성
+8.2. `_document.tsx`로 HTML 구조 제어
+8.3. Header/Footer 컴포넌트 만들기

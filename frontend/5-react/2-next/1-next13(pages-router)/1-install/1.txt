@@ -1,0 +1,25 @@
+[Next13 x Pages Router 학습]
+
+1. Next13 프로젝트 시작하기: Pages Router로 시작하기
+  $ npx create-next-app@13.5.11 app1
+    Typescript? > Yes
+    ESLint? > Yes
+    Tailwind CSS? > Yes
+    src/? > Yes
+    App Router? > No (Next 13부터 App Router가 기본이 되었지만, 여전히 Pages Router도 사용 가능하다.)
+    import alias? > No (No로 하면 /src 절대경로가 기본값인 @이 됨)
+  $ cd app1
+  $ npm i
+
+1. src/pages/index.tsx 수정
+
+1. src/pages/에 폴더 및 파일 생성
+  pages/
+  ├── csr/page.tsx              ← CSR (페이지 요청할때마다 렌더링 / 로딩화면 있음)
+  ├── ssr/page.tsx              ← SSR (페이지 요청할때마다 렌더링 / 로딩화면 없음)
+  ├── ssg/page.tsx              ← SSG (처음만 렌더링 / 로딩화면 없음)
+  └── index.tsx                  ← 기본 페이지
+
+1. 테스트
+  $ cd app1
+  $ npm run dev

@@ -1,0 +1,5 @@
+[API Routes]
+
+12.1. `pages/api/hello.ts` 개요
+12.2. GET, POST, DELETE 메서드 다루기
+12.3. 비동기 처리 및 에러 핸들링
