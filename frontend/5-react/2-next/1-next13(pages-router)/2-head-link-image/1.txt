@@ -1,24 +1,73 @@
-[Next13 x Pages Router 학습]
+[Next 13 Next에서 제공하는 Head, Link, Image, form 컴포넌트 알아두기]
 
-1. Next13 프로젝트 시작하기: Pages Router로 시작하기
-  $ npx create-next-app@13.5.11 app1
-    Typescript? > Yes
-    ESLint? > Yes
-    Tailwind CSS? > Yes
-    src/? > Yes
-    App Router? > No (Next 13부터 App Router가 기본이 되었지만, 여전히 Pages Router도 사용 가능하다.)
-    import alias? > No (No로 하면 /src 절대경로가 기본값인 @이 됨)
-  $ cd app1
-  $ npm i
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
 
-1. src/pages/index.tsx 수정
+1. src/pages/ssg, src/pages/csr 폴더 삭제
 
-1. src/pages/에 폴더 및 파일 생성
-  pages/
-  ├── csr/page.tsx              ← CSR (페이지 요청할때마다 렌더링 / 로딩화면 있음)
-  ├── ssr/page.tsx              ← SSR (페이지 요청할때마다 렌더링 / 로딩화면 없음)
-  ├── ssg/page.tsx              ← SSG (처음만 렌더링 / 로딩화면 없음)
-  └── index.tsx                  ← 기본 페이지
+1. src/pages/ssr은 폴더명을 /movies로 변경
+
+1. src/pages/_app.tsx 수정: 네비게이션 바 이동
+  import '@/styles/globals.css'
+  import type { AppProps } from 'next/app'
+  import Link from 'next/link'
+
+  export default function App({ Component, pageProps }: AppProps) {
+    return (
+      <>
+        <nav className="w-full py-4 px-2 border-b flex gap-4 bg-gray-50 mb-6">
+          <Link href="/">홈</Link>
+          <Link href="/movies">무비앱(SSR)</Link>
+        </nav>
+        <Component {...pageProps} />
+      </>
+    )
+  }
+
+1. next.config.js 수정: images에 외부 이미지 도메인 설정을 해야 Image 컴포넌트에서 외부 이미지를 사용할 수 있다.
+  - "img.yts.mx" 도메인이 홈 페이지에서 사용되는 외부 이미지 도메인이다.
+  - "yts.mx"는 추후 영화 API에서 받아와서 Image 컴포넌트에 소스에 사용될 도메인이다.
+  /** @type {import('next').NextConfig} */
+  const nextConfig = {
+    reactStrictMode: true,
+    images: {
+      domains: ["yts.mx", "img.yts.mx"],
+    },
+  }
+  
+  module.exports = nextConfig
+  
+1. src/pages/index.tsx 수정: 홈 페이지
+  - Head, Link, Image는 모두 Next.js의 내장 컴포넌트로, 페이지 간의 탐색 및 메타데이터 설정을 쉽게 처리할 수 있도록 도와준다.
+  - Head: 'next/head'에서 임포트하는 Next.js의 내장 컴포넌트로, 페이지의 메타데이터를 설정하는 데 사용된다.
+    메타데이터는 유저 눈에 보이지는 않지만 SEO 최적화, SNS 공유 미리보기, 페이지 제목 등을 설정하는 데 유용하다.
+    예: `<title>`, `<meta>` 태그 등을 삽입하여 SEO 및 SNS 공유 미리보기 최적화에 활용 가능
+    실제 용례:
+      <title> : 브라우저 탭 제목, 검색엔진 제목
+      <meta name="description"> : 검색 결과 요약 설명
+      <meta property="og:..."> : SNS 공유 시 사용될 제목, 설명, 이미지
+      <meta name="robots"> : 검색엔진 크롤링 허용 여부 (index, follow 등)
+    ※ Next 13 app router에서는 'next/head' 대신 layout.tsx의 metadata를 주로 사용함.
+  - Link: 'next/link'에서 임포트하는 Next.js의 내장 컴포넌트로, 페이지 간의 클라이언트 사이드 탐색을 지원한다.
+    <a href=""> 대신 사용하여 페이지를 전환할 때 전체 페이지를 새로 고치지 않고도 빠르게 탐색할 수 있게 해준다. 속도 향상.
+    주요 속성:
+      - href: 이동할 페이지의 경로
+      - prefetch: 미리 로드 (기본 true)
+      - passHref: 부모 컴포넌트에서 href 전달
+      - replace, scroll, shallow, locale, legacyBehavior, as 등 다양한 옵션 지원
+    ※ app router에서도 거의 동일하게 사용됨.
+  - Image: 'next/image'에서 임포트하는 Next.js의 내장 이미지 최적화 컴포넌트로, 이미지를 자동으로 최적화하여 성능을 향상시킨다.
+    <img src=""> 대신 사용하여 이미지의 크기를 자동으로 조정하고, 로딩 속도를 개선하며, 다양한 해상도에 맞게 이미지를 제공한다.
+    주요 속성:
+      - fill, objectFit, priority, width, height, placeholder, quality, loading, unoptimized 등
+    - width, height는 필수(props)이며, 이는 CLS 방지와 LCP 최적화에 도움을 준다.
+    - 비율이 안 맞게 넣어도 원본 비율을 유지하며, 실제 DOM에서는 width: 100%, height: auto와 유사하게 동작한다.
+    - 서버 사이드에서 레이아웃을 미리 계산하여 화면이 덜 흔들리고, 페이지 로딩 속도(LCP)도 개선된다.
+    ※ app router에서도 거의 동일하게 사용됨.
+  - Form 컴포넌트 X: 사용안함
+    <Form>은 보통 SPA 형태의 React만 사용하는 앱에서 'react-router-dom'에서 임포트해서 쓰지만,
+    Next.js의 app-router에서는 <Form>을 사용하지 않고, <form> 태그를 쓰며, action 프롭에 서버 액션 함수를 넣는다.
+
+1. src/pages/movies/index.tsx 수정: 무비 페이지에 img 태그를 Image 컴포넌트로 변경
 
 1. 테스트
   $ cd app1

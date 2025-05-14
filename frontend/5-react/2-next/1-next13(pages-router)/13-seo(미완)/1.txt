@@ -5,3 +5,11 @@
 13.1. `Head`와 Open Graph 설정
 13.2. sitemap.xml / robots.txt 추가
 13.3. next-sitemap 설정 (옵션)
+
+
+
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
