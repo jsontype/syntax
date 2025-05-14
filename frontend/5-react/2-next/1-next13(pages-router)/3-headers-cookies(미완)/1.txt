@@ -1,0 +1,136 @@
+[Next 15 headers, cookies 의 비동기화]
+
+1. src/app/actions/setCookie.ts 작성: 서버 액션 함수. 
+  - use server가 필수이다.
+  - 서버 컴포넌트는 tsx로 만들지만, 액션 함수는 ts로만 이뤄짐.
+  ```
+    "use server"
+
+    import { cookies } from "next/headers"
+
+    // token에 content를 저장하는 함수
+    export async function setLoginToken(token: string, content: string) {
+      const cookiesList = await cookies()
+
+      cookiesList.set(token, content, {
+        httpOnly: true, // JS에서 접근 못하게 (XSS 또는 CSRF 방지)
+        secure: true, // HTTPS에서만
+        path: "/",
+        maxAge: 60 * 60 * 24 * 7, // 7일
+      })
+    }
+  ```
+
+1. src/app/components/SetCookieButton.tsx 작성: 클라이언트 컴포넌트.
+  - use client가 필수이다.
+  - onClick 이벤트가 발생하면, 서버 액션 함수를 호출하여 쿠키를 설정하지만, 이때 onClick은 Client Component에서만 사용 가능하다.
+  ```
+    'use client'
+
+    import { setLoginToken } from '@/app/actions/setCookie'
+
+    export default function SetCookieButton({ token, content }: { token: string; content: string }) {
+      return (
+        <button className="cursor-pointer" onClick={() => setLoginToken(token, content)}>
+          로그인 토큰 설정 📍
+        </button>
+      )
+    }
+  ```
+  
+1. src/app/ssr은 src/app/movies/page.tsx으로 변경 후 수정: 무비 페이지
+  - headers()와 cookies()는 Next 13까지는 동기 함수였지만, Next 15부터는 비동기로 바뀌었다.
+    서버 렌더링 시 필요한 정보(예를 들어 user-agent나 인증 쿠키)를 안전하게 받아올 수 있다.
+    이를 통해 사용자 디바이스 정보, 인증 상태 등에 따라 맞춤형 SSR 콘텐츠를 구현할 수 있다.
+
+  import Link from 'next/link'
+  import Image from 'next/image'
+  import SetCookieButton from '@/app/components/SetCookieButton'
+  import { headers, cookies } from 'next/headers'
+  
+  type Movie = {
+    id: number
+    title: string
+    url: string
+    large_cover_image: string
+  }
+  
+  // 서버 요청 함수
+  async function getData(): Promise<Movie[]> {
+    const response = await fetch('https://yts.mx/api/v2/list_movies.json', {
+      cache: 'no-store', // 'force-cache'는 캐싱된 데이터 사용 (SSG용, Next13에서의 기본값), 'no-store'는 페이지를 열 때마다 매번 새로 요청 (SSR용)
+    })
+    const data = await response.json()
+    return data.data.movies
+  }
+  
+  export default async function SSR() {
+    // Next 15에서, headers, cookies를 가져올 때 반드시 async 서버 컴포넌트안에서, await를 붙여야 함. 
+    // ! headers() : 서버 요청 헤더 정보. 사용자 요청에 대한 정보를 알 수 있음.
+    const headersList = await headers()
+  
+    // ! user-agent: 브라우저/디바이스 식별. 모바일/데스크탑 분기 렌더링할 때 사용.
+    const headerUserAgent = headersList.get('user-agent') || '알 수 없음'
+    // ! accept-language : 사용자 언어. 다국어(i18n) 초기 로케일 설정 볼 때 사용.
+    const headerLanguage = headersList.get('accept-language') || '언어 정보 없음'
+    // ! x-forwarded-for 또는 x-real-ip : 클라이언트 IP. 사용자 위치 기반 기능(Geo, IP 로그)을 만들 때 사용.
+    const headerClientIp = headersList.get('x-forwarded-for') || headersList.get('x-real-ip') || 'IP 정보 없음'
+    // ! authorization : 토큰 인증 (API 전용). JWT 등 인증된 요청 판별할 때 사용.
+    // const headerAuthToken = headersList.get('authorization') || '토큰 없음'
+  
+    console.log('headerUserAgent: ', headerUserAgent)
+    console.log('headerLanguage: ', headerLanguage)
+    console.log('headerClientIp: ', headerClientIp)
+    // console.log('headerAuthToken: ', headerAuthToken)
+  
+  
+  
+    // ! cookies() : 서버 쿠키 정보. 쿠키는 웹앱에서 로컬 파일로 강제 저장시키는 정보이다.
+    const cookiesList = await cookies()
+  
+    // ! myToken: 사용자 인증 토큰. 사용자가 로그인할 때, 서버에서 발급하는 고유한 토큰.
+    // 쿠키는 내 컴퓨터에서 조작이 가능하므로, 인증에 쓰는 것은 위험하다. 그래서, "보안상 중요하지 않은 것"에 사용. 
+    // 예를 들면 게시판으로 치면 조회수 제어 같은 것.
+    // -> 게시판에 있는 게시물 중 특정 게시물을 봤는지 안봤는지 get(`bbs-${id}`) 같은 쿠키를 이용해 체크해서,
+    // -> 내가 게시글을 읽은 게시물은 다시 접속해도 조회수가 안 늘어나게 함.
+    const myToken = cookiesList.get('myToken')?.value || '토큰 없음'
+  
+    console.log('myToken:', myToken)
+  
+  
+  
+    const movies = await getData()
+  
+    const render = movies.map((movie) => (
+      <div key={movie.id}>
+        <h2>
+          <Link href={movie.url}>
+            {movie.title}</Link></h2>
+        <p>
+          <Image
+            src={movie.large_cover_image}
+            alt={movie.title}
+            width={500}
+            height={750}
+          />
+        </p>
+      </div>
+    ))
+  
+    return (
+      <div>
+        <h1>SSR: 무비 리스트</h1>
+        <div>{render}</div>
+        <SetCookieButton token="myToken" content="abcdefg!!!" />
+      </div>
+    )
+  }
+
+1. 테스트: SSG의 무비 디테일 페이지, 무비 디테일 페이지에서 호출하는 CSR의 댓글 컴포넌트 확인
+
+1. 테스트: 무비 리스트에서 headers와 cookies 확인
+  $ cd app1
+  $ npm run dev
+  - 무비 리스트 페이지에서 headers와 cookies 정보가 잘 들어오는지 콘솔로그 확인
+  - 무비 리스트 페이지의 최하단에 있는 버튼을 클릭하면, cookies 정보가 초기값 "정보 없음"으로부터 잘 갱신되는지 콘솔로그 확인
+  - app1/src/app/movies/page.tsx 에 있는 SetCookieButton 컴포넌트 호출부에서 content 프롭의 값을 바꿔가며, cookies 정보가 잘 갱신되는 지 한번 더 확인

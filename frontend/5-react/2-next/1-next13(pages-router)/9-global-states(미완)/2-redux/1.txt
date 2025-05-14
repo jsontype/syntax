@@ -1,0 +1,4 @@
+[상태 관리]
+
+9.2. Redux Toolkit 사용 예제 (Toolkit이 Thunk의 업그레이드 판이라고 알고 있음)
+9.3. Jotai/Recoil 간단 소개 (옵션)
