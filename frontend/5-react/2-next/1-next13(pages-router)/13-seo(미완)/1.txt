@@ -1,0 +1,7 @@
+
+
+[SEO / 메타 정보]
+
+13.1. `Head`와 Open Graph 설정
+13.2. sitemap.xml / robots.txt 추가
+13.3. next-sitemap 설정 (옵션)

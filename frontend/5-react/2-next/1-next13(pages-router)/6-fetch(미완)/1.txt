@@ -1,0 +1,5 @@
+### 6. fetch
+
+6.1. `getStaticProps`, `getServerSideProps`에서 API 요청
+6.2. 클라이언트 사이드 fetch
+6.3. SWR 및 React Query 소개 (옵션)
