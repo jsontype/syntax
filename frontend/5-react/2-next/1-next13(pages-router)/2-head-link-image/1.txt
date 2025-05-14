@@ -1,0 +1,62 @@
+[Next13 x Pages Router 학습]
+
+1. Next13 프로젝트 시작하기: Pages Router로 시작하기
+  $ npx create-next-app@13.5.11 app1
+    Typescript? > Yes
+    ESLint? > Yes
+    Tailwind CSS? > Yes
+    src/? > Yes
+    App Router? > No (Next 13부터 App Router가 기본이 되었지만, 여전히 Pages Router도 사용 가능하다.)
+    import alias? > No (No로 하면 /src 절대경로가 기본값인 @이 됨)
+  $ cd app1
+  $ npm i
+
+1. src/pages/index.tsx 수정
+
+1. src/pages/에 폴더 및 파일 생성
+  pages/
+  ├── csr/page.tsx              ← CSR (페이지 요청할때마다 렌더링 / 로딩화면 있음)
+  ├── ssr/page.tsx              ← SSR (페이지 요청할때마다 렌더링 / 로딩화면 없음)
+  ├── ssg/page.tsx              ← SSG (처음만 렌더링 / 로딩화면 없음)
+  └── index.tsx                  ← 기본 페이지
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
+
+
+  ### 4. Params
+  
+  4.1. 동적 라우팅 (`[id].tsx`)
+  4.2. 중첩된 동적 라우팅 (`[user]/[post].tsx`)
+  4.3. `getServerSideProps`, `getStaticProps`에서 param 추출
+  
+  ### 5. searchParams
+  
+  5.1. URL 쿼리 파라미터 다루기 (`router.query`)
+  5.2. 조건부 렌더링에 활용하기
+  5.3. 필터링 & 정렬 기능 구현
+  
+  ### 6. fetch
+  
+  6.1. `getStaticProps`, `getServerSideProps`에서 API 요청
+  6.2. 클라이언트 사이드 fetch
+  6.3. SWR 및 React Query 소개 (옵션)
+  
+  ### 7. Routes
+  
+  7.1. 기본 라우팅
+  7.2. 동적 라우팅 정리
+  7.3. `next/link`의 `replace`, `shallow` 옵션
+  7.4. Custom 404, 500 페이지
+  
+
+
+
+
+  ### 8. Layout & 공통 컴포넌트
+  
+  8.1. `_app.tsx`로 전역 레이아웃 구성
+  8.2. `_document.tsx`로 HTML 구조 제어
+  8.3. Header/Footer 컴포넌트 만들기
+  
