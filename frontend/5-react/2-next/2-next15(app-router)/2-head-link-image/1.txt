@@ -114,8 +114,8 @@
         사용자가 웹페이지를 방문했을 때,
         사용자가 느끼는 가장 중요한 콘텐츠(이미지 등 가장 큰 콘텐츠)가 화면에 완전히 보이는 시점을 측정한 값        
   - Form 컴포넌트 X: 사용안함
-    <Form>은 보통 spa에서 'react-router-dom'에서 임포트하거나, pages-router에서만 'next/form'에서 가져와서 쓰는데,
-    Next.js의 app-router에서는 <Form>을 사용하지 않음. <form> 태그 사용. 대신 action 프롭에 서버 액션 함수를 넣어서 사용.
+    <Form>은 보통 SPA 형태의 React만 사용하는 앱에서 'react-router-dom'에서 임포트해서 쓰지만,
+    Next.js의 app-router에서는 <Form>을 사용하지 않고, <form> 태그를 쓰며, action 프롭에 서버 액션 함수를 넣는다.
 
   ```
     import Head from 'next/head'

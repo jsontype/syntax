@@ -1,4 +1,5 @@
 import { GetServerSideProps } from 'next'
+import Image from 'next/image'
 
 type Movie = {
   id: number
@@ -29,7 +30,7 @@ export default function SSR({ movies }: Props) {
       {movies.map((movie) => (
         <div key={movie.id}>
           <a href={movie.url}>{movie.title}</a>
-          <img src={movie.background_image} alt={movie.title} width="300" />
+          <Image src={movie.background_image} alt={movie.title} width={300} height={169} />
         </div>
       ))}
     </div>

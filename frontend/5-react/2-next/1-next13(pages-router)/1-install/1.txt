@@ -1,4 +1,4 @@
-[Next13 x Pages Router 학습]
+[Next13 x Pages Router 설치]
 
 1. Next13 프로젝트 시작하기: Pages Router로 시작하기
   $ npx create-next-app@13.5.11 app1

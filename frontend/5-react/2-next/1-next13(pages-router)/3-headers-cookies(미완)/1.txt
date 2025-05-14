@@ -134,3 +134,12 @@
   - 무비 리스트 페이지에서 headers와 cookies 정보가 잘 들어오는지 콘솔로그 확인
   - 무비 리스트 페이지의 최하단에 있는 버튼을 클릭하면, cookies 정보가 초기값 "정보 없음"으로부터 잘 갱신되는지 콘솔로그 확인
   - app1/src/app/movies/page.tsx 에 있는 SetCookieButton 컴포넌트 호출부에서 content 프롭의 값을 바꿔가며, cookies 정보가 잘 갱신되는 지 한번 더 확인
+
+
+
+
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
