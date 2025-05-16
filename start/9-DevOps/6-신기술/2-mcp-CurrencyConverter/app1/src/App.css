@@ -1,0 +1,687 @@
+/* 전체 앱 스타일 */
+.App {
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+/* 헤더 스타일 */
+.App-header {
+  background-color: #1a237e;
+  padding: 20px;
+  color: white;
+}
+
+.App-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.App-header p {
+  margin: 10px 0 0;
+  opacity: 0.9;
+  font-size: 1rem;
+}
+
+/* 네비게이션 스타일 */
+.App-nav {
+  display: flex;
+  justify-content: center;
+  background-color: #fff;
+  padding: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.App-nav button {
+  padding: 15px 25px;
+  margin: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #555;
+  transition: all 0.2s;
+  position: relative;
+  font-weight: 500;
+}
+
+.App-nav button:hover {
+  color: #1a237e;
+  background-color: rgba(26, 35, 126, 0.05);
+}
+
+.App-nav button.active {
+  color: #1a237e;
+  font-weight: 600;
+}
+
+.App-nav button.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #1a237e;
+}
+
+/* 메인 콘텐츠 스타일 */
+.App-content {
+  flex: 1;
+  padding: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* 푸터 스타일 */
+.App-footer {
+  background-color: #1a237e;
+  padding: 20px;
+  color: white;
+  margin-top: auto;
+}
+
+.App-footer a {
+  color: #90caf9;
+  margin: 0 5px;
+  text-decoration: none;
+}
+
+.App-footer a:hover {
+  text-decoration: underline;
+}
+
+.mcp-info {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* 공통 컴포넌트 스타일 */
+h2 {
+  color: #1a237e;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+h3 {
+  color: #283593;
+  margin-top: 0;
+  font-weight: 600;
+}
+
+.error {
+  color: #d32f2f;
+  padding: 12px;
+  background-color: rgba(211, 47, 47, 0.1);
+  border-radius: 4px;
+  margin: 15px 0;
+  text-align: left;
+}
+
+.loading-indicator {
+  padding: 20px;
+  color: #666;
+}
+
+.no-data {
+  padding: 30px;
+  color: #666;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  margin: 15px 0;
+}
+
+/* 통화 변환기 스타일 */
+.currency-converter {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+  padding: 30px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.converter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.input-group {
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #555;
+  font-weight: 500;
+}
+
+.amount-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.currency-symbol {
+  position: absolute;
+  left: 15px;
+  font-weight: 500;
+  color: #666;
+}
+
+.amount-input input {
+  width: 100%;
+  padding: 12px 12px 12px 30px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.currency-selectors {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.select-group {
+  flex: 1;
+  text-align: left;
+}
+
+select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%23666" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-color: white;
+  font-size: 1rem;
+}
+
+.swap-button {
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.swap-button:hover {
+  background-color: #e0e0e0;
+}
+
+.convert-button {
+  padding: 12px;
+  background-color: #1a237e;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  margin-top: 10px;
+}
+
+.convert-button:hover {
+  background-color: #283593;
+}
+
+.convert-button:disabled {
+  background-color: #9fa8da;
+  cursor: not-allowed;
+}
+
+.conversion-result {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #f5f8ff;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.result-amount {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.amount {
+  font-size: 1.2rem;
+  color: #555;
+}
+
+.equals {
+  font-size: 1.2rem;
+  color: #888;
+}
+
+.converted-amount {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1a237e;
+}
+
+.exchange-rate,
+.update-time {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.exchange-rate {
+  margin-bottom: 8px;
+}
+
+/* 환율 차트 스타일 */
+.exchange-rate-chart {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+  padding: 30px;
+}
+
+.chart-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.currency-divider {
+  color: #888;
+  font-size: 1.2rem;
+}
+
+.refresh-button {
+  padding: 8px 15px;
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.refresh-button:hover {
+  background-color: #e0e0e0;
+}
+
+.refresh-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.chart-container {
+  height: 400px;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.chart-info {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  background-color: #f5f8ff;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.positive-change {
+  color: #4caf50;
+}
+
+.negative-change {
+  color: #f44336;
+}
+
+/* 금융 뉴스 스타일 */
+.financial-news {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+  padding: 30px;
+}
+
+.search-form {
+  display: flex;
+  margin-bottom: 25px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.search-form input {
+  flex: 1;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px 0 0 4px;
+  font-size: 1rem;
+}
+
+.search-form button {
+  padding: 12px 20px;
+  background-color: #1a237e;
+  color: white;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.search-form button:hover {
+  background-color: #283593;
+}
+
+.search-form button:disabled {
+  background-color: #9fa8da;
+  cursor: not-allowed;
+}
+
+.news-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 25px;
+}
+
+.news-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-align: left;
+}
+
+.news-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.news-image {
+  height: 180px;
+  overflow: hidden;
+}
+
+.news-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.news-card:hover .news-image img {
+  transform: scale(1.05);
+}
+
+.news-content {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.news-content h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  line-height: 1.4;
+}
+
+.news-content h3 a {
+  color: #283593;
+  text-decoration: none;
+}
+
+.news-content h3 a:hover {
+  color: #1a237e;
+  text-decoration: underline;
+}
+
+.news-source {
+  color: #757575;
+  font-size: 0.85rem;
+  margin-bottom: 12px;
+}
+
+.news-description {
+  color: #555;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  flex: 1;
+  margin: 0;
+}
+
+.news-attribution {
+  margin-top: 25px;
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.news-attribution a {
+  color: #283593;
+  text-decoration: none;
+}
+
+.news-attribution a:hover {
+  text-decoration: underline;
+}
+
+/* 통화 대시보드 스타일 */
+.currency-dashboard {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+  padding: 30px;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.base-currency-selector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.base-currency-selector label {
+  color: #555;
+  font-weight: 500;
+}
+
+.base-currency-selector select {
+  padding: 8px 30px 8px 10px;
+  min-width: 200px;
+}
+
+.dashboard-content {
+  margin-bottom: 25px;
+}
+
+.rates-panel {
+  margin-bottom: 30px;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.panel-header h3 {
+  margin: 0;
+}
+
+.last-updated {
+  color: #666;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.currency-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.currency-card {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 2px solid transparent;
+}
+
+.currency-card:hover {
+  background-color: #f0f4f8;
+}
+
+.currency-card.selected {
+  border-color: #1a237e;
+  background-color: #f0f4f8;
+}
+
+.currency-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.currency-name {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.currency-code {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #283593;
+}
+
+.currency-fullname {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 2px;
+}
+
+.trend-indicator {
+  font-size: 0.9rem;
+  padding: 3px 6px;
+  border-radius: 4px;
+}
+
+.trend-indicator.up {
+  color: #4caf50;
+}
+
+.trend-indicator.down {
+  color: #f44336;
+}
+
+.rate-value {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-top: 5px;
+  color: #283593;
+}
+
+.currency-news-panel {
+  margin-top: 30px;
+  border-top: 1px solid #eee;
+  padding-top: 30px;
+}
+
+.dashboard-footer {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .App-nav {
+    flex-wrap: wrap;
+  }
+
+  .App-nav button {
+    flex: 1 0 calc(50% - 10px);
+    padding: 10px;
+  }
+
+  .App-content {
+    padding: 20px 15px;
+  }
+
+  .currency-converter,
+  .exchange-rate-chart,
+  .financial-news,
+  .currency-dashboard {
+    padding: 20px;
+  }
+
+  .chart-controls,
+  .currency-selectors {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .currency-divider {
+    display: none;
+  }
+
+  .news-list {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .currency-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}

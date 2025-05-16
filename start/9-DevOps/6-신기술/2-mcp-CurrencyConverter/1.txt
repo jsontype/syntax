@@ -1,0 +1,105 @@
+[MCP 서버: Currency Converter 앱]
+
+1. 설치
+  $ npx create-react-app app1 --template typescript
+  $ cd app1
+  $ npm i axios react-chartjs-2 chart.js
+
+1. MCP 서버 설정 (/Users/dev/.cursor/mcp.json): cursor의 우측 상단의 설정 아이콘 클릭 - MCP 클릭 - Add New Global MCP Server 클릭
+  - MCP 서버 설정 파일 생성
+  - 보통 MCP 서버의 git에 들어가면 설치 가이드가 있다. 거기에 아래와 같은 mcp.json에 들어갈 내용, 호출시 필요한 API 키 등을 취득할 수 있다.
+  {
+    "mcpServers": {
+      ...,
+      // 아래 부분 추가
+      "exchangeRatesApi": {
+        "baseURL": "https://api.exchangerate.host",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "newsApi": {
+        "baseURL": "https://newsapi.org/v2",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    }
+  }
+  
+1. src/types/index.ts 생성: 타입 정의
+  - 환율 데이터 관련 타입 정의
+  - 뉴스 관련 타입 정의
+  - 통화 관련 타입 정의
+  - 주요 통화 목록 정의
+
+1. src/services/api.ts 생성: API 서비스 구현
+  - axios를 사용해서 API 인스턴스를 생성
+  - Exchange Rates API 서비스 구현 (최신 환율, 통화 변환, 히스토리 조회)
+  - News API 서비스 구현 (경제/금융 뉴스, 키워드 뉴스, 통화 관련 뉴스)
+
+1. src/components/CurrencyConverter.tsx 생성: 환율 변환기 컴포넌트
+  - 두 통화 간 실시간 환율 변환 기능
+  - 금액 입력 및 통화 선택 UI
+  - 환율 결과 표시
+
+1. src/components/ExchangeRateChart.tsx 생성: 환율 차트 컴포넌트
+  - 선택된 통화 쌍의 최근 7일간 환율 추이 시각화
+  - Chart.js와 react-chartjs-2 활용
+  - 기간별 환율 변동률 표시
+
+1. src/components/CurrencyDashboard.tsx 생성: 환율 대시보드 컴포넌트
+  - 주요 통화들의 실시간 환율 표시
+  - 기준 통화 선택 기능
+  - 통화 카드 클릭 시 관련 뉴스 표시
+
+1. src/components/FinancialNews.tsx 생성: 금융 뉴스 컴포넌트
+  - 특정 통화나 키워드 관련 뉴스 표시
+  - 뉴스 아티클 리스트 구현
+
+1. src/App.tsx 수정: 메인 앱 컴포넌트
+  - 헤더 / 푸터 생성
+  - 환율 변환기 / 차트 / 대시보드 탭 구현
+  - 전체 레이아웃 구성
+
+1. src/App.css 수정: 스타일링
+  - 모든 컴포넌트의 스타일 적용
+  - 반응형 디자인 구현
+  - 다크/라이트 테마 등 UI 개선
+
+1. src/index.tsx 수정: 엔트리 포인트에서 불필요한 부분 삭제
+
+1. src/services/api.ts 수정: News API 키 발급 받기
+  - [NewsAPI]https://newsapi.org/ 사이트에 가입
+  - 로그인 후 Get API Key 버튼 눌러서 새로운 API 키 취득
+    바로 취득 가능
+  - 발급된 키를 src/services/api.ts 에 NEWS_API_KEY 선언부에 입력한다.
+    실제로는 API 키는 실무에서는 깃상의 코드에 넣지 않고, .env로 해서 PROCESS.ENV로 취득하도록 처리하는 것이 좋다.  
+  - 요금제 참고
+    무료 계정: 일일 요청 제한 있음 (개발자 계정 기준 일 100회)
+    필요시 유료 플랜으로 업그레이드 가능
+
+1. 테스트: 환율 변환 및 비트코인 뉴스 검색 테스트
+  $ cd app1
+  $ npm start
+
+1. MCP 쓰는 이유: MCP 서버 설정을 통해 API 연동 작업 효율화
+  - MCP 서버 설정해서 안했으면, 아래와 같은 timeseries API 호출 방식을 AI가 스스로 파악하기 어려웠을 것입니다.
+  ```
+    const response = await exchangeRatesApi.get(
+      `/timeseries?start_date=${formatDate(startDate)}&end_date=${formatDate(
+        endDate
+      )}&base=${base}&symbols=${target}`
+    )
+  ```
+  - Exchange Rates API는 무료로 사용할 수 있어 별도의 API 키가 필요하지 않습니다.
+  - 반면, News API는 API 키가 필요하며 위 취득법에 따라 발급받아야 합니다.
+
+1. 참조: MCP 서버를 이용가능한 다른 Open API들
+  - Public APIs (https://github.com/public-apis/public-apis): 다양한 카테고리의 무료 API 모음
+  - Random User Generator (https://randomuser.me/): 무작위 사용자 프로필 데이터
+  - News API (https://newsapi.org/): 뉴스 기사 및 헤드라인 (무료 플랜 제공)
+  - Unsplash API (https://unsplash.com/developers): 고품질 무료 이미지
+  - Giphy API (https://developers.giphy.com/): GIF 이미지 검색
+  - COVID-19 API (https://covid19api.com/): 코로나19 관련 통계 데이터
+  - Exchange Rates API (https://exchangeratesapi.io/): 환율 정보 (무료 플랜 제공)

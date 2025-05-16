@@ -31,22 +31,28 @@ https://github.com/jsontype/old.git
    API: https://jsonplaceholder.typicode.com/todos
    API: https://jsonplaceholder.typicode.com/posts
    DOC: https://jsonplaceholder.typicode.com
-
 1. 영화
    API: https://yts.mx/api/v2/list_movies.json?sort_by=rating
    DOC: https://yts.mx/api
-
 1. 뉴스
    API: https://api.hnpwa.com/v0/news.json
    API: https://api.hnpwa.com/v0/ask.json
-
 1. SNS
    API: https://dummyapi.io/data/v1/user?limit=10
    DOC: https://dummyapi.io/explorer
-
 1. 쇼핑몰
    API: https://fakestoreapi.com/products
    DOC: https://fakestoreapi.com/docs
+
+# Open API With MCP Server
+
+1. Public APIs (https://github.com/public-apis/public-apis): 다양한 카테고리의 무료 API 모음
+1. Random User Generator (https://randomuser.me/): 무작위 사용자 프로필 데이터
+1. News API (https://newsapi.org/): 뉴스 기사 및 헤드라인 (무료 플랜 제공)
+1. Unsplash API (https://unsplash.com/developers): 고품질 무료 이미지
+1. Giphy API (https://developers.giphy.com/): GIF 이미지 검색
+1. COVID-19 API (https://covid19api.com/): 코로나19 관련 통계 데이터
+1. Exchange Rates API (https://exchangeratesapi.io/): 환율 정보 (무료 플랜 제공)
 
 # CI 체크 \* Temporary
 
