@@ -31,7 +31,7 @@ export default function Home() {
               🎬 영화 보러가기
             </Link>
           </div>
-          <div className="my-10 text-center">
+          <div className="my-10 text-center text-black">
             <form action="/api/login" method="POST">
               <div className="my-4">
                 <input
