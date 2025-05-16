@@ -1,4 +1,4 @@
-[Next 15 searchParams 의 비동기화]
+[searchParams 취득]
 
 1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
 
@@ -11,14 +11,14 @@
     - 클라이언트사이드: const { searchParams } = useSearchParams() // 임포트 필요import { useSearchParams } from 'next/navigation'
     - 서버사이드: (await searchParams).get('sort') // NEXT15에서부터 async/await를 쓰도록 바뀜
 
-1. src/app/components/SortPulldown.tsx 작성: 클라이언트 컴포넌트로, sort 풀다운 컴포넌트 만들어두기
+1. src/components/SortPulldown.tsx 작성: 클라이언트 컴포넌트로, sort 풀다운 컴포넌트 만들어두기
   - event listner를 사용해서 sort 풀다운을 선택했을 때, URL의 쿼리스트링을 바꿔주는 컴포넌트
-  - * SSR의 await searchParams를, CSR 컴포넌트에서 사용하려면 useSearchParams()를 임포트해서 사용해야 함.
-  - * SSR의 await params를, CSR 컴포넌트에서 사용하려면 useParams()를 임포트해서 사용해야 함.
+  - * searchParams는 SSR에서 getServerSideProps 함수에서 context.params를, CSR 컴포넌트에서 사용하려면 router.query를 임포트해서 사용해야 함. (CSR의 경우는 params의 패턴과 똑같다는 점이 기억해둘 포인트!)
+  - * params는 SSR에서 getServerSideProps 함수에서 context.query를, CSR 컴포넌트에서 사용하려면 router.query를 사용해야 함.  
+  - ** 비교 참조: app-router에서는 SSR 컴포넌트에서 headers, cookies 함수를 next/header에서 임포트해서 사용하고, CSR 컴포넌트에서 각각 useSearchParams()와 useParams()를 사용해서 쿼리스트링과 파라미터를 취득할 수 있다.
 
-1. src/app/movies/page.tsx 수정: 무비 리스트 서버 컴포넌트(SSR)에 sort 풀다운 추가하기
-  - 서버 컴포넌트에서 searchParams를 사용하려면 Props로 받아야 함.
-  - Next15에서는 searchParams에 await가 필요함. (25/4/21 메모: VSCode는 업데이트가.. 불필요하다고 뜨지만 있어야함...)
+1. src/pages/movies/index.tsx 수정: 무비 리스트 서버 컴포넌트(SSR)에 sort 풀다운 추가하기
+  - SSR 컴포넌트에서 searchParams를 사용하려면 getServerSideProps에서 return한 값을 렌더링 함수에서 Props로 받아와야 함.
 
 1. 테스트: SSR의 무비 리스트 페이지, 무비 리스트 페이지에서 호출하는 CSR의 소트 풀다운 컴포넌트 확인
   $ cd app1
@@ -30,9 +30,3 @@
     http://localhost:3000/movies?sort=year&limit=10
     http://localhost:3000/movies?sort=year&limit=30
     http://localhost:3000/movies?sort=year&limit=50
-
-1. 다음 과제: React Query로 무비 페칭하기
-  - 배경: fetch를 쓰고 있는데, SSR인 무비리스트 페이지에서 "제목, 연도, 평점 풀다운을 변경"해서 새롭게 sorting 된 데이터를 받으려고 하면 "pause가 발생하는 부분을 로딩"으로 구현하고 싶다.
-  * 다음 과제: SSR에서 로딩 구현하기 (CSR처럼 setLoading을 쓸 수 없으니 react-query의 useQuery를 써서 loading을 구현한다.)
-  * 다음 과제: SSR에서 에러 처리하기 (useQuery의 error를 사용해서 에러를 처리한다.)
-  * 다음 과제: SSR에서 성공 처리하기 (useQuery의 success를 사용해서 성공을 처리한다.)

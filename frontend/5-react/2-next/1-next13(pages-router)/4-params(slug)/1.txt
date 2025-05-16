@@ -1,0 +1,36 @@
+[Params 취득: getServerSideProps(SSR), getStaticProps(SSG), getStaticPaths(동적경로의 SSG일 때 추가)]
+
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. src/components/BackButton.tsx 작성: SSG의 자식으로 들어가는 클라이언트 컴포넌트. 뒤로가기 버튼
+  - handleClick은 event리스너이기 때문에, client 컴포넌트에서만 사용 가능하다. = use client가 필수이다.
+  - 렌더링 방식의 위계
+    - 부모가 CSR: 자식은 CSR만 가능. SSR을 자식으로 넣어도 자동으로 CSR로 바뀜.
+    - 부모가 SSR, SSG: 자식은 SSR, SSG, CSR 다 가능
+
+1. src/components/MovieDetailComment.tsx 작성: SSG의 자식으로 들어가는 CSR 컴포넌트. 댓글 컴포넌트
+  - onChange가 event리스너이기 때문에, comment, setComment가 스테이터스이기 때문에 client 컴포넌트에서만 사용 가능하다. = use client가 필수이다.
+  - slug는 클라이언트 컴포넌트에서는 useParams()으로 받아온다. = import { useParams } from 'next/navigation' 필요
+
+1. (중요) src/pages/movies/[id]/index.tsx: getStaticProps(SSG), getStaticPaths(동적경로의 SSG일 때 추가), "params"를 써서 slug 값을 받아서, SSG로 무비 디테일 페이지 만들기. 
+  - getServerSideProps 함수에서의 props를 자세히 보면, 원래는 context.params를 써서 받아오지만, 비구조화할당으로 { params } 로 받아온 것이다.
+  - [slug] 개념: id 등 routeParams를 받기위한 폴더 방식이다. [id]는 movies/123에서 id가 123임을 의미한다.
+  - slug는 서버컴포넌트의 getServerSideProps에서 params 프롭으로 받아온다.
+  - 위계 상으로는 SSG의 자식이기 때문에, 클라이언트 컴포넌트인 BackButton과 MovieDetailComment를 넣을 수 있다.
+  - (중요) SSG로 만들 때는, getStaticPaths 함수가 필수이다. (없으면 에러가 남)
+    이 함수는 SSG를 위한 동적 라우팅의 경로 생성 함수로, 
+    빌드 시간 단축(불필요한 API 호출 제거), 서버 부하 감소, 필요한 페이지만 미리 생성, 존재하지 않는 ID에 대한 적절한 처리 등
+    SSG에 필수적인 기능들을 수행한다.
+    ** getStaticProps에서 쓰는 fetch 경로가, 동적 경로가 아닌 고정된 경로인 경우는 이 함수가 필요없다.
+
+1. src/pages/movies/index.tsx 수정: getServerSideProps(SSR), <Link></Link>를 추가하여, movie.id를 클릭하면 movies/[id]로 이동하도록 한다.
+  - Q. SSG로 생성된 페이지 내에서 CSR 컴포넌트가 서버 요청을 하면, 그 페이지는 여전히 SSG인가?
+  - A. 그렇다. 해당 페이지는 여전히 SSG이다. CSR(Client Side Rendering) 컴포넌트에서 발생하는 서버 요청은 클라이언트에서 브라우저가 실행할 때 발생하는 것.
+  - SSG(Static Site Generation)는 빌드 시점에 HTML을 만들어두는 것이기 때문에, CSR 컴포넌트에서 어떤 API 요청을 하더라도 그 자체로는 SSG의 정적 특성을 바꾸지 않는다.
+  - 즉, 정확히 말하면, 아래 코드에서는 모든 코드는 SSG로 구현이 되고, 오직 호출하는 댓글 컴포넌트 부분만 매번 요청을 할 것이다. 그 외 나머지 부분은 계속 SSG로 유지된다!
+
+1. 테스트: SSG의 무비 디테일 페이지, 무비 디테일 페이지에서 호출하는 CSR의 댓글 컴포넌트 확인
+  $ cd app1
+  $ npm run dev
+  - 영화 제목을 클릭해, 영화 상세 페이지로 이동 -> 이동, 상세정보 페칭이 잘 되는지 확인 -> BackButton 동작 확인
+  - 영화 상세 페이지에서 불러온 CSR 컴포넌트인 댓글창에 댓글을 입력하고 등록 버튼을 클릭 -> alert창에서 params로 받은 영화의 id와 입력정보들이 잘 뜨는지 확인

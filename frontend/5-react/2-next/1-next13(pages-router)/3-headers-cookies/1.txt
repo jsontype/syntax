@@ -1,0 +1,28 @@
+[headers, cookies]
+
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. 설치
+  $ cd app1
+  $ npm i cookie
+
+1. src/pages/api/setCookie.ts 작성: 서버 액션 함수가 없으므로 api 폴더에 핸들러 함수로 처리해야한다.
+  - app-router와 다른 점은, 서버 액션 함수를 클라이언트에서 import해서 직접 호출하는 게 불가능하다는 점이다.
+
+1. src/components/SetCookieButton.tsx 작성: 클라이언트 컴포넌트.
+  - use client가 필수이다.
+  - onClick 이벤트가 발생하면, 서버 액션 함수를 호출하여 쿠키를 설정하지만, 이때 onClick은 Client Component에서만 사용 가능하다.
+  - pages router에서는 서버 함수는 import 불가, fetch 등 HTTP 요청을 통해서만 호출 가능
+    * app router에서는 서버 액션을 클라이언트에서 import해서 직접 호출 가능
+
+1. src/pages/movies/index.tsx 수정: 무비 페이지에 header, cookie를 사용해보기
+  - headers()와 cookies()는 Next 13까지는 동기 함수이다.
+    서버 렌더링 시 필요한 정보(예를 들어 user-agent나 인증 쿠키)를 안전하게 받아올 수 있다.
+    이를 통해 사용자 디바이스 정보, 인증 상태 등에 따라 맞춤형 SSR 콘텐츠를 구현할 수 있다.
+
+1. 테스트: 무비 리스트에서 headers와 cookies 확인
+  $ cd app1
+  $ npm run dev
+  - 무비 리스트 페이지에서 headers와 cookies 정보가 잘 들어오는지 콘솔로그 확인
+  - 무비 리스트 페이지의 최하단에 있는 버튼을 클릭하면, cookies 정보가 초기값 "정보 없음"으로부터 잘 갱신되는지 콘솔로그 확인
+  - app1/src/app/movies/page.tsx 에 있는 SetCookieButton 컴포넌트 호출부에서 content 프롭의 값을 바꿔가며, cookies 정보가 잘 갱신되는 지 한번 더 확인
