@@ -1,0 +1,92 @@
+[MCP 서버: Post, Weather 통합 앱]
+
+1. MCP 서버란?
+  - MCP(Model Context Protocol): 
+    LLM AI에게 특정 API에 양방향으로 접근할 수 있게 주소와 API 키(입장권)를 주는 것.
+    이로인해 API 연계까지 AI에게 맡겨서 진행할 수 있게 되었다.
+
+1. 설치
+  $ npx create-react-app app1 --template typescript
+  $ cd app1
+  $ npm i axios
+
+1. MCP 서버 설정 (/Users/dev/.cursor/mcp.json): cursor의 우측 상단의 설정 아이콘 클릭 - MCP 클릭 - Add New Global MCP Server 클릭
+  - MCP 서버 설정 파일 생성
+  - 보통 MCP 서버의 git에 들어가면 설치 가이드가 있다. 거기에 아래와 같은 mcp.json에 들어갈 내용, 호출시 필요한 API 키 등을 취득할 수 있다.
+  - Slack, AWS, Claudflare, Mongo DB, Paypal 등 각종 회사들에서 MCP서버를 만들어서 제공해주고 있다.
+  {
+    "mcpServers": {
+      "openWeatherApi": {
+        "baseURL": "https://api.openweathermap.org/data/2.5",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "jsonPlaceholder": {
+        "baseURL": "https://jsonplaceholder.typicode.com",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    }
+  }
+  
+1. src/types/index.ts 생성: 타입 정의
+
+1. src/services/api.ts 생성: API 서비스 구현
+  - axios를 사용해서 API 인스턴스를 생성하고, 서비스에 대한 백엔드 로직을 만들어둔다.
+
+1. src/components/PostList.tsx 생성: 게시물 목록 컴포넌트 만들기
+
+1. src/components/UserList.tsx 생성: 사용자 목록 컴포넌트
+
+1. src/components/Weather.tsx 생성: 날씨 컴포넌트
+
+1. src/App.tsx 수정: 메인 앱 컴포넌트
+  - 헤더 / 푸터 생성
+  - 게시물 / 사용자 / 날씨 탭 생성
+
+1. src/App.css 수정: 스타일링
+
+1. src/index.tsx 수정: 엔트리 포인트에서 불필요한 부분 삭제
+
+1. src/services/api.ts 수정: 날씨 API 키 발급 받기
+  - ** 본인의 경우, syntax-private 폴더에 .env 파일을 만들어서 넣었으므로 그걸 그대로 여기에 복사해서 쓰면 된다.
+  - [OpenWeather](https://openweathermap.org/) 사이트에 가입
+  - 로그인 후 [API keys](https://home.openweathermap.org/api_keys) 페이지에서 새로운 API 키 생성
+    생성된 API 키가 활성화되기까지 최대 2시간 소요될 수 있음
+  - 발급된 키를 src/services/api.ts 에 OPENWEATHER_API_KEY 선언부에 입력한다.
+    실제로는 API 키는 실무에서는 깃상의 코드에 넣지 않고, .env로 해서 PROCESS.ENV로 취득하도록 처리하는 것이 좋다.
+    참고로, .env 파일에 있는 키는 리액트면 `REACT_APP_`을 접두어로 붙이고, 넥스트면 `NEXT_PUBLIC_`을 접두어로 붙여야 사용할 수 있다.
+
+1. 테스트: 날씨는 tokyo 검색하면 나옴
+  $ cd app1
+  $ npm start
+
+1. 참조: MCP를 설정하지 않고도 프론트엔드 앱을 만들 수 있다. MCP를 굳이 설정할 필요가 있는가?
+  실무에서는 백엔드 서버에서 제공하는 API 문서를 보고 직접 만들어야 하는 경우가 많음.
+  하지만 이번 앱에서는 MCP 서버를 사용했기 때문에, AI가 스스로 API 문서를 확인해서, axios로 api.ts 만들 때 정확하고 간단히 만들 수 있었음.
+  사실, Open API의 경우에는 AI가 용례를 검색해서 작업을 해줄 수 있어서 MCP 서버가 없어도 된다.
+  하지만 실무에서 쓰는 "Private API"라면? MCP 서버가 설정되지 않다면, 직접 문서를 보고 AI에게 요청 / 응답 형식을 설명하면서 작업을 시켜야 한다.
+  이런 경우에는 MCP 서버가 필요하다. 단, MCP 서버가 없는 API는 사용 불가능. 엔드포인트가 필요.
+  (Slack, AWS, Claudflare, Mongo DB, Paypal 등 각종 회사들에서 MCP서버를 만들어서 제공해주고 있다.)
+  (MCP 서버가 없는데 필요한 API는 개발자 커뮤니티에서 개발자들이 열심히 커스텀으로 깃허브에 넣으면서 만들고 있음.)
+
+  🚀 요약: MCP 설정의 이점
+  - AI가 API 스펙을 파악하는데 있어, 정확도가 향상됨: 
+    AI가 API 문서도 파악해서 API 연동부분을 작업해주므로, 실수가 줄어듦.
+    AI가 실제 프로젝트 리소스를 context로 삼아 더 똑똑한 개발을 할 수 있게 해줌.  
+    특히 큰 API 서버 또는 도메인 복잡도가 높은 프로젝트일수록, MCP 설정이 있으면 AI가 더 정확하게 대응할 수 있다.
+  - MCP 없이 개발할 경우
+    직접 문서 보고 작성	API 명세서를 수동으로 확인해서 fetch를 작성해야함.
+    AI가 요청/응답 형식을 모르므로, 이를 직접적으로 계속 설명을 해줘야 함. 
+    컨텍스트 단절	코드 안에 있는 것 외엔 AI가 아무것도 모름 (특히 백엔드 API 문서나 동작 방식)  
+  
+1. 참조: MCP 서버를 이용가능한 다른 Open API들
+  - Public APIs (https://github.com/public-apis/public-apis): 다양한 카테고리의 무료 API 모음
+  - Random User Generator (https://randomuser.me/): 무작위 사용자 프로필 데이터
+  - News API (https://newsapi.org/): 뉴스 기사 및 헤드라인 (무료 플랜 제공)
+  - Unsplash API (https://unsplash.com/developers): 고품질 무료 이미지
+  - Giphy API (https://developers.giphy.com/): GIF 이미지 검색
+  - COVID-19 API (https://covid19api.com/): 코로나19 관련 통계 데이터
+  - Exchange Rates API (https://exchangeratesapi.io/): 환율 정보 (무료 플랜 제공)
