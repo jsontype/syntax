@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { AuthUser } from '@/lib/auth'
 import Sidebar from '@/components/Sidebar'
 import LoginModal from '@/components/LoginModal'
@@ -12,6 +12,7 @@ export default function ClientLayout({
   children: React.ReactNode
 }) {
   const router = useRouter()
+  const pathname = usePathname()
   const [user, setUser] = useState<AuthUser | null>(null)
   const [loading, setLoading] = useState(true)
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
@@ -31,7 +32,7 @@ export default function ClientLayout({
 
   useEffect(() => {
     checkAuth()
-  }, [])
+  }, [pathname])
 
   const handleLogout = async () => {
     await fetch('/api/auth/logout', { method: 'POST' })
