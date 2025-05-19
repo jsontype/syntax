@@ -6,8 +6,8 @@ import ClientLayout from "./ClientLayout"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Instagram Style SNS",
-  description: "A beautiful Instagram-style social network",
+  title: "Todo App",
+  description: "SNS + Todo App",
 }
 
 export default function RootLayout({

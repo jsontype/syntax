@@ -1,16 +1,9 @@
-[SNS 만들기]
+[투두앱 만들기]
 
-1. Next15 프로젝트 시작하기
-  $ npx create-next-app@15.2.4 app3 # 2025년 3월 기준 latest 버전
-    Typescript? > Yes
-    ESLint? > Yes
-    Tailwind CSS? > Yes (No로 하면 자동으로 css module로 설정됨. 즉 page.module.css이 자동 생성됨)
-    src/? > Yes
-    App Router? > Yes
-    Turbopack? > No
-    import alias? > No (No로 하면 /src 절대경로가 기본값인 @이 됨)
-  $ cd app3
-  $ npm i
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. 불필요 폴더 제거
+  - 폴더: src/app/movies
 
 1. 사용한 API 일람: 유저, 글, 앨범, 사진, 할일 등 종합
   API: https://jsonplaceholder.typicode.com/users
