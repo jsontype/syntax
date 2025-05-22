@@ -10,7 +10,7 @@
   json viewer
 
 1. React 관련
-  react developer tools(option)
+  react developer tools (필수): Components 탭에서 컴포넌트명 확인, Profiler 탭에서 동작별 성능 확인
   react context devtool
   redux devtools
 
