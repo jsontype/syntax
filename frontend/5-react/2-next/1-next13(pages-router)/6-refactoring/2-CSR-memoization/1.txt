@@ -1,0 +1,33 @@
+[CSR 최적화: memo, useMemo, useCallback 사용]
+
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+  똑같이 두번 가져와서,
+  app1-before 폴더는 그대로 두고,
+  app2-after 폴더는 아래대로 수정한다.
+
+1. memoization 개념 정리
+  - 메모이제이션이란, 메모리에 저장된 값을 재사용해서, 불필요한 렌더링을 억제하여 성능 저하를 줄이고, 메모리 사용량을 줄일 수 있다.
+  - 단, 메모이제이션은 제로 코스트가 아니다.
+    메모이제이션 역시 메모리를 사용하고, 메모리를 사용하면 성능 저하가 발생한다.
+    그러므로, 지금 같이 간단한 처리만 있는 무비 앱에서는 before와 after의 성능 차이가 거의 없을 것이다.
+    메모이제이션을 사용하는 이유는 복잡한 앱에서 성능 저하를 줄이기 위해서이다. 이를 참조하면 된다.
+
+1. src/components/BackButton.tsx 수정: useCallback으로 함수 최적화하기
+1. src/components/MovieCard.tsx 수정: memo로 컴포넌트 최적화하기
+1. src/components/MovieDetailComment.tsx 수정: memo로 컴포넌트, useCallback으로 함수, useMemo로 값 최적화하기
+1. src/components/SortPulldown.tsx 수정: memo로 컴포넌트, useCallback으로 함수 최적화하기
+
+1. 테스트: before와 after 앱에서 각 페이지의 최적화 확인
+  $ cd before
+  $ npm run dev  
+  $ localhost:3000 에서 테스트
+
+  $ cd after
+  $ npm run dev  
+  $ localhost:3001 에서 테스트
+
+  구체적인 최적화 확인 방법은 "1-기본개념/1.txt" 참조
+  - Chrome DevTools의 Performance 탭
+  - Lighthouse 성능 점수
+  - Network 탭의 리소스 로딩 시간
+  - React DevTools의 Profiler  

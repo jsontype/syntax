@@ -1,0 +1,24 @@
+{
+  "name": "기초 영단어",
+  "level": "beginner",
+  "words": [
+    {
+      "id": 1,
+      "english": "apple",
+      "korean": "사과",
+      "memorized": false
+    },
+    {
+      "id": 2,
+      "english": "book",
+      "korean": "책",
+      "memorized": false
+    },
+    {
+      "id": 3,
+      "english": "cat",
+      "korean": "고양이",
+      "memorized": false
+    }
+  ]
+}

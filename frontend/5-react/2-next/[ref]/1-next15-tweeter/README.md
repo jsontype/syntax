@@ -149,7 +149,7 @@ npm install react-intersection-observer
 - Data Cache(한 번 fetch한 것을 서버가 기억해두고 있다가 다음 요청 때 재사용)
   ![img_3.png](img_3.png)
   ![img_4.png](img_4.png)
-- Full Route Cache: 페이지 전체를 캐싱하는 것(static page만 가능, page router의 ISR을 대체)
+- Full Route Cache: 페이지 전체를 캐싱하는 것(static page만 가능, pages router의 ISR을 대체)
   ![img_5.png](img_5.png)
 - Router Cache: 클라이언트에서 layout, page별로 따로 캐싱해두는 것
   ![img_6.png](img_6.png)
