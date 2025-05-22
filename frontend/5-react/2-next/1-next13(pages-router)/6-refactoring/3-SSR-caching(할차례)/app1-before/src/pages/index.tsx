@@ -9,13 +9,7 @@ type Movie = {
   large_cover_image: string
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ res }) => {
-  // 캐싱 설정 추가 (10분 동안 캐싱)
-  res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=600, stale-while-revalidate=59'
-  )
-
+export const getServerSideProps: GetServerSideProps = async () => {
   const response = await fetch('https://yts.mx/api/v2/list_movies.json')
   const data = await response.json()
   return {

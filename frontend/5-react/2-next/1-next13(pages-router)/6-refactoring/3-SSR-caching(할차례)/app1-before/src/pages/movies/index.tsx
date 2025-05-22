@@ -25,12 +25,6 @@ type Props = {
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
-  // 캐싱 설정 추가 (5분 동안 캐싱)
-  context.res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=300, stale-while-revalidate=59'
-  )
-
   // ! context: getServerSideProps에서 context 파라미터가 자동 적용됨. 그 안에, header, cookie, params, searchParams 등 정보들이 있다.
   // ! context.req.headers['header명'] : 서버 요청 헤더 정보. 사용자 요청에 대한 정보를 알 수 있음.
 

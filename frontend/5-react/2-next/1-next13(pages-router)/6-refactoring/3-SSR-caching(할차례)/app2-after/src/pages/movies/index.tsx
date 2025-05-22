@@ -63,23 +63,49 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
   // ! context.query: 클라이언트에서 서버로 전달된 searchParams 파라미터 정보. 기본값 있음.
   const { sort = 'rating', limit = '20' } = context.query
 
-  // ! fetch 함수: SortPulldown 컴포넌트에서 선택된 풀다운을 적용
-  const res = await fetch(`https://yts.mx/api/v2/list_movies.json?sort_by=${sort}&limit=${limit}`)
-  const data = await res.json()
+  try {
+    // ! fetch 함수: SortPulldown 컴포넌트에서 선택된 풀다운을 적용
+    const res = await fetch(`https://yts.mx/api/v2/list_movies.json?sort_by=${sort}&limit=${limit}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+      },
+      timeout: 5000, // 5초 타임아웃 설정
+    });
 
-
-
-  return {
-    props: {
-      movies: data.data.movies,
-      sort: sort as string,
-      limit: Number(limit),
-      // pages-router에서는 header, cookie 정보를 getServerSideProps를 통해서 렌더링 함수 SSR에 props로 전달해야 한다.
-      headerUserAgent,
-      headerLanguage,
-      headerClientIp: headerClientIp as string,
-      myToken,
+    if (!res.ok) {
+      throw new Error(`API 응답 오류: ${res.status}`);
     }
+
+    const data = await res.json();
+
+    return {
+      props: {
+        movies: data.data.movies,
+        sort: sort as string,
+        limit: Number(limit),
+        // pages-router에서는 header, cookie 정보를 getServerSideProps를 통해서 렌더링 함수 SSR에 props로 전달해야 한다.
+        headerUserAgent,
+        headerLanguage,
+        headerClientIp: headerClientIp as string,
+        myToken,
+      }
+    };
+  } catch (error) {
+    console.error('데이터 가져오기 오류:', error);
+    // 오류 발생 시 빈 배열 반환
+    return {
+      props: {
+        movies: [],
+        sort: sort as string,
+        limit: Number(limit),
+        headerUserAgent,
+        headerLanguage,
+        headerClientIp: headerClientIp as string,
+        myToken,
+      }
+    };
   }
 }
 
