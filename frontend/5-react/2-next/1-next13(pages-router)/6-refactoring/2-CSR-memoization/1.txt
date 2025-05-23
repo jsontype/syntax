@@ -18,15 +18,15 @@
 1. src/components/SortPulldown.tsx 수정: memo로 컴포넌트, useCallback으로 함수 최적화하기
 
 1. 테스트: before와 after 앱에서 각 페이지의 최적화 확인
-  $ cd before
-  $ npm run dev  
+  $ cd app1-before
+  $ npm run dev
   $ localhost:3000 에서 테스트
 
-  $ cd after
-  $ npm run dev  
+  $ cd app2-after
+  $ npm run dev
   $ localhost:3001 에서 테스트
 
-  구체적인 최적화 확인 방법은 "1-기본개념/1.txt" 참조
+  최적화 확인: 구체적인 최적화 확인 방법은 "1-기본개념/1.txt" 참조
   - Chrome DevTools의 Performance 탭
   - Lighthouse 성능 점수
   - Network 탭의 리소스 로딩 시간
