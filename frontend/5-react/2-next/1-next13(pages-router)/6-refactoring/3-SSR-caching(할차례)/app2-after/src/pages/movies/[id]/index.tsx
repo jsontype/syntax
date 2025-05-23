@@ -1,7 +1,7 @@
 import { GetStaticProps, GetStaticPaths } from 'next'
 import Image from 'next/image'
-import BackButton from '@/components/BackButton'
-import MovieDetailComment from '@/components/MovieDetailComment'
+import BackButton from '../../../components/BackButton'
+import MovieDetailComment from '../../../components/MovieDetailComment'
 
 type Movie = {
   id: number

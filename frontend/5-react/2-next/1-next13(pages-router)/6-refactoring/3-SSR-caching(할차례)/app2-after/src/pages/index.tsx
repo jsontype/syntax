@@ -1,71 +1,59 @@
-import Link from 'next/link'
+import Head from 'next/head'
 import Image from 'next/image'
-import { GetServerSideProps } from 'next'
+import Link from 'next/link'
 
-type Movie = {
-  id: number
-  title: string
-  url?: string
-  large_cover_image: string
-}
-
-export const getServerSideProps: GetServerSideProps = async ({ res }) => {
-  // 캐싱 설정 추가 (10분 동안 캐싱)
-  res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=600, stale-while-revalidate=59'
-  )
-
-  try {
-    // fetch 요청에 옵션 추가 (타임아웃, 헤더 등)
-    const response = await fetch('https://yts.mx/api/v2/list_movies.json', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-      },
-      timeout: 5000, // 5초 타임아웃 설정
-    });
-
-    if (!response.ok) {
-      throw new Error(`API 응답 오류: ${response.status}`);
-    }
-
-    const data = await response.json();
-    return {
-      props: {
-        movies: data.data.movies
-      }
-    };
-  } catch (error) {
-    console.error('데이터 가져오기 오류:', error);
-    // 오류 발생 시 빈 배열 반환
-    return {
-      props: {
-        movies: []
-      }
-    };
-  }
-}
-
-export default function Home({ movies }: { movies: Movie[] }) {
+export default function Home() {
   return (
-    <div>
-      <h1>무비 리스트</h1>
-      <div>
-        {movies.map((movie) => (
-          <div key={movie.id}>
-            <h2>
-              <Link href={`/movies/${movie.id}`}>
-                {movie.title}
-              </Link>
-            </h2>
-            <p>
-              <Image src={movie.large_cover_image} alt={movie.title} width={500} height={750} />
-            </p>
+    <>
+      <Head>
+        <title>무비앱</title>
+        <meta name="description" content="이곳은 내 홈페이지입니다. 최신 정보와 서비스를 확인하세요." />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta property="og:title" content="홈 | 내 사이트 이름" />
+        <meta property="og:description" content="이곳은 내 홈페이지입니다. 최신 정보와 서비스를 확인하세요." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.example.com/" />
+        <meta property="og:image" content="https://www.example.com/og-image.jpg" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <div className="relative w-full h-[600px]">
+        <Image
+          src="https://img.yts.mx/assets/images/movies/captain_america_brave_new_world_2025/background.jpg"
+          alt="배경 이미지"
+          fill
+          sizes="600"
+          style={{ objectFit: 'cover' }}
+          priority
+        />
+        <div className="absolute top-1/2 left-1/2 text-white text-4xl font-bold transform -translate-x-1/2 -translate-y-1/2">
+          <div className="my-6 text-center">
+            <Link href="/movies">
+              🎬 영화 보러가기
+            </Link>
           </div>
-        ))}
+          <div className="my-10 text-center text-black">
+            <form action="/api/login" method="POST">
+              <div className="my-4">
+                <input
+                  type="text"
+                  name="username"
+                  placeholder="아이디"
+                  className="border p-2 mr-2"
+                />
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="비밀번호"
+                  className="border p-2 mr-2"
+                />
+              </div>
+              <button className="bg-green-700 text-white mt-5 px-4 py-2 rounded hover:bg-green-800">
+                로그인
+              </button>
+            </form>
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
