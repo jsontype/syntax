@@ -14,13 +14,9 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@/*": ["../app1-before/src/*"]
+      "@/*": ["./src/*"]
     }
   },
-  "include": [
-    "../app1-before/next-env.d.ts",
-    "../app1-before/**/*.ts",
-    "../app1-before/**/*.tsx"
-  ],
-  "exclude": ["../app1-before/node_modules"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }
