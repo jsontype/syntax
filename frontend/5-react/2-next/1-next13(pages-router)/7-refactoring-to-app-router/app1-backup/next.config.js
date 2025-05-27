@@ -8,7 +8,7 @@ const nextConfig = {
   images: {
     // 외부 이미지를 허용할 도메인 목록
     domains: ["yts.mx", "img.yts.mx"],
-    // 이미지 최적화시 생성할 포맷 (avif는 최신 압축 형식으로 파일 크기가 작음)
+    // ! (이미지에서 가장 중요) 이미지 최적화시 생성할 포맷 (avif는 최신 압축 형식으로 파일 크기가 작음). 가장 극적으로 파일 크기를 줄여줌.
     formats: ["image/avif", "image/webp"],
     // 최적화된 이미지의 최소 캐시 시간 (초 단위, 여기서는 1시간)
     minimumCacheTTL: 3600,
