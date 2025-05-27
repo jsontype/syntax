@@ -1,3 +1,26 @@
 [Pages Router에서 App Router로의 리팩토링 방법 정리]
 
-1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 app2-after 코드를 그대로 카피해서 가지고 온다.
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+  똑같이 두번 가져와서,
+  app1-before 폴더는 그대로 두고,
+  app2-after 폴더는 아래대로 수정한다.
+
+1. Next.js 버전 확인 (13.4 이상 필요)
+
+1. src 폴더에 app 디렉토리 생성
+1. src/pages/_app.tsx → src/app/layout.tsx 변환: 기본 구조 설정, 메타데이터 설정
+  메타데이터를 여기서 관리하고, 기존 메타데이터 관리처인 _app.tsx, _document.tsx는 제거
+  전역 스타일 import
+1. src/pages/index.tsx → src/app/page.tsx 변환: 홈페이지 마이그레이션
+1. src/pages/movies/index.tsx → src/app/movies/page.tsx 변환: 중첩라우트 페이지 마이그레이션
+  getServerSideProps → 서버 컴포넌트에서 직접 데이터 페칭
+  useEffect로 클라이언트에서 데이터 가져오는 부분 → 클라이언트 컴포넌트('use client')로 지정 → 서버/클라이언트 컴포넌트 분리하기 (상태 관리 코드가 있는 컴포넌트는 'use client' 지시어 추가)
+1. src/pages/movies/[id]/index.tsx → src/app/movies/[id]/page.tsx 변환: 동적라우트 페이지 마이그레이션
+  getStaticProps → 서버 컴포넌트에서 직접 데이터 페칭
+1. 변경 불필요: 그 외의 src/...는 모두 그대로 유지
+  components, lib, styles, utils, types, hooks, contexts 등
+
+1. 테스트: 모든 페이지 동작 확인, 라우팅, 데이터 페칭, 상태 관리 검증
+  $ cd app2-after
+  $ npm run dev
+  테스트 후 문제 없으면, 불필요한 pages 디렉토리, pages-router 관련 파일 모두 제거
