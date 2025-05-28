@@ -2,6 +2,7 @@ import { GetStaticProps, GetStaticPaths } from 'next'
 import Image from 'next/image'
 import BackButton from '../../../components/BackButton'
 import MovieDetailComment from '../../../components/MovieDetailComment'
+import { getMovieDetail } from '../../../api/getMovieDetail'
 
 type Movie = {
   id: number
@@ -54,12 +55,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 // SSG 함수
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const id = params?.id as string
-  const res = await fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${id}&with_images=true&with_cast=true`)
-  const data = await res.json()
-
+  const movie = await getMovieDetail(id)
   return {
     props: {
-      movie: data.data.movie
+      movie
     },
     revalidate: 60 // 60초마다 재생성
   }

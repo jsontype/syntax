@@ -1,12 +1,12 @@
 'use client'
 
 import { useState, memo, useCallback, useMemo } from 'react'
-import { useRouter } from 'next/router'
+import { useParams } from 'next/navigation'
 
 const MovieDetailComment = memo(() => {
   const [comment, setComment] = useState('')
-  const router = useRouter()
-  const { id } = router.query
+  const params = useParams()
+  const id = params.id
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setComment(e.target.value)
