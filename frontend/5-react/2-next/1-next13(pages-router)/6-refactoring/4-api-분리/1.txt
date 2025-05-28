@@ -1,0 +1,26 @@
+[API 분리: 데이터 페칭 로직을 컴포넌트 밖으로 옮기기]
+
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 app2-after 코드를 그대로 카피해서 가지고 온다.
+  app1로 명칭을 변경한다.
+
+1. src/pages/api 와 src/api 폴더의 용도 차이
+  src/pages/api: 서버 API 엔드포인트용 (예를 들어, src/pages/api/setCookie.ts)
+  src/api: 데이터 페칭 로직용 (예를 들어, src/api/getMovies.ts)
+
+1. src/api/getMovies.ts 생성: getMovies 임포트해서 API 호출
+  - fetch 내부 headers에 반드시 "Cache-Control"(대소문자 주의)로 작성해야 하며, "CacheControl"은 지원하지 않음
+
+1. src/api/getMovieDetail.ts 생성: getMovieDetail 임포트해서 API 호출
+
+1. src/pages/movies/index.tsx 수정
+  - getMovies 함수를 사용하여 영화 목록을 가져오도록 변경
+  - getSuggestions 함수를 사용하여 추천 영화를 가져오도록 변경
+
+1. src/pages/movies/[id].tsx 수정
+  - getMovie 함수를 사용하여 영화 정보를 가져오도록 변경
+  - getMovieSuggestions 함수를 사용하여 추천 영화를 가져오도록 변경
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
+  http://localhost:3000/movies 에 접속하여 영화 목록과 영화 상세 페이지가 그대로 표시되는지 확인
