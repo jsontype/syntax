@@ -1,8 +1,7 @@
-import { GetStaticProps, GetStaticPaths } from 'next'
 import Image from 'next/image'
-import BackButton from '../../../components/BackButton'
-import MovieDetailComment from '../../../components/MovieDetailComment'
-import { getMovieDetail } from '../../../api/getMovieDetail'
+import BackButton from '@/components/BackButton'
+import MovieDetailComment from '@/components/MovieDetailComment'
+import type { Metadata } from 'next'
 
 type Movie = {
   id: number
@@ -30,41 +29,59 @@ type Movie = {
   large_screenshot_image3?: string
 }
 
-type Props = {
-  movie: Movie
-}
+// 동적 메타데이터 생성 함수
+export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+  const id = params.id
+  try {
+    const res = await fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${id}&with_images=true&with_cast=true`)
+    const data = await res.json()
+    const movie = data.data.movie
 
-// (필수) SSG를 위한 동적 라우팅의 경로 생성 함수: 빌드 시간 단축(불필요한 API 호출 제거), 서버 부하 감소, 필요한 페이지만 미리 생성, 존재하지 않는 ID에 대한 적절한 처리 등 SSG에 필수적인 기능들을 수행한다.
-// ** getStaticProps에서 쓰는 fetch 경로가, 동적 경로가 아닌 고정된 경로인 경우는 이 함수가 필요없다.
-export const getStaticPaths: GetStaticPaths = async () => {
-  // 영화 목록을 가져와서 각 영화의 ID를 경로로 생성
-  const response = await fetch('https://yts.mx/api/v2/list_movies.json?limit=20')
-  const data = await response.json()
-  const movies = data.data.movies
-
-  const paths = movies.map((movie: Movie) => ({
-    params: { id: movie.id.toString() }
-  }))
-
-  return {
-    paths,
-    fallback: 'blocking' // paths에 없는 경로는 SSR로 처리
+    return {
+      title: `${movie.title || '영화'} | 무비앱`,
+      description: movie.description_full || `${movie.title} 영화에 대한 정보입니다.`,
+    }
+  } catch (error) {
+    return {
+      title: '영화 상세 | 무비앱',
+      description: '영화 정보를 불러오는 중 오류가 발생했습니다.',
+    }
   }
 }
 
-// SSG 함수
-export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
-  const id = params?.id as string
-  const movie = await getMovieDetail(id)
-  return {
-    props: {
-      movie
-    },
-    revalidate: 60 // 60초마다 재생성
+// 정적 경로 생성 함수
+export async function generateStaticParams() {
+  try {
+    const response = await fetch('https://yts.mx/api/v2/list_movies.json?limit=20')
+    const data = await response.json()
+    const movies = data.data.movies
+
+    return movies.map((movie: Movie) => ({
+      id: movie.id.toString()
+    }))
+  } catch (error) {
+    console.error('Failed to generate static params:', error)
+    return []
   }
 }
 
-export default function MovieDetail({ movie }: Props) {
+async function getMovie(id: string): Promise<Movie> {
+  const res = await fetch(
+    `https://yts.mx/api/v2/movie_details.json?movie_id=${id}&with_images=true&with_cast=true`,
+    { next: { revalidate: 60 } } // 60초마다 재검증
+  )
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch movie')
+  }
+
+  const data = await res.json()
+  return data.data.movie
+}
+
+export default async function MovieDetail({ params }: { params: { id: string } }) {
+  const movie = await getMovie(params.id)
+
   return (
     <div>
       <BackButton />
@@ -100,4 +117,4 @@ export default function MovieDetail({ movie }: Props) {
       </div>
     </div>
   )
-}
+} 

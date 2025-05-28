@@ -1,22 +1,17 @@
-'use client'
-
 import { useState, useEffect, memo, useCallback } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/router'
 
 const SortPulldown = memo(() => {
   const router = useRouter()
-  const searchParams = useSearchParams()
+  const { sort: sortQuery, limit: limitQuery } = router.query
 
-  const sortQuery = searchParams.get('sort')
-  const limitQuery = searchParams.get('limit')
-
-  // CSR에서는 useSearchParams을 통해서 searchParams 정보를 추출한다.
-  const [sort, setSort] = useState(sortQuery || 'rating')
-  const [itemPerPage, setItemPerPage] = useState(Number(limitQuery) || 10)
+  // CSR에서는 useRouter의 query를 통해서 searchParams 정보를 추출한다. 그런데, 방식이 params 정보 추출할 때와 똑같다.
+  const [sort, setSort] = useState(sortQuery as string || 'rating') // sortQuery
+  const [itemPerPage, setItemPerPage] = useState(Number(limitQuery) || 10) // limitQuery
 
   // pulldown 선택값이 update 될 시, state 값 변경
   useEffect(() => {
-    if (sortQuery) setSort(sortQuery)
+    if (sortQuery) setSort(sortQuery as string)
     if (limitQuery) setItemPerPage(Number(limitQuery))
   }, [sortQuery, limitQuery])
 
@@ -31,21 +26,17 @@ const SortPulldown = memo(() => {
 
   const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
-    // 새로운 URL 생성
-    const params = new URLSearchParams(searchParams.toString())
-    params.set('sort', sort)
-    params.set('limit', itemPerPage.toString())
-
-    // App Router에서는 router.push로 이동 (내장 캐시 없이 데이터 가져오게 설정됨)
-    router.push(`/movies?${params.toString()}`)
-  }, [router, searchParams, sort, itemPerPage])
+    router.push({
+      pathname: router.pathname,
+      query: { ...router.query, sort, limit: itemPerPage.toString() }
+    })
+  }, [router, sort, itemPerPage])
 
   return (
     <form onSubmit={handleSubmit} className="border rounded-lg p-4 bg-white shadow-sm">
       <div className="flex items-center space-x-4">
         <div className="flex items-center">
-          <label htmlFor="sort-select" className="mr-2 text-black">정렬 기준:</label>
+          <label htmlFor="sort-select" className="mr-2">정렬 기준:</label>
           <select
             className="px-3 py-1 border rounded text-black"
             id="sort-select"
@@ -58,7 +49,7 @@ const SortPulldown = memo(() => {
           </select>
         </div>
         <div className="flex items-center">
-          <label htmlFor="limit-select" className="mr-2 text-black">표시:</label>
+          <label htmlFor="limit-select" className="mr-2">표시:</label>
           <select
             className="px-3 py-1 border rounded text-black"
             id="limit-select"

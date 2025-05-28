@@ -5,6 +5,7 @@ import Image from 'next/image'
 import * as cookie from 'cookie'
 import SetCookieButton from '../../components/SetCookieButton'
 import SortPulldown from '../../components/SortPulldown'
+import { getMovies } from '../../api/getMovies'
 
 type Movie = {
   id: number
@@ -105,40 +106,13 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
   //   c) 결과적으로 API가 느려도 최대 2.5초만 기다린 후 진행
   // 실제 효과: 이 앱에서, TTFB가 90% (최대 30초) → 2% (최대 2.5초)로 감소했다. LCP도 그에 비례하여 개선됨. 이는 웹 성능 점수(Core Web Vitals)와 SEO에도 긍정적 영향을 미침.
   try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 2500); // 타임아웃 감소
-
-    const res = await fetch(
-      `https://yts.mx/api/v2/list_movies.json?sort_by=${sort}&limit=${limit}`,
-      {
-        // ! signal: 요청을 중단하는 시그널. 무한 요청이 발생시, 요청 취소를 가능하게 하여, 타임아웃 감소에 도움. (2.5초 후 요청을 중단하여 무한 대기 방지)
-        // signal 객체의 타입: { aborted: boolean, onabort: () => void, addEventLisnter, removeEventListener, ... }
-        signal: controller.signal,
-        headers: {
-          'Accept': 'application/json',
-          'Cache-Control': 'max-age=300',
-          'Connection': 'keep-alive'
-        },
-        next: {
-          revalidate: 300
-        }
-      }
-    );
-
-    clearTimeout(timeoutId);
-
-    if (!res.ok) {
-      throw new Error(`API 요청 실패: ${res.status}`);
-    }
-
-    const data = await res.json();
-    const movies = data.data.movies;
+    const movies = await getMovies(sort as string, limit as string)
 
     // 결과를 메모리 캐시에 저장
     memoryCache[cacheKey] = {
       data: movies,
       timestamp: now
-    };
+    }
 
     return {
       props: {
@@ -153,7 +127,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
           [cacheKey]: movies
         }
       }
-    };
+    }
   } catch (error) {
     console.error('영화 데이터 가져오기 오류:', error);
     return {
