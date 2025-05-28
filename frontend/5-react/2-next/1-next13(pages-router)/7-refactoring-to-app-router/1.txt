@@ -5,9 +5,8 @@
   app1-before 폴더는 그대로 두고,
   app2-after 폴더는 아래대로 수정한다.
 
-1. Next.js 버전 확인 (13.4 이상 필요)
-
-1. src 폴더에 app 디렉토리 생성
+1. package.json 확인: Next.js 버전 확인 (13.4 이상 필요)
+1. src/app 생성: 폴더 생성
 1. src/pages/_app.tsx → src/app/layout.tsx 변환: 기본 구조 설정, 메타데이터 설정
   메타데이터를 여기서 관리하고, 기존 메타데이터 관리처인 _app.tsx, _document.tsx는 제거
   전역 스타일 import
