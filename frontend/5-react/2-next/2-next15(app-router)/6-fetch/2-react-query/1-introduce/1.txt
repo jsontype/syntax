@@ -3,7 +3,7 @@
 1. 사전준비: 프로젝트를 새로 깔지 않고, searchParams 챕터에서의 코드를 그대로 카피해서 가지고 온다.
 
 1. 데이터 페칭 방식의 변천사: 
-  🔹 실제 현장에서는 fetch -> axios -> redux-saga, redux-thunk -> useSWR -> ...(위에서 하나 취사선택)... -> react-query
+  🔹 실제 현장에서는 fetch -> axios -> redux-saga, redux-thunk -> useSWR -> react-query
   🔹 지금은 리액트 쿼리를 가장 많이 사용함. 페칭할 때 useQuery, useMutation, useInfiniteQuery, usePaginatedQuery 등등 본적 있다면 그게 이거임.
 
 1. React Query의 기본 사용 방식 이해하기
