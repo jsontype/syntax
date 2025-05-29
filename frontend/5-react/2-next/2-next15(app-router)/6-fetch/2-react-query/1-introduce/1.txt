@@ -1,6 +1,51 @@
 [react-query 소개]
 
+1. react-query 요약
+  const fetcher = url => fetch(url).then(r => r.json())
+
+  // GET
+  useQuery('queryKey', fetcher, { 
+    staleTime: 60000, // 1분 동안 신선한 데이터로 간주
+    cacheTime: 300000, // 5분 동안 캐시 유지
+    refetchOnWindowFocus: false, // 윈도우 포커스 시 재패치 안함
+    retry: 3, // 실패 시 최대 3번 재시도
+  });
+
+  # useInfiniteQuery('queryKey', fetcher, {
+  #   getNextPageParam: (lastPage, allPages) => lastPage.nextCursor, // 다음 페이지 파라미터 정의
+  # });
+
+  # usePaginatedQuery('queryKey', fetcher, {
+  #   page: pageNumber, // 현재 페이지 번호
+  #   staleTime: 1000 * 60 * 5, // 5분 동안 신선한 데이터로 간주
+  #   cacheTime: 1000 * 60 * 10, // 10분 동안 캐시 유지
+  #   refetchOnWindowFocus: false, // 윈도우 포커스 시 재패치 안함
+  #   refetchOnReconnect: false, // 네트워크 재연결 시 재패치 안함
+  #   refetchInterval: false, // 리패치 안함
+  #   retry: false, // 실패 시 리패치 안함
+  # });
+
+  // POST
+  useMutation(postFetcher, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('queryKey'); // 성공 시 쿼리 무효화
+    },
+  });
+
 1. 사전준비: 프로젝트를 새로 깔지 않고, searchParams 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. 데이터 페칭 라이브러리의 종류
+  🔹 useEffect + fetch: 기본 방식.
+  🔹 axios: 더 쉽게 데이터를 페칭할 수 있도록 해주는 라이브러리.
+  🔹 Redux-thunk: 전역 상태관리 방식. 비동기 로직을 액션으로 분리. 대규모 앱에서 사용.
+  🔹 Redux-saga: 전역 상태관리 방식. generator 기반 사이드이펙트 처리로 복잡한 흐름을 가지고 있다. polling이 필요할 때 사용.
+  🔹 Redux-toolkit(RTK): 전역 상태관리 방식. Redux-thunk를 쉽게 바꾼 것. 리덕스의 모던 개발 표준.
+  🔹 Zustand, Jotai, Recoil 등: 가볍고 간단한 상태 공유. 가능한 미니멀하게 전역 상태 관리를 하고자 할 때 사용.
+  🔹 React-query: 비동기 + 캐싱 + 자동 리페치. 서버 데이터를 중심으로 하는 앱에서 사용.
+  🔹 SWR: react-query의 lightweight 버전. Next.js 에서 특히 많이 씀.
+  🔹 GraphQL Apollo Client: /GraphQL 쿼리 관리 특화 /GraphQL API 사용 시
+  🔹 Next.js 서버: /getServerSideProps, getStaticProps, App Router async /SSR/SSG/ISR 가능 /SEO/빠른 초기 로딩
+  🔹 커스텀: /Custom Hook (useFetch, useUser), /페칭로직 재사용, /다수 컴포넌트에서 동일 로직 필요 시
 
 1. 데이터 페칭 방식의 변천사: 
   🔹 실제 현장에서는 fetch -> axios -> redux-saga, redux-thunk -> useSWR -> react-query
