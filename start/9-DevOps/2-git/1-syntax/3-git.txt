@@ -34,6 +34,7 @@
 
   $ git fetch : 이슈를 판 뒤, 우선적으로 할 일
     git fetch origin : 리모트 레포지토리에 있는 git을 전부 fetch한다.
+    git fetch --prune : Github 에서 원격 저장소에서 삭제된 브랜치를 로컬에서도 지운다.
     git pull origin feat/1 : 리모트 레포지토리에 있는 (신규 fetch된) git들로 local을 갱신한다. 
       작업 시작하기 전이나 작업중간에 타 브랜치로부터 merge가 완료된 경우 늘 이를 진행한다.
 
@@ -133,6 +134,9 @@
   $ ★★ git revert 9d5b3015a7fe855db56be69e66256450889e2a68 : 이전 커밋을 취소하고 add 하기 전 상태로 돌려놓는다.
     * 9d5b3015a7fe855db56be69e66256450889e2a68는 커밋 ID의 예시이다.
 
+  $ ★★ git commit --amend -m "변경 후의 코멘트"
+    이전 커밋 메세지 변경하기
+
   $ ★★ git reset HEAD^ : 이전 푸시를 취소하고 add 하기 전 상태로 돌려놓는다.
     git log : 리셋 하기 전 커밋 몇번까지 돌려놔야하는지 확인한다.
     git reset HEAD^ : 최근에 한 한개의 커밋을 되돌려놓는다.
@@ -153,7 +157,7 @@
     보다 더 좋은 방법으로, PUSH때 로컬 ref와 리모트 ref를 비교해 로컬이 최신인지 판정해, 최신이 아니면 PUSH를 실패시킨다.
 
 
-
+  
 1. Git 편리하게 쓰기 : alias 목록 추가하기 (필수)
   $ git config --global alias.fetch 'fetch origin'
     다음부터 'git fetch'로 'git fetch origin'을 간단히 실행한다.

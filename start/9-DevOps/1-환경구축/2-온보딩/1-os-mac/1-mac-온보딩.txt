@@ -22,6 +22,34 @@
 
 
 
+1. 필수앱 설치
+  - vscode 설치 및 설정 동기화, cursor 설치 후 vscode 설정 임포트
+    $ brew install --cask visual-studio-code
+      → VSCode Github Login(cmd + shift + p 후, git 동기화 검색) → 설정 동기화
+      → VSCode에서 설정(cmd + ,) → terminal font 검색 → MesloLGS NF 로 폰트 변경
+      → VSCode 설치 후, Cursor도 설치 gn, VSCode 설정 Import
+  - chrome 설치
+    $ brew install --cask google-chrome
+    별도 문서 확인 : chrome 확장 설치, 개인 계정 연동
+  - rectangle mac 설치 : spectacle mac도 있지만, rectangle은 화면끝으로 끌어서 정렬하는 기능도 되므로 더욱 추천한다.
+    $ brew install --cask rectangle
+    설치 후 손쉬운 사용 메뉴에서 사용 허가를 해야한다.
+    설치 후 초기 선택화면에서 spectacle 모드를 선택하면, 한번에 spectacle과 동일한 단축키 설정이 가능하다.
+  - sourcetree 설치
+    $ brew install --cask sourcetree
+  - insomnia mac 설치
+    $ brew install --cask insomnia
+  - anydesk 설치
+    $ brew install --cask anydesk
+  - zoom 설치
+    $ brew install --cask zoom
+  - slack 설치
+    $ brew install --cask slack
+  - docker 설치
+    $ brew install docker
+    docker ui는 구글링으로 설치
+
+
 
 1. iterm2 설치
   iterm2 검색 후 설치
@@ -112,33 +140,6 @@
       $ nvm use
     자신의 프로젝트에 노드 버전을 명시하며 .nvmrc 파일을 만들려면 다음과 같이 명령어를 입력한다.
       $ echo "8.9.0" > .nvmrc
-
-
-
-1. 필수앱 설치
-  - vscode 설치
-    $ brew install --cask visual-studio-code 또는 구글링으로 설치
-    별도 문서 확인 : vscode에 깃허브 로그인하여 동기화하거나, 별도 문서를 참조해서 확장 설치, 설정
-  - chrome 설치
-    $ brew install --cask google-chrome 또는 구글링으로 설치
-    별도 문서 확인 : chrome 확장 설치, 개인 계정 연동
-  - rectangle mac 설치 : spectacle mac도 있지만, rectangle은 화면끝으로 끌어서 정렬하는 기능도 되므로 더욱 추천한다.
-    $ brew install --cask rectangle 또는 구글링으로 설치
-    설치 후 손쉬운 사용 메뉴에서 사용 허가를 해야한다.
-    설치 후 초기 선택화면에서 spectacle 모드를 선택하면, 한번에 spectacle과 동일한 단축키 설정이 가능하다.
-  - sourcetree 설치
-    $ brew install --cask sourcetree 또는 구글링으로 설치
-  - insomnia mac 설치
-    $ brew install --cask insomnia 또는 구글링으로 설치
-  - anydesk 설치
-    $ brew install --cask anydesk 또는 구글링으로 설치
-  - zoom 설치
-    $ brew install --cask zoom 또는 구글링으로 설치
-  - slack 설치
-    $ brew install --cask slack 또는 구글링으로 설치
-  - docker 설치
-    $ brew install docker
-    docker ui는 구글링으로 설치
 
 
 
