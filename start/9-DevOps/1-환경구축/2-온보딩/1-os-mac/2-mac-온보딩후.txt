@@ -1,0 +1,92 @@
+[현장 환경구축 끝난 뒤의 세팅]
+
+1. 슬랙 preview 끄기
+  - 슬랙 앱 홈 - 좌측 사이드바 하단 맨 밑으로 스크롤 - 앱을 추가한다 버튼 - github 검색 후 설치
+  - 슬랙의 리뷰 채널이 있다면, 그곳에 preview를 끄도록 설정한다.
+    방법은, /github settings 후 메시지 보내기 - mute rich previews 옵션을 켠다.
+  - 참고: 매터모를 쓰는 경우에는 <url> 이런식으로 쓰면 프리뷰가 안나옴.
+    예를 들어, <http://github/.../1234>
+
+1. 레포지토리 클론 후, ref #12345 형식의 커밋명 강제하기
+  - prepare-commit-msg (자동으로 ref #티켓번호 붙이기), commit-msg (ref #티켓번호 형태가 아니면 에러 발생시키기) 두 파일 작성 (확장자 불필요)
+    prepare-commit-msg 파일 내용:
+    ```
+      #!/bin/bash
+      # .git/hooks/prepare-commit-msg
+      # 커밋 메시지 작성 시, 현재 브랜치 이름에서 이슈 번호를 추출하고, 커밋 메시지 맨 앞에 "refs #이슈번호 설명"을 자동으로 삽입합니다.
+      set -Cueo pipefail
+
+      if [ "${NOCHECK:-}" != "" ]; then
+        exit 0
+      fi
+
+      if grep --quiet -E '^refs #[0-9]+ .+' <(head -1 "${1}"); then
+        exit 0
+      fi
+
+      branch_name=$(git rev-parse --abbrev-ref HEAD)
+      branch_description=$(git config branch."${branch_name}".description || :)
+      if echo "${branch_name}" | grep -E -e '(feature|hotfix)/[0-9x]{8}/[0-9]+' >/dev/null; then
+        issue_no=$(echo "${branch_name}" | sed -E 's#(feature|hotfix)/[0-9x]{8}/([0-9]+)(_.+)?#\2#')
+      elif echo "${branch_name}" | grep -E -e '(feature|hotfix)/[0-9]+((_|/).+)?$' >/dev/null; then
+        issue_no=$(echo "${branch_name}" | sed -E 's#(feature|hotfix)/([0-9]+)((_|/).+)?$#\2#')
+      fi
+
+      case "${2:-},${3:-}" in
+      message, | , | template,)
+        if [ -z "${issue_no:-}" ] || [ "${branch_name}" = "HEAD" ]; then
+          exit 0
+        fi
+        mv "${1}" "${1}".tmp
+        echo -n "refs #${issue_no} ${branch_description:-}" >"${1}"
+        cat "${1}".tmp >>"${1}"
+        ;;
+      merge,) ;;
+
+      *) ;;
+
+      esac
+    ```
+
+    commit-msg 파일 내용:
+    ```
+      #!/bin/bash
+      # .git/hooks/commit-msg
+      # 커밋 메시지 작성 시, 첫 줄이 "refs #이슈번호 설명" 형식을 따르는지 확인합니다. 형식이 맞지 않으면 커밋을 중단시키고 오류 메시지를 출력합니다.
+      set -Cueo pipefail
+
+      if [ "${NOCHECK:-}" != "" ]; then
+        exit 0
+      fi
+
+      branch_name=$(git rev-parse --abbrev-ref HEAD)
+      if [ "${branch_name}" = "HEAD" ]; then
+        exit 0
+      fi
+
+      if grep --quiet "^Merge remote-tracking branch " <(head -1 "${1}"); then
+        exit 0
+      fi
+
+      if ! grep --quiet -E '^refs #[0-9]+ .+' <(head -1 "${1}"); then
+        echo >&2 "❌ 커밋 메시지 형식 오류!"
+        echo >&2 ""
+        echo >&2 "첫 줄은 다음 형식을 따라야 합니다:"
+        echo >&2 "  refs #이슈번호 설명"
+        echo >&2 ""
+        echo >&2 "예시:"
+        echo >&2 "  refs #12345 로그인 오류 수정"
+        echo >&2 ""
+        echo >&2 "입력된 메시지:"
+        echo >&2 "  $(head -1 "${1}")"
+        exit 1
+      fi
+    ```
+  
+  - 클론한 레포지토리에 .git/hooks 폴더를 생성 후, 아래의 두 파일 이동
+  - .git/hooks 위에서 터미널 열고 아래의 명령어 입력
+    $ chmod u+x prepare-commit-msg
+    $ chmod u+x commit-msg  # 任意
+  - 적용 확인: 아래 명령어 입력 후, -rwxr--r--@ 로 되어있으면 문제 없음
+    $ ls -l prepare-commit-msg commit-msg
+  - 결과: 커밋 메시지 작성 시, refs #12345 형식으로 작성하면 자동으로 커밋 메시지 맨 앞에 refs #12345 가 붙음
