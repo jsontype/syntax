@@ -1,22 +1,25 @@
 [라이브러리의 취약점 실무적 대응 절차]
 
 1. 라이브러리의 Vulnerability(취약점) 실무적 대응
-  - Yarn v1 의 경우: 본격적 대응 (주석 부분은 스킵해도 되는 부분)
-    $ yarn audit // 프로젝트의 취약점이 몇개 있는지 확인한다.
-    일단, 1차적으로 "node_module" 폴더와, "yarn.lock" 파일을 일단 한번 삭제한 뒤, 다시 "yarn install"을 해본다.
-    # $ yarn outdated // 아래 명령어로 deprecated, EOL, outdated version 등의 정보를 확인할 수 있다.
-    # - 이 리스트에서, wanted 보다 낮은 버전의 current 라이브러리가 있는지 확인한다.
-    # - yarn outdated 명령어가 듣지 않을 경우, 아래 명령어로 의존성을 초기화 하면 된다.
-    #   $ rm -rf node_modules yarn.lock
-    #   $ yarn cache clean
-    #   $ yarn install
-    # - wanted 보다 낮은 버전의 current 라이브러리가 없다면, 다음으로 넘어간다.
-    $ yarn audit // 프로젝트의 취약점이 몇개 있는지 확인한다.
-    - (중요) high 이상의 취약점이 존재할 경우, 그 라이브러리 안에 "patched in" 에 있는 버전을 확인하고, 아래 명령어를 실시한다. (단, 취약점 중, No Patch Available 한 경우에는 대응 불가하다.)
-    $ yarn upgrade [package-name]@latest // 취약점이 있는 라이브러리를 최신 버전으로 업그레이드한다.
-    - 다시 아래 명령어로 프로젝트의 취약점을 확인한다.
+  yarn v1의 대응법이다.
+  Trivy 등에서 Critical 취약점을 허용하지 않아 PR 빌드가 실패하는 경우 등에도 다음과 같이 대응한다.
+  - 취약점 확인
     $ yarn audit
-    - 아직 남아있는 취약점들은, package.json 파일에서 아래와 같이 resolutions 항목을 추가해서 대응할 수 있다. (아래는 예시)
+  - 취약점이 많을 경우는 critical 이상의 취약점을 필터링해서 다시 확인한다.
+    $ yarn audit --level critical
+  - critical에 해당하는 취약점 항목 안의 "라이브러리명"과, "patched in"에 있는 버전을 확인하고, 아래와 같이 packages내의 resolutions에 추가한다.
+    예를 들어, "pbkdf2" 라이브러리의 경우, "patched in"에 >=3.1.3이 있다면, 아래와 같이 resoultions에 추가한다.
+      "resolutions": {
+        // ..., <- 기존의 resolutions 항목들
+        "pbkdf2": ">=3.1.3" // <- 추가
+      }
+    ※ 단, "patched in"에 있는 버전이 No Patch Available 한 경우에는 EOL로 인해 대응이 불가하다.
+      이때는 라이브러리 자체를 다른 것으로 바꿔야하므로 공수가 커질 수 있으며, 선정도 필요하므로 일단 먼저 상부에 보고 필요하다.
+  - yarn install을 다시 실행한다.
+    $ yarn
+  - 다시 아래 명령어로 프로젝트의 취약점을 확인한다. 
+    $ yarn audit
+  - 취약점들이 남아있다면, 계속해서 package.json 파일에서 아래와 같이 resolutions 항목을 추가해서 대응할 수 있다. (아래는 예시)
     {
       "resolutions": {
         "ws": ">=7.5.10",
@@ -26,15 +29,14 @@
         "braces": ">=3.0.3"
       }
     }
-    - 업그레이드 후, 아래 명령어로 의존성을 초기화 한다.
+  - 다시 아래 명령어로 프로젝트의 취약점을 확인한다. 모든 취약점이 없어질 때까지 반복한다.
+    $ yarn audit
+  - 혹시 yarn 사용 도중에 에러가 나거나 뭔가가 꼬였다면, 아래 명령어로 의존성 캐시를 초기화 한다.
     $ rm -rf node_modules
     $ yarn cache clean
     $ yarn
-    - 다시 아래 명령어로 프로젝트의 취약점을 확인한다.
-    $ yarn audit
-    - 모든 취약점이 없어질 때까지, "본격적 대응" 파트를 처음부터 다시 반복한다.
 
-  # - Yarn v2/v3 의 경우 (일반적으로 현장에서 아직 v1을 쓰므로 스킵)
-  #   (주의!) 이는 PnP를 지원하는 라이브러리만 사용해야 하므로, 처음부터 yarn v2/v3로 구축된 프로젝트에서만 사용하자.
-  #   yarn v2/v3에서는 이 명령어를 사용하면, 상호작용적으로 업그레이드할 수 있다.
-  #   $ yarn upgrade-interactive
+1. (사용금지) yarn v2/v3 의 경우 (일반적 현장에서 아직 v1을 쓰므로 스킵)
+  * 주의점: 이는 PnP를 지원하는 라이브러리만 사용해야 하므로, 처음부터 yarn v2/v3로 구축된 프로젝트에서만 사용하자.
+  - yarn v2/v3에서는 이 명령어를 사용하면, 상호작용적으로 업그레이드할 수 있다.
+  $ yarn upgrade-interactive
