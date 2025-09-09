@@ -1,0 +1,157 @@
+[Prisma 정의 및 사용법]
+
+1. 코드 퍼스트 접근법에 대한 이해
+  - 데이터 모델을 코드로 정의하고, 이를 기반으로 데이터베이스 스키마를 생성하는 방식
+  - Prisma에서는 Prisma 스키마 파일(`schema.prisma`)을 통해 데이터 모델을 정의
+
+1. Prisma란?
+  - 오픈소스 ORM(Object-Relational Mapping) 도구
+  - 데이터베이스와 애플리케이션 간의 상호작용을 단순화
+  - TypeScript 및 JavaScript 환경에서 주로 사용
+  - 주요 기능:
+    - 데이터 모델링: Prisma 스키마 파일을 통해 데이터 모델 정의
+    - 마이그레이션: 데이터베이스 스키마 변경 관리
+    - 쿼리 빌딩: 타입 안전한 쿼리 작성 지원
+    - Prisma Client: 자동 생성된 타입 안전한 데이터베이스 클라이언트 제공
+    - Prisma Studio: GUI 기반의 데이터베이스 관리 도구 제공
+
+1. Prisma 사용법
+  - 설치:
+    ```bash
+    npm install @prisma/client
+    npm install prisma --save-dev
+    ```
+  - 초기화:
+    ```bash
+    npx prisma init
+    ```
+  - Prisma 스키마 정의:
+    - `prisma/schema.prisma` 파일에서 데이터 모델 정의
+    ```prisma
+    datasource db {
+      provider = "postgresql" // 또는 "mysql", "sqlite" 등
+      url      = env("DATABASE_URL")
+    }
+    generator client {
+      provider = "prisma-client-js"
+    }
+    model User {
+      id    Int     @id @default(autoincrement())
+      name  String
+      email String  @unique
+      posts Post[]
+    }
+    model Post {
+      id        Int      @id @default(autoincrement())
+      title     String
+      content   String?
+      published Boolean  @default(false)
+      authorId  Int
+      author    User     @relation(fields: [authorId], references: [id])
+    }
+    ```
+  - 마이그레이션 생성 및 적용:
+    ```bash
+    npx prisma migrate dev --name init
+    ```
+  - Prisma Client 사용:
+    ```typescript
+    import { PrismaClient } from '@prisma/client';
+    const prisma = new PrismaClient();
+    async function main() {
+      // 사용자 생성
+      const newUser = await prisma.user.create({
+        data: {
+          name: 'Alice',
+          email: 'alice@example.com'
+        }
+      });
+      console.log('New user created:', newUser);
+    }
+    main()
+      .catch(e => console.error(e))
+      .finally(async () => {
+        await prisma.$disconnect();
+      });
+    ```
+
+1. Prisma Studio 사용
+  - GUI 기반의 데이터베이스 관리 도구
+  - 실행:
+    ```bash
+    npx prisma studio
+    ```
+  - 브라우저에서 데이터베이스 테이블을 시각적으로 탐색 및 편집 가능
+
+5. Prisma Client API 주요 메서드
+  - `findMany`: 여러 레코드 조회
+  - `findUnique`: 단일 레코드 조회 (고유 필드 기준)
+  - `create`: 새 레코드 생성
+  - `update`: 기존 레코드 업데이트
+  - `delete`: 레코드 삭제
+  - `upsert`: 레코드가 존재하면 업데이트, 없으면 생성
+  - `count`: 레코드 개수 조회
+  - `aggregate`: 집계 함수 사용 (예: 평균, 합계 등)
+  - `transaction`: 여러 쿼리를 하나의 트랜잭션으로
+
+1. Prisma 마이그레이션 관리
+  - 마이그레이션 생성:
+    ```bash
+    npx prisma migrate dev --name <migration_name>
+    ```
+  - 마이그레이션 적용:
+    ```bash
+    npx prisma migrate deploy
+    ```
+  - 마이그레이션 상태 확인:
+    ```bash
+    npx prisma migrate status
+    ```
+
+1. 환경 변수 설정
+  - `.env` 파일에 데이터베이스 연결 문자열 설정
+    ```
+    DATABASE_URL="postgresql://user:password@localhost:5432/mydb"
+    ```
+
+1. Prisma와 TypeScript 통합
+  - Prisma Client는 TypeScript 타입을 자동 생성하여 타입 안전성을 제공
+  - 데이터 모델 변경 시, `npx prisma generate` 명령어로 타입 업데이트
+
+1. Prisma와 GraphQL 통합
+  - Prisma를 GraphQL 서버와 함께 사용하여 데이터베이스 쿼리를 처리
+  - 예: Apollo Server와 함께 사용
+    ```typescript
+    import { ApolloServer, gql } from 'apollo-server';
+    import { PrismaClient } from '@prisma/client';
+    const prisma = new PrismaClient();
+    const typeDefs = gql`
+      type User {
+        id: Int!
+        name: String!
+        email: String!
+        posts: [Post!]!
+      }
+      type Post {
+        id: Int!
+        title: String!
+        content: String
+        published: Boolean!
+        ...
+      }
+      type Query {
+        users: [User!]!
+        posts: [Post!]!
+      }
+    `;
+    const resolvers = {
+      Query: {
+        users: () => prisma.user.findMany(),
+        posts: () => prisma.post.findMany(),
+      },
+    };
+    const server = new ApolloServer({ typeDefs, resolvers });
+    server.listen().then(({ url }) => {
+      console.log(`Server ready at ${url}`);
+    });
+  ```

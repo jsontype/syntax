@@ -77,3 +77,31 @@
   $ vite // 앱 실행 확인
   $ npm test // 테스트
   $ npm test:watch // 테스트 워치 모드
+
+1. 정리
+  - Vitest는 그냥 jest랑 거의 동일한데 환경만 Vite일 때 사용하는 테스트 라이브러리이다.
+  - 컴포넌트 UT를 작성할 때, 리액트에서는 testing-library/react에 있는 render, screen 함수를 사용한다.
+    반면, 뷰에서는 @vue/test-utils에 있는 mount, shallowMount 함수를 사용한다.
+  - 리액트 컴포넌트 UT 예시:
+    import { render, screen } from '@testing-library/react'
+    import { describe, it, expect } from 'vitest'
+    import MyComponent from './MyComponent'
+
+    describe('MyComponent', () => {
+      it('renders the component with given props', () => {
+        render(<MyComponent prop1="value1" />)
+        expect(screen.getByText('value1')).toBeInTheDocument()
+      })
+    })
+  - 뷰 컴포넌트 UT 예시:
+    import { mount } from '@vue/test-utils'
+    import { describe, it, expect } from 'vitest'
+    import MyComponent from './MyComponent.vue'
+    describe('MyComponent', () => {
+      it('renders the component with given props', () => {
+        const wrapper = mount(MyComponent, {
+          props: { prop1: 'value1' }
+        })
+        expect(wrapper.text()).toContain('value1')
+      })
+    })
