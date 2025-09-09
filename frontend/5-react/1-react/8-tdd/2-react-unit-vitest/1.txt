@@ -1,0 +1,79 @@
+[Vitest]
+
+1. Vitest: 유닛테스트 라이브러리로, jest와 매우 비슷한데, vite으로 설치된 환경에서 쓴다.
+
+1. 설치
+  // vite으로 리액트 프로젝트 생성
+  $ npm create vite@latest app1 -- --template react-ts
+  $ cd app1
+  $ npm i
+  // vitest 설치
+  $ npm i -D vitest jsdom @testing-library/react @testing-library/jest-dom
+
+1. vite.config.ts 수정 : vitest 설정 추가
+  import { defineConfig } from 'vitest/config'
+  import react from '@vitejs/plugin-react'
+
+  export default defineConfig({
+    plugins: [react()],
+    test: {
+      globals: true,
+      environment: 'jsdom',  // 브라우저 환경
+      setupFiles: './src/setupTests.ts',
+    },
+  })
+
+1. src/setupTests.ts 생성 : jest-dom 임포트
+  import '@testing-library/jest-dom'
+
+1. src/components/Hello.tsx 생성: 샘플 컴포넌트 작성
+  type HelloProps = {
+    name: string
+  }
+
+  export default function Hello({ name }: HelloProps) {
+    return <h1>Hello, {name}!</h1>
+  }
+
+1. src/App.tsx 수정: 샘플 컴포넌트 사용
+  import Hello from './components/Hello'
+  import './App.css'
+
+  function App() {
+    return (
+      <>
+        <Hello name="Donghwa" />
+      </>
+    )
+  }
+
+  export default App
+
+1. src/components/Hello.test.tsx 생성: 샘플 컴포넌트의 유닛 테스트 작성
+  import { render, screen } from '@testing-library/react'
+  import { describe, it, expect } from 'vitest'
+  import Hello from './Hello'
+
+  describe('Hello Component', () => {
+    it('renders greeting message', () => {
+      render(<Hello name="Donghwa" />)
+      expect(screen.getByText('Hello, Donghwa!')).toBeInTheDocument()
+    })
+  })
+
+1. package.json 수정: 테스트 스크립트 추가
+  {
+    ...
+    "scripts": {
+      ...
+      "test": "vitest",
+      "test:watch": "vitest --watch"
+    },
+    ...
+  }
+
+1. 테스트
+  $ cd app1
+  $ vite // 앱 실행 확인
+  $ npm test // 테스트
+  $ npm test:watch // 테스트 워치 모드
