@@ -1,4 +1,4 @@
-[Scrum Master 연수 내용 요약]
+[아자일 / Scrum 요약]
 
 1. 프로젝트 시작 전 회의
   PBI (Product Backlog Item)을 선정한다.
