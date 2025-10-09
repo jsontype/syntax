@@ -1,0 +1,27 @@
+[Chrome Web Store용 앱 만들기]
+
+1. 사전준비: 5달러 지불하고 크롬 계발자 계정 활성화하기
+  Chrome Web Store Developer Dashboard 에 접속.
+  구글 계정으로 로그인.
+  1회 등록비 5달러를 결제해야 개발자 계정이 활성화됨.
+
+1. manifest.json 파일 작성
+  프로젝트 폴더를 만들고, 반드시 manifest.json 파일을 포함해야 함.
+  manifest.json에는 확장의 이름, 버전, 권한, 아이콘, 실행 파일 등을 정의.
+  {
+    "manifest_version": 3,
+    "name": "My Extension",
+    "version": "1.0",
+    "description": "간단한 확장 프로그램",
+    "permissions": ["storage", "tabs"],
+    "action": {
+      "default_popup": "popup.html",
+      "default_icon": "icon.png"
+    }
+  }
+
+1. 패키징부터 이어서...
+  https://chatgpt.com/c/68d8e5db-1b14-8325-aa5c-94605b6efc24 참조
+  테쥰 정리되면 새 레포 파서 한번 만들어보기!
+
+  https://chrome.google.com/webstore/devconsole/ 에서 비판매자 계정 설정?
