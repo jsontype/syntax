@@ -46,8 +46,8 @@
     vscode 터미널을 열고, I와 l을 쳐서 잘 구분이 되는 폰트로 바뀌었는지 확인한다.
     l(엘)이 빠루처럼 되어있어서 잘 구분되는 것이 Nerd Font의 대표적 특징이다.
   $ oh-my-posh get shell
-  $ notepad $PROFILE
-  노트패드가 열리면 다음 줄을 추가
+  $ code $PROFILE (= 맥의 code ~/.zshrc 과 동일)
+  파워쉘 프로필이 열리면 다음 줄을 추가
   oh-my-posh init pwsh | Invoke-Expression
   저장후 노트패드를 닫음
   Powershell 터미널에서 아래를 입력
