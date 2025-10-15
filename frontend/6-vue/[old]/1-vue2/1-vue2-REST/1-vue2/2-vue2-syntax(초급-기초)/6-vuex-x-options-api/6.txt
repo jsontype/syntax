@@ -5,7 +5,7 @@
   글로벌 스테이트 관리 라이브러리에는 vuex 외에도 pinia 등의 선택지가 있다.
   vue2에서는 vuex를 통해 "options api"를 호출한다.
 
-1. vuex로 options api를 호출하는 흐름
+1. options api에서 vuex로 store data를 호출하는 흐름
   created/mounted/updated/destroyed 시점 또는 사용자의 이벤트 호출
   -> dispatch -> actions -> commit -> mutations -> client에 store 변경 상황 반영
 
