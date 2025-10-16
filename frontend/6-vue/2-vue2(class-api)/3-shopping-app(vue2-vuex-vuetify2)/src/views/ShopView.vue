@@ -6,9 +6,9 @@
       <!-- Cart Summary -->
       <div style="margin-bottom: 20px; padding: 10px; border: 1px solid #ddd">
         <h3>
-          장바구니: {{ cartItems.length }}개 상품 | 총액: {{ totalPrice }}원
+          장바구니: {{ cartItemsCount }}개 상품 | 총액: {{ totalPrice }}원
         </h3>
-        <button @click="goToCart" :disabled="cartItems.length === 0">
+        <button @click="goToCart" :disabled="cartItemsCount === 0">
           장바구니 보기
         </button>
       </div>
@@ -52,7 +52,7 @@
           </div>
 
           <button
-            @click="addToCart(product)"
+            @click="addToCartHandler(product)"
             style="
               width: 100%;
               padding: 10px;
@@ -71,6 +71,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
+import { mapGetters, mapActions } from "vuex"
 
 interface Product {
   id: number
@@ -85,16 +86,28 @@ interface Product {
   }
 }
 
-interface CartItem {
-  product: Product
-  quantity: number
-}
-
-@Component({})
+@Component({
+  computed: {
+    ...mapGetters(["cartItemsCount", "totalPrice", "getProductQuantity"]),
+  },
+  methods: {
+    ...mapActions(["setProductQuantity", "addToCart"]),
+  },
+})
 export default class ShopView extends Vue {
   private products: Product[] = []
-  private cartItems: CartItem[] = []
-  private productQuantities: { [key: number]: number } = {}
+
+  // Vuex getters (computed에서 매핑됨)
+  cartItemsCount!: number
+  totalPrice!: number
+  getProductQuantity!: (productId: number) => number
+
+  // Vuex actions (methods에서 매핑됨)
+  setProductQuantity!: (payload: {
+    productId: number
+    quantity: number
+  }) => void
+  addToCart!: (payload: { product: Product; quantity: number }) => void
 
   async mounted() {
     await this.fetchProducts()
@@ -106,56 +119,32 @@ export default class ShopView extends Vue {
       this.products = await response.json()
       // 초기 수량을 1로 설정
       this.products.forEach((product) => {
-        this.$set(this.productQuantities, product.id, 1)
+        this.setProductQuantity({ productId: product.id, quantity: 1 })
       })
     } catch (error) {
       console.error("상품 데이터를 가져오는데 실패했습니다:", error)
     }
   }
 
-  private getProductQuantity(productId: number): number {
-    return this.productQuantities[productId] || 1
-  }
-
   private increaseQuantity(productId: number) {
     const current = this.getProductQuantity(productId)
-    this.$set(this.productQuantities, productId, current + 1)
+    this.setProductQuantity({ productId, quantity: current + 1 })
   }
 
   private decreaseQuantity(productId: number) {
     const current = this.getProductQuantity(productId)
     if (current > 1) {
-      this.$set(this.productQuantities, productId, current - 1)
+      this.setProductQuantity({ productId, quantity: current - 1 })
     }
   }
 
-  private addToCart(product: Product) {
+  private addToCartHandler(product: Product) {
     const quantity = this.getProductQuantity(product.id)
-    const existingItem = this.cartItems.find(
-      (item) => item.product.id === product.id
-    )
-
-    if (existingItem) {
-      existingItem.quantity += quantity
-    } else {
-      this.cartItems.push({
-        product,
-        quantity,
-      })
-    }
-
+    this.addToCart({ product, quantity })
     alert(`${product.title} ${quantity}개가 장바구니에 추가되었습니다!`)
   }
 
-  private get totalPrice(): number {
-    return this.cartItems.reduce((total, item) => {
-      return total + item.product.price * item.quantity
-    }, 0)
-  }
-
   private goToCart() {
-    // 장바구니 데이터를 localStorage에 저장
-    localStorage.setItem("cartItems", JSON.stringify(this.cartItems))
     this.$router.push("/cart")
   }
 }
