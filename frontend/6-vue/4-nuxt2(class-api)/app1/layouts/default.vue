@@ -63,50 +63,52 @@
 </template>
 
 <script>
-export default {
+import { Component, Vue } from "vue-property-decorator";
+
+@Component({
   name: "DefaultLayout",
-  data() {
-    return {
-      clipped: false,
-      drawer: false,
-      fixed: false,
-      items: [
-        {
-          icon: "mdi-home",
-          title: "홈",
-          to: "/",
-        },
-        {
-          icon: "mdi-information",
-          title: "어바웃",
-          to: "/about",
-        },
-        {
-          icon: "mdi-movie",
-          title: "무비",
-          to: "/movie",
-        },
-        {
-          icon: "mdi-check-circle",
-          title: "투두",
-          to: "/todo",
-        },
-        {
-          icon: "mdi-shopping",
-          title: "쇼핑",
-          to: "/shopping",
-        },
-        {
-          icon: "mdi-cart",
-          title: "카트",
-          to: "/cart",
-        },
-      ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: "Vuetify Nuxt App",
-    };
-  },
-};
+})
+export default class DefaultLayout extends Vue {
+  // Data properties
+  clipped = false;
+  drawer = false;
+  fixed = false;
+  miniVariant = false;
+  right = true;
+  rightDrawer = false;
+  title = "Vuetify Nuxt App";
+
+  items = [
+    {
+      icon: "mdi-home",
+      title: "홈",
+      to: "/",
+    },
+    {
+      icon: "mdi-information",
+      title: "어바웃",
+      to: "/about",
+    },
+    {
+      icon: "mdi-movie",
+      title: "무비",
+      to: "/movie",
+    },
+    {
+      icon: "mdi-check-circle",
+      title: "투두",
+      to: "/todo",
+    },
+    {
+      icon: "mdi-shopping",
+      title: "쇼핑",
+      to: "/shopping",
+    },
+    {
+      icon: "mdi-cart",
+      title: "카트",
+      to: "/cart",
+    },
+  ];
+}
 </script>
