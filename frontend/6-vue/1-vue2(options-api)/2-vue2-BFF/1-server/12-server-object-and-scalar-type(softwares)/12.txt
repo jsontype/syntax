@@ -1,0 +1,192 @@
+[Scalar 타입]
+
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. GraphQL의 타입 종류
+  - 객체 타입 : type
+  - 스칼라 타입 : Int, Float, String, Boolean, ID
+  - 열거 타입 : enum
+  - 리스트 타입 : [타입]
+  - 유니온 타입 : 타입 | 타입
+  - 인터페이스 타입 : interface
+
+
+
+1. 객체 타입
+  객체 타입은 typeDefs 변수 안에 이미 담고 있는 아래와 같은 형태이다.
+    type Equipment {
+      id: String
+      used_by: String
+      count: Int
+      new_or_used: String
+    }
+
+
+
+1. Scalar 타입 : GraphQL 내장 타입을 의미하며, 다음과 같다.
+  Scalar 타입의 종류
+    ID : 기본적으로는 String이나, 고유 식별자 역할임을 나타냄
+    String : UTF-8 문자열
+    Int : 부호가 있는 정수
+    Float : 부호가 있는 부동소수점 값
+    Boolean : 참 / 거짓
+    ! : Non Null
+
+  예를 들면, 다음과 같이 쓰게 될 것이다.
+    type EquipmentAdv {
+      id: ID!
+      used_by: String!
+      count: Int!
+      use_rate: Float
+      is_new: Boolean!
+    }
+
+
+
+1. typedefs-resolvers/equipments.js 수정 : use_rate, is_new 두개의 필드를 추가한 EquipmentAdv 쿼리를 만들어두기. Scalar 타입을 사용하기
+  const { gql } = require("apollo-server")
+  const dbWorks = require("../dbWorks")
+
+  const typeDefs = gql`
+    type Equipment {
+      id: String
+      used_by: String
+      count: Int
+      new_or_used: String
+    }
+    type EquipmentAdv {
+      id: ID!
+      used_by: String!
+      count: Int!
+      use_rate: Float
+      is_new: Boolean!
+    }
+  `
+
+  const resolvers = {
+    Query: {
+      equipments: (parent, args) => dbWorks.getEquipments(args),
+      equipmentAdvs: (parent, args) =>
+        dbWorks.getEquipments(args).map((equipment) => {
+          if (equipment.used_by === "developer") {
+            // 개발자가 사용하는 장비일 경우, 사용량을 랜덤으로 만들어서 넣어줄 것이다.
+            equipment.use_rate = Math.random().toFixed(2)
+          }
+          // 새것인지 중고인지를 Boolean 값으로 구분하는 필드를 추가한다.
+          equipment.is_new = equipment.new_or_used === "new"
+          return equipment
+        }),
+    },
+    Mutation: {
+      deleteEquipment: (parent, args) => dbWorks.deleteItem("equipments", args),
+    },
+  }
+
+  module.exports = {
+    typeDefs: typeDefs,
+    resolvers: resolvers,
+  }
+
+
+
+1. typedefs-resolvers/softwares.js 생성: Softwares의 typeDefs와 resolvers 설정. Scalar 타입을 사용하기
+  const { gql } = require("apollo-server")
+  const dbWorks = require("../dbWorks.js")
+
+  const typeDefs = gql`
+    type Software {
+      id: ID!
+      used_by: Role!
+      developed_by: String!
+      description: String
+    }
+  `
+
+  const resolvers = {
+    Query: {
+      softwares: (parent, args) => dbWorks.getSoftwares(args),
+      software: (parent, args) => dbWorks.getSoftwares(args)[0],
+    },
+  }
+
+  module.exports = {
+    typeDefs: typeDefs,
+    resolvers: resolvers,
+  }
+
+
+
+1. typedefs-resolvers/_queries.js 수정 : "equipmentAdvs, softwares, software" 쿼리 타입을 추가한다. (* software는 한개만 취득이므로 배열을 해제한 타입이다.)
+  const { gql } = require("apollo-server")
+
+  const typeDefs = gql`
+    type Query {
+      equipments: [Equipment]
+      supplies: [Supply]
+      equipmentAdvs: [EquipmentAdv]
+      softwares: [Software]
+      software: Software
+    }
+  `
+
+  module.exports = typeDefs
+
+
+
+1. index.js 수정 : 모듈화된 softwares의 typeDefs, resolevers를 루트모듈에 적용시킨다.
+  const { ApolloServer } = require('apollo-server')
+
+  const queries = require('./typedefs-resolvers/_queries')
+  const mutations = require('./typedefs-resolvers/_mutations')
+  const equipments = require('./typedefs-resolvers/equipments')
+  const supplies = require('./typedefs-resolvers/supplies')
+  const softwares = require("./typedefs-resolvers/softwares")
+
+  const typeDefs = [
+    queries,
+    mutations,
+    equipments.typeDefs,
+    supplies.typeDefs,
+    softwares.typeDefs,
+  ]
+
+  const resolvers = [
+    equipments.resolvers,
+    supplies.resolvers,
+    softwares.resolvers,
+  ]
+
+  const server =  new ApolloServer({ typeDefs, resolvers })
+
+  server.listen().then(({url}) => {
+    console.log(`🚀  Server ready at ${url}`)
+  })
+
+
+
+1. 테스트
+  $ cd app1
+  $ npm start
+  http://localhost:4000/ 접속 : GraphQL Playground가 열린다.
+  GraphQL Playground 사용 : 좌측에 다음 쿼리를 넣고 Run을 클릭
+    query {
+      equipmentAdvs {
+        id
+        used_by
+        count
+        use_rate
+        is_new
+      }
+    }
+  use_rate, is_new 항목이 추가된 equipments 목록이 표시되는지 확인
+  (참고: use_rate에 null이 있더라도 에러가 나지 않는 이유는 equipmentAdv 쿼리에서 use_rate에 null 허용을 했기 때문이다.)
+  GraphQL Playground 사용 : 좌측에 다음 쿼리를 넣고 Run을 클릭
+    query {
+      softwares {
+        id
+        used_by
+        developed_by
+        description
+      }
+    }
+  softwares 목록이 표시되는지 확인

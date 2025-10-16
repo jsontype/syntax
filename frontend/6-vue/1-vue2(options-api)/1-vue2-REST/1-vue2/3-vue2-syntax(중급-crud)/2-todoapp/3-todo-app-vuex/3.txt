@@ -1,0 +1,99 @@
+[Vuex로 Store 다루기]
+
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. 설치: 뷰 디버깅 툴 설치
+  크롬 웹스토어에서 vue.js devtools 검색후 설치 후 확장프로그램에 추가
+  (이후 vuejs 어플리케이션을 켠 뒤, vue 탭에서 각종 vuejs 변수 확인이 가능진다.)
+
+1. Vuex란?
+  Store를 다루기 위한 글로벌스테이트 라이브러리이다.
+  Vuex의 대안으로는 Pinia 정도가 있다.
+
+  Store란, 자식이 자식에게 계속 prop으로 데이터를 보내줘야할 때 스토어를 대신 사용하면,
+  어느 컴포넌트에서 쓰더라도 그 데이터에 다이렉트하게 접근할 수 있는 일종의 Temp(임시) 데이터를 말한다.
+  스토어는 복잡할 수록 엄청난 효과를 가진다.
+
+  - Store 쓰기 전의 데이타 흐름도
+        delete()           add()
+    Todo ⇔ TodoList ⇔ App ⇔ AddTodo
+                        ↓
+                      CompletedTodo
+  - Store 쓴 후의 데이타 흐름도  
+    Store ⇔ CompleteTodo, AddTodo, TodoList ⇔ App
+
+1. app8 만들고 app7의 public, src폴더 덮어씌우기
+1. Home, About, HelloWorld.vue 삭제
+
+1. 테스트
+  $ cd app1
+  $ npm run serve
+
+
+
+[Vuex State]
+
+1. State 관리하기
+  App.vue를 state로 옮겨서 관리해보자.
+  state:는 vue파일 안의 data:와 비슷하다.
+  즉 (바뀐) 데이터가 들어가는 부분이다.
+
+1. App.vue # 부분 삭제
+1. store/index.js의 state:{}에 추가
+1. components/CompletedTodo.vue의 props 삭제, computed:에 todos() 추가
+  computed:에 넣는 데이터는 값을 최신으로 유지시킵니다.
+1. components/TodoList.vue의 props 삭제, computed:에 todos() 추가
+
+1. 테스트
+  $ cd app1
+  $ npm run serve
+
+
+
+[Vuex Mutations]
+
+1. Mutation 관리하기
+  Vuex에서, state에 있는 데이터를 변경하고 싶으면, mutations 안에서 사용하는 것이 규칙이다.
+
+1. store/index.js의 mutate:{}에 추가
+1. App.vue
+1. components들 수정
+
+1. 테스트
+  $ cd app1
+  $ npm run serve
+
+
+
+[Vuex Actions]
+
+1. Actions란?
+  Actions는 주로 DB의 데이터와 스토어데이터를 동시에 갱신할 때,
+  비동기로(병렬적으로) 작업을 처리해서 속도를 높이고자 할 때 사용하는 메소드이다.
+  먼저 DB로 보내는 일을 비동기로 작업을 시켜놓는다.
+  그리고나면 DB 갱신의 응답을 받을 때까지 시간이 걸리게 되는데,
+  그것을 보내놓고 다른 작업을 이어나가게 해야 속도가 빠를 것이다.
+  그래서 DB의 갱신 요청은 비동기적으로(=병렬적으로) 보내놓고,
+  "store안에 있는 데이터"(=state)를 같이 변경한 뒤에,
+  DB의 갱신 요청이 완료가 됐을 때 그 때 스토어도 커밋을 해서 보내주게 되는 것이다.
+
+1. $ npm install --save axios 로 axios 설치
+1. store/index.js의 actions:{}에 추가
+1. App.vue에 import axios하면서 메소드 추가
+1. components들 수정    
+
+1. 테스트
+  $ cd app1
+  $ npm run serve
+
+
+
+[Vuex Getters & Map Helper]
+
+1. CompletedTodo.vue : Vuex Getters 사용하기
+1. store/index.js : Vuex Getters 사용하기
+1. UserList.vue : Map Helper 사용하기
+
+1. 테스트 : 화면상 동작확인, 디버깅모드로 전체 흐름 돌려보기
+  $ cd app1
+  $ npm run serve
