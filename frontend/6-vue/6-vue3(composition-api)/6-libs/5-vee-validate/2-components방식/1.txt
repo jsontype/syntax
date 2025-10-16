@@ -1,0 +1,75 @@
+[vee-validate 4.x: Components(Field, Form)를 사용하는 방법]
+참조URL: https://vee-validate.logaretm.com/v4/examples/custom-inputs
+참조URL: https://vee-validate.logaretm.com/v4/guide/validation#validation-schemas-with-yup
+
+1. 사전준비: init 앱을 가지고 온다.
+
+1. 사전준비: src/components/HelloWorld.vue 삭제
+
+1. 라이브러리 설치
+  $ npm i vee-validate (= yarn add vee-validate) // 발리데이션 처리하는 라이브러리
+  $ npm i yup (= yarn add yup) // 발리데이션 스키마(룰)를 정의하는 라이브러리
+
+1. src/components/Form.vue 생성 : Form과 Field를 사용하는 Form 모르큘러스를 만든다.
+  ```
+    <template>
+      <Form :validation-schema="schema">
+        <div>
+          <div>Email</div>
+          <Field name="email" type="email" />
+          <ErrorMessage name="email" class="errorText" />
+        </div>
+        <div>
+          <div>Password</div>
+          <Field name="password" type="password" />
+          <ErrorMessage name="password" class="errorText" />
+        </div>
+        <div>
+          <div>Password Confirm</div>
+          <Field name="passwordConfirm" type="password" />
+          <ErrorMessage name="passwordConfirm" class="errorText" />
+        </div>    
+        <button>Submit</button>
+      </Form>
+    </template>
+
+    <script setup>
+    import { Form, Field, ErrorMessage } from 'vee-validate';
+    import * as yup from 'yup';
+
+    const schema = yup.object({
+      email: yup.string().required().email(),
+      password: yup.string().required().min(6),
+      passwordConfirm: yup
+        .string()
+        .required()
+        .min(6)
+        .oneOf([yup.ref('password')]),
+      });
+    </script>
+
+    <style scoped>
+    .errorText {
+      color: red;
+      margin-left: 5px;
+    }
+    </style>
+  ```
+
+1. src/App.vue 수정 : 컴포넌트를 호출한다.
+  ```
+    <template>
+      <Form />
+    </template>
+
+    <script setup lang="ts">
+    import Form from '@/components/Form.vue'
+    </script>
+
+    <style scoped>
+    </style>
+  ```
+
+1. 테스트 : Validation 처리가 잘 되는지 확인한다.
+  $ cd app1
+  $ npm run dev

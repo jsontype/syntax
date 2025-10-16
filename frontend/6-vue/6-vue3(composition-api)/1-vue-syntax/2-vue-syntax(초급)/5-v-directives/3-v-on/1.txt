@@ -1,0 +1,145 @@
+[v-on]
+
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. src/components/VOn.vue 생성
+  ```
+    <template>
+      <div>
+        <h1>V-On 이벤트 처리</h1>
+        <!-- 1-1. V-On의 사용법 -->
+        <button v-on:click="handleClick">클릭</button>
+        <!-- 1-2. V-On의 생략 (기본 사용법이 됨) -->
+        <button @click="handleClick">클릭</button>
+
+        <br />
+        <!-- 2-1. 메소드 이벤트핸들러 (기본 사용법이 됨) -->
+        <button @click="methodHandler">메소드 핸들러</button>
+        <!-- 2-2. 메소드 이벤트핸들러에게 인수를 건네기 -->
+        <button @click="passArgument('abcd')">메소드 핸들러: 인수 전달</button>
+        <!-- 2-3. 인라인 메소드 이벤트핸들러 -->
+        <button @click="console.log('인라인메소드 이벤트핸들러')">인라인 핸들러</button>
+
+        <br />
+        <!-- 3-1. 이벤트 객체 참조하기1 : e는 인수로 따로 전달안해도 자동으로 전달됨 -->
+        <input @change="printEvent" placeholder="이벤트 출력: 입력후 엔터" />
+        <!-- 3-2. 이벤트 객체 참조하기2 : e는 인수로 따로 전달안해도 자동으로 전달됨 -->
+        <button @click="printEvent">이벤트 출력: 버튼 클릭</button>
+      </div>
+    </template>
+
+    <script setup>
+    import { ref } from 'vue'
+
+    const data = ref('')
+
+    // 1-1. 1-2. 메소드 이벤트핸들러
+    const handleClick = () => {
+      console.log('클릭됨')
+    }
+
+    // 2-1. 메소드 이벤트핸들러
+    const methodHandler = (arg) => {
+      console.log('메소드 이벤트핸들러')
+    }
+
+    // 2-2. 메소드 이벤트핸들러에게 인수를 건네기
+    const passArgument = (arg) => {
+      console.log('메소드 이벤트핸들러 인수:', arg)
+    }
+
+    // 3-1. 3-2. 이벤트 객체 참조하기 : e는 인수로 따로 전달안해도 자동으로 전달됨. $event로 쓰기도 함.
+    const printEvent = (e) => {
+      console.log('이벤트 객체 e: ', e)
+    }
+    </script>
+
+  ```
+
+1. src/App.vue 수정 : VBindProps 컴포넌트를 추가하고, props를 전달한다.
+  ```
+    <template>
+      <VBind />
+      <VBindProps 
+        :string1="str1" 
+        :string2="str2" 
+        :number1="num1" 
+        :boolean1="bool1"
+        :on-click="showAlert"
+      />
+      <hr />
+      <VOn />
+    </template>
+
+    <script setup lang="ts">
+    import VBind from '@/components/VBind.vue'
+    import VBindProps from '@/components/VBindProps.vue'
+    import VOn from '@/components/VOn.vue'
+
+    const str1 = 'String 1'
+    const str2 = 'String 2'
+    const num1 = 9999
+    const bool1 = num1 > 9998
+    const showAlert = () => {
+      alert('clicked')
+    }
+    </script>
+
+    <style scoped>
+    </style>
+  ```
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
+
+1. ★ 참고 : 이벤트의 종류
+  @input : input, textarea, select 태그에서 값이 변경될 때 발생
+  @change : input, textarea, select 태그에서 값이 변경되고 포커스가 빠져나갈 때 발생
+  @click : 클릭할 때 발생
+  @dblclick : 더블클릭할 때 발생
+  @keydown : 키보드를 누를 때 발생
+  @keyup : 키보드를 눌렀다 뗄 때 발생
+  @keypress : 키보드를 누르고 있을 때 발생
+  @focus : 포커스가 들어올 때 발생
+  @blur : 포커스가 빠져나갈 때 발생
+  @submit : 폼을 제출할 때 발생
+  @reset : 폼을 리셋할 때 발생
+  @scroll : 스크롤할 때 발생
+  @mouseenter : 마우스가 영역 안으로 들어올 때 발생
+  @mouseleave : 마우스가 영역 밖으로 나갈 때 발생
+  @mouseover : 마우스가 영역 안에서 움직일 때 발생
+  @mouseout : 마우스가 영역 밖에서 움직일 때 발생
+  @mousemove : 마우스가 영역 안에서 움직일 때 발생
+  @mousedown : 마우스를 누를 때 발생
+  @mouseup : 마우스를 눌렀다 뗄 때 발생
+  @touchstart : 터치를 시작할 때 발생
+  @touchmove : 터치를 움직일 때 발생
+  @touchend : 터치를 뗄 때 발생
+  @touchcancel : 터치가 취소될 때 발생
+  @drag : 드래그할 때 발생
+  @dragstart : 드래그를 시작할 때 발생
+  @dragend : 드래그를 끝낼 때 발생
+  @dragenter : 드래그를 영역 안으로 들어올 때 발생
+  @dragleave : 드래그를 영역 밖으로 나갈 때 발생
+  @dragover : 드래그를 영역 안에서 움직일 때 발생
+  @drop : 드래그를 끝낼 때 발생
+  @transitionend : CSS 트랜지션을 끝낼 때 발생
+  @animationstart : CSS 애니메이션을 시작할 때 발생
+  @animationend : CSS 애니메이션을 끝낼 때 발생
+  @animationiteration : CSS 애니메이션을 반복할 때 발생
+  @copy : 복사할 때 발생
+  @cut : 잘라낼 때 발생
+  @paste : 붙여넣을 때 발생
+  @keydown.enter : 엔터키를 누를 때 발생
+  @keydown.tab : 탭키를 누를 때 발생
+  @keydown.delete : 삭제키를 누를 때 발생
+  @keydown.esc : ESC키를 누를 때 발생
+  @keydown.space : 스페이스바를 누를 때 발생
+  @keydown.up : 위쪽 화살표키를 누를 때 발생
+  @keydown.down : 아래쪽 화살표키를 누를 때 발생
+  @keydown.left : 왼쪽 화살표키를 누를 때 발생
+  @keydown.right : 오른쪽 화살표키를 누를 때 발생
+  @keydown.shift : 쉬프트키를 누를 때 발생
+  @keydown.alt : 알트키를 누를 때 발생
+  @keydown.ctrl : 컨트롤키를 누를 때 발생

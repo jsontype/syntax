@@ -1,0 +1,93 @@
+[v-once]
+
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. src/components/VOnce.vue 생성 : v-once는 한 번만 렌더링 되는 디렉티브이다.
+  ```
+    <template>
+      <div>
+        <h1>V-Once</h1>
+        <p v-once>{{ text1 }}</p>
+        <p>{{ text2 }}</p>
+        <button @click="onClick">내용 업데이트</button>
+      </div>
+    </template>
+
+    <script setup>
+    import { ref } from 'vue'
+
+    const text1 = ref('이 헤더는 한 번만 렌더링됩니다.')
+    const text2 = ref('이 문장은 Vue의 반응 시스템에 의해 업데이트될 수 있다.')
+    const onClick = () => {
+      text1.value = '내용이 업데이트 되었다.' // v-once가 걸려있고, 한번 렌더링된 태그이므로 업데이트 되지 않는다.
+      text2.value = '내용이 업데이트 되었다.'
+    }
+    </script>
+
+    <style scoped>
+    </style>
+  ```
+
+1. src/App.vue 수정 : VOnce 컴포넌트를 호출한다.
+  ```
+    <template>
+      <VBind />
+      <VBindProps 
+        :string1="str1" 
+        :string2="str2" 
+        :number1="num1" 
+        :boolean1="bool1"
+        :on-click="showAlert"
+      />
+      <hr />
+      <VOn />
+      <hr />
+      <VIf />
+      <VElse />
+      <VElseIf1 />
+      <VElseIf2 />
+      <VShow />
+      <hr />
+      <VFor />
+      <hr />
+      <VModel />
+      <VModelModifier />
+      <hr />
+      <VOnce />
+    </template>
+
+    <script setup lang="ts">
+    import VBind from '@/components/VBind.vue'
+    import VBindProps from '@/components/VBindProps.vue'
+    import VOn from '@/components/VOn.vue'
+    import VIf from '@/components/VIf.vue'
+    import VElse from '@/components/VElse.vue'
+    import VElseIf1 from '@/components/VElseIf1.vue'
+    import VElseIf2 from '@/components/VElseIf2.vue'
+    import VShow from '@/components/VShow.vue'
+    import VFor from '@/components/VFor.vue'
+    import VModel from '@/components/VModel.vue'
+    import VModelModifier from '@/components/VModelModifier.vue'
+    import VOnce from '@/components/VOnce.vue'
+
+    const str1 = 'String 1'
+    const str2 = 'String 2'
+    const num1 = 9999
+    const bool1 = num1 > 9998
+    const showAlert = () => {
+      alert('clicked')
+    }
+    </script>
+
+    <style scoped>
+    </style>
+  ```
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
+
+1. 참조: v-once의 용도
+  페이지나 컴포넌트의 일부가 동적 데이터에 의존하지 않고 변경되지 않는 경우, v-once를 사용하여 해당 부분을 한 번만 렌더링할 수 있다.
+  이는 Vue가 데이터 변경을 추적하고 DOM을 업데이트하는 데 드는 리소스를 절약한다. 이는 메모리 사용량을 줄이고 성능을 향상시키는 데 도움이 된다.
+  따라서 대규모 애플리케이션에서 많은 수의 정적 요소가 있을 때, "초기 렌더링 성능을 향상"시킬 수 있다.

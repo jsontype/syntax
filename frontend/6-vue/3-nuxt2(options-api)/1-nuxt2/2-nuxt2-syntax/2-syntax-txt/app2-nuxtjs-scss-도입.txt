@@ -1,0 +1,176 @@
+[scss 도입]
+
+
+
+1. figma를 통해서 템플릿을 만든다.
+  구글에 figma.com 쳐서 들어간 뒤 로그인
+  다음 URL에 접속: https://www.figma.com/file/kUTRctg31fDf68EIEJNbiH/Ikinuki-%E3%82%A6%E3%82%A4%E3%83%A4%E3%83%BC%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0?node-id=3%3A165
+  이 디자인을 nuxt앱과 공통화(모듈화)해서 사용할 수 있게 제작할 것이다.
+
+
+
+### 1. pages/index.vue를 전체 수정 ###
+
+<template>
+  <div>
+    <input type="text" placeholder="ID를 입력해주세요." />
+    <input type="password" placeholder="PW를 입력해주세요." />
+  </div>
+</template>
+
+
+
+### 1. assets/scss/components/_input.scss 폴더 및 파일 생성 ###
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    padding: 12px;
+    width: 100%;
+    border: 2px solid gray;
+    color: gray;
+    background-color: white;
+    font-size: 20px;
+    line-height: 14px;
+
+    &::placeholder {
+        color: gray;
+    }
+
+    &:focus {
+        outline: none;
+    }
+}
+
+
+
+### 1. assets/scss/common/_base.scss 파일 생성 ### : 
+
+// 아래 처리를 하면 100% width 안에서 패딩을 주면 +가 아닌 -가 된다.
+* {
+    box-sizing: border-box;
+}
+p {
+  width: 200px;
+}
+
+
+
+### 1. assets/scss/application.scss 수정 ### :
+위에 있는 reset과 중복되는 css는 아래의 것으로 덮어씌우기 한다.
+즉 reset의 p width 300px은 base의 p width 200px로 덮어씌우기 된다.
+
+// common
+@import "./common/reset"; : 주석풀기
+@import "./common/base"; : 추가 
+
+// components
+@import "./components/input"; : 추가 (이걸 해야 _input.scss 파일이 있는 것을 알아차림)
+
+
+
+1. npm run dev --fix
+  scss가 잘 적용되는지 확인한다.
+
+
+
+### 1. assets/scss/common/_variables.scss 생성 ### : scss 프로퍼티의 밸류의 변수화
+
+// global color
+$orange: #FFA800;
+$gray: #b3b5b7;
+$gray_light: #d5d7d8;
+$white: #FFF;
+$gray_strong: #50555C;
+$white_gray: #C4C4C4;
+
+// background color
+$background-color-orange: $orange;
+$background-color-white: $white;
+
+// font color
+$font-color-gray: $gray;
+$font-color-white: $white;
+$font-color-gray_light: $gray_light;
+$font-color-gray_strong: $gray_strong;
+$font-color-orange: $orange;
+
+// border color
+$border-color-gray: $gray;
+$border-color-white_gray: $white_gray;
+$border-color-gray_strong: $gray_strong;
+
+// global fontsize
+$font-size-xsmall: 1rem;
+$font-size-small: 1.2rem;
+$font-size-normal: 1.4rem;
+$font-size-large: 1.6rem;
+$font-size-extra-large: 1.8rem;
+$font-size-2extra-large: 2rem;
+$font-size-big: 3.3rem;
+
+
+
+### 1. assets/scss/application.scss 수정 ### :
+
+// common
+@import "./common/variable"; : common 맨 앞에 추가해야한다. 이유는 순서상 제일 처음에 들어가야 처음에 작동을 해서 변수에 값이 담기기 때문.
+
+
+
+### 1. assets/scss/common/_base.scss 수정 ### : 변수 사용해보기
+
+맨 아래에 다음 코드를 추가
+html {
+    font-size: 62.5%;
+}
+
+input::placeholder {
+    font-size: $font-size-small;
+}
+
+
+
+1. npm run dev --fix
+  scss가 잘 적용되는지 확인한다. 인풋사이즈가 작아져야 한다.
+
+
+
+### 1. assets/scss/components/_input.scss 수정 ### : 변수화
+
+다음의 color를 gray로부터 변수로 변경해보기
+    &::placeholder {
+        color: $font-color-orange;
+    }
+
+
+
+1. npm run dev --fix
+  scss가 잘 적용되는지 확인한다. 인풋플레이스홀더가 오렌지로 바뀌어야 한다.
+
+
+
+### 1. assets/scss/common/_base.scss 수정 ### : 변수 사용해보기
+
+input::placeholder {
+    font-size: $font-size-small;
+}
+를 지우고,
+body {
+  font-size: $font-size-normal;
+}
+로 변경
+
+
+
+### 1. assets/scss/components/_input.scss 수정 ### : 변수화
+
+다음의 color를 gray_light 변수로 변경
+    &::placeholder {
+        color: $font-color-gray_light;
+    }
+
+
+
+1. npm run dev --fix
+  scss가 잘 적용되는지 확인한다.

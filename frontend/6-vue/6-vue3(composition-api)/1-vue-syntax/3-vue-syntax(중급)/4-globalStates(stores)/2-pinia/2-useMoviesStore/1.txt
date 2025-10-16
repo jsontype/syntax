@@ -1,0 +1,142 @@
+[Pinia Stores: useMoviesStore]
+
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. src/stores/movies/useMoviesStore.js 작성 : 스토어 모듈 (실제 스토어를 조작 및 관리)
+  import { defineStore } from "pinia"
+
+  export const useMoviesStore = defineStore("movies", {
+    state: () => ({
+      moviesList: [],
+    }),
+    actions: {
+      updateMoviesList(newList) {
+        this.moviesList = newList
+      },
+    },
+    getters: {
+      movies: (state) => state.moviesList,
+    },
+  })
+
+1. src/connector/useMoviesConnector.js 작성 : API 호출 로직에 스토어를 업데이트하는 로직을 추가
+  import { ref } from "vue"
+  import { useMoviesStore } from "@/stores/movies/useMoviesStore"
+
+  export function useMoviesConnector() {
+    const moviesStore = useMoviesStore()
+    const loading = ref(false)
+    const error = ref(null)
+
+    const fetchMovies = async () => {
+      loading.value = true
+      error.value = null
+      try {
+        const response = await fetch(
+          "https://yts.mx/api/v2/list_movies.json?sort_by=rating"
+        )
+        if (!response.ok) throw new Error("Failed to fetch movies")
+        const json = await response.json()
+        // 스토어 업데이트
+        moviesStore.updateMoviesList(json.data.movies)
+      } catch (err) {
+        error.value = err.message
+      } finally {
+        loading.value = false
+      }
+    }
+
+    return { loading, error, fetchMovies }
+  }
+
+1. src/connector/useMovies.js 스킵 : 이번에는 무비리스트 호출(connector에서 이미 정의한 함수) 외에 아무런 로직이 없으므로 작성하지 않는다.
+
+1. src/views/Movies.vue 수정 : 스테이트와 로직을 use~Store 에서 꺼내어 사용하도록 변경
+  <template>
+    <div>
+      <h1>Movie App</h1>
+      <div v-if="loading">Loading...</div>
+      <div v-if="error">{{ error }}</div>
+      <div id="movies" v-else>
+        <div v-for="movie in movies" :key="movie.id" class="movie">
+          <a class="movieTitle" :href="movie.url">{{ movie.title }}</a>
+          <img
+            class="movieImage"
+            :src="movie.background_image"
+            :alt="movie.title"
+          />
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <script setup>
+  import { onMounted, computed } from "vue"
+  import { useMoviesConnector } from "@/connectors/useMoviesConnector"
+  import { useMoviesStore } from "@/stores/movies/useMoviesStore"
+
+  // Hooks
+  const { fetchMovies, loading, error } = useMoviesConnector()
+  const moviesStore = useMoviesStore()
+
+  // Computed
+  const movies = computed(() => moviesStore.moviesList)
+
+  // Lifecycle Hooks
+  onMounted(() => {
+    if (movies.value.length > 0) return
+    fetchMovies()
+  })
+  </script>
+
+  <style scoped>
+  .movieTitle {
+    display: block;
+  }
+  .movieImage {
+    width: 100%;
+    height: auto;
+  }
+  </style>
+
+
+1. src/views/Home.vue 수정 : 스테이트를 use~Store 에서 꺼내어 사용하도록 변경
+  <template>
+    <div>
+      <h1>Home</h1>
+      <p>현재 날짜: {{ formattedDate }}</p>
+      <p>현재 카운트: {{ counterStore.count }}</p>
+      <p>
+        현재 표시되고 있는 영화목록 :
+        <span v-if="moviesStore.moviesList.length <= 0">없음</span>
+        <span v-else>총 {{ moviesStore.moviesList.length }}개</span>
+        <div v-for="item in moviesStore.moviesList" :key="item.id">
+          {{ item.title }}
+        </div>
+      </p>
+    </div>
+  </template>
+
+  <script setup>
+  import { ref, onMounted, computed } from "vue"
+  import { useDateUtil } from "@/utils/useDateUtil"
+  import { useCounterStore } from "@/stores/counter/useCounterStore"
+  import { useMoviesStore } from "@/stores/movies/useMoviesStore"
+
+  // Variables
+  const formattedDate = ref("")
+
+  // Hooks
+  const dateUtil = useDateUtil()
+  const counterStore = useCounterStore()
+  const moviesStore = useMoviesStore()
+
+  // Lifecycle Hooks
+  onMounted(() => {
+    formattedDate.value = dateUtil.formatDate(dateUtil.currentDate.value)
+  })
+  </script>
+
+1. 테스트
+  $ cd app1
+  $ npm run dev

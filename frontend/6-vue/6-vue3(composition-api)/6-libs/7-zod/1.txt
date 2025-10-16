@@ -1,0 +1,140 @@
+[zod]
+
+1. zod란?
+  zod는 타입스크립트용 스키마 검증 라이브러리이다.
+
+1. 사전준비: init 앱을 가지고 온다.
+
+1. 사전준비: src/components/HelloWorld.vue 삭제
+
+1. 라이브러리 설치
+  $ npm i zod
+
+1. src/components/Zod.vue 생성
+```
+  <template>
+    <div>
+      <h1>zod 스키마를 이용한 타입 검증</h1>
+      <input v-model="user.name" placeholder="이름을 입력하세요 (문자열, 필수)">
+      <input v-model.number="user.age" placeholder="나이를 입력하세요 (숫자)">
+      <button @click="submitForm">제출</button>
+    </div>
+  </template>
+
+  <script setup>
+  import { ref } from 'vue';
+  import { z } from 'zod';
+
+  // Zod 스키마 정의
+  const userSchema = z.object({
+    name: z.string().min(1, 'Name is required'),
+    age: z.number().min(18, 'You must be at least 18 years old')
+  })
+  const user = ref({
+    name: '',
+    age: 0
+  })
+
+  // 폼 제출 함수
+  const submitForm = () => {
+    const result = userSchema.safeParse(user.value)
+    console.log('검증 결과:', result)
+    // 검증 실패 시
+    if (!result.success) {
+      console.log('검증 실패:', result.error)
+      return
+    }
+    // 검증 성공 시
+    console.log('검증 성공:', user.value)
+  }
+  </script>
+```
+
+1. src/App.vue 작성 : 컴포넌트를 호출한다.
+```
+  <template>
+    <Zod />
+  </template>
+
+  <script setup lang="ts">
+  import Zod from '@/components/Zod.vue'
+  </script>
+
+  <style scoped>
+  </style>
+```
+
+1. 중간 테스트 : 콘솔을 열고, zod가 잘 작동하는지 확인
+  $ cd app1
+  $ npm run dev
+
+
+
+[zod는 composables 로직을 나눴을 때, 그러면서도 검증도 해야할 때 빛을 발한다.]
+
+1. zod를 굳이 써야하는 이유?
+  zod를 주로 쓰는 경우는, 현장에서 vue 화면코드와 composables 로직코드를 별도로 나눈 형태로 코딩할 때이다.
+  로직이 들어간 ts 코드 내에서도 타입 안정성을 보장해야할 때,
+  코드를 보다 더 쉽고, 간결하고, 편리하게 검증할 수 있게 만들어준다.
+
+1. src/composables/useValidation.ts 작성 : 로직을 ts로 나누어서 작성해본다. (zod가 필요한 결정적인 이유는 여기서부터임)
+```
+  import { ref } from 'vue';
+  import { z } from 'zod';
+
+  const userSchema = z.object({
+    name: z.string().min(1, '이름은 필수입니다'),
+    age: z.number().min(18, '최소 나이는 18세입니다')
+  });
+
+  const user = ref({
+    name: '',
+    age: 0
+  });
+
+  export function useValidation() {
+    const submitForm = () => {
+      const result = userSchema.safeParse(user.value);
+      console.log('검증 결과:', result);
+      if (!result.success) {
+        console.log('검증 실패:', result.error);
+        return false;
+      }
+      console.log('검증 성공:', user.value);
+      return true;
+    };
+
+    return { user, submitForm };
+  }
+```
+
+1. src/components/Zod.vue 수정
+```
+  <template>
+    <div>
+      <h1>Zod 스키마를 이용한 타입 검증</h1>
+      <input v-model="user.name" placeholder="이름을 입력하세요 (문자열, 필수)">
+      <input v-model.number="user.age" placeholder="나이를 입력하세요 (숫자)">
+      <button @click="handleSubmit">제출</button>
+    </div>
+  </template>
+
+  <script setup>
+  import { useValidation } from '@/composables/useValidation'
+
+  const { user, submitForm } = useValidation()
+
+  const handleSubmit = () => {
+    const isValid = submitForm()
+    if (isValid) {
+      alert('검증 성공!')
+    } else {
+      alert('검증 실패!')
+    }
+  }
+  </script>
+```
+
+1. 테스트 : 콘솔을 열고, composables에서도 zod가 잘 작동하는지 확인
+  $ cd app1
+  $ npm run dev

@@ -1,0 +1,196 @@
+[vue2 (vue-property-decorator) -> vue3 (vue-facing-decorator) 마이그레이션 절차, 작업 순서]
+* 개요: 
+  Vuetify2, Vue2, Vuex, vue-property-decorator 로 class api 형태로 구성되어 있는 앱이 있을 때, 
+  그것을 Vuetify3, Vue3, Pinia, vue-facing-decorator 로 class api 형태 보존하면서 이행하는 방법이다.
+
+1. 사전 준비
+  - 현재 프로젝트의 의존성 및 구조 파악
+  - 브레이킹 체인지 목록 검토
+  - 백업 브랜치 생성
+  - 테스트 코드 작성 (있다면)
+
+2. 패키지 업그레이드 (단계별 진행 권장)
+  A. Vue3 Core 업그레이드
+    ```bash
+    npm uninstall vue vue-template-compiler
+    npm install vue@^3.3.0 @vue/compiler-sfc
+    npm install @vitejs/plugin-vue  # Vite 사용 시
+    ```
+  B. Class API 업그레이드
+    ```bash
+    npm uninstall vue-property-decorator vue-class-component
+    npm install vue-facing-decorator@^2.1.0
+    ```
+  C. 상태관리 마이그레이션 (Vuex -> Pinia)
+    ```bash
+    npm uninstall vuex
+    npm install pinia@^2.1.0
+    ```
+  D. UI 프레임워크 업그레이드 (Vuetify2 -> Vuetify3)
+    ```bash
+    npm uninstall vuetify @mdi/font
+    npm install vuetify@^3.4.0 @mdi/font
+    ```
+  E. 라우터 업그레이드
+    ```bash
+    npm uninstall vue-router@^3.x.x
+    npm install vue-router@^4.2.0
+    ```
+
+3. 설정 파일 수정
+  A. main.ts 수정
+    - createApp() 사용으로 변경
+    - Pinia 설정 추가
+    - Vuetify3 플러그인 설정
+  B. 빌드 도구 설정
+    - Vue CLI -> Vite 마이그레이션 (권장)
+    - 또는 vue.config.js 업데이트
+  C. TypeScript 설정 업데이트
+    - tsconfig.json 업데이트
+    - 타입 정의 업데이트
+
+4. 코드 마이그레이션
+  A. 컴포넌트 업데이트
+    - vue-property-decorator -> vue-facing-decorator
+    - @Component 데코레이터 문법 변경
+    - 라이프사이클 메서드 확인
+  B. 상태관리 마이그레이션
+    - Vuex Store -> Pinia Store
+    - mapGetters, mapActions -> useStore
+    - 모듈 구조 재설계
+  C. Vuetify 컴포넌트 업데이트
+    - Breaking Changes 대응
+    - v-model 변경사항 적용
+    - 새로운 컴포넌트 API 적용
+  D. 라우터 업데이트
+    - Vue Router 4 문법으로 변경
+    - 네비게이션 가드 업데이트
+
+
+
+[마이그레이션 주의사항]
+
+1. Breaking Changes 주요 항목
+  - Vue3: Composition API 기본, $children 제거, 필터 제거
+  - Vuetify3: v-model 변경, 컴포넌트 API 변경, 테마 시스템 변경
+  - Vue Router4: 새로운 라우터 인스턴스 생성 방식
+  - Pinia: 모듈 시스템 대신 스토어별 분리
+
+2. 호환성 문제
+  - IE11 지원 중단 (Vue3)
+  - 일부 써드파티 라이브러리 호환성 확인 필요
+  - SSR 설정 변경 필요 (사용 시)
+
+3. 마이그레이션 순서 준수
+  - 한 번에 모든 것을 업그레이드하지 말고 단계별 진행
+  - 각 단계마다 테스트 및 확인
+  - 롤백 계획 수립
+
+4. 주요 변경점
+  Vue2 -> Vue3
+  ```javascript
+  // Before (Vue2)
+  import Vue from 'vue'
+  import { Component } from 'vue-property-decorator'
+
+  @Component
+  export default class MyComponent extends Vue {
+    // ...
+  }
+
+  // After (Vue3)
+  import { Vue, Component } from 'vue-facing-decorator'
+
+  @Component
+  export default class MyComponent extends Vue {
+    // ...
+  }
+  ```
+
+  Vuex -> Pinia
+  ```javascript
+  // Before (Vuex)
+  import { mapGetters, mapActions } from 'vuex'
+
+  @Component({
+    computed: {
+      ...mapGetters(['someGetter'])
+    },
+    methods: {
+      ...mapActions(['someAction'])
+    }
+  })
+
+  // After (Pinia)
+  import { useMainStore } from '@/stores/main'
+
+  @Component
+  export default class MyComponent extends Vue {
+    store = useMainStore()
+    
+    get someGetter() {
+      return this.store.someGetter
+    }
+    
+    someAction() {
+      this.store.someAction()
+    }
+  }
+  ```
+
+  Vuetify2 -> Vuetify3
+  ```vue
+  <!-- Before (Vuetify2) -->
+  <v-text-field v-model="value" />
+  
+  <!-- After (Vuetify3) -->
+  <v-text-field v-model="value" />  <!-- 대부분 동일하지만 내부 구조 변경 -->
+  ```
+
+  라우터 설정
+  ```javascript
+  // Before (Vue Router3)
+  import VueRouter from 'vue-router'
+  Vue.use(VueRouter)
+  
+  const router = new VueRouter({
+    mode: 'history',
+    routes
+  })
+
+  // After (Vue Router4)
+  import { createRouter, createWebHistory } from 'vue-router'
+  
+  const router = createRouter({
+    history: createWebHistory(),
+    routes
+  })
+  ```
+
+5. 마이그레이션 체크리스트
+  □ 패키지 의존성 업데이트 완료
+  □ main.ts 변경 완료
+  □ 모든 컴포넌트 데코레이터 업데이트 완료
+  □ Vuex -> Pinia 마이그레이션 완료
+  □ Vuetify 컴포넌트 호환성 확인 완료
+  □ 라우터 설정 업데이트 완료
+  □ 빌드 및 실행 테스트 완료
+  □ 기능 테스트 완료
+  □ 성능 테스트 완료
+  □ 배포 테스트 완료
+
+6. 문제 해결 가이드
+  컴파일 에러 해결
+  - vue-facing-decorator 문법 확인
+  - TypeScript 타입 에러 해결
+  - Vuetify3 컴포넌트 API 확인
+
+  런타임 에러 해결
+  - 컴포넌트 라이프사이클 확인
+  - 상태 관리 로직 검증
+  - 이벤트 바인딩 확인
+
+  성능 최적화
+  - Tree-shaking 설정 확인
+  - 번들 크기 최적화
+  - 컴포넌트 lazy loading 적용

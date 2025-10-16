@@ -1,1 +1,0 @@
-***! 3. vue2 (vue-property-decorator) -> vue3 (vue-facing-decorator) 마이그레이션 후, 결과물을 여기다 넣으면 끝

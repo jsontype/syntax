@@ -1,0 +1,63 @@
+[lodash-es: debounce]
+
+1. debounce란?
+  debounce는 "input 입력이 멈추고, 일정 시간이 지난 후에 이벤트를 발생하게 하고 싶을 때 사용하는 함수"이다.
+  여기서는 인풋창에 값을 입력하는대로 복잡한 검색 쿼리를 서버에 날린다고 상정하고 진행해보도록 하겠다.
+
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. src/components/Debounce.vue 생성 : 1.2초 대기 후 특정 함수를 실행하는 인풋 컴포넌트 만들기
+```
+  <template>
+    <h1>Debounce</h1>
+    <input @input="handleInput" placeholder="검색어를 입력하세요" />
+    <p>입력한 검색어: {{ searchQuery }}</p>
+  </template>
+
+  <script setup>
+  import { ref } from 'vue';
+  import { debounce } from 'lodash-es';
+
+  // 검색 쿼리를 저장하는 ref
+  const searchQuery = ref('');
+
+  // 3. 디바운스 딜레이 후 검색 로직 수행 : 이 부분이 복잡한 로직이나 쿼리가 실행될 것을 상정하는 부분
+  const performSearch = () => {
+    alert('검색 로직 수행')
+  }
+
+  // 2. 디바운스 : 입력이 멈춘 후 1.2초 후에 검색 로직 실행
+  const debouncedSearch = debounce(performSearch, 1200)
+
+  // 1. 입력 이벤트 핸들러
+  const handleInput = (event) => {
+    searchQuery.value = event.target.value
+    debouncedSearch()
+  }
+  </script>
+```
+
+1. src/App.vue 수정 : 컴포넌트를 호출한다.
+```
+  <template>
+    <CloneDeep />
+    <Find />
+    <Filter />
+    <Map />
+    <Debounce />
+  </template>
+
+  <script setup lang="ts">
+  import CloneDeep from '@/components/CloneDeep.vue'
+  import Find from '@/components/Find.vue'
+  import Filter from '@/components/Filter.vue'
+  import Map from '@/components/Map.vue'
+  import Debounce from '@/components/Debounce.vue'
+  </script>
+```  
+
+1. 테스트 : 인풋창에서 Debouncing이 잘 되는지 확인한다.
+  $ cd app1
+  $ npm run dev
+
+1. 과제 : Find.vue에 debounce 함수를 적용해서 입력 후 1.2초 뒤에 검색 로직을 실행하도록 수정해보자.
