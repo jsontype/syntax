@@ -1,0 +1,198 @@
+[Interface 타입을 People 쿼리에 적용]
+
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+
+
+1. typedefs-resolvers/_enums.js 수정 : People 쿼리에 사용할 Sex, BloodType 이넘(열거) 타입을 정의한다.
+  const { gql } = require("apollo-server")
+
+  const typeDefs = gql`
+    enum Sex {
+      male
+      female
+    }
+    enum BloodType {
+      A
+      B
+      AB
+      O
+    }
+    enum Role {
+      developer
+      designer
+      planner
+    }
+    enum NewOrUsed {
+      new
+      used
+    }
+  `
+  module.exports = typeDefs
+
+
+
+1. typedefs-resolvers/people.js 생성 : Tool 인터페이스를 People 쿼리에 적용
+  const { gql } = require("apollo-server")
+  const dbWorks = require("../dbWorks.js")
+
+  const typeDefs = gql`
+    type People {
+      id: ID!
+      first_name: String!
+      last_name: String!
+      sex: Sex!
+      blood_type: BloodType!
+      serve_years: Int!
+      role: Role!
+      team: ID!
+      from: String!
+      tools: [Tool]
+      givens: [Given]
+    }
+  `
+
+  const resolvers = {
+    Query: {
+      people: (parent, args) => dbWorks.getPeople(args),
+      person: (parent, args) => dbWorks.getPeople(args)[0],
+    },
+  }
+
+  module.exports = {
+    typeDefs: typeDefs,
+    resolvers: resolvers,
+  }
+
+
+
+1. typedefs-resolvers/_queries.js 수정 : people 쿼리의 타입을 추가한다.
+  const { gql } = require("apollo-server")
+
+  const typeDefs = gql`
+    type Query {
+      equipments: [Equipment]
+      supplies: [Supply]
+      equipmentAdvs: [EquipmentAdv]
+      softwares: [Software]
+      software: Software
+      givens: [Given]
+      people: [People]
+      person: People
+    }
+  `
+
+  module.exports = typeDefs
+
+
+
+1. typedefs-resolvers/supplies.js 수정 : supplies 쿼리의 타입 중, id 타입을 String에서 ID!로 수정 한다. givens에서 사용될 때 id 타입이 타 쿼리와 일치되도록 하기 위함
+  const { gql } = require("apollo-server")
+  const dbWorks = require("../dbWorks")
+
+  const typeDefs = gql`
+    type Supply {
+      id: ID!
+      team: Int
+    }
+  `
+
+  const resolvers = {
+    Query: {
+      supplies: (parent, args) => dbWorks.getSupplies(args),
+    },
+    Mutation: {
+      deleteSupply: (parent, args) => dbWorks.deleteItem("supplies", args),
+    },
+  }
+
+  module.exports = {
+    typeDefs: typeDefs,
+    resolvers: resolvers,
+  }
+
+
+
+1. index.js 수정 : 모듈화된 people의 typeDefs, resolvers 추가
+  const { ApolloServer } = require("apollo-server")
+
+  const queries = require("./typedefs-resolvers/_queries")
+  const mutations = require("./typedefs-resolvers/_mutations")
+  const enums = require("./typedefs-resolvers/_enums")
+  const equipments = require("./typedefs-resolvers/equipments")
+  const supplies = require("./typedefs-resolvers/supplies")
+  const softwares = require("./typedefs-resolvers/softwares")
+  const givens = require("./typedefs-resolvers/givens")
+  const tools = require("./typedefs-resolvers/tools")
+  const people = require("./typedefs-resolvers/people")
+
+  const typeDefs = [
+    queries,
+    mutations,
+    enums,
+    equipments.typeDefs,
+    supplies.typeDefs,
+    softwares.typeDefs,
+    givens.typeDefs,
+    tools.typeDefs,
+    people.typeDefs,
+  ]
+
+  const resolvers = [
+    equipments.resolvers,
+    supplies.resolvers,
+    softwares.resolvers,
+    givens.resolvers,
+    tools.resolvers,
+    people.resolvers,
+  ]
+
+  const server = new ApolloServer({ typeDefs, resolvers })
+
+  server.listen().then(({ url }) => {
+    console.log(`🚀  Server ready at ${url}`)
+  })
+
+
+
+1. 테스트
+  $ cd app1
+  $ npm start
+  http://localhost:4000/ 접속 : GraphQL Playground가 열린다.
+  GraphQL Playground 사용 : 좌측에 다음 쿼리를 넣고 Run을 클릭
+    query {
+      people {
+        id
+        first_name
+        last_name
+        givens {
+            __typename
+          ... on Equipment {
+            id
+            used_by
+            count
+            new_or_used
+          }
+          ... on Supply {
+            id
+            team
+          }
+        }
+        tools {
+          __typename
+          ... on Equipment {
+            id
+            used_by
+            count
+            new_or_used
+          }
+          ... on Software {
+            id
+            used_by
+            description
+            developed_by
+          }
+        }
+      }
+    }
+  결과를 보고 GraphQL 대로 people 데이터를 취득할 수 있었는지 확인한다.

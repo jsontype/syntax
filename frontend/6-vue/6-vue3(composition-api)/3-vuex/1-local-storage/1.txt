@@ -1,0 +1,145 @@
+[Store 사용하기: localStorage]
+
+1. 사전준비: init 앱을 가지고 온다.
+
+1. 사전준비: src/components/HelloWorld.vue 삭제
+
+1. 사전준비: 글로벌 스테이트에 대한 배경지식 익히기
+  - Store란?
+    "Store"는 애플리케이션의 상태(데이터)를 중앙에서 관리하는 저장소이다.
+  - Global State란?
+    "Global State"는 "Store안에 저장되어, 애플리케이션의 전체에 걸쳐 사용되는" 상태 변수를 말한다. (예: 사용자 인증 정보, 애플리케이션 설정, 주문/카트보기 등 동일한 데이터를 가진 UI들에 사용)
+  - 로컬스토리지를 사용해서 만든 변수를 '글로벌 스테이트(Global State)'라고 부를 수 있을까?
+    이것은 조금 복잡한 질문이다.
+    로컬스토리지는 데이터의 영구적 저장을 위한 수단으로, 로컬 스토리지에 저장된 변수는 "글로벌 스테이트의 형태"를 취할 수는 있으나, 이 변수들은 "Vue의 스토어 내부에 직접적으로 포함되지는 않는다."    
+    그러므로 일반적으로는 "글로벌 스테이트"라고 부를 수는 없다.
+    * 단, 로컬스토리지에 저장된 데이터를 글로벌 스테이트로 사용하기 위해, "로컬스토리지에 저장된 데이터를 Vuex 스토어에 직접적으로 저장"해서 사용한다면 글로벌스테이트라고도 볼 수 있게 된다.
+  - 로컬스트로지의 한계점
+    로컬스토리지는 어디에서 선언했는지, 어디에서 수정했는지 알기가 힘들다. 유지보수할 때 어려움이 있을 수 있다.
+  - 로컬스토리지를 Store와 병행해서 사용해도 되나?
+    물론이다. 일반적으로 "사용자 설정, 인증" 부분 같은 데이터의 영구적인 저장을 위해서 로컬스토리지를 쓰고,
+    이를 "동일한 데이터를 참조하는 여러 컴포넌트 UI 등"에서 쓰는 Vuex 스토어와 병행해서 사용한다.
+  - 로컬스토리지의 사용은 어떻게 하나?
+    데이터 저장하기: localStorage.setItem('myKey', 'myValue');
+    데이터 불러오기: localStorage.getItem('myKey');
+    데이터 삭제하기: localStorage.removeItem('myKey');
+    데이터 전체 삭제하기: localStorage.clear();
+
+1. src/components/LocalStorage1.vue 생성 : LocalStorage 설정 및 호출하기
+  ```
+    <template>
+      <div>
+        <h1>로컬스토리지 설정</h1>
+        <button @click="saveData">데이터 저장하기</button>
+        <button @click="deleteData">데이터 삭제하기</button>
+        <button @click="clearData">데이터 전체 삭제하기</button>
+        <button @click="loadData">데이터 호출!</button>
+        <p>결과: {{ result }}</p>
+      </div>
+    </template>
+
+    <script>
+    export default {
+      data() {
+        return {
+          result: ''
+        };
+      },
+      methods: {
+        saveData() {
+          localStorage.setItem('myKey', 'myValue');
+          this.result = '데이터 저장됨 (myKey안에 myValue 문자열 저장)';
+        },
+        loadData() {
+          this.result = localStorage.getItem('myKey') || '저장된 데이터 없음';
+        },
+        deleteData() {
+          localStorage.removeItem('myKey');
+          this.result = '데이터 삭제됨 (myKey안에 있는 데이터를 삭제)';
+        },
+        clearData() {
+          localStorage.clear();
+          this.result = '데이터 삭제됨 (모든 localStorage 데이터 삭제)';
+        }
+      }
+    };
+    </script>
+
+    <style scoped>
+    button {
+      display: block;
+    }
+    </style>
+  ```
+
+1. src/components/LocalStorage2.vue 생성 : 타 컴포넌트에서 LocalStorage 호출하기
+  ```
+    <template>
+      <div>
+        <h1>다른 컴포넌트에서 사용</h1>
+        <button @click="saveData">데이터 저장하기</button>
+        <button @click="deleteData">데이터 삭제하기</button>
+        <button @click="clearData">데이터 전체 삭제하기</button>
+        <button @click="loadData">데이터 호출!</button>
+        <p>결과: {{ result }}</p>
+      </div>
+    </template>
+
+    <script>
+    export default {
+      data() {
+        return {
+          result: ''
+        };
+      },
+      methods: {
+        saveData() {
+          localStorage.setItem('myKey', 'myValue');
+          this.result = '데이터 저장됨 (myKey안에 myValue 문자열 저장)';
+        },
+        loadData() {
+          this.result = localStorage.getItem('myKey') || '저장된 데이터 없음';
+        },
+        deleteData() {
+          localStorage.removeItem('myKey');
+          this.result = '데이터 삭제됨 (myKey안에 있는 데이터를 삭제)';
+        },
+        clearData() {
+          localStorage.clear();
+          this.result = '데이터 삭제됨 (모든 localStorage 데이터 삭제)';
+        }
+      }
+    };
+    </script>
+
+    <style scoped>
+    button {
+      display: block;
+    }
+    </style>
+  ```
+
+1. src/App.vue 수정 : 컴포넌트 호출하기
+  ```
+    <template>
+      <button @click="toggle = !toggle">컴포넌트 변경</button>
+      <LocalStorage1 v-if="toggle" />
+      <LocalStorage2 v-else-if="!toggle" />
+    </template>
+
+    <script setup lang="ts">
+    import { ref } from 'vue'
+
+    import LocalStorage1 from '@/components/LocalStorage1.vue'
+    import LocalStorage2 from '@/components/LocalStorage2.vue'
+
+    const toggle = ref(true)
+    </script>
+
+    <style scoped>
+    </style>
+  ```
+
+1. 테스트 : 두 컴포넌트들을 번갈아가면서 변경하고 호출해서, 로컬스토리지가 서로 다른 컴포넌트에서도 동일한 참조를 하고 있는지 확인한다.
+  $ cd app1
+  $ npm run dev
