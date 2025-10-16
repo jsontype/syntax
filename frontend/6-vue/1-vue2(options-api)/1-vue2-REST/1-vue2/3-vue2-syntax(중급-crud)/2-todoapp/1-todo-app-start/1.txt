@@ -1,0 +1,18 @@
+[뷰2 투두앱 만들기]
+
+1. 사전준비: init 앱을 가지고 온다.
+
+1. src/router/index.js 수정
+
+1. public/index.html 수정 : 아래 부분 추가
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+1. src/views/App.vue 수정
+
+1. src/views/Todo.vue 생성
+
+1. 테스트
+  $ cd app1
+  $ npm run serve

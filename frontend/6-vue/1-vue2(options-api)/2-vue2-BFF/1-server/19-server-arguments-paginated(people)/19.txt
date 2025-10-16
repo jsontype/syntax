@@ -1,0 +1,88 @@
+[페이지로 나누어 받아오기]
+
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+
+
+1. typedefs-resolvers/_queries.js 수정 : 페이지와 페이지당 개수의 인자값을 줘서 필터링해서 받아오는 peoplePaginated 쿼리의 반환 타입 지정
+  const { gql } = require("apollo-server")
+
+  const typeDefs = gql`
+    type Query {
+      equipments: [Equipment]
+      supplies: [Supply]
+      equipmentAdvs: [EquipmentAdv]
+      softwares: [Software]
+      software: Software
+      givens: [Given]
+      people: [People]
+      person: People
+      peopleFiltered(
+        team: Int
+        sex: Sex
+        blood_type: BloodType
+        from: String
+      ): [People]
+      peoplePaginated(page: Int!, per_page: Int!): [People]
+    }
+  `
+
+  module.exports = typeDefs
+
+
+
+1. typedefs-resolvers/people.js 수정 : People 데이터에 페이지네이션 거는 peoplePaginated 액션함수의 resolver 추가
+  const { gql } = require("apollo-server")
+  const dbWorks = require("../dbWorks.js")
+
+  const typeDefs = gql`
+    type People {
+      id: ID!
+      first_name: String!
+      last_name: String!
+      sex: Sex!
+      blood_type: BloodType!
+      serve_years: Int!
+      role: Role!
+      team: ID!
+      from: String!
+      tools: [Tool]
+      givens: [Given]
+    }
+  `
+
+  const resolvers = {
+    Query: {
+      people: (parent, args) => dbWorks.getPeople(args),
+      person: (parent, args) => dbWorks.getPeople(args)[0],
+      peopleFiltered: (parent, args) => dbWorks.getPeople(args),
+      peoplePaginated: (parent, args) => dbWorks.getPeople(args),
+    },
+  }
+
+  module.exports = {
+    typeDefs: typeDefs,
+    resolvers: resolvers,
+  }
+
+
+
+1. 테스트
+  $ cd app1
+  $ npm start
+  http://localhost:4000/ 접속 : GraphQL Playground가 열린다.
+  GraphQL Playground 사용 : 좌측에 다음 쿼리를 넣고 Run을 클릭
+    query {
+      peoplePaginated(page: 1, per_page: 7) {
+        id
+        first_name
+        last_name
+        sex
+        blood_type
+        serve_years
+        role
+        team
+        from
+      }
+    }
+  첫번째 page에 해당하는 7개의 people만 취득되었는지 확인한다.

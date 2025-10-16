@@ -1,0 +1,114 @@
+[i18n 설치 : 다국어 대응 라이브러리]
+참조URL: https://kang-ji.tistory.com/entry/vuejs에서-다국어지원처리vuejs에서-다국어지원처리
+
+1. 사전준비: init 앱을 가지고 온다.
+  이번 챕터에서는 vue2 init 앱으로 진행한다.
+
+1. 설치
+  npm install vue-i18n@8 // vue 2.X, 이번에는 이것으로 설치하게 된다.
+  npm install vue-i18n@9 // vue 3.X
+
+
+
+1. src/locales/i18n.js 생성 : i18n 기본 설정. 아래 "필요시 꺼내서 사용" 부분은 추후에 언어의 동적 변경이 필요할 때 꺼낸 뒤 함수를 호출하여 사용하면 된다.
+  import Vue from "vue"
+  import VueI18n from "vue-i18n"
+  import en from "@/locales/en.json"
+  import ko from "@/locales/ko.json"
+
+  Vue.use(VueI18n)
+
+  export const i18n = new VueI18n({
+    locale: "ko", // 기본 언어 : 이 부분을 바뀌면 앱 전체의 언어가 바뀜
+    fallbackLocale: "en", // 기본 언어에 문제가 있을 때 사용할 대체 언어
+    messages: { en, ko }, // 설정한 언어 객체들의 모음
+  })
+
+  // 필요시 꺼내서 사용 : 처음에 로드된 언어들을 저장하는 배열
+  // const loadedLanguages = ["en", "ko"]
+
+  // 필요시 꺼내서 사용 : <html lang="en"> 부분을 변경하는 함수
+  // function setI18nLanguage(lang) {
+  //   i18n.locale = lang
+  //   document.querySelector("html").setAttribute("lang", lang)
+  //   return lang
+  // }
+
+  // 필요시 꺼내서 사용 : 사용자의 언어 선택에 따라 언어를 동적으로 변경하는 함수
+  // export function loadLanguageAsync(lang) {
+  //   if (i18n.locale === lang) {
+  //     // 요청된 언어가 현재 설정된 언어와 동일한 경우, 함수는 해당 언어를 반환하고 종료
+  //     return Promise.resolve(setI18nLanguage(lang))
+  //   }
+  //   // 요청된 언어가 로드되지 않은 경우, 해당 언어의 JSON 파일을 비동기적으로 가져오고, 해당 언어를 설정하고 반환하고, 해당 언어를 로드된 언어 목록에 추가
+  //   if (!loadedLanguages.includes(lang)) {
+  //     return import(`@/locales/${lang}.json`).then((messages) => {
+  //       i18n.setLocaleMessage(lang, messages.default)
+  //       loadedLanguages.push(lang)
+  //       return setI18nLanguage(lang)
+  //     })
+  //   }
+  //   // 요청된 언어가 이미 로드된 언어 목록에 있는 경우, 해당 언어를 설정하고 반환
+  //   return Promise.resolve(setI18nLanguage(lang))
+  // }
+
+1. src/locales/ko.json 생성 : 언어에 적용할 json 그룹 객체 선언해둔다.
+  {
+    "example":"i18n 예시",
+      "group": {
+        "ttl_1": "타이틀1",
+        "ttl_2": "타이틀2",
+        "ttl_3": "타이틀3"
+      }
+  }
+
+1. src/locales/en.json 생성 : 언어에 적용할 json 그룹 객체 선언해둔다.
+  {
+    "example":"i18n example",
+      "group": {
+        "ttl_1": "Title1",
+        "ttl_2": "Title2",
+        "ttl_3": "Title3"
+      }
+  }
+
+1. src/main.js 수정 : i18n 폴더안의 기본설정 파일을 도입해서 사용할 수 있도록 세팅
+  import Vue from "vue"
+  import App from "./App.vue"
+  // import router from "@/routes/index";
+  // import store from "@/store/index";
+  import { i18n } from "@/locales/i18n"
+
+  Vue.config.productionTip = false
+
+  new Vue({
+    // router,
+    // store,
+    i18n,
+    render: (h) => h(App),
+  }).$mount("#app")
+
+1. src/App.vue 수정 : i18n로 설정된 텍스트를 화면에 표시
+  <template>
+    <div class="app">
+      <p>{{ $t("example")}}</p>
+      <p>{{ $t("group.ttl_1")}}</p>
+      <p>{{ $t("group.ttl_2")}}</p>
+    </div>
+  </template>
+
+  <script>
+  export default {
+    name: 'App',
+  }
+  </script>
+
+  <style>
+  .app {
+    font-size: 20px;
+  }
+  </style>
+
+1. 테스트
+  $ cd app1
+  $ npm run serve
