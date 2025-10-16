@@ -5,7 +5,6 @@
         <router-link to="/">Home</router-link> |
         <router-link to="/about">About</router-link> |
         <router-link to="/movies">Movies</router-link>
-        <!-- ***! Todos 하나 추가해서 만들기 -> Vue3에서 똑같은 거 만들기 -->
       </nav>
 
       <router-view />
@@ -21,11 +20,11 @@
 </template>
 
 <script lang="ts">
-import { Vue } from "vue-property-decorator";
+import { Vue } from "vue-property-decorator"
 
 export default Vue.extend({
   name: "App",
-});
+})
 </script>
 
 <style>

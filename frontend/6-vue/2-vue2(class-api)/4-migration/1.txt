@@ -1,1 +1,2 @@
 ***! 2. vue2 (vue-property-decorator) -> vue3 (vue-facing-decorator) 마이그레이션 과정 적어두기
+Vuetify2, Vue2, Vuex, vue-property-decorator -> Vuetify3, Vue3, Pinia, vue-facing-decorator
