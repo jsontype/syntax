@@ -1,25 +1,53 @@
 <template>
-  <div id="app">
-    <div class="main-content">
-      <nav>
-        <router-link to="/">Home</router-link> |
-        <router-link to="/about">About</router-link> |
-        <router-link to="/movies">Movies</router-link> |
-        <router-link to="/todos">Todos</router-link> |
-        <router-link to="/shop">Shop</router-link> |
-        <router-link to="/cart">Cart</router-link>
-      </nav>
+  <v-app>
+    <v-app-bar app color="primary" dark>
+      <v-app-bar-title>Vue2 + Vuetify2 App</v-app-bar-title>
 
+      <v-spacer></v-spacer>
+
+      <v-btn text to="/">
+        <v-icon left>mdi-home</v-icon>
+        Home
+      </v-btn>
+
+      <v-btn text to="/about">
+        <v-icon left>mdi-information</v-icon>
+        About
+      </v-btn>
+
+      <v-btn text to="/movies">
+        <v-icon left>mdi-movie</v-icon>
+        Movies
+      </v-btn>
+
+      <v-btn text to="/todos">
+        <v-icon left>mdi-check-circle</v-icon>
+        Todos
+      </v-btn>
+
+      <v-btn text to="/shop">
+        <v-icon left>mdi-shopping</v-icon>
+        Shop
+      </v-btn>
+
+      <v-btn text to="/cart">
+        <v-icon left>mdi-cart</v-icon>
+        Cart
+      </v-btn>
+    </v-app-bar>
+
+    <v-main>
       <router-view />
+    </v-main>
 
-      <footer class="footer">
-        <div class="copyright">
-          <p>&copy; 2025 김지연 프로젝트. All rights reserved.</p>
-          <p>Made with ❤️ using Vue.js</p>
-        </div>
-      </footer>
-    </div>
-  </div>
+    <v-footer app color="primary" dark>
+      <v-spacer></v-spacer>
+      <div>
+        &copy; 2025 양동화 프로젝트. Made with ❤️ using Vue.js + Vuetify
+      </div>
+      <v-spacer></v-spacer>
+    </v-footer>
+  </v-app>
 </template>
 
 <script lang="ts">
@@ -31,54 +59,5 @@ export default Vue.extend({
 </script>
 
 <style>
-/* 전역 스타일 리셋 */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html,
-body {
-  height: 100%;
-}
-
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.main-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-nav {
-  padding: 30px;
-  background-color: #f8f9fa;
-  border-bottom: 1px solid #dee2e6;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-  text-decoration: none;
-  margin: 0 10px;
-  transition: color 0.3s ease;
-}
-
-nav a:hover {
-  color: #42b983;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
+/* Vuetify provides all necessary styles */
 </style>

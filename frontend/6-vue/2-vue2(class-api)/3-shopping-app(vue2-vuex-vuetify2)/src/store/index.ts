@@ -21,15 +21,26 @@ interface CartItem {
   quantity: number
 }
 
+interface Todo {
+  id: number
+  text: string
+  checked: boolean
+}
+
 interface RootState {
   cartItems: CartItem[]
   productQuantities: { [key: number]: number }
+  todos: Todo[]
 }
 
 export default new Vuex.Store<RootState>({
   state: {
     cartItems: [],
     productQuantities: {},
+    todos: [
+      { id: 1, text: "buy a car", checked: false },
+      { id: 2, text: "play games", checked: false },
+    ],
   },
   getters: {
     cartItemsCount: (state) => state.cartItems.length,
@@ -44,6 +55,11 @@ export default new Vuex.Store<RootState>({
     getProductQuantity: (state) => (productId: number) => {
       return state.productQuantities[productId] || 1
     },
+    // Todos getters
+    totalTodos: (state) => state.todos.length,
+    completedTodos: (state) =>
+      state.todos.filter((todo) => todo.checked).length,
+    pendingTodos: (state) => state.todos.filter((todo) => !todo.checked).length,
   },
   mutations: {
     SET_PRODUCT_QUANTITY(
@@ -86,6 +102,23 @@ export default new Vuex.Store<RootState>({
     CLEAR_CART(state) {
       state.cartItems = []
     },
+    // Todos mutations
+    ADD_TODO(state, { text }: { text: string }) {
+      state.todos.push({
+        id: Date.now(),
+        text,
+        checked: false,
+      })
+    },
+    DELETE_TODO(state, id: number) {
+      state.todos = state.todos.filter((todo) => todo.id !== id)
+    },
+    TOGGLE_TODO(state, id: number) {
+      const todo = state.todos.find((todo) => todo.id === id)
+      if (todo) {
+        todo.checked = !todo.checked
+      }
+    },
   },
   actions: {
     setProductQuantity({ commit }, payload) {
@@ -102,6 +135,16 @@ export default new Vuex.Store<RootState>({
     },
     clearCart({ commit }) {
       commit("CLEAR_CART")
+    },
+    // Todos actions
+    addTodo({ commit }, text: string) {
+      commit("ADD_TODO", { text })
+    },
+    deleteTodo({ commit }, id: number) {
+      commit("DELETE_TODO", id)
+    },
+    toggleTodo({ commit }, id: number) {
+      commit("TOGGLE_TODO", id)
     },
   },
   modules: {},
