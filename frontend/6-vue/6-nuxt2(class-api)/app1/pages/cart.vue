@@ -131,11 +131,6 @@
                   <v-icon>mdi-delete</v-icon>
                 </v-btn>
               </v-list-item-action>
-
-              <v-divider
-                v-if="index < cartItems.length - 1"
-                class="my-2"
-              ></v-divider>
             </v-list-item>
           </v-list>
         </v-card>

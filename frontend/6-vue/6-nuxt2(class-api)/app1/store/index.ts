@@ -34,7 +34,8 @@ export const state = (): RootState => ({
       id: 1,
       name: "iPhone 15 Pro",
       price: 1490000,
-      image: "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=300&h=300&fit=crop",
+      image:
+        "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=300&h=300&fit=crop",
       description: "최신 A17 Pro 칩이 탑재된 프리미엄 스마트폰",
       category: "스마트폰",
     },
@@ -42,7 +43,8 @@ export const state = (): RootState => ({
       id: 2,
       name: "MacBook Air M2",
       price: 1690000,
-      image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=300&h=300&fit=crop",
+      image:
+        "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=300&h=300&fit=crop",
       description: "M2 칩으로 더욱 강력해진 MacBook Air",
       category: "노트북",
     },
@@ -50,7 +52,8 @@ export const state = (): RootState => ({
       id: 3,
       name: "AirPods Pro 2세대",
       price: 359000,
-      image: "https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=300&h=300&fit=crop",
+      image:
+        "https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=300&h=300&fit=crop",
       description: "향상된 액티브 노이즈 캐슬링 기능",
       category: "이어폰",
     },
@@ -58,7 +61,8 @@ export const state = (): RootState => ({
       id: 4,
       name: "iPad Pro 12.9",
       price: 1749000,
-      image: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=300&h=300&fit=crop",
+      image:
+        "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=300&h=300&fit=crop",
       description: "M2 칩이 탑재된 프로급 태블릿",
       category: "태블릿",
     },
@@ -66,7 +70,8 @@ export const state = (): RootState => ({
       id: 5,
       name: "Apple Watch Series 9",
       price: 599000,
-      image: "https://images.unsplash.com/photo-1579586337278-3f436f25d4d6?w=300&h=300&fit=crop",
+      image:
+        "https://images.unsplash.com/photo-1579586337278-3f436f25d4d6?w=300&h=300&fit=crop",
       description: "건강과 피트니스를 위한 스마트워치",
       category: "웨어러블",
     },
@@ -74,7 +79,8 @@ export const state = (): RootState => ({
       id: 6,
       name: "Mac Studio",
       price: 2890000,
-      image: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=300&h=300&fit=crop",
+      image:
+        "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=300&h=300&fit=crop",
       description: "M1 Ultra 칩으로 구동되는 데스크톱",
       category: "데스크톱",
     },
@@ -184,7 +190,10 @@ export const mutations = {
     }
   },
 
-  ADD_TO_CART_WITH_QUANTITY(state: RootState, { product, quantity }: { product: Product; quantity: number }) {
+  ADD_TO_CART_WITH_QUANTITY(
+    state: RootState,
+    { product, quantity }: { product: Product; quantity: number }
+  ) {
     const existingItem = state.cart.find(
       (item) => item.product.id === product.id
     );
@@ -289,7 +298,10 @@ export const actions = {
     dispatch("saveCartToStorage");
   },
 
-  addToCartWithQuantity({ commit, dispatch }: any, { product, quantity }: { product: Product; quantity: number }) {
+  addToCartWithQuantity(
+    { commit, dispatch }: any,
+    { product, quantity }: { product: Product; quantity: number }
+  ) {
     commit("ADD_TO_CART_WITH_QUANTITY", { product, quantity });
     dispatch("saveCartToStorage");
   },

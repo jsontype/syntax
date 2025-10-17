@@ -85,34 +85,47 @@
           </v-card-text>
 
           <v-card-actions class="px-4 pb-4">
-            <div class="d-flex align-center justify-space-between" style="width: 100%;">
+            <div
+              class="d-flex align-center justify-space-between"
+              style="width: 100%"
+            >
               <!-- Quantity Control -->
               <div class="d-flex align-center">
                 <v-btn
                   icon
                   small
-                  @click="updateQuantity(product.id, getProductQuantity(product.id) - 1)"
+                  @click="
+                    updateQuantity(
+                      product.id,
+                      getProductQuantity(product.id) - 1
+                    )
+                  "
                   :disabled="getProductQuantity(product.id) <= 1"
                 >
                   <v-icon>mdi-minus</v-icon>
                 </v-btn>
-                
+
                 <v-text-field
                   :value="getProductQuantity(product.id)"
                   type="number"
                   min="1"
                   max="99"
-                  style="width: 60px;"
+                  style="width: 60px"
                   class="mx-2 text-center"
                   hide-details
                   dense
                   @input="updateQuantity(product.id, parseInt($event) || 1)"
                 ></v-text-field>
-                
+
                 <v-btn
                   icon
                   small
-                  @click="updateQuantity(product.id, getProductQuantity(product.id) + 1)"
+                  @click="
+                    updateQuantity(
+                      product.id,
+                      getProductQuantity(product.id) + 1
+                    )
+                  "
                   :disabled="getProductQuantity(product.id) >= 99"
                 >
                   <v-icon>mdi-plus</v-icon>
@@ -123,7 +136,9 @@
               <v-btn
                 :color="isInCart(product.id) ? 'success' : 'primary'"
                 :loading="loading"
-                @click="handleAddToCart(product, getProductQuantity(product.id))"
+                @click="
+                  handleAddToCart(product, getProductQuantity(product.id))
+                "
               >
                 <v-icon left>
                   {{ isInCart(product.id) ? "mdi-check" : "mdi-cart-plus" }}
@@ -182,7 +197,11 @@ interface SnackbarState {
     ]),
   },
   methods: {
-    ...mapActions(["addToCart", "addToCartWithQuantity", "loadCartFromStorage"]),
+    ...mapActions([
+      "addToCart",
+      "addToCartWithQuantity",
+      "loadCartFromStorage",
+    ]),
   },
 })
 export default class ShoppingPage extends Vue {
@@ -205,7 +224,10 @@ export default class ShoppingPage extends Vue {
 
   // Vuex actions
   addToCart!: (product: Product) => void;
-  addToCartWithQuantity!: (payload: { product: Product; quantity: number }) => void;
+  addToCartWithQuantity!: (payload: {
+    product: Product;
+    quantity: number;
+  }) => void;
   loadCartFromStorage!: () => void;
 
   // Computed properties
@@ -245,9 +267,9 @@ export default class ShoppingPage extends Vue {
   // Lifecycle hooks
   async mounted() {
     await this.loadCartFromStorage();
-    
+
     // Initialize product quantities
-    this.allProducts.forEach(product => {
+    this.allProducts.forEach((product) => {
       this.$set(this.productQuantities, product.id, 1);
     });
   }
@@ -274,13 +296,16 @@ export default class ShoppingPage extends Vue {
     this.$set(this.productQuantities, productId, quantity);
   }
 
-  public async handleAddToCart(product: Product, quantity: number = 1): Promise<void> {
+  public async handleAddToCart(
+    product: Product,
+    quantity: number = 1
+  ): Promise<void> {
     this.loading = true;
 
     try {
       // 수량과 함께 장바구니에 추가
       await this.addToCartWithQuantity({ product, quantity });
-      
+
       this.showSnackbar(
         `${product.name} ${quantity}개가 장바구니에 추가되었습니다`,
         "success"

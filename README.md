@@ -6,6 +6,12 @@ https://github.com/jsontype/home.git
 https://github.com/jsontype/generalapp.git
 https://github.com/jsontype/old.git
 
+# 핵심 커밋
+
+1. Nuxt2 -> Nuxt3 이행 (decorator를 이용한 Class API 방식, Vuetify3)
+   Nuxt2를 Nuxt3으로 변경1: 패키지 업데이트 및 설정파일 갱신 -> https://github.com/jsontype/syntax/commit/e213f2a5e170544849d7249b635b00585bb3581a
+   Nuxt2를 Nuxt3으로 변경2: 코드 변경 ->
+
 # Frequently reused symbols
 
 1. ★★ 암기사항

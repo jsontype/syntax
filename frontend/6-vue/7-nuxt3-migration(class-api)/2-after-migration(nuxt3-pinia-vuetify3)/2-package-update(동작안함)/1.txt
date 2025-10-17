@@ -1,0 +1,90 @@
+[Nuxt2 Class API - Nuxt3 Class API 마이그레이션 방법]
+
+1. 마이그레이션 개요 📋
+  Vue2/Nuxt2 → Vue3/Nuxt3 점진적 마이그레이션 가이드
+  Class API 형태를 보존하면서 기존 프로젝트를 점진적으로 업그레이드하는 완전한 가이드
+  상세는 다음과 같다.
+  - 기존: Nuxt2 + Vue2 + Vuetify2 + Vuex + vue-property-decorator
+  - 목표: Nuxt3 + Vue3 + Vuetify3 + Vuex + vue-facing-decorator
+  - 방식: 새 프로젝트 생성이 아닌 점진적 업그레이드
+  - 보존: Class API 형태 완전 보존
+
+
+
+[사전준비]
+
+1. 현재 프로젝트 백업: 문제가 생길 경우를 대비하여, 현재 프로젝트의 모든 파일들을 타 디렉토리에 백업해놓고 진행
+
+1. 마이그레이션 브랜치 생성
+  $ git checkout -b feature/migrate-to-nuxt3
+
+
+
+[패지키 업그레이드]
+
+1. 점진적으로 패키지 업그레이드: Nuxt 프레임워크 업그레이드 (1단계)
+```
+npm uninstall nuxt
+npm install nuxt@3
+npm install -D @nuxt/types
+```
+
+1. 점진적으로 패키지 업그레이드: Vue 2 레거시 패키지 제거 (2단계)
+```
+npm uninstall vue-property-decorator
+npm uninstall vue-class-component
+npm uninstall vue-server-renderer
+npm uninstall vue-template-compiler
+npm uninstall @nuxt/typescript-build
+npm uninstall vue
+```
+
+1. 점진적으로 패키지 업그레이드: Vue 3 Class API 패키지 설치 (3단계)
+```
+npm install vue-facing-decorator
+```
+
+1. 점진적으로 패키지 업그레이드: UI 프레임워크인 Vuetify2를 제거하고 Vuetify3로 업그레이드 (4단계)
+```
+npm uninstall @nuxtjs/vuetify
+npm install vuetify@3 @mdi/font sass
+```
+
+1. 점진적으로 패키지 업그레이드: 기타 Nuxt3에서 필요하게 된 패키지 추가 (5단계)
+- vuex의 경우, nuxt2에서는 자동 내장되지만, nuxt3에서는 pinia와 취사선택이 가능해진 관계로 별도 설치가 필요해졌다.
+```
+npm install -D vue-tsc @vue/typescript-plugin
+npm uninstall @nuxt/types
+npm i vuex@4
+npm install defu@6
+```
+
+1. tsconfig.json 수정: Nuxt3에 맞춰서 수정
+
+
+
+
+[Config 파일 업데이트]
+
+1. plugin/vuetify.ts 생성: Vuetify3용 설정 추가
+  이 파일은 nuxt2에서는 필요가 없고, 이를 nuxt.config.js에서 설정하는 걸로 끝났었는데,
+  Nuxt3에서는 그것만으론 불충분하고, plugin/vuetify.ts 도 만들어줘야 한다.
+
+1. plugin/vuex.ts 생성: Vuex store를 Nuxt3에 등록하는 플러그인 추가
+
+1. nuxt.config.js의 파일명을 nuxt.config.ts로 변경후, 수정:
+  파일 확장자는 ts로 변경해야 하는데, 굳이 그러는 이유는, Nuxt3에서는 타입스크립트 퍼스트 철학이 있어서 그렇다. 
+  참고로 그 외 다른 설정파일도 무조건 .ts로 변경해야 한다.
+  - nuxt.config.js의 파일명을 nuxt.config.ts로 변경한다.
+  - vuetify3에 맞춰서 수정할 항목도 추가해둔다. SSR 설정추가, Nitro 설정 추가 등
+  - 실험적인 베타 설정 옵션은 가급적 배제시킨다.
+
+1. types/vue.d.ts 생성: vue-facing-decorator의 TypeScript 타입 정의
+
+1. 그 외 *.config.js들이 있으면, 모두 수정:
+  확장자를 모두 *.config.ts 로 변경한다.
+  Nuxt3 상황에 맞춰 수정해야 한다.
+
+1. 테스트
+  여기서는 아직 에러가 나므로 테스트 생략한다.
+  다음 코드 변경으로 이동!
