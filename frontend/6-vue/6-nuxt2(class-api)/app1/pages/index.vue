@@ -138,6 +138,8 @@ import { mapGetters } from "vuex";
       "completedTodos",
       "pendingTodos",
       "completionRate",
+      "cartItemsCount",
+      "cartTotalPrice",
     ]),
   },
 })
@@ -147,6 +149,8 @@ export default class HomePage extends Vue {
   completedTodos!: number;
   pendingTodos!: number;
   completionRate!: number;
+  cartItemsCount!: number;
+  cartTotalPrice!: number;
   features = [
     {
       title: "영화 검색",
@@ -192,19 +196,9 @@ export default class HomePage extends Vue {
     },
   ];
 
-  // Computed property로 실시간 Todo 통계 제공
+  // Computed property로 실시간 통계 제공
   get stats() {
     return [
-      {
-        label: "총 영화 수",
-        value: "1,200+",
-        color: "primary",
-      },
-      {
-        label: "즐겨찾기 영화",
-        value: "47",
-        color: "red",
-      },
       {
         label: "총 할일",
         value: this.totalTodos.toString(),
@@ -214,6 +208,16 @@ export default class HomePage extends Vue {
         label: "완료된 할일",
         value: this.completedTodos.toString(),
         color: "success",
+      },
+      {
+        label: "장바구니 상품",
+        value: this.cartItemsCount.toString(),
+        color: "orange",
+      },
+      {
+        label: "장바구니 총액",
+        value: this.formatCartTotal(),
+        color: "purple",
       },
     ];
   }
@@ -252,6 +256,15 @@ export default class HomePage extends Vue {
   // Methods
   public navigateToPage(route: string): void {
     this.$router.push(route);
+  }
+
+  public formatCartTotal(): string {
+    if (this.cartTotalPrice === 0) return "0원";
+    return new Intl.NumberFormat("ko-KR", {
+      style: "currency",
+      currency: "KRW",
+      maximumFractionDigits: 0,
+    }).format(this.cartTotalPrice);
   }
 
   // Lifecycle hooks
