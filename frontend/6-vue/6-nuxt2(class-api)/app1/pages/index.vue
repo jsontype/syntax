@@ -73,6 +73,24 @@
                 </div>
               </v-col>
             </v-row>
+
+            <!-- Todo 진행률 표시 -->
+            <v-divider class="my-4"></v-divider>
+            <div class="text-subtitle-1 mb-2">할 일 완료율</div>
+            <v-progress-linear
+              :value="completionRate"
+              color="success"
+              height="12"
+              rounded
+              class="mb-2"
+            >
+              <template v-slot:default="{ value }">
+                <strong class="white--text">{{ Math.ceil(value) }}%</strong>
+              </template>
+            </v-progress-linear>
+            <div class="text-caption text--secondary text-center">
+              {{ completedTodos }} / {{ totalTodos }} 할 일 완료
+            </div>
           </v-card-text>
         </v-card>
 
@@ -108,13 +126,27 @@
   </v-container>
 </template>
 
-<script>
+<script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { mapGetters } from "vuex";
 
 @Component({
   name: "HomePage",
+  computed: {
+    ...mapGetters([
+      "totalTodos",
+      "completedTodos",
+      "pendingTodos",
+      "completionRate",
+    ]),
+  },
 })
 export default class HomePage extends Vue {
+  // Vuex getters
+  totalTodos!: number;
+  completedTodos!: number;
+  pendingTodos!: number;
+  completionRate!: number;
   features = [
     {
       title: "영화 검색",
@@ -160,28 +192,31 @@ export default class HomePage extends Vue {
     },
   ];
 
-  stats = [
-    {
-      label: "총 영화 수",
-      value: "1,200+",
-      color: "primary",
-    },
-    {
-      label: "즐겨찾기",
-      value: "47",
-      color: "red",
-    },
-    {
-      label: "완료된 할일",
-      value: "23",
-      color: "success",
-    },
-    {
-      label: "장바구니 아이템",
-      value: "5",
-      color: "orange",
-    },
-  ];
+  // Computed property로 실시간 Todo 통계 제공
+  get stats() {
+    return [
+      {
+        label: "총 영화 수",
+        value: "1,200+",
+        color: "primary",
+      },
+      {
+        label: "즐겨찾기 영화",
+        value: "47",
+        color: "red",
+      },
+      {
+        label: "총 할일",
+        value: this.totalTodos.toString(),
+        color: "info",
+      },
+      {
+        label: "완료된 할일",
+        value: this.completedTodos.toString(),
+        color: "success",
+      },
+    ];
+  }
 
   recentActivities = [
     {
@@ -215,12 +250,12 @@ export default class HomePage extends Vue {
   ];
 
   // Methods
-  navigateToPage(route) {
+  public navigateToPage(route: string): void {
     this.$router.push(route);
   }
 
   // Lifecycle hooks
-  mounted() {
+  public mounted(): void {
     console.log("HomePage mounted with class-API!");
   }
 }
