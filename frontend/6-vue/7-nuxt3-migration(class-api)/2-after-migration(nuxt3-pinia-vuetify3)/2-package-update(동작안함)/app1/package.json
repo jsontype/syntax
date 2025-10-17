@@ -1,0 +1,26 @@
+{
+  "name": "app1",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@mdi/font": "^7.4.47",
+    "@nuxtjs/axios": "^5.13.6",
+    "core-js": "^3.25.3",
+    "defu": "^6.1.4",
+    "nuxt": "^3.19.3",
+    "sass": "^1.93.2",
+    "vue-facing-decorator": "^4.0.1",
+    "vuetify": "^3.10.5"
+  },
+  "devDependencies": {
+    "@vue/typescript-plugin": "^3.1.1",
+    "typescript": "^5.9.3",
+    "vue-tsc": "^3.1.1"
+  }
+}

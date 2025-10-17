@@ -5,13 +5,13 @@
       <v-col cols="12">
         <div class="d-flex justify-space-between align-center">
           <div>
-            <h1 class="display-1 font-weight-bold mb-2">쇼핑몰</h1>
-            <p class="subtitle-1 grey--text">
+            <h1 class="text-h3 font-weight-bold mb-2">쇼핑몰</h1>
+            <p class="text-subtitle-1 text-medium-emphasis">
               다양한 제품을 둘러보고 장바구니에 추가해보세요
             </p>
           </div>
-          <v-btn color="primary" large :to="'/cart'" class="cart-btn">
-            <v-icon left>mdi-cart</v-icon>
+          <v-btn color="primary" size="large" :to="'/cart'" class="cart-btn">
+            <v-icon start>mdi-cart</v-icon>
             장바구니 ({{ cartItemsCount }})
           </v-btn>
         </div>
@@ -25,8 +25,8 @@
           v-model="searchQuery"
           label="제품 검색"
           prepend-inner-icon="mdi-magnify"
-          outlined
-          dense
+          variant="outlined"
+          density="compact"
           clearable
         ></v-text-field>
       </v-col>
@@ -35,8 +35,8 @@
           v-model="selectedCategory"
           :items="categoryItems"
           label="카테고리 선택"
-          outlined
-          dense
+          variant="outlined"
+          density="compact"
           clearable
         ></v-select>
       </v-col>
@@ -56,14 +56,14 @@
           <v-img
             :src="product.image"
             height="200"
-            class="white--text align-end product-image"
+            class="text-white align-end product-image"
             gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
           >
             <template v-slot:placeholder>
               <v-row class="fill-height ma-0" align="center" justify="center">
                 <v-progress-circular
                   indeterminate
-                  color="grey lighten-5"
+                  color="grey-lighten-5"
                 ></v-progress-circular>
               </v-row>
             </template>
@@ -92,8 +92,8 @@
               <!-- Quantity Control -->
               <div class="d-flex align-center">
                 <v-btn
-                  icon
-                  small
+                  icon="mdi-minus"
+                  size="small"
                   @click="
                     updateQuantity(
                       product.id,
@@ -101,25 +101,25 @@
                     )
                   "
                   :disabled="getProductQuantity(product.id) <= 1"
-                >
-                  <v-icon>mdi-minus</v-icon>
-                </v-btn>
+                ></v-btn>
 
                 <v-text-field
-                  :value="getProductQuantity(product.id)"
+                  :model-value="getProductQuantity(product.id)"
                   type="number"
                   min="1"
                   max="99"
                   style="width: 60px"
                   class="mx-2 text-center"
                   hide-details
-                  dense
-                  @input="updateQuantity(product.id, parseInt($event) || 1)"
+                  density="compact"
+                  @update:model-value="
+                    updateQuantity(product.id, parseInt($event) || 1)
+                  "
                 ></v-text-field>
 
                 <v-btn
-                  icon
-                  small
+                  icon="mdi-plus"
+                  size="small"
                   @click="
                     updateQuantity(
                       product.id,
@@ -127,9 +127,7 @@
                     )
                   "
                   :disabled="getProductQuantity(product.id) >= 99"
-                >
-                  <v-icon>mdi-plus</v-icon>
-                </v-btn>
+                ></v-btn>
               </div>
 
               <!-- Add to Cart Button -->
@@ -140,7 +138,7 @@
                   handleAddToCart(product, getProductQuantity(product.id))
                 "
               >
-                <v-icon left>
+                <v-icon start>
                   {{ isInCart(product.id) ? "mdi-check" : "mdi-cart-plus" }}
                 </v-icon>
                 {{ isInCart(product.id) ? "추가됨" : "담기" }}
@@ -154,9 +152,11 @@
     <!-- Empty State -->
     <v-row v-if="filteredProducts.length === 0" class="mt-8">
       <v-col cols="12" class="text-center">
-        <v-icon size="64" color="grey lighten-2">mdi-package-variant</v-icon>
-        <h3 class="grey--text mt-4">검색 결과가 없습니다</h3>
-        <p class="grey--text">다른 검색어나 카테고리를 시도해보세요</p>
+        <v-icon size="64" color="grey-lighten-2">mdi-package-variant</v-icon>
+        <h3 class="text-medium-emphasis mt-4">검색 결과가 없습니다</h3>
+        <p class="text-medium-emphasis">
+          다른 검색어나 카테고리를 시도해보세요
+        </p>
       </v-col>
     </v-row>
 
@@ -165,21 +165,19 @@
       v-model="snackbar.show"
       :color="snackbar.color"
       timeout="3000"
-      top
-      right
+      location="top right"
     >
       {{ snackbar.message }}
-      <template v-slot:action="{ attrs }">
-        <v-btn text v-bind="attrs" @click="snackbar.show = false"> 닫기 </v-btn>
+      <template v-slot:actions>
+        <v-btn variant="text" @click="snackbar.show = false"> 닫기 </v-btn>
       </template>
     </v-snackbar>
   </v-container>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { mapGetters, mapActions } from "vuex";
-import { Product } from "~/store";
+import { Component, Vue } from "vue-facing-decorator";
+import type { Product } from "~/store";
 
 interface SnackbarState {
   show: boolean;
@@ -187,23 +185,7 @@ interface SnackbarState {
   color: string;
 }
 
-@Component({
-  computed: {
-    ...mapGetters([
-      "allProducts",
-      "cartItemsCount",
-      "getCartItem",
-      "productCategories",
-    ]),
-  },
-  methods: {
-    ...mapActions([
-      "addToCart",
-      "addToCartWithQuantity",
-      "loadCartFromStorage",
-    ]),
-  },
-})
+@Component
 export default class ShoppingPage extends Vue {
   // Data properties
   private searchQuery: string = "";
@@ -216,19 +198,18 @@ export default class ShoppingPage extends Vue {
     color: "success",
   };
 
-  // Computed properties from Vuex
-  allProducts!: Product[];
-  cartItemsCount!: number;
-  getCartItem!: (productId: number) => any;
-  productCategories!: string[];
+  // Vuex computed properties (direct access)
+  get allProducts(): Product[] {
+    return this.$store.getters.allProducts;
+  }
 
-  // Vuex actions
-  addToCart!: (product: Product) => void;
-  addToCartWithQuantity!: (payload: {
-    product: Product;
-    quantity: number;
-  }) => void;
-  loadCartFromStorage!: () => void;
+  get cartItemsCount(): number {
+    return this.$store.getters.cartItemsCount;
+  }
+
+  get productCategories(): string[] {
+    return this.$store.getters.productCategories;
+  }
 
   // Computed properties
   get filteredProducts(): Product[] {
@@ -259,18 +240,18 @@ export default class ShoppingPage extends Vue {
   get categoryItems() {
     const categories = this.productCategories || [];
     return categories.map((category) => ({
-      text: category,
+      title: category,
       value: category,
     }));
   }
 
   // Lifecycle hooks
   async mounted() {
-    await this.loadCartFromStorage();
+    await this.$store.dispatch("loadCartFromStorage");
 
     // Initialize product quantities
     this.allProducts.forEach((product) => {
-      this.$set(this.productQuantities, product.id, 1);
+      this.productQuantities[product.id] = 1;
     });
   }
 
@@ -283,7 +264,7 @@ export default class ShoppingPage extends Vue {
   }
 
   public isInCart(productId: number): boolean {
-    return !!this.getCartItem(productId);
+    return !!this.$store.getters.getCartItem(productId);
   }
 
   public getProductQuantity(productId: number): number {
@@ -293,7 +274,7 @@ export default class ShoppingPage extends Vue {
   public updateQuantity(productId: number, quantity: number): void {
     if (quantity < 1) quantity = 1;
     if (quantity > 99) quantity = 99;
-    this.$set(this.productQuantities, productId, quantity);
+    this.productQuantities[productId] = quantity;
   }
 
   public async handleAddToCart(
@@ -304,7 +285,10 @@ export default class ShoppingPage extends Vue {
 
     try {
       // 수량과 함께 장바구니에 추가
-      await this.addToCartWithQuantity({ product, quantity });
+      await this.$store.dispatch("addToCartWithQuantity", {
+        product,
+        quantity,
+      });
 
       this.showSnackbar(
         `${product.name} ${quantity}개가 장바구니에 추가되었습니다`,

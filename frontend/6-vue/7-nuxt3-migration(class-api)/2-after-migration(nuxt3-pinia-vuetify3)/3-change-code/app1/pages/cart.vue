@@ -5,13 +5,13 @@
       <v-col cols="12">
         <div class="d-flex justify-space-between align-center">
           <div>
-            <h1 class="display-1 font-weight-bold mb-2">장바구니</h1>
-            <p class="subtitle-1 grey--text">
+            <h1 class="text-h3 font-weight-bold mb-2">장바구니</h1>
+            <p class="text-subtitle-1 text-medium-emphasis">
               선택한 상품들을 확인하고 주문을 진행하세요
             </p>
           </div>
-          <v-btn color="primary" outlined :to="'/shopping'">
-            <v-icon left>mdi-arrow-left</v-icon>
+          <v-btn color="primary" variant="outlined" :to="'/shopping'">
+            <v-icon start>mdi-arrow-left</v-icon>
             쇼핑 계속하기
           </v-btn>
         </div>
@@ -28,12 +28,12 @@
             <v-spacer></v-spacer>
             <v-btn
               color="error"
-              text
-              small
+              variant="text"
+              size="small"
               @click="handleClearCart"
               :loading="loading"
             >
-              <v-icon left small>mdi-delete</v-icon>
+              <v-icon start size="small">mdi-delete</v-icon>
               전체 삭제
             </v-btn>
           </v-card-title>
@@ -46,91 +46,91 @@
               :key="item.id"
               class="cart-item"
             >
-              <v-list-item-avatar size="80" class="mr-4">
-                <v-img
-                  :src="item.product.image"
-                  :alt="item.product.name"
-                  aspect-ratio="1"
+              <template v-slot:prepend>
+                <v-avatar size="80" class="mr-4">
+                  <v-img
+                    :src="item.product.image"
+                    :alt="item.product.name"
+                    aspect-ratio="1"
+                  >
+                    <template v-slot:placeholder>
+                      <v-row
+                        class="fill-height ma-0"
+                        align="center"
+                        justify="center"
+                      >
+                        <v-progress-circular
+                          indeterminate
+                          color="grey-lighten-5"
+                        ></v-progress-circular>
+                      </v-row>
+                    </template>
+                  </v-img>
+                </v-avatar>
+              </template>
+
+              <v-list-item-title class="font-weight-bold">
+                {{ item.product.name }}
+              </v-list-item-title>
+              <v-list-item-subtitle class="mb-2">
+                {{ item.product.category }}
+              </v-list-item-subtitle>
+              <v-list-item-subtitle class="product-description">
+                {{ item.product.description }}
+              </v-list-item-subtitle>
+              <div class="price-info mt-2">
+                <span class="unit-price"
+                  >단가: {{ formatPrice(item.product.price) }}</span
                 >
-                  <template v-slot:placeholder>
-                    <v-row
-                      class="fill-height ma-0"
-                      align="center"
-                      justify="center"
-                    >
-                      <v-progress-circular
-                        indeterminate
-                        color="grey lighten-5"
-                      ></v-progress-circular>
-                    </v-row>
-                  </template>
-                </v-img>
-              </v-list-item-avatar>
+                <span class="total-price ml-4 font-weight-bold">
+                  소계: {{ formatPrice(item.product.price * item.quantity) }}
+                </span>
+              </div>
 
-              <v-list-item-content>
-                <v-list-item-title class="font-weight-bold">
-                  {{ item.product.name }}
-                </v-list-item-title>
-                <v-list-item-subtitle class="mb-2">
-                  {{ item.product.category }}
-                </v-list-item-subtitle>
-                <v-list-item-subtitle class="product-description">
-                  {{ item.product.description }}
-                </v-list-item-subtitle>
-                <div class="price-info mt-2">
-                  <span class="unit-price"
-                    >단가: {{ formatPrice(item.product.price) }}</span
-                  >
-                  <span class="total-price ml-4 font-weight-bold">
-                    소계: {{ formatPrice(item.product.price * item.quantity) }}
-                  </span>
-                </div>
-              </v-list-item-content>
+              <template v-slot:append>
+                <div class="cart-actions">
+                  <div class="quantity-controls mb-2">
+                    <v-btn
+                      icon="mdi-minus"
+                      size="small"
+                      @click="
+                        updateQuantity(item.product.id, item.quantity - 1)
+                      "
+                      :disabled="loading"
+                    ></v-btn>
 
-              <v-list-item-action class="cart-actions">
-                <div class="quantity-controls mb-2">
-                  <v-btn
-                    icon
-                    small
-                    @click="updateQuantity(item.product.id, item.quantity - 1)"
-                    :disabled="loading"
-                  >
-                    <v-icon>mdi-minus</v-icon>
-                  </v-btn>
+                    <v-text-field
+                      :model-value="item.quantity"
+                      type="number"
+                      min="1"
+                      max="99"
+                      class="quantity-input mx-2"
+                      hide-details
+                      density="compact"
+                      @update:model-value="
+                        updateQuantity(item.product.id, parseInt($event) || 1)
+                      "
+                      :disabled="loading"
+                    ></v-text-field>
 
-                  <v-text-field
-                    :value="item.quantity"
-                    type="number"
-                    min="1"
-                    max="99"
-                    class="quantity-input mx-2"
-                    hide-details
-                    dense
-                    @input="
-                      updateQuantity(item.product.id, parseInt($event) || 1)
-                    "
-                    :disabled="loading"
-                  ></v-text-field>
+                    <v-btn
+                      icon="mdi-plus"
+                      size="small"
+                      @click="
+                        updateQuantity(item.product.id, item.quantity + 1)
+                      "
+                      :disabled="loading"
+                    ></v-btn>
+                  </div>
 
                   <v-btn
-                    icon
-                    small
-                    @click="updateQuantity(item.product.id, item.quantity + 1)"
-                    :disabled="loading"
-                  >
-                    <v-icon>mdi-plus</v-icon>
-                  </v-btn>
+                    icon="mdi-delete"
+                    color="error"
+                    @click="handleRemoveItem(item.product.id)"
+                    :loading="loading"
+                  ></v-btn>
                 </div>
-
-                <v-btn
-                  icon
-                  color="error"
-                  @click="handleRemoveItem(item.product.id)"
-                  :loading="loading"
-                >
-                  <v-icon>mdi-delete</v-icon>
-                </v-btn>
-              </v-list-item-action>
+              </template>
             </v-list-item>
           </v-list>
         </v-card>
@@ -157,7 +157,7 @@
 
             <div class="summary-row total-row">
               <span class="font-weight-bold">총 결제 금액:</span>
-              <span class="font-weight-bold text-h6 primary--text">
+              <span class="font-weight-bold text-h6 text-primary">
                 {{ formatPrice(cartTotalPrice) }}
               </span>
             </div>
@@ -167,11 +167,11 @@
             <v-btn
               color="primary"
               block
-              large
+              size="large"
               @click="handleCheckout"
               :loading="loading"
             >
-              <v-icon left>mdi-credit-card</v-icon>
+              <v-icon start>mdi-credit-card</v-icon>
               주문하기
             </v-btn>
           </v-card-actions>
@@ -182,11 +182,11 @@
     <!-- Empty Cart State -->
     <v-row v-else>
       <v-col cols="12" class="text-center py-12">
-        <v-icon size="120" color="grey lighten-2">mdi-cart-outline</v-icon>
-        <h2 class="grey--text mt-6 mb-4">장바구니가 비어있습니다</h2>
-        <p class="grey--text mb-6">쇼핑을 시작해보세요!</p>
-        <v-btn color="primary" large :to="'/shopping'">
-          <v-icon left>mdi-shopping</v-icon>
+        <v-icon size="120" color="grey-lighten-2">mdi-cart-outline</v-icon>
+        <h2 class="text-medium-emphasis mt-6 mb-4">장바구니가 비어있습니다</h2>
+        <p class="text-medium-emphasis mb-6">쇼핑을 시작해보세요!</p>
+        <v-btn color="primary" size="large" :to="'/shopping'">
+          <v-icon start>mdi-shopping</v-icon>
           쇼핑하러 가기
         </v-btn>
       </v-col>
@@ -196,13 +196,15 @@
     <v-dialog v-model="orderDialog" max-width="400" persistent>
       <v-card>
         <v-card-title class="justify-center">
-          <v-icon large color="success" class="mr-2">mdi-check-circle</v-icon>
+          <v-icon size="large" color="success" class="mr-2"
+            >mdi-check-circle</v-icon
+          >
           주문 완료
         </v-card-title>
 
         <v-card-text class="text-center">
           <p class="mb-2">주문이 성공적으로 완료되었습니다!</p>
-          <p class="grey--text">
+          <p class="text-medium-emphasis">
             총 결제 금액: <strong>{{ formatPrice(orderTotal) }}</strong>
           </p>
         </v-card-text>
@@ -220,21 +222,19 @@
       v-model="snackbar.show"
       :color="snackbar.color"
       timeout="3000"
-      top
-      right
+      location="top right"
     >
       {{ snackbar.message }}
-      <template v-slot:action="{ attrs }">
-        <v-btn text v-bind="attrs" @click="snackbar.show = false"> 닫기 </v-btn>
+      <template v-slot:actions>
+        <v-btn variant="text" @click="snackbar.show = false"> 닫기 </v-btn>
       </template>
     </v-snackbar>
   </v-container>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { mapGetters, mapActions } from "vuex";
-import { CartItem } from "~/store";
+import { Component, Vue } from "vue-facing-decorator";
+import type { CartItem } from "~/store";
 
 interface SnackbarState {
   show: boolean;
@@ -242,19 +242,7 @@ interface SnackbarState {
   color: string;
 }
 
-@Component({
-  computed: {
-    ...mapGetters(["cartItems", "cartItemsCount", "cartTotalPrice"]),
-  },
-  methods: {
-    ...mapActions([
-      "updateCartItemQuantity",
-      "removeFromCart",
-      "clearCart",
-      "loadCartFromStorage",
-    ]),
-  },
-})
+@Component
 export default class CartPage extends Vue {
   // Data properties
   private loading: boolean = false;
@@ -266,23 +254,22 @@ export default class CartPage extends Vue {
     color: "success",
   };
 
-  // Computed properties from Vuex
-  cartItems!: CartItem[];
-  cartItemsCount!: number;
-  cartTotalPrice!: number;
+  // Vuex computed properties (direct access)
+  get cartItems(): CartItem[] {
+    return this.$store.getters.cartItems;
+  }
 
-  // Vuex actions
-  updateCartItemQuantity!: (payload: {
-    productId: number;
-    quantity: number;
-  }) => void;
-  removeFromCart!: (productId: number) => void;
-  clearCart!: () => void;
-  loadCartFromStorage!: () => void;
+  get cartItemsCount(): number {
+    return this.$store.getters.cartItemsCount;
+  }
+
+  get cartTotalPrice(): number {
+    return this.$store.getters.cartTotalPrice;
+  }
 
   // Lifecycle hooks
   async mounted() {
-    await this.loadCartFromStorage();
+    await this.$store.dispatch("loadCartFromStorage");
   }
 
   // Methods
@@ -305,7 +292,10 @@ export default class CartPage extends Vue {
     this.loading = true;
 
     try {
-      await this.updateCartItemQuantity({ productId, quantity });
+      await this.$store.dispatch("updateCartItemQuantity", {
+        productId,
+        quantity,
+      });
       this.showSnackbar("수량이 업데이트되었습니다", "success");
     } catch (error) {
       this.showSnackbar("수량 업데이트 중 오류가 발생했습니다", "error");
@@ -319,7 +309,7 @@ export default class CartPage extends Vue {
     this.loading = true;
 
     try {
-      await this.removeFromCart(productId);
+      await this.$store.dispatch("removeFromCart", productId);
       this.showSnackbar("상품이 장바구니에서 제거되었습니다", "success");
     } catch (error) {
       this.showSnackbar("상품 제거 중 오류가 발생했습니다", "error");
@@ -337,7 +327,7 @@ export default class CartPage extends Vue {
     this.loading = true;
 
     try {
-      await this.clearCart();
+      await this.$store.dispatch("clearCart");
       this.showSnackbar("장바구니가 비워졌습니다", "success");
     } catch (error) {
       this.showSnackbar("장바구니 비우기 중 오류가 발생했습니다", "error");
@@ -360,7 +350,7 @@ export default class CartPage extends Vue {
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       this.orderTotal = this.cartTotalPrice;
-      await this.clearCart();
+      await this.$store.dispatch("clearCart");
       this.orderDialog = true;
     } catch (error) {
       this.showSnackbar("주문 처리 중 오류가 발생했습니다", "error");

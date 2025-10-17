@@ -1,0 +1,16 @@
+[vue2 (vue-property-decorator) -> vue3 (vue-facing-decorator) 마이그레이션 절차, 작업 순서]
+* 개요: 
+  Vuetify2, Vue2, Nuxt3, Vuex, vue-property-decorator 로 class api 형태로 구성되어 있는 앱이 있을 때, 
+  그것을 Vuetify3, Vue3, Nuxt3, Pinia, vue-facing-decorator 로 class api 형태 보존하면서 이행하는 방법이다.
+
+1. 사전 준비
+  - 현재 프로젝트의 의존성 및 구조 파악
+  - 브레이킹 체인지 목록 검토
+  - 백업 브랜치 생성
+  - 테스트 코드 작성 (있다면)
+
+2. 패키지 업그레이드 (단계별 진행 권장)
+
+3. 설정 파일 수정
+
+4. 코드 마이그레이션

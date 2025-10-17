@@ -266,7 +266,7 @@ export const actions = {
   },
 
   loadTodosFromStorage({ commit }: any) {
-    if (process.client) {
+    if (import.meta.client) {
       try {
         const stored = localStorage.getItem("nuxt-todos");
         if (stored) {
@@ -283,7 +283,7 @@ export const actions = {
   },
 
   saveTodosToStorage({ state }: any) {
-    if (process.client) {
+    if (import.meta.client) {
       try {
         localStorage.setItem("nuxt-todos", JSON.stringify(state.todos));
       } catch (error) {
@@ -325,7 +325,7 @@ export const actions = {
   },
 
   loadCartFromStorage({ commit }: any) {
-    if (process.client) {
+    if (import.meta.client) {
       try {
         const stored = localStorage.getItem("nuxt-cart");
         if (stored) {
@@ -339,7 +339,7 @@ export const actions = {
   },
 
   saveCartToStorage({ state }: any) {
-    if (process.client) {
+    if (import.meta.client) {
       try {
         localStorage.setItem("nuxt-cart", JSON.stringify(state.cart));
       } catch (error) {

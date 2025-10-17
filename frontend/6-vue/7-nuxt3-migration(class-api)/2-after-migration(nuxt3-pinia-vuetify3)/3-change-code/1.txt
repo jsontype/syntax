@@ -1,0 +1,64 @@
+[코드 변경 사전 작업]
+
+1. 핵심 변경점 파악해두기
+  - Nuxt2 -> Nuxt3 변경점
+    Layout: 구조 변경 (nuxt 태그 -> slot 사용)
+    Store: vuex에서 mapGetters, mapActions 사용 중단됨. 직접 $store.getters, $store.dispatch 사용 (* Vue3부터는 Pinia 사용도 가능)
+    Fetch: $axios 사용 중단됨. $fetch 사용
+    LifeCycle: 라이프사이클 훅 변경 (mounted -> onMounted)
+  - Vuetify2 -> Vuetify3 변경점
+  - vue-property-decorator -> vue-facing-decorator 변경점
+
+1. 파일변경 순서: 의존성 방향대로 흘러가야하므로, Top-down 방식으로 진행
+  Layout (최상위)
+  Pages (중간) - 단순 페이지부터 복잡한 페이지 순으로
+  Components (하위) - 단, Components 내부에서는 Bottom-up
+    Atoms (최하위 컴포넌트)
+    Molecules (Atoms 조합)
+    Organisms (Molecules 조합)
+  Store (독립적)
+
+
+
+[코드 변경 시작]
+
+1. layouts/default.vue 수정: Layout 구조 변경점 대응
+
+1. pages/*.vue 수정:
+  모든 $axios를 $fetch로 변경, vue-facing-decorator 변경, Store 접근 방식과 초기화 방식 변경, Vuetify3로 문법 변경 등을 종합적으로 진행
+  페이지 대응 순서는 단순에서 복잡 순으로 아래 순서대로 대응했다.
+  - pages/about.vue
+  - pages/index.vue
+  - pages/movie.vue
+  - pages/todo.vue
+  - pages/shopping.vue
+  - pages/cart.vue  
+
+1. components/*.* 수정: 위와 동일
+
+1. store/index.ts 수정: process 객체를 import.meta로 변경 등
+
+1. package.json 수정: nuxt 명령어를 nuxi로 변경, preview, postinstall 스크립트 추가
+  "preview": 빌드 후 프리뷰 서버 실행
+  "postinstall": npm install 후 자동으로 Nuxt 준비 작업 수행 (타입 생성 등)
+
+
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
+  빌드 테스트
+  - TypeScript 컴파일 에러 없음
+  - 런타임 에러 없음
+  - 개발 서버 정상 실행
+  - 프로덕션 빌드 성공
+  화면 테스트
+  - 페이지 라우팅 정상 동작
+  - Vuetify 컴포넌트 정상 렌더링
+  - Store 상태 관리 정상 동작
+  - 테마 토글 정상 동작
+  - LocalStorage 연동 정상 동작
+  참고
+  - 테스트 후에 버전간 차분으로 인해서, 분명히, 원래 화면에서 조금 어긋남 등이 발생할 것이다.
+  - 이것은 차차 이슈를 파서 해결해나가면 된다.
+  끝!
