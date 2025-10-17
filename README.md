@@ -8,9 +8,11 @@ https://github.com/jsontype/old.git
 
 # 핵심 커밋
 
-1. Nuxt2 -> Nuxt3 이행 (decorator를 이용한 Class API 방식, Vuetify3)
-   Nuxt2를 Nuxt3으로 변경1: 패키지 업데이트 및 설정파일 갱신 -> https://github.com/jsontype/syntax/commit/e213f2a5e170544849d7249b635b00585bb3581a
-   Nuxt2를 Nuxt3으로 변경2: 코드 변경 ->
+### Nuxt2를 Nuxt3으로 변경(decorator를 이용한 Class API 방식, Vuetify3)
+
+1. [이행시 참조할 커밋](https://github.com/jsontype/syntax/commit/439450269871212ef6372791ae68ef314674fdab)
+1. [이행 절차서1: 패키지 업데이트](<https://github.com/jsontype/syntax/blob/439450269871212ef6372791ae68ef314674fdab/frontend/6-vue/7-nuxt3-migration(class-api)/2-after-migration(nuxt3-pinia-vuetify3)/2-package-update(%EB%8F%99%EC%9E%91%EC%95%88%ED%95%A8)/1.txt>)
+1. [이행 절차서2: 코드 변경](<https://github.com/jsontype/syntax/blob/439450269871212ef6372791ae68ef314674fdab/frontend/6-vue/7-nuxt3-migration(class-api)/2-after-migration(nuxt3-pinia-vuetify3)/3-change-code/1.txt>)
 
 # Frequently reused symbols
 
