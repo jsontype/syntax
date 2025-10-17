@@ -8,9 +8,7 @@ https://github.com/jsontype/old.git
 
 # 핵심 커밋
 
-### Nuxt2를 Nuxt3으로 변경(decorator를 이용한 Class API 방식, Vuetify3)
-
-1. [이행시 참조할 커밋](https://github.com/jsontype/syntax/commit/439450269871212ef6372791ae68ef314674fdab)
+1. [Nuxt2를 Nuxt3으로 변경(decorator를 이용한 Class API 방식, Vuetify3)](https://github.com/jsontype/syntax/commit/e70dd8a09fee3f3a302285c62392eda6c559fcf7)
 1. [이행 절차서1: 패키지 업데이트](<https://github.com/jsontype/syntax/blob/439450269871212ef6372791ae68ef314674fdab/frontend/6-vue/7-nuxt3-migration(class-api)/2-after-migration(nuxt3-pinia-vuetify3)/2-package-update(%EB%8F%99%EC%9E%91%EC%95%88%ED%95%A8)/1.txt>)
 1. [이행 절차서2: 코드 변경](<https://github.com/jsontype/syntax/blob/439450269871212ef6372791ae68ef314674fdab/frontend/6-vue/7-nuxt3-migration(class-api)/2-after-migration(nuxt3-pinia-vuetify3)/3-change-code/1.txt>)
 
