@@ -62,23 +62,31 @@
   </v-app>
 </template>
 
-<script>
+<script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { mapActions } from "vuex";
 
 @Component({
   name: "DefaultLayout",
+  methods: {
+    ...mapActions(["loadTodosFromStorage", "loadCartFromStorage"]),
+  },
 })
 export default class DefaultLayout extends Vue {
-  // Data properties
-  clipped = false;
-  drawer = false;
-  fixed = false;
-  miniVariant = false;
-  right = true;
-  rightDrawer = false;
-  title = "Vuetify Nuxt App";
+  // Vuex actions
+  loadTodosFromStorage!: () => void;
+  loadCartFromStorage!: () => void;
 
-  items = [
+  // Data properties
+  private clipped = false;
+  private drawer = false;
+  private fixed = false;
+  private miniVariant = false;
+  private right = true;
+  private rightDrawer = false;
+  private title = "Todo & Movie & Shopping App";
+
+  private items = [
     {
       icon: "mdi-home",
       title: "홈",
@@ -110,5 +118,12 @@ export default class DefaultLayout extends Vue {
       to: "/cart",
     },
   ];
+
+  // Lifecycle hooks
+  async mounted() {
+    // Load data from localStorage on app start
+    await this.loadTodosFromStorage();
+    await this.loadCartFromStorage();
+  }
 }
 </script>
