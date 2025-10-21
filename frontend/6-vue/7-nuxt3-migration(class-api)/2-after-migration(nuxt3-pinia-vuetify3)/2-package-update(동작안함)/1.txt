@@ -9,24 +9,34 @@
   - 방식: 새 프로젝트 생성이 아닌 점진적 업그레이드
   - 보존: Class API 형태 완전 보존
 
+1. 사전준비: 패키지 업데이트를 위한 노드버전 변경
+  - Nuxt3 및 현재 사용할 패키지는 Node.js 20에서만 동작한다.
+  - nvm을 사용하는 경우:
+    ```
+    nvm install 20
+    nvm use 20
+    ```
+
 1. AI 프롬프트 예시 (1단계)
   다음 Nuxt2 앱을 Nuxt3로 마이그레이션하려고 한다.
-  **현재 스택:**
-  - Nuxt 2
-  - Vuetify 2
-  - Vuex
-  - TypeScript
-  - Class API (vue-property-decorator 사용)
-
-  **목표 스택:**
-  - Nuxt 3
-  - Vuetify 3
-  - Vuex
-  - TypeScript
-  - Class API (vue-facing-decorator 사용)
+  **변경 사항:**
+  - Nuxt 2 → Nuxt 3
+  - Vuetify 2 → Vuetify 3
+  - Vuex → Vuex
+  - TypeScript → TypeScript
+  - Class API (vue-property-decorator 사용) → Class API (vue-facing-decorator 사용)
 
   **파일 구조:**
   각 파일의 코드를 분석하고, Nuxt3 마이그레이션 시 필요한 변경사항을 단계별로 알려줘.
+
+1. AI 프롬프트 예시 (2단계)
+  # Vue 컴포넌트/페이지 Nuxt3로 마이그레이션
+  다음은 pages/**/*.vue, components/**/*.vue 등, Nuxt2 Class API 회면들을 Nuxt3 Class API로 완전히 변환해줘.
+  
+  **변경 사항:**
+  - Class API (vue-property-decorator 사용) → Class API (vue-facing-decorator 사용)
+  - Vuetify 2 컴포넌트 → Vuetify 3 컴포넌트
+  - 그 외 라이브러리 등 Nuxt3 에서 호환되는 방식으로 변경
 
 
 
