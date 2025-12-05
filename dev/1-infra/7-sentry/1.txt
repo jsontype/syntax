@@ -1,0 +1,852 @@
+# project-frontend Sentry 도입 완전 가이드 (project1/project1-b 분리)
+
+## **Phase 1: 사전 준비 (수동 작업)**
+
+### 1. Sentry 프로젝트 생성 (4개)
+Sentry 웹사이트 (https://sentry.io/insights/projects/new)에서 진행:
+* 조직일 경우, [조직명].sentry.io 처럼 앞에 회사 도메인이 들어가며, 해당 팀에 member로서 join 해야함.
+
+**1-1. project1-dev 프로젝트 생성 (ToC 개발환경)**
+- Projects → Create Project 클릭
+- Platform: **Next.js** 선택
+- Project name: `project1-dev`
+- Team: `#syntax-inc` 선택
+- Alert frequency: **"When there are more than 10 occurrences of a unique error in one hour"** 선택
+- Notify via integration: **Slack** 선택 → `j_jsontype_syntax_alert_dev` 채널 연결
+- 생성 후 **DSN 값 복사 및 보관** (예: `https://xxxx@xxxx.ingest.us.sentry.io/xxxx`)
+
+**1-2. project1-prod 프로젝트 생성 (ToC 본번환경)**
+- 위와 동일하게 진행
+- Project name: `project1-prod`
+- Slack 채널: `j_jsontype_syntax_alert_prod`
+- **DSN 값 복사 및 보관**
+
+**1-3. project1-b-dev 프로젝트 생성 (ToB 개발환경)**
+- 위와 동일하게 진행
+- Project name: `project1-b-dev`
+- Slack 채널: `j_jsontype_syntax_alert_dev`
+- **DSN 값 복사 및 보관**
+
+**1-4. project1-b-prod 프로젝트 생성 (ToB 본번환경)**
+- 위와 동일하게 진행
+- Project name: `project1-b-prod`
+- Slack 채널: `j_jsontype_syntax_alert_prod`
+- **DSN 값 복사 및 보관**
+
+### 2. Slack 채널 생성 (4개): 슬랙 채널 생성은, 슬랙 팀 안에서 team admin 권한이 필요하므로, 담당자에 문의해야할 수 있음.
+Slack 워크스페이스에서:
+- `j_jsontype_syntax_alert_dev` 채널 생성 (ToC 개발)
+- `j_jsontype_syntax_alert_prod` 채널 생성 (ToC 본번)
+- `j_jsontype_syntax_alert_dev` 채널 생성 (ToB 개발)
+- `j_jsontype_syntax_alert_prod` 채널 생성 (ToB 본번)
+- 각 채널에 관련 팀원 초대 
+- 해당 채널에 다음을 입력해 센트리 앱을 연결 (필수!)
+  /invite @Sentry
+
+### 3. SENTRY_AUTH_TOKEN 발급 후 DSN(Data Source Name)과 함께 .env 설정
+- Sentry → Settings → Developer Settings → Organization Tokens (개인 프로젝트의 경우에는 Personal Tokens)
+- Create New Token
+- Scopes: `project:releases`, `org:read` 선택 (선택이 안 되는 경우, Team Admin 프로젝트 권한 부여)
+- **토큰 값 복사 및 안전하게 보관**
+- .env 설정 (DSN 값, TOKEN 값 복사 및 보관)
+  ```
+    # Sentry
+
+    # project1-dev: Localで確認する際のみ有効化
+    NEXT_PUBLIC_SENTRY_DSN=[DSN 값]
+    REACT_APP_ENV=dev
+    SENTRY_AUTH_TOKEN=[TOKEN 값]
+
+    # project1-prod
+    # ... (키 모두 상동. 환경변수 값만 다름)
+    # project2-dev: Localで確認する際のみ有効化
+    # ... (키 모두 상동. 환경변수 값만 다름)
+    # project1-prod
+    # ... (키 모두 상동. 환경변수 값만 다름)
+  ```
+
+### 4. 각 Sentry 프로젝트에서 Alert Rule을 설정하고, Sentry-Slack 연동 (4개 연결)
+각 Sentry 프로젝트를 생성
+각 프로젝트 화면에서, Create Alert Rule → Slack → 아래의 해당 채널 선택 → Save Rules
+- `project1-dev` → `#j_jsontype_syntax_alert_dev`
+- `project1-prod` → `#j_jsontype_syntax_alert_prod`
+- `project1-b-dev` → `#j_jsontype_syntax_alert_dev`
+- `project1-b-prod` → `#j_jsontype_syntax_alert_prod`
+
+---
+
+## **Phase 2: 패키지 설치**
+
+### 5. @sentry/nextjs 설치: 설치 후 npx 처리까지 해야함
+```bash
+cd /Users/dev/Desktop/workspace/syntax/project-frontend
+npm install @sentry/nextjs@9.22.0
+npx sentry-wizard@latest (수동의 경우이고, 마법사를 실행하는 경우에는 다른 설정이 필요. sentry.io 내의 해당 프로젝트에 npx 명령어가 있을 것이니 그걸 참조해서 하면 됨)
+```
+
+---
+
+## **Phase 3: Sentry 설정 파일 생성**
+
+### 6. 서비스 식별 헬퍼 함수 생성
+**파일 경로**: `src/utils/sentry-service-helper.ts` (새로 생성)
+
+```typescript
+/**
+ * NEXT_PUBLIC_SERVICE_TYPE으로 서비스 타입(project1/project1-b) 판단
+ */
+export function getSentryServiceType(): 'project1' | 'project1-b' | null {
+  const serviceType = process.env.NEXT_PUBLIC_SERVICE_TYPE;
+  
+  if (!serviceType) return null;
+  
+  // project1 (ToC): project1, project2
+  if (['project1', 'project2'].includes(serviceType)) {
+    return 'project1';
+  }
+  
+  // project1-b (ToB): project1-b, project2-b
+  if (['project1-b', 'project2-b'].includes(serviceType)) {
+    return 'project1-b';
+  }
+  
+  return null;
+}
+
+/**
+ * Sentry 프로젝트명 가져오기
+ * 예: "project1-prod", "project1-b-dev"
+ */
+export function getSentryProjectName(): string | null {
+  const service = getSentryServiceType();
+  const env = process.env.REACT_APP_ENV;
+  
+  if (!service || !env) return null;
+  
+  return `${service}-${env}`;
+}
+
+/**
+ * Sentry 환경명 가져오기
+ */
+export function getSentryEnvironment(): string | null {
+  const service = getSentryServiceType();
+  const env = process.env.REACT_APP_ENV;
+  
+  if (!service || !env) return null;
+  
+  return `${service}-${env}`;
+}
+```
+
+### 7. instrumentation-client.ts 생성
+**파일 경로**: `src/instrumentation-client.ts`
+
+```typescript
+// 클라이언트 측에서 Sentry를 초기화합니다.
+// 서비스(project1/project1-b)와 환경(prod/dev)을 자동 판정합니다.
+// https://docs.sentry.io/platforms/javascript/guides/nextjs/
+
+import { captureRouterTransitionStart, init } from '@sentry/nextjs';
+import { getSentryEnvironment } from '@/utils/sentry-service-helper';
+
+// prod/dev 환경에서만 Sentry 활성화
+if (process.env.REACT_APP_ENV === 'prod' || process.env.REACT_APP_ENV === 'dev') {
+  const environment = getSentryEnvironment();
+  
+  if (environment && process.env.NEXT_PUBLIC_SENTRY_DSN) {
+    const isProd = process.env.REACT_APP_ENV === 'prod';
+    
+    init({
+      dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+      
+      // 트레이스 샘플링 비율: 100% (모든 에러 수집)
+      tracesSampleRate: 1.0,
+      
+      // 디버그 모드: dev 환경에서만 활성화
+      debug: !isProd,
+      
+      // 환경 식별: "project1-prod", "project1-dev", "project1-b-prod", "project1-b-dev"
+      environment,
+    });
+  }
+}
+
+export const onRouterTransitionStart = captureRouterTransitionStart;
+```
+
+### 8. sentry.server.config.ts 생성
+**파일 경로**: `sentry.server.config.ts` (프로젝트 루트)
+
+```typescript
+// 서버 측에서 Sentry를 초기화합니다.
+// https://docs.sentry.io/platforms/javascript/guides/nextjs/
+
+import * as Sentry from '@sentry/nextjs';
+import { getSentryEnvironment } from './src/utils/sentry-service-helper';
+
+if (process.env.REACT_APP_ENV === 'prod' || process.env.REACT_APP_ENV === 'dev') {
+  const environment = getSentryEnvironment();
+  
+  if (environment && process.env.NEXT_PUBLIC_SENTRY_DSN) {
+    const isProd = process.env.REACT_APP_ENV === 'prod';
+    
+    Sentry.init({
+      dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+      tracesSampleRate: 1.0,
+      debug: !isProd,
+      environment,
+    });
+  }
+}
+```
+
+### 9. sentry.edge.config.ts 생성
+**파일 경로**: `sentry.edge.config.ts` (프로젝트 루트)
+
+```typescript
+// Edge Runtime에서 Sentry를 초기화합니다.
+// https://docs.sentry.io/platforms/javascript/guides/nextjs/
+
+import * as Sentry from '@sentry/nextjs';
+import { getSentryEnvironment } from './src/utils/sentry-service-helper';
+
+if (process.env.REACT_APP_ENV === 'prod' || process.env.REACT_APP_ENV === 'dev') {
+  const environment = getSentryEnvironment();
+  
+  if (environment && process.env.NEXT_PUBLIC_SENTRY_DSN) {
+    const isProd = process.env.REACT_APP_ENV === 'prod';
+    
+    Sentry.init({
+      dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+      tracesSampleRate: 1.0,
+      debug: !isProd,
+      environment,
+    });
+  }
+}
+```
+
+### 10. instrumentation.ts 생성
+**파일 경로**: `src/instrumentation.ts`
+
+```typescript
+import { captureRequestError } from '@sentry/nextjs';
+
+export async function register(): Promise<void> {
+  if (process.env.NEXT_RUNTIME === 'nodejs') {
+    await import('../sentry.server.config');
+  }
+
+  if (process.env.NEXT_RUNTIME === 'edge') {
+    await import('../sentry.edge.config');
+  }
+}
+
+export const onRequestError = captureRequestError;
+```
+
+---
+
+## **Phase 4: Next.js 설정 수정**
+
+### 11. next.config.mjs 수정
+기존 파일을 다음과 같이 수정:
+
+```javascript
+import CopyPlugin from 'copy-webpack-plugin';
+import path from 'path';
+
+import withBundleAnalyzer from '@next/bundle-analyzer';
+
+/** @type {import('next').NextConfig} */
+
+// Sentry 프로젝트명을 동적으로 가져오는 헬퍼 함수
+function getSentryProjectName() {
+  const serviceType = process.env.NEXT_PUBLIC_SERVICE_TYPE;
+  const env = process.env.REACT_APP_ENV;
+  
+  if (!serviceType || !env) return null;
+  
+  // project1 (ToC): project1, project2
+  if (['project1', 'project2'].includes(serviceType)) {
+    return `project1-${env}`;
+  }
+  
+  // project1-b (ToB): project1-b, project2-b
+  if (['project1-b', 'project2-b'].includes(serviceType)) {
+    return `project1-b-${env}`;
+  }
+  
+  return null;
+}
+
+const nextConfig = {
+  reactStrictMode: false,
+  output: 'standalone',
+  basePath: '',
+  assetPrefix: '',
+  experimental: {
+    // Sentry instrumentation 활성화
+    instrumentationHook: true,
+      serverActions: {
+      allowedOrigins:
+        process.env.NEXT_PUBLIC_SERVICE_TYPE === 'project1-b'
+          ? [
+              'example1.com',
+              'example2.com',
+              'example3.com',
+              'localhost:3000',
+            ]
+          : undefined,
+    },
+  },
+  publicRuntimeConfig: {
+    root: process.env.BASE_PATH || '',
+  },
+  env: {
+    REACT_APP_ENV: process.env.REACT_APP_ENV,
+    API_DOMAIN: process.env.API_DOMAIN,
+    CONCATENATE_VIDEO_API_DOMAIN: process.env.CONCATENATE_VIDEO_API_DOMAIN,
+    LOCAL_BACKEND_USER: process.env.LOCAL_BACKEND_USER,
+  },
+  compiler: {
+    removeConsole:
+      process.env.REACT_APP_ENV === 'production' || process.env.REACT_APP_ENV === 'prod'
+        ? {
+            exclude: ['error'],
+          }
+        : false,
+  },
+  webpack: (config, { dev }) => {
+    // ... 기존 webpack 설정 유지 ...
+    const basePaths = dev
+      ? [
+          // ... 기존 경로들 유지 ...
+        ]
+      : ['static/chunks/'];
+
+    const generatePatterns = (basePaths) => {
+      const patterns = [];
+      // ... 기존 generatePatterns 로직 유지 ...
+      return patterns;
+    };
+
+    config.plugins.push(
+      new CopyPlugin({
+        patterns: generatePatterns(basePaths),
+      }),
+    );
+
+    config.module.rules.push({
+      test: /\.mjs$/,
+      type: 'javascript/auto',
+      resolve: {
+        fullySpecified: false,
+      },
+    });
+
+    return config;
+  },
+};
+
+const withAnalyzer = withBundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+});
+
+// Sentry 통합 (prod/dev 환경만)
+if (process.env.REACT_APP_ENV === 'prod' || process.env.REACT_APP_ENV === 'dev') {
+  const { withSentryConfig } = require('@sentry/nextjs');
+  const projectName = getSentryProjectName();
+  
+  if (projectName) {
+    module.exports = withSentryConfig(withAnalyzer(nextConfig), {
+      org: 'syntax',
+      project: projectName,  // "project1-prod", "project1-dev", "project1-b-prod", "project1-b-dev"
+      
+      // CI 환경에서만 소스맵 업로드 로그 출력
+      silent: !process.env.CI,
+      
+      // 더 상세한 스택 트레이스를 위해 더 많은 소스맵 업로드
+      widenClientFileUpload: true,
+      
+      // 애드블로커 우회를 위한 터널 라우트
+      tunnelRoute: '/monitoring',
+      
+      // Sentry 로거를 tree-shake하여 번들 크기 감소
+      disableLogger: true,
+      
+      // React 컴포넌트 이름 주석 활성화
+      reactComponentAnnotation: {
+        enabled: true,
+      },
+      
+      // 인증 토큰 (빌드 시 필요)
+      authToken: process.env.SENTRY_AUTH_TOKEN,
+    });
+  } else {
+    module.exports = withAnalyzer(nextConfig);
+  }
+} else {
+  module.exports = withAnalyzer(nextConfig);
+}
+```
+
+---
+
+## **Phase 5: 에러 바운더리 생성**
+
+### 12. error.tsx 생성
+**파일 경로**: `src/app/error.tsx`
+
+```typescript
+'use client';
+
+import { useEffect } from 'react';
+import * as Sentry from '@sentry/nextjs';
+
+interface ErrorProps {
+  error: Error & { digest?: string };
+  reset: () => void;
+}
+
+export default function Error({ error, reset }: ErrorProps) {
+  useEffect(() => {
+    // Sentry에 에러 전송
+    Sentry.captureException(error);
+  }, [error]);
+
+  // 디버깅용 로그 (개발 환경에서만)
+  if (process.env.NODE_ENV === 'development') {
+    console.error('Error:', error.digest, error.message);
+  }
+
+  return (
+    <div className="flex min-h-screen flex-col items-center justify-center gap-6 bg-gray-50 p-6">
+      <div className="text-center">
+        <h2 className="mb-4 text-2xl font-bold text-gray-900">
+          에러가 발생했습니다
+        </h2>
+        <p className="mb-6 text-gray-600">
+          일시적인 문제가 발생했습니다.
+          <br />
+          잠시 후 다시 시도해주세요.
+        </p>
+        <button
+          onClick={reset}
+          className="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+        >
+          재시도
+        </button>
+      </div>
+    </div>
+  );
+}
+```
+
+### 13. global-error.tsx 생성
+**파일 경로**: `src/app/global-error.tsx`
+
+```typescript
+'use client';
+
+import { useEffect } from 'react';
+import NextError from 'next/error';
+import * as Sentry from '@sentry/nextjs';
+
+export default function GlobalError({
+  error,
+}: {
+  error: Error & { digest?: string };
+}) {
+  useEffect(() => {
+    // Sentry에 에러 전송
+    Sentry.captureException(error);
+  }, [error]);
+
+  return (
+    <html>
+      <body>
+        <NextError statusCode={0} />
+      </body>
+    </html>
+  );
+}
+```
+
+---
+
+## **Phase 6: 환경 변수 설정**
+
+### 14. .env.example 파일 업데이트
+**파일 경로**: `.env.example`
+
+```bash
+# ========================================
+# 서비스 식별 (필수)
+# ========================================
+# project1 (ToC): project1, project2
+# project1-b (ToB): project1-b, project2-b
+NEXT_PUBLIC_SERVICE_TYPE=project1
+
+# ========================================
+# 환경 식별 (필수)
+# ========================================
+# prod: 본번 환경
+# dev: 개발 환경 (스테이징 포함)
+REACT_APP_ENV=dev
+
+# ========================================
+# Sentry 설정
+# ========================================
+# 서비스·환경별로 다른 DSN 설정
+# 예:
+# - project1-prod: https://xxx@xxx.ingest.us.sentry.io/xxx
+# - project1-dev: https://xxx@xxx.ingest.us.sentry.io/xxx
+# - project1-b-prod: https://xxx@xxx.ingest.us.sentry.io/xxx
+# - project1-b-dev: https://xxx@xxx.ingest.us.sentry.io/xxx
+NEXT_PUBLIC_SENTRY_DSN=
+
+# 빌드 시에만 필요 (Docker Secret 권장)
+SENTRY_AUTH_TOKEN=
+```
+
+### 15. Sentry 설정 문서 작성
+**파일 경로**: `docs/sentry-setup.md` (새로 생성)
+
+```markdown
+# Sentry 설정 가이드 (project1/project1-b 분리 설계)
+
+## 개요
+project-frontend 프로젝트에서는 ToC(project1)와 ToB(project1-b)를 분리하여 Sentry로 모니터링합니다.
+
+## 서비스 분류
+- **project1 (ToC)**: project1, project2
+- **project1-b (ToB)**: project1-b, project2-b
+
+## Sentry 프로젝트 구성
+```
+Sentry Organization: syntax
+├── project1-prod (ToC 본번)
+│   └── Slack: #j_jsontype_syntax_alert_prod
+├── project1-dev (ToC 개발)
+│   └── Slack: #j_jsontype_syntax_alert_dev
+├── project1-b-prod (ToB 본번)
+│   └── Slack: #j_jsontype_syntax_alert_prod
+└── project1-b-dev (ToB 개발)
+    └── Slack: #j_jsontype_syntax_alert_dev
+```
+
+## 환경 변수
+
+### 필수 환경 변수
+```bash
+# 서비스 식별
+NEXT_PUBLIC_SERVICE_TYPE=project1|project2|project1-b|project2-b
+
+# 환경 식별
+REACT_APP_ENV=prod|dev
+
+# Sentry DSN (환경별로 다름)
+NEXT_PUBLIC_SENTRY_DSN=<환경별DSN>
+
+# 빌드 시에만 필요
+SENTRY_AUTH_TOKEN=<token>
+```
+
+### 환경별 설정 예시
+
+**project1 (ToC) 개발 환경**
+```bash
+NEXT_PUBLIC_SERVICE_TYPE=project1
+REACT_APP_ENV=dev
+NEXT_PUBLIC_SENTRY_DSN=<project1-dev-dsn>
+```
+
+**project1 (ToC) 본번 환경**
+```bash
+NEXT_PUBLIC_SERVICE_TYPE=project1
+REACT_APP_ENV=prod
+NEXT_PUBLIC_SENTRY_DSN=<project1-prod-dsn>
+```
+
+**project1-b (ToB) 개발 환경**
+```bash
+NEXT_PUBLIC_SERVICE_TYPE=project1-b
+REACT_APP_ENV=dev
+NEXT_PUBLIC_SENTRY_DSN=<project1-b-dev-dsn>
+```
+
+**project1-b (ToB) 본번 환경**
+```bash
+NEXT_PUBLIC_SERVICE_TYPE=project1-b
+REACT_APP_ENV=prod
+NEXT_PUBLIC_SENTRY_DSN=<project1-b-prod-dsn>
+```
+
+## 로컬 개발에서 확인 방법
+
+### project1 (ToC)에서 확인
+1. `.env.local` 파일 생성
+```bash
+NEXT_PUBLIC_SERVICE_TYPE=project1
+REACT_APP_ENV=dev
+NEXT_PUBLIC_SENTRY_DSN=<project1-dev-dsn>
+```
+2. `npm run dev` 실행
+3. 브라우저 콘솔: `throw new Error('Test project1 Error');`
+4. Sentry `project1-dev` 프로젝트에서 확인
+
+### project1-b (ToB)에서 확인
+1. `.env.local` 파일 생성
+```bash
+NEXT_PUBLIC_SERVICE_TYPE=project1-b
+REACT_APP_ENV=dev
+NEXT_PUBLIC_SENTRY_DSN=<project1-b-dev-dsn>
+```
+2. `npm run dev` 실행
+3. 브라우저 콘솔: `throw new Error('Test project1-b Error');`
+4. Sentry `project1-b-dev` 프로젝트에서 확인
+
+## 디바이스 에러 시 추가 정보 전송 (선택사항)
+
+디바이스 관련 에러 시 다음과 같이 추가 정보 전송 가능:
+
+```typescript
+import * as Sentry from '@sentry/nextjs';
+
+// 디바이스 에러 발생 시
+Sentry.setContext('device', {
+  selectedCamera: cameraDeviceId,
+  selectedMicrophone: microphoneDeviceId,
+  selectedSpeaker: speakerDeviceId,
+  errorType: 'camera',
+  browser: navigator.userAgent,
+});
+
+throw new Error('Camera access failed');
+```
+
+## 트러블슈팅
+
+### Sentry에 에러가 전송되지 않을 때
+1. `NEXT_PUBLIC_SERVICE_TYPE`이 올바르게 설정되었는지 확인
+2. `REACT_APP_ENV`가 `prod` 또는 `dev`로 설정되었는지 확인
+3. `NEXT_PUBLIC_SENTRY_DSN`이 올바르게 설정되었는지 확인
+4. 브라우저 콘솔에서 Sentry 초기화 로그 확인
+
+### 잘못된 프로젝트로 에러가 전송될 때
+- 환경 변수 조합이 올바른지 확인:
+  - project1: `NEXT_PUBLIC_SERVICE_TYPE`이 project1/project2
+  - project1-b: `NEXT_PUBLIC_SERVICE_TYPE`이 project1-b/project2-b
+
+### Source Map이 적용되지 않을 때
+- `SENTRY_AUTH_TOKEN`이 올바르게 설정되었는지 확인
+- 빌드 로그에서 "Uploading source maps" 메시지 확인
+```
+
+---
+
+## **Phase 7: 디바이스 에러 핸들링 (선택사항)**
+
+### 16. 디바이스 에러 유틸리티 생성
+**파일 경로**: `src/utils/sentry-device-error.ts` (새로 생성)
+
+```typescript
+import * as Sentry from '@sentry/nextjs';
+
+interface DeviceErrorContext {
+  selectedCamera?: string;
+  selectedMicrophone?: string;
+  selectedSpeaker?: string;
+  errorType: 'camera' | 'microphone' | 'speaker' | 'network';
+  additionalInfo?: Record<string, unknown>;
+}
+
+/**
+ * 디바이스 에러 발생 시 Sentry에 상세 정보 전송
+ */
+export function captureDeviceError(
+  error: Error,
+  context: DeviceErrorContext,
+): void {
+  Sentry.setContext('device', {
+    selectedCamera: context.selectedCamera || 'not-selected',
+    selectedMicrophone: context.selectedMicrophone || 'not-selected',
+    selectedSpeaker: context.selectedSpeaker || 'not-selected',
+    errorType: context.errorType,
+    browser: navigator.userAgent,
+    ...context.additionalInfo,
+  });
+
+  Sentry.captureException(error);
+}
+```
+
+**사용 예시**:
+```typescript
+// 카메라 에러 발생 시
+try {
+  await navigator.mediaDevices.getUserMedia({ video: true });
+} catch (error) {
+  captureDeviceError(error as Error, {
+    errorType: 'camera',
+    selectedCamera: selectedCameraId,
+  });
+  throw error;
+}
+```
+
+---
+
+## **Phase 8: 테스트 및 검증**
+
+### 17. 로컬 테스트 (project1)
+```bash
+# .env.local 파일 생성
+cat > .env.local << EOF
+NEXT_PUBLIC_SERVICE_TYPE=project1
+REACT_APP_ENV=dev
+NEXT_PUBLIC_SENTRY_DSN=<project1-dev-dsn>
+EOF
+
+# 개발 서버 시작
+npm run dev
+
+# 브라우저에서 http://localhost:3000 접속
+# 개발자 도구 콘솔: throw new Error('Test project1 Error');
+# Sentry project1-dev 프로젝트에서 확인
+```
+
+### 18. 로컬 테스트 (project1-b)
+```bash
+# .env.local 파일 수정
+cat > .env.local << EOF
+NEXT_PUBLIC_SERVICE_TYPE=project1-b
+REACT_APP_ENV=dev
+NEXT_PUBLIC_SENTRY_DSN=<project1-b-dev-dsn>
+EOF
+
+# 개발 서버 재시작
+npm run dev
+
+# 브라우저 콘솔: throw new Error('Test project1-b Error');
+# Sentry project1-b-dev 프로젝트에서 확인
+```
+
+### 19. 빌드 테스트
+```bash
+# project1 (ToC)로 테스트
+export NEXT_PUBLIC_SERVICE_TYPE=project1
+export REACT_APP_ENV=dev
+export NEXT_PUBLIC_SENTRY_DSN=<project1-dev-dsn>
+export SENTRY_AUTH_TOKEN=<your-token>
+
+npm run build
+
+# 빌드 로그에서 "Uploading source maps to Sentry"와
+# 프로젝트명 "project1-dev" 확인
+
+# project1-b (ToB)로도 테스트
+export NEXT_PUBLIC_SERVICE_TYPE=project1-b
+export REACT_APP_ENV=dev
+export NEXT_PUBLIC_SENTRY_DSN=<project1-b-dev-dsn>
+
+npm run build
+
+# 프로젝트명 "project1-b-dev" 확인
+```
+
+### 20. Dev 환경 배포 및 검증
+**project1-dev 검증**
+1. Dev 환경에 배포 (환경변수: `NEXT_PUBLIC_SERVICE_TYPE=project1`, `REACT_APP_ENV=dev`)
+2. 의도적으로 에러 발생
+3. Sentry `project1-dev` 프로젝트에서 확인
+4. Slack `#j_jsontype_syntax_alert_dev`에서 알림 확인
+
+**project1-b-dev 검증**
+1. Dev 환경에 배포 (환경변수: `NEXT_PUBLIC_SERVICE_TYPE=project1-b`, `REACT_APP_ENV=dev`)
+2. 의도적으로 에러 발생
+3. Sentry `project1-b-dev` 프로젝트에서 확인
+4. Slack `#j_jsontype_syntax_alert_dev`에서 알림 확인
+
+### 21. Prod 환경 배포
+**project1-prod**
+1. Dev 검증 완료 후 본번 배포
+2. 환경변수: `NEXT_PUBLIC_SERVICE_TYPE=project1`, `REACT_APP_ENV=prod`
+3. 모니터링 및 Slack 알림 확인
+
+**project1-b-prod**
+1. Dev 검증 완료 후 본번 배포
+2. 환경변수: `NEXT_PUBLIC_SERVICE_TYPE=project1-b`, `REACT_APP_ENV=prod`
+3. 모니터링 및 Slack 알림 확인
+
+---
+
+## **체크리스트**
+
+### Sentry 프로젝트
+- [ ] Sentry `project1-prod` 프로젝트 생성
+- [ ] Sentry `project1-dev` 프로젝트 생성
+- [ ] Sentry `project1-b-prod` 프로젝트 생성
+- [ ] Sentry `project1-b-dev` 프로젝트 생성
+
+### Slack 채널
+- [ ] Slack `#j_jsontype_syntax_alert_prod` 생성
+- [ ] Slack `#j_jsontype_syntax_alert_dev` 생성
+- [ ] Slack `#j_jsontype_syntax_alert_prod` 생성
+- [ ] Slack `#j_jsontype_syntax_alert_dev` 생성
+
+### Sentry-Slack 연동
+- [ ] project1-prod → #j_jsontype_syntax_alert_prod
+- [ ] project1-dev → #j_jsontype_syntax_alert_dev
+- [ ] project1-b-prod → #j_jsontype_syntax_alert_prod
+- [ ] project1-b-dev → #j_jsontype_syntax_alert_dev
+
+### 인증 토큰
+- [ ] SENTRY_AUTH_TOKEN 발급·보관
+
+### 패키지 및 코드
+- [ ] @sentry/nextjs@9.22.0 설치
+- [ ] `sentry-service-helper.ts` 구현
+- [ ] `instrumentation-client.ts` 구현
+- [ ] `sentry.server.config.ts` 구현
+- [ ] `sentry.edge.config.ts` 구현
+- [ ] `instrumentation.ts` 구현
+- [ ] `next.config.mjs` 수정
+- [ ] `error.tsx` 구현
+- [ ] `global-error.tsx` 구현
+- [ ] `.env.example` 업데이트
+- [ ] `sentry-device-error.ts` 구현 (선택)
+- [ ] `docs/sentry-setup.md` 작성
+
+### 테스트
+- [ ] project1 로컬 테스트 성공
+- [ ] project1-b 로컬 테스트 성공
+- [ ] project1 빌드 테스트 성공
+- [ ] project1-b 빌드 테스트 성공
+- [ ] project1-dev 배포·검증 성공
+- [ ] project1-b-dev 배포·검증 성공
+- [ ] Slack 알림 확인 (4개 채널 모두)
+- [ ] Source Map 적용 확인
+- [ ] project1-prod 배포 성공
+- [ ] project1-b-prod 배포 성공
+
+---
+
+## **환경별 DSN 관리표**
+
+| 환경 | NEXT_PUBLIC_SERVICE_TYPE | REACT_APP_ENV | Sentry 프로젝트 | DSN | Slack 채널 |
+|------|-------------------------|---------------|-----------------|-----|-----------|
+| ToC 개발 | project1/project2 | dev | project1-dev | `<기입>` | #j_jsontype_syntax_alert_dev |
+| ToC 본번 | project1/project2 | prod | project1-prod | `<기입>` | #j_jsontype_syntax_alert_prod |
+| ToB 개발 | project1-b/project2-b | dev | project1-b-dev | `<기입>` | #j_jsontype_syntax_alert_dev |
+| ToB 본번 | project1-b/project2-b | prod | project1-b-prod | `<기입>` | #j_jsontype_syntax_alert_prod |
+
+---
+
+**참고**: 
+- ToC(project1)와 ToB(project1-b)는 완전히 분리된 모니터링 체계
+- 환경 변수 조합 실수 주의 (잘못된 프로젝트로 에러 전송됨)
+- 4개의 DSN을 적절히 관리할 것
+- 실제 구현 시작 시 **Agent Mode**로 전환하세요
