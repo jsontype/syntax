@@ -1,0 +1,153 @@
+# Lefthook의 장점
+husky는 Node.js 기반이라, Go 기반인 Lefthook이 더 빠르다. 
+또한, husky는 파일 시스템 이벤트를 사용하여 훅을 실행하는 반면, Lefthook은 파일 시스템 이벤트를 사용하지 않고, 명령어를 실행하여 훅을 실행한다.
+
+# Lefthook 설치 및 설정 방법
+
+## 1. Lefthook 설치
+
+### npm을 통한 설치
+```bash
+npm install --save-dev @evilmartians/lefthook
+```
+
+또는 yarn 사용 시:
+```bash
+yarn add -D @evilmartians/lefthook
+```
+
+## 2. Lefthook 초기화
+
+프로젝트 루트에서 다음 명령어 실행:
+```bash
+npx lefthook install
+```
+
+또는 package.json의 scripts에 추가:
+```json
+{
+  "scripts": {
+    "prepare": "lefthook install"
+  }
+}
+```
+
+## 3. Pre-commit에서 npm run format 실행 설정
+
+프로젝트 루트에 `lefthook.yml` 파일을 생성하고 다음 내용을 추가:
+
+```yaml
+pre-commit:
+  parallel: true
+  commands:
+    format:
+      run: npm run format
+      stage_fixed: true
+```
+
+또는 더 상세한 설정:
+
+```yaml
+pre-commit:
+  parallel: true
+  commands:
+    format:
+      run: npm run format
+      stage_fixed: true
+      glob: "*.{js,jsx,ts,tsx,json,css,scss,md}"
+```
+
+## 4. Lefthook 설정 확인
+
+설정이 제대로 되었는지 확인:
+```bash
+npx lefthook run pre-commit
+```
+
+## 5. Git hooks 확인
+
+설치 후 `.git/hooks/pre-commit` 파일이 생성되었는지 확인:
+```bash
+ls -la .git/hooks/
+```
+
+---
+
+## 트러블슈팅
+
+### 기존 Husky가 설치되어 있는 경우
+
+#### 1. Husky 제거
+
+##### npm을 통해 설치된 경우:
+```bash
+npm uninstall husky
+```
+
+##### package.json에서 scripts 제거:
+```json
+{
+  "scripts": {
+    // "prepare": "husky install" <- 이 줄 삭제
+  }
+}
+```
+
+##### .husky 디렉토리 삭제:
+```bash
+rm -rf .husky
+```
+
+#### 2. Git hooks 경로 초기화
+
+기존 husky가 설정한 git hooks 경로를 제거:
+```bash
+git config --unset core.hooksPath
+```
+
+또는 전역 설정이 있다면:
+```bash
+git config --global --unset core.hooksPath
+```
+
+#### 3. 기존 Git hooks 파일 삭제 (선택사항)
+
+`.git/hooks` 디렉토리의 기존 hooks 파일들을 확인하고 필요시 삭제:
+```bash
+ls -la .git/hooks/
+rm .git/hooks/pre-commit  # husky가 만든 pre-commit 파일 삭제
+```
+
+#### 4. Lefthook 재설치
+
+위의 1-2단계를 따라 lefthook을 설치하고 초기화:
+```bash
+npm install --save-dev @evilmartians/lefthook
+npx lefthook install
+```
+
+#### 5. 설정 확인
+
+```bash
+# git hooks 경로 확인 (lefthook이 설정한 경로)
+git config core.hooksPath
+
+# lefthook 테스트
+npx lefthook run pre-commit
+```
+
+#### 6. 완전 초기화가 필요한 경우
+
+모든 git hooks 설정을 완전히 초기화하려면:
+```bash
+# git hooks 경로 초기화
+git config --unset core.hooksPath
+git config --global --unset core.hooksPath
+
+# .git/hooks 디렉토리 정리 (주의: 다른 hooks도 삭제될 수 있음)
+rm -rf .git/hooks/*
+
+# lefthook 재설치
+npx lefthook install
+```
+
