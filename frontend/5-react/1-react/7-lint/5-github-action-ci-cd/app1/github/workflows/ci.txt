@@ -1,4 +1,4 @@
-# 파일 이름: .github/workflows/ci.yml
+# 파일 이름: 현재 ci.txt로 되어있는데, .github/workflows/ci.yml 으로 바꿔야 진행이 됨.
 name: CI
 
 # on: 어떤 이벤트에 워크플로우가 실행되는지 설정
