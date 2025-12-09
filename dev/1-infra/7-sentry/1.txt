@@ -5,6 +5,16 @@
 ### 1. Sentry 프로젝트 생성 (4개)
 Sentry 웹사이트 (https://sentry.io/insights/projects/new)에서 진행:
 * 조직일 경우, [조직명].sentry.io 처럼 앞에 회사 도메인이 들어가며, 해당 팀에 member로서 join 해야함.
+* 사전에 필요한 정보: 조직명.sentry.io 도메인, 조직ID, 팀ID
+```
+조직명.sentry.io으로 들어가는 도메인
+조직ID
+팀ID
+권한: Team Admin 또는 Contributor 이상
+프로젝트명
+적용환경
+알림용 슬랙 채널명
+```
 
 **1-1. project1-dev 프로젝트 생성 (ToC 개발환경)**
 - Projects → Create Project 클릭
