@@ -1,0 +1,22 @@
+[Cursor 세팅]
+
+1. Cursor의 세팅
+  Cursor는 보통 VSCode 세팅을 그대로 export해서 사용한다.
+  보통 .cursor 안에는 ai상의 mdc 파일들만 운용을 하고,
+  IDE로서의 세팅은 .vscode 안에 settings.json 파일 그대로 사용하는 형태이다.
+
+1. .vscode/settings.json 수정: 저장이 느려지는 문제의 해결
+  .vscode 안에 settings.json 파일을 그대로 사용하면,
+  cmd + s 키로 수정 내용을 저장할 때마다 code action이 발생해서 저장 속도가 현저히 느려지는 경우가 있다.
+  이럴 때는, .vscode/settings.json 파일을 다음과 같이 수정해두면 된다.
+  ```
+  {
+    "editor.tabSize": 2,
+    // "editor.defaultFormatter": "esbenp.prettier-vscode", // (수정) 이것을 아래 코드로 변경한다.
+    "editor.defaultFormatter": null,
+    "editor.formatOnSave": false,
+    "editor.codeActionsOnSave": {
+      // "source.fixAll.eslint": "explicit" // (수정) 이것을 코멘트아웃 한다.
+    },
+  }
+  ```
