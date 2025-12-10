@@ -1,0 +1,87 @@
+[크롬 개발자도구 (F12) 완전 정리]
+
+1. Command Palette (Cmd/Ctrl + Shift + P) 필수 명령어
+  - 기본 방법: F12 → Cmd + Shift + P (Mac)
+  - 풀스크린샷 (스크롤 포함 전체 페이지 캡처): cmd + shift + m 누른뒤 ipad 뷰포트 선택 하고 cmd + shift + p 누른뒤 "full" 입력 → "Capture full size screenshot" 선택  
+    `Capture full size screenshot` - 전체 페이지 스크린샷. 스크롤이 있는 긴 페이지도 전체를 한 번에 캡처 가능. 모바일 뷰포트에서도 사용 가능. PNG 형식으로 다운로드됨
+  - 디버깅
+    `Show Coverage` - 코드 커버리지 확인 (사용되지 않는 CSS/JS 찾기)
+    `Show Performance monitor` - 실시간 성능 모니터링
+    `Show Rendering` - 렌더링 정보 (페인트 플래시, 레이어 등)
+    `Show Sensors` - 위치, 기기 방향 등 시뮬레이션
+  - 네트워크 관련
+    `Show Network request blocking` - 특정 요청 차단
+    `Disable cache` - 캐시 비활성화 (네트워크 탭에서도 가능)
+  - 기타 유용한 명령어
+    `Show Console drawer` - 하단 콘솔 패널 열기
+    `Focus Console` - 콘솔로 포커스 이동
+    `Clear console` - 콘솔 지우기
+    `Show Settings` - 개발자도구 설정
+    `Dock to bottom` / `Dock to right` / `Undock` - 개발자도구 위치 변경
+
+1. F12 개발자도구 탭별 설명
+  - Elements (요소): HTML/CSS 실시간 편집 및 DOM 구조 확인
+  - Console (콘솔): JavaScript 실행 및 디버깅, 에러 확인
+  - Sources (소스): 소스코드 디버깅용 브레이크포인트 설정
+  - Network (네트워크): 네트워크 요청 모니터링 및 성능 분석
+    모든 HTTP 요청/응답 확인
+    요청 시간, 크기, 타입 분석
+    Waterfall: 요청 타임라인 시각화
+    Preserve log: 페이지 이동 시 로그 유지
+    Disable cache: 캐시 비활성화
+    Throttling: 네트워크 속도 시뮬레이션
+    Export HAR: 네트워크 로그 내보내기
+  - Application (애플리케이션): 저장소 및 캐시 관리
+    Local Storage / Session Storage 확인 및 편집
+    Cookies 관리
+    IndexedDB / Web SQL 확인
+    Cache Storage: Service Worker 캐시 관리
+    Manifest: PWA 매니페스트 확인
+  - Performance (성능): 페이지 성능 프로파일링
+    Record 버튼으로 성능 기록
+    FPS, CPU 사용률, 메모리 사용량 확인
+    렌더링 이벤트 타임라인
+    병목 구간 식별
+    Main Thread 작업 분석
+  - Memory (메모리): 메모리 누수 및 사용량 분석
+    Heap Snapshot: 메모리 스냅샷 생성 및 비교
+    Allocation Timeline: 메모리 할당 추적
+    메모리 누수 감지
+  - Lighthouse (등대): 웹사이트 품질 및 성능 자동 분석
+    Performance (성능) 점수
+    Accessibility (접근성) 점수
+    Best Practices (모범 사례) 점수
+    SEO (검색 엔진 최적화) 점수
+    PWA (Progressive Web App) 점수
+    개선 제안 제공
+  - Security (보안): 보안 이슈 확인
+    HTTPS 연결 상태 확인
+    인증서 정보
+    보안 취약점 감지
+
+1. 고급 개발자 필수 기능
+  - 디버깅 팁
+    **조건부 브레이크포인트**: 브레이크포인트 우클릭 → "Edit breakpoint" → 조건 입력
+    **DOM 변경 감지**: Elements 탭 → 요소 우클릭 → "Break on" → "Attribute modifications"
+    **XHR/Fetch 중단점**: Sources → Event Listener Breakpoints → XHR/Fetch 체크
+    **콘솔에서 요소 선택**: `$0` (Elements에서 선택한 요소), `$1`, `$2` (이전 선택 요소들)
+  - 성능 최적화
+    **Coverage 탭**: Cmd+Shift+P → "Show Coverage" → 사용되지 않는 CSS/JS 확인
+    **Performance Monitor**: 실시간 메모리, CPU, DOM 노드 수 모니터링
+    **Rendering 탭**: 
+      Paint flashing: 리페인트되는 영역 표시
+      Layer borders: 레이어 경계 표시
+      FPS meter: 프레임레이트 표시
+  - 네트워크 최적화
+    **Throttling**: 느린 네트워크 환경 시뮬레이션
+    **Request Blocking**: 특정 리소스 차단하여 테스트
+    **HAR 파일**: 네트워크 로그 저장 및 공유
+  - 모바일 개발
+    **Device Toolbar** (Cmd+Shift+M): 모바일 뷰포트 시뮬레이션
+    **Sensors**: 위치, 기기 방향, 터치 이벤트 시뮬레이션
+    **Network Throttling**: 모바일 네트워크 속도 시뮬레이션
+  - 실전 활용 예시
+    CSS 디버깅: Elements에서 요소 선택 -> Styles 패널에서 실시간 수정 -> Computed 탭에서 최종 적용 값 확인 -> 특정 스타일이 적용되지 않는 이유 파악
+    JavaScript 디버깅: Sources에서 파일 열기 -> 브레이크포인트 설정 -> Watch에 변수 추가 -> Step over/into/out으로 실행 흐름 추적
+    성능 분석: Performance 탭에서 Record 클릭 -> 페이지 상호작용 수행 -> Stop 클릭 -> 병목 구간 확인 및 최적화
+    네트워크 분석: Network 탭 열기 -> 페이지 새로고침 -> 요청 목록에서 느린 요청 확인 -> Waterfall에서 병목 원인 파악
