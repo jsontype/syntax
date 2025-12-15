@@ -1,0 +1,34 @@
+[Cursor의 mdc 파일 설명]
+
+1. mdc 파일이란?
+  mdc는 Markdown Context의 약자로, 
+  Cursor가 AI에게 제공하는 컨텍스트(규칙·지침·역할·출력 포맷)를 Markdown 형태로 정의한 파일이다.
+  Cursor 공식 명칭은 "Cursor Rules (.mdc)"이며, 내부적으로는 AI 모델에 주입되는 컨텍스트 문서 역할을 한다.
+  정리하면:
+    .md → 일반 Markdown 문서
+    .mdc → AI 행동을 제어하기 위한 Markdown 기반 Context 파일
+  주요 용도는 다음과 같다.
+    프로젝트 전반 규칙 정의 (코딩 스타일, 금지 사항)
+    역할 지정 (예: “너는 시니어 프론트엔드 엔지니어다”)
+    출력 포맷 강제 (YAML, CSV, 표 형식 등)
+    리뷰·설계·문서 작성 규칙 고정, 코드 리뷰 자동화 등
+    즉, .mdc는 사람이 읽는 문서가 아니라, AI의 사고 방향을 고정하는 컨텍스트 스크립트라고 이해하면 정확하다.
+  본 문서에서는 review-code.mdc, with-diff.mdc 파일을 작성해서 사용하는 것을 예시로 하고 있지만,
+  그 외에도, update-docs, update-design 등 다양한 프로토콜 명령어를 제작해서 사용할 수 있다.
+
+
+
+1. .cursor/rules/review-code.mdc 작성: 리뷰 코드 mdc 파일 만들기
+1. .cursor/rules/of-api-design.mdc 작성: API 설계 mdc 파일 만들기
+1. .cursor/rules/of-web-design.mdc 작성: Web 설계 mdc 파일 만들기
+1. .cursor/rules/with-diff.mdc 작성: 차분 파악 mdc 파일 만들기
+
+1. 테스트
+  Ask 모드에서, 다음과 같이 조합해서 mdc 파일들을 실행한다.
+    `@review-code @of-api-design @with-diff` 또는
+    `@review-code @of-web-design @with-diff` 또는
+    `@review-code @with-diff`
+    - review-code는 코드 리뷰를 수행
+    - of-api-design는 API 설계를 참고하여 코드 리뷰를 수행
+    - of-web-design는 Web 설계를 참고하여 코드 리뷰를 수행
+    - with-diff는 변경사항을 추적하여 review-code에 전달
