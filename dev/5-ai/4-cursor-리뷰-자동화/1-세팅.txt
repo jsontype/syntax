@@ -1,4 +1,29 @@
-[Cursor의 mdc 파일 설명]
+[Cursor 세팅]
+
+1. Cursor의 세팅
+  Cursor는 보통 VSCode 세팅을 그대로 export해서 사용한다.
+  보통 .cursor 안에는 ai상의 mdc 파일들만 운용을 하고,
+  IDE로서의 세팅은 .vscode 안에 settings.json 파일 그대로 사용하는 형태이다.
+
+1. .vscode/settings.json 수정: 저장이 느려지는 문제의 해결
+  .vscode 안에 settings.json 파일을 그대로 사용하면,
+  cmd + s 키로 수정 내용을 저장할 때마다 code action이 발생해서 저장 속도가 현저히 느려지는 경우가 있다.
+  이럴 때는, .vscode/settings.json 파일을 다음과 같이 수정해두면 된다.
+  ```
+  {
+    "editor.tabSize": 2,
+    // "editor.defaultFormatter": "esbenp.prettier-vscode", // (수정) 이것을 아래 코드로 변경한다.
+    "editor.defaultFormatter": null,
+    "editor.formatOnSave": false,
+    "editor.codeActionsOnSave": {
+      // "source.fixAll.eslint": "explicit" // (수정) 이것을 코멘트아웃 한다.
+    },
+  }
+  ```
+
+
+
+[Cursor의 mdc 세팅]
 
 1. mdc 파일이란?
   mdc는 Markdown Context의 약자로, 
@@ -15,8 +40,6 @@
     즉, .mdc는 사람이 읽는 문서가 아니라, AI의 사고 방향을 고정하는 컨텍스트 스크립트라고 이해하면 정확하다.
   본 문서에서는 review-code.mdc, with-diff.mdc 파일을 작성해서 사용하는 것을 예시로 하고 있지만,
   그 외에도, update-docs, update-design 등 다양한 프로토콜 명령어를 제작해서 사용할 수 있다.
-
-
 
 1. .cursor/rules/review-code.mdc 작성: 리뷰 코드 mdc 파일 만들기
 1. .cursor/rules/of-api-design.mdc 작성: API 설계 mdc 파일 만들기
