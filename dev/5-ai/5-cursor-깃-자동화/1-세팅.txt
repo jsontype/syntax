@@ -1,0 +1,25 @@
+[Cursor의 Claude 세팅을 통한 깃 자동화]
+
+1. .claude/commands/cm.md: 깃 커밋 푸시 자동화
+
+1. .claude/commands/pr.md: 깃 PR 자동화
+  - 추가로 작성이 필요한 것: .github/pull_request_template.md 
+    (템플릿은 AI 도움을 받아 디폴트 템플릿을 만든 뒤, 필요에 따라 수정)
+
+1. .claude/commands/review.md: 깃 리뷰 자동화
+  - 추가로 필요한 것: .claude/skills/frontend/*.md 
+    (폴더 구조, 컴포넌트 실장시의 체크리스트, 코드 스타일, 리뷰시 필수 검토 사항, 케이스, 명명 규칙, 설계 등을 정의)
+    ### (예시) 컴포넌트 실장시의 체크리스트
+    - [ ] Props interface 정의, 디폴트값 정의
+    - [ ] index.ts로 export
+    - [ ] Storybook story를 작성
+    - [ ] hooks 추가시 테스트 코드도 vitest로 함께 작성
+    - [ ] Tailwind CSS로 스타일링할 것
+    - [ ] 접근성 속성의 추가
+    - ... 등등
+
+1. 테스트
+  cursor의 agent 모드에서 실제 테스트 진행
+  - /cm 으로 깃 커밋 푸시
+  - /review 으로 리뷰
+  - /pr 으로 PR 생성

@@ -10,7 +10,27 @@
   → typescript react next→Typescript Rect Next
 
 1. 페이지네이션
-  (API로 렌더링까지는 이미 구현되어있는 상태에서) 다음 블로그의 페이지네이션을 구현해주세요.
+  ① (API로 렌더링까지는 이미 구현되어있는 상태에서) 다음 블로그의 페이지네이션을 구현해주세요.
   6, 10, 12로 페이지당 블로그 수 조정
   앞으로 가기, 뒤로 가기 버튼 만들기 (각 버튼에는 적절한 이름의 id 붙이기)
   현 페이지 / 총 페이지 표시
+
+[코딩 테스트 답]
+
+1. 문자열 처리
+  ① 중복 문자열 확인 함수
+  let result1 = false
+  let text1 = 'sdfqfwergfregggg'
+  const textArray1 = text1.split('')
+  for (let i = 0; i < textArray1.length; i++) {
+    result1 = (textArray1[i+1] && textArray1[i] === textArray1[i+1]) ? true : false
+    result1 = (textArray1[i-1] && textArray1[i] === textArray1[i-1]) ? true : false
+  }
+  console.log(result1)
+
+  ② jadencase 문자열 생성 함수
+  let text2 = 'jadencase'
+  const textArray2 = text2.split('')
+  textArray2.forEach((item, index) => { if (index === 0) { textArray2.shift(); textArray2.unshift(item.toUpperCase()) }})
+  let result = textArray2.join('')
+  console.log(result)
