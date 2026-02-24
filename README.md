@@ -1,10 +1,13 @@
+# Dev's Homepage
+
+1. [Frontend D.Yang](https://space-tan-omega.vercel.app/)
+
 # Pinned git
 
-https://github.com/jsontype/syntax.git
-https://github.com/jsontype/syntax-sub.git
-https://github.com/jsontype/home.git
-https://github.com/jsontype/generalapp.git
-https://github.com/jsontype/old.git
+1. https://github.com/jsontype/syntax.git
+1. https://github.com/jsontype/home.git
+1. https://github.com/jsontype/generalapp.git
+1. https://github.com/jsontype/old.git
 
 # 핵심 커밋
 
