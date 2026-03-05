@@ -5,7 +5,7 @@
 1. 개인용
   youtube adblock
   Zoom to Fill - Ultrawide Video : 32대9 화면일 때 좋다.
-    
+
 1. JavaScript 관련
   json viewer
 
@@ -15,4 +15,6 @@
   redux devtools
 
 1. 기타 업무 관련
-  fireshot : 전체 스크롤링 스크린샷 (IT 테스트시 증거 등에 사용)
+  GoFullPage : 스크린샷 취득용
+    전체 스크롤링 스크린샷에 가장 좋고, 가장 편함. (특히 AI 프롬프트 작성시 Git 차분 전체 스샷과 같이 긴 웹페이지의 풀사이즈 스크린샷이 필요한 경우, IT 테스트시 증거 취득 등에 사용용)
+    FireShot도 있는데, 이것보다 더 긴 스크샷을 에러 없이 잘 취득하고, 편하고 괜찮음. 다만 너무 길면 파일이 분할되긴 함.
