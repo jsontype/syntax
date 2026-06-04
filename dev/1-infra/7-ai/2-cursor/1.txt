@@ -73,6 +73,17 @@
 
 
 
+[Agent Git 커밋 설정]
+
+1. Co-authored-by 제거 (Commit Attribution OFF)
+  Agent가 커밋할 때 Co-authored-by: Cursor trailer가 붙는 것을 끄려면:
+  Cursor Settings (VS Code 설정 아님) → Agents → Attribution → Commit Attribution: OFF
+  Ctrl+Shift+P → Cursor Settings 로 열기
+  PR에도 안 붙이려면 PR Attribution: OFF
+  CLI Agent: %USERPROFILE%\.cursor\cli-config.json 에 commitAttribution: false
+
+
+
 [Claude Code와 함께 쓰는 방식]
 
 1. 작업 유형별 추천 도구
