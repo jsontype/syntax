@@ -1,0 +1,98 @@
+[Cursor 설치 및 시작]
+참조: https://cursor.com 구독 (Pro / Ultra 등)
+
+1. 설치
+  https://cursor.com 에서 OS에 맞는 설치 파일 다운로드
+  Windows / macOS / Linux 지원
+  VS Code 기반이므로 기존 확장·설정 이전 가능
+
+1. 로그인 및 구독
+  Cursor 실행 → Sign in (GitHub / Google / Email)
+  Settings → Subscription 에서 Pro / Ultra 등 활성화 확인
+  Ultra: Agent·고급 모델 사용량이 더 넉넉함
+
+
+
+[Cursor AI 활용 방법]
+
+1. Tab 자동완성 (가장 자주 씀)
+  코드 입력 중 Tab 으로 AI 제안 수락
+  한 줄·한 블록씩 빠르게 작성할 때 사용
+  Settings → Cursor Tab 에서 on/off 가능
+
+1. Inline Edit (선택 영역 수정)
+  수정할 코드 블록 드래그 → Ctrl+K (macOS: Cmd+K)
+  "이 함수 에러 처리 추가해줘" 처럼 짧은 지시
+  해당 범위만 바로 수정
+
+1. Chat (질문·설명·단일 파일)
+  Ctrl+L (macOS: Cmd+L) 로 사이드 Chat 열기
+  코드 이해, 버그 원인 파악, 리뷰 요청에 적합
+  사용 예시:
+    - 이 컴포넌트 props 흐름 설명해줘
+    - 이 에러 메시지 원인이 뭐야?
+    - @src/api/auth.ts 이 파일 리뷰해줘
+
+1. Agent (여러 파일 수정·자동 실행)
+  Ctrl+I (macOS: Cmd+I) 또는 Chat에서 Agent 모드
+  파일 생성·수정, 터미널 명령, 테스트까지 연속 작업
+  사용 예시:
+    - 로그인 API 연동하고 폼 컴포넌트까지 만들어줘
+    - 이 버그 고치고 관련 테스트도 돌려줘
+  변경 전 diff 확인 후 Accept / Reject
+
+
+
+[컨텍스트 지정 (@ 멘션)]
+
+1. Chat / Agent 입력창에서 @ 로 범위 지정
+  @파일명 : 특정 파일만 참조 (예: @src/app/page.tsx)
+  @폴더명 : 폴더 전체 참조 (예: @src/components)
+  @Codebase : 프로젝트 전체 검색 후 관련 코드 참조
+  @Docs : 공식 문서 참조 (Next.js, React 등)
+  @Web : 웹 검색 (최신 API·에러 해결)
+  @Git : 최근 변경 diff 참조
+  범위를 좁힐수록 답변·수정이 정확해짐
+
+
+
+[프로젝트 설정]
+
+1. Rules 작성 (.cursor/rules 또는 .cursorrules)
+  프로젝트 루트에 규칙 파일을 두면 매 요청마다 컨텍스트로 적용
+  # Project Context
+  - Tech stack: Next.js 15, TypeScript, Prisma, PostgreSQL, Tailwind
+  - 주요 폴더: app/, components/, lib/, api/
+  - 컨벤션: 함수형 컴포넌트, named export, 2 spaces
+  - 금지: console.log 남기기, any 남발
+  - 명령어: pnpm dev, pnpm build, pnpm test
+
+1. .cursorignore 작성 (선택)
+  node_modules, .env, 빌드 산출물 등 AI가 읽지 않을 경로 지정
+  불필요한 컨텍스트·민감 정보 노출 방지
+
+
+
+[Claude Code와 함께 쓰는 방식]
+
+1. 작업 유형별 추천 도구
+  Tab 자동완성, 한 파일 수정, 빠른 질문 : Cursor
+  IDE 안에서 여러 파일 동시 수정·리뷰 : Cursor Agent
+  터미널 기반, 대규모 리팩토링, 계획→실행 일괄 : Claude Code
+  상세: dev/1-infra/7-ai/1-claude/1.txt 참조
+
+
+
+[자주 쓰는 단축키]
+
+1. Windows / Linux
+  Ctrl+L : Chat
+  Ctrl+I : Agent
+  Ctrl+K : Inline Edit
+  Tab : AI 자동완성 수락
+
+1. macOS
+  Cmd+L : Chat
+  Cmd+I : Agent
+  Cmd+K : Inline Edit
+  Tab : AI 자동완성 수락

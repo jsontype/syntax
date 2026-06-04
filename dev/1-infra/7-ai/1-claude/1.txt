@@ -1,0 +1,59 @@
+[Claude Code CLI 사용 절차]
+참조: claude.ai Max 구독 계정 필요
+
+1. CLI 설치
+  macOS / Linux / WSL
+  $ curl -fsSL https://claude.ai/install.sh | bash
+  Windows (PowerShell)
+  $ irm https://claude.ai/install.ps1 | iex
+  설치 후 터미널을 완전히 새로 열기
+
+1. 구독 연결
+  $ claude
+  처음 실행 시 브라우저가 자동으로 열리며 로그인 요구
+  claude.ai에 로그인할 때 사용한 계정 (Max 결제 계정)으로 로그인
+  로그인 성공 시 Claude Code가 Max 구독을 인식
+  주의: ANTHROPIC_API_KEY 환경변수를 설정하지 말 것
+    설정되어 있으면 구독 대신 API 요금으로 과금됨
+
+1. 프로젝트에서 사용
+  $ cd app1
+  $ claude
+  Claude가 실제 소스코드를 읽을 수 있는 상태가 됨
+  사용 예시:
+    - 이 프로젝트 구조 좀 설명해줘
+    - 이 버그 어디서 나는지 찾아서 고쳐줘
+    - 로그인 기능에 JWT 인증 추가해줘
+    - 전체적으로 타입스크립트 strict 모드로 마이그레이션 해줘
+  Claude가 파일을 직접 수정하려고 하면 승인(y/n)을 물어봄
+
+
+
+[Claude Code 활용 팁]
+
+1. CLAUDE.md 파일 작성 (프로젝트 루트)
+  Claude가 프로젝트를 더 잘 이해하도록 컨텍스트 제공
+  # Project Context
+  - Tech stack: Next.js 15, TypeScript, Prisma, PostgreSQL, Tailwind
+  - 주요 폴더 구조: app/, components/, lib/, api/
+  - 코딩 컨벤션: 함수형 컴포넌트, named export, 2 spaces
+  - 절대 하면 안 되는 것: console.log 남기기, any 타입 남발
+  - 빌드/테스트 명령어: pnpm dev, pnpm build, pnpm test
+
+
+
+[Cursor와 함께 쓰는 방식]
+
+1. 작업 유형별 추천 도구
+  빠른 코딩, Tab 자동완성, 작은 수정 : Cursor (속도와 편의성)
+  큰 리팩토링, 여러 파일 수정, 아키텍처 작업 : Claude Code (자율 실행 + 큰 컨텍스트)
+  새로운 기능 처음부터 만들기 : Claude Code (계획 → 실행까지 autonomous)
+
+
+
+[설치 확인]
+
+1. 상태 확인 명령어
+  $ claude --version
+  $ /status    # 사용량 확인 (Max라서 넉넉함)
+  $ /help      # 명령어 목록
