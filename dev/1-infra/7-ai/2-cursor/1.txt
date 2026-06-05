@@ -107,3 +107,95 @@
   Cmd+I : Agent
   Cmd+K : Inline Edit
   Tab : AI 자동완성 수락
+
+
+
+[Cursor 기능 개요]
+
+1. Cursor에서 할 수 있는 것
+  Tab 자동완성으로 코드 한 줄·한 블록 빠르게 작성
+  Inline Edit (Ctrl+K)로 선택 영역만 수정
+  Chat (Ctrl+L)으로 질문·설명·리뷰
+  Agent (Ctrl+I)로 여러 파일 수정·터미널 실행·테스트까지 연속 작업
+  @ 멘션으로 파일·폴더·Codebase·Docs·Web 컨텍스트 지정
+  Plan / Ask / Debug 모드로 작업 방식 전환
+  .cursor/rules, Skills, MCP 로 프로젝트·팀 규칙·외부 도구 연동
+  Agents Window (Cmd+Shift+P → Agents Window)에서 병렬 에이전트 관리
+  변경 diff 확인 후 Accept / Reject
+
+1. Agent 모드별 역할
+  Agent : 파일 수정·터미널·테스트까지 자율 실행 (기본)
+  Ask : 읽기 전용 탐색·질문 (/ask)
+  Plan : 코딩 전 설계·접근 방식 논의 (/plan)
+  Debug : 버그 원인 추적·가설 검증
+
+
+
+[Cursor 슬래시 명령어]
+참조: https://cursor.com/docs/cli/reference/slash-commands
+  Agent Chat 입력창에서 / 입력 → 명령 목록 팝업
+  /summarize 등 일부 명령은 목록에 안 보일 수 있음 → /summarize 처럼 직접 입력
+
+1. 모드 전환
+  /plan : Plan 모드 (구현 전 설계)
+  /ask : Ask 모드 (읽기 전용 탐색)
+
+1. 세션·대화 관리
+  /new-chat : 새 채팅 시작
+  /summarize : 대화 요약·컨텍스트 압축 (메시지 1개 이상 있을 때)
+  /compress : /summarize 와 동일 (CLI)
+  /resume [folder] : 이전 채팅 이어하기
+
+1. 모델·실행 설정
+  /model [name] : 모델 설정·목록
+  /max-mode [on|off] : Max mode 토글 (지원 모델)
+  /auto-run [on|off|status] : Agent 자동 실행 토글
+  /sandbox : Sandbox·네트워크 접근 설정
+
+1. Git·병렬 작업 (Agents Window / 최신 버전)
+  /worktree : 별도 git worktree 에서 격리 작업
+  /best-of-n : 여러 모델에 같은 작업 병렬 실행 후 결과 비교
+
+1. Rules·Commands·Skills
+  /rules : Rules 생성·편집 (.cursor/rules, User Rules)
+  /commands : 커스텀 슬래시 명령 생성·편집
+  커스텀 명령 저장 위치:
+    프로젝트: .cursor/commands/[command].md
+    전역: ~/.cursor/commands/[command].md
+  Skills: .cursor/skills/ 또는 ~/.cursor/skills/ → / 로 Skills 호출
+
+1. MCP
+  /mcp list : MCP 서버 목록·설정
+  /mcp enable [name] : MCP 서버 활성화
+  /mcp disable [name] : MCP 서버 비활성화
+
+1. 상태·설정·기타
+  /usage : 사용량·streak 확인
+  /help [command] : 명령 도움말
+  /about : 환경·CLI 설정 정보
+  /vim : Vim 키 토글
+  /setup-terminal : 터미널 키바인딩 자동 설정
+  /copy-request-id : 마지막 request ID 복사
+  /copy-conversation-id : conversation ID 복사
+  /feedback : 피드백 전송
+  /logout : Cursor 로그아웃
+  /quit : 종료
+
+
+
+[Cursor 슬래시 명령 활용 예시]
+
+1. 코드 리뷰 워크플로
+  .cursor/commands/review.md 커스텀 명령 작성 → Agent에서 /review 실행
+
+1. 긴 Agent 세션
+  컨텍스트 부족 시 /summarize → 핵심 유지하며 계속 작업
+
+1. 큰 기능 구현
+  /plan 으로 설계 → Agent 모드로 구현 → diff Accept/Reject
+
+1. 읽기만 필요할 때
+  /ask → @Codebase 로 구조 파악 (파일 수정 없음)
+
+1. 팀 규칙 공유
+  /rules → .cursor/rules 에 컨벤션 추가 → 이후 Agent가 자동 참조

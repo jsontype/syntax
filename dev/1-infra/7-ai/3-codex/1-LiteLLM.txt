@@ -1,0 +1,304 @@
+[Codex + LiteLLM 연동 절차]
+참조: https://docs.litellm.ai/docs/tutorials/openai_codex
+  LiteLLM Proxy를 통해 Codex가 여러 LLM(OpenAI, Anthropic, Gemini 등)에 접근
+  LiteLLM v1.66.3.dev5 이상 / Codex CLI @openai/codex 필요
+  Windows Codex 설정 경로: %USERPROFILE%\.codex\
+
+
+
+[Phase 1: Codex CLI 설치]
+
+1. Codex CLI 설치
+  $ npm i -g @openai/codex
+  설치 확인:
+  $ codex --version
+
+
+
+[Phase 2: LiteLLM API Key 발급]
+
+1. 사전 확인 (조직 Proxy 사용 시)
+  관리자 또는 Private 시트에서 아래 정보 확보:
+    LiteLLM Proxy URL (예: https://litellm.example.com 또는 http://localhost:4000)
+    Admin UI URL (예: https://litellm.example.com/ui)
+    UI 로그인 ID/PW (UI_USERNAME / UI_PASSWORD)
+  Proxy가 없으면 Phase 2-B (자체 Proxy 구축) 참조
+
+1. Admin UI에서 Virtual Key 발급 (권장)
+  브라우저에서 LiteLLM Admin UI 접속
+    http://[proxy-host]:4000/ui
+  UI_USERNAME / UI_PASSWORD 로 로그인
+  좌측 Virtual Keys → Create new key
+  설정 항목:
+    Key name: codex-[본인이름] 등 식별 가능한 이름
+    Models: 사용할 모델 선택 (예: gpt-5-codex, claude-sonnet 등 Proxy에 등록된 model_name)
+    Max budget: 예산 상한 (USD, 선택)
+    RPM / TPM: 분당 요청·토큰 제한 (선택)
+    Duration: 키 만료 기간 (예: 90d, 선택)
+  Generate 클릭
+  생성된 API Key 복사 및 안전하게 보관
+    주의: 키는 생성 직후 한 번만 전체 표시됨. 잃어버리면 재발급 필요
+  Test Key 로 Playground에서 동작 확인 (선택)
+
+1. curl로 Virtual Key 발급 (Master Key 있는 경우)
+  Master Key(sk-로 시작)가 있을 때 API로 발급 가능:
+  $ curl -X POST "http://[proxy-host]:4000/key/generate" ^
+    -H "Authorization: Bearer sk-[master-key]" ^
+    -H "Content-Type: application/json" ^
+    -d "{\"key_name\":\"codex-dev\",\"models\":[\"gpt-5-codex\"],\"max_budget\":100.0,\"duration\":\"90d\"}"
+  macOS / Linux:
+  $ curl -X POST "http://[proxy-host]:4000/key/generate" \
+    -H "Authorization: Bearer sk-[master-key]" \
+    -H "Content-Type: application/json" \
+    -d '{"key_name":"codex-dev","models":["gpt-5-codex"],"max_budget":100.0,"duration":"90d"}'
+  응답 JSON의 key 값을 복사
+
+
+
+[Phase 2-B: LiteLLM Proxy 자체 구축 (관리자용)]
+
+1. LiteLLM Proxy 설치
+  $ pip install 'litellm[proxy]'
+
+1. litellm_config.yaml 작성
+  general_settings:
+    master_key: sk-[master-key]          # sk- 로 시작 필수
+    database_url: postgresql://...       # Virtual Key UI 사용 시 DB 필요
+  litellm_settings:
+    drop_params: true
+  model_list:
+    - model_name: gpt-5-codex
+      litellm_params:
+        model: openai/gpt-5-codex
+        api_key: os.environ/OPENAI_API_KEY
+    - model_name: claude-sonnet
+      litellm_params:
+        model: anthropic/claude-sonnet-4-6
+        api_key: os.environ/ANTHROPIC_API_KEY
+
+1. Proxy 기동
+  $ litellm --config litellm_config.yaml --port 4000
+  http://localhost:4000 에서 동작 확인
+  UI 접속: http://localhost:4000/ui
+  .env 에 UI 계정 설정 (선택):
+    LITELLM_MASTER_KEY=sk-[master-key]
+    UI_USERNAME=admin
+    UI_PASSWORD=[password]
+
+1. Docker로 기동 (선택)
+  $ docker run -v %cd%/litellm_config.yaml:/app/config.yaml -p 4000:4000 docker.litellm.ai/berriai/litellm:main-latest --config /app/config.yaml
+
+
+
+[Phase 3: Codex에 LiteLLM API Key 넣기]
+
+1. ~/.codex/.env 작성 (Windows: %USERPROFILE%\.codex\.env)
+  $ mkdir %USERPROFILE%\.codex
+  .env 파일 내용:
+    LITELLM_API_KEY=sk-[발급받은-virtual-key]
+  Proxy URL도 env에 둘 경우 (선택):
+    LITELLM_BASE_URL=https://litellm.example.com/v1
+  주의: .env 파일을 git에 커밋하지 말 것
+
+1. ~/.codex/config.toml 작성 (Windows: %USERPROFILE%\.codex\config.toml)
+  model = "gpt-5-codex"
+  model_provider = "litellm"
+  model_reasoning_effort = "medium"
+  approval_policy = "on-request"
+  sandbox_mode = "workspace-write"
+
+  [model_providers.litellm]
+  name = "LiteLLM"
+  base_url = "https://litellm.example.com/v1"
+  env_key = "LITELLM_API_KEY"
+  wire_api = "responses"
+
+  base_url 은 LiteLLM Proxy 주소 + /v1
+  wire_api = "responses" 는 Codex gpt-5 계열 모델 사용 시 필수
+  model 은 litellm_config.yaml 의 model_name 과 일치해야 함
+
+1. Profile 로 분리 (선택, ChatGPT 계정과 LiteLLM 전환용)
+  profile = "litellm"
+
+  [profiles.litellm]
+  model = "gpt-5-codex"
+  model_provider = "litellm"
+
+  Profile 지정 실행:
+  $ codex --profile litellm
+
+1. 환경변수만으로 연결 (config.toml 대신 간단 설정)
+  LiteLLM 공식 문서 방식. Proxy URL과 Virtual Key만으로 동작:
+  $ set OPENAI_BASE_URL=http://localhost:4000
+  $ set OPENAI_API_KEY=sk-[virtual-key]
+  macOS / Linux:
+  $ export OPENAI_BASE_URL=http://localhost:4000
+  $ export OPENAI_API_KEY=sk-[virtual-key]
+  $ codex --model gpt-5-codex --full-auto
+
+
+
+[Phase 4: 동작 확인]
+
+1. Codex 실행 및 테스트
+  $ codex
+  또는 특정 모델 지정:
+  $ codex --model gpt-5-codex
+  프로젝트 폴더에서 실행:
+  $ cd app1
+  $ codex
+  사용 예시:
+    - 이 프로젝트 구조 설명해줘
+    - 이 버그 원인 찾아서 고쳐줘
+    - 로그인 API 연동해줘
+
+1. LiteLLM Admin UI에서 Usage 확인
+  http://[proxy-host]:4000/ui → Usage
+  본인 Virtual Key / 모델별 사용량·비용 확인
+
+
+
+[트러블슈팅]
+
+1. 연결 실패 (connection refused / 401)
+  LiteLLM Proxy가 실행 중인지 확인
+  base_url 이 Proxy 주소 + /v1 인지 확인 (끝에 /v1 필수)
+  LITELLM_API_KEY / Virtual Key가 유효한지 확인
+  Virtual Key의 models 목록에 사용하려는 model_name 이 포함되는지 확인
+
+1. gpt-5-codex 모델 오류 (400 Bad Request)
+  config.toml 에 wire_api = "responses" 설정 확인
+  LiteLLM 버전 1.78.7 이상 권장
+  Codex CLI 최신 버전으로 업데이트: $ npm i -g @openai/codex
+
+1. 잘못된 모델로 요청됨
+  config.toml 의 model 값이 Proxy model_name 과 일치하는지 확인
+  Proxy model_list 에 해당 model_name 이 등록되어 있는지 확인
+
+1. Windows 경로 문제
+  Codex 설정: %USERPROFILE%\.codex\config.toml
+  환경변수: %USERPROFILE%\.codex\.env
+  터미널 재시작 후 codex 실행
+
+
+
+[Claude / Cursor와 함께 쓰는 방식]
+
+1. 작업 유형별 추천 도구
+  IDE 안 빠른 코딩, Tab 자동완성 : Cursor (dev/1-infra/7-ai/2-cursor/1.txt)
+  터미널 기반 자율 코딩, LiteLLM 경유 다중 모델 : Codex + LiteLLM
+  Claude Max 구독 직접 사용 : Claude Code (dev/1-infra/7-ai/1-claude/1.txt)
+
+
+
+[Codex 기능 개요]
+
+1. Codex 세션에서 할 수 있는 것
+  프로젝트 폴더 기준으로 코드 읽기·수정·생성
+  터미널 명령 실행 (테스트, 빌드, git 등)
+  Git diff 기반 변경 검토 (/review, /diff)
+  Plan 모드로 구현 전 계획 수립 (/plan)
+  MCP·Skills·Plugins 로 외부 도구 연동
+  AGENTS.md 생성으로 프로젝트 규칙 고정 (/init)
+  승인 정책 조절 (Auto / Read Only 등, /permissions)
+  Sandbox 내 파일 읽기·쓰기 (workspace-write 등)
+
+1. Bash 명령 (슬래시 없이)
+  ! 접두사로 터미널 명령 즉시 실행:
+    !ls
+    !pwd
+    !git status
+  Codex 작업과 별도로 직접 확인할 때 사용
+
+1. 키보드 단축키
+  / : 슬래시 명령 팝업 열기
+  Ctrl+O : 최신 Codex 응답 클립보드 복사
+  Ctrl+K : 터미널 화면 지우기 (대화는 유지)
+  Alt+R : raw scrollback 모드 토글
+  Tab : 실행 중인 작업이 있을 때 슬래시 명령을 다음 턴에 큐잉
+
+
+
+[Codex 슬래시 명령어]
+참조: https://developers.openai.com/codex/cli/slash-commands
+  Codex 세션 입력창에서 / 입력 → 명령 목록 팝업
+
+1. 코드·Git 작업
+  /review : working tree 코드 리뷰 (동작 변경, 누락 테스트 등)
+  /diff : git diff 표시 (untracked 파일 포함)
+  /init : 현재 디렉터리에 AGENTS.md 스캐폴드 생성
+  /mention [path] : 파일·폴더를 대화에 첨부 (예: /mention src/api.ts)
+  /ide : IDE에서 열린 파일·선택 영역 컨텍스트 포함
+
+1. 세션·대화 관리
+  /new : 같은 CLI 세션 안에서 새 대화 시작
+  /clear : 터미널 지우고 새 채팅 시작 (/new와 달리 화면도 초기화)
+  /resume : 저장된 이전 대화 이어하기
+  /fork : 현재 대화를 새 스레드로 복제 (다른 접근 시도용)
+  /side, /btw : 메인 작업 유지한 채 잠깐 분기 대화 (에피소드)
+  /compact : 긴 대화 요약·압축 (토큰 절약)
+  /copy : 최신 완료된 Codex 응답 클립보드 복사
+  /quit, /exit : Codex 종료
+
+1. 모델·실행 모드
+  /model : 활성 모델·reasoning effort 변경
+  /fast : Fast service tier on/off/status (모델이 지원할 때)
+  /plan : Plan 모드 진입 (구현 전 계획 수립)
+    예: /plan Propose a migration plan for this service
+  /goal : 작업 목표 설정·조회·일시정지·재개·삭제
+    /goal Finish the migration and keep tests green
+    /goal pause / /goal resume / /goal clear
+  /personality : 응답 스타일 (friendly / pragmatic / none)
+  /permissions : 승인 정책 변경 (Auto, Read Only, 커스텀 프로필 등)
+  /approve : auto review가 거부한 최근 액션 1회 재시도
+  /agent : 서브에이전트 스레드 전환·이어하기
+  /experimental : 실험 기능 토글 (subagents, Smart Approvals 등)
+
+1. 상태·설정 확인
+  /status : 세션 설정, 활성 모델, 승인 정책, writable roots, 토큰 사용량
+  /debug-config : config 레이어·정책 진단 (설정이 안 먹을 때)
+  /config : (일부 버전) effective config 값·출처 출력
+  /memories : 메모리 사용·생성 on/off
+
+1. MCP·Skills·Plugins·Apps
+  /mcp : 설정된 MCP 도구 목록 (/mcp verbose 로 상세)
+  /skills : Skills 브라우즈·적용 (작업별 동작 개선)
+  /plugins : 설치·탐색 가능한 플러그인 관리
+  /apps : ChatGPT 커넥터(앱) 브라우즈 → $app-slug 로 프롬프트에 삽입
+  /hooks : lifecycle hooks 조회·신뢰·비활성화
+
+1. 백그라운드 터미널
+  /ps : 백그라운드 터미널 목록·최근 출력 확인
+  /stop : 백그라운드 터미널 전부 중지 (/clean 별칭)
+
+1. TUI·UI 커스터마이즈
+  /statusline : TUI 하단 footer 항목 설정 (model, git branch, tokens 등)
+  /title : 터미널 창/탭 제목 항목 설정
+  /theme : syntax highlighting 테마 선택
+  /keymap : TUI 키보드 단축키 변경 (config.toml tui.keymap 에 저장)
+  /vim : composer Vim 모드 토글
+  /raw : raw scrollback 모드 on/off (긴 출력 복사용)
+
+1. 기타
+  /feedback : 로그·진단 정보를 Codex maintainer에게 전송
+  /logout : Codex 로그아웃 (공유 PC에서)
+  /sandbox-add-read-dir [path] : Windows sandbox 추가 읽기 디렉터리 허용
+
+
+
+[Codex 슬래시 명령 활용 예시]
+
+1. 작업 후 리뷰
+  Codex에게 기능 구현 요청 → 완료 후 /review → /diff 로 변경 확인
+
+1. 긴 세션 토큰 절약
+  대화가 길어지면 /compact → 핵심만 남기고 계속 작업
+
+1. 큰 작업 분할
+  /plan 으로 계획 먼저 → /goal 로 목표 고정 → 구현 진행
+
+1. 프로젝트 규칙 고정
+  /init → AGENTS.md 생성·수정 → 이후 세션마다 Codex가 규칙 참조
+
+1. 모델 전환 (LiteLLM 사용 시)
+  /model → Proxy에 등록된 model_name 선택 (예: gpt-5-codex, claude-sonnet)
