@@ -59,3 +59,116 @@
   $ claude --version
   $ /status    # 사용량 확인 (Max라서 넉넉함)
   $ /help      # 명령어 목록
+
+
+
+[Claude Code 기능 개요]
+
+1. Claude Code 세션에서 할 수 있는 것
+  프로젝트 폴더 기준 코드 읽기·수정·생성
+  터미널 명령 실행 (테스트, 빌드, git 등)
+  Plan 모드로 구현 전 계획 수립 (/plan)
+  Git diff·PR 리뷰 (/diff, /review, /code-review)
+  서브에이전트·백그라운드 작업 (/agents, /background, /batch)
+  MCP·Skills·Hooks 로 외부 도구 연동
+  CLAUDE.md·메모리로 프로젝트 규칙 고정 (/init, /memory)
+  승인 정책·Sandbox 조절 (/permissions, /sandbox)
+  파일 수정 전 승인(y/n) 요청
+
+1. 키보드·입력
+  / : 슬래시 명령 팝업 (메시지 맨 앞에서만 인식)
+  Esc : 실행 중 작업 중지
+  /help : 현재 버전에서 사용 가능한 전체 명령 목록 (가장 정확한 live source)
+
+
+
+[Claude Code 슬래시 명령어]
+참조: https://code.claude.com/docs/en/commands
+  claude 세션 입력창에서 / 입력 → 명령 목록 팝업
+
+1. 인증·세션 시작
+  /login : Anthropic 계정 로그인
+  /logout : 로그아웃
+  /init : CLAUDE.md 프로젝트 가이드 생성
+  /memory : CLAUDE.md·auto-memory 편집
+  /add-dir [path] : 추가 작업 디렉터리 등록
+
+1. 코드·Git·리뷰
+  /diff : uncommitted 변경·턴 단위 diff 뷰어
+  /review [PR] : 변경사항·PR 코드 리뷰
+  /code-review [effort] [--fix] : diff 정확성·정리 리뷰 (--fix 로 자동 수정)
+  /code-review ultra : 클라우드 멀티에이전트 딥 리뷰
+  /security-review : 보안 취약점 스캔 (injection, auth, data exposure 등)
+  /simplify [target] : 리팩토링·중복 제거·효율 개선 (--fix 적용 가능)
+
+1. 세션·대화 관리
+  /clear [name] : 새 대화 시작 (별칭: /reset, /new)
+  /compact [instructions] : 대화 요약·압축 (토큰 절약, 세션 유지)
+  /resume [session] : 이전 대화 이어하기 (별칭: /continue)
+  /branch [name] : 현재 대화 분기 (다른 접근 시도)
+  /fork [prompt] : 백그라운드 서브에이전트로 분기 작업
+  /btw [question] : 기록에 안 남는 짧은 질문
+  /rewind : 체크포인트로 대화·코드 되돌리기 (별칭: /checkpoint, /undo)
+  /export [filename] : 대화 내보내기
+  /copy [N] : 최근 응답 클립보드 복사
+
+1. 모델·실행 모드
+  /plan [description] : Plan 모드 진입 (구현 전 계획)
+  /goal [condition|clear] : 목표 설정 후 조건 충족까지 자동 진행
+  /model [model] : 모델 전환
+  /effort [level] : reasoning depth (low / medium / high / xhigh / max 등)
+  /fast [on|off] : Fast 모드 토글
+  /permissions : 도구 승인 규칙 (allow / ask / deny)
+  /sandbox : Sandbox 모드 토글
+
+1. 병렬·백그라운드 작업
+  /agents : 서브에이전트 설정·관리
+  /tasks : 백그라운드 태스크 목록 (별칭: /bashes)
+  /background [prompt] : 세션을 백그라운드로 분리 (별칭: /bg)
+  /batch [prompt] : worktree별 병렬 대규모 변경 (각 unit → PR)
+  /loop [interval] [prompt] : 반복 실행 (주의: 장시간·과금 가능)
+  /schedule : 클라우드 cron 루틴 설정
+
+1. MCP·Skills·플러그인
+  /mcp : MCP 서버 연결·OAuth 관리
+  /skills : Skills 목록·토글
+  /hooks : lifecycle hooks 조회
+  /plugin : 플러그인 관리
+  /reload-skills : 디스크에서 Skills 재스캔
+
+1. 상태·설정·진단
+  /status : 버전, 모델, 계정, 연결 상태
+  /context [all] : 컨텍스트 사용량 시각화
+  /usage : 세션 비용·플랜 사용량 (별칭: /cost, /stats)
+  /config : Settings UI (별칭: /settings)
+  /help : 사용 가능 명령 전체 목록
+  /doctor : 설치·설정 진단
+  /debug [description] : 디버그 로그 활성화
+  /feedback : 버그·피드백 전송
+
+1. 기타
+  /terminal-setup : Shift+Enter 등 터미널 키 설정 (VS Code, Cursor 등)
+  /ide : IDE 연동 상태
+  /teleport : 웹 세션을 터미널로 가져오기
+  /remote-control : 다른 기기에서 세션 원격 제어
+  /quit : 종료 (별칭: /exit)
+
+
+
+[Claude Code 슬래시 명령 활용 예시]
+
+1. 새 프로젝트 시작
+  /init → CLAUDE.md 생성·수정 → /memory 로 규칙 보강
+
+1. 큰 작업
+  /plan 으로 계획 → 구현 → /diff → /review 또는 /code-review --fix
+
+1. 긴 세션
+  context 80% 넘으면 /compact → 핵심 유지하며 계속 작업
+  완전히 다른 작업이면 /clear
+
+1. PR 전 점검
+  /security-review → /code-review --fix → 커밋
+
+1. 대규모 리팩토링
+  /batch migrate src/ from X to Y → worktree별 병렬 PR
