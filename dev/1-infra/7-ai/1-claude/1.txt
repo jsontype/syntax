@@ -44,6 +44,30 @@
 
 
 
+[claude.ai 채팅 — 프롬프트 단축어 (내장 명령 아님)]
+
+참조: claude.ai / 앱 채팅에는 / 슬래시 명령 기능 자체가 없음
+  아래 /godmode 등은 시스템이 특별 처리하지 않음 — 단어 뜻으로 자연어 요청이 전달될 뿐
+  "부족한 점 말해줘" 와 /critique 는 같은 효과. 명령어가 아니라 프롬프트 예시집
+  진짜 슬래시 명령은 Claude Code CLI 전용 → 아래 [Claude Code 슬래시 명령어] 참조
+
+1. 요청 스타일 단축어 (채팅에 그대로 입력)
+  /godmode : 세게 말해줘
+  /devil : 반대 입장에서 말해줘
+  /10x : 더 좋게 고쳐줘
+  /pitch : 짧게 설득해줘
+  /ghost : 사람처럼 써줘
+  /compare : 비교해줘
+  /scout : 문제점 찾아줘
+  /ooda : 복잡한 코드 풀어줘
+  /artifacts : 문제점 고쳐줘
+  /critique : 부족한 점 말해줘
+  /explainlikeim5 : 아주 쉽게 말해줘
+  /brief : 짧게 말해줘
+  /teacher : 선생님처럼 설명해줘
+
+
+
 [Cursor와 함께 쓰는 방식]
 
 1. 작업 유형별 추천 도구
