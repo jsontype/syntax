@@ -1,0 +1,21 @@
+{
+  "name": "btc-signal-terminal",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "해커 감성 비트코인 매수 타이밍 분석기 (지표 6종 합성 점수)",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "verify": "node scripts/verify.mjs"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^5.4.11"
+  }
+}
