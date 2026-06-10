@@ -1,0 +1,874 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BTC_SIGNAL // buy-timing terminal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Share+Tech+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --neon: #00ff9c; --bg: #05080a; --bg-soft: #0a1014;
+        --panel: rgba(10,18,22,0.72); --line: rgba(0,255,156,0.18);
+        --text: #c8ffe6; --dim: #4f7a6c;
+        --ok: #00ff9c; --warn: #ffb000; --crit: #ff3b5c;
+        --font: 'JetBrains Mono', ui-monospace, 'Share Tech Mono', monospace;
+      }
+      * { box-sizing: border-box; }
+      html, body, #root { height: 100%; margin: 0; }
+      body {
+        background: radial-gradient(1200px 800px at 70% -10%, #0c1a18 0%, var(--bg) 55%) fixed;
+        color: var(--text); font-family: var(--font);
+        -webkit-font-smoothing: antialiased; overflow-x: hidden;
+      }
+      ::selection { background: var(--neon); color: #04110c; }
+      .matrix-rain { position: fixed; inset: 0; z-index: 0; opacity: .16; pointer-events: none; }
+      .scanlines { position: fixed; inset: 0; z-index: 1; pointer-events: none; background: repeating-linear-gradient(to bottom, rgba(0,0,0,0) 0, rgba(0,0,0,0) 2px, rgba(0,0,0,.22) 3px, rgba(0,0,0,0) 4px); mix-blend-mode: multiply; animation: flicker 6s infinite; }
+      .vignette { position: fixed; inset: 0; z-index: 1; pointer-events: none; box-shadow: inset 0 0 220px 40px rgba(0,0,0,.8); }
+      @keyframes flicker { 0%,97%,100%{opacity:.55} 98%{opacity:.35} 99%{opacity:.7} }
+      .boot { position: fixed; inset: 0; z-index: 50; display: flex; flex-direction: column; justify-content: center; padding: 8vh 8vw; background: var(--bg); cursor: pointer; }
+      .boot-text { margin: 0; font-size: 15px; line-height: 1.7; color: var(--neon); text-shadow: 0 0 8px rgba(0,255,156,.6); }
+      .boot-line { white-space: pre-wrap; }
+      .boot-skip { margin-top: 28px; color: var(--dim); font-size: 12px; letter-spacing: 1px; }
+      .cursor-blink { animation: blink 1s steps(2) infinite; }
+      @keyframes blink { 50% { opacity: 0; } }
+      .app { position: relative; z-index: 2; min-height: 100%; }
+      .shell { max-width: 1180px; margin: 0 auto; padding: 26px 20px 60px; position: relative; z-index: 2; }
+      .topbar { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; flex-wrap: wrap; padding-bottom: 16px; border-bottom: 1px solid var(--line); margin-bottom: 22px; }
+      .brand { display: flex; gap: 14px; align-items: center; }
+      .logo { font-size: 26px; color: var(--neon); text-shadow: 0 0 14px var(--neon); letter-spacing: -2px; }
+      .title { margin: 0; font-size: 21px; font-weight: 800; letter-spacing: 1px; color: var(--neon); text-shadow: 0 0 12px rgba(0,255,156,.45); }
+      .title .dim { color: var(--dim); text-shadow: none; font-weight: 500; }
+      .subtitle { margin: 4px 0 0; font-size: 12px; color: var(--dim); }
+      .topbar-right { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+      .sys-status { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; letter-spacing: 1px; padding: 7px 12px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel); }
+      .sys-status .pulse { width: 9px; height: 9px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 10px var(--ok); animation: pulse 1.4s infinite; }
+      .sys-status.status-warn .pulse { background: var(--warn); box-shadow: 0 0 10px var(--warn); }
+      .sys-status.status-crit .pulse { background: var(--crit); box-shadow: 0 0 10px var(--crit); }
+      .sys-status.status-ok { color: var(--ok); } .sys-status.status-warn { color: var(--warn); } .sys-status.status-crit { color: var(--crit); }
+      @keyframes pulse { 50% { opacity: .35; transform: scale(.8); } }
+      .clock { display: flex; flex-direction: column; align-items: flex-end; line-height: 1.2; }
+      .clock-time { font-size: 19px; font-weight: 700; color: var(--text); text-shadow: 0 0 8px rgba(0,255,156,.3); }
+      .clock-date { font-size: 11px; color: var(--dim); }
+
+      /* HERO */
+      .hero { display: grid; grid-template-columns: 320px 1fr; gap: 20px; margin-bottom: 22px; }
+      .panel { position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 18px; backdrop-filter: blur(3px); }
+      .corner { position: absolute; width: 12px; height: 12px; border: 2px solid var(--accent, var(--neon)); opacity: .8; }
+      .corner.tl { top: -1px; left: -1px; border-right: 0; border-bottom: 0; }
+      .corner.tr { top: -1px; right: -1px; border-left: 0; border-bottom: 0; }
+      .corner.bl { bottom: -1px; left: -1px; border-right: 0; border-top: 0; }
+      .corner.br { bottom: -1px; right: -1px; border-left: 0; border-top: 0; }
+      .gauge-panel { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+      .gauge-panel.status-crit { animation: cardalert 1.6s infinite; }
+      @keyframes cardalert { 50% { box-shadow: 0 0 26px -8px var(--crit); } }
+      .panel-label { align-self: flex-start; font-size: 10px; letter-spacing: 2px; color: var(--dim); margin-bottom: 6px; }
+      .gauge-big { position: relative; width: 210px; height: 210px; }
+      .gauge-big svg { width: 100%; height: 100%; }
+      .gauge-track { fill: none; stroke: rgba(255,255,255,.07); stroke-width: 10; }
+      .gauge-fill { fill: none; stroke-width: 10; stroke-linecap: round; transition: stroke-dasharray .8s cubic-bezier(.2,.8,.2,1), stroke .4s; }
+      .gauge-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+      .gauge-score { font-size: 52px; font-weight: 800; line-height: 1; }
+      .gauge-of { font-size: 12px; color: var(--dim); margin-top: 2px; }
+      .verdict { margin-top: 12px; font-size: 22px; font-weight: 800; letter-spacing: 1px; }
+      .verdict-advice { margin-top: 8px; font-size: 11.5px; line-height: 1.5; color: var(--text); opacity: .85; max-width: 260px; }
+      .coverage { margin-top: 10px; font-size: 10px; letter-spacing: 1px; color: var(--dim); }
+
+      .market { display: flex; flex-direction: column; gap: 14px; }
+      .market-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; }
+      .price-big { font-size: 38px; font-weight: 800; line-height: 1; color: var(--text); text-shadow: 0 0 14px rgba(0,255,156,.25); }
+      .price-sub { display: flex; gap: 14px; align-items: baseline; margin-top: 8px; font-size: 12px; color: var(--dim); flex-wrap: wrap; }
+      .chg.up { color: var(--ok); } .chg.down { color: var(--crit); }
+      .price-meta { text-align: right; font-size: 11px; color: var(--dim); line-height: 1.7; }
+      .spark-wrap { border-top: 1px dashed rgba(255,255,255,.08); padding-top: 12px; }
+      .spark-title { display: flex; justify-content: space-between; font-size: 10px; letter-spacing: 1px; color: var(--dim); margin-bottom: 4px; }
+      .spark { width: 100%; height: 64px; display: block; }
+      .spark-sm { height: 40px; }
+      .spark-empty { font-size: 11px; color: var(--dim); display: flex; align-items: center; height: 64px; }
+
+      /* badges */
+      .badge { display: inline-flex; align-items: center; gap: 5px; font-size: 9.5px; letter-spacing: .5px; padding: 2px 7px; border-radius: 3px; border: 1px solid var(--line); color: var(--dim); white-space: nowrap; }
+      .badge .bdot { width: 6px; height: 6px; border-radius: 50%; background: var(--dim); }
+      .badge.live { color: var(--ok); border-color: rgba(0,255,156,.4); } .badge.live .bdot { background: var(--ok); box-shadow: 0 0 6px var(--ok); }
+      .badge.fallback { color: var(--warn); border-color: rgba(255,176,0,.4); } .badge.fallback .bdot { background: var(--warn); }
+      .badge.cached { color: var(--dim); } .badge.cached .bdot { background: var(--dim); }
+      .badge.loading { color: #6fd0ff; } .badge.loading .bdot { background: #6fd0ff; animation: blink .8s steps(2) infinite; }
+      .badge.error, .badge.na { color: var(--crit); border-color: rgba(255,59,92,.4); } .badge.error .bdot, .badge.na .bdot { background: var(--crit); animation: blink .8s steps(2) infinite; }
+      .badges-row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+      /* indicator grid */
+      .ind-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 16px; margin-bottom: 22px; }
+      .ind-card { position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 14px 14px 12px; transition: transform .15s, box-shadow .2s; }
+      .ind-card:hover { transform: translateY(-2px); box-shadow: 0 0 26px -8px var(--accent, var(--neon)); }
+      .ind-card.status-ok { --accent: var(--ok); } .ind-card.status-warn { --accent: var(--warn); } .ind-card.status-crit { --accent: var(--crit); } .ind-card.status-na { --accent: var(--crit); }
+      .ind-head { display: flex; justify-content: space-between; align-items: baseline; }
+      .ind-short { font-size: 15px; font-weight: 800; letter-spacing: 1px; color: var(--accent, var(--neon)); }
+      .ind-weight { font-size: 10px; color: var(--dim); }
+      .ind-name { font-size: 10.5px; color: var(--dim); margin: 2px 0 10px; }
+      .ind-value { font-size: 26px; font-weight: 800; line-height: 1; }
+      .ind-detail { font-size: 11px; color: var(--dim); margin-top: 5px; min-height: 14px; }
+      .mini-bar { position: relative; height: 8px; margin: 12px 0 4px; background: rgba(255,255,255,.05); border: 1px solid var(--line); border-radius: 3px; overflow: hidden; }
+      .mini-fill { height: 100%; transition: width .6s cubic-bezier(.2,.8,.2,1); box-shadow: 0 0 10px var(--accent, var(--neon)); }
+      .mini-row { display: flex; justify-content: space-between; font-size: 9.5px; color: var(--dim); letter-spacing: .5px; }
+      .ind-desc { font-size: 10px; color: var(--dim); margin-top: 8px; opacity: .8; }
+      .na-flag { color: var(--crit); animation: blink 1s steps(2) infinite; font-weight: 700; }
+
+      /* terminal */
+      .terminal { border: 1px solid var(--line); border-radius: 6px; background: rgba(4,8,9,.86); overflow: hidden; margin-bottom: 20px; box-shadow: 0 0 40px -20px var(--neon); }
+      .term-head { display: flex; align-items: center; gap: 7px; padding: 8px 12px; background: rgba(255,255,255,.03); border-bottom: 1px solid var(--line); }
+      .dot { width: 11px; height: 11px; border-radius: 50%; }
+      .dot.red { background: #ff5f56; } .dot.yellow { background: #ffbd2e; } .dot.green { background: #27c93f; }
+      .term-title { margin-left: 8px; font-size: 12px; color: var(--dim); }
+      .term-body { padding: 12px 14px; height: 230px; overflow-y: auto; font-size: 13px; line-height: 1.55; cursor: text; }
+      .term-line { white-space: pre-wrap; word-break: break-word; color: var(--text); }
+      .term-input-row { display: flex; gap: 8px; align-items: center; }
+      .term-prompt { color: var(--neon); flex-shrink: 0; }
+      .term-input-row input { flex: 1; background: transparent; border: none; outline: none; color: var(--text); font-family: var(--font); font-size: 13px; caret-color: var(--neon); }
+      .term-body::-webkit-scrollbar { width: 8px; }
+      .term-body::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
+
+      .footer { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 11px; color: var(--dim); border-top: 1px solid var(--line); padding-top: 16px; }
+      .footer-cmds { display: flex; gap: 8px; flex-wrap: wrap; }
+      .chip { font-family: var(--font); font-size: 11px; color: var(--dim); background: var(--bg-soft); border: 1px solid var(--line); border-radius: 3px; padding: 5px 10px; cursor: pointer; transition: .15s; }
+      .chip:hover { color: var(--neon); border-color: var(--neon); }
+
+      @media (max-width: 820px) { .hero { grid-template-columns: 1fr; } }
+
+      /* 용어 설명 토글 */
+      .tips-toggle { display: flex; align-items: center; gap: 7px; font-size: 11px; letter-spacing: .5px; color: var(--dim); border: 1px solid var(--line); border-radius: 4px; padding: 7px 10px; cursor: pointer; user-select: none; background: var(--panel); transition: .15s; }
+      .tips-toggle:hover { color: var(--text); border-color: var(--neon); }
+      .tips-toggle input { appearance: none; -webkit-appearance: none; width: 15px; height: 15px; margin: 0; cursor: pointer; position: relative; background: var(--bg); border: 1px solid var(--neon); border-radius: 3px; transition: background .12s; }
+      .tips-toggle input:checked { background: var(--neon); }
+      .tips-toggle input:checked::after { content: ''; position: absolute; left: 4px; top: 1px; width: 3px; height: 7px; border: solid #04110c; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+      .tips-toggle input:focus-visible { outline: 1px solid var(--neon); outline-offset: 2px; }
+      /* 용어 툴팁 */
+      .term { position: relative; cursor: help; outline: none; }
+      .term.u { border-bottom: 1px dotted currentColor; }
+      .term > .tip { position: absolute; top: calc(100% + 9px); left: 0; z-index: 100; min-width: 200px; max-width: 290px; background: #04110c; border: 1px solid var(--neon); border-radius: 5px; box-shadow: 0 0 24px -6px var(--neon); padding: 9px 11px; text-align: left; white-space: normal; opacity: 0; visibility: hidden; transform: translateY(-4px); transition: opacity .12s, transform .12s; pointer-events: none; }
+      .term > .tip.tip-r { left: auto; right: 0; }
+      .term > .tip::after { content: ''; position: absolute; bottom: 100%; left: 14px; border: 6px solid transparent; border-bottom-color: var(--neon); }
+      .term > .tip.tip-r::after { left: auto; right: 14px; }
+      .term:hover > .tip, .term:focus > .tip, .term:focus-within > .tip { opacity: 1; visibility: visible; transform: translateY(0); }
+      .tip-title { display: block; color: var(--neon); font-weight: 800; font-size: 11.5px; letter-spacing: .3px; margin-bottom: 4px; }
+      .tip-title::before { content: '? '; opacity: .6; }
+      .tip-body { display: block; color: var(--text); font-size: 11px; line-height: 1.55; font-weight: 400; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel" data-presets="react">
+      const { useState, useEffect, useRef, useMemo, useCallback, useContext, createContext } = React
+
+      /* =========================================================
+       *  용어 사전 + 툴팁 (중학생도 이해할 수준의 쉬운 설명)
+       * ========================================================= */
+      const GLOSSARY = {
+        score: { title: '매수 타이밍 점수', body: '아래 6개 지표를 한데 모아 만든 0~100점이야. 점수가 높을수록 "지금 사기 괜찮은 편", 낮을수록 "과열돼서 사기엔 부담"이라는 뜻. 미래를 맞히는 예언이 아니라 참고용 종합 점수야.' },
+        RSI: { title: 'RSI · 상대강도지수', body: '최근 가격이 너무 빨리 올랐는지/떨어졌는지를 0~100으로 나타낸 값이야. 30보다 낮으면 "너무 많이 떨어졌다(과매도)"라 반등이 기대돼 매수 관심, 70보다 높으면 "너무 올랐다(과매수)"라 조심해야 해.' },
+        MACD: { title: 'MACD · 추세 모멘텀', body: '단기 평균선과 장기 평균선의 차이로, 가격이 오르는 "힘"이 세지는지 약해지는지를 봐. 막대가 마이너스에서 위로 꺾이면 바닥에서 반등이 시작된다는 신호로 읽어.' },
+        FNG: { title: '공포·탐욕 지수', body: '투자자들이 지금 무서워하는지(공포) 욕심내는지(탐욕)를 0~100으로 잰 거야. 0에 가까우면 다들 겁먹고 파는 중인데, 오히려 그때가 싸게 살 기회인 경우가 많아(역발상). 100에 가까우면 과열이야.' },
+        Mayer: { title: 'Mayer Multiple · 마이어 배수', body: '지금 가격이 "200일 평균 가격"의 몇 배인지 나타낸 값이야. 1보다 작으면 평균보다 싸다는 뜻, 0.8 아래면 역사적으로 바닥권(강한 매수), 2.4 위면 너무 비싼 과열로 봐.' },
+        DD: { title: '낙폭 · 고점 대비 하락률', body: '최근 1년 최고가에서 지금 몇 % 떨어졌는지야. -50%면 최고점에서 반토막 났다는 뜻. 많이 떨어졌을수록 공포 국면이라 분할 매수 기회로 보는 지표야.' },
+        GC_DC: { title: '골든/데드 크로스', body: '단기 평균선(50일)이 장기 평균선(200일)을 위로 뚫으면 골든크로스(상승 추세 시작), 아래로 뚫으면 데드크로스(하락 추세)야. 큰 추세가 위쪽인지 아래쪽인지 보는 거야.' },
+        mcap: { title: '시가총액(시총)', body: '코인 전체의 시장 가치야. 현재 가격 × 시중에 풀린 코인 수로 계산해. 그 코인이 시장에서 얼마나 큰지 보여줘.' },
+        vol: { title: '거래량 (24시간)', body: '최근 24시간 동안 사고팔린 총 금액이야. 많을수록 사람들의 관심과 거래가 활발하다는 뜻.' },
+        chg24: { title: '24시간 변동률', body: '하루 전과 비교해 가격이 몇 % 올랐는지(초록)·내렸는지(빨강)를 나타내.' },
+        stale: { title: 'STALE · 오래된 데이터', body: '받아온 데이터가 너무 오래돼서 신선하지 않다는 표시야. 새로고침(↻)하면 최신으로 갱신돼.' },
+        coverage: { title: '지표 커버리지', body: '점수를 계산할 때 6개 지표 중 몇 개가 실제로 살아있는지를 뜻해. 6/6이면 전부 반영, 일부가 빠지면 남은 것들로만 점수를 다시 계산해.' },
+        src_live: { title: '데이터 상태: live', body: '방금 실제 서버에서 받아온 최신 데이터라는 뜻이야.' },
+        src_fallback: { title: '데이터 상태: fallback', body: '1순위 서버가 안 돼서 예비(다른) 서버에서 대신 받아왔다는 뜻이야.' },
+        src_cached: { title: '데이터 상태: cached', body: '잠시 서버를 못 불러와서, 저장해 둔 직전 데이터를 임시로 보여주는 중이야.' },
+        src_offline: { title: '데이터 상태: offline', body: '데이터를 못 받아왔어. 인터넷이나 서버 상태를 확인하고 새로고침해봐.' },
+      }
+      const TipsContext = createContext(true)
+      function Term({ k, children, align = 'left', underline = true }) {
+        const tips = useContext(TipsContext)
+        const g = GLOSSARY[k]
+        if (!tips || !g) return children ?? (g ? g.title : null)
+        return (
+          <span className={`term${underline ? ' u' : ''}`} tabIndex={0}>
+            {children ?? g.title}
+            <span className={`tip${align === 'right' ? ' tip-r' : ''}`} role="tooltip">
+              <span className="tip-title">{g.title}</span>
+              <span className="tip-body">{g.body}</span>
+            </span>
+          </span>
+        )
+      }
+      const SRC_TIP = { live: 'src_live', fallback: 'src_fallback', cached: 'src_cached', error: 'src_offline' }
+
+      /* =========================================================
+       *  지표 엔진 (워크플로 검증 공식: RSI Wilder, MACD SMA-seed,
+       *  Mayer, Drawdown, Golden/Death Cross, F&G 합성)
+       * ========================================================= */
+      function rsiWilder(closes, period = 14) {
+        const n = closes.length, rsi = new Array(n).fill(null)
+        if (n < period + 1) return rsi
+        let gainSum = 0, lossSum = 0
+        for (let i = 1; i <= period; i++) { const d = closes[i] - closes[i - 1]; if (d > 0) gainSum += d; else lossSum += -d }
+        let avgGain = gainSum / period, avgLoss = lossSum / period
+        rsi[period] = avgLoss === 0 ? 100 : 100 - 100 / (1 + avgGain / avgLoss)
+        for (let i = period + 1; i < n; i++) {
+          const d = closes[i] - closes[i - 1], gain = d > 0 ? d : 0, loss = d < 0 ? -d : 0
+          avgGain = (avgGain * (period - 1) + gain) / period
+          avgLoss = (avgLoss * (period - 1) + loss) / period
+          rsi[i] = avgLoss === 0 ? 100 : 100 - 100 / (1 + avgGain / avgLoss)
+        }
+        return rsi
+      }
+      function ema(values, period) {
+        const out = new Array(values.length).fill(null)
+        if (values.length < period) return out
+        const alpha = 2 / (period + 1)
+        let seed = 0; for (let i = 0; i < period; i++) seed += values[i]
+        let prev = seed / period; out[period - 1] = prev
+        for (let i = period; i < values.length; i++) { prev = values[i] * alpha + prev * (1 - alpha); out[i] = prev }
+        return out
+      }
+      function macd(closes, fast = 12, slow = 26, signalP = 9) {
+        const n = closes.length, emaFast = ema(closes, fast), emaSlow = ema(closes, slow)
+        const macdLine = new Array(n).fill(null)
+        for (let i = 0; i < n; i++) if (emaFast[i] != null && emaSlow[i] != null) macdLine[i] = emaFast[i] - emaSlow[i]
+        const firstValid = macdLine.findIndex((v) => v != null)
+        const signal = new Array(n).fill(null), histogram = new Array(n).fill(null)
+        if (firstValid !== -1) {
+          const sig = ema(macdLine.slice(firstValid), signalP)
+          for (let j = 0; j < sig.length; j++) if (sig[j] != null) { const idx = firstValid + j; signal[idx] = sig[j]; histogram[idx] = macdLine[idx] - sig[j] }
+        }
+        return { macdLine, signal, histogram }
+      }
+      function fngCompositeScore(fngArr) {
+        const arr = (fngArr || []).map(Number).filter((v) => !isNaN(v))
+        if (arr.length === 0) return null
+        const cur = arr[arr.length - 1]
+        const meanLast = (k) => { const m = Math.min(k, arr.length); let s = 0; for (let i = arr.length - m; i < arr.length; i++) s += arr[i]; return s / m }
+        let score = 0.5 * (100 - cur) + 0.3 * (100 - meanLast(7)) + 0.2 * (100 - meanLast(30))
+        if (cur <= 25) score += (25 - cur) * 0.6
+        else if (cur >= 75) score -= (cur - 75) * 0.6
+        return Math.max(0, Math.min(100, Math.round(score * 10) / 10))
+      }
+      function sma(closes, period) {
+        if (!Array.isArray(closes) || closes.length === 0) return null
+        const p = Math.min(period, closes.length); let sum = 0
+        for (let i = closes.length - p; i < closes.length; i++) sum += closes[i]
+        return sum / p
+      }
+      function mayerMultiple(closes, livePrice) {
+        const ma = sma(closes, 200); if (ma == null || ma === 0) return null
+        const price = typeof livePrice === 'number' && livePrice > 0 ? livePrice : closes[closes.length - 1]
+        return { mayer: price / ma, sma200: ma, usedPeriod: Math.min(200, closes.length), isFallback: closes.length < 200, price }
+      }
+      function drawdownFromHigh(closes, windowDays = 365, livePrice) {
+        if (!Array.isArray(closes) || closes.length === 0) return null
+        const N = closes.length, w = Math.min(windowDays, N); let high = -Infinity
+        for (let i = N - w; i < N; i++) if (closes[i] > high) high = closes[i]
+        const price = typeof livePrice === 'number' && livePrice > 0 ? livePrice : closes[N - 1]
+        if (!(high > 0)) return null
+        return { rollingHigh: high, windowUsed: w, isFallback: N < windowDays, drawdownPct: Math.min(0, (price / high - 1) * 100) }
+      }
+      function smaAt(closes, period, endIdx) {
+        if (endIdx + 1 < period) return null; let sum = 0
+        for (let i = endIdx - period + 1; i <= endIdx; i++) sum += closes[i]
+        return sum / period
+      }
+      function goldenDeathCross(closes) {
+        const N = closes.length; if (N < 50) return null
+        const fast = smaAt(closes, Math.min(50, N), N - 1), slow = smaAt(closes, Math.min(200, N), N - 1)
+        if (fast == null || slow == null) return null
+        let event = 'NONE'
+        if (N >= 201) {
+          const fp = smaAt(closes, 50, N - 2), sp = smaAt(closes, 200, N - 2)
+          if (fp != null && sp != null) {
+            if (fp <= sp && fast > slow) event = 'GOLDEN_CROSS'
+            else if (fp >= sp && fast < slow) event = 'DEATH_CROSS'
+          }
+        }
+        return { sma50: fast, sma200: slow, crossState: fast > slow ? 'GOLDEN' : 'DEATH', event, gapPct: (fast / slow - 1) * 100, isFallback: N < 200 }
+      }
+
+      const WEIGHTS = { RSI: 0.22, MACD: 0.18, FNG: 0.22, Mayer: 0.18, DD: 0.12, GC_DC: 0.08 }
+      const BANDS = [
+        { min: 80, label: 'STRONG BUY', color: 'ok', advice: '과매도+공포+저평가 다중 합류. 분할 매수 적극 구간.' },
+        { min: 65, label: 'ACCUMULATE', color: 'ok', advice: '매수 우호. 분할 적립 권장. 추세 필터와 함께 확인.' },
+        { min: 45, label: 'NEUTRAL', color: 'warn', advice: '관망/중립. 뚜렷한 우위 없음. 추가 신호 대기.' },
+        { min: 25, label: 'CAUTION', color: 'warn', advice: '주의. 탐욕·고평가 진입 초입. 추격 매수 자제.' },
+        { min: 0, label: 'OVERHEATED', color: 'crit', advice: '과열. 극탐욕/고평가/고점 근접. 신규 매수 금지.' },
+      ]
+      const bandFor = (score) => BANDS.find((b) => score >= b.min) || BANDS[BANDS.length - 1]
+      const fngLabel = (v) => v == null ? '—' : v <= 25 ? 'Extreme Fear' : v <= 45 ? 'Fear' : v < 55 ? 'Neutral' : v < 75 ? 'Greed' : 'Extreme Greed'
+
+      const INDICATOR_META = [
+        { key: 'RSI', short: 'RSI·14', name: 'Relative Strength Index (Wilder)', desc: '과매도(<30) = 매수 / 과매수(>70) = 경계' },
+        { key: 'MACD', short: 'MACD', name: 'MACD 12·26·9 히스토그램', desc: '음→양 / 바닥 상향전환 = 매수 모멘텀' },
+        { key: 'FNG', short: 'F&G', name: '공포·탐욕 지수 (역발상)', desc: '극공포 = 매수 기회 / 극탐욕 = 과열' },
+        { key: 'Mayer', short: 'MAYER', name: 'Mayer Multiple (가격 / 200일선)', desc: '<0.8 강한 매수 / >2.4 과열' },
+        { key: 'DD', short: 'DD·365', name: '365일 고점 대비 낙폭', desc: '-30% 관심 / -50% 강한 매수' },
+        { key: 'GC_DC', short: '50/200', name: '골든·데드 크로스 추세', desc: '골든크로스 = 추세 매수 우호' },
+      ]
+
+      // 모든 지표 + 합성 점수 계산
+      function computeAnalysis({ closes, fngArr, livePrice }) {
+        const clamp = (x, lo, hi) => Math.max(lo, Math.min(hi, x))
+        const parts = {}
+
+        const rsiSeries = rsiWilder(closes, 14)
+        const r = closes.length ? rsiSeries[closes.length - 1] : null
+        parts.RSI = {
+          score: r == null ? null : clamp(((70 - clamp(r, 30, 70)) / 40) * 100, 0, 100),
+          value: r == null ? 'N/A' : r.toFixed(1),
+          detail: r == null ? '데이터 부족' : r < 30 ? '과매도 ⚑' : r > 70 ? '과매수' : '중립',
+          series: rsiSeries.filter((v) => v != null).slice(-120),
+        }
+
+        let macdScore = null, macdVal = 'N/A', macdDetail = '데이터 부족', macdSeries = []
+        if (closes.length >= 35) {
+          const { histogram: h } = macd(closes, 12, 26, 9)
+          macdSeries = h.filter((v) => v != null).slice(-120)
+          const cur = h[closes.length - 1], prev = h[closes.length - 2]
+          if (cur != null && prev != null) {
+            const base = cur > 0 ? 60 : 40, delta = cur > prev ? 40 : -40
+            macdScore = clamp(base + delta, 0, 100)
+            macdVal = (cur > prev ? '▲' : '▼') + ' ' + (Math.abs(cur) >= 1 ? cur.toFixed(0) : cur.toFixed(2))
+            macdDetail = (cur > 0 ? '+영역' : '−영역') + (cur > prev ? ' · 상승전환' : ' · 하락')
+          }
+        }
+        parts.MACD = { score: macdScore, value: macdVal, detail: macdDetail, series: macdSeries }
+
+        const fngScore = fngCompositeScore(fngArr)
+        const fngCur = fngArr.length ? fngArr[fngArr.length - 1] : null
+        parts.FNG = { score: fngScore, value: fngCur == null ? 'N/A' : String(fngCur), detail: fngLabel(fngCur), series: fngArr.slice(-120) }
+
+        const mm = mayerMultiple(closes, livePrice)
+        parts.Mayer = {
+          score: mm == null ? null : clamp(((2.4 - mm.mayer) / 1.6) * 100, 0, 100),
+          value: mm == null ? 'N/A' : mm.mayer.toFixed(2) + '×',
+          detail: mm == null ? '데이터 부족' : (mm.isFallback ? `200D 폴백(${mm.usedPeriod}d)` : 'vs 200일선'),
+        }
+
+        const dd = drawdownFromHigh(closes, 365, livePrice)
+        parts.DD = {
+          score: dd == null ? null : clamp((-dd.drawdownPct / 50) * 100, 0, 100),
+          value: dd == null ? 'N/A' : dd.drawdownPct.toFixed(1) + '%',
+          detail: dd == null ? '데이터 부족' : `고점 ${fmtUsd(dd.rollingHigh)}`,
+        }
+
+        const gc = goldenDeathCross(closes)
+        parts.GC_DC = {
+          score: gc == null ? 50 : gc.event === 'GOLDEN_CROSS' ? 100 : gc.event === 'DEATH_CROSS' ? 0 : gc.crossState === 'GOLDEN' ? 75 : 25,
+          value: gc == null ? 'N/A' : gc.crossState + (gc.event !== 'NONE' ? ' ⚡' : ''),
+          detail: gc == null ? '데이터 부족' : `gap ${gc.gapPct.toFixed(1)}%` + (gc.event !== 'NONE' ? ' · ' + gc.event : ''),
+        }
+
+        let acc = 0, wsum = 0, online = 0
+        for (const k in WEIGHTS) { const v = parts[k].score; if (v != null && !isNaN(v)) { acc += v * WEIGHTS[k]; wsum += WEIGHTS[k]; online++ } }
+        const score = wsum === 0 ? null : Math.round((acc / wsum) * 10) / 10
+        return { score, coverage: Math.round(wsum * 100) / 100, online, band: score == null ? null : bandFor(score), parts, livePrice }
+      }
+
+      /* =========================================================
+       *  포맷 헬퍼
+       * ========================================================= */
+      const fmtUsd = (n, d = 0) => n == null ? '—' : '$' + Number(n).toLocaleString('en-US', { maximumFractionDigits: d, minimumFractionDigits: d })
+      const fmtPct = (n) => n == null ? '—' : (n >= 0 ? '+' : '') + Number(n).toFixed(2) + '%'
+      const fmtCompact = (n) => n == null ? '—' : '$' + new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 2 }).format(n)
+      const ago = (ts) => { if (!ts) return '—'; const s = Math.floor((Date.now() - ts) / 1000); if (s < 60) return s + 's'; if (s < 3600) return Math.floor(s / 60) + 'm'; if (s < 86400) return Math.floor(s / 3600) + 'h'; return Math.floor(s / 86400) + 'd' }
+      const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
+
+      /* =========================================================
+       *  데이터 페치 (CoinGecko / Binance / Alternative.me, CORS OK)
+       * ========================================================= */
+      const URLS = {
+        cgPrice: 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true&include_market_cap=true&include_24hr_vol=true',
+        bnTicker: 'https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT',
+        bnKlines: 'https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=1000',
+        cgChart: 'https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=365&interval=daily',
+        fng: 'https://api.alternative.me/fng/?limit=90',
+      }
+      async function fetchJSON(url, timeout = 9000) {
+        const ctrl = new AbortController()
+        const t = setTimeout(() => ctrl.abort(), timeout)
+        try {
+          const res = await fetch(url, { signal: ctrl.signal })
+          if (!res.ok) { const e = new Error('HTTP ' + res.status); e.status = res.status; throw e }
+          return await res.json()
+        } finally { clearTimeout(t) }
+      }
+      async function withRetry(fn, retries = 2) {
+        let last
+        for (let a = 0; a <= retries; a++) {
+          try { return await fn() }
+          catch (e) { last = e; if (e.status === 429 || e.status === 418) throw e; if (a < retries) await sleep(500 * (a + 1) + Math.random() * 300) }
+        }
+        throw last
+      }
+      const saveCache = (key, data) => { try { localStorage.setItem(key, JSON.stringify({ data, fetchedAt: Date.now() })) } catch {} }
+      const loadCache = (key) => { try { const r = localStorage.getItem(key); return r ? JSON.parse(r) : null } catch { return null } }
+
+      async function loadPrice() {
+        try {
+          const j = await withRetry(() => fetchJSON(URLS.cgPrice, 8000))
+          const b = j.bitcoin
+          const data = { price: b.usd, change24hPct: b.usd_24h_change, marketCap: b.usd_market_cap, vol24h: b.usd_24h_vol, source: 'coingecko' }
+          saveCache('btc:price', data); return { ...data, status: 'live', fetchedAt: Date.now() }
+        } catch {
+          try {
+            const t = await fetchJSON(URLS.bnTicker, 8000)
+            const data = { price: +t.lastPrice, change24hPct: +t.priceChangePercent, marketCap: null, vol24h: +t.quoteVolume, source: 'binance' }
+            saveCache('btc:price', data); return { ...data, status: 'fallback', fetchedAt: Date.now() }
+          } catch {
+            const c = loadCache('btc:price'); if (c) return { ...c.data, status: 'cached', fetchedAt: c.fetchedAt }
+            return { status: 'error', fetchedAt: null }
+          }
+        }
+      }
+      async function loadKlines() {
+        try {
+          const rows = await withRetry(() => fetchJSON(URLS.bnKlines, 11000))
+          const candles = rows.map((r) => ({ t: r[0], open: +r[1], high: +r[2], low: +r[3], close: +r[4], volume: +r[5] })).filter((c) => Number.isFinite(c.close))
+          const data = { closes: candles.map((c) => c.close), volumes: candles.map((c) => c.volume), times: candles.map((c) => c.t), source: 'binance' }
+          saveCache('btc:klines', data); return { ...data, status: 'live', fetchedAt: Date.now() }
+        } catch {
+          try {
+            const j = await fetchJSON(URLS.cgChart, 11000)
+            const prices = (j.prices || []).slice(0, -1) // 마지막 진행중(partial-day) point 제거
+            const data = { closes: prices.map((p) => p[1]).filter(Number.isFinite), volumes: (j.total_volumes || []).slice(0, -1).map((v) => v[1]), times: prices.map((p) => p[0]), source: 'coingecko' }
+            saveCache('btc:klines', data); return { ...data, status: 'fallback', fetchedAt: Date.now() }
+          } catch {
+            const c = loadCache('btc:klines'); if (c) return { ...c.data, status: 'cached', fetchedAt: c.fetchedAt }
+            return { status: 'error', fetchedAt: null }
+          }
+        }
+      }
+      async function loadFng() {
+        try {
+          const j = await withRetry(() => fetchJSON(URLS.fng, 8000))
+          const list = (j.data || []).map((d) => ({ value: parseInt(d.value, 10), label: d.value_classification, t: Number(d.timestamp) * 1000 })).filter((d) => Number.isFinite(d.value))
+          const arr = list.map((d) => d.value).reverse() // 과거→최신
+          const latest = list[0] || null
+          const data = { arr, latest, source: 'alternative.me' }
+          saveCache('btc:fng', data); return { ...data, status: 'live', fetchedAt: Date.now() }
+        } catch {
+          const c = loadCache('btc:fng'); if (c) return { ...c.data, status: 'cached', fetchedAt: c.fetchedAt }
+          return { status: 'error', fetchedAt: null }
+        }
+      }
+
+      /* =========================================================
+       *  배경 매트릭스
+       * ========================================================= */
+      function MatrixRain({ enabled, accent }) {
+        const ref = useRef(null), raf = useRef(0)
+        useEffect(() => {
+          if (!enabled) return
+          const canvas = ref.current; if (!canvas) return
+          const ctx = canvas.getContext('2d')
+          const glyphs = '₿0123456789ABCDEF↑↓<>/\\{}[]=$#@サトシ'.split('')
+          const fontSize = 14; let drops = []
+          const resize = () => { canvas.width = innerWidth; canvas.height = innerHeight; drops = new Array(Math.floor(canvas.width / fontSize)).fill(0).map(() => Math.random() * -50) }
+          resize(); addEventListener('resize', resize)
+          let last = 0
+          const draw = (ts) => {
+            raf.current = requestAnimationFrame(draw)
+            if (ts - last < 55) return; last = ts
+            ctx.fillStyle = 'rgba(5,8,10,0.18)'; ctx.fillRect(0, 0, canvas.width, canvas.height)
+            ctx.font = fontSize + "px 'Share Tech Mono', monospace"
+            for (let i = 0; i < drops.length; i++) {
+              const ch = glyphs[(Math.random() * glyphs.length) | 0], y = drops[i] * fontSize
+              ctx.fillStyle = Math.random() > 0.975 ? '#fff' : accent
+              ctx.fillText(ch, i * fontSize, y)
+              if (y > canvas.height && Math.random() > 0.975) drops[i] = 0
+              drops[i] += 1
+            }
+          }
+          raf.current = requestAnimationFrame(draw)
+          return () => { cancelAnimationFrame(raf.current); removeEventListener('resize', resize) }
+        }, [enabled, accent])
+        return enabled ? <canvas ref={ref} className="matrix-rain" aria-hidden="true" /> : null
+      }
+
+      /* =========================================================
+       *  부팅 시퀀스
+       * ========================================================= */
+      const BOOT_LINES = [
+        '> initializing btc_signal_terminal v1.0 ...',
+        '> linking market feeds: coingecko / binance / alternative.me',
+        '> establishing secure uplink ............ [ OK ]',
+        '> loading indicator engine: rsi · macd · mayer · drawdown · f&g',
+        '> computing buy-timing composite ........ [ OK ]',
+        '> ACCESS GRANTED. // signal only — not financial advice',
+      ]
+      function BootSequence({ onDone }) {
+        const [rendered, setRendered] = useState([]); const [current, setCurrent] = useState(''); const done = useRef(false)
+        useEffect(() => {
+          let line = 0, char = 0, timer
+          const tick = () => {
+            if (line >= BOOT_LINES.length) { if (!done.current) { done.current = true; timer = setTimeout(onDone, 450) } return }
+            const target = BOOT_LINES[line]
+            if (char <= target.length) { setCurrent(target.slice(0, char)); char++; timer = setTimeout(tick, 10 + Math.random() * 18) }
+            else { setRendered((p) => [...p, target]); setCurrent(''); line++; char = 0; timer = setTimeout(tick, 80) }
+          }
+          tick(); return () => clearTimeout(timer)
+        }, [onDone])
+        return (
+          <div className="boot" onClick={onDone} title="클릭하면 건너뜁니다">
+            <pre className="boot-text">
+              {rendered.map((l, i) => <div key={i} className="boot-line">{l}</div>)}
+              {current && <div className="boot-line">{current}<span className="cursor-blink">█</span></div>}
+            </pre>
+            <div className="boot-skip">[ click 해서 건너뛰기 ]</div>
+          </div>
+        )
+      }
+
+      /* =========================================================
+       *  스파크라인 / 히스토그램
+       * ========================================================= */
+      function Sparkline({ data = [], color = '#00ff9c', height = 64, refLines = [], baseline }) {
+        const W = 600
+        if (!data || data.length < 2) return <div className="spark-empty">// 데이터 부족</div>
+        const pad = 3, max = Math.max(...data), min = Math.min(...data, baseline != null ? baseline : Infinity)
+        const span = max - min || 1, stepX = (W - pad * 2) / (data.length - 1)
+        const Y = (v) => height - pad - ((v - min) / span) * (height - pad * 2)
+        const pts = data.map((v, i) => [pad + i * stepX, Y(v)])
+        const line = pts.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ')
+        const area = `${pad},${height - pad} ${line} ${(W - pad).toFixed(1)},${height - pad}`
+        const [lx, ly] = pts[pts.length - 1]
+        return (
+          <svg className="spark" viewBox={`0 0 ${W} ${height}`} preserveAspectRatio="none">
+            {refLines.map((rl, i) => { const y = Y(rl.v); return <line key={i} x1="0" x2={W} y1={y} y2={y} stroke={rl.color || 'rgba(255,255,255,.15)'} strokeWidth="1" strokeDasharray="4 4" /> })}
+            <polygon points={area} fill={color} opacity="0.12" />
+            <polyline points={line} fill="none" stroke={color} strokeWidth="1.6" />
+            <circle cx={lx} cy={ly} r="2.8" fill={color}><animate attributeName="opacity" values="1;0.3;1" dur="1.4s" repeatCount="indefinite" /></circle>
+          </svg>
+        )
+      }
+      function Histogram({ data = [], height = 40 }) {
+        const W = 600
+        if (!data || data.length < 2) return <div className="spark-empty spark-sm">// 데이터 부족</div>
+        const maxAbs = Math.max(...data.map((v) => Math.abs(v))) || 1
+        const bw = W / data.length, mid = height / 2
+        return (
+          <svg className="spark spark-sm" viewBox={`0 0 ${W} ${height}`} preserveAspectRatio="none">
+            <line x1="0" x2={W} y1={mid} y2={mid} stroke="rgba(255,255,255,.15)" strokeWidth="1" />
+            {data.map((v, i) => { const h = (Math.abs(v) / maxAbs) * (mid - 2); return <rect key={i} x={i * bw} y={v >= 0 ? mid - h : mid} width={Math.max(1, bw - 0.5)} height={h} fill={v >= 0 ? 'var(--ok)' : 'var(--crit)'} opacity="0.85" /> })}
+          </svg>
+        )
+      }
+
+      /* =========================================================
+       *  소스 상태 배지
+       * ========================================================= */
+      function SourceBadge({ label, src }) {
+        const st = src?.status || 'loading'
+        const txt = st === 'live' ? src.source : st === 'fallback' ? src.source + ' (fallback)' : st === 'cached' ? 'cached ' + ago(src.fetchedAt) : st === 'error' ? 'offline' : 'loading'
+        return (
+          <Term k={SRC_TIP[st]} align="right" underline={false}>
+            <span className={`badge ${st}`}><span className="bdot" />{label}: {txt}</span>
+          </Term>
+        )
+      }
+
+      /* =========================================================
+       *  지표 카드
+       * ========================================================= */
+      function IndicatorCard({ meta, part }) {
+        const s = part?.score
+        const status = s == null ? 'na' : (bandFor(s).color)
+        return (
+          <article className={`ind-card status-${status}`}>
+            <span className="corner tl" /><span className="corner br" />
+            <div className="ind-head">
+              <Term k={meta.key}><span className="ind-short">{meta.short}</span></Term>
+              <span className="ind-weight">w {Math.round(WEIGHTS[meta.key] * 100)}%</span>
+            </div>
+            <div className="ind-name">{meta.name}</div>
+            <div className="ind-value" style={{ color: 'var(--accent)' }}>{part ? part.value : '…'}</div>
+            <div className="ind-detail">{part ? part.detail : ''}</div>
+            {meta.key === 'MACD' && part?.series?.length ? <Histogram data={part.series} /> :
+              part?.series?.length ? <Sparkline data={part.series} color="var(--accent)" height={40} refLines={meta.key === 'RSI' ? [{ v: 30, color: 'rgba(0,255,156,.3)' }, { v: 70, color: 'rgba(255,59,92,.3)' }] : []} /> : null}
+            <div className="mini-bar"><div className="mini-fill" style={{ width: `${s == null ? 0 : s}%`, background: 'var(--accent)' }} /></div>
+            <div className="mini-row"><span>{s == null ? <span className="na-flag">N/A · OFFLINE</span> : '부분점수'}</span><span>{s == null ? '' : s.toFixed(0) + ' / 100'}</span></div>
+            <div className="ind-desc">{meta.desc}</div>
+          </article>
+        )
+      }
+
+      /* =========================================================
+       *  내장 터미널
+       * ========================================================= */
+      const TERM_HELP = [
+        'commands:',
+        '  score              현재 매수 타이밍 점수 + 판정',
+        '  why                무엇이 점수를 끌어올리/내리는지(가중 기여도)',
+        '  show <ind>         지표 상세 (rsi|macd|fng|mayer|dd|cross)',
+        '  bands              5단계 판정 밴드 표',
+        '  sources            데이터 소스 상태/신선도',
+        '  refresh            전체 재조회',
+        '  theme <green|cyan|amber|red> · matrix <on|off>',
+        '  clear · help · whoami',
+      ]
+      const SHOW_MAP = { rsi: 'RSI', macd: 'MACD', fng: 'FNG', mayer: 'Mayer', dd: 'DD', cross: 'GC_DC' }
+      function Terminal({ ctx }) {
+        const [lines, setLines] = useState(['// btc_signal shell — `help` 입력으로 시작'])
+        const [input, setInput] = useState(''); const [hist, setHist] = useState([]); const [hi, setHi] = useState(-1)
+        const bodyRef = useRef(null)
+        const print = (...out) => setLines((p) => [...p, ...out.flat()])
+        useEffect(() => { const el = bodyRef.current; if (el) el.scrollTop = el.scrollHeight }, [lines])
+        function run(raw) {
+          const cmd = raw.trim(); if (!cmd) return
+          print(`satoshi@btc:~$ ${cmd}`); setHist((h) => [...h, cmd]); setHi(-1)
+          const [name, ...args] = cmd.split(/\s+/)
+          const a = ctx.analysisRef.current
+          switch (name.toLowerCase()) {
+            case 'help': print(TERM_HELP); break
+            case 'score':
+              if (!a || a.score == null) { print('  ! 분석 데이터 없음 — `refresh`'); break }
+              print(`  BUY TIMING SCORE: ${a.score.toFixed(1)} / 100   [${a.band.label}]`, `  ${a.band.advice}`, `  coverage: ${a.online}/6 indicators (${Math.round(a.coverage * 100)}% weight)`)
+              break
+            case 'why': {
+              if (!a || a.score == null) { print('  ! 데이터 없음'); break }
+              const contribs = Object.keys(WEIGHTS).map((k) => ({ k, v: a.parts[k].score, w: WEIGHTS[k] })).filter((c) => c.v != null)
+              const wsum = contribs.reduce((s, c) => s + c.w, 0)
+              contribs.map((c) => ({ ...c, contr: (c.v * c.w) / wsum })).sort((x, y) => y.contr - x.contr)
+                .forEach((c) => print(`  ${c.k.padEnd(6)} score ${c.v.toFixed(0).padStart(3)} ×${c.w.toFixed(2)} → ${c.contr >= 0 ? '+' : ''}${c.contr.toFixed(1)}`))
+              print(`  ── 합계 ${a.score.toFixed(1)} (높을수록 매수 우호)`)
+              break
+            }
+            case 'show': {
+              const key = SHOW_MAP[(args[0] || '').toLowerCase()]
+              if (!key || !a) { print('  ! show rsi|macd|fng|mayer|dd|cross'); break }
+              const m = INDICATOR_META.find((x) => x.key === key), p = a.parts[key]
+              print(`  ${m.short} — ${m.name}`, `    값: ${p.value}  (${p.detail})`, `    부분점수: ${p.score == null ? 'N/A' : p.score.toFixed(1) + '/100'}  · 가중치 ${Math.round(WEIGHTS[key] * 100)}%`, `    ${m.desc}`)
+              break
+            }
+            case 'bands':
+              BANDS.forEach((b) => print(`  ${String(b.min).padStart(3)}~  ${b.label.padEnd(11)} ${b.advice}`))
+              break
+            case 'sources': {
+              const f = (s, label) => `  ${label.padEnd(7)} ${s ? (s.status + (s.source ? ' · ' + s.source : '') + (s.fetchedAt ? ' · ' + ago(s.fetchedAt) + ' ago' : '')) : 'n/a'}`
+              print(f(ctx.price, 'price'), f(ctx.klines, 'klines'), f(ctx.fng, 'fng'))
+              break
+            }
+            case 'refresh': print('  ↻ refetching all sources...'); ctx.api.refresh(); break
+            case 'theme': { const ok = ctx.api.theme(args[0]); print(ok ? `  ✓ theme → ${args[0]}` : '  ! theme: green | cyan | amber | red'); break }
+            case 'matrix': ctx.api.matrix(args[0] !== 'off'); print(`  ✓ matrix ${args[0] !== 'off' ? 'ON' : 'OFF'}`); break
+            case 'clear': setLines([]); break
+            case 'whoami': print('  satoshi // HODL responsibly. DYOR. 신호는 참고용입니다.'); break
+            default: print(`  command not found: ${name} — \`help\``)
+          }
+        }
+        function onKeyDown(e) {
+          if (e.key === 'Enter') { run(input); setInput('') }
+          else if (e.key === 'ArrowUp') { e.preventDefault(); if (!hist.length) return; const i = hi < 0 ? hist.length - 1 : Math.max(0, hi - 1); setHi(i); setInput(hist[i]) }
+          else if (e.key === 'ArrowDown') { e.preventDefault(); if (hi < 0) return; const i = hi + 1; if (i >= hist.length) { setHi(-1); setInput('') } else { setHi(i); setInput(hist[i]) } }
+        }
+        return (
+          <section className="terminal">
+            <div className="term-head"><span className="dot red" /><span className="dot yellow" /><span className="dot green" /><span className="term-title">~/btc-signal — shell</span></div>
+            <div className="term-body" ref={bodyRef} onClick={() => bodyRef.current?.querySelector('input')?.focus()}>
+              {lines.map((l, i) => <div key={i} className="term-line">{l}</div>)}
+              <div className="term-input-row"><span className="term-prompt">satoshi@btc:~$</span>
+                <input autoFocus value={input} spellCheck={false} onChange={(e) => setInput(e.target.value)} onKeyDown={onKeyDown} /></div>
+            </div>
+          </section>
+        )
+      }
+
+      /* =========================================================
+       *  시계
+       * ========================================================= */
+      function useClock() {
+        const [now, setNow] = useState(new Date())
+        useEffect(() => { const t = setInterval(() => setNow(new Date()), 1000); return () => clearInterval(t) }, [])
+        return now
+      }
+
+      function useLocalStorage(key, initial) {
+        const [value, setValue] = useState(() => { try { const r = localStorage.getItem(key); return r != null ? JSON.parse(r) : initial } catch { return initial } })
+        useEffect(() => { try { localStorage.setItem(key, JSON.stringify(value)) } catch {} }, [key, value])
+        return [value, setValue]
+      }
+
+      /* =========================================================
+       *  App
+       * ========================================================= */
+      const THEMES = { green: '#00ff9c', cyan: '#00e5ff', amber: '#ffb000', red: '#ff3b5c' }
+      function App() {
+        const [price, setPrice] = useState(null)
+        const [klines, setKlines] = useState(null)
+        const [fng, setFng] = useState(null)
+        const [accent, setAccent] = useLocalStorage('btc:accent', THEMES.green)
+        const [matrixOn, setMatrixOn] = useLocalStorage('btc:matrix', true)
+        const [tipsOn, setTipsOn] = useLocalStorage('btc:tips', true)
+        const [scoreHist, setScoreHist] = useLocalStorage('btc:scoreHist', [])
+        const [booted, setBooted] = useState(() => sessionStorage.getItem('btcbooted') === '1')
+        const now = useClock()
+
+        useEffect(() => { document.documentElement.style.setProperty('--neon', accent) }, [accent])
+
+        const refresh = useCallback(() => {
+          setPrice((p) => (p ? { ...p, status: 'loading' } : p)); loadPrice().then(setPrice)
+          setKlines((k) => (k ? { ...k, status: 'loading' } : k)); loadKlines().then(setKlines)
+          setFng((f) => (f ? { ...f, status: 'loading' } : f)); loadFng().then(setFng)
+        }, [])
+
+        // 부팅: 캐시 하이드레이션(즉시) → 라이브 페치 → 폴링
+        useEffect(() => {
+          const pc = loadCache('btc:price'); if (pc) setPrice({ ...pc.data, status: 'cached', fetchedAt: pc.fetchedAt })
+          const kc = loadCache('btc:klines'); if (kc) setKlines({ ...kc.data, status: 'cached', fetchedAt: kc.fetchedAt })
+          const fc = loadCache('btc:fng'); if (fc) setFng({ ...fc.data, status: 'cached', fetchedAt: fc.fetchedAt })
+          refresh()
+          let n = 0
+          const id = setInterval(() => {
+            if (document.hidden) return
+            n++
+            loadPrice().then(setPrice)
+            if (n % 10 === 0) loadKlines().then(setKlines)
+            if (n % 60 === 0) loadFng().then(setFng)
+          }, 60000)
+          return () => clearInterval(id)
+        }, [refresh])
+
+        const analysis = useMemo(() => {
+          const closes = klines?.closes || []
+          const fngArr = fng?.arr || []
+          const livePrice = price?.price ?? (closes.length ? closes[closes.length - 1] : null)
+          if (!closes.length && !fngArr.length) return null
+          return computeAnalysis({ closes, fngArr, livePrice })
+        }, [klines, fng, price])
+
+        const analysisRef = useRef(analysis); analysisRef.current = analysis
+
+        // 점수 히스토리 기록(값이 바뀔 때만)
+        const lastScore = useRef(null)
+        useEffect(() => {
+          if (!analysis || analysis.score == null) return
+          if (lastScore.current === analysis.score) return
+          lastScore.current = analysis.score
+          setScoreHist((prev) => [...prev, { t: Date.now(), s: analysis.score }].slice(-80))
+        }, [analysis && analysis.score])
+
+        const api = useMemo(() => ({
+          refresh,
+          theme: (name) => { if (!THEMES[name]) return false; setAccent(THEMES[name]); return true },
+          matrix: (on) => setMatrixOn(!!on),
+        }), [refresh])
+
+        const finishBoot = useCallback(() => { sessionStorage.setItem('btcbooted', '1'); setBooted(true) }, [])
+        if (!booted) return <BootSequence onDone={finishBoot} />
+
+        const band = analysis?.band
+        const sysColor = band ? band.color : 'warn'
+        const score = analysis?.score
+        const gaugeColor = band ? (band.color === 'ok' ? 'var(--ok)' : band.color === 'warn' ? 'var(--warn)' : 'var(--crit)') : 'var(--dim)'
+        const r = 90, circ = 2 * Math.PI * r, dash = ((score || 0) / 100) * circ
+        const chgUp = (price?.change24hPct ?? 0) >= 0
+        const priceStale = price?.fetchedAt && Date.now() - price.fetchedAt > 5 * 60000
+
+        const ctx = { analysisRef, price, klines, fng, api }
+
+        return (
+          <TipsContext.Provider value={tipsOn}>
+          <div className={`app status-${sysColor}`}>
+            <MatrixRain enabled={matrixOn} accent={accent} />
+            <div className="scanlines" /><div className="vignette" />
+            <div className="shell">
+              <header className="topbar">
+                <div className="brand">
+                  <span className="logo">₿▰▱</span>
+                  <div>
+                    <h1 className="title">BTC_SIGNAL <span className="dim">// buy-timing terminal</span></h1>
+                    <p className="subtitle">실시간 비트코인 지표 6종 → 매수 타이밍 합성 점수 · 신호 참고용(투자자문 아님)</p>
+                  </div>
+                </div>
+                <div className="topbar-right">
+                  <label className="tips-toggle" title="어려운 용어에 마우스를 올리면 쉬운 설명이 나옵니다">
+                    <input type="checkbox" checked={tipsOn} onChange={(e) => setTipsOn(e.target.checked)} />
+                    <span>용어 설명 {tipsOn ? 'ON' : 'OFF'}</span>
+                  </label>
+                  <div className={`sys-status status-${sysColor}`}><span className="pulse" />{band ? band.label : 'LOADING'}</div>
+                  <div className="clock"><span className="clock-time">{now.toLocaleTimeString('ko-KR', { hour12: false })}</span><span className="clock-date">{now.toLocaleDateString('ko-KR')}</span></div>
+                </div>
+              </header>
+
+              <section className="hero">
+                <div className={`panel gauge-panel status-${sysColor}`} style={{ '--accent': gaugeColor }}>
+                  <span className="corner tl" /><span className="corner tr" /><span className="corner bl" /><span className="corner br" />
+                  <div className="panel-label">// <Term k="score">BUY TIMING SCORE</Term></div>
+                  <div className="gauge-big">
+                    <svg viewBox="0 0 210 210">
+                      <circle cx="105" cy="105" r={r} className="gauge-track" />
+                      <circle cx="105" cy="105" r={r} className="gauge-fill" stroke={gaugeColor} strokeDasharray={`${dash} ${circ}`} transform="rotate(-90 105 105)" />
+                    </svg>
+                    <div className="gauge-center">
+                      <span className="gauge-score" style={{ color: gaugeColor }}>{score == null ? '--' : score.toFixed(0)}</span>
+                      <span className="gauge-of">/ 100</span>
+                    </div>
+                  </div>
+                  <div className="verdict" style={{ color: gaugeColor }}>{band ? band.label : '…'}</div>
+                  <div className="verdict-advice">{band ? band.advice : '데이터 로딩 중…'}</div>
+                  <div className="coverage">{analysis ? <><Term k="coverage">{`${analysis.online}/6 지표 온라인`}</Term> · 높을수록 매수 우호</> : ''}</div>
+                </div>
+
+                <div className="panel market" style={{ '--accent': accent }}>
+                  <span className="corner tl" /><span className="corner br" />
+                  <div className="market-top">
+                    <div>
+                      <div className="panel-label">// BTC / USD {priceStale && <Term k="stale"><span className="na-flag">STALE</span></Term>}</div>
+                      <div className="price-big">{fmtUsd(price?.price)}</div>
+                      <div className="price-sub">
+                        <Term k="chg24"><span className={`chg ${chgUp ? 'up' : 'down'}`}>{fmtPct(price?.change24hPct)} (24h)</span></Term>
+                        <Term k="vol"><span>vol {fmtCompact(price?.vol24h)}</span></Term>
+                        {price?.marketCap != null && <Term k="mcap"><span>mcap {fmtCompact(price.marketCap)}</span></Term>}
+                      </div>
+                    </div>
+                    <div className="badges-row">
+                      <SourceBadge label="price" src={price} />
+                      <SourceBadge label="hist" src={klines} />
+                      <SourceBadge label="f&g" src={fng} />
+                    </div>
+                  </div>
+                  <div className="spark-wrap">
+                    <div className="spark-title"><span>BTC 가격 (최근 {Math.min(120, klines?.closes?.length || 0)}일)</span><span>{klines?.source || ''}</span></div>
+                    {klines?.closes?.length ? <Sparkline data={klines.closes.slice(-120)} color={accent} height={64} /> : <div className="spark-empty">// 가격 히스토리 로딩…</div>}
+                  </div>
+                  <div className="spark-wrap">
+                    <div className="spark-title"><span>매수 타이밍 점수 추이</span><span>{scoreHist.length}p</span></div>
+                    {scoreHist.length > 1 ? <Sparkline data={scoreHist.map((h) => h.s)} color={gaugeColor} height={48} baseline={0} refLines={[{ v: 65, color: 'rgba(0,255,156,.25)' }, { v: 45, color: 'rgba(255,176,0,.25)' }]} /> : <div className="spark-empty spark-sm">// 점수 추이는 시간이 지나며 쌓입니다</div>}
+                  </div>
+                </div>
+              </section>
+
+              <section className="ind-grid">
+                {INDICATOR_META.map((m) => <IndicatorCard key={m.key} meta={m} part={analysis?.parts?.[m.key]} />)}
+              </section>
+
+              <Terminal ctx={ctx} />
+
+              <footer className="footer">
+                <span>⚠ 본 점수는 공개 지표를 합성한 <strong>참고 신호</strong>이며 투자 자문이 아닙니다. 데이터: CoinGecko · Binance · Alternative.me</span>
+                <span className="footer-cmds">
+                  <button className="chip" onClick={refresh}>↻ refresh</button>
+                  <button className="chip" onClick={() => setMatrixOn((v) => !v)}>matrix:{matrixOn ? 'on' : 'off'}</button>
+                  <button className="chip" onClick={() => { setScoreHist(analysis?.score != null ? [{ t: Date.now(), s: analysis.score }] : []); lastScore.current = analysis?.score ?? null }}>clear history</button>
+                </span>
+              </footer>
+            </div>
+          </div>
+          </TipsContext.Provider>
+        )
+      }
+
+      ReactDOM.createRoot(document.getElementById('root')).render(<App />)
+    </script>
+  </body>
+</html>
