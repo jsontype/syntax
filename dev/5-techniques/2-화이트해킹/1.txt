@@ -1,0 +1,38 @@
+[화이트해킹 / 웹 보안 기초]
+참조: 공격자 관점으로 약점을 알고, 방어를 코드에 반영한다 (프론트 중심)
+
+
+[핵심 위협 & 방어]
+
+1. XSS (스크립트 주입)
+  사용자 입력을 그대로 HTML에 넣지 말 것
+  프레임워크 자동 이스케이프 신뢰, React dangerouslySetInnerHTML 금지
+  CSP(Content-Security-Policy) 헤더로 인라인 스크립트 차단
+
+1. CSRF (위조 요청)
+  상태 변경 요청에 CSRF 토큰
+  쿠키 SameSite=Lax/Strict
+
+1. 비밀키 노출
+  API 키/시크릿을 프론트 코드·깃에 넣지 말 것
+  .env + .gitignore, 민감 호출은 서버(프록시) 경유
+  공개 키 없는 무료 API만 프론트에서 직접 호출
+
+1. 전송 보안
+  HTTPS 필수
+  보안 헤더: CSP, HSTS, X-Content-Type-Options: nosniff, Referrer-Policy
+
+1. 의존성 취약점
+  npm audit / Dependabot 로 주기 점검
+
+1. 인증
+  비밀번호 해시(bcrypt/argon2)
+  토큰은 httpOnly 쿠키(가능하면), 만료/회전
+
+
+[점검 도구]
+
+1. OWASP Top 10 숙지
+1. securityheaders.com (보안 헤더 점검)
+1. npm audit (의존성 취약점)
+1. 브라우저 콘솔의 CSP 위반 로그
