@@ -1,5 +1,0 @@
-[Cursor VS Claude VS Codex]
-
-1. Cursor가 유리한 경우: 파일 주면서 일 시킬 때
-1. Claude가 유리한 경우: 링크 주면서 일 시킬 때
-1. Codex가 유리한 경우: N. 긴 호흡의 코딩
