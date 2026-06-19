@@ -1,0 +1,80 @@
+flowchart TD
+%% ───────────── ① 개발환경 ─────────────
+  subgraph ENV["① 개발환경 · LLM / AI"]
+    direction TB
+    TOOLS["AI 도구<br/>Codex (GPT-5.5) · Cursor (IDE·Sonnet)<br/>Claude (Opus 4.8)"]
+    IDE["VSCode / CLI"]
+    PCH["Prompt → Context → Harness / E2E"]
+    TOOLS --> IDE
+    IDE --> PCH
+  end
+
+%% ───────────── ② 개발 ─────────────
+  DEV["② Develop (coding)"]
+  PCH --> DEV
+
+  subgraph CODE["코드"]
+    direction TB
+    FE["Frontend<br/>웹: HTML / CSS / JS<br/>React · Next · Vue · Nuxt · Native<br/>Android / iOS"]
+    BE["Backend<br/>서버: NodeJS · FastAPI<br/>Prisma · Python · Go · Ruby · Java"]
+  end
+  DEV --> FE
+  DEV --> BE
+
+%% ───────────── ③ 빌드 ─────────────
+  DEV --> GIT["Git"]
+  DEV --> SRC["소스 (압축파일)"]
+  SRC --> BUILD["③ Build (package)"]
+
+%% ───────────── ④ 배포 / 실행 ─────────────
+  BUILD --> APP["앱<br/>AppStore / Google Play"]
+  BUILD --> SRVPROG["서버 프로그램<br/>localhost:port"]
+  BUILD --> INSTALL["설치 (클라이언트)"]
+
+  APP --> DEPLOY["배포 · CI/CD → 서비스"]
+  SRVPROG --> DEPLOY
+  DEPLOY --> EDGE["Cloudflare / Vercel"]
+  EDGE --> DOMAIN["Domain<br/>broodev.com"]
+
+%% ───────────── ⑤ 인프라 ─────────────
+  subgraph INFRA["⑤ 인프라"]
+    direction TB
+    SERVER["서버 (HTTP)"]
+    NGINX["Nginx"]
+    CLOUD["클라우드<br/>AWS · GCP · Azure"]
+    OS["OS<br/>Windows · macOS · Linux"]
+    BFF["BFF"]
+    DB["DB<br/>MySQL · PostgreSQL · MongoDB"]
+    SERVER --> NGINX
+    NGINX --> CLOUD
+    CLOUD --> OS
+    SERVER -->|"SQL / GQL / API"| BFF
+    BFF --> DB
+  end
+  INSTALL -->|HTTP| SERVER
+  EDGE --> SERVER
+
+%% ───────────── ⑥ 도메인 / 서브도메인 ─────────────
+  DOMAIN --> SUB["Subdomain<br/>btc · dev · admin · web<br/>.broodev.com"]
+  BFF --> SUB
+
+%% ───────────── ⑦ 마케팅 / SEO ─────────────
+  subgraph MKT["⑦ 마케팅 / SEO"]
+    direction TB
+    REG["검색엔진 등록<br/>Google Search Console · Naver · Bing"]
+    RANK["Ranking ↑"]
+    REG -->|"SEO 대응"| RANK
+  end
+  SUB --> REG
+  RANK --> TRAFFIC["Traffic ↑"]
+
+%% ───────────── ⑧ 수익 ─────────────
+  TRAFFIC --> REV["⑧ 수익<br/>Adsense<br/>Data Collection<br/>PG Agent (PSP) = Credit Card"]
+
+%% ───────────── 모니터링 (cross-cutting) ─────────────
+  subgraph OBS["모니터링"]
+    direction TB
+    MON["Google Analytics · CF<br/>Datadog / Sentry"]
+  end
+  REV -.->|"View"| MON
+  MON -.->|"에러 감지 / 해킹 대응"| RANK
