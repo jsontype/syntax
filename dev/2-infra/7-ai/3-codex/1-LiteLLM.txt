@@ -185,9 +185,9 @@
 [Claude / Cursor와 함께 쓰는 방식]
 
 1. 작업 유형별 추천 도구
-  IDE 안 빠른 코딩, Tab 자동완성 : Cursor (dev/1-infra/7-ai/2-cursor/1.txt)
+  IDE 안 빠른 코딩, Tab 자동완성 : Cursor (dev/2-infra/7-ai/2-cursor/1.txt)
   터미널 기반 자율 코딩, LiteLLM 경유 다중 모델 : Codex + LiteLLM
-  Claude Max 구독 직접 사용 : Claude Code (dev/1-infra/7-ai/1-claude/1.txt)
+  Claude Max 구독 직접 사용 : Claude Code (dev/2-infra/7-ai/1-claude/1.txt)
 
 
 

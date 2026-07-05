@@ -53,6 +53,18 @@
 
 
 
+1. AI 관련 설정
+  - cursor 설치 : 위의 필수앱 설치 단계에서 설치 완료 (vscode 설정 임포트)
+    상세: dev/2-infra/7-ai/2-cursor/1.txt 참조
+  - claude code cli 설치
+    $ curl -fsSL https://claude.ai/install.sh | bash
+    설치 후 터미널을 완전히 새로 열고, claude 입력 후 Max 계정으로 로그인
+    상세: dev/2-infra/7-ai/1-claude/1.txt 참조
+  - 이후의 터미널 세팅(oh my zsh 등)은 직접 하지 않고 AI에게 다음과 같이 지시해도 된다.
+    "깔아줘. 터미널에 브랜치명 나오게. oh-my-zsh + powerlevel10k 방식으로."
+
+
+
 1. iterm2 설치
   iterm2 검색 후 설치
   iterm2을 열고, 위쪽 메뉴에서 iterm2 탭에서 settings 클릭
