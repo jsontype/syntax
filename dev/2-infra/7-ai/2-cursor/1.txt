@@ -90,7 +90,7 @@
   Tab 자동완성, 한 파일 수정, 빠른 질문 : Cursor
   IDE 안에서 여러 파일 동시 수정·리뷰 : Cursor Agent
   터미널 기반, 대규모 리팩토링, 계획→실행 일괄 : Claude Code
-  상세: dev/1-infra/7-ai/1-claude/1.txt 참조
+  상세: dev/2-infra/7-ai/1-claude/1.txt 참조
 
 
 

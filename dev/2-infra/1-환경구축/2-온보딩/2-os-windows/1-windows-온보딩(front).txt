@@ -18,6 +18,16 @@
     $ nvm use 18.16.0 : 특정 버전의 Node.js를 사용한다.
     $ nvm uninstall 18.16.0 : 특정 버전의 Node.js를 삭제한다.
     $ nvm list : 현 nvm로 로컬에 설치된 node의 리스트를 확인한다.
+1. AI 관련 설정
+  - cursor 설치 : https://cursor.com 에서 설치 파일 다운로드 후 로그인
+    상세: dev/2-infra/7-ai/2-cursor/1.txt 참조
+  - claude code cli 설치 (PowerShell)
+    $ irm https://claude.ai/install.ps1 | iex
+    설치 후 터미널을 완전히 새로 열고, claude 입력 후 Max 계정으로 로그인
+    상세: dev/2-infra/7-ai/1-claude/1.txt 참조
+  - 이후의 터미널 세팅은 직접 하지 않고 AI에게 맡긴다.
+    아래의 [powershell 터미널에 깃 브랜치 표시되도록 세팅하기]도 AI에게 다음과 같이 지시하면 된다.
+    "깔아줘. oh-my-zsh 같은 느낌으로 윈도우에도 터미널에 브랜치명 나오게. oh-my-posh 방식으로."
 1. (skip) logicool g hub
 1. (skip) microsoft store에서 powertoys 설치 : 맥의 spotlight, spectacle 기능을 윈도우에서 쓸 수 있게 해줌
   alt + space : 맥의 spotlight와 같음
