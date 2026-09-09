@@ -1,0 +1,75 @@
+[구조화 로깅: printf 로그에서 JSON 로그로]
+참조: https://go.dev/blog/slog / https://getpino.io
+
+
+
+[printf 로그 vs JSON 구조화 로그]
+
+1. printf 로그의 한계
+  "user 42 login failed" 같은 문자열은 사람만 읽을 수 있음
+  grep은 되지만 집계/필터/조인이 안 됨 (기계가 파싱 불가)
+
+1. JSON 구조화 로그 ★★
+  {"level":"error","msg":"login failed","user_id":42,"request_id":"abc"}
+  키-값 구조라 로그 수집기(Loki, CloudWatch, Datadog)에서 쿼리 가능
+  메시지(msg)는 고정 문자열, 가변 데이터는 필드로 분리하는 것이 핵심
+
+
+
+[로그 레벨 설계]
+
+1. 레벨별 기준을 팀에서 합의할 것
+  DEBUG: 개발 중 상세 추적. 본번에서는 기본 off
+  INFO: 정상 동작의 주요 이벤트 (요청 처리, 배치 시작/종료)
+  WARN: 즉시 대응 불요하지만 주시할 상태 (재시도 성공, deprecated 사용)
+  ERROR: 대응 필요한 실패. 알람 대상
+
+1. 안티패턴
+  전부 ERROR로 찍기 → 알람 피로
+  예외 삼키고 INFO로 찍기 → 장애 원인 추적 불가
+
+
+
+[요청 상관ID (request id)] ★
+
+1. 개념
+  요청 진입 시 고유 ID 발급 (X-Request-Id 헤더 등)
+  해당 요청의 모든 로그에 같은 request_id 필드를 붙임
+  마이크로서비스 간에는 헤더로 전파 (분산 트레이싱의 출발점)
+
+1. 구현 포인트
+  미들웨어에서 생성 → context에 저장 → 로거에 자동 주입
+  응답 헤더에도 반환하면 사용자 문의 시 역추적 가능
+
+
+
+[Go slog 골격]
+
+1. 기본 사용
+  logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
+  logger.Info("login failed", "user_id", 42, "request_id", reqID)
+
+1. 공통 필드 부착
+  reqLogger := logger.With("request_id", reqID)
+  미들웨어에서 context.WithValue로 전달하는 패턴이 정석
+
+
+
+[Node pino 골격]
+
+1. 기본 사용
+  $ npm install pino pino-http
+  const logger = pino({ level: 'info' });
+  logger.error({ userId: 42 }, 'login failed');
+
+1. HTTP 로깅
+  pino-http 미들웨어가 req.id 자동 발급 + 요청/응답 로그
+  개발 시 가독성: pino-pretty로 파이프
+
+
+
+[더 볼 것]
+
+1. 로그에 개인정보/토큰 넣지 않기 (마스킹 정책)
+1. 에러 추적(Sentry)과 로그의 역할 분담
+  상세: dev → infra의 sentry 노트 참조
