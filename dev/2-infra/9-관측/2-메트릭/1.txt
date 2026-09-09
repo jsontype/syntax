@@ -1,0 +1,68 @@
+[메트릭: counter/gauge/histogram와 RED/USE 메소드]
+참조: https://prometheus.io/docs/introduction/overview/
+
+
+
+[메트릭 유형] ★★
+
+1. counter
+  단조 증가만 하는 값 (총 요청 수, 총 에러 수)
+  자체 값보다 rate() 즉 증가율로 봄
+
+1. gauge
+  오르내리는 현재 값 (메모리 사용량, 동시 접속 수, 큐 길이)
+
+1. histogram
+  값의 분포 (응답 시간, 페이로드 크기)
+  버킷으로 집계 → p50/p95/p99 percentile 계산 가능
+  평균(avg)만 보면 tail latency를 놓침 → p99를 볼 것
+
+
+
+[RED 메소드 (서비스 관점)] ★
+
+1. Rate: 초당 요청 수
+1. Errors: 실패한 요청 수(비율)
+1. Duration: 요청 처리 시간 분포 (p99)
+  요청 기반 서비스(API 서버)의 대시보드는 이 3개부터 시작
+  프론트 출신 관점: Core Web Vitals의 서버판이라고 생각하면 됨
+
+
+
+[USE 메소드 (리소스 관점)]
+
+1. Utilization: 사용률 (CPU 70%)
+1. Saturation: 포화도 (대기 큐, load average)
+1. Errors: 에러 수 (디스크 I/O 에러 등)
+  CPU/메모리/디스크/네트워크 같은 리소스마다 이 3개를 확인
+  RED는 서비스, USE는 인프라 — 역할이 다름
+
+
+
+[Prometheus + Grafana 개념 골격]
+
+1. Prometheus
+  pull 방식: 각 서비스의 /metrics 엔드포인트를 주기적으로 scrape
+  시계열 DB + PromQL 쿼리 언어
+  예: rate(http_requests_total{status="500"}[5m])
+
+1. 앱 계측
+  Go: prometheus/client_golang, Node: prom-client
+  HTTP 미들웨어로 요청 수/지연 histogram 자동 수집이 첫걸음
+
+1. Grafana
+  Prometheus를 데이터소스로 대시보드 구성
+  RED 3종을 서비스별 패널로 만드는 것부터 시작
+
+1. 로컬 실습
+  $ docker compose up  # prometheus + grafana 컨테이너
+  http://localhost:9090 (Prometheus) / http://localhost:3000 (Grafana)
+
+
+
+[더 볼 것]
+
+1. 메트릭 vs 로그 vs 트레이스 (observability 3본기둥)
+1. cardinality 폭발 주의 (user_id 같은 고유값을 label로 쓰지 말 것)
+1. 에러 추적 상세: dev → infra의 sentry 노트 참조
+1. 알람 설계 상세: 같은 폴더의 slo 노트 참조
