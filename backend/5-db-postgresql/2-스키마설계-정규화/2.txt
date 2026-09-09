@@ -1,0 +1,39 @@
+[실습 스키마 설계: 정규화 적용과 비정규화 판단]
+상세: backend → 기초cs교육의 정규화-ER 노트 참조 (이론)
+
+[실습 도메인: users / posts]
+1. 요구사항: 유저가 글(post)을 쓰고, 글에 태그를 여러 개 붙일 수 있음
+1. ERD 골격
+  [users]---(작성한다 1:N)---[posts]---(가진다 M:N)---[tags]
+1. 기본 테이블
+  CREATE TABLE users (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    username VARCHAR(50) NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+  );
+  CREATE TABLE posts (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    user_id BIGINT NOT NULL REFERENCES users(id),
+    title VARCHAR(200) NOT NULL,
+    body TEXT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+  );
+
+[정규화 적용 포인트 ★]
+1. 태그를 posts.tags에 "a,b,c"로 넣으면 1NF 위반 → tags / post_tags(M:N 중간 테이블)로 분리
+  CREATE TABLE tags ( id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY, name VARCHAR(50) UNIQUE );
+  CREATE TABLE post_tags ( post_id BIGINT REFERENCES posts(id), tag_id BIGINT REFERENCES tags(id), PRIMARY KEY(post_id, tag_id) );
+1. 유저 이름을 posts에 같이 저장하면 3NF 위반(갱신 이상) → user_id FK만 두고 JOIN으로 조회
+1. FK + NOT NULL + UNIQUE 제약으로 무결성을 DB 레벨에서 보장할 것
+
+[의도적 비정규화(Denormalization) 판단 ★★]
+1. 원칙: 기본은 정규화, 성능 문제가 "측정으로 확인"됐을 때만 비정규화
+1. 흔한 예
+  - posts.comment_count 컬럼 (매번 COUNT 하지 않기 위한 집계 캐시)
+  - posts.author_name 복제 (JOIN 제거, 대신 갱신 시 동기화 비용 발생)
+1. 비정규화 시 반드시 갱신 경로(trigger, app 코드)를 정해 데이터 불일치를 관리
+1. 판단 기준: 읽기:쓰기 비율, JOIN 비용, 데이터 변경 빈도
+
+[정리]
+1. 스키마는 ERD → 정규화 → 제약조건 → (측정 후) 비정규화 순서로 설계
