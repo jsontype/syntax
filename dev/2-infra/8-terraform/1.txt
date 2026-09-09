@@ -1,0 +1,55 @@
+[Terraform: 코드로 인프라 만들기 (IaC)]
+참조 URL: https://developer.hashicorp.com/terraform/docs
+
+1. IaC (Infrastructure as Code)의 개념
+  AWS 콘솔에서 클릭으로 만들던 인프라(EC2, S3 등)를 코드 파일로 정의하는 방식이다. ★
+  코드로 남기 때문에, 재현 가능하고, 리뷰 가능하고, git으로 이력 관리가 된다.
+  콘솔 클릭 방식의 문제: 누가 뭘 어떻게 만들었는지 기록이 없고, 똑같이 다시 만들기 어렵다.
+  AWS 기초는 상세: dev → infra의 aws 노트(1.txt 기초편) 참조
+
+1. 기본 명령어 4가지 ★★
+  $ terraform init
+    프로바이더(AWS 플러그인 등) 다운로드. 프로젝트 최초 1회.
+  $ terraform plan
+    코드와 실제 인프라를 비교해서, 뭘 만들고/바꾸고/지울지 미리 보여준다.
+  $ terraform apply
+    plan 내용을 실제로 실행한다. yes 입력으로 확정.
+  $ terraform destroy
+    코드로 만든 인프라를 전부 삭제한다. 학습 후 과금 방지에 필수.
+
+
+
+[main.tf 작성 골격]
+
+1. provider 정의
+  provider "aws" {
+    region = "ap-northeast-2"
+  }
+
+1. S3 Bucket 정의 예
+  resource "aws_s3_bucket" "app1_bucket" {
+    bucket = "app1-bucket-unique-name"
+  }
+
+1. EC2 정의 예
+  resource "aws_instance" "app1_server" {
+    ami           = "ami-xxxxxxxx"   # Amazon Linux 2023 AMI ID
+    instance_type = "t2.micro"
+  }
+
+1. 흐름
+  main.tf 작성 -> $ terraform init -> $ terraform plan 으로 확인 -> $ terraform apply
+
+
+
+[상태 파일(tfstate) 주의점]
+
+1. terraform.tfstate란
+  apply 후 생성되는, "실제로 만들어진 인프라의 현재 상태" 기록 파일이다.
+  Terraform은 이 파일과 코드를 비교해서 변경점을 계산한다. ★
+
+1. 주의점
+  절대 git에 commit하지 말 것: 시크릿(패스워드 등)이 평문으로 들어있다. ★★
+  .gitignore에 *.tfstate 추가.
+  팀 작업 시에는 S3 backend + 잠금(lock) 설정으로 상태 파일을 원격 공유한다.
+  tfstate를 잃어버리면 Terraform이 기존 인프라를 인식 못하므로 백업 필수.
