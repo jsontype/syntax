@@ -1,0 +1,42 @@
+[부록: Web API: The Good Parts 학습 노트]
+
+참조: 『Web API: The Good Parts』 水野貴明 저, O'Reilly Japan
+
+1. 개요
+  API 설계 원칙 책. Go/express 트랙에서 만든 User API를 이 기준으로 다듬는 용도.
+  ★ 좋은 API = 설계가 예측 가능하고(guessable), 변경에 강하고, 문서 없이도 대략 읽히는 API
+
+1. 엔드포인트 설계 (ch2)
+  URI는 명사, 복수형: /users, /users/{id}
+  동사는 HTTP 메서드로: GET/POST/PUT/PATCH/DELETE
+  ★★ URI에 동사를 넣지 않는다 (/users/create 는 안티패턴 → POST /users)
+  검색/필터/페이지네이션은 쿼리 파라미터: ?limit=20&offset=0
+  단어 구분, 소문자, 축약어 지양
+
+1. 응답 데이터 설계 (ch3)
+  JSON 기본, 필드명 컨벤션 통일 (camelCase 등)
+  envelope 불필요 논쟁, 배열 응답의 위험
+  에러 응답 형식 통일: 에러코드 + 메시지 + 상세
+  날짜 형식: RFC 3339
+  HATEOAS 개념만 체크
+
+1. HTTP 스펙 최대한 활용 (ch4)
+  상태코드 제대로 쓰기: 200/201/204, 400/401/403/404/409, 500
+  캐시: Cache-Control, ETag, 조건부 요청
+  미디어타입: Content-Type, Accept
+  자체 헤더보다 표준 헤더 우선
+
+1. 변경에 강한 API 설계 (ch5)
+  버저닝: URI에 버전 (/v1/users), 언제 올릴지 기준
+  후방호환 유지 방법, 필드 추가는 안전 / 삭제·의미변경은 위험
+  제공 종료(EOL) 고지, Sunset 개념
+
+1. 견고한 API 만들기 (ch6)
+  HTTPS 필수, 대량 접근 대책: rate limit (429 Too Many Requests)
+  X-Rate-Limit-* 헤더로 잔여량 통지
+  보안 헤더, XSS/CSRF, JSON 하이재킹
+  입력 검증은 서버에서 반드시
+
+1. 실습 과제 (직접 채울 것)
+  4-api-go에서 만든 User API를 이 책 기준으로 리팩토링 목록 작성
+  예: /users/create → POST /users, 에러 응답 JSON 통일, rate limit 미들웨어 추가

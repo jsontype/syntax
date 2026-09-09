@@ -1,0 +1,46 @@
+[net/http로 REST API 만들기]
+
+1. 개요
+  이 챕터는 2-api-express 트랙(User CRUD API)의 Go 버전이다.
+  express 없이 표준 라이브러리 net/http만으로 구현한다.
+  ★ Go 1.22+ 는 mux에 메서드/패스파라미터 라우팅 내장 ("GET /users/{userId}")
+
+1. 서버 기동 골격: main.go
+  package main
+
+  import (
+    "log"
+    "net/http"
+  )
+
+  func main() {
+    mux := http.NewServeMux()
+    mux.HandleFunc("GET /", handleIndex)
+    log.Println("listening on port 8080!")
+    log.Fatal(http.ListenAndServe(":8080", mux))
+  }
+
+1. JSON 인코딩: encoding/json
+  ★★ struct 태그로 JSON 필드명 매핑 (대문자 필드만 인코딩됨)
+  type User struct {
+    UserId   string `json:"userId"`
+    Password string `json:"password"`
+    Name     string `json:"name"`
+  }
+  응답: json.NewEncoder(w).Encode(user)
+  요청: json.NewDecoder(r.Body).Decode(&user)
+  헤더: w.Header().Set("Content-Type", "application/json")
+
+1. User CRUD 엔드포인트 골격 (express 버전과 동일한 URI 유지)
+  mux.HandleFunc("GET /users/", handleFindAll)
+  mux.HandleFunc("GET /users/{userId}", handleFindById)   // r.PathValue("userId")
+  mux.HandleFunc("POST /users/create", handleCreate)
+  mux.HandleFunc("PUT /users/update/{userId}", handleUpdate)
+  mux.HandleFunc("DELETE /users/delete/{userId}", handleDelete)
+  # 우선 Mock DB(map[string]User)로 구현, DB 교체는 5장에서
+
+1. 테스트
+  $ go run .
+  - 조회: http://localhost:8080/users/
+  - 등록: POST http://localhost:8080/users/create (postman, JSON body)
+  - 수정/삭제: express 챕터와 동일 순서로 확인
