@@ -174,7 +174,8 @@
   /terminal-setup : Shift+Enter 등 터미널 키 설정 (VS Code, Cursor 등)
   /ide : IDE 연동 상태
   /teleport : 웹 세션을 터미널로 가져오기
-  /remote-control : 다른 기기에서 세션 원격 제어
+  /remote-control : 다른 기기에서 세션 원격 제어 (별칭 /rc) — 아래 [Remote Control] 참조
+  /mobile : Claude 모바일 앱 다운로드 QR 표시
   /quit : 종료 (별칭: /exit)
 
 
@@ -196,3 +197,165 @@
 
 1. 대규모 리팩토링
   /batch migrate src/ from X to Y → worktree별 병렬 PR
+
+
+
+[Remote Control — 폰·브라우저에서 내 PC 세션 그대로 보기]
+참조: https://code.claude.com/docs/en/remote-control
+
+1. 개념 ★이해
+  내 PC 에서 돌아가는 claude 세션을 폰(Claude 앱)·브라우저(claude.ai/code)에서 그대로 보고 조작
+  Claude 는 계속 내 PC 에서 실행됨 — 코드 실행·파일 접근은 로컬에 그대로 남음
+  폰/웹은 그 로컬 세션을 들여다보는 창일 뿐. 메시지·툴 결과만 Anthropic 서버를 거쳐 오감
+  터미널·브라우저·폰 어디서 보내도 대화가 동기화됨 (서브에이전트·워크플로 진행 상황 포함)
+  폰에서 사진·파일 첨부 가능 (사진은 그대로 인식, 그 외 파일은 내 PC 로 내려받아 @ 참조로 전달)
+  노트북이 자거나 네트워크가 끊겨도 복귀하면 자동 재연결 — 그동안 메시지·승인 요청은 큐에 쌓임
+
+1. Claude Code on the web 과 구분 ★★암기
+  Remote Control : 내 PC 에서 실행 → 로컬 파일·MCP·프로젝트 설정 그대로 사용
+  Claude Code on the web : 클라우드에서 실행 → 로컬 세팅 없이 시작, 안 받아둔 저장소도 작업
+  하던 로컬 작업을 다른 기기에서 이어가려면 Remote Control
+
+1. 준비 조건
+  구독 : Pro / Max / Team / Enterprise (API 키 로그인은 불가)
+  로그인 : $ claude 실행 후 /login 으로 claude.ai 계정 로그인
+  ANTHROPIC_API_KEY 가 설정돼 있으면 해제할 것
+  ANTHROPIC_BASE_URL 은 api.anthropic.com 이어야 함 (LLM 게이트웨이·프록시면 불가)
+  Bedrock / Google Cloud Agent Platform / Microsoft Foundry 사용 시 불가
+  DISABLE_TELEMETRY, DO_NOT_TRACK, CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC, DISABLE_GROWTHBOOK
+    → 하나라도 켜져 있으면 기능 판정 자체가 안 되어 사용 불가 (shell 과 settings.json 의 env 둘 다 확인)
+  프로젝트 폴더에서 claude 를 한 번 실행해 workspace trust 를 승인해둘 것
+    홈 디렉터리에서는 trust 가 저장되지 않으므로 반드시 프로젝트 폴더에서 시작
+  Team / Enterprise 는 Owner 가 관리자 설정에서 Remote Control 토글을 먼저 켜야 함
+
+1. 켜는 방법
+  이미 쓰고 있는 세션을 그대로 원격으로 (가장 흔한 경우)
+  /remote-control              # 별칭 /rc, 지금까지의 대화 이력을 그대로 들고 감
+  /remote-control My Project   # 세션 제목 지정
+  처음부터 원격 가능한 대화형 세션으로 시작
+  $ claude --remote-control              # 별칭 --rc
+  $ claude --remote-control "My Project"
+  서버 모드 (터미널은 대기만 하고 세션은 폰·웹에서 만들어 씀)
+  $ claude remote-control
+    스페이스바 : QR 코드 표시/숨김
+    w : same-dir ↔ worktree 모드 토글
+  VS Code 확장 : 프롬프트 입력창에 /remote-control (이름 인자·QR 없음)
+    연결되면 입력창 하단에 Remote Control 표시 → 클릭하면 세션으로 이동
+    다시 /remote-control 하면 연결 해제
+
+1. 서버 모드 주요 플래그 (remote-control 뒤에 붙일 것)
+  --name "My Project" : claude.ai 세션 목록에 보일 제목
+  --spawn same-dir : 모든 세션이 현재 폴더 공유 (기본)
+  --spawn worktree : 세션마다 git worktree 분리 (git 저장소 필요)
+  --spawn session : 세션 하나만 서비스, 추가 접속 거부
+  --capacity N : 동시 세션 수 (기본 32)
+  --permission-mode acceptEdits : 세션 시작 시 권한 모드 지정
+  --sandbox / --no-sandbox : 샌드박스 (기본 꺼짐)
+  --verbose : 연결·세션 로그 상세
+  주의: remote-control 앞에 전역 플래그를 붙이면 세션에 안 넘어감 → 시작 자체가 거부될 수 있음
+
+1. 폰에서 접속하기 ★★암기
+  Claude 앱 설치 (iOS / Android). 앱이 없으면 세션에서 /mobile → 다운로드 QR 표시
+  방법 A : QR 스캔 — 가장 빠름
+    서버 모드면 스페이스바로 QR 표시 → 폰 카메라로 스캔 → 앱에서 같은 세션이 바로 열림
+    대화형 세션이면 /remote-control 을 다시 입력 → 상태 패널에 세션 URL + QR
+  방법 B : 세션 URL 을 아무 브라우저에서 열기 → claude.ai/code 의 해당 세션으로 이동
+  방법 C : 앱 하단 Code 탭 → 세션 목록에서 이름으로 찾기
+    온라인 세션은 컴퓨터 아이콘 + 초록 점으로 표시
+  접속하면 이미 돌고 있는 서브에이전트·워크플로도 보이고, 폰에서 중지하면 내 PC 에서도 중지됨
+
+1. 세션 제목이 정해지는 순서
+  ① --name / --remote-control / /remote-control 에 준 이름
+  ② /rename 으로 바꾼 제목
+  ③ 기존 대화의 마지막 의미 있는 메시지
+  ④ 자동 생성 이름 (myhost-graceful-unicorn 형태, 앞부분은 머신 hostname)
+  폰·웹에서 이름을 바꾸면 로컬 claude --resume 목록의 제목도 같이 바뀜
+
+1. 연결 상태 확인·해제
+  대화형 세션이면 입력창 아래 푸터에 /rc active 표시 (터미널 폭이 좁으면 숨겨짐)
+  아래 방향키로 그 표시를 선택하고 Enter → 세션 URL·QR·연결 해제 메뉴
+  연결을 해제해도 로컬 세션은 터미널에서 그대로 계속됨
+  연결 실패 시 사유를 먼저 읽을 것 — 아래 경우엔 되찾고 싶을 때만 /remote-control 재실행
+    다른 기기·세션이 세션을 가져감
+    다른 기기·앱에서 세션을 종료하거나 아카이브함 (재실행하면 아카이브 해제하고 되살림)
+    서버가 세션을 못 찾음 (다른 기기에서 삭제됐을 수 있음)
+
+1. 모든 세션에서 자동 연결
+  /config → Enable Remote Control for all sessions
+    true : 대화형 세션 시작 시 자동 연결
+    false : 끔
+    default : 조직 기본값을 따름
+  설정 파일 : 사용자 설정(~/.claude/settings.json)의 remoteControlAtStartup: true
+    프로젝트·로컬 설정의 true 는 무시되고 false 만 적용됨
+    (저장소에 커밋된 설정이 남의 세션을 원격으로 켜지 못하게 하는 장치)
+  데스크톱 앱 : Settings > Claude Code > Enable remote control by default
+  자동 연결도 내 계정으로만 등록되므로 남에게 접근 권한이 생기지 않음
+
+1. 폰 푸시 알림
+  Remote Control 이 연결돼 있을 때만 동작
+  준비 : 앱 설치 → 터미널과 같은 계정·조직으로 로그인 → OS 알림 권한 허용
+  /config 에서 켜기
+    Push when Claude decides   : 긴 작업이 끝났을 때 등 Claude 판단으로 발송
+    Push when actions required : 권한 승인 요청·질문이 떴을 때 발송
+  프롬프트로 직접 요청도 가능 — "테스트 끝나면 알려줘"
+  안 올 때
+    /config 에 No mobile registered → 폰에서 앱을 한 번 열어 푸시 토큰 갱신
+    iOS : 집중 모드·알림 요약이 지연시킴 (설정 → 알림 → Claude 확인)
+    Android : 배터리 최적화에서 Claude 앱을 예외 처리
+  연결된 터미널에 직접 타이핑 중일 때는 푸시가 생략됨
+
+1. 폰·웹에서 되는 명령 / 안 되는 명령
+  안 되는 것 : 터미널 UI 전용 명령 (/plugin, /resume 등) — 인자를 줘도 로컬 CLI 에서만 동작
+  텍스트 출력형은 그대로 : /compact /clear /context /usage /recap /exit /reload-plugins
+  값은 인자로 전달 : /model sonnet, /effort high, /fast, /color, /rename, /autocompact 500k
+  /mcp : 앱에서는 서버 상태 요약 텍스트, 웹에서는 커넥터 목록. reconnect/enable/disable 은 양쪽 다 됨
+  /config : 앱에서는 key=value 로 설정, 인자 없이 실행하면 설정 가능한 키 목록
+
+1. 제약 ★이해
+  로컬 프로세스가 살아 있어야 함 — 터미널을 닫거나 claude 를 끄면 세션은 오프라인
+    SSH 로 띄운 원격 머신이면 tmux / screen 안에서 실행해 세션을 유지
+  대화형 세션 1개 프로세스당 원격 세션 1개 — 여러 개를 한 프로세스에서 돌리려면 서버 모드
+  네트워크가 오래 끊길 때
+    대화형 : 알아서 재시도·재연결, 그동안 로컬 작업은 계속 가능
+    서버 모드 : 약 10분 뒤 프로세스 종료 → $ claude remote-control 로 다시 시작
+  서버 모드에서 세션이 죽으면 폰에서 메시지를 보내면 다시 서비스됨 (서버 재시작 불필요)
+  권한 승인·질문 외의 대화상자는 원격으로 넘어간 뒤 기본 5분이면 닫히고 기본값으로 진행됨
+
+1. 서버 모드 중단 후 되살리기 (같은 폴더에서, 중단 후 약 4시간 이내)
+  $ claude remote-control                    # 서버가 서비스하던 세션 전부 복구
+  $ claude remote-control --continue         # 서버가 처음 만든 세션 하나만
+  $ claude remote-control --session-id <id>  # 특정 세션만 (세션 URL 의 /code/ 뒤 부분)
+  --remote-control / /remote-control 로 켠 세션은 $ claude --continue 또는 --resume 으로 복귀
+
+1. 보안·데이터 ★★암기
+  내 PC 는 아웃바운드 HTTPS 만 사용 — 인바운드 포트를 열지 않음
+  모든 트래픽은 Anthropic API 를 거쳐 TLS 로 전달, 짧은 수명의 용도별 자격증명 사용
+  연결 중에는 대화 기록(내 메시지·응답·툴 활동)이 Anthropic 서버에 저장됨
+    기기 간 동기화와 끊김 후 재연결을 위한 것. 실행·파일 접근은 계속 내 PC 에서만
+  완전히 끄려면 설정의 disableRemoteControl
+  Zero Data Retention 같은 컴플라이언스 요건이 있는 조직은 사용 불가
+
+1. 자주 나는 오류
+  "Remote Control requires a claude.ai subscription"
+    → $ claude auth login 에서 claude.ai 선택. ANTHROPIC_API_KEY 가 있으면 먼저 해제
+  "Remote Control requires a full-scope login token"
+    → setup-token / CLAUDE_CODE_OAUTH_TOKEN 은 모델 호출 전용 → $ claude auth login 으로 재로그인
+  "Unable to determine your organization for Remote Control eligibility"
+    → 계정 캐시가 오래됨 → $ claude auth login
+  "Remote Control isn't enabled for this account"
+    → $ claude auth logout 후 다시 login, 버전도 최신으로. $ claude doctor 로 실패한 검사 확인
+
+
+
+[Remote Control 활용 흐름]
+
+1. 자리에서 시작해서 폰으로 이어보기
+  PC 에서 작업 지시 → /remote-control → 스페이스바/상태 패널의 QR 스캔
+  → 소파에서 진행 상황 확인하고 권한 승인만 눌러주기
+
+1. 긴 작업 걸어두고 나가기
+  /config 에서 푸시 2개 켜기 → 작업 시작 → 폰 알림 받고 결과 확인 → 그 자리에서 추가 지시
+
+1. 여러 작업을 폰에서 굴리기
+  $ claude remote-control --spawn worktree
+  → 세션마다 worktree 분리 → 폰에서 세션을 새로 만들어 병렬로 지시
