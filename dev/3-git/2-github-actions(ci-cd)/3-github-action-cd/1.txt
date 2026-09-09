@@ -1,0 +1,68 @@
+[Github Actions를 이용한 CD 배포 자동화]
+참조 URL: https://docs.github.com/ko/actions/deployment
+
+1. 사전준비: 이전 챕터 2-github-action-ci(린트/테스트)의 ci.yml이 돌아가는 상태에서 시작한다.
+  상세: dev → infra의 docker, terraform 노트 참조
+
+1. CD (Continuous Deployment)의 개념
+  CI가 "린트/테스트로 코드 검증"이라면, CD는 "검증된 코드를 자동으로 배포"하는 단계다. ★
+  main(master) 브랜치에 머지되는 순간, 사람 손 없이 서버까지 배포되는 게 목표다.
+
+
+
+[배포 파이프라인 흐름]
+
+1. 전체 흐름 ★★
+  main에 머지(push) -> Docker Image 빌드 -> ECR에 push -> ECS 서비스 갱신(새 Task로 교체)
+
+1. deploy.yml 골격 : .github/workflows/deploy.yml
+  name: CD
+
+  on:
+    push:
+      branches:
+        - main    # main 머지(push) 시에만 배포
+
+  jobs:
+    deploy:
+      runs-on: ubuntu-latest
+      permissions:
+        id-token: write   # OIDC 인증에 필요
+        contents: read
+      steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::<계정ID>:role/github-actions-role
+          aws-region: ap-northeast-2
+
+      - name: Login to ECR
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and push image
+        run: |
+          docker build -t <ECR주소>/app1:${{ github.sha }} .
+          docker push <ECR주소>/app1:${{ github.sha }}
+
+      - name: Update ECS service
+        run: aws ecs update-service --cluster app1-cluster --service app1-service --force-new-deployment
+
+
+
+[OIDC로 AWS 인증]
+
+1. OIDC (OpenID Connect)를 쓰는 이유
+  Access Key를 github secrets에 저장하면, 유출 위험 + 키 로테이션 부담이 있다.
+  OIDC는 워크플로우 실행 시마다 임시 토큰을 발급받으므로 장기 키가 필요 없다. ★★
+
+1. 설정 골격
+  AWS IAM에서 Identity Provider 추가: token.actions.githubusercontent.com
+  IAM Role 작성: 신뢰 정책에 내 repo(예: repo:jsontype/app1:ref:refs/heads/main)만 허용
+  Role에 ECR/ECS 권한 부여 -> deploy.yml의 role-to-assume에 그 Role의 ARN을 지정
+
+1. 확인
+  main에 머지 후, github Actions 탭에서 CD 워크플로우가 도는지 확인
+  ECS 콘솔에서 새 Task로 교체(rolling deploy)되는지 확인
