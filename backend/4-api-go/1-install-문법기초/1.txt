@@ -1,0 +1,39 @@
+[Go 설치와 문법 기초]
+
+상세: backend → [old]의 go 폴더 참조 (기초 문법 구노트)
+
+1. 설치
+  $ brew install go
+  $ go version
+  # Windows는 공식 인스톨러 또는 $ winget install GoLang.Go
+
+1. 프로젝트 초기화: ★★ Go는 npm init 대신 go mod init
+  $ mkdir app2-go
+  $ cd app2-go
+  $ go mod init example.com/app2
+  # go.mod 파일이 생성됨 (package.json 역할)
+
+1. hello world: main.go 생성
+  package main
+
+  import "fmt"
+
+  func main() {
+    fmt.Println("Hello World!")
+  }
+
+1. 실행
+  $ go run main.go
+  $ go build    # 실행파일 생성
+
+1. 문법 기초 학습 목차 (직접 채울 것)
+  변수: var / := 단축선언, 타입추론, 상수 const
+  조건: if, switch (괄호 없음, break 불필요)
+  반복: ★ for 하나뿐 (while 없음), range
+  함수: 다중 리턴값, error 리턴 관례 (err != nil 패턴)
+  struct: 타입 정의, 메서드 리시버, 포인터 리시버
+  slice / map: 기본 컬렉션
+  package: 대문자 시작 = export
+
+1. 다음 챕터 예고
+  net/http로 REST API 만들기 (express 트랙의 Go 버전)

@@ -1,0 +1,39 @@
+[Go와 PostgreSQL 연동하기]
+
+상세: backend → postgresql 트랙 참조
+
+1. 사전준비: PostgreSQL 설치/기동
+  $ brew install postgresql@16
+  $ brew services start postgresql@16
+  $ createdb appdb
+  $ psql appdb
+  CREATE TABLE users ( user_id TEXT PRIMARY KEY, password TEXT NOT NULL, name TEXT NOT NULL );
+  \q
+
+1. 드라이버 설치: pgx
+  $ go get github.com/jackc/pgx/v5/stdlib
+  ★ database/sql은 표준 인터페이스, pgx는 그 아래의 PostgreSQL 드라이버
+  (pgx 네이티브 API도 있지만 여기서는 database/sql 경유로 학습)
+
+1. 연결: db.go
+  import (
+    "database/sql"
+    _ "github.com/jackc/pgx/v5/stdlib"  // 드라이버 등록용 blank import
+  )
+  db, err := sql.Open("pgx", "postgres://localhost:5432/appdb")
+  db.Ping()으로 연결 확인
+  접속 문자열은 환경변수로 (os.Getenv("DATABASE_URL"))
+
+1. CRUD를 mock에서 실DB로 교체 (express 트랙의 sqlite3 교체와 같은 흐름)
+  ★★ placeholder는 ? 가 아니라 $1, $2 (PostgreSQL 방식)
+  findAll:  db.Query("SELECT user_id, password, name FROM users") + rows.Next()/Scan
+  findById: db.QueryRow("SELECT ... WHERE user_id = $1", userId).Scan(&u.UserId, ...)
+  create:   db.Exec("INSERT INTO users VALUES ($1, $2, $3)", ...)
+  update:   db.Exec("UPDATE users SET password = $1, name = $2 WHERE user_id = $3", ...)
+  delete:   db.Exec("DELETE FROM users WHERE user_id = $1", userId)
+  sql.ErrNoRows 체크 → 404 응답
+
+1. 테스트
+  $ go run .
+  - postman으로 등록/수정/삭제 후, 서버 재기동해도 데이터 유지 확인
+  - psql에서 SELECT * FROM users; 로 직접 확인

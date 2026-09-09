@@ -1,0 +1,37 @@
+[Go 백엔드 앱 완성: 프론트 + 백엔드 통합]
+
+1. 개요
+  지금까지의 챕터를 합쳐 최종 구조를 완성한다.
+  app1 = 프론트 (포트 3000), app2 = Go 백엔드 (포트 8080)
+  ★ app1/app2 폴더는 실습 때 만든다. 여기서는 구조만 정리.
+
+1. 최종 폴더 구조 (텍스트)
+  app1/                  # 프론트 (express 트랙의 app1 재사용 가능)
+    index.html           # fetch로 8080 API 호출
+    app.js               # 정적 서빙, 포트 3000
+  app2/                  # Go 백엔드, 포트 8080
+    go.mod
+    main.go              # mux 조립, 미들웨어 체인, ListenAndServe
+    db.go                # PostgreSQL 연결 (5장)
+    models/user.go       # User struct + CRUD 함수
+    handlers/users.go    # CRUD 핸들러 (2장)
+    handlers/auth.go     # /login, JWT 발급 (4장)
+    middleware/          # logging, recovery, cors, auth (3장, 4장)
+
+1. 통합 포인트 체크리스트
+  1. 미들웨어 체인: logging(recovery(cors(mux))) — 3장
+  1. CORS: Allow-Origin에 http://localhost:3000 — 3장
+  1. 인증: /login 공개, 쓰기 계열 라우트는 auth로 보호 — 4장
+  1. DB: mock 제거, PostgreSQL CRUD로 완전 교체 — 5장
+  1. 설정: JWT_SECRET, DATABASE_URL은 환경변수로
+
+1. 기동/테스트 흐름
+  $ cd app2
+  $ go run .
+  $ cd app1
+  $ node app
+  - 브라우저 http://localhost:3000 에서 로그인 → 토큰 저장 → CRUD 동작 확인
+  - postman으로 401/404/정상 케이스 재확인
+
+1. 이후 확장 아이디어 (직접 채울 것)
+  graceful shutdown, 테스트 코드(httptest), Docker화, 배포
