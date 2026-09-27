@@ -2,7 +2,7 @@
 
 1. malware 있을 시 초기화
 1. chrome 설치 후 구글 동기화
-1. chrome 웹스토어 확장 설치 
+1. chrome 웹스토어 확장 설치
 1. vscode 설치
 1. vscode 확장 설치 및 cwd 설정
   ${fileDirname}
