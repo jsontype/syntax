@@ -1,0 +1,68 @@
+[Cloudflare Pages: 모노레포를 앱별 프로젝트로 배포하기 (무빌드 정적 + Functions)]
+
+1. 배경·구조
+  레포 하나(GitHub public · master)에 apps/<앱> 폴더가 여러 개. 앱마다 Pages 프로젝트를 하나씩 만들고 각자 서브도메인에 붙인다.
+  도메인이 이미 Cloudflare DNS 에 있으면 커스텀 도메인 연결 시 CNAME 이 자동 생성·검증된다(손으로 DNS 안 만짐).
+  빌드 없음: index.html 이 자기완결(CDN React/Babel 또는 순수 JS). 빌드 도구·wrangler.toml 을 레포에 두지 않는다.
+    (wrangler.toml 의 name 이 프로젝트명과 다르면 빌드가 실패한다 → 대시보드의 Root directory 설정으로 통일)
+  master 푸시 = 본番 배포. 커밋·푸시는 사람이 결정한다.
+
+1. 프로젝트 ↔ 폴더 ↔ 도메인 (2026-10 현행 · broodev 사례)
+  broodev-web     apps/home    broodev.com (+www)     포털 (정적)
+  broodev-btc     apps/btc     btc.broodev.com        비트코인 앱 (정적 + Functions)
+  broodev-<coin>  apps/<coin>  eth.broodev.com 등 14  btc 를 생성 스크립트로 복제한 코인 앱
+  broodev-voca    apps/voca    voca.broodev.com       단어장 (정적 + Functions + KV)
+  broodev-utils   apps/utils   utils.broodev.com      유틸 (정적 + Functions + KV · 라이선스 서버)
+  broodev-dev     apps/dev     dev.broodev.com        개발자 소개 (dev1·2·3 + 스위치 Function)
+  broodev-admin   apps/admin   admin.broodev.com      관리 (정적 · noindex)
+
+1. 새 프로젝트 만들기 (앱 1개당 1회)
+  Cloudflare 대시보드 → Workers & Pages → Create → Pages → Connect to Git → 레포 선택
+  프로젝트 이름: broodev-<앱>
+  Build settings
+    Framework preset: None
+    Build command: (비움)
+    Build output directory: .   (또는 /)
+    Root directory (advanced): apps/<앱>   ← 핵심. 모노레포에서 이 폴더만 배포된다
+  Save and Deploy → *.pages.dev 프리뷰로 렌더 확인
+  Custom domains 탭 → <앱>.broodev.com 추가 → DNS 레코드 자동 생성 → 전파 후 https 확인
+  (선택) Settings → Builds & deployments → Build watch paths: apps/<앱>/*  → 다른 앱 커밋에 재배포되지 않게 (무료 500빌드/월)
+  functions/ 폴더가 있으면 자동 인식(별도 설정 없음). 배포 로그에 Functions 번들이 올라갔는지 확인.
+
+1. 루트 앱 바꾸기 / 호스트 옮기기 — 코드는 그대로, 대시보드만
+  루트 프로젝트의 Settings → Root directory 를 apps/btc → apps/home 으로 바꾸고 Deployments → Retry deployment (또는 다음 푸시)
+  같은 폴더를 두 호스트에 배포하지 말 것 → 광고 달린 완전 복제본(AdSense 「복제 콘텐츠」 · 중복 색인). 꼭 두 호스트면 한쪽은 canonical 을 다른 쪽으로.
+  호스트를 옮길 때: 옛 프로젝트 Custom domains 에서 도메인 제거 → 새 프로젝트에 추가. 충돌하면 DNS 탭에서 옛 CNAME 삭제 후 재시도.
+  프로젝트 폐기: Custom domains 제거 → 프로젝트 삭제 → 남은 DNS 레코드 삭제. 외부에 뿌린 링크가 있으면 존 Redirect Rule 로 301 (같은 폴더의 redirects 노트).
+  GitHub Pages → Cloudflare Pages 이전: 기존 CNAME(xxx.github.io) 삭제 → CF 가 자기 레코드 생성 → 확인 후 .github/workflows 의 배포 워크플로와 CNAME 파일 삭제.
+
+1. Pages 가 자동으로 해 주는 것 (코드가 전제로 삼은 것)
+  /x.html → /x 로 308 리다이렉트 → canonical · sitemap · 외부에 적는 URL(Stripe 등록 URL 등)은 확장자 없는 쪽으로 통일
+  루트의 404.html 을 커스텀 404 로 사용(상태 404)
+  *.pages.dev 기본 도메인은 커스텀 도메인의 복제본 → _middleware 에서 X-Robots-Tag: noindex 를 붙인다 (같은 폴더의 functions 노트)
+  파일당 25MiB 제한 (영상은 재인코딩해서 넣는다 — 26MB 히어로 영상을 3.9MB 로)
+  무료 한도: 500 빌드/월 · Functions 10만 요청/일 (정적 파일은 _routes.json 으로 Functions 에서 제외)
+
+1. 캐시 — 반드시 ?v= 캐시 버스터
+  Cloudflare Browser Cache TTL(4시간) 때문에 js/css/조각(fetch 하는 html)을 고쳐도 재방문자는 옛 파일을 받는다.
+    → 참조에 ?v=YYYYMMDDx 토큰을 붙이고(<script src="x.js?v=20261007a">), JS 안에서 fetch 하는 조각에도 같은 V 상수를 쓴다. 파일을 고치면 토큰을 같이 올린다.
+    실제 사고: 2026-10-04 토큰을 안 올려 4시간 동안 옛 CSS 가 나감. 2026-10-07 리뷰에서도 포털 쪽 누락을 잡음 → 수정 체크리스트 항목.
+  큰 전환(루트 교체 등) 뒤 Caching → Purge Everything 1회. 카카오톡 미리보기는 카카오 공유 디버거에서 캐시 초기화.
+  유령 캐시: 옛 배포가 s-maxage 로 남긴 응답은 Purge·재배포로도 안 지워지는 경우가 있다 → 존 Redirect Rule 로 그 경로를 앞단에서 301 (룰이 캐시 조회보다 먼저 실행돼 무조건 이긴다).
+
+1. 배포 후 체크리스트
+  각 호스트 200 + 백지 아님(CDN React 앱은 로드 후 렌더) · view-source 의 canonical 이 자기 호스트
+  /robots.txt /sitemap.xml /og-image.png (/ads.txt) 200
+  *.pages.dev 응답에 X-Robots-Tag: noindex / 커스텀 도메인엔 없음
+  없는 경로 → 404.html (상태 404)
+  Functions 있는 앱: /api/… 에 GET → {"ok":false,"error":"method-not-allowed"} 류 응답이면 Functions 살아 있음 (kv-not-bound 면 바인딩 + 재배포)
+  로컬: 문법·실행 검증 스크립트 + 헤드리스 렌더 하니스(DevTools 프로토콜 · 모바일 에뮬레이션)로 푸시 전에 확인
+  $ curl -I https://eth.broodev.com/
+  $ curl -s https://utils.broodev.com/api/license/verify
+
+1. 이력 (왜 이렇게 됐나)
+  2026-06  GitHub Pages(btc) → Cloudflare Pages 이전. Vite 빌드를 버리고 무빌드 단일 파일로 정리
+  2026-07  AdSense 「가치 없는 콘텐츠」 대응: 루트=btc 앱, 코인 14개는 _redirects 로 루트 ?coin= 에 301, *.pages.dev noindex, Turnstile
+  2026-08  코인 서브도메인 14개를 각자 앱으로 복원. 루트=VOCA 시도 → 원복(루트=BTC)
+  2026-10-01~03  옛 레포(home·utils) 통합, dev 스위치 Function, 루트=포털(apps/home) · btc.broodev.com 이 비트코인 정본
+  2026-10-04~05  utils 프리미엄: Pages Functions + KV 라이선스 서버, Email Routing · Resend (스트라이프 결제 연동 노트 참조)

@@ -1,0 +1,75 @@
+[Stripe ② 사이트 준비 → 계정 생성 → アカウント有効化(심사 입력)]
+
+1. 손에 들고 시작할 것
+  본인확인 서류(在留カード · 운전면허 · 마이넘버카드 중 1 · 이름 표기 = 은행 명의) · 입금 계좌(일본 국내 · 口座名義 = 본인 이름)
+  적격청구서 등록번호 T+13자리 (국세청 공표 사이트에서 본인 번호·공표 이름 확인)
+  연락 메일 support@<도메인> (Cloudflare Email Routing 으로 개인 Gmail 전달 — dev → infra → cloudflare 노트) · 전화(Stripe 비공개용)
+  개인정보 방침(2026-10-03 결정): 운영자 氏名 · 주소 · 전화는 사이트·레포에 싣지 않는다. 사이트는 屋号 + 都道府県 + 메일만.
+    特商法 페이지의 氏名·주소·전화 행은 「個人事業主のため掲載を省略 — 請求があれば遅滞なく開示」. 본인 정보는 Stripe 대시보드(비공개)에만.
+    ⚠ 소비자청 Q&A 는 個人事業主 의 氏名 표기를 원칙으로 본다 → 심사에서 「氏名を記載してください」 가 오면 그때 판단. 개시 청구가 오면 지체 없이 메일로 알려 주는 운용은 반드시.
+
+1. 심사관이 보는 사이트 — 코드로 만든 것 (신청 전에 라이브에 있어야 한다)
+  Stripe 는 등록한 사업 사이트를 실제로 열어 본다. 공식 Website checklist: 사업자명·연락처 · 상품 설명 · 税込 가격과 통화 · 환불/해지 정책 · 약관 · 개인정보 · 안전한 결제 안내 · 제공 시기(디지털 → 즉시) · 特商法 표기
+  구성 (포털 apps/home)
+    premium.html                 전 앱 프리미엄 총람 (앱 카드 · 공통 조건 · FAQ) — 앱이 늘면 카드 1장
+    legal/tokushoho.html         特定商取引法に基づく表記 (일본어 正文 + ko · en + 10언어 조각)
+    legal/terms.html             利用規約 17조 (정본 일본어)
+    legal/privacy.html           프라이버시 (브라우저 내 처리 · Stripe/Cloudflare/Google/EmailJS 위탁 · 보존 기간 · 개시 청구)
+    legal/refund.html            返金・解約ポリシー
+    legal/biz.js                 ★ 사업자 정보 · 앱별 가격의 정본 (window.BIZ · window.PLANS)
+    legal/legal.js · legal.css   [data-biz] [data-price] [data-plan-url] 채우기 · 13언어 풀다운 · 번역 조각 fetch (?v= 캐시 버스터)
+    푸터                        법적 링크 5개 (각 앱은 여기로 링크만 건다 — 문서를 복제하지 않는다)
+  각 앱: pricing.html (税込 요금 · 비교표 · FAQ · 라이선스 활성화 폼) + js/biz.js (BIZ 사본 + PLANS: price · checkout 링크 · portal)
+  단일 소스 (legal/biz.js)
+    window.BIZ = {
+      trade_name: 'Y Systems', location: '東京都', location_ko: '일본 도쿄도', location_en: 'Tokyo, Japan',
+      email: 'support@broodev.com', invoice_no: 'T5810420183858', site: 'https://broodev.com/', updated: '2026-10-07', updated_ja: '2026年10月7日',
+    };
+    window.PLANS = {
+      utils: { name: 'Utils Premium',          url: 'https://utils.broodev.com/pricing', yearly: 2500, lifetime: 5000, lifetime_list: 10000 },
+      btc:   { name: 'Crypto Signals Premium', url: 'https://btc.broodev.com/#premium',  yearly: 2500, lifetime: 5000, lifetime_list: 10000 },
+      voca:  { name: 'VOCA DECK Premium',      url: 'https://voca.broodev.com/#premium', yearly: 2500, lifetime: 5000, lifetime_list: 10000 },
+    };
+  페이지에서 읽기 (legal.js)
+    each('[data-biz]', function (el) { var k = el.getAttribute('data-biz'); el.textContent = BIZ[k + '_' + lang] || BIZ[k + '_en'] || BIZ[k]; });
+    each('[data-price]', function (el) { var v = path(PLANS, el.getAttribute('data-price')); if (v != null) el.textContent = '¥' + Number(v).toLocaleString('en-US'); });
+    each('[data-plan-url]', function (el) { var v = path(PLANS, el.getAttribute('data-plan-url')); if (v) el.setAttribute('href', v); });
+    invoice_no 가 자리표시자(T000…)면 등록번호 행을 숨긴다 → 번호를 받기 전에도 배포 가능
+  결정 사항 (문서 4종 + 총람 + 요금 페이지에 같은 말로 적혀 있다 — 바꾸면 전부 같이)
+    무료/프리미엄 경계 = 출력 형식 (Excel 무료 · 제한 없음 / PowerPoint · Illustrator · Photoshop 출력이 프리미엄 · 한 라이선스로 셋 다)
+    라이선스 1개 = 본인 기기 3대 · 서비스 종료 시 90일 전 고지 · 買い切り 는 구매 12개월 이내면 잔여 기간 환불 · 갱신 후 14일 이내 미사용이면 갱신분 환불
+  URL: Pages 가 /x.html → /x 308 이므로 Stripe 에 적는 URL · canonical · sitemap 은 확장자 없는 쪽 (/premium · /legal/tokushoho)
+  販売 URL 로 지정한 화면(앱 안의 프리미엄 모달 등)에도 판매자명 + 特商法 · 返金 · 利用規約 링크를 둔다 — 2026-10-07 리뷰에서 빠진 것을 발견해 모달 하단에 13언어로 추가(PREM_LEGAL)
+  푸시 후 2~3분 뒤 6개 URL(총람 · 特商法 · 약관 · 개인정보 · 환불 · 앱 요금) 전부 200 확인
+
+1. 계정 생성
+  dashboard.stripe.com/register — 메일 · 이름 · 국가 日本(나중에 못 바꾼다) → 메일 인증 → 즉시 2단계 인증(인증 앱 권장 · SMS 백업)
+  처음엔 テスト環境(샌드박스)만. 본番 결제는 유효화 후
+
+1. アカウントを有効化 — 입력값
+  事業の種類 個人事業主 · 事業の所在地 住民票 주소 · 業種 Software as a service / デジタル商品 · 事業のウェブサイト https://broodev.com/ (앱이 늘어도 이 URL 그대로)
+  屋号 / Business name: Y Systems (하이픈 없음 — 사이트 표기와 동일) · 氏名 · 生年月日 · 住所 · 電話 = 서류와 동일
+  商品提供時期 即時 · 平均注文額 · 年間売上見込 솔직하게 소액 (심사에 불리하지 않다)
+  商品・サービスの説明 (복붙용 · 日本語)
+    broodev.com (https://broodev.com/) で、ブラウザ上で動作するウェブアプリ(業務ユーティリティ、暗号資産の市場指標、学習ツールなど)を無料で公開しています。
+    一部のアプリで、追加機能を使える「プレミアム」を、年額サブスクリプション(税込・自動更新)と買い切り(税込)の 2 種類でオンライン販売します。
+    最初の対象は業務ユーティリティ「Utils」(写真を用紙 1 枚にグリッド配置する「写真ならべ」)で、Excel 出力は無料のまま、PowerPoint(.pptx)出力をプレミアムとして
+    年額 2,500 円・買い切り 5,000 円(いずれも税込)で提供します。決済完了後すぐにライセンス情報をメールで送付し、物品の配送はありません。
+    料金一覧: https://broodev.com/premium / 特定商取引法に基づく表記: https://broodev.com/legal/tokushoho
+
+1. 本人確認 · 顧客向け情報 · 銀行口座 · 보안 체크리스트 (같은 폼 안에서 이어진다)
+  서류 앞·뒤 촬영 업로드(흐림·반사 없이). 住所確認書類(公共料金 領収書 등) 추가 요구 가능
+  顧客向け情報 (settings/public · 나중에도 수정 가능)
+    明細書表記 3종 (漢字 · カナ · ローマ字 — 고객 카드 명세서에 찍힘 → 차지백 예방의 핵심)
+      Store/Service name: ブルーデブ ユーティルズ / ﾌﾞﾙｰﾃﾞﾌﾞ ﾕｰﾃｨﾙｽﾞ / BROODEV UTILS
+      Shortened descriptor: ブルーデブ / ﾌﾞﾙｰﾃﾞﾌﾞ / BROODEV (다른 앱은 BROODEV* <APP>)
+    サポートメール support@ · サポート電話 입력하되 「明細書に表示しない」
+    サポートURL /legal/tokushoho · 利用規約 URL /legal/terms · プライバシーポリシー URL /legal/privacy → Checkout 의 약관 동의 체크박스에 쓰인다 (전 앱 공통 · 앱이 늘어도 안 바꿈)
+  銀行口座 (settings/payouts): 은행 · 지점 · 계좌번호 · 口座名義(カタカナ). 명의가 본인 이름과 다르면 심사가 멈춘다. 입금 주기 기본 주 1회
+  セキュリティ・チェックリストに基づく対策処置状況申告書 (일본 · 2024-04~ 신규 가맹점 필수): 카드 정보 비보유(Stripe Checkout) · HTTPS(Cloudflare) · 관리 계정 2FA · 소프트웨어 최신(정적 사이트) · 관리 화면 없음 → 전부 「해당/대응」
+  제출 → 審査 수 분~2영업일. 추가 요청(開業届 사본 · 確定申告書 · 사이트 캡처 · 설명 보강)은 48시간 안에 답. 대시보드 상단 「要対応」 에서 진행 확인
+
+1. 한 번에 통과시키는 포인트
+  서류 이름 = Stripe 氏名 = 은행 명의 (사이트에는 屋号만)
+  사이트 URL 이 비밀번호 없이 열리고 헤더 「Premium」 → 税込 가격, 푸터에 사업자명 · 메일 · 법적 페이지 링크 5개
+  사업 설명과 사이트 내용이 일치 (SaaS/디지털 · 즉시 제공 · 배송 없음) · 제한 업종 아님

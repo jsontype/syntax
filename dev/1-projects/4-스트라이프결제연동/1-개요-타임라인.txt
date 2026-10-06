@@ -1,0 +1,41 @@
+[***! Stripe 결제 연동 — 개인사업주가 웹앱 「프리미엄」을 파는 전체 흐름 (broodev 사례 · 2026-10)]
+
+1. 무엇을 만들었나
+  상품: 웹앱의 추가 기능 「프리미엄」(디지털 서비스) — 年額 ¥2,500(자동 갱신) / 買い切り ¥5,000 · 税込 · 카드 결제
+  결제: Stripe Payment Links(코딩 없음) → Checkout(Stripe 호스팅 · 3DS · 약관 동의) → 영수증 · 적격청구서 자동
+  발급: Stripe 웹훅 → Cloudflare Pages Function → 라이선스 키 생성(KV) → Resend 메일 → 고객이 앱에 키 입력 → 잠금 해제
+  사이트: 포털 1곳에 법적 문서(特商法 · 약관 · 개인정보 · 환불) + 프리미엄 총람, 앱마다 요금 페이지. 사업자 정보·가격의 단일 소스는 JS 파일 하나(biz.js)
+  계정 1개로 여러 앱: 상품/링크만 추가(심사·약관 URL 재사용). 라이선스 서버는 상품명으로 자기 앱 것만 처리
+
+1. 순서 (각 단계는 같은 폴더의 번호 노트)
+  ② 사이트 준비(심사관이 보는 것) → 계정 생성 → アカウント有効化(사업자 정보 · 본인확인 · 은행)
+  ③ 기본 설정(브랜드 · 메일 · 税 ID · Stripe Tax) → 商品·価格 → Payment Links → 앱에 링크 연결
+  ④ 구독 운영(고객 포털 · 갱신 알림 · 실패 처리) · 운영·세무
+  ⑤ 라이선스 자동 발급(웹훅 · KV · 메일) — 코드
+  ⑥ 테스트 → 실결제 1건 → 판매 개시
+  ⑦ 가격 표시(할인) — 景品表示法
+  인프라 쪽(Pages 프로젝트 · Functions/KV · Email Routing · Resend)은 dev → infra → cloudflare 노트
+
+1. 흐름도
+  고객 → 요금 페이지 「購入する」 → buy.stripe.com (Checkout · 약관 동의 · 3DS) → 결제 완료
+      → Stripe: 영수증 메일(T번호) · (買い切り) 인보이스 PDF
+      → 웹훅 POST /api/stripe/webhook (서명 검증) → KV lic:<KEY> + 인덱스 → Resend 메일(키 + 활성화 링크)
+  고객 → pricing?license=KEY (또는 입력) → POST /api/license/verify (기기 3대) → localStorage 저장 → 앱 잠금 해제 · 24h 마다 재검증
+  해지/환불/분쟁 → 웹훅(subscription.* · charge.refunded · dispute.created) → KV status 변경 → 다음 재검증에서 잠금 복귀
+
+1. 타임라인 (커밋 기준)
+  2026-07-11  voca 에 프리미엄 1차(기능 게이팅 · 모달 · 3일 체험 · launch=false 로 비활성) — 결제 없이 UI 만
+  2026-10-03  법적 문서 4종 + 프리미엄 총람(포털) · utils 요금 페이지 · 표기 「Y Systems」 통일 · 운영자 개인정보 비게재 결정 · 공개 URL 확장자 제거(/x.html → /x 308)
+  2026-10-04  무료/프리미엄 경계 = 출력 형식(pptx 잠금) · 13언어 · ?v= 캐시 버스터 · 적격청구서 등록번호(JP TRN) 기입 · support@ 통일(Email Routing)
+  2026-10-05  고객 포털 링크 · 라이선스 자동 발급 백엔드(Pages Functions + KV + 웹훅 + Resend) · 활성화 UI · 13언어 lic_* · voca/코인 앱도 같은 계정으로 프리미엄(코인 15사이트 공유 라이선스)
+  2026-10-07  평생 플랜 「発売記念 50% OFF」 표시(13언어 · 단일 소스 생성기) · btc/voca 프리미엄 존재 알림(배지 · 스트립 · #premium 딥링크) · 리뷰 반영(景表法 문구 · 캐시 토큰 · 라이트 테마 · 포털 CSS 특이성)
+
+1. 비용 감각
+  Stripe: 국내 카드 3.6% + 구독 Billing 0.7% + Stripe Tax 0.5% · 차지백 ¥1,500 · 인보이스 PDF 0.4%(상한 $2) · 환불해도 수수료는 안 돌아온다
+  Cloudflare Pages/Functions/KV · Email Routing: 무료 범위 · Resend 무료 월 3,000통
+
+1. 교훈
+  심사가 보는 것은 전부 「사이트」 — 코드(법적 페이지 · 税込 가격 · 푸터 링크)를 먼저 끝내고 신청한다
+  금액은 세 곳(법적 정본 biz.js · 앱 biz.js · Stripe Price)이 반드시 같아야 한다 → 검증 스크립트로 묶는다
+  웹훅은 서명 검증 + 멱등 + 「시크릿 없으면 닫힘」. SDK 없이도 HMAC-SHA256 30줄이면 된다
+  할인 표시는 景品表示法 — 판 적 없는 가격을 「通常価格」라 부르지 않는다
