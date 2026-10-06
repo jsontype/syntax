@@ -1,0 +1,38 @@
+[Cloudflare Email Routing(받기) + Resend(프로그램 발송) + DNS]
+
+1. 받기 — Email Routing (무료 · 2026-10-04 설정)
+  대시보드 → 해당 존 → Email → Email Routing → 활성화
+  Custom addresses: support@broodev.com → Destination: 개인 Gmail (인증 메일 승인)
+  MX · SPF(TXT) 레코드는 Cloudflare 가 루트 도메인에 자동 추가
+  사이트 · 법적 문서 · biz.js · JSON-LD · 연락 폼 mailto 폴백의 주소를 전부 support@ 로 통일 (개인 Gmail 은 노출하지 않는다)
+  Stripe 계정의 サポートメール 도 같은 주소
+
+1. Gmail 에서 support@ 이름으로 답장하기
+  Gmail → 설정 → 계정 및 가져오기 → 「다른 주소에서 메일 보내기」 → support@broodev.com (SMTP smtp.gmail.com:587 · 앱 비밀번호)
+  DNS SPF 를 하나로 합친다 (루트 TXT):
+    v=spf1 include:_spf.mx.cloudflare.net include:_spf.google.com ~all
+
+1. 보내기 — Resend (무료 월 3,000통 · 일 100통 · 2026-10-05)
+  resend.com 가입 → Domains → Add Domain broodev.com → 표시된 레코드를 Cloudflare DNS 에 그대로 추가 → Verify
+    DKIM: TXT resend._domainkey
+    send 서브도메인(send.broodev.com)의 MX + TXT(SPF)   ← 루트 MX(Email Routing)와 충돌하지 않는다
+  API Keys → Create: 이름 utils-license · Permission Sending access · Domain broodev.com → re_… → Pages 의 Secret RESEND_API_KEY
+  발신 From 'Y Systems Support <support@broodev.com>' · reply_to 도 support@ (도메인 인증만 되면 바로 사용 가능)
+  코드 (fetch 만 · SDK 없음)
+    const r = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { authorization: 'Bearer ' + env.RESEND_API_KEY, 'content-type': 'application/json' },
+      body: JSON.stringify({ from, to: [to], reply_to, subject, text, html })
+    });
+    const data = await r.json().catch(() => ({}));
+    return r.ok ? { ok: true, id: data.id } : { ok: false, error: 'resend-' + r.status + ':' + (data.message || '') };
+  실패해도 본 처리(라이선스 발급)는 계속하고 mail_error 만 기록 → 운영자가 재송(멱등)
+
+1. 왜 EmailJS 가 아니라 이 조합인가
+  EmailJS 무료: 첨부 미지원 · 요청 50KB 제한. Gmail 은 본문 base64 이미지를 제거 → 스크린샷은 KV 에 올리고(Turnstile 로 보호) 메일엔 https 링크만
+  서버 발송은 도메인 인증(DKIM/SPF)이 되어야 스팸함을 피한다 → Resend 도메인 인증이 핵심
+
+1. DNS 메모
+  커스텀 도메인 CNAME 은 Pages 가 자동. 손으로 만든 옛 레코드(GitHub Pages 의 CNAME)가 있으면 충돌 → 삭제
+  Resend 는 send.* 서브도메인, Email Routing 은 루트 MX — 공존
+  다른 도메인(y-systems.com 등 · 다른 등록기관)을 쓰려면 Cloudflare 에 사이트 추가 + 등록기관에서 NS 변경

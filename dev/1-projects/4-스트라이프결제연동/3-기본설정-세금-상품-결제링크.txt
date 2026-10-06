@@ -1,0 +1,59 @@
+[Stripe ③ 有効化 직후 설정 → 税 ID · Stripe Tax → 商品·価格 → Payment Links → 앱에 연결(코드)]
+
+1. 기본 설정 (10분)
+  브랜드 (settings/branding): 아이콘(파비콘 96px) · 색 #000000 / #FFFFFF → Checkout · 영수증 · 고객 포털에 적용 (전 앱 공통 브랜드)
+  顧客メール (settings/emails): 決済成功時に領収書を送信 ON · 返金時 ON · 失敗時 ON
+  ★ 税務情報 (settings/billing/invoice): 「税 ID」 추가 → 種類 JP TRN → T+13자리 → デフォルト → 請求書·領収書에 등록번호 인쇄 = 적격청구서 요건
+  請求書 템플릿 (같은 화면): 発行者 표기 = 屋号(계정 Business name 이 그대로 찍힘) · 메모에 「適格請求書発行事業者登録番号: T…」 · 支払条件
+  支払い方法 (settings/payment_methods): カード ON(Visa/MC/Amex/JCB/Diners/Discover) · Apple Pay/Google Pay 자동 · コンビニ·銀行振込 OFF (구독 · 즉시 제공과 안 맞음)
+  3D セキュア: 일본 의무화(2025-03)는 Checkout + Radar 규칙이 자동 처리 · Radar 기본 규칙 그대로(소액 디지털) · 입금 주기 週次
+
+1. Stripe Tax (소비세) — 켜는 쪽
+  settings/tax → 税金の自動計算を有効化 → 登録: 日本 · 消費税 10% · 등록번호 T…
+  商品の税コード: Software as a service (SaaS) – personal use 또는 Digital goods (txcd_10103001 계열) — 상품 생성 시 지정
+  価格の税設定: 税込(inclusive) ← 사이트가 税込 표시이므로 필수. 일본 고객 ¥2,500 = 본체 ¥2,273 + 세 ¥227 로 영수증에 분리 표기
+  해외 고객: 전기통신이용역무의 국외 제공 = 不課税 → Stripe Tax 가 일본 세금을 뺀다. 각국 VAT 는 그 나라에 등록하지 않는 한 징수하지 않음(しきい値モニタリング 로 임계치만 지켜본다)
+  비용 거래당 0.5%. 끄면 영수증의 세액 분리 표기(적격청구서 요건)를 직접 챙겨야 하므로 켠다
+
+1. 商品 · 価格 (본番 환경에서 만든다 · 테스트 환경은 별개)
+  Utils Premium — 年額      ¥2,500 · 継続(サブスクリプション) · 年ごと · 税込 · 税コード SaaS/Digital
+  Utils Premium — 買い切り  ¥5,000 · 一括(1 回限り) · 税込
+  説明(영수증에 표시): 写真ならべ — PowerPoint（.pptx）出力…、1 年間（自動更新） / 買い切り（永久ライセンス）
+  画像: 앱 og-image 또는 아이콘 · 明細書表記(상품별)는 비워 계정 기본 BROODEV UTILS
+  1 Product + Price 2개도 되지만 영수증 · 구독 관리가 헷갈리지 않게 상품 2개로
+  ★ 금액은 법적 정본 biz.js · 앱 biz.js · Stripe Price 세 곳이 반드시 같아야 한다 (검증 스크립트가 앞의 둘을 비교)
+  다른 앱 추가: 같은 계정에 「<앱> Premium — 年額 / 買い切り」 추가(明細書 BROODEV <APP>) → Payment Link 2개 → 그 앱 biz.js → 법적 biz.js PLANS 한 줄 + 총람 카드 1장. 계정 · 심사 · 약관 URL 은 그대로
+
+1. Payment Links (코딩 없이 판매 시작)
+  payment-links → 新規 → 상품 선택 · 플랜마다 1개
+  공통 설정
+    顧客情報の収集: メール(필수) · 請求先住所 必須(Stripe Tax 의 국가 판정) · 電話 OFF
+    利用規約への同意を必須にする ON → 등록해 둔 약관 URL 이 Checkout 에 동의 체크박스로 뜬다 (차지백 때 동의 시각 증빙)
+    税 ID の収集(tax_id_collection) ON — 법인 고객이 자기 T번호를 넣을 수 있게(선택)
+  買い切り 만: 決済後に請求書を作成(invoice_creation) ON → 一括 결제도 T번호 든 인보이스 PDF 자동 (0.4% · 상한 $2)
+  年額 만: 無料トライアル 는 쓰지 않음(환불 정책과 충돌) · 프로모션 코드는 필요 시
+  決済後: 확인 페이지(기본 문구). 라이선스 자동 발급이 있으면 「메일로 보냈습니다」 로 충분 (활성화 페이지로 リダイレクト 도 가능)
+  特商法 2022 개정 「最終確認画面」 요건(분량 · 지불 시기 · 제공 시기 · 해지 조건 · 자동갱신): 영어 대시보드엔 커스텀 텍스트 항목이 없어 요금 페이지 本文 + Checkout 의 자동갱신 표시 + 약관 동의로 충족
+  실제로 쓴 설정 (2026-10-05 · 영어 UI): Collect customer names ON · Collect addresses ON(Billing only) · Allow business customers to provide tax IDs ON(Require OFF) · Require customers to accept your terms ON · Enable Managed Payments OFF(+3.5%) · 買い切り만 After payment → Create an invoice PDF ON
+  ⚠ 테스트 링크(buy.stripe.com/test_…)를 앱에 넣지 않는다
+
+1. 앱에 연결 — 코드
+  utils (순수 JS · js/biz.js)
+    window.PLANS = {
+      currency: 'JPY',
+      yearly:   { price: 2500, interval: 'year', checkout: 'https://buy.stripe.com/…' },    // 年額 Payment Link(본番)
+      lifetime: { price: 5000, list: 10000,     checkout: 'https://buy.stripe.com/…' },    // 買い切り · list = 할인 표시용 정가(가격표시 노트)
+      promo: { until: null },                                                              // 발매 기념가 종료일 'YYYY-MM-DD'(JST) · null 이면 「기간 한정」
+      free_formats: ['xlsx'], premium_formats: ['pptx', 'ai', 'psd'],                     // 무료/프리미엄 경계
+      portal: 'https://billing.stripe.com/p/login/…',                                     // 고객 포털 로그인 링크(구독 운영 노트)
+    };
+    요금 페이지의 <a data-checkout="lifetime"> 를 site.js 가 checkout 값으로 채운다 — 빈 문자열이면 「準備中」(비활성), 있으면 「購入する」(새 탭)
+    app.js: premium_formats 에 든 형식의 페이지에서 라이선스(js/license.js)가 없으면 다운로드를 잠그고 요금 페이지로 보낸다
+  btc / voca (단일 파일 React): 상수 객체에 url 을 넣고 프리미엄 모달의 플랜 카드 버튼이 연다
+    const PREM_PLANS = {
+      yearly:   { price: 2500,              url: 'https://buy.stripe.com/…' },
+      lifetime: { price: 5000, list: 10000, url: 'https://buy.stripe.com/…' },
+      until: null,
+    }
+    코인 14 사이트는 btc 를 생성 스크립트로 복제 → 같은 링크 · 한 라이선스로 15 사이트
+  포털 총람 카드의 버튼은 앱의 #premium 딥링크 → 앱이 해시를 보고 프리미엄 모달을 바로 연다(해시는 replaceState 로 지움)
