@@ -107,7 +107,7 @@
     customer.subscription.updated → cancel_at_period_end · stripe_status 기록 · canceled/unpaid/incomplete_expired 면 status canceled + expires 를 지금으로, 아니면 active + 기간 종료 갱신(past_due 는 유예)
     customer.subscription.deleted → canceled · expires 지금
     charge.refunded(전액만) → pi:(없으면 cus:) 로 찾아 refunded · charge.dispute.created → disputed (payment_intent 없으면 charge 조회)
-  플랜 판별 resolvePlan: PRODUCT_MAP(env JSON {"prod_…":"yearly"}) → 라인 아이템 상품명(/utils/i 이고 年額|yearly|annual 또는 recurring → yearly · 買い切り|lifetime|one_time → lifetime) → 라인 아이템을 못 받으면 session.mode(subscription → yearly · payment → lifetime). Utils 가 아니면 null → skipped: not-utils-product
+  플랜 판별 resolvePlan: PRODUCT_MAP(env JSON {"prod_…":"monthly"}) → 라인 아이템 상품명(/utils/i 이고 月額|monthly 또는 recurring.interval month → monthly · 年額|yearly|annual 또는 interval year → yearly · 買い切り|lifetime|one_time → lifetime) → 못 받으면 결제 금액(100/800/2000) → session.mode. Utils 가 아니면 null → skipped: not-utils-product (2026-10-08 월간 추가)
 
 1. 활성화 API (verify.js)
   POST { key, device(8~64자 [A-Za-z0-9_-]), name? } · sameSite 검사 · 키 정규화
