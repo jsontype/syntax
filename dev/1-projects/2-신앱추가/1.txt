@@ -1,0 +1,30 @@
+[새로운 앱을 만들 때마다 진행 해야할 일 절차서]
+
+1. Cloudflare Pages 생성
+  https://dash.cloudflare.com
+  → Compute → Workers&Pages 에서 깃 레포지토리 임포트로 프로젝트 생성
+    - Project name: broodev-xxxx
+    - Root directory (advanced): apps/xxxx → Continue to project
+  → Custom domains 탭에서 도메인 설정
+    - Domain: xxxx.broodev.com → Activate Domain
+  → Settings 탭에서 빌드 워치 패스 설정: 
+    - Build watch paths: apps/xxxx/* → Enter 키 → Save
+
+1. Google Search Console 등록
+  https://search.google.com/search-console/welcome
+  → 사이트맵 추가 → 사이트맵 주소 입력 → 제출
+
+
+
+  →→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→
+  S급: anzan, brain, holiday, ice, idphoto, jetlag, kit, pack, english, pw, qr, quiz, mazang
+  M급: stroke, typing, pdf, invoice, secret, ending, reversi, puzzle, shiori, split, medlog, photomap
+
+  →→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→
+  stripe 프로덕트 등록 -> 웹훅 -> 
+  새로만든 앱들 월드투어 등등 개발자 테스트용 라이센스 키 발급받아서 env 추가
+  사이트맵 등등 콘솔처리.. 
+  -> 스트라이프 프로덕트 설정, 웹훅 설정, 사이트맵 콘솔에 등록
+  env에 추가하기 (라이센스테스트용 코드까지) 등등등...
+  ...
+  >> 실제로 스트라이프 프로덕트 설정, 웹훅 설정, 사이트맵 콘솔에 등록, env에 추가하기 (라이센스테스트용 코드까지)
