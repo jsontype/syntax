@@ -1,0 +1,111 @@
+[윈 처음 샀을 때 / 받았을 때의 세팅]
+
+1. malware 있을 시 초기화
+1. chrome 설치 후 구글 동기화
+1. chrome 웹스토어 확장 설치
+1. vscode 설치
+1. vscode 확장 설치 및 cwd 설정
+  ${fileDirname}
+1. nvm, node 설치 : 여러 버전의 node가 설치된 경우, 특정 노드 버전을 사용할 수 있게 해주는 CLI 툴
+  - nvm 설치 (Windows)
+    다음 주소에서 nvm-setup.exe 파일을 다운로드 : https://github.com/coreybutler/nvm-windows/releases
+    다운로드한 파일을 실행시키면 nvm이 설치가 된다.
+    vscode를 재기동
+    $ nvm -v
+  - nvm 사용하는 법 (Windows)
+    $ nvm list available : 설치할 수 있는 Node.js 목록을 표시한다.
+    $ nvm install 18.16.0 : 특정 버전의 Node.js를 설치한다.
+    $ nvm use 18.16.0 : 특정 버전의 Node.js를 사용한다.
+    $ nvm uninstall 18.16.0 : 특정 버전의 Node.js를 삭제한다.
+    $ nvm list : 현 nvm로 로컬에 설치된 node의 리스트를 확인한다.
+1. AI 관련 설정
+  - cursor 설치 : https://cursor.com 에서 설치 파일 다운로드 후 로그인
+    상세: dev/2-infra/7-ai/2-cursor/1.txt 참조
+  - claude code cli 설치 (PowerShell)
+    $ irm https://claude.ai/install.ps1 | iex
+    설치 후 터미널을 완전히 새로 열고, claude 입력 후 Max 계정으로 로그인
+    상세: dev/2-infra/7-ai/1-claude/1.txt 참조
+  - 이후의 터미널 세팅은 직접 하지 않고 AI에게 맡긴다.
+    아래의 [powershell 터미널에 깃 브랜치 표시되도록 세팅하기]도 AI에게 다음과 같이 지시하면 된다.
+    "깔아줘. oh-my-zsh 같은 느낌으로 윈도우에도 터미널에 브랜치명 나오게. oh-my-posh 방식으로."
+1. (skip) logicool g hub
+1. (skip) microsoft store에서 powertoys 설치 : 맥의 spotlight, spectacle 기능을 윈도우에서 쓸 수 있게 해줌
+  alt + space : 맥의 spotlight와 같음
+    . : 프로그램 찾기
+    ! : 프로그램 찾아서 중지하기
+  windows + shift + backtick키 : 화면분할 설정 화면
+    단축키 설정 : 화면분할 -> 설정 -> Fancy Zones -> 단축키와 프레임 지정
+    그리드 설정 : 새 레이아웃 -> 화면 클릭하면 분할 / 구분선 클릭한 상태로 Delete 키 누르면 삭제
+    사용하기 : 쉬프트 누르고 윈도우창 이동하면 틀에 맞춰짐
+
+
+
+[powershell 터미널에 깃 브랜치 표시되도록 세팅하기]
+* 참조 URL: https://ohmyposh.dev/docs/installation/windows
+
+1. (skip) oh-my-posh 및 MesloLGM Nerd Font 설치
+  "관리자모드"로 powershell 실행
+  $ winget install JanDeDobbeleer.OhMyPosh -s winget
+  "관리자모드"로 Powershell을 재기동
+  $ oh-my-posh font install
+  Meslo 선택 - 엔터 - 인스톨링 게이지바가 끝나면 다시 엔터
+  vscode에서 아래와 같이 세팅 후 폰트를 체크한다.
+    vscode를 재기동
+    vscode에서 ctrl + , 눌러서 설정 열기
+    terminal font 검색 후 폰트 설정 인풋창에 "MesloLGM Nerd Font" 입력하여 폰트 설정
+    vscode 터미널을 열고, I와 l을 쳐서 잘 구분이 되는 폰트로 바뀌었는지 확인한다.
+    l(엘)이 빠루처럼 되어있어서 잘 구분되는 것이 Nerd Font의 대표적 특징이다.
+  $ oh-my-posh get shell
+  $ code $PROFILE (= 맥의 code ~/.zshrc 과 동일)
+  파워쉘 프로필이 열리면 다음 줄을 추가
+  oh-my-posh init pwsh | Invoke-Expression
+  저장후 노트패드를 닫음
+  Powershell 터미널에서 아래를 입력
+  $ . $PROFILE
+
+1. 트러블슈팅
+  - 증상 : notepad $PROFILE 커맨드를 실행했을 때, 메모장에서 존재하지 않는 경로라는 메시지가 나올 경우
+  - 원인
+    * 참조URL : https://learn.microsoft.com/ko-kr/powershell/scripting/learn/shell/creating-profiles?view=powershell-7.3
+    원인은 초기설정으로 "Shell 환경 사용자 지정 (= 개인 프로필 작성)"을 하지 않았기 때문이다.
+    시스템에 PowerShell을 처음 설치할 때는 프로필 스크립트 파일과 해당 파일이 속한 디렉터리도 존재하지 않는다.
+    이것들이 존재하지 않는 경우, “현재 사용자, 현재 현재 호스트” 프로필 스크립트 파일을 만들어야 한다.
+  - 해결책
+    Powershell을 관리자모드로 열고, 아래의 커맨드를 입력
+    $ $PROFILE
+    "C:\Users\user1\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"와 같은 메시지가 뜨는지 확인
+    $ $PROFILE.AllUsersAllHosts
+    "C:\Program Files\PowerShell\7\profile.ps1"와 같은 메시지가 뜨는지 확인
+    여기까지 진행됐다면, 아래 커맨드를 입력
+    $ if (!(Test-Path -Path $PROFILE)) { New-Item -ItemType File -Path $PROFILE -Force }
+    $ code $PROFILE
+    이러면 이제 VSCode가 프로필파일을 열어줄 것이다. 그러면 거기에다가 다음 줄을 추가하고 저장한 뒤 VSCode를 닫는다.
+    oh-my-posh init pwsh | Invoke-Expression
+    VSCode를 재기동하여 터미널을 확인
+    Powershell 터미널에서 아래를 입력
+    $ . $PROFILE
+    설정 끝
+
+  - 증상 : 다 진행하고, powershell을 열었을 때, 다음과 같은 에러가 나올 경우
+  . : File C:\Users\jsont\OneDrive\ドキュメント\WindowsPowerShell\Microsoft.PowerShell_profile.ps1 cannot be loaded
+    because running scripts is disabled on this system. For more information, 
+    see about_Execution_Policies at https:/go.microsoft.com/fwlink/?LinkID=135170.
+    At line:1 char:3
+    + . 'C:\Users\jsont\OneDrive\ドキュメント\WindowsPowerShell\Microsoft.PowerSh ...
+    +   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      + CategoryInfo          : SecurityError: (:) [], PSSecurityException
+      + FullyQualifiedErrorId : UnauthorizedAccess
+  - 원인
+    위 에러는 PowerShell 스크립트를 실행할 때 시스템 보안 정책으로 인해 제한이 걸려있는 경우이다.
+  - 해결책
+    PowerShell을 관리자 권한으로 실행한다.
+    아래의 명령을 실행하여 현재의 실행 정책을 확인한다.
+    $ Get-ExecutionPolicy
+    정책이 "restricted"로 되어있다면, 아래 명령을 실행한다.
+    $ Set-ExecutionPolicy Unrestricted
+    해결 끝
+
+1. 테스트
+  vscode와 powershell을 각각 재기동
+  vscode 터미널에서 깃 브랜치가 표시되는지 확인
+  powershell을 열고 깃 브랜치가 표시되는지 확인

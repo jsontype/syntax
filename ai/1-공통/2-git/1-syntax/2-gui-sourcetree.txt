@@ -1,0 +1,58 @@
+[sourcetree]
+
+1. Git GUI 툴 목록
+  sourcetree (다양한 기능 포함, 범용적으로 사용됨)
+  gitkraken (화려한 ui를 선호할 경우)
+  * 그러나 터미널의 기능이 가장 많다.
+
+1. 사전 준비
+  sourcetree 다운받기
+  원하는 프로젝트의 깃 클론 따기
+
+1. 깃ID 인증을 위한 토큰키 연동
+  sourcetree에서 fetch를 실행해보면 에러가 뜰 것이다.
+  에러 메세지는 다음과 같다.
+    "Support for password authentication was removed on August 13, 2021."
+  sourcetree 메뉴 -> 설정 -> 어카운트 탭
+    호스트 : Github
+    인증타입 : Basic
+    유저명 : Github 유저명
+    패스워드 : 
+      깃허브 -> 우측상단 유저 아이콘 클릭 -> Settings -> Developer settings
+      -> Personal access tokens(Classic) -> Generate new token(Classic)
+      -> No expiration 체크 -> 필요한 Git 권한 전부 체크 -> 확인 버튼 클릭
+      -> token key가 발행되면 카피한 다음, 메모에도 붙여넣기 해둔다.
+      -> 카피한 token key 값을 패스워드로써 입력한다.
+    프로토콜 : HTTPS
+  저장 버튼 클릭
+
+1. ★ sourcetree에 토큰 추가하기
+  참조URL: https://pingfanzhilu.tistory.com/entry/GitHub-%EC%86%8C%EC%8A%A4%ED%8A%B8%EB%A6%ACSourcetree%EC%97%90%EC%84%9C-push%EC%8B%9C-%ED%86%A0%EA%B7%BC-%EC%9D%B8%EC%A6%9D-%EC%9A%94%EA%B5%ACSupport-for-password-authentication-was-removed-on-August-13-2021-Please-use-a-personal-access-token-instead-%EC%98%A4%EB%A5%98-%ED%95%B4%EA%B2%B0-%EB%B0%A9%EB%B2%95
+  sourcetree의 우측 상단의 설정버튼을 누른다.
+  저장소 설정 -> 원격 -> 경로를 더블클릭한다.
+  URL / 경로에 생성한 토큰을 추가한다.
+    # https://토큰@github.com/test.git
+
+1. SSO 문제
+  에러 메세지는 다음과 같다.
+    "organization has enabled or enforced SAML SSO."
+  SAML SSO를 사용하는 조직에 있는 경우, 
+  해당 조직의 리소스에 액세스하는 데 사용되는 모든 개인 액세스 토큰은,
+  해당 조직에 대해 활성화가 되어 있어야 한다.
+
+1. ★ SSO 문제 해결방법
+  개인 액세스 토큰 설정(https://github.com/settings/tokens)으로 이동하여,
+  "Configure SSO"를 선택한 뒤, 
+  여기에서 조직명을 선택하여 SSO를 authorize시킬 수 있다. 
+  그 이후에는 정상적으로 사용하면 된다.
+  
+1. 유저 계정 등록
+  참조URL: https://whitekeyboard.tistory.com/332
+  패스워드는 마찬가지로 token key를 이용한다.
+
+1. 테스트
+  sourcetree에서 정상적으로 fetch, push 등이 가능한지 확인해본다.        
+
+1. sourcetree 숙달하기
+  fetch, add commit push, pull, checkout, 로컬 / 리모트 브랜치 delete, stash 등 사용해보기
+  깃 작업할 때마다 깃 플로우의 트리 구조 보면서 보는 법에 익숙해지기

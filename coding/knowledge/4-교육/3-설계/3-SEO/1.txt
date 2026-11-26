@@ -1,0 +1,93 @@
+[SEO 기초 — 검색엔진 최적화]
+참조: BTC_SIGNAL 프로젝트에 실제 적용한 내용 정리
+
+
+[SEO란?]
+
+1. 정의
+  구글/네이버가 내 사이트를 "잘 읽고 → 이해하고 → 상위 노출"하게 만드는 작업
+  3요소: 크롤링 가능(읽힘) / 콘텐츠·메타(이해됨) / 신뢰·속도(평가됨)
+
+
+[가장 흔한 함정: SPA는 본문이 비어 있다]
+
+1. 문제
+  React/Vite 앱은 HTML 소스가 <div id="root"></div> 뿐, 내용은 JS가 그림
+  구글은 JS를 어느정도 렌더하나 느리고 불안정, 네이버·카톡·트위터 봇은 JS를 거의 안 돌림 → 본문 0 → 색인 실패
+
+1. 해결
+  SEO 핵심(제목·설명·본문·FAQ)은 JS 없이도 HTML 소스에 보이게 둔다
+  방법: 빌드+프리렌더 / index.html 의 #root 바깥에 정적 본문 삽입 / SSR·SSG(Next 등)
+
+
+[체크리스트 (BTC_SIGNAL 실제 적용)]
+
+1. <head> 메타
+  <title> 키워드 포함 ~60자
+  <meta name="description"> ~150자
+  <link rel="canonical"> 대표 URL
+  Open Graph + Twitter Card (카톡/트위터 공유 카드)
+  favicon, theme-color
+
+1. 정적 본문 + FAQ
+  노리는 키워드가 들어간 설명/FAQ를 화면에도 보이게 작성
+  숨김 텍스트는 클로킹 페널티 → 진짜 보이는 콘텐츠여야 함
+
+1. 구조화 데이터 (JSON-LD)
+  <script type="application/ld+json"> 에 WebApplication, FAQPage 등 → 리치 스니펫
+  JSON-LD 내용은 페이지에 보이는 내용과 일치해야 함
+
+1. sitemap.xml + robots.txt
+  사이트 구조/수집 정책 알림 + Search Console에 사이트맵 제출
+
+1. og:image (1200×630 PNG)
+  소셜 공유 미리보기. SVG 미지원 → PNG/JPG
+  팁: HTML 카드를 헤드리스 브라우저(Edge/Chrome --headless --screenshot)로 PNG 렌더
+
+1. 다국어(i18n) SEO
+  hreflang(언어별 대체 URL) + 언어별 <title>/<html lang>/description 동기화
+
+1. 성능 (Core Web Vitals)
+  느리면 순위 하락. 브라우저 런타임 변환(Babel-in-browser) 제거 → 빌드 산출물 배포
+
+1. 등록 (가장 중요한 마무리)
+  Google Search Console: 소유확인 → 사이트맵 제출 → 색인 요청
+  네이버 서치어드바이저(한국 타깃 필수), 빙 웹마스터
+  소유확인: <meta name="google-site-verification" content="토큰"> 를 head에 넣고 배포
+
+
+[한국 타깃이면 네이버가 핵심]
+
+1. 이유
+  국내 점유율 때문에 네이버 색인이 중요
+  네이버는 JS 렌더가 약함 → 정적 본문 없으면 사실상 색인 불가
+
+
+[GitHub Pages 함정 (실제로 겪음)]
+
+1. robots.txt 위치
+  호스트 루트(user.github.io/robots.txt)에서만 표준 인식
+  프로젝트 하위경로(/repo/robots.txt)는 무시될 수 있음 → 커스텀 도메인이면 해결
+
+1. private 저장소
+  무료 플랜은 private 저장소로 Pages 배포 불가 ("Configure Pages"에서 실패)
+  public 유지 or GitHub Pro
+
+1. 커스텀 도메인 전환 시
+  canonical/og/sitemap/hreflang 의 절대 URL을 전부 새 도메인으로 교체
+
+
+[작업 순서 (우선순위)]
+
+1. P0  정적 본문 + 메타 + JSON-LD + sitemap/robots (효과 大·난이도 小)
+1. P1  og:image + 검색엔진 등록(GSC/네이버/빙)
+1. P2  빌드 전환(성능) + hreflang/언어별 title
+1. P3  커스텀 도메인 + 콘텐츠 확장/백링크
+
+
+[점검 도구]
+
+1. 구글 Rich Results Test (구조화데이터/FAQ)
+1. PageSpeed Insights / Lighthouse (성능)
+1. 카카오·페이스북·트위터 공유 디버거 (OG 캐시 갱신)
+1. 페이지 소스 보기 / JS 끄고 보기 (정적 본문 확인)

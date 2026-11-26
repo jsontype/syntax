@@ -1,0 +1,26 @@
+[Next15 기본앱 작성]
+
+1. Next15 프로젝트 시작하기
+  $ npx create-next-app@15.2.4 app3 # 2025년 3월 기준 latest 버전
+    Typescript? > Yes
+    ESLint? > Yes
+    Tailwind CSS? > Yes (No로 하면 자동으로 css module로 설정됨. 즉 page.module.css이 자동 생성됨)
+    src/? > Yes
+    App Router? > Yes
+    Turbopack? > No
+    import alias? > No (No로 하면 /src 절대경로가 기본값인 @이 됨)
+  $ cd app3
+  $ npm i
+
+1. 불필요한 파일 삭제
+  - 폴더: /app/api
+
+1. src/app/movies/page.tsx 작성: 기본 영화앱 추가
+  
+1. src/app/layout.tsx 작성: NavBar가 들어간 루트 레이아웃 추가
+
+1. src/app/page.tsx 작성: 루트 페이지 추가
+
+1. 테스트
+  $ cd app1
+  $ npm run dev

@@ -1,0 +1,145 @@
+[Mac 단축키]
+
+1. 개발용
+    터미널 열기 : ctrl + @ (영어자판에서)
+    터미널 새로 열기 : cmd + t
+    ★★ 파일 잘라내기 : cmd c 한 다음, 붙여넣기할 때 cmd + opt + v
+    맥북 바탕화면 이동 : F3키 누르고 원하는 화면 클릭
+    한자 입력 : 옵션 엔터 (기호는 안됨)
+    켜진 앱 전체 보기 : 트랙패드 세손가락으로 쓸어올리기
+    윈도우 버튼과 동일 : 트랙패드 네손가락으로 오므리기 (단축키 없음) (네손가락으로 펴면 원래로 돌아옴)
+    스프레드시트 매크로용 shift + ctrl + alt + 숫자키 : shift + opt + cmd + 숫자키
+    vs코드 확대/축소 : cmd + shift + '-' / cmd + '-'
+    크롬 확대/축소 : （일본어키보드에서) cmd + '+' / cmd + shift + '+'
+    크롬 콘솔로그 확대/축소 : cmd + '-' / cmd + '~' (매직키보드 말고 맥북내 키보드로 해야함)
+    크롬 새로고침(F5) : cmd + r
+    시스템 종료(Alt F4) : ctrl + 전원키
+    백슬래쉬 : (영어키보드에서) opt + ¥
+    원화표시 : (한글키보드에서) shift + @
+    백틱표시 : (영어키보드에서) shift + @ (한글키보드에서) shift + opt + @
+    vs코드 한글 씹힐 때 : cmd + shift + p → 표시 언어 구성 → ko 선택 (이미 ko로 되어있더라도, "언어를 변경하는 행위"가 중요함)
+    파인더에서 숨김파일 보기 : cmd + shift + .
+    크롬 개발자도구 : cmd + opt + i
+    HandOff 기능 끄기 (휴대폰에서 복사붙여넣기 동기화 하는 기능) : 끄고 싶은 맥북에서 -> 설정 -> 일반 -> airdrop 및 handoff -> handoff 허용 끄기
+
+
+
+1. 스펙타클
+    풀스크린 : cmd + opt + f
+    센터 : cmd + opt + c
+    가로 하프 : cmd + opt + 방향키
+    가로 3분의 1씩 또는 세로 하프 : ctrl + opt + 방향키
+    확대축소 : ctrl + opt + shift + 방향키
+
+
+
+1. 연동성
+    동일한 애플 ID로 로그인 후, 핸드오프 설정
+    아이패드 그림 복사 : 맥북에서 cmd v
+    아이폰 사진 복사 : 맥북에서 cmd v
+    에어드랍 사용법 : https://support.apple.com/ko-kr/HT204144
+
+
+    
+1. COMMON
+    알트탭 류
+        프로그램간 이동 : 순방향 Command + Tab 
+        역방향 :  Command + Shift + Tab)
+        창간 이동 :  Command + @ // 탭간 이동 : Tab + Ctrl
+    Cmd +
+        A = Select All
+        C = Copy
+        V = Paste
+        X = Cut
+        Z = Undo
+        H = Hide
+        N = New
+        P = Print
+        F = Find
+        G = Find Next
+        M = Minimize
+        E = Eject
+        D = Bookmark
+        O = Open a File
+        R = Reload a Page
+        S = Save
+        W = Close a Tab
+        T = Open Tab
+        +/- = Zoom
+        O = Open a File
+        F3 = Show Desktop
+        , = 앱 설정
+        → = Jump to End Row
+        ← = Jump to Start Row
+        ↑ = Jump to Start
+        ↓ = Jump to End
+        
+        
+    
+1. FINDER
+    Cmd + Shift + 
+        A = Applications
+        C = Computer
+        D = Desktop
+        F = Recents
+        G = Go to Folder
+        H = Home
+        I = iCloud
+        N = New Folder
+        L = Downloads
+        O = Documents
+        P = Show/Hide Preview
+        R = AirDrop
+        T = Show Hide Tab
+
+    Cmd +
+        I = Get File Info
+        K = Connect to Server
+        N = New Finder Win
+        [ = Go to Prev. Folder
+        ] = Go to Next Folder
+        Backspace = Move To Trash
+        Shift + Backspace = Empty Trash
+        1/2/3/4 = Change View
+
+
+
+1. ADVANCED
+    Cmd + Shift + 3 = 풀 스크린샷
+    Cmd + Shift + 4 = 선택 스크린샷
+    Cmd + Shift + 4 -> Space -> Enter = 윈도우  스크린샷
+    Cmd + Shift + 5 = 화면 녹화
+
+    Cmd + Space = Spotlight 검색
+    Cmd + , = d
+    Cmd + Ctrl + Space = 이모지/심볼
+    fn + Del = 딜리트
+
+    Cmd + Tab = 앱 스위칭
+    Cmd + Shift + T = 닫은 탭 다시 열기
+    Cmd + Shift + ? = 도움말
+    Cmd + Opt + D = 도커 토글
+    Cmd + `` = 다음 앱
+    Cmd + Ctrl + F = Full Screen
+    Cmd + Ctrl + Q = Lock Screen
+    Cmd + Ctrl + Q = Lock Screen
+    Cmd + Shift + Q = 로그아웃
+    Cmd + Opt + ESC = 앱 강제종료
+    Cmd + Opt + Ctrl + 전원 = 강제셧다운
+    Cmd + Opt + M + H = 앱 최소화
+    F11 = 바탕화면 보기
+
+
+
+1. Hold at Startup (Intel)
+    Shift : Safe Mode
+    Opt : Boot Manager
+    D : Diagnostics
+    Cmd + R : Recovery
+
+
+
+1. Hold at Startup (M1 Chip)
+    Hold until boot
+    Hold + Shift = Safe Mode
+    Cmd + D = Diagnostics

@@ -1,0 +1,81 @@
+[watchEffect]
+
+1. watchEffect란?
+  watchEffect는 "콜백 함수 내부에서 사용되는 변수들 중 하나의 값이 바뀌면" 실행하는 콜백 함수이다.
+
+1. src/components/reactive/WatchEffect.vue 수정
+  ```
+    <template>
+      <div>
+        <h1>WatchEffect</h1>
+        <input v-model="user.userName" placeholder="Name" />
+        <input v-model="user.details.age" placeholder="Age" />
+        <div>Updated at: {{ lastUpdated }}</div>
+      </div>
+    </template>
+
+    <script setup>
+    import { reactive, ref, watchEffect } from "vue"
+
+    const user = reactive({
+      userName: "",
+      details: {
+        age: "",
+      },
+    });
+
+    const lastUpdated = ref("");
+    const showAlert = ref(false);
+
+    // watchEffect는 "콜백 함수 내부에서 사용되는 변수들 중 하나의 값이 바뀌면" 실행하는 콜백 함수이다.
+    watchEffect(() => {
+      console.log("user.userName: ", user.userName);
+      // 콜백 함수내에서 사용되었으므로, user.userName이 바뀌면 아래가 실행된다.
+      // 콜백 함수내에서 사용되지 않은, user.details.age은 바뀌어도 아래가 실행되지 않는다.
+      lastUpdated.value = new Date().toLocaleTimeString();
+    });
+    </script>
+  ```
+
+1. src/views/Home.vue 수정 : 컴포넌트 호출
+  ```
+    <template>
+      <Computed />
+      <NoComputed1 />
+      <NoComputed2 />
+      <Watch />
+      <WatchForm />
+      <WatchNoDeep />
+      <WatchDeep />
+      <WatchEffect />
+    </template>
+
+    <script setup lang="ts">
+    import Computed from "@/components/reactive/Computed.vue";
+    import NoComputed1 from "@/components/reactive/NoComputed1.vue";
+    import NoComputed2 from "@/components/reactive/NoComputed2.vue";
+    import Watch from "@/components/reactive/Watch.vue";
+    import WatchForm from "@/components/reactive/WatchForm.vue";
+    import WatchNoDeep from "@/components/reactive/WatchNoDeep.vue";
+    import WatchDeep from "@/components/reactive/WatchDeep.vue";
+    import WatchEffect from "@/components/reactive/WatchEffect.vue";
+    </script>
+
+    <style scoped></style>
+  ```
+
+1. 테스트 : user.userName은 변경을 감지하고 업데이트되고, user.details.age는 변경을 감지하지 않는 것을 확인
+  $ cd app1
+  $ npm run dev
+
+1. 참조: watchEffect 함수 내부에 만일 console.log(user)만 있다면?
+  그렇다면 user.userName이나 user.details.age 등의 객체의 변화를 감지하지 못한다.
+  그 이유는 다음과 같다.
+  watchEffect는 함수 내부에서 사용된 반응형 참조를 자동으로 감지한다.
+  그러나 때로는 객체 전체를 참조하는 것만으로는 내부 속성의 변경을 세밀하게 감지하지 못한다.
+  객체의 특정 속성이 변경되는 것을 감지하려면, 그 속성을 명시적으로 참조해야 한다.
+
+  예를 들어, console.log("user.userName: ", user.userName)를 사용하면,
+  watchEffect는 user.userName에 대한 의존성을 파악하여 이 속성이 변경될 때 반응한다.
+  반면, console.log(user)를 사용할 경우, user 객체 전체의 의존성은 감지되나 개별 값 변화에 대해서는 반응하지 못한다.
+  결론적으로, user 객체 내의 특정 속성 변경을 감지하려면 user.userName 처럼 그 속성을 명시적으로 참조해야 한다.

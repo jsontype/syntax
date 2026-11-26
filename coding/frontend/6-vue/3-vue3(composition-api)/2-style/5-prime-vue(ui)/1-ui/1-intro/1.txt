@@ -1,0 +1,61 @@
+[PrimeVue: Install]
+참조URL: https://primevue.org
+
+1. 사전준비: init 앱을 가지고 온다.
+
+1. 사전준비: src/components/HelloWorld.vue 삭제
+
+1. 라이브러리 설치
+  $ npm i primevue primeicons
+
+1. src/main.ts 수정 : PrimeVue를 앱에 연결한다.
+  ```
+    import { createApp } from 'vue';
+    import PrimeVue from 'primevue/config';
+    
+    const app = createApp(App);
+
+    app.use(PrimeVue);
+    app.mount('#app');
+  ```
+
+1. src/components/PrimeButton.js 생성
+  ```
+    <template>
+      <div class="card flex justify-content-center flex-wrap gap-3">
+          <Button label="Primary" rounded />
+          <Button label="Secondary" severity="secondary" rounded />
+          <Button label="Success" severity="success" rounded />
+          <Button label="Info" severity="info" rounded />
+          <Button label="Warning" severity="warning" rounded />
+          <Button label="Help" severity="help" rounded />
+          <Button label="Danger" severity="danger" rounded />
+          <Button label="Contrast" severity="contrast" rounded />
+      </div>
+    </template>
+
+    <script setup>
+    import Button from 'primevue/button';
+    </script>
+  ```
+
+1. src/App.vue 수정 : PrimeVue CSS를 임포트해서 PrimeVue를 사용할 수 있게 하고, 컴포넌트를 호출한다.
+  ```
+    <template>
+      <PrimeButton />
+    </template>
+
+    <script setup lang="ts">
+    import PrimeButton from '@/components/PrimeButton.vue'
+    import 'primevue/resources/themes/saga-blue/theme.css';
+    </script>
+
+    <style scoped>
+    </style>
+  ```
+
+1. 테스트
+  $ cd app1
+  $ npm run dev
+
+1. 보충 : 추가하고 싶은 내용들이 있으면, https://primevue.org 에서 참조한다.

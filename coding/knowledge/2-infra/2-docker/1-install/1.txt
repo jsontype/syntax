@@ -1,0 +1,47 @@
+[Docker]
+
+1. Docker란?
+  인프라 구축시에, "정해진 버전의 OS, DB주소, .env, node.js, npm, config, app.js, assets, dependencies 등 모든 것"을 묶어서 하나로 패키징해주는 툴.
+  기존의 VM의 경우, 런타임에 OS를 설치하는 방식이라, 구동이 느린 반면,  
+  Docker를 사용할 경우, Dockerfile에 "Image"를 넣어두고, "Server 런타임"에서 꺼내어 쓰는 방식이라, 구동도 빠르고, 간단하게 사용할 수 있다.
+  Server 런타임은, 개인의 경우 보통 dockerhub, github packages를, 회사 현장에서는 AWS, GCP, Azure 등을 사용한다.
+
+1. Docker는 마치 Git과 비슷하다.
+  Local(PC)에서 Dockerfile Image(Git)를 만들어서, 
+  Dockerhub(Github)에 Push하고,
+  Server(Azure)에서 Pull받아서 사용한다.
+  자세한 설명은 아래를 참조한다.
+
+
+
+[Docker 설치]
+
+1. Docker 데스크톱앱을 설치 후 실행
+
+1. VSCode에 Docker Extension 설치
+  Dockerfile, docker-compose.yml 파일을 만들 때, 자동완성 기능을 사용할 수 있다.
+
+
+
+[백엔드앱 만들기]
+
+1. 백엔드앱 폴더 만들고, express 설치
+  $ mkdir app1
+  $ npm i express
+
+1. index.js 작성 : 아주 간단한 백엔드앱 만들기
+  const express = require('express');
+
+  const app = express();
+
+  app.get('/', (_req, res) => {
+    res.send('Hello World!');
+  });
+
+  app.listen(8080, () => {
+    console.log('Server is running on port 8080');
+  });
+
+1. 테스트
+  $ node index.js (= node .)
+  http://localhost:8080 접속

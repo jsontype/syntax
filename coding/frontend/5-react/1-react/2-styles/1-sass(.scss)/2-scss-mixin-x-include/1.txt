@@ -1,0 +1,46 @@
+[Sass Mixin을 이용해 반복되는 코드들 정리]
+
+1. Mixin이란?
+  @mixin은 CSS 코드를 마치 함수를 호출하듯이 사용할 수 있다.
+  이로 인해 불필요하게 재사용되는 CSS 코드를 줄일 수 있다.
+  문법은 다음과 같다.
+    선언할 때에는 @mixin 함수명($파라미터) { css코드 } 
+    호출할 때에는 @include 함수명($파라미터) { css코드 }
+  ★ @mixin에서 파라미터는 필수가 아니다. 즉, 단순 css 모음을 호출하는 형태로 쓰고 싶을 때도 가능하다.
+  이번에는 먼저 button에 색상을 넣고, 후버링시 색상 그라데이션을 넣는 복잡한 코드를 함께 넣어서
+    코드를 길게 만들고 이를 @mixin의 재새용을 통해 훨씬 깔끔하게 정리하는 과정을 보여주겠다.
+
+1. src/styles/color.scss 수정 : @mixin 함수선언부 추가
+  $blue: blue;
+  $red: red;
+  $light-gray: lightgray;
+  $gray: gray;
+
+  @mixin button-color($color) {
+    background: $color;
+    &:hover {
+      background: lighten($color, 10%);
+    }
+    &:active {
+      background: darken($color, 10%);
+    }
+  }
+
+1. src/components/common/Button.scss 수정 : @include 함수호출부 추가
+  @import '../../../styles/resources.scss';
+
+  .Button1 {
+    @include button-color($blue);
+  }
+
+  .Button2 {
+    @include button-color($red);
+  }
+
+  .Button3 {
+    @include button-color($gray);
+  }
+
+1. 테스트 : 버튼이 동일하게 잘 나타나는지 확인
+  $ cd app1
+  $ npm start

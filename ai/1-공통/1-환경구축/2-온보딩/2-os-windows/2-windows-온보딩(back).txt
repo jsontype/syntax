@@ -1,0 +1,21 @@
+[윈 처음 샀을 때 세팅]
+
+1. malware 있을 시 초기화
+1. 크롬 설치 후 구글 동기화
+1. vscode 확장
+1. vscode 현재 파일 위치로 터미널 열기 설정
+    vscode 설정 아이콘을 누른다.
+    terminal.integrated.cwd
+    ${fileDirname}
+    vscode 설정 아이콘을 누른다.
+    설정동기화를 켠다.
+    github로 로그인해둔다.
+1. 다음 툴들을 설치한다. 
+    git : gitforwindows.org
+    sourcetree
+    zoom
+    slack
+    node.js
+    xampp
+    pleiades eclipse
+    a5m2

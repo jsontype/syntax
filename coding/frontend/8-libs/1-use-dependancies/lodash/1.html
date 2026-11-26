@@ -1,0 +1,56 @@
+<h1>콘솔로그 확인</h1>
+
+<!-- 
+  참조URL: https://velog.io/@kysung95/짤막글-lodash-알고-쓰자
+
+  Lodash는 JavaScript의 인기있는 라이브러리 중 하나이다.
+    array, object 등을 쉽게 다룰 수 있게끔 하는데에 사용된다.
+    JavaScript에서 배열 안의 객체들의 값을 handling할 때 유용하다.
+    JavaScript의 코드를 줄여주고, 빠른 작업에 도움이 된다.
+    "_.*"과 같이, lodash wrapper로 감싸게 되면서 명칭 또한 lodash가 된 것이다.
+    (* Vue나 React와 함께 사용하는데 Vue에서 더 많이 사용하는 느낌이다.)
+
+  Lodash를 사용하는 이유들은 다음과 같다.
+    - 브라우저에서 지원하지 않는 성능이 보장되어있는 다양한 메소드를 가지고 있음.
+    - 퍼포먼스 측면에서 native보다 더 나은 성능을 가짐.
+    - npm이나 기타 패키지 매니저를 통해 쉽게 사용 가능.
+-->
+
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+
+<script>
+  // chunk : 배열을 두개로 쪼갠다.
+  const chunk = _.chunk(['a', 'b', 'c', 'd'], 3);
+  console.log('chunk: ', chunk) // => [['a', 'b', 'c'], ['d']]
+
+  // concat : 합집합
+  const concatArr = [1];
+  const concat = _.concat(concatArr, 2, [3], [[4]])
+  console.log('concat: ', concat) // => [1, 2, 3, [4]]
+
+  // difference : 차집합
+  const difference = _.difference([2, 1], [2, 3])
+  console.log('difference: ', difference) // => [1]
+
+  // intersection : 교집합
+  const intersection = _.intersection([2, 1], [2, 3]);
+  console.log('intersection: ', intersection) // => [2]
+
+  // cloneDeep : 깊은 복사
+  const obj1 = { a: 1, b: 2, c: 3 };
+  const obj2 = _.cloneDeep(obj1);
+  obj1.a = 999;
+  console.log('cloneDeep: ', obj1.a === obj2.a); // => false
+
+  // isEmpty : 주소참조변수(객체, 배열)의 falsey 체크
+  console.log(_.isEmpty(1)); // => true
+  console.log(_.isEmpty([])); // => true
+  console.log(_.isEmpty({})); // => true
+  console.log(_.isEmpty(null)); // => true
+  console.log(_.isEmpty(true)); // => true
+  console.log(_.isEmpty({ 'a': '' })); // => false
+  console.log(_.isEmpty({ 'a': 1 })); // => false
+  console.log(_.isEmpty([1, 2, 3])); // => false
+  console.log(_.isEmpty([null])); // => false
+  console.log(_.isEmpty([{}])); // => false
+</script>

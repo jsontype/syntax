@@ -1,0 +1,166 @@
+[scss 버튼]
+
+
+
+### 1. assets/scss/application.scss에 추가 ###
+// components 맨 뒤에 추가
+@import "./components/button";
+
+
+
+### 1. pages/index.vue 수정 ### : input태그 밑에 추가
+
+    <div>
+      <button class="btn btn--large btn--submit">test</button>
+    </div>
+
+
+
+### 1. assets/scss/components/_button.scss 생성 ###
+
+.btn {
+    display: flex;
+    align-items: center; // 세로 가운데정렬(flex일 때)
+    justify-content: center; // 가로 가운데정렬(flex일 때)
+    // vertical-align: center; // 세로 가운데정렬(flex가 아닐 때)
+    // text-align: center; // 가로 가운데정렬(flex가 아닐 때) 
+    border: 0; // 경계선을 없앰
+    appearance: none; // 경계선을 없앰
+    text-decoration: none; // 경계선을 없앰
+    cursor: pointer;
+
+    // size : &--large = .btn--large
+    &--large {
+        width: 100%;
+        height: 52px;
+        font-size: $font-size-large;
+        line-height: 16px;
+        font-weight: 900px;
+    }
+
+    // color
+    &--submit {
+        color: $font-color-white;
+        background-color: $background-color-orange;
+        border-radius: 6px; // 버튼 4각의 각 끝을 동그랗게
+
+        &:link {
+            color: $font-color-white;
+        }
+
+        &:visited {
+            color: $font-color-white;
+        }
+
+        &:active {
+            color: $font-color-white;
+        }
+    }
+}
+
+
+
+[scss 로그인]
+
+1. 구글 bem css 검색 후 읽어보기 : https://cloudsmith.co.jp/blog/frontend/2021/03/1742107.html
+  클래스명은 bem 규칙을 따를 것이다.
+
+
+
+### 1. pages/login.vue 생성 ### : login이 부모. login__..가 아이. login__.._..는 손자. 이렇게 클래스명을 지어서 위계를 이해하기 쉽게 한다.
+
+<template>
+    <div class="login">
+        <div class="login__title">App</div>
+        <ul class="login__form">
+            <li>
+                <div class="login__form__title">메일주소</div>
+                <div class="login__form__input">
+                    <input type="text" placeholder="메일주소" />
+                </div>
+            </li>
+            <li>
+                <div class="login__form__title">패스워드</div>
+                <div class="login__form__input">
+                    <input type="password" placeholder="패스워드" />
+                </div>
+            </li>
+        </ul>
+        <div class="login__passwordForget">
+            <a href="">패스워드가 기억나지 않아요</a>
+        </div>
+        <div class="login__action">
+            <button class="btn btn--large btn--submit">로그인</button>
+        </div>
+    </div>
+</template>
+
+
+
+### 1. assets/scss/pages/login/_module.scss 생성 ###
+
+.login {
+    padding: 0 16px; // = padding: 0 16px 0 16px (위 우 아래 좌)의 생략형태
+
+    &__title {
+        margin-top: 92px;
+        text-align: center;
+        font-size: $font-size-big;
+        font-family: Comfortaa;
+        line-height: 36px;
+        color: $font-color-gray_strong
+    }
+
+    &__form {
+        >li {
+            &:not(:first-child) {
+                margin-top: 12px;
+            }
+        }
+
+        &__title {
+            color: $font-color-gray_strong;
+        }
+    }
+
+    &__passwordForget {
+        margin-top: 12px;
+        text-align: right;
+
+        >a {
+            color: $font-color-orange;
+
+            &:link {
+                color: $font-color-orange;
+            }
+
+            &:visited {
+                color: $font-color-orange;
+            }
+
+            &:active {
+                color: $font-color-orange;
+            }
+        }
+
+        color: $font-color-orange;
+    }
+
+    &__action {
+        margin-top: 30px;
+    }
+}
+
+
+
+### 1. assets/scss/application.scss에 추가 ###
+
+맨 아래에 추가
+// pages
+@import "./pages/login/module";
+
+
+
+1. npm run dev 로 확인
+  http://localhost:3000/login
+  

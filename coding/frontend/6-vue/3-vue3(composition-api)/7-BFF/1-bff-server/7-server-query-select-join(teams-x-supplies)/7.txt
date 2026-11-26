@@ -1,0 +1,96 @@
+[Playground에 teams 쿼리에 supplies를 연결해서 함께 받아오도록 Type, Resolver를 추가하고 teams 쿼리 날려보기]
+  
+1. Underfetching 문제 해결하기 
+  Underfetching은 REST API를 사용할 때의 고질적 문제중 하나로,
+  하나의 정보를 얻기 위해 여러 번의 요청을 보내야 하는 것을 말한다.
+  반면, GraphQL은 하나의 요청으로 여러 정보를 얻을 수 있다.
+  (마치 관계형 DB에서 join이 포함된 SQL 쿼리를 날린 것처럼 사용이 가능하다.)
+
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+ 
+1. index.js 수정 : Team 쿼리의 타입 안에 [Supply]를 추가해서 supplies 안에 Supply 쿼리의 타입을 받아오도록 한다.
+  const database = require("./database")
+  const { ApolloServer, gql } = require("apollo-server")
+
+  // typeDefs : GraphQL 스키마(요청에 사용될 Query들을 정의하고, 해당 Query 요청시 반환될 데이터 타입을 설정하는 것)로, gql(Template Literal Tag) 함수로 생성됨
+  const typeDefs = gql`
+    type Query {
+      teams: [Team]
+      team(id: Int): Team
+      equipments: [Equipment]
+      supplies: [Supply]
+    }
+    type Team {
+      id: Int
+      manager: String
+      office: String
+      extension_number: String
+      mascot: String
+      cleaning_duty: String
+      project: String
+      supplies: [Supply]
+    }
+    type Equipment {
+      id: String
+      used_by: String
+      count: Int
+      new_or_used: String
+    }
+    type Supply {
+      id: String
+      team: Int
+    }
+  `
+
+  // resolvers : 데이터를 반환, 입력, 수정, 삭제하는 액션 함수들을 지정해둔 객체이다.
+  const resolvers = {
+    // Query : 데이터를 반환하는 액션 함수들을 지정해둔 객체이다.
+    Query: {
+      // teams 쿼리를 날릴 때 team.id에 해당하는 supply를 team.supplies에 넣어서 함께 반환하도록 한다.
+      teams: () =>
+        database.teams.map((team) => {
+          team.supplies = database.supplies.filter((supply) => {
+            return supply.team === team.id
+          })
+          return team
+        }),
+      // args : 쿼리를 날릴 때 team(id: 3) {} 와 같이 날릴 때 id: 3 값을 args라 생각하면 된다.
+      team: (parent, args, context, info) =>
+        database.teams.filter((team) => {
+          return team.id === args.id
+        })[0],
+      equipments: () => database.equipments,
+      supplies: () => database.supplies,
+    },
+  }
+
+  // ApolloServer 클래스 : GraphQL 서버를 생성하는 클래스로, 인자값에 typeDefs, resolvers를 넣어서 server 객체를 생성한다.
+  const server = new ApolloServer({ typeDefs, resolvers })
+
+  server.listen().then(({ url }) => {
+    console.log(`🚀  Server ready at ${url}`)
+  })
+
+
+
+1. 테스트
+  $ cd app1
+  $ npm start
+  http://localhost:4000/ 접속 : GraphQL Playground가 열린다.
+  GraphQL Playground 사용 : 좌측에 다음 쿼리를 넣고 Run을 클릭 (이번에는 supplies 객체를 추가해야한다!)
+    query {
+      teams {
+        id
+        manager
+        office
+        extension_number
+        mascot
+        cleaning_duty
+        project
+        supplies {
+          id
+          team
+        }
+      }
+    }
+  각 팀에 해당하는 supplies가 추가된 팀 목록이 표시되는지 확인

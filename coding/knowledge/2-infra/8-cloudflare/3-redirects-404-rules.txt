@@ -1,0 +1,33 @@
+[Cloudflare Pages: _redirects · 커스텀 404 · 존 Redirect Rule · 308]
+
+1. _redirects (앱 루트의 파일 · 배포에 포함 · 정적 파일보다 먼저 평가)
+  형식: <from> <to> <status>   (한 줄 하나 · * 와 :splat 지원)
+  ① 서브도메인 전체를 다른 곳으로 301 (코인 앱 14개를 루트로 통합하던 시기 · 2026-07)
+    /*  https://broodev.com/?coin=eth  301
+  ② 없는 경로 → 커스텀 404 (상태 404 유지)
+    /*  /404.html  404
+  ③ 옛 주소 → 새 호스트 301 (루트가 btc 앱에서 포털로 바뀐 뒤 구글에 남은 링크 구제 · 2026-10)
+     확장자 있음/없음/슬래시 3종을 전부 적는다 — Pages 의 308 과 겹치면 두 번 뛰므로 한 줄에 못 묶는다
+    /methodology       https://btc.broodev.com/methodology  301
+    /methodology/      https://btc.broodev.com/methodology  301
+    /methodology.html  https://btc.broodev.com/methodology  301
+    /member/*          https://btc.broodev.com/             301
+  주의: 포털 자신의 주소(/ · /premium · /legal/*)는 적지 않는다(자기 페이지가 날아간다).
+  확인
+  $ curl -I https://eth.broodev.com/        → 301 + Location 헤더
+
+1. 커스텀 404
+  루트에 404.html 이 있으면 Pages 가 자동으로 404 응답에 사용. 앱마다 자기 테마의 404.html(터미널 · AIZOX 셸 등)
+  스위치 미들웨어가 있는 앱은 활성 사이트의 404.html 을 Function 이 골라 돌려준다(상태 404 유지 — 200 으로 돌려주면 소프트 404)
+  404 에도 noindex 가 필요하면(프리뷰 도메인) 미들웨어에서 헤더 추가
+
+1. 존(도메인) Redirect Rule — 대시보드 (레포 밖 설정이므로 문서에 꼭 적어 둔다)
+  Rules → Redirect Rules → 새 룰: 호스트/경로 조건 → 대상 URL(${1} 캡처) · 301
+  언제 쓰나
+    프로젝트를 삭제한 호스트의 링크 구제: home.broodev.com/* → https://dev.broodev.com/${1}  (DNS 에 프록시 레코드가 남아 있어야 룰이 탄다)
+    유령 캐시: 옛 배포가 남긴 s-maxage 응답이 Purge Everything 으로도 안 지워질 때 — 룰은 캐시 조회보다 먼저 실행돼 무조건 이긴다 (broodev.com/adsense/ 사례)
+  레포의 _redirects 로 되는 일은 레포에 둔다(코드 리뷰 · 이력). 존 룰은 최후 수단.
+
+1. 308 (Pages 기본 동작)
+  /x.html → /x 자동 308. 외부에 알리는 URL(Stripe 사업 사이트·약관 URL · sitemap · canonical · 크로스도메인 링크)은 확장자 없는 쪽으로 통일 — 2026-10-03 에 전부 교체
+  /index.html → / 도 리다이렉트. 내부 링크도 확장자 없이 쓰면 리다이렉트 한 번을 아낀다

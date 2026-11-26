@@ -1,0 +1,40 @@
+[PostgreSQL 설치와 psql 기본]
+참조: https://www.postgresql.org/docs/16/
+
+[설치]
+1. mac (homebrew)
+$ brew install postgresql@16
+$ brew services start postgresql@16
+  - PATH에 /opt/homebrew/opt/postgresql@16/bin 추가 필요
+1. windows
+  - 공식 installer(EDB) 다운로드 후 설치. 설치 중 superuser(postgres) 비밀번호 지정
+  - 설치 후 psql은 "SQL Shell (psql)" 또는 PATH 등록해서 사용
+1. 확인
+$ psql --version
+
+[psql 접속과 기본 명령 ★★]
+1. 접속
+$ psql -U postgres -h localhost -p 5432
+1. 메타 명령 (자주 씀, 암기)
+  \l        DB 목록
+  \c dbname DB 전환(connect)
+  \dt       현재 스키마의 테이블 목록
+  \d 테이블  테이블 구조(컬럼, 인덱스) 확인
+  \du       유저(role) 목록
+  \q        종료
+1. SQL은 항상 세미콜론(;)으로 끝내야 실행됨
+
+[DB / 유저 생성]
+1. 유저(role) 생성
+  CREATE USER app_user WITH PASSWORD 'secret';
+1. DB 생성 + 소유자 지정
+  CREATE DATABASE app_db OWNER app_user;
+1. 권한 부여
+  GRANT ALL PRIVILEGES ON DATABASE app_db TO app_user;
+1. 생성한 유저로 접속 확인
+$ psql -U app_user -d app_db -h localhost
+
+[정리]
+1. 서버(postgres 프로세스) / 클라이언트(psql) 구분해서 이해할 것 ★
+1. 이후 실습은 app_db 기준으로 진행
+  상세: 같은 트랙의 스키마설계-정규화 노트 참조

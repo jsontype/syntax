@@ -1,9 +1,0 @@
-PHP 코드메모장 만들기 과제 절차
-1. PHP 호스팅업체 (예: 000webhostapp.com)에 가입
-1. https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/ 을 다운받는다.
-1. 확장자를 php로 수정하고 원페이지로 바꾼다.
-1. .htaccess를 작성한다. (중요)
-1. *.sql을 참조하여 db 테이블을 만든다.
-1. phpmyadmin의 db 처리를 테스트한다.
-1. db와 php코드 그리고 템플릿을 연동한다. (viewTest.php 참조)
-끝.

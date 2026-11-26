@@ -1,0 +1,321 @@
+[SELECT문: SQL의 꽃 JOIN]
+참조: https://stricky.tistory.com/243 ~ 260
+
+1. 절차
+A5M2에서 mysql에 접속한 뒤, Query-1 탭을 클릭
+SQL 입력 (★ A5M2에 입력할 때는 마지막 구분자 ;를 쓰지 않는다.)
+커런트스키마에서 ctrl + F5로 커밋결과 리프레쉬
+
+1. 수업준비 (순서대로) db명.테이블명
+create table mysql.table_7th_student ( 
+    student_id int(10) comment '학생번호',
+    major_id int(10) comment '학과ID',
+    bl_prfs_id int(10) comment '담당교수ID',
+    name varchar(20) comment '학생이름',
+    tel varchar(15) comment '학생연락처'
+) character set utf8
+
+create table mysql.table_7th_professor (
+    prfs_id int(10) comment '교수ID',
+    bl_major_id int(10) comment '소속학과ID',
+    name varchar(20) comment '교수이름',
+    tel varchar(15) comment '교수연락처'
+) character set utf8
+
+create table mysql.table_7th_major (
+    major_id int(10) comment '학과ID',
+    major_title varchar(30) comment '학과명',
+    major_prfs_cnt int(5) comment '학과소속교수수',
+    major_student_cnt int(5) comment '학과소속학생수',
+    tel varchar(15) comment '학과사무실연락처'
+) character set utf8
+ 
+INSERT INTO mysql.table_7th_student (student_id, major_id, bl_prfs_id, name, tel) VALUES (1001, 9901, 7029901, '한지호', '01098447362')
+,(1002, 9902, 7029902, '김은숙', '01023456787')
+,(1003, 9903, 7039903, '강경호', '01092938476')
+,(1004, 9904, 7049904, '민현민', '01088786623')
+,(1005, 9905, 7059905, '조승우', '01092877795')
+,(1006, 9901, 7069901, '이남철', '01045671234')
+,(1007, 9902, 7079902, '이강철', '01021213434')
+,(1008, 9903, 7089903, '조민수', '01098937262')
+,(1009, 9904, 7099904, '박찬경', '01029884432')
+,(1010, 9905, 7109905, '이도경', '01029385647')
+,(1011, 9901, 7019901, '이만호', '01099996453')
+,(1012, 9902, 7029902, '김효민', '01092887666')
+,(1013, 9903, 7039903, '최효성', '01098999933')
+,(1014, 9904, 7049904, '우민국', '01087651112')
+,(1015, 9905, 7059905, '지대한', '01093934848')
+,(1016, 9901, 7069901, '한나름', '01023329882')
+,(1017, 9902, 7079902, '유육경', '01099881111')
+,(1018, 9903, 7089903, '조민경', '01023311120')
+,(1019, 9904, 7099904, '경지수', '01029100293')
+,(1020, 9905, 7109905, '오종환', '01098882226')
+,(1021, 9901, 7019901, '조형민', '01098909876')
+,(1022, 9902, 7029902, '이수강', '01099992222')
+,(1023, 9903, 7039903, '서민호', '01092997654')
+,(1024, 9904, 7049904, '박효숙', '01022293332')
+,(1025, 9905, 7059905, '남궁옥경', '01099938475')
+,(1026, 9901, 7069901, '피경남', '01029222233')
+,(1027, 9902, 7079902, '고주경', '01099226655')
+,(1028, 9903, 7089903, '하지만', '01022228965')
+,(1029, 9904, 7099904, '기지효', '01012090912')
+,(1030, 9905, 7109905, '박민호', '01074746363')
+,(1031, 9901, null, '신채령', '01044755564')
+,(1032, 9902, null, '이만도', '01022287777') 
+,(1033, 9903, null, '박만호', '01099972253') 
+,(1034, 9904, null, '최이강', '01029386577') 
+,(1035, 9905, null, '강이민', '01033334444') 
+,(1036, 9901, null, '민형도', '01099973331') 
+,(1037, 9902, null, '도지란', '01055567774')
+
+INSERT INTO mysql.table_7th_professor (prfs_id, bl_major_id, name, tel) VALUES (7019901, 9901, '김보경', '023445678')
+,(7029902, 9902, '조숙', '023446789')
+,(7039903, 9903, '이호', '023449584')
+,(7049904, 9904, '박철남', '023449588')
+,(7059905, 9905, '이만기', '023443443')
+,(7069901, 9901, '강조교', '023449994')
+,(7079902, 9902, '이희숙', '023443321')
+,(7089903, 9903, '소머리', '023440123')
+,(7099904, 9904, '두수위', '023443327')
+,(7109905, 9905, '지만래', '023449995')
+
+INSERT INTO mysql.table_7th_major (major_id, major_title, major_prfs_cnt, major_student_cnt, tel) VALUES (9901, '컴퓨터공학과', 7, 123, '023454321')
+,(9902, '아동보육학과', 8, 345, '023456676')
+,(9903, '국문학과', 6, 213, '023456567')
+,(9904, '경제학과', 5, 432, '023456987')
+,(9905, '사회복지학과', 9, 312, '023454534')
+
+
+
+
+
+
+* 아래는 Outer Join(비등가 조인)용으로 새로운 테이블을 만들어서 비교하겠습니다.
+
+create table mysql.table_8th_customer(name varchar(10), point int) character set utf8
+
+create table mysql.table_8th_gift(name varchar(20) null, point_s int null, point_e int null) character set utf8
+
+INSERT INTO mysql.table_8th_customer (name, point) VALUES ('김철수', 5)
+,('홍길동', 12)
+,('박영희', 14)
+,('심청이', 18)
+,('호랑이', 21)
+,('김정수', 16)
+,('양아영', 9)
+,('심수지', 22)
+,('강세린', 24)
+
+INSERT INTO mysql.table_8th_gift (name, point_s, point_e) VALUES ('공기청정기', 11, 15)
+,('아이폰', 21, 25)
+,('로봇청소기', 6, 10)
+,('상품권', 1, 5)
+,('스마트패드', 16, 20)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1. 데이터조회하기
+1) join이란 무엇인가?
+우리가 흔히 아는 oracle, mysql, mariadb, ms-sql, postgres 등등은 모두 RDBMS입니다.
+여기서 관계형이란, 말 그대로 데이터베이스 내에 있는 테이블이나 스키마들이 서로 관계를 가지고 있다는 뜻입니다.
+그렇다면 이러한 관계를 이용해서 우리는 SQL을 작성하기도 해야 할 텐데요, 이럴 때 사용하는 게 바로 join이 됩니다.
+join을 사용해서 여러 테이블이나 스키마에 분산되어 있는 데이터를 하나의 view로 출력하게 하는 것입니다.
+[그림] 11_1.png
+위와 같이 student 테이블과 major 테이블에 각각 따로 들어가 있는 데이터를, 오른쪽의 join 로직을 거치면 하나의 테이블처럼 데이터를 볼 수 있게 됩니다.
+그림에서는 2개의 테이블만 join을 했지만 나중에 3개, 4개, 그 이상의 join도 가능합니다.
+
+2) Inner join (Equi join) : 
+정의 : 
+가장 보편적인 join 방법이며, Equi join, 등가 조인이라고도 합니다. 서로 같은 값을 가지는 것만 합칩니다. 
+보편적인 Join으로, 보통 특별한 이야기가 없이 join을 이야기한다면 이 Inner Join을 이야기하시는 게 맞을 겁니다.
+Inner Join은 A, B 두 테이블이 있을 때 서로 연결되는 key가 있다고 가정하고, 해당 키의 값이 값은 데이터를 가지고 와서 출력하는 것을 의미합니다.
+만약 교수 테이블, 전공 테이블이 있을 때 교수들의 소속 전공를 함께 출력하는 경우, 이 inner join을 이용해서 join을 해서 출력해야 합니다.
+inner join을 EQUI join 이라고도 하고, 그냥 join 이라고도 하며, 등가 조인 이라고도 표현할 수 있습니다.
+[그림] 11_2.png
+
+예시 : 
+select * from mysql.table_7th_major
+우선, 교수 테이블과, 전공 테이블 데이터를 한번 확인해보겠습니다.
+전공 테이블에 전공 이름이 있습니다.
+
+select * from mysql.table_7th_professor
+교수 테이블에 교수들의 이름이 있습니다.
+그리고 교수 테이블을 보면 bl_major_id라는 소속 전공 아이디가 있습니다. 이 소속 전공 아이디는 전공 테이블의 major_id와 매핑이 됩니다.
+이것을 FK, Foreign Key라고 합니다. 두 테이블의 연결하는 key가 되는 것입니다. 이 FK를 join 시에 조건으로 넣어주시면 됩니다.
+
+select p.name as 교수이름, m.major_title as 전공명
+     from mysql.table_7th_professor p , mysql.table_7th_major m
+     where p.bl_major_id = m.major_id
+두 테이블을 inner join 하여 교수 이름과, 전공명이 출력되도록 했습니다.
+
+(* ansi SQL로 작성한다면 아래와 같이 세가지 방법중 하나로 표현할 수 있습니다.)
+select p.name as 교수이름, m.major_title as 전공명
+from mysql.table_7th_professor p
+         join mysql.table_7th_major m
+              on p.bl_major_id = m.major_id
+              
+select p.name as 교수이름, m.major_title as 전공명
+from mysql.table_7th_professor p
+         cross join mysql.table_7th_major m
+              on p.bl_major_id = m.major_id
+              
+select p.name as 교수이름, m.major_title as 전공명
+from mysql.table_7th_professor p
+         inner join mysql.table_7th_major m
+              on p.bl_major_id = m.major_id
+ansi SQL에서는 cross join, join, inner join 모두 같은 결과를 보여주고 있습니다.
+
+3) 다중 Inner join (Equi join) : 
+정의 : 
+다중 inner join은 3개 이상의 테이블을 동시에 join 하여 출력하는 것을 말합니다.
+학생, 교수, 전공 테이블을 두고, 어떤 학생이 어떤 담당교수와 소속 전공가 어디인지 출력할 수 있겠죠.
+그런데, 하나와 하나의 테이블을 join 할 때 FK을 각각 테이블에 공통적으로 존재하는 키를 쓴다고 했는데, 
+그럼 3개를 join 할 때는 어떻게 Key를 연결해야 할지 헷갈리는 분들이 많습니다.
+먼저, 아래 그림을 보겠습니다.
+[그림] 11_3.png
+3개 + 테이블의 join키를 찾는 방법은,
+테이블 1과 테이블2를 조인할때 공통으로 들어있는 Key를 찾아 연결 하고, 그것을 테이블 3과 join 한다고 생각하면 쉽습니다.
+테이블1 과 테이블2의 join 한 데이터를 하나의 테이블로 생각하고, 테이블3과 비교했을 때 공통의 키를 찾아서 다시 1:1 join을 하다고 생각하면 되는 것 이죠.
+
+예시 : 
+select s.name as 학생이름, p.name as 교수이름, m.major_title as 전공명
+from mysql.table_7th_student s, mysql.table_7th_major m, mysql.table_7th_professor p
+where s.bl_prfs_id = p.prfs_id
+  and p.bl_major_id = m.major_id
+학생, 교수, 전공 3개의 테이블을 한 번에 inner join을 하여 각 학생별 담당교수와 소속 전공까지 출력합니다.
+
+(* 다음은 Ansi SQL의 예시입니다.)
+select s.name as 학생이름, p.name as 교수이름, m.major_title as 전공명
+from mysql.table_7th_student s
+         inner join mysql.table_7th_major m
+         inner join mysql.table_7th_professor p
+                    on s.bl_prfs_id = p.prfs_id
+                        and p.bl_major_id = m.major_id
+결과는 동일합니다.
+
+4) Inner join (Non Equi Join) : 
+정의 : 
+Non Equi join은 비등가 조인이라고도 하며, 서로 다른 값을 가지는 것만 합치는 조인입니다. 
+사실상 이것도 Inner Join입니다. (단지 부정문이라 보시면 됨)
+[그림] 11_4.png
+비등가 join은 주로 일정 범위내의 조건을 처리할 때에 쓰입니다.
+일정 범위내의 조건 처리란,
+join 조건에서 지정한 어느 범위에 일치할 때 서로 데이터를 join 해 주는 것을 이야기합니다.
+예를 들어, 어떤 마트에서 사은행사를 하는데, 그동안 쌓였던 포인트를 선물로 바꿔 준다고 합시다.
+선물에는 각 5, 10, 15... 포인트가 매겨져 있으며, 
+8포인트를 가지고 있는 고객이 있다면 10포인트의 선물은 가져갈 수 없으니 
+5포인트의 선물과 매칭이 되어야 하는 상황이 생길 겁니다.
+이렇게 해서 각 고객이 받을 수 있는 선물이 무엇인지를 비등가 join을 이용해서 출력해 낼 수 있습니다.
+
+예시 : 
+select c.name as 고객명, 
+	   c.point as 고객_point, 
+	   g.name as 상품명
+	   from mysql.table_8th_customer c, mysql.table_8th_gift g
+	   where c.point between g.point_s and g.point_e
+
+where 절을 보면 between, and 가 보이실 겁니다.
+gift 테이블의 point_s에서부터 point_e 사이에 customer 테이블의 값이 해당한다면 두 테이블을 join 하라는 의미입니다.
+기존의 Inner join에서 "= 표시가 없고 between등으로 조건절이 변형되었다는 점"만 다릅니다.
+
+(* ANSI SQL로 표현하면 다음과 같습니다.)
+select c.name as 고객명, 
+	   c.point as 고객_point, 
+	   g.name as 상품명 
+	   from mysql.table_8th_customer c join mysql.table_8th_gift g 
+	   on c.point between g.point_s and g.point_e
+
+ANSI SQL 표현법도 거의 똑같아 보입니다.
+결과는 각 고객의 point와 가져갈 수 있는 상품명이 잘 매핑되어져서 나옵니다.
+기존의 Inner join에서 "= 표시가 없고 between등으로 조건절이 변형되었다는 점"만 다릅니다.
+
+5) Outer join : 
+정의 : 
+Inner Join 다음으로 많이 사용하는 기법으로,
+서로 같은 값을 가지는 것은 Inner Join(Equi Join)처럼 합쳐서 처리하지만, 
+"다른 값"을 가지는 것은 조인값을 "NULL"로 둡니다. 
+Outer Join에는 세가지 방식이 있습니다.
+left outer join : 좌측 데이터중 우측의 조건에 맞는 데이터만 좌측에 추가, 조건에 맞지 않으면 NULL 표시
+right outer join : 우측 데이터중 좌측의 조건에 맞는 데이터만 좌측에 추가, 조건에 맞지 않으면 NULL 표시
+full outer join : 서로의 데이터중 조건에 맞는 데이터를 서로에게 추가, 조건에 맞지 않으면 서로 NULL 표시 (UNION으로 대체 가능)
+[그림] 11_5.png
+
+현재, table_7th_student 테이블에서, student, professor 테이블이 각각 있을 때,
+student 테이블에 일부 담당 교수 ID가 없는(null로 되어있는) 학생이 있습니다.
+이런 경우를 아직 담당교수 배정이 안된 학생이라고 가정한다면 
+두 테이블을 일반 inner join으로 join 한다면 전체 학생에서 
+아직 담당 교수가 배정되지 않은 학생들은 빠지게 됩니다.
+이런 누락 없이 데이터를 모두 보고자 할 때 outer join을 쓰게 됩니다.
+
+예시 : 
+select s.name, s.bl_prfs_id, p.name, p.prfs_id 
+    from mysql.table_7th_student s
+    left outer join mysql.table_7th_professor p
+    on s.bl_prfs_id = p.prfs_id
+
+6) Cartesian Product join (카티션곱 조인) : 
+정의 : 
+where 절이나 on 절에 "join 조건을 기술하지 않고" 테이블을 합치는 join입니다. (* Ansi SQL에서는 cross join 이라고도 합니다.)
+결과는 두 테이블의 from 절에서 참조한 테이블들의 행 개수(row건수)를 서로 곱한 것만큼의 결과를 출력합니다. 
+[그림] 11_6.png
+카티션곱은 사실 RDBMS의 개념과 상충하는 개념이 됩니다. 
+RDBMS는 각각의 테이블이 키를 가지고 있고, 해당 키를 이용해서 다른 테이블과 관계를 형성하는 개념을 가지고 있는데, 
+이 카티션곱 join은 키를 이용하지 않고 그냥 모든 데이터를 1:1로 연결하는 join 방법이기 때문이죠.
+실무에서 자주 쓰진 않지만, 데이터를 많이 불러야하는 등 특정한 조건 안에서 필요할 때가 있습니다.
+1) 데이터를 대량으로 복제해야 할 때
+2) 특정 데이터 튜플만 복제되어야 할 때
+3) 연결고리가 없는 두 테이블의 데이터를 무작위로 합쳐야 할 때
+
+예시 : 
+select * from mysql.table_7th_major
+학생들의 전공데이터는 모두 5건이 출력된 것을 확인할 수 있습니다.
+
+select * from mysql.table_7th_professor
+교수데이터는 모두 10건의 데이터가 출력이 되었습니다.
+
+위 두 테이블을 카티션 곱으로 조인한다면 위에서 설명드린 바와 같이 5 * 10, 즉, 50건의 데이터가 출력되어야 합니다.
+위 두 테이블을 카티션 곱으로 조인해보도록 하겠습니다. 아래와 같이 mysql 문법과 ansi SQL  문법으로 각각 SQL을 작성했습니다.
+
+<mysql 문법>
+select p.prfs_id,
+       p.name,
+       m.major_id,
+       m.major_title
+from mysql.table_7th_major m,  mysql.table_7th_professor p
+각 테이블 명 뒤에 붙어있는 m과 p는 테이블의 alias 명입니다. 
+학생들의 전공은 m으로, 교수는 p로 테이블명칭을 약식화하고,
+각각의 컬럼값을 모두 꺼내옵니다.
+그러면 p이 가지고 있지 않은 모든 m의 내용들이 복붙이 되어서
+하나의 p가 각각 전혀 연관성이 없는 5개의 m 항목들을 가지게 되는 셈입니다.
+
+<ansi SQL 문법>
+select p.prfs_id,
+       p.name,
+       m.major_id,
+       m.major_title
+from mysql.table_7th_major m cross join  mysql.table_7th_professor p
+mysql문법을 사용할 때는 major 테이블과 professor 테이블 사이에 ", "를 넣어서 구분했지만 ansi SQL에서는 "cross join"이라는 명령어를 사용했습니다.
+결과는 두 SQL 모두 같습니다.
+50건의 데이터가 출력이 되었음을 알 수 있습니다.
+major_title 칼럼을 보시면 학과명 5개가 반복되면서 마지막 칼럼인 name에 있는 교수 이름이 하나씩 연결되는 것을 확인하실 수 있습니다.
+
+7) Self join : 
+한 테이블이 자기 자신과 join을 다시 하는 경우를 말합니다. 아주 일반적인 경우는 아니지만 꼭 필요한 경우가 있습니다. 
+일반적인 사용법은 다른 join과 같습니다.

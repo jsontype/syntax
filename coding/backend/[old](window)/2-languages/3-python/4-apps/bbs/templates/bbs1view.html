@@ -1,0 +1,79 @@
+{% include 'lib/top.html'  ignore missing %}
+
+{% if session['id'] %}
+
+{% for bbsviewrow in bbs1viewrows %}
+<!-- start section main content -->
+<div class="main-content paddsection">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="row">
+          <div class="container-main single-main">
+            <div class="col-md-12">
+              <div class="block-main mb-30">
+
+                <!-- <img src="{{ url_for('static', filename='images/blog-post-big.jpg') }}" class="img-responsive" alt="reviews2"> -->
+                <div class="content-main single-post padDiv">
+                  <div class="journal-txt">
+                    <h3><a href="#">Title: {{ bbsviewrow['title'] }}</a> <i class="ion-ios-heart-outline"></i></h3>
+                  </div>
+
+                  <div class="post-meta">
+                    <ul class="list-unstyled mb-0">
+
+                      {% if bbsviewrow['img_file1'] %}
+                      <li class="filename">File: <a href="/download?file={{ bbsviewrow['img_file1'] }}">{{ bbsviewrow['img_file1'] }} </a> (size: {{ bbsviewrow['img_size1'] }} MB) </li>
+                      {% else %}
+                      {% endif %}
+                      {% if bbsviewrow['img_file1'] %}
+                      <li class="category">Category: <a href="#">{{ bbsviewrow['category'] }}</a></li>
+                      {% else %}
+                      {% endif %}
+                      <li class="date">Date: <a href="#">
+                        {% if bbsviewrow['mod_date'] %}
+                          {{ bbsviewrow['mod_date'] }}
+                        {% else %}
+                          {{ bbsviewrow['reg_date'] }}
+                        {% endif %}
+                        </a></li>
+                    </ul>
+                  </div>
+
+                  <p class="mb-30"></p>
+                  <blockquote>{{ bbsviewrow['content'] }}</blockquote>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-12">
+              <div class="cmt padDiv">
+                <form id="comment-form" method="post" action="#" role="form">
+                  <div class="row">
+                      <div class="col-lg-12" style="text-align:right;">
+                        <input type="button" class="btn btn-defeault btn-send" onClick="location.href='{{ url_for('index') }}'" value="Back" style="width:150px;" />
+                        <input type="button" class="btn btn-defeault btn-send" onClick="location.href='bbs1mod?no={{ bbsviewrow['no'] }}'" value="修正" />
+                        <input type="button" class="btn btn-defeault btn-send" onClick="location.href='bbs1delete?no={{ bbsviewrow['no'] }}'" value="削除" style="width:84px;" />
+                      </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--  </div> -->
+<!-- start section main content -->
+
+{% endfor %}
+
+{% else %}
+<p>ログインしてみてください。</p>
+{% endif %}
+
+{% include 'lib/bottom.html'  ignore missing %}

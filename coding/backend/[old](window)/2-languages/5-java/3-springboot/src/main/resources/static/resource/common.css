@@ -1,0 +1,40 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+html {
+	font-family: "Noto Sans KR", sans-serif;
+}
+
+.con {
+	width: 1000px;
+	margin: 0 auto;
+}
+
+.common-form>div>* {
+	float: left;
+}
+
+.common-form>div::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.common-form>div>span {
+	width: 150px;
+}
+
+.common-form>div>div {
+	width: calc(100% - 150px);
+}
+
+.common-form>div>div>input[type="text"], .common-form>div>div>textarea, .common-form>div>div>input[type="password"] {
+	width: 90%;
+}
+
+.top-menu-1 a::before {
+	content:"[";
+}
+
+.top-menu-1 a::after {
+	content:"]";
+}

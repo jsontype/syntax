@@ -1,0 +1,31 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: 구글 자동완성 API
+  description: 연습용) 구글 자동완성 API 입니다.
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/JSONTYPER/api2/1.0.0
+  - description: Google API
+    url: https://www.google.com
+paths:
+  /complete/search:
+    get:
+      summary: 자동완성 검색 결과를 반환합니다.
+      parameters: 
+        - name: q # 실제로 사용자가 검색창에 입력한 값
+          in: query # 파라미터 형태로 변수의 값을 명시해주고자 할 때 사용
+          schema:
+            type: string
+        - name: client
+          in: query
+          schema:
+            type: string
+      responses:
+        '200': # 응답코드가 200에 도착하면 아래의 의미를 가진다.
+          description: A Text File
+          content:
+            text/plain:
+              schema:
+                type: string

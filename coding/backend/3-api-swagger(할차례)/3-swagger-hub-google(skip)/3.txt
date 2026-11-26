@@ -1,0 +1,26 @@
+[Swagger로 간단한 REST API 명세해보기 - 구글 자동완성 API 테스트해보기]
+
+1. API 새로 만들기
+    스웨거허브에 접속 : https://app.swaggerhub.com/ -> Github로 로그인
+    새로 만들기 → 새 API 생성
+        Specification : 3.0.x
+        Template : ---None---
+        Name : api3
+        Version : 1.0.0
+        Visibility : Public
+        Auto Mock API : On
+        Title : 구글 자동완성 API
+        Description : 연습용) 구글 자동완성 API 입니다.
+        Visibility : Public
+        Auto Mock API : On
+    에디터를 api3.yaml을 복사 후 붙여넣기 같이 수정
+    save를 클릭
+
+1. 테스트
+    우측 상단의 view documentation 버튼을 클릭 (문서 아이콘)
+    서버의 풀다운 클릭 후 https://google.com 클릭
+    GET /complete/search 클릭
+    Try it out 클릭
+    q에 abc 입력
+    client에 psy-ab 입력 (정해진 값)
+    반환 결과 확인 : 파일 형태로 반환됨 -> Download file 클릭 -> 파일 클릭해서 확인 -> 유니코드 형태로 자동완성 결과가 나옴

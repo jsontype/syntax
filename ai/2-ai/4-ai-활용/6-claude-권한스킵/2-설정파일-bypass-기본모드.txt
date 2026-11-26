@@ -1,0 +1,39 @@
+[Claude Code 를 Bypass permissions 모드로 시작하기 — settings.json 의 permissions.defaultMode]
+
+■ 개요
+- 매번 --dangerously-skip-permissions 플래그를 붙이지 않아도, 설정 파일에 permissions.defaultMode 를 "bypassPermissions" 로 두면
+  새 세션이 처음부터 Bypass permissions 모드로 열린다 (VS Code 확장·CLI 공통).
+- 효과와 위험은 같은 폴더의 1-세팅 노트(플래그 방식)와 같다 → 격리된 환경에서만, 안전 수칙 동일.
+
+■ 설정 절차
+1. 프로젝트의 .claude/settings.json 과 .claude/settings.local.json 두 파일 모두에 아래 내용을 넣는다
+   - 본인에게만 적용할 때는 settings.local.json 만으로도 되지만, 둘 다 넣어야 확실히 바뀐다
+   - 아래 전체를 그대로 복사해서 넣는다 (파일이 없으면 이 내용 그대로 새로 만든다)
+   {
+     "permissions": {
+       "defaultMode": "bypassPermissions"
+     }
+   }
+   ※ 이미 "permissions" 블록(allow / deny 등)이 있으면 그 안에 "defaultMode": "bypassPermissions" 한 줄만 추가
+
+2. VS Code 에서 Cmd+Shift+P (Windows: Ctrl+Shift+P) → Developer: Reload Window
+
+3. Claude Code 새 세션을 열고 모드 표시가 Bypass permissions 인지 확인
+   - 세션 중에는 Shift+Tab 으로 모드를 순환시켜 확인할 수 있다
+
+■ 그래도 전환이 안 될 때
+4. 아래 세 곳에 "disableBypassPermissionsMode": "disable" 이 있는지 확인
+   - ~/.claude/settings.json                      (사용자 설정)
+   - .claude/settings.local.json                  (프로젝트 개인 설정)
+   - 관리형 설정 managed-settings.json
+       macOS   : /Library/Application Support/ClaudeCode/managed-settings.json
+       Windows : C:\ProgramData\ClaudeCode\managed-settings.json
+       Linux   : /etc/claude-code/managed-settings.json
+   - 관리형 설정이 최우선이라 거기서 막혀 있으면 사용자 쪽에서는 해제할 수 없다 (관리자에게 요청)
+
+■ 주의
+5. settings.json 은 저장소에 커밋되므로 팀원 전원에게 적용된다 → 개인용은 settings.local.json 에 둘 것 (.gitignore 대상)
+- Bypass 모드는 도구 호출 승인을 전부 건너뛴다 — 파괴적 명령도 묻지 않으므로 격리 환경·민감정보 분리 원칙은 1-세팅 노트 그대로
+
+■ 한 줄 요약
+- .claude/settings.json + settings.local.json 에 "permissions": { "defaultMode": "bypassPermissions" } → Reload Window → 새 세션에서 모드 표시 확인

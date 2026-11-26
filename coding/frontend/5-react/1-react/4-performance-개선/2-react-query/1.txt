@@ -1,0 +1,532 @@
+[도입 효과]
+
+## 성능 변화 예상도
+
+### 1. 네트워크 요청 감소
+- **중복 요청 제거**: 동일한 데이터를 여러 컴포넌트에서 요청해도 실제로는 1번만 실행
+  - 예상 개선: API 호출 횟수 **50~80% 감소**
+- **캐시 활용**: staleTime 내 동일 쿼리는 네트워크 요청 없이 캐시에서 즉시 반환
+  - 예상 개선: 불필요한 API 호출 **60~90% 감소**
+
+### 2. 초기 로딩 시간 단축
+- **캐시된 데이터 즉시 표시**: 이전에 로드한 데이터가 있으면 네트워크 요청 없이 즉시 렌더링
+  - 예상 개선: 페이지 전환 시 로딩 시간 **70~90% 단축**
+- **백그라운드 업데이트**: 사용자는 캐시 데이터를 즉시 보고, 백그라운드에서 최신 데이터 갱신
+  - 예상 개선: 사용자 체감 로딩 시간 **80~95% 단축**
+
+### 3. 서버 부하 감소
+- **요청 빈도 감소**: 중복 요청 제거 및 캐싱으로 서버 요청 횟수 감소
+  - 예상 개선: 서버 부하 **40~70% 감소**
+- **자동 재시도 최적화**: 실패한 요청만 선별적으로 재시도
+  - 예상 개선: 불필요한 재시도 **30~50% 감소**
+
+### 4. 사용자 경험 개선
+- **로딩 상태 최적화**: `isLoading`과 `isFetching` 분리로 더 정확한 로딩 상태 표시
+  - 예상 개선: 불필요한 로딩 스피너 표시 **50~70% 감소**
+- **에러 처리 개선**: 자동 재시도 및 에러 상태 관리로 사용자 경험 향상
+  - 예상 개선: 사용자가 경험하는 에러 빈도 **60~80% 감소**
+
+### 5. 메모리 효율성
+- **자동 가비지 컬렉션**: inactive 상태의 쿼리는 gcTime 후 자동으로 메모리에서 해제
+  - 예상 개선: 메모리 사용량 **20~40% 감소** (장기 실행 시)
+
+### 6. 개발 생산성 향상
+- **보일러플레이트 코드 제거**: useState, useEffect, 에러 처리 등 수동 관리 코드 제거
+  - 예상 개선: 데이터 fetching 관련 코드 **50~70% 감소**
+- **타입 안정성**: Query Key 팩토리로 타입 안전한 쿼리 관리
+  - 예상 개선: 런타임 에러 **30~50% 감소**
+
+### 7. 전체적인 성능 지표 예상
+| 지표 | 개선 전 | 개선 후 | 개선율 |
+|------|---------|---------|--------|
+| 평균 API 호출 횟수 | 100회/분 | 20~50회/분 | **50~80% ↓** |
+| 평균 페이지 로딩 시간 | 2~3초 | 0.3~0.6초 | **70~90% ↓** |
+| 서버 CPU 사용률 | 100% | 30~60% | **40~70% ↓** |
+| 사용자 체감 로딩 시간 | 2~3초 | 0.1~0.3초 | **80~95% ↓** |
+| 데이터 fetching 코드 라인 수 | 100줄 | 30~50줄 | **50~70% ↓** |
+
+### 8. 실제 프로젝트 적용 시 예상 효과
+- **소규모 프로젝트** (10개 이하 API): API 호출 **40~60% 감소**, 로딩 시간 **50~70% 단축**
+- **중규모 프로젝트** (10~50개 API): API 호출 **60~75% 감소**, 로딩 시간 **70~85% 단축**
+- **대규모 프로젝트** (50개 이상 API): API 호출 **70~85% 감소**, 로딩 시간 **80~95% 단축**
+
+> **참고**: 실제 성능 개선 효과는 프로젝트 규모, API 응답 시간, 사용자 행동 패턴에 따라 달라질 수 있습니다.
+
+
+
+[도입 절차]
+
+# React Query를 모든 use 커스텀 훅에 도입하는 절차 (Next.js 기준)
+
+## 1. React Query 설치
+
+```bash
+npm install @tanstack/react-query @tanstack/react-query-devtools
+```
+
+또는 yarn:
+```bash
+yarn add @tanstack/react-query @tanstack/react-query-devtools
+```
+
+## 2. QueryClient Provider 설정 (Next.js App Router)
+
+### 2.1 RQProviders 컴포넌트 생성
+
+`src/app/RQProviders.tsx` (또는 `src/providers/RQProviders.tsx`) 파일 생성:
+
+```typescript
+'use client'
+
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { useState } from 'react'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
+export default function RQProviders({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  const [queryClient] = useState(() => new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 5 * 1000, // 5초. fresh에서 stale 상태로 넘어가는 시간
+        gcTime: 5 * 60 * 1000, // 5분. inactive 상태에서 캐시 데이터가 소멸되는 시간
+        refetchOnMount: true, // stale 상태에서 컴포넌트 마운트 시 캐시 데이터 갱신
+        refetchOnWindowFocus: true, // stale 상태에서 윈도우 포커스 시 캐시 데이터 갱신
+        refetchOnReconnect: true, // stale 상태에서 네트워크 재연결 시 캐시 데이터 갱신
+        retry: 3, // 쿼리 실패 시 재시도 횟수
+        retryDelay: 3 * 1000, // 재시도 사이의 지연 시간
+      },
+      mutations: {
+        retry: 1,
+      },
+    },
+  }));
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      {children}
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  )
+}
+```
+
+### 2.2 Root Layout에 Provider 추가
+
+`src/app/layout.tsx` 파일 수정:
+
+```typescript
+import RQProviders from './RQProviders'
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="ko">
+      <body>
+        <RQProviders>
+          {children}
+        </RQProviders>
+      </body>
+    </html>
+  )
+}
+```
+
+## 3. 프로젝트 구조 설정
+
+### 3.1 디렉토리 구조
+
+```
+src/
+├── app/
+│   ├── layout.tsx
+│   └── RQProviders.tsx
+├── hooks/
+│   ├── queries/          # React Query를 사용하는 커스텀 훅
+│   │   ├── useMovies.ts
+│   │   └── useUser.ts
+│   └── mutations/        # Mutation 훅
+│       └── useCreatePost.ts
+├── lib/
+│   ├── api/              # API 함수들
+│   │   ├── movies.ts
+│   │   └── users.ts
+│   └── queryKeys.ts      # Query Key 관리
+└── types/
+    └── index.ts          # 타입 정의
+```
+
+## 4. Query Key 관리 전략
+
+### 4.1 Query Key 팩토리 생성
+
+`src/lib/queryKeys.ts` 파일 생성:
+
+```typescript
+export const queryKeys = {
+  // 단일 리소스
+  movies: {
+    all: ['movies'] as const,
+    lists: () => [...queryKeys.movies.all, 'list'] as const,
+    list: (filters: string) => [...queryKeys.movies.lists(), { filters }] as const,
+    details: () => [...queryKeys.movies.all, 'detail'] as const,
+    detail: (id: number) => [...queryKeys.movies.details(), id] as const,
+  },
+  
+  // 사용자 관련
+  users: {
+    all: ['users'] as const,
+    lists: () => [...queryKeys.users.all, 'list'] as const,
+    list: (filters: Record<string, any>) => [...queryKeys.users.lists(), filters] as const,
+    details: () => [...queryKeys.users.all, 'detail'] as const,
+    detail: (id: number) => [...queryKeys.users.details(), id] as const,
+  },
+} as const;
+```
+
+## 5. API 함수 분리
+
+### 5.1 API 함수 작성
+
+`src/lib/api/movies.ts` 파일 생성:
+
+```typescript
+// API 함수는 순수 함수로 작성 (React Query와 분리)
+export interface Movie {
+  id: number;
+  title: string;
+  rating: number;
+}
+
+export interface MoviesResponse {
+  data: {
+    movies: Movie[];
+  };
+}
+
+export async function fetchMovies(): Promise<Movie[]> {
+  const response = await fetch('https://yts.mx/api/v2/list_movies.json?sort_by=rating');
+  
+  if (!response.ok) {
+    throw new Error('Failed to fetch movies');
+  }
+  
+  const data: MoviesResponse = await response.json();
+  return data.data.movies;
+}
+
+export async function fetchMovie(id: number): Promise<Movie> {
+  const response = await fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${id}`);
+  
+  if (!response.ok) {
+    throw new Error('Failed to fetch movie');
+  }
+  
+  const data = await response.json();
+  return data.data.movie;
+}
+```
+
+## 6. 기존 커스텀 훅을 React Query로 마이그레이션
+
+### 6.1 Before: 기존 커스텀 훅
+
+```typescript
+// hooks/useMoviesConnector.ts (기존)
+import { useState, useEffect } from "react"
+
+export default function useMoviesConnector() {
+  const [movies, setMovies] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState(null)
+
+  const fetchMovies = async () => {
+    setIsLoading(true)
+    try {
+      const response = await fetch(
+        "https://yts.mx/api/v2/list_movies.json?sort_by=rating"
+      )
+      const json = await response.json()
+      setMovies(json.data.movies)
+    } catch (error) {
+      setError(error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchMovies()
+  }, [])
+
+  return { movies, isLoading, error, fetchMovies }
+}
+```
+
+### 6.2 After: React Query로 마이그레이션
+
+```typescript
+// hooks/queries/useMovies.ts (마이그레이션 후)
+import { useQuery } from '@tanstack/react-query'
+import { fetchMovies } from '@/lib/api/movies'
+import { queryKeys } from '@/lib/queryKeys'
+
+export function useMovies() {
+  return useQuery({
+    queryKey: queryKeys.movies.lists(),
+    queryFn: fetchMovies,
+    staleTime: 5 * 60 * 1000, // 5분 (선택사항: 기본값 오버라이드)
+  })
+}
+
+// 사용 예시:
+// const { data: movies, isLoading, error, refetch } = useMovies()
+```
+
+### 6.3 파라미터가 있는 쿼리
+
+```typescript
+// hooks/queries/useMovie.ts
+import { useQuery } from '@tanstack/react-query'
+import { fetchMovie } from '@/lib/api/movies'
+import { queryKeys } from '@/lib/queryKeys'
+
+export function useMovie(id: number) {
+  return useQuery({
+    queryKey: queryKeys.movies.detail(id),
+    queryFn: () => fetchMovie(id),
+    enabled: !!id, // id가 있을 때만 쿼리 실행
+  })
+}
+```
+
+### 6.4 필터가 있는 쿼리
+
+```typescript
+// hooks/queries/useFilteredMovies.ts
+import { useQuery } from '@tanstack/react-query'
+import { fetchMovies } from '@/lib/api/movies'
+import { queryKeys } from '@/lib/queryKeys'
+
+interface MovieFilters {
+  genre?: string;
+  year?: number;
+}
+
+export function useFilteredMovies(filters: MovieFilters) {
+  return useQuery({
+    queryKey: queryKeys.movies.list(JSON.stringify(filters)),
+    queryFn: () => fetchMovies(filters),
+  })
+}
+```
+
+## 7. Mutation 훅 작성
+
+### 7.1 POST/PUT/DELETE 요청
+
+```typescript
+// hooks/mutations/useCreatePost.ts
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { createPost } from '@/lib/api/posts'
+import { queryKeys } from '@/lib/queryKeys'
+
+export function useCreatePost() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: createPost,
+    onSuccess: () => {
+      // 성공 시 관련 쿼리 무효화하여 자동 리패치
+      queryClient.invalidateQueries({ queryKey: queryKeys.posts.lists() })
+    },
+  })
+}
+
+// 사용 예시:
+// const { mutate, isPending, error } = useCreatePost()
+// mutate({ title: 'New Post', content: '...' })
+```
+
+## 8. 컴포넌트에서 사용하기
+
+### 8.1 Before: 기존 방식
+
+```typescript
+// components/MoviesList.tsx (기존)
+import useMoviesConnector from '@/hooks/useMoviesConnector'
+
+export default function MoviesList() {
+  const { movies, isLoading, error, fetchMovies } = useMoviesConnector()
+
+  if (isLoading) return <div>Loading...</div>
+  if (error) return <div>Error: {error.message}</div>
+
+  return (
+    <div>
+      <button onClick={fetchMovies}>Refresh</button>
+      {movies.map(movie => (
+        <div key={movie.id}>{movie.title}</div>
+      ))}
+    </div>
+  )
+}
+```
+
+### 8.2 After: React Query 사용
+
+```typescript
+// components/MoviesList.tsx (마이그레이션 후)
+'use client'
+
+import { useMovies } from '@/hooks/queries/useMovies'
+
+export default function MoviesList() {
+  const { data: movies, isLoading, error, refetch } = useMovies()
+
+  if (isLoading) return <div>Loading...</div>
+  if (error) return <div>Error: {error.message}</div>
+
+  return (
+    <div>
+      <button onClick={() => refetch()}>Refresh</button>
+      {movies?.map(movie => (
+        <div key={movie.id}>{movie.title}</div>
+      ))}
+    </div>
+  )
+}
+```
+
+## 9. SSR/SSG 지원 (Next.js App Router)
+
+### 9.1 Server Component에서 Prefetching
+
+```typescript
+// app/movies/page.tsx
+import { HydrationBoundary, dehydrate } from '@tanstack/react-query'
+import { QueryClient } from '@tanstack/react-query'
+import { fetchMovies } from '@/lib/api/movies'
+import { queryKeys } from '@/lib/queryKeys'
+import MoviesList from '@/components/MoviesList'
+
+export default async function MoviesPage() {
+  const queryClient = new QueryClient()
+
+  // 서버에서 데이터 프리패치
+  await queryClient.prefetchQuery({
+    queryKey: queryKeys.movies.lists(),
+    queryFn: fetchMovies,
+  })
+
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <MoviesList />
+    </HydrationBoundary>
+  )
+}
+```
+
+## 10. 마이그레이션 체크리스트
+
+### 단계별 마이그레이션 절차
+
+1. **설치 및 설정**
+   - [ ] React Query 및 DevTools 설치
+   - [ ] RQProviders 컴포넌트 생성
+   - [ ] Root Layout에 Provider 추가
+
+2. **프로젝트 구조 설정**
+   - [ ] `hooks/queries/` 디렉토리 생성
+   - [ ] `hooks/mutations/` 디렉토리 생성
+   - [ ] `lib/api/` 디렉토리 생성
+   - [ ] `lib/queryKeys.ts` 파일 생성
+
+3. **기존 훅 분석 및 분리**
+   - [ ] 각 커스텀 훅에서 API 호출 로직 식별
+   - [ ] API 함수를 `lib/api/`로 분리
+   - [ ] Query Key 전략 수립
+
+4. **훅 마이그레이션 (우선순위별)**
+   - [ ] 가장 자주 사용되는 훅부터 시작
+   - [ ] 단순 GET 요청 훅 먼저 마이그레이션
+   - [ ] POST/PUT/DELETE 요청은 Mutation으로 변환
+
+5. **컴포넌트 업데이트**
+   - [ ] 각 컴포넌트에서 새로운 훅 사용
+   - [ ] 기존 `isLoading`, `error` 처리 로직 확인
+   - [ ] `refetch` 함수 사용법 업데이트
+
+6. **테스트 및 최적화**
+   - [ ] 각 훅 동작 확인
+   - [ ] 캐시 동작 확인
+   - [ ] 불필요한 리패치 방지 설정
+   - [ ] staleTime, gcTime 최적화
+
+## 11. 주의사항 및 베스트 프랙티스
+
+### 11.1 Query Key 관리
+- Query Key는 항상 배열로 관리
+- 필터나 파라미터는 Query Key에 포함
+- `queryKeys` 팩토리 함수 사용으로 타입 안정성 확보
+
+### 11.2 에러 처리
+```typescript
+const { data, error, isError } = useMovies()
+
+if (isError) {
+  // 에러 처리
+  console.error(error)
+}
+```
+
+### 11.3 로딩 상태 처리
+```typescript
+const { data, isLoading, isFetching } = useMovies()
+
+// isLoading: 첫 로딩 중
+// isFetching: 백그라운드 리패치 중
+```
+
+### 11.4 조건부 쿼리
+```typescript
+const { data } = useQuery({
+  queryKey: ['user', userId],
+  queryFn: () => fetchUser(userId),
+  enabled: !!userId, // userId가 있을 때만 실행
+})
+```
+
+### 11.5 쿼리 무효화
+```typescript
+const queryClient = useQueryClient()
+
+// 특정 쿼리 무효화
+queryClient.invalidateQueries({ queryKey: ['movies'] })
+
+// 모든 쿼리 무효화
+queryClient.invalidateQueries()
+```
+
+## 12. 성능 개선 효과
+
+### 12.1 자동 캐싱
+- 동일한 데이터를 여러 컴포넌트에서 사용해도 한 번만 요청
+- 캐시된 데이터로 즉시 렌더링
+
+### 12.2 백그라운드 업데이트
+- 사용자가 보는 화면은 캐시 데이터로 즉시 표시
+- 백그라운드에서 최신 데이터를 가져와 업데이트
+
+### 12.3 중복 요청 제거
+- 동일한 Query Key에 대한 동시 요청을 자동으로 중복 제거
+
+### 12.4 자동 재시도
+- 네트워크 오류 시 자동으로 재시도
+- 설정 가능한 재시도 횟수 및 지연 시간
+

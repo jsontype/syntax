@@ -1,0 +1,22 @@
+[JEST]
+
+1. 사전준비
+  vscode 확장 설치 : jest runner
+
+1. 앱 전체 유닛 테스트
+  *.spec.ts 파일을 작성
+  package.json 파일내 "scripts" 객체 안에,
+  "test:unit"": ""jest --clearCache && vue-cli-service test:unit" 를 넣기
+  $ yarn test:unit
+
+1. 파일 전체 테스트 : jest runner 확장설치 필요
+  *.spec.ts 파일을 작성
+  해당 파일을 vscode 익스플로러에서 우클릭해서 run jest on path 클릭
+
+1. 파일내 함수별테스트 : jest runner 확장설치 필요
+  *.spec.ts 파일을 작성
+  해당 파일을 vscode *.spec.ts 파일 내에서 Describe > Run / debug 
+
+1. 파일내 함수내 테스트항목별 테스트 : jest runner 확장설치 필요
+  *.spec.ts 파일을 작성
+  해당 파일을 vscode *.spec.ts 파일 내에서 It > Run / debug

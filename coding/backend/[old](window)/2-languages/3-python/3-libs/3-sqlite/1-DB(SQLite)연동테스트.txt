@@ -1,0 +1,39 @@
+[DB(SQLite) 연동 테스트]
+참조: https://wikidocs.net/5327
+
+* Q. 로컬 엑셀파일 쓰면 되지, DB를 왜 쓰냐?
+웹 APP으로 만들면,
+첫째, 웹내에 저장하여 데이터의 편리한 이동과 안전한 관리가 가능
+둘째, 데이터구조화가 가능 (데이터구조화의 장점 참조: https://server-talk.tistory.com/275)
+셋째, 조건문, 반복문과 결합하는 등 로직과 함께 SQL문을 사용할 수 있다.
+
+1. 아나콘다에서 SQLite 모듈 임포트: * SQLite는 서버 설치와 설정면에서 Lite한 DBMS이다.
+ide에서 connTest1.py 모듈 작성 및 F5 실행 (* F5 안하고 할 경우엔 >>> import connTest1.py를 해야하지만, 그 경우 if __name__ == "__main__": 을 삭제해야함)
+c:/Anaconda3/kospi.db 파일이 생성된 것을 확인
+ide Shell에서 다음을 실행해서 DBMS의 작동을 테스트
+>>> create("samsung")
+>>> Insert("samsung")
+>>> select("samsung")
+>>> update("samsung")
+>>> select("samsung")
+>>> delete("samsung")
+>>> select("samsung")
+>>> drop("samsung")
+* 중간에 미스타이핑 등의 코드를 수정했다면 저장 후 F5를 눌러서 다시 실행하고 shell에서 사용해야함
+>>> select("samsung") # 에러남: 삼성 테이블이 없기 때문
+
+1. VSCODE에서 SQLite 모듈 임포트
+그냥 실행하면 된다. 단 DB의 위치가 해당 폴더 위치가 된다.
+
+1. A5M2와 연동하기
+DB연동: A5M2 열기 -> DB 우클릭 -> 새로운 DB 추가 -> SQLite -> c:\Anaconda3\kospi.db 선택 -> 테스트 접속 -> ok 클릭
+DB접속: A5M2 익스플로러에서 kospi.db 선택 -> id와 pw 입력필요없음 -> pw 저장 체크 후 접속 -> "samsung" table 존재 확인
+커런트스키마 지정: kospi.db 데이터베이스 접속 -> <default> 를 클릭 후 ctl + f5 누름 (커런트스키마 지정됨) * 우클릭 메뉴에서도 가능
+SIDU문 실행 후 갱신결과 확인: <default> 를 클릭 후 ctl + f5 누름 -> 테이블 확인
+
+1. 리팩토링 해보기: 중복코드 삭제해보기
+connTest2.py 작성
+>>> 위의 작업 그대로 반복 후,
+>>> closeDB():
+>>> create("samsung") # 에러남: DB가 닫혔기 때문
+* try exception 문을 활용해 상기 메소드에게 에러 처리를 해줄 수도 있다.

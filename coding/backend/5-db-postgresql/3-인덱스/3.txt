@@ -1,0 +1,35 @@
+[인덱스: B-tree 원리와 활용]
+참조: https://www.postgresql.org/docs/16/indexes.html
+
+[B-tree 인덱스 원리 ★★]
+1. 정렬된 트리 구조. 루트 → 브랜치 → 리프로 내려가며 탐색, O(log N)
+1. 리프 노드에 (키 값, 해당 row 위치) 저장 → 인덱스 탐색 후 테이블(heap) 접근
+1. PostgreSQL 기본 인덱스 타입이 B-tree. =, <, >, BETWEEN, ORDER BY, LIKE 'abc%'에 유리
+1. 생성/확인
+  CREATE INDEX idx_posts_user_id ON posts(user_id);
+  \d posts
+1. 대가: 쓰기(INSERT/UPDATE/DELETE)마다 인덱스 갱신 비용 + 저장 공간
+
+[복합(Composite) 인덱스]
+1. CREATE INDEX idx_posts_user_created ON posts(user_id, created_at);
+1. 선두 컬럼(leftmost)부터 순서대로 써야 탐(user_id 단독 O, created_at 단독 X) ★
+1. 컬럼 순서 기준: 등호(=) 조건 컬럼을 앞에, 범위/정렬 컬럼을 뒤에
+
+[부분(Partial) 인덱스]
+1. 조건을 만족하는 row만 인덱싱 → 크기 절약, 특정 쿼리 최적화
+  CREATE INDEX idx_posts_published ON posts(created_at) WHERE deleted_at IS NULL;
+1. 쿼리의 WHERE가 인덱스 조건을 포함해야 사용됨
+
+[커버링(Covering) 인덱스]
+1. 쿼리에 필요한 컬럼이 전부 인덱스 안에 있으면 테이블 접근 없이 응답 → Index Only Scan
+  CREATE INDEX idx_posts_cover ON posts(user_id) INCLUDE (title);
+1. VACUUM으로 visibility map이 갱신돼 있어야 효과가 남
+
+[인덱스가 안 타는 경우 ★]
+1. 컬럼에 함수/연산 적용: WHERE lower(email)=... → 표현식 인덱스 필요
+  CREATE INDEX idx_users_email_lower ON users(lower(email));
+1. 앞쪽 와일드카드: LIKE '%abc'
+1. 타입 불일치(암묵적 캐스팅), 복합 인덱스 선두 컬럼 누락
+1. 선택도(selectivity)가 낮은 경우: 테이블 대부분을 읽어야 하면 planner가 Seq Scan 선택
+1. 실제로 타는지는 EXPLAIN으로 확인
+  상세: 같은 트랙의 쿼리튜닝-explain 노트 참조

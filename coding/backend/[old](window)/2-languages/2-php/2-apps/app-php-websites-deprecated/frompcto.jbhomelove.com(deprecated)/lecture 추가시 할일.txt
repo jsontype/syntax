@@ -1,0 +1,3 @@
+lecture1 -> 2로 추가시
+bbs1 -> bbs2
+bill1 -> bill2

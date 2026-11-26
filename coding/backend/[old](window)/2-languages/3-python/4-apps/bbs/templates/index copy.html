@@ -1,0 +1,214 @@
+{% include 'lib/top.html'  ignore missing %}
+
+  <!-- start section header -->
+  <div id="header" class="home">
+
+    <div class="container">
+      <div class="header-content">
+        <h1>I am <span class="typed"></span></h1>
+
+        <p>
+          &nbsp; and I will be
+          {% if session['dream1'] %}
+            {% if session['dream1'] != 'None' %}
+          <b style="color:red;">「{{session['dream1']}}」</b>.
+            {% else %}
+          <b style="color:red;">「a Dreamer」</b>.
+            {% endif %}
+          {% else %}
+          <b style="color:red;">「a Dreamer」</b>.
+          {% endif %}
+        </p>
+
+        {% if session['id'] %}
+        <ul class="list-unstyled list-social">
+          {% if session['facebook'] %}{% if session['facebook'] != 'None' %}
+          <li>&nbsp;  &nbsp;  &nbsp;  &nbsp;  <a href="{{session['facebook']}}"><i class="ion-social-facebook"></i></a></li>
+          {% else %}{% endif %}{% else %}{% endif %}
+          {% if session['twitter'] %}{% if session['twitter'] != 'None' %}
+          <li><a href="{{session['twitter']}}"><i class="ion-social-twitter"></i></a></li>
+          {% else %}{% endif %}{% else %}{% endif %}
+          {% if session['instagram'] %}{% if session['instagram'] != 'None' %}
+          <li><a href="{{session['instagram']}}"><i class="ion-social-instagram"></i></a></li>
+          {% else %}{% endif %}{% else %}{% endif %}
+          {% if session['googleplus'] %}{% if session['googleplus'] != 'None' %}
+          <li><a href="{{session['googleplus']}}"><i class="ion-social-googleplus"></i></a></li>
+          {% else %}{% endif %}{% else %}{% endif %}
+          {% if session['tumblr'] %}{% if session['tumblr'] != 'None' %}
+          <li><a href="{{session['tumblr']}}"><i class="ion-social-tumblr"></i></a></li>
+          {% else %}{% endif %}{% else %}{% endif %}
+          {% if session['dribble'] %}{% if session['dribble'] != 'None' %}
+          <li><a href="{{session['dribble']}}"><i class="ion-social-dribbble"></i></a></li>
+          {% else %}{% endif %}{% else %}{% endif %}
+        </ul>
+        {% else %}
+        <p><a href="{{ url_for('login') }}">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ログイン</a>後に使えます。</p>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+  <!-- End section header -->
+
+
+
+
+
+
+
+
+
+
+
+
+  {% if session['id'] %}
+
+  <!-- start section portfolio -->
+  <div id="portfolio" class="text-center paddsection">
+    <div class="container">
+      <div class="section-title text-center">
+        <h2>{{ session['nickname'] }}'s List</h2>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="portfolio-list">
+            <ul class="nav list-unstyled" id="portfolio-flters">
+              <li class="filter filter-active" data-filter=".all">【view all】</li>
+
+              {% for caterow in cate1rows %}
+                <li class="filter" data-filter=".{{ caterow['category'] }}" style="margin-right:40px;">{{ caterow['category'] }}</li>
+              {% endfor %}
+
+              <li class="filter" style="margin-right:0px;">
+                <a href="{{ url_for('bbs1deleteallpost') }}" style="color: #b8a07e;
+                -moz-transition: all 0.5s ease-in-out 0s;
+                -ms-transition: all 0.5s ease-in-out 0s;
+                -o-transition: all 0.5s ease-in-out 0s;
+                -webkit-transition: all 0.5s ease-in-out 0s;
+                transition: all 0.5s ease-in-out 0s;">
+                【delete all】</a></li>
+            </ul>
+          </div>
+
+
+          <div class="portfolio-container">
+            {% for bbsrow in bbs1rows %}
+            <div class="col-lg-4 col-md-6 portfolio-thumbnail all {{ bbsrow['category'] }}">
+              <a href="bbs1view?no={{ bbsrow['no'] }}">
+                <p><nobr style="text-overflow:ellipsis;overflow:hidden;width:300px;"><h4>{{ bbsrow['title'] }}</h4></nobr></p>
+                <p><nobr style="text-overflow:ellipsis;overflow:hidden;width:300px;">{{ bbsrow['content'] }}</nobr></p>
+                <p><nobr style="text-overflow:ellipsis;overflow:hidden;width:300px;">{{ bbsrow['img_file1'] }}</nobr></p>
+                <p>
+                  {% if bbsrow['mod_date'] %}
+                    {{ bbsrow['mod_date'] }}
+                  {% else %}
+                    {{ bbsrow['reg_date'] }}
+                  {% endif %}
+                </p>
+              </a>
+            </div>
+            {% endfor %}
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End section portfolio -->
+  {% else %}
+  {% endif %}
+
+
+
+
+
+
+
+
+
+
+
+  {% if session['id'] %}
+
+  <!-- start sectoion contact -->
+  <div id="contact" class="paddsection">
+    <div class="container">
+      <div class="contact-block1">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="contact-contact">
+              <h2 class="mb-30">Make a List</h2>
+              <ul class="contact-details">
+                <li><span>新しいメモを</span></li>
+                <li><span>ここに入力してください。</span></li>
+                <li><span>開発者の連絡先</span></li>
+                <li><span><a href="mailto:d.yang@rtmedias.com">d.yang@rtmedias.com</a></span></li>
+                <li><span><a href="mailto:h.aoki@rtmedias.com">h.aoki@rtmedias.com</a></span></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Write A Memo! -->
+          <div class="col-lg-6">
+            <form action="{{ url_for('bbs1writepost') }}" method="post" role="form" class="contactForm" enctype="multipart/form-data">
+              <div class="row">
+                <!-- <div id="sendmessage">Your message has been sent. Thank you!</div>
+                <div id="errormessage"></div> -->
+                <div class="col-lg-6">
+                  <div class="form-group contact-block1">
+                    <input type="text" class="form-control" name="nickname" id="nickname" placeholder="nickname" value="{{ session['nickname'] }}" maxlength="15" readonly />
+                    <div class="validation"></div>
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="category" id="category" placeholder="category" maxlength="15" />
+                    <div class="validation"></div>
+                  </div>
+                </div>
+
+                <div class="col-lg-12">
+                  <div class="form-group contact-block1">
+                    <input type="text" class="form-control" name="title" id="title" placeholder="title" data-rule="required" data-msg="Titleを入力してください" maxlength="70" />
+                    <div class="validation"></div>
+                  </div>
+                </div>
+
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <textarea class="form-control" name="content" rows="30" data-rule="required" data-msg="本文を入力してください" placeholder="content" style="height:214px;"></textarea>
+                    <div class="validation"></div>
+                  </div>
+                </div>
+
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif' Only
+                    <input type="file" class="form-control" name="img_file1" id="img_file1" placeholder="File" />
+                    <div class="validation"></div>
+                    <input type="submit" class="btn btn-defeault btn-send" value="SEND">
+                  </div>
+                </div>
+
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- start sectoion contact -->
+  {% else %}
+  {% endif %}
+
+
+
+
+
+
+{% include 'lib/bottom.html'  ignore missing %}

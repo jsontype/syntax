@@ -1,0 +1,38 @@
+[부록: データ指向アプリケーションデザイン (DDIA) (후순위)]
+참조: 『データ指向アプリケーションデザイン』 Martin Kleppmann (원서: Designing Data-Intensive Applications)
+  무겁고 두꺼운 책. 시스템디자인 기초(1.txt)를 끝내고 실무에서 DB/분산 이슈를 겪은 뒤에 읽을 것 ★
+
+[읽는 법]
+1. 1부(1~4장)만 먼저 정독, 2부는 필요할 때 사전처럼 참조
+1. 각 장을 읽고 "우리 서비스라면?"을 한 줄씩 메모하며 진행
+
+[1부: 데이터 시스템의 기초]
+1. 1장 신뢰성/확장성/유지보수성
+  비기능 요구를 언어화하는 어휘 습득이 목적
+1. 2장 데이터 모델과 쿼리 언어
+  relational vs document vs graph, 어디에 무엇이 맞는가
+1. 3장 저장과 검색
+  B-tree vs LSM-tree, 인덱스가 실제로 어떻게 생겼는가 ★★
+1. 4장 인코딩과 스키마 진화
+  JSON/Avro/Protobuf, 전방/후방 호환성
+
+[2부: 분산 데이터]
+1. 5장 복제 (replication)
+  single-leader / multi-leader / leaderless, replication lag 문제들
+1. 6장 파티셔닝 (sharding)
+  key 분할 전략, hot spot, rebalancing
+1. 7장 트랜잭션
+  isolation level 별로 무엇이 깨지는가 (dirty read, lost update, write skew)
+1. 8장 분산 시스템의 문제
+  네트워크는 신뢰 불가, 시계도 신뢰 불가라는 전제 훈련
+1. 9장 일관성과 합의
+  linearizability, consensus(Raft 등), CAP의 정확한 의미
+
+[3부: 파생 데이터]
+1. 10장 배치 처리 (MapReduce 계보)
+1. 11장 스트림 처리 (Kafka, event log)
+1. 12장 데이터 시스템의 미래 (event sourcing 관점 정리)
+
+[읽은 후 할 것]
+1. 우리 서비스 DB 구성을 5장/6장 용어로 다시 설명해보기
+1. 시스템디자인 노트(1.txt)의 트레이드오프 항목을 책 어휘로 보강

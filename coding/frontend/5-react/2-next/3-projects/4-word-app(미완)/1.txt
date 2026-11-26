@@ -1,0 +1,47 @@
+[단어암기앱 만들기]
+
+1. 사전준비: 프로젝트를 새로 깔지 않고, movie-app 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. 불필요 폴더 제거
+  - 폴더: src/app/movies
+
+1. 단어 암기장 앱 요건정의서
+  앱 개요: 사용자가 외국어 단어를 저장하고 학습할 수 있는 웹 애플리케이션
+  주요 기능:
+    - 단어 추가/수정/삭제
+    - 단어장 카테고리 관리
+    - 단어 암기 학습 모드
+    - 단어 테스트 기능
+    - 학습 진도 추적
+  기술 스택:
+    - Next.js 15.2.4
+    - React 19.0.0
+    - TypeScript
+    - Zustand (상태 관리)
+    - Tailwind CSS (UI 디자인)
+    - MUI (UI 라이브러리)
+  페이지 구성
+    - 메인 페이지: 단어장 목록 및 학습 현황 대시보드
+    - 단어장 관리 페이지: 단어 추가/수정/삭제
+    - 학습 페이지: 플래시카드 형식의 단어 학습
+    - 테스트 페이지: 단어 테스트 및 결과 확인
+  데이터 구조
+    // 단어장
+    interface WordBook {
+      id: string;
+      title: string;
+      description?: string;
+      createdAt: Date;
+      updatedAt: Date;
+    }
+
+    // 단어
+    interface Word {
+      id: string;
+      wordBookId: string;
+      term: string;
+      definition: string;
+      examples?: string[];
+      mastered: boolean;
+      lastStudied?: Date;
+    }

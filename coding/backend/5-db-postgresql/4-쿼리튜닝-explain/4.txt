@@ -1,0 +1,37 @@
+[쿼리 튜닝: EXPLAIN ANALYZE와 슬로우쿼리]
+참조: https://www.postgresql.org/docs/16/using-explain.html
+
+[EXPLAIN 기본]
+1. EXPLAIN: planner의 실행 계획만 표시(실행 안 함)
+1. EXPLAIN ANALYZE: 실제 실행 후 실측 시간/row 수까지 표시 ★★
+  EXPLAIN ANALYZE SELECT * FROM posts WHERE user_id = 1;
+1. 읽는 법: 안쪽(들여쓰기 깊은 노드)부터 실행, cost=시작비용..총비용, rows=예상 row
+1. 예상 rows와 actual rows가 크게 다르면 통계가 낡은 것 → ANALYZE posts;
+
+[Seq Scan vs Index Scan ★]
+1. Seq Scan: 테이블 전체를 순서대로 읽음. 작은 테이블/대부분의 row를 읽을 때는 오히려 정상
+1. Index Scan: 인덱스로 위치를 찾고 테이블 접근. 소수 row 조회에 유리
+1. Index Only Scan: 테이블 접근 없이 인덱스만으로 응답 (커버링 인덱스)
+1. Bitmap Heap Scan: 중간 규모 결과. 인덱스로 위치를 모아 정렬 후 한번에 접근
+1. 큰 테이블 + WHERE 조건인데 Seq Scan이면 인덱스 누락/미사용 의심
+  상세: 같은 트랙의 인덱스 노트 참조
+
+[슬로우쿼리 찾기]
+1. postgresql.conf (또는 ALTER SYSTEM)
+  log_min_duration_statement = 500   # 500ms 이상 쿼리 로그
+1. pg_stat_statements 확장: 누적 통계로 상위 쿼리 확인
+  CREATE EXTENSION pg_stat_statements;
+  SELECT query, calls, mean_exec_time FROM pg_stat_statements ORDER BY mean_exec_time DESC LIMIT 10;
+1. 실행 중 쿼리 확인: SELECT * FROM pg_stat_activity;
+
+[N+1 문제 ★]
+1. 목록 1회 조회 후, 각 row마다 연관 데이터를 추가 쿼리 → 쿼리 N+1개 발생
+  예: posts 100개 조회 → 각 post의 user를 100번 개별 SELECT
+1. 해결
+  - JOIN으로 한 방에 조회
+  - WHERE user_id IN (...) 로 묶어서 조회
+  - ORM이면 eager loading 옵션 사용 (JPA fetch join, Django select_related 등)
+1. 탐지: 애플리케이션 쿼리 로그에서 동일 패턴 쿼리 반복 확인
+
+[정리]
+1. 튜닝 순서: 슬로우쿼리 식별 → EXPLAIN ANALYZE → 인덱스/쿼리 수정 → 재측정

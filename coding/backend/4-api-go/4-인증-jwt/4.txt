@@ -1,0 +1,37 @@
+[Go에서 JWT 인증 구현하기]
+
+1. 개요
+  JWT = header.payload.signature (Base64URL). 서버가 서명해서 발급, 이후 요청마다 검증.
+  ★ stateless: 서버가 세션을 저장하지 않고 토큰 자체로 인증
+
+1. 라이브러리 설치
+  $ go get github.com/golang-jwt/jwt/v5
+
+1. 발급: POST /login 핸들러
+  userId/password 검증 후 토큰 생성
+  token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+    "sub": userId,
+    "exp": time.Now().Add(time.Hour).Unix(),
+  })
+  signed, err := token.SignedString([]byte(secretKey))
+  ★★ secretKey는 코드에 하드코딩 금지, 환경변수로 (os.Getenv("JWT_SECRET"))
+  응답으로 { "token": "..." } JSON 리턴
+
+1. 검증
+  클라이언트는 헤더로 전송: Authorization: Bearer <token>
+  jwt.Parse(tokenString, keyFunc)로 서명/만료 검증
+  claims에서 sub(userId) 꺼내기
+
+1. 인증 미들웨어: 보호 라우트 만들기
+  3장 미들웨어 패턴 그대로 auth(next http.Handler) 작성
+  Authorization 헤더 없거나 검증 실패 → 401 Unauthorized
+  검증 성공 → context에 userId 저장 후 next 호출
+    ctx := context.WithValue(r.Context(), userIdKey, userId)
+    next.ServeHTTP(w, r.WithContext(ctx))
+  적용: /login, GET /users/ 는 공개, create/update/delete는 auth로 감싸기
+
+1. 테스트
+  $ go run .
+  - POST /login 으로 토큰 받기
+  - postman에서 Authorization: Bearer <token> 넣고 POST /users/create
+  - 토큰 없이 호출 → 401 확인, 만료 토큰 → 401 확인

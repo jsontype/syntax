@@ -1,0 +1,74 @@
+[Alias]
+
+1. Alias
+  Alias란 
+  터미널에서 alias는 자주 사용하는 긴 명령어나 일련의 명령어를 짧은 단어나 문구로 대체할 수 있도록 해주는 단축 커멘드이다.
+  이는 특히 복잡하거나 입력하기 번거로운 명령어를 간단하게 실행할 수 있게 만들어준다.
+
+
+
+[Alias 목록]
+
+1. Alias 리스트 보기
+  $ alias
+
+1. Alias 삭제 : 잘못 삭제하면 쉘 자체에 나쁜 영향을 주므로, 모르는 alias는 함부로 삭제하지 않도록 주의한다.
+  $ unalias pul
+
+1. Alias 추가 : 터미널에서 사용시 현 세션에서만 적용되며, 영구적 추가는 .zshrc를 수정해야 한다.
+  $ code ~/.zshrc : zsh 설정 파일을 연다.
+  - zshrc 파일 내부에 아래 내용들을 붙여넣기 한다.
+  $ source ~/.zshrc : zsh 설정 파일의 변경 사항을 적용한다. (zsh을 재기동해도 된다.)
+
+  # zsh alias
+  alias zsh-config="code ~/.zshrc"
+
+  # avoid CORS alias
+  alias chrome='open -na "Google Chrome" --args --user-data-dir=/tmp/dev_chrome_profile --disable-web-security'
+
+  # git alias
+  alias fetch="git fetch origin"
+  alias pull="git pull origin"
+  alias add="git add ."
+
+  # login alias
+  alias login1="gcloud auth login"
+  alias login2="gcloud auth application-default login"
+
+  # pod
+  alias pod-front="kubectl get pod -n front앱명"
+  alias pod-back="kubectl get pod -n back앱명"
+  # pod 삭제 후 재기동 (pod명이 매번 바뀌므로 alias 말고 아래 cmd 직접 입력함)
+  # kubectl delete pod -n 앱명 pod명
+
+  # kubectx alias
+  alias kubectx-dev="gcloud container clusters get-credentials 환경명-dev-1  --project 프로젝트명-dev --zone asia-northeast1"
+  alias kubectx-tesx="gcloud container clusters get-credentials 환경명-tesx-1 --region asia-northeast1 --project 프로젝트명-tes"
+  alias kubectx-tes="gcloud container clusters get-credentials 환경명-tes-1 --region asia-northeast1 --project 프로젝트명-tes"
+  alias kubectx-rhs="gcloud container clusters get-credentials 환경명-rhs-1  --project 프로젝트명-rhs --zone asia-northeast1"
+  alias kubectx-prdx="gcloud container clusters get-credentials 환경명-prdx-1 --region asia-northeast1 --project 프로젝트명-prd"
+  alias kubectx-prd="gcloud container clusters get-credentials 환경명-prd-1 --region asia-northeast1 --project 프로젝트명-prd"
+
+  # helm alias: diff, sync
+  alias dev-diff="helmfile --environment gcp/dev1 -f 앱명.yaml diff"
+  alias dev-sync="helmfile --environment gcp/dev1 -f 앱명.yaml sync"
+  alias tesx-diff="helmfile --environment gcp/tesx-1 -f 앱명-web.yaml diff"
+  alias tesx-sync="helmfile --environment gcp/tesx-1 -f 앱명-web.yaml sync"
+  alias dev-bff-diff="helmfile --environment gcp/dev1 -f 앱명-web-bff.yaml diff"
+  alias dev-bff-sync="helmfile --environment gcp/dev1 -f 앱명-web-bff.yaml sync"
+  alias tesx-bff-diff="helmfile --environment gcp/tesx- -f 앱명-web-bff.yaml diff"
+  alias tesx-bff-sync="helmfile --environment gcp/tesx-1 -f 앱명-web-bff.yaml sync"  
+
+
+
+[기타 주의사항]
+
+1. 주의: Alias를 zshrc에 넣은 뒤, 아래 절차를 통해 적용을 해야 작동한다.
+  $ source ~/.zshrc : 변경 사항을 적용한다. 
+  - 위 명령어 대신 zsh을 재기동해도 된다.
+
+1. 주의: Alias가 중복되지 않도록 주의해야 한다.
+  Alias를 추가할 때는 반드시 기존에 사용되고 있는 Alias와 겹치지 않는지 한번 입력해서 확인해보고 추가해야 한다.
+  예를 들어, alias add="명령어" 같이 추가하고자 할 때에는, add가 이미 존재할 가능성이 있으므로 아래 절차대로 확인할 필요가 있다.
+  $ add : 터미널에 입력
+  "zsh: command not found: add"이 뜨는지 확인 후 add alias를 추가한다.

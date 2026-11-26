@@ -1,0 +1,32 @@
+[searchParams 취득]
+
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. query string 이란?
+  - ? 부분을 쿼리스트링이라고 한다. 그리고 이걸 취득하는 것이 searchParams이다.
+    ?sort=title
+    ?sort=year
+    ?sort=rating
+  - ? 뒤에 오는 쿼리스트링을 취득하는 방법은 두가지가 있다.
+    - 클라이언트사이드: const { searchParams } = useSearchParams() // 임포트 필요import { useSearchParams } from 'next/navigation'
+    - 서버사이드: (await searchParams).get('sort') // NEXT15에서부터 async/await를 쓰도록 바뀜
+
+1. src/components/SortPulldown.tsx 작성: 클라이언트 컴포넌트로, sort 풀다운 컴포넌트 만들어두기
+  - event listner를 사용해서 sort 풀다운을 선택했을 때, URL의 쿼리스트링을 바꿔주는 컴포넌트
+  - * searchParams는 SSR에서 getServerSideProps 함수에서 context.params를, CSR 컴포넌트에서 사용하려면 router.query를 임포트해서 사용해야 함. (CSR의 경우는 params의 패턴과 똑같다는 점이 기억해둘 포인트!)
+  - * params는 SSR에서 getServerSideProps 함수에서 context.query를, CSR 컴포넌트에서 사용하려면 router.query를 사용해야 함.  
+  - ** 비교 참조: app-router에서는 SSR 컴포넌트에서 headers, cookies 함수를 next/header에서 임포트해서 사용하고, CSR 컴포넌트에서 각각 useSearchParams()와 useParams()를 사용해서 쿼리스트링과 파라미터를 취득할 수 있다.
+
+1. src/pages/movies/index.tsx 수정: 무비 리스트 서버 컴포넌트(SSR)에 sort 풀다운 추가하기
+  - SSR 컴포넌트에서 searchParams를 사용하려면 getServerSideProps에서 return한 값을 렌더링 함수에서 Props로 받아와야 함.
+
+1. 테스트: SSR의 무비 리스트 페이지, 무비 리스트 페이지에서 호출하는 CSR의 소트 풀다운 컴포넌트 확인
+  $ cd app1
+  $ npm run dev  
+  - localhost:3000/movies 무비리스트 페이지에 접속한다.
+  - SortPulldown이라는 CSR 컴포넌트에서 sort 풀다운과 itemPerPage 풀다운을 선택하고 적용 클릭 -> URL의 쿼리스트링이 바뀌는지, 리스트 항목에 반영이 되는지 확인한다.
+    http://localhost:3000/movies
+    http://localhost:3000/movies?sort=rating&limit=20
+    http://localhost:3000/movies?sort=year&limit=10
+    http://localhost:3000/movies?sort=year&limit=30
+    http://localhost:3000/movies?sort=year&limit=50

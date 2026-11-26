@@ -1,0 +1,29 @@
+﻿1. 리팩토링
+{% include 'lib/top.html' ignore missing %}
+{% include 'lib/bottom.html' ignore missing %}
+
+1. 폴더 프레임워크에 맞게 구분
+/template : html만 넣는 곳
+/static : css, js, image 등 assets을 넣는 곳
+
+1. 템플릿 css, js 적용 : index.html 변경 (CSS등 연동시키는법)
+/static 로 경로변경
+src="{{ url_for('static', filename='assets/ ... ') }}"
+href="{{ url_for('static', filename='assets/ ... ') }}"
+
+	CSS의 예
+	<link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">을
+	<link href="{{ url_for('static', filename='lib/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">로 변경
+	JS의 예
+	<script src="lib/jquery/jquery.min.js"></script>을
+	<script src="{{ url_for('static', filename='lib/jquery/jquery.min.js') }}"></script>로 변경
+	Image file의 예
+	<img src="images/logo.png" alt="logo">을
+	<img src="{{ url_for('static', filename='images/logo.png') }}" alt="logo">로 변경
+
+1. Form 태그 수정
+회원가입용 폼
+로그인용 폼
+게시판용 폼
+
+1. DB와의 연동

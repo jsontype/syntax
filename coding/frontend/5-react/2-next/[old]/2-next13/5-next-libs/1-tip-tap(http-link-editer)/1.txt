@@ -1,0 +1,6 @@
+참조URL(인스톨): https://tiptap.dev/docs/editor/getting-started/install/nextjs
+참조URL(링크확장): https://tiptap.dev/docs/editor/extensions/marks/link
+
+$ npx create-next-app app1
+$ cd app1
+$ npm install @tiptap/react @tiptap/pm @tiptap/starter-kit @tiptap/extension-link @tiptap/extension-paragraph

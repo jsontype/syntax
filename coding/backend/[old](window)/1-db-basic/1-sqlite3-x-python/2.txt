@@ -1,0 +1,42 @@
+[SELECT문: 기본 데이터 조회]
+참조: https://stricky.tistory.com/204
+
+1. 절차
+A5M2에서 study1.db에 접속한 뒤, Query-1 탭을 클릭
+SQL 입력 (★ A5M2에 입력할 때는 마지막 구분자 ;를 쓰지 않는다.)
+커런트스키마에서 ctrl + F5로 커밋결과 리프레쉬
+
+1. 수업준비 (순서대로)
+1) 테이블 생성
+CREATE TABLE second_table(name varchar(50), dept_cd varchar(1), phone varchar(15), address varchar(100))
+2) 데이터 입력
+INSERT INTO second_table(name, dept_cd, phone, address) VALUES ('홍길동', 'A', '01023456789', '조선 한양읍 ')
+, ('손흥민', 'A', '0112345434', '영국 런던 ')
+, ('박찬호', 'C', '01023433456', '충남 공주 ')
+, ('김유신', 'D', '0187766645', '신라 경주 ')
+, ('박나래', 'D', '0192929384', '서울특별시 영등포구 ')
+, ('강감찬', 'E', '01023432123', '고려')
+3) 확인
+SELECT * FROM second_table
+
+1. SELECT문: 데이터 조회
+
+1) 원하는 데이터만 SELECT하기
+select * from second_table
+select name, phone from second_table
+select * from second_table where dept_cd = 'A'
+
+2) 표현식 사용하기
+select name, '님 안녕하세요!' from second_table
+select name||'의 부서코드는 '||dept_cd||' 입니다.' from second_table
+select name||'의 부서코드는 '||dept_cd||' 입니다.' from second_table where name = '손흥민'
+
+3) 컬럼명 대신 별칭(alias)을 사용하기
+select name 이름, '님 안녕하세요!' 인사문구 from second_table
+select name as 이름, '님 안녕하세요!!' as 인사문구 from second_table
+
+4) DISTINCT로 중복된 값을 제외하고 출력하기
+select distinct dept_cd from second_table
+
+5) 연결 연산자 함수로 칼럼 값을 붙여서 출력하기
+select concat(name,'의 부서코드는 ',dept_cd,' 입니다.') from second_table (* SQLite3은 지원하지 않음)

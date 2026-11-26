@@ -1,0 +1,36 @@
+[Claude Code 위험 권한 스킵 모드 — claude --dangerously-skip-permissions]
+
+■ 개요
+- Claude Code(CLI)의 모든 "도구 사용 승인 프롬프트"를 건너뛰는 실행 플래그.
+- 파일 편집 / 셸 명령(Bash) / 파일 삭제 등을 매번 묻지 않고 바로 실행 (이른바 YOLO 모드).
+- 속도는 빨라지지만 확인 없이 실행되므로 위험 → 신뢰된 "격리 환경"에서만 사용 권장.
+
+■ 실행 절차
+1. 터미널에서 작업할 프로젝트 폴더로 이동
+   cd <프로젝트 경로>
+
+2. 권한 스킵 모드로 Claude Code 실행
+   claude --dangerously-skip-permissions
+
+3. (선택) 모델 등 다른 옵션과 함께
+   claude --dangerously-skip-permissions --model opus
+
+※ 이 모드에서는 도구 호출마다 뜨던 [Allow / Deny] 프롬프트가 사라지고 전부 자동 실행됨.
+
+■ 안전 수칙 (중요)
+- 격리 환경에서만 사용: devcontainer / Docker / VM / 버려도 되는 별도 디렉토리 등.
+- 민감정보 분리: 인증정보·운영 비밀키·중요 파일이 있는 디렉토리에서는 쓰지 말 것.
+- prompt injection 주의: "인터넷 접근 + 권한 스킵" 조합이 가장 위험
+  (외부에서 읽은 내용이 셸 명령 실행을 유도할 수 있음).
+- 파괴적 명령(rm -rf, git reset --hard, force push 등)도 확인 없이 실행될 수 있음.
+- root 사용자/일부 샌드박스에서는 보안상 거부될 수 있음 → 비-root 사용자 또는 컨테이너에서 실행.
+
+■ 더 안전한 대안 (평소 권장)
+- 일반 모드로 실행하고, 자주 쓰는 "안전한 명령만" 허용목록(allowlist)에 등록:
+  .claude/settings.json 의 permissions.allow 에
+    "Bash(git status:*)", "Bash(git diff:*)", "Bash(npm run *)" 등 추가.
+- 세션 중에는 /permissions 로 현재 허용 규칙 확인·추가.
+- 즉 "전부 스킵"보다 "필요한 것만 허용"이 안전하고 통제 가능.
+
+■ 한 줄 요약
+- 빠르지만 위험 → 격리된 곳에서만:  claude --dangerously-skip-permissions

@@ -1,0 +1,6 @@
+[Nuxt2 앱 만들고 Vue2 앱과 비교하기]
+
+1. 설치
+  $ npx create-nuxt-app app1
+  - Project name: app1
+  - Programming language: TypeScript

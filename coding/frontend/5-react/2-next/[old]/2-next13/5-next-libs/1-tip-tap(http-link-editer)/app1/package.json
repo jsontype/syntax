@@ -1,0 +1,34 @@
+{
+  "name": "app1",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@tiptap/extension-link": "^2.11.2",
+    "@tiptap/extension-paragraph": "^2.11.2",
+    "@tiptap/extension-text": "^2.11.2",
+    "@tiptap/pm": "^2.11.2",
+    "@tiptap/react": "^2.11.2",
+    "@tiptap/starter-kit": "^2.11.2",
+    "next": "15.1.5",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "sass": "^1.83.4"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "15.1.5",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}

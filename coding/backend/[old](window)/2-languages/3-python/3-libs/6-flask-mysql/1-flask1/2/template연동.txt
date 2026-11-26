@@ -1,0 +1,20 @@
+1. 리팩토링
+{% include 'lib/top.html' ignore missing %}
+{% include 'lib/bottom.html' ignore missing %}
+
+1. 폴더 프레임워크에 맞게 구분
+/template : html만 넣는 곳
+/static : css, js, image 등 assets을 넣는 곳
+
+1. 템플릿 css, js 적용 : index.html 변경 (CSS등 연동시키는법)
+/static 로 경로변경
+src="{{ url_for('static', filename='assets/ ... ') }}"
+href="{{ url_for('static', filename='assets/ ... ') }}"
+
+1. Form 태그 수정
+회원가입용 폼
+로그인용 폼
+게시판용 폼
+
+1. XAMPP 또는 외부 DB와의 연동
+...

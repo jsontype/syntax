@@ -1,0 +1,11 @@
+<h1>
+  <h1>서브페이지</h1>
+  <p>메인페이지 가기 <a href="../main">링크</a></p>
+  <p>
+  {% if name %}<!-- 変数の名をname1に変更したら、Strangerが出る -->
+    Hello, {{name|capitalize}}!
+  {% else %}
+    Hello, Stranger!
+  {% endif %}
+  </p>
+</h1>

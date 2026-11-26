@@ -1,0 +1,281 @@
+[Movie App : Vue2에서 Vue3로 마이그레이션하기]
+
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 1-vue2-movie-app 코드를 그대로 카피해서 가지고 온다.
+
+1. package.json 수정
+  아래의 vue2 코드를 수정해야 한다.
+  ```
+    {
+      "name": "app1",
+      "version": "0.1.0",
+      "private": true,
+      "scripts": {
+        "serve": "vue-cli-service serve",
+        "build": "vue-cli-service build",
+        "lint": "vue-cli-service lint"
+      },
+      "dependencies": {
+        "core-js": "^3.8.3",
+        "vue": "^2.6.14"
+      },
+      "devDependencies": {
+        "@babel/core": "^7.12.16",
+        "@babel/eslint-parser": "^7.12.16",
+        "@vue/cli-plugin-babel": "~5.0.0",
+        "@vue/cli-plugin-eslint": "~5.0.0",
+        "@vue/cli-service": "~5.0.0",
+        "eslint": "^7.32.0",
+        "eslint-plugin-vue": "^8.0.3",
+        "vue-template-compiler": "^2.6.14"
+      },
+      "eslintConfig": {
+        "root": true,
+        "env": {
+          "node": true
+        },
+        "extends": [
+          "plugin:vue/essential",
+          "eslint:recommended"
+        ],
+        "parserOptions": {
+          "parser": "@babel/eslint-parser"
+        },
+        "rules": {}
+      },
+      "browserslist": [
+        "> 1%",
+        "last 2 versions",
+        "not dead"
+      ]
+    }
+  ```
+  $ vue create app1
+  위 cli를 사용하여 vue3 프로젝트를 새로 만들고, 해당 package.json을 그대로 가져와서,
+  vue3 코드와 같은 형식으로 수정한다.
+  ```
+    // Vue 3.x
+    {
+      "name": "app1",
+      "version": "0.1.0",
+      "private": true,
+      "scripts": {
+        "dev": "vue-cli-service serve",
+        "build": "vue-cli-service build",
+        "lint": "vue-cli-service lint"
+      },
+      "dependencies": {
+        "core-js": "^3.8.3",
+        "vue": "^3.2.13"
+      },
+      "devDependencies": {
+        "@babel/core": "^7.12.16",
+        "@babel/eslint-parser": "^7.12.16",
+        "@vue/cli-plugin-babel": "~5.0.0",
+        "@vue/cli-plugin-eslint": "~5.0.0",
+        "@vue/cli-service": "~5.0.0",
+        "eslint": "^7.32.0",
+        "eslint-plugin-vue": "^8.0.3"
+      },
+      "eslintConfig": {
+        "root": true,
+        "env": {
+          "node": true
+        },
+        "extends": [
+          "plugin:vue/vue3-essential",
+          "eslint:recommended"
+        ],
+        "parserOptions": {
+          "parser": "@babel/eslint-parser"
+        },
+        "rules": {}
+      },
+      "browserslist": [
+        "> 1%",
+        "last 2 versions",
+        "not dead",
+        "not ie 11"
+      ]
+    }
+  ```
+
+1. package.json 바뀐 점에 대한 상세 설명
+  Vue.js 버전:
+    Vue.js 버전이 "^2.6.14"로 지정되어 있다가, 아래 코드에서는 Vue.js 버전이 "^3.2.13"로 업데이트되었다.
+  eslintConfig 확장 설정: 
+    기존에는 eslintConfig의 extends 항목에 "plugin:vue/essential"을 사용하여 Vue.js와 관련된 ESLint 규칙을 확장하고 있었다.
+    새 코드에서는 extends 항목이 "plugin:vue/vue3-essential"으로 변경된다. 이것은 Vue 3에 맞춘 새로운 Vue.js 규칙을 사용하도록 설정한 것이다.
+  Browserslist 설정:
+    기존에는 Browserslist 설정에 "> 1%", "last 2 versions", "not dead"만 있었다.
+    새 코드에서는 추가로 "not ie 11"이 포함되었습니다. 이것은 Internet Explorer 11을 지원하지 않겠다는 것을 나타낸다.
+
+1. package.json 재설치
+  기존의 node_modules 폴더 삭제
+  기존의 package-lock.json 파일 삭제
+  $ npm install
+
+1. src/main.js 수정
+  아래의 vue2 코드를 아래의 vue3 코드와 같은 형식으로 수정한다.
+  * 실무의 경우에는 GPT에게 "아래 vue2 코드를 vue3 코드로 바꿔줘"라고 부탁하여 바꾸면 된다.
+  ```
+    // Vue 2.x
+    import Vue from 'vue'
+    import App from './App.vue'
+
+    Vue.config.productionTip = false
+
+    new Vue({
+      render: h => h(App),
+    }).$mount('#app')
+  ```
+  이런 형태가 되는지 확인한다.
+  ```
+    // Vue 3.x
+    import { createApp } from 'vue'
+    import App from './App.vue'
+
+    createApp(App).mount('#app')
+  ```
+
+1. src/App.vue 수정
+  아래의 vue2 코드를 아래의 vue3 코드와 같은 형식으로 수정한다.
+  * 실무의 경우에는 GPT에게 "아래 vue2 코드를 vue3 코드로 바꿔줘. <script setup> 넣어서 간결하게 해라." 라고 부탁하여 바꾸면 된다.
+  ```
+    // Vue 2.x
+    <template>
+      <div>
+        <button @click="onClick">Toggle</button>
+        <div v-if="isOpen">
+          <MovieApp />
+        </div>
+      </div>
+    </template>
+
+    <script>
+    import MovieApp from './components/MovieApp.vue'
+
+    export default {
+      name: 'App',
+      components: {
+        MovieApp
+      },
+      data() {
+        return {
+          isOpen: false
+        }
+      },
+      methods: {
+        onClick() {
+          this.isOpen = !this.isOpen
+        }
+      }
+    }
+    </script>
+  ```
+  이런 형태가 되는지 확인한다.
+  ```
+    // Vue 3.x
+    <template>
+      <div>
+        <button @click="toggle">Toggle</button>
+        <div v-if="isOpen">
+          <MovieApp />
+        </div>
+      </div>
+    </template>
+    
+    <script setup>
+    import { ref } from 'vue';
+    import MovieApp from './components/MovieApp.vue';
+    
+    const isOpen = ref(false);
+    
+    function toggle() {
+      isOpen.value = !isOpen.value;
+    }
+    </script>
+  ```
+
+1. src/components/MovieApp.vue 수정
+  아래의 vue2 코드를 아래의 vue3 코드와 같은 형식으로 수정한다.
+  * 실무의 경우에는 GPT에게 "아래 vue2 코드를 vue3 코드로 바꿔줘. <script setup> 넣어서 간결하게 해라." 라고 부탁하여 바꾸면 된다.
+  ```
+    // Vue 2.x
+    <template>
+      <div>
+        <div v-for="movie in movies" :key="movie.id">
+          <h2>{{ movie.title }}</h2>
+          <img :src="movie.large_cover_image" width="300px" />
+        </div>
+      </div>
+    </template>
+    
+    <script>
+    export default {
+      data() {
+        return {
+          movies: [],
+        }
+      },
+    
+      methods: {},
+    
+      created() {
+        fetch('https://yts.mx/api/v2/list_movies.json?sort_by=rating')
+          .then(res => res.json())
+          .then(json => {
+            this.movies = json.data.movies;
+            console.log(this.movies)
+          })
+      },
+      mounted() {
+        console.log(`更新された！`)
+      },
+      updated() {
+        console.log(`成長した！`) 
+      },
+      destroyed() {
+        console.log(`死んだ！`)
+      },
+    }
+    </script>
+  ```
+  이런 형태가 되는지 확인한다.
+  ```
+    // Vue 3.x
+    <template>
+      <div>
+        <div v-for="movie in movies" :key="movie.id">
+          <h2>{{ movie.title }}</h2>
+          <img :src="movie.large_cover_image" width="300px" />
+        </div>
+      </div>
+    </template>
+    
+    <script setup>
+    import { ref, onMounted, onUpdated, onBeforeUnmount } from 'vue';
+    
+    const movies = ref([]);
+    
+    onMounted(() => {
+      fetch('https://yts.mx/api/v2/list_movies.json?sort_by=rating')
+        .then(res => res.json())
+        .then(json => {
+          movies.value = json.data.movies;
+          console.log(movies.value)
+        })
+    });
+    
+    onUpdated(() => {
+      console.log(`更新された！`);
+    });
+    
+    onBeforeUnmount(() => {
+      console.log(`死んだ！`);
+    });
+    </script>
+  ```
+
+1. 테스트
+  $ cd app1
+  $ npm run dev

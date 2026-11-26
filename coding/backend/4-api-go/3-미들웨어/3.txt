@@ -1,0 +1,40 @@
+[Go 미들웨어 체인 만들기]
+
+1. 개요
+  express의 app.use()에 해당하는 것을 Go에서는 직접 만든다.
+  ★★ 패턴: http.Handler를 받아서 http.Handler를 리턴하는 함수 (핸들러 래핑)
+  func middleware(next http.Handler) http.Handler {
+    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+      // 전처리
+      next.ServeHTTP(w, r)
+      // 후처리
+    })
+  }
+
+1. logging 미들웨어
+  요청마다 method, path, 소요시간 로그 출력
+  time.Since(start)로 처리시간 측정
+  log.Printf("%s %s %v", r.Method, r.URL.Path, time.Since(start))
+
+1. recovery 미들웨어
+  ★ 핸들러에서 panic이 나도 서버가 죽지 않게 defer + recover()
+  defer func() {
+    if err := recover(); err != nil {
+      http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+    }
+  }()
+
+1. CORS 미들웨어
+  프론트(app1, 포트 3000)에서 백엔드(8080) 호출 시 필요
+  w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+  Allow-Methods, Allow-Headers 설정
+  preflight: r.Method == "OPTIONS" 이면 204 리턴하고 종료
+
+1. 체인 조립: main.go
+  handler := logging(recovery(cors(mux)))
+  log.Fatal(http.ListenAndServe(":8080", handler))
+  # 바깥쪽이 먼저 실행됨 (logging → recovery → cors → mux)
+
+1. 테스트
+  $ go run .
+  로그 출력 확인, 핸들러에 일부러 panic 넣어서 recovery 동작 확인

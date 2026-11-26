@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Relative와 Absolute</title>
+  <style>
+    p { width: 600px; }
+    code { color: red; }
+    .relative {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      background-color: lightblue;
+    }
+    .absolute {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 100px;
+      height: 100px;
+      background-color: coral;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+  <h3>Absolute의 부모가 Relative가 아니면 자동으로 Body 전체를 부모로 삼는다.</h1>
+  <div class="relative">
+    <br><br><br><br><br><br>
+    부모 태그 (Relative)
+  </div>
+  <div class="absolute">
+    부모 태그 (Absolute)
+  </div>
+  <hr />
+  <h3>Absolute의 부모가 Relative이면 그 안에서 offset을 적용한다.</h1>
+  <div class="relative">
+    <br><br><br><br><br><br>
+    부모 태그 (Relative)
+    <div class="absolute">
+      자식 태그 (Absolute)
+    </div>
+  </div>
+  <section>
+    <h2>왜 부모 태그에 Relative를, 자식 태그에 Absolute를 사용하는가?</h2>
+    <p>
+      <strong>Relative Positioning:</strong>
+      이는 요소를 기본 위치에서 상대적으로 이동시키는 방법이다.
+      이것은 요소가 원래 있어야 할 곳에서 상대적인 위치를 차지하게 된다.
+      하지만, 이 요소의 원래 공간은 여전히 페이지 레이아웃에 영향을 미치게 된다.
+    </p>
+    <p>
+      <strong>Absolute Positioning:</strong>
+      이는 요소를 페이지의 흐름에서 완전히 분리시키고,
+      가장 가까운 상대적(position: relative) 
+      또는 절대적(position: absolute/fixed) 위치를
+      지정한 <code>조상 요소</code>에 대해 상대적으로 배치한다.
+      만약, 이러한 조상이 없다면, 문서의 <code>body</code>를 기준으로 배치된다.
+    </p>
+    <p>
+      <strong>요약:</strong> 이러한 이유로, <br />
+      부모 태그에 <code>position: relative</code>를 적용하고 
+      자식 태그에 <code>position: absolute</code>를 적용하면, 
+      자식 태그는 부모 태그 내에서 상대적 위치를 갖게 된다.
+      이는 레이아웃 설계 시 요소들의 정확한 배치를 더 쉽게 해준다.
+    </p>
+  </section>
+</body>
+</html>

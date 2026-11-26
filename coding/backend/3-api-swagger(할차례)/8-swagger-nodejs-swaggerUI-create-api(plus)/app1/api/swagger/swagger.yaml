@@ -1,0 +1,90 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: Hello World App
+host: localhost:10010
+basePath: /
+schemes:
+  - http
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /hello:
+    x-swagger-router-controller: hello_world
+    get:
+      description: Returns 'Hello' to the caller
+      operationId: hello
+      parameters:
+        - name: name
+          in: query
+          description: The name of the person to whom to say hello
+          required: false
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/HelloWorldResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  # 8. 새로운 API의 명세서 작성(1) : /hello 이하를 복붙하면 편함
+  /plus:
+    x-swagger-router-controller: hello_world
+    get:
+      description: Plus API
+      operationId: plus
+      parameters:
+        - name: a
+          in: query
+          description: First Value
+          required: true
+          type: integer
+        - name: b
+          in: query
+          description: Second Value
+          required: true
+          type: integer          
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/PlusResponse" # 성공시 리턴값
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse" # 실패시 리턴값
+  /swagger:
+    x-swagger-pipe: swagger_raw
+# 5. API Key를 설정(2)
+securityDefinitions:
+  api_key:
+    type: apiKey
+    in: query
+    name: api_key
+security:
+  - api_key: []
+definitions:
+  HelloWorldResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
+  ErrorResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
+  # 9. 새로운 API의 명세서 작성(2) : 리턴 형식 작성
+  PlusResponse:
+    required:
+      - result # 리턴값 명칭
+    properties:
+      result:
+        type: integer # 리턴값 타입

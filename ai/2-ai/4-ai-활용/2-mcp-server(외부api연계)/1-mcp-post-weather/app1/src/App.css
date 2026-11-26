@@ -1,0 +1,226 @@
+.App {
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  padding: 20px;
+  color: white;
+}
+
+.App-header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.App-nav {
+  display: flex;
+  justify-content: center;
+  background-color: #f8f9fa;
+  padding: 10px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.App-nav button {
+  padding: 10px 20px;
+  margin: 0 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+}
+
+.App-nav button:hover {
+  color: #0066cc;
+}
+
+.App-nav button.active {
+  border-bottom: 3px solid #0066cc;
+  color: #0066cc;
+  font-weight: 600;
+}
+
+.App-content {
+  flex: 1;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.App-footer {
+  background-color: #282c34;
+  padding: 15px;
+  color: white;
+  margin-top: auto;
+}
+
+.App-footer a {
+  color: #61dafb;
+  margin: 0 5px;
+  text-decoration: none;
+}
+
+.App-footer a:hover {
+  text-decoration: underline;
+}
+
+/* 포스트 목록 스타일 */
+.post-list,
+.user-list,
+.weather-container {
+  margin-top: 20px;
+}
+
+.posts,
+.users {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.post-card,
+.user-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: left;
+  transition: transform 0.2s;
+}
+
+.post-card:hover,
+.user-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.post-card h3,
+.user-card h3 {
+  margin-top: 0;
+  color: #333;
+  font-size: 1.3rem;
+}
+
+.error {
+  color: #e74c3c;
+  padding: 10px;
+  border: 1px solid #e74c3c;
+  border-radius: 4px;
+  margin: 20px 0;
+}
+
+/* 날씨 컴포넌트 스타일 */
+.weather-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.weather-container form {
+  display: flex;
+  margin: 20px 0;
+}
+
+.weather-container input {
+  flex: 1;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px 0 0 4px;
+  font-size: 1rem;
+}
+
+.weather-container button {
+  padding: 10px 20px;
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.weather-container button:hover {
+  background-color: #0055aa;
+}
+
+.weather-container button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.weather-info {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: left;
+  margin-top: 20px;
+}
+
+.weather-info h3 {
+  margin-top: 0;
+  color: #333;
+  text-align: center;
+}
+
+.weather-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .posts,
+  .users {
+    grid-template-columns: 1fr;
+  }
+
+  .App-nav {
+    flex-direction: column;
+  }
+
+  .App-nav button {
+    margin: 5px 0;
+  }
+
+  .weather-container form {
+    flex-direction: column;
+  }
+
+  .weather-container input,
+  .weather-container button {
+    border-radius: 4px;
+    margin: 5px 0;
+  }
+
+  .weather-details {
+    grid-template-columns: 1fr;
+  }
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

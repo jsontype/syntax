@@ -1,0 +1,60 @@
+[AWS 심화 2탄: ECS / Lambda / RDS (1탄 EC2/S3/IAM 기초에 이어서)]
+참조 URL: https://docs.aws.amazon.com/ko_kr/
+
+1. Core Terms
+  ECS (Elastic Container Service) : Docker Container를 실행/관리하는 서비스.
+  Fargate : 서버(EC2) 관리 없이 컨테이너만 돌려주는 실행 방식. ★
+  Lambda : 서버 없이 함수 단위로 코드를 실행하는 서버리스 서비스.
+  RDS (Relational Database Service) : 관리형 DB 서비스 (PostgreSQL, MySQL 등).
+  ECR (Elastic Container Registry) : Docker Image를 올려두는 AWS판 Docker Hub.
+
+
+
+[ECS(Fargate)로 컨테이너 배포]
+
+1. 사전준비: Dockerfile로 이미지를 만들어 둘 것.
+  상세: dev → infra의 docker(dockerfile) 노트 참조
+
+1. ECR에 이미지 push
+  ECR 검색 -> 리포지토리 생성
+  $ aws ecr get-login-password | docker login --username AWS --password-stdin <계정ID>.dkr.ecr.<리전>.amazonaws.com
+  $ docker tag app1-docker <계정ID>.dkr.ecr.<리전>.amazonaws.com/app1:latest
+  $ docker push <계정ID>.dkr.ecr.<리전>.amazonaws.com/app1:latest
+
+1. ECS 클러스터/서비스 작성
+  ECS 검색 -> 클러스터 생성 (Fargate 선택)
+  Task Definition 작성: 어떤 이미지를, CPU/메모리 얼마로, 어떤 포트로 돌릴지 정의. ★★
+  Service 작성: Task를 몇 개 유지할지(desired count), 로드밸런서(ALB) 연결.
+  이미지가 갱신되면 Service를 새 Task Definition으로 갱신해서 재배포한다.
+
+
+
+[Lambda 서버리스]
+
+1. Lambda의 개념
+  요청이 올 때만 함수가 실행되고, 실행 시간만큼만 과금된다.
+  EC2처럼 서버를 항상 켜둘 필요가 없다. 단, 콜드 스타트 지연이 있다. ★
+
+1. Lambda 함수 작성
+  Lambda 검색 -> 함수 생성 -> Runtime: Node.js 선택
+  handler(event, context)를 export하면 그게 엔트리포인트다.
+  트리거 연결: API Gateway(HTTP), S3 이벤트, 스케줄(EventBridge) 등.
+  콘솔 테스트 탭에서 이벤트를 넣어 실행해본다.
+
+
+
+[RDS(PostgreSQL) 생성 및 연결]
+
+1. RDS 인스턴스 생성
+  RDS 검색 -> 데이터베이스 생성 -> PostgreSQL 선택 (프리티어면 db.t3.micro)
+  마스터 사용자명/패스워드 설정
+  퍼블릭 액세스: 학습용이면 "예", 실무는 "아니오"(EC2/ECS에서만 접속). ★
+
+1. Security Group 설정
+  인바운드 규칙에 5432 포트를 열어야 접속이 된다. ★★
+  실무에서는 소스에 앱 서버의 Security Group만 지정한다.
+
+1. 접속 확인
+  $ psql -h <엔드포인트> -U postgres -d postgres
+  앱에서는 DATABASE_URL 환경변수로 연결 문자열을 넘긴다.
+  예: postgres://user:password@<엔드포인트>:5432/dbname

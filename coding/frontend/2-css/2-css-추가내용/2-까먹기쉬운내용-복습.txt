@@ -1,0 +1,21 @@
+[CSS 까먹기 쉬운 내용 복습하기]
+
+1. 텍스트에서 px은 절대값이고, rem(루트 엘리먼트)은 html { font-size: n px } 의 배수이며, em은 부모태그 { font-size: n px }의 배수이다.
+1. boz-sizing: content-box 는 width가 pind 기본값이고, border-box 는 패딩 마진을 포함한 width 사이즈가 된다.
+1. position: relative; 가 앞에 없다면 absolute는 화면 전체를 대상으로 offset 처리를 한다. 있다면 그 다음 부모태그의 안에서 offset 처리를 한다.
+1. align-self: flex-end; 는 다른 align-items(세로 맞춤 정렬)이 center여도, 해당 요소만 별도로 아래로 정렬되도록 한다. 즉, 개별 align 정렬이 가능하다.
+1. flex-wrap: wrap; 은 flex의 width가 flex container의 총 width 공간을 넘어갈 경우 아래로 줄바꿈을 하고, nowrap;은 줄바꿈을 하지 않고 width를 줄여서 조정한다.
+1. 의사요소: HTML 문서가 포함하지 않는 개체를 선택(특정 위치, 플레이스홀더 등)
+  li::first-letter { font-size: 20px; } // li의 첫번째 글자만 크기를 20px로 한다.
+  P::first-line { color: red; }
+  input::placeholder { color: gray; font-size: 24px; }
+  p::before { content: "앞에 추가한 텍스트"; color: red; font-weight: 900px; }
+  p::after { content: "뒤에 추가한 텍스트"; color: orange; font-weight: 100px; }
+1. CSS의 상속
+  상속 속성: color, font, font-family, font-size, font-style, font-variant, font-weight, letter-spacing, line-height, text-align, text-indent, text-transform, visibility, white-space, word-spacing, direction, quotes, list-style, list-style-position, list-style-type, list-style-image, border-collapse, border-spacing, caption-side, empty-cells, orphans, widows, tab-size
+  비상속 속성: margin, padding, border, width, height, display, position, top, left, bottom, right, z-index, background, box-shadow, overflow, flex, grid, align-items, justify-content, etc.
+  상속의 수동 제어:
+    inherit: 상위요소에 설정된 속성값을 상속 (* 비상속 속성을 상속하고 싶을 때 좋음)
+    initial: 브라우져의 기본값(초기값)을 적용
+    unset: 상속 속성은 inherit로, 비상속 속성은 Initial처럼 적용
+1. z-index: 0~9999;은 stack order를 정의할 수 있다. 예를 들어, z-index: 0;의 엘리먼트와 z-index: 1;의 엘리먼트가 겹칠 경우, 1로 지정된 요소가 나중에 표시된다.

@@ -1,0 +1,53 @@
+<!-- App1. node와 linkDataArray 만들기 -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoJS</title>
+
+    <!-- GoJS 적용 -->
+    <script src="go.js"></script>
+
+    <script>
+
+        // App1. node와 linkDataArray 만들기
+
+        // 시작 데이터를 세트합니다.
+        function init() {
+
+            // gojs에서 그래프 오브젝트를 만듭니다.
+            var $ = go.GraphObject.make;
+
+            // 다이어그램을 내 변수에 담습니다.
+            myDiagram = $(go.Diagram, "myDiagramDiv") // DIV HTML 태그에 들어갈 다이어그램을 만듭니다.
+
+            // nodeDataArray를 설정합니다.
+            var nodeDataArray = [
+                { key: "Alpha" },
+                { key: "Beta" }
+            ]
+
+            // linkDataArray를 설정합니다. 링크가 어디에서 어디로 갈지를 지정해줍니다.
+            var linkDataArray = [
+                { from: "Alpha", to: "Beta" }
+            ]
+
+            // nodeData와 linkData를 그래프링크모델로해서 내 변수안의 model에 넣습니다.
+            // 이렇게 하면 추후 <div id="내 변수명">을 통해서 화면에 뿌릴 수 있습니다.
+            myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray)
+        }
+    </script>
+
+</head>
+
+<!-- 화면이 시작되면 init()으로 시작데이터를 세트합니다. --> 
+<body onload="init()">    
+    <!-- div 안에서 세팅된 다이어그램을 표시합니다. -->
+    <div id="myDiagramDiv" style="width: 300px; height: 300px; border: 1px solid black"></div>
+</body>
+
+</html>

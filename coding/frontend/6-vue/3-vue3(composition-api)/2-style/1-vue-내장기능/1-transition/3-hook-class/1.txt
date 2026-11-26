@@ -1,0 +1,40 @@
+[Transition Hook Class]
+
+1. Transition Hook Class
+  트랜지션 컴포넌트 외에도 "CSS의 트랜지션 클래스를 직접 작성, 또는 CSS 라이브러리 클래스를 임포트" 등의 방법으로 애니메이션을 적용할 수 있다.
+  즉, 클래스를 통해서 애니메이션을 적용할 수도 있다는 뜻이다.
+
+1. TailWindCSS를 사용할 경우의 예시
+  tailwindCSS 사용하면서 Fade의 경우, 그냥 아래와 같이 사용하면 된다.
+  ```
+    <transition
+      enter-active-class="transition duration-150 ease-out transform"
+      enter-from-class="scale-95 opacity-0"
+      enter-to-class="scale-100 opacity-100"
+      leave-active-class="transition duration-150 ease-in transform"
+      leave-from-class="scale-100 opacity-100"
+      leave-to-class="scale-95 opacity-0"
+    >
+  ```
+
+1. Transition 종류 : 라아브러리에 따라 다르지만, 일반적으로 아래와 같은 효과들이 있다. 참조만 하자.
+  fade: 페이드 효과
+  slide-up: 위에서 아래로 슬라이드
+  slide-down: 아래에서 위로 슬라이드
+  slide-right: 오른쪽에서 왼쪽으로 슬라이드
+  slide-left: 왼쪽에서 오른쪽으로 슬라이드
+  scale: 크기 변화
+  rotate: 회전
+  flip-x: x축으로 뒤집기
+  flip-y: y축으로 뒤집기
+  slide-x: x축으로 이동
+  slide-y: y축으로 이동
+  slide-x-reverse: x축으로 이동(반대)
+  slide-y-reverse: y축으로 이동(반대)
+  fade-scale: 페이드 효과 + 크기 변화
+  fade-rotate: 페이드 효과 + 회전
+  fade-flip-x: 페이드 효과 + x축으로 뒤집기
+  fade-flip-y: 페이드 효과 + y축으로 뒤집기
+  fade-slide-x: 페이드 효과 + x축으로 이동
+  fade-slide-y: 페이드 효과 + y축으로 이동
+  ... 필요에 따라 검색해서 사용하면 된다.

@@ -1,0 +1,81 @@
+[Connectors: useMoviesConnector]
+
+1. 사전준비: 프로젝트를 새로 깔지 않고, 이전 챕터에서의 코드를 그대로 카피해서 가지고 온다.
+
+1. src/connectors/useMoviesConnector.js 작성 : API를 호출하여 데이터를 불러오는 커스텀훅 만들기 (로딩, 에러처리 기능 포함)
+  ```
+    import { ref } from "vue"
+
+    export function useMoviesConnector() {
+      const movies = ref([])
+      const loading = ref(false)
+      const error = ref(null)
+
+      const fetchMovies = async () => {
+        loading.value = true
+        error.value = null
+        try {
+          const response = await fetch(
+            "https://yts.mx/api/v2/list_movies.json?sort_by=rating"
+          )
+          if (!response.ok) throw new Error("Failed to fetch movies")
+          const json = await response.json()
+          movies.value = json.data.movies
+        } catch (err) {
+          error.value = err.message
+        } finally {
+          loading.value = false
+        }
+      }
+
+      return { movies, loading, error, fetchMovies }
+    }
+  ```
+
+1. src/views/Movies.vue 수정 : 화면에서 API 호출 로직을 분리
+  ```
+    <template>
+      <div>
+        <h1>Movie App</h1>
+        <div v-if="loading">Loading...</div>
+        <div v-if="error">{{ error }}</div>
+        <div id="movies" v-else>
+          <div v-for="movie in movies" :key="movie.id" class="movie">
+            <a class="movieTitle" :href="movie.url">{{ movie.title }}</a>
+            <img
+              class="movieImage"
+              :src="movie.background_image"
+              :alt="movie.title"
+            />
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <script setup>
+    import { onMounted, computed } from "vue"
+    import { useMoviesConnector } from "@/connectors/useMoviesConnector"
+
+    // Hooks
+    const { movies, loading, error, fetchMovies } = useMoviesConnector()
+
+    // Lifecycle Hooks
+    onMounted(() => {
+      fetchMovies()
+    })
+    </script>
+
+    <style lang="css" scoped>
+    .movieTitle {
+      display: block;
+    }
+    .movieImage {
+      width: 100%;
+      height: auto;
+    }
+    </style>
+  ```
+
+1. 테스트
+  $ cd app1
+  $ npm run dev

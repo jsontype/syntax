@@ -1,0 +1,57 @@
+[Props와 Component]
+
+1. src/App.vue 수정 : 자식컴포넌트를 만들고 프롭에 변수를 건네어 연결하기
+  <template>
+    <div class="app">
+      <HelloWorld :name="name" />
+    </div>
+  </template>
+
+  <script>
+  import HelloWorld from './components/HelloWorld'
+
+  export default {
+    name: 'App',
+    components: {
+      HelloWorld,
+    },
+    data() {
+      return {
+        name: 'Yang',
+        lang: 'en',
+      }
+    }
+  }
+  </script>
+
+  <style>
+  .app {
+    font-size: 20px;
+  }
+  </style>
+
+1. src/components/HelloWorld.js 생성 : vbase 입력시 함수 컴포넌트 자동 생성하므로 참조
+  <template>
+    <div class="text">
+      Hello {{ name }}!
+    </div>
+  </template>
+
+  <script>
+  export default {
+    name: 'HelloWorld',
+    props: {
+      name: String,
+    }
+  }
+  </script>
+
+  <style scoped>
+  .text {
+    color: gray;
+  }
+  </style>
+
+1. 테스트
+  $ cd app1
+  $ npm start
